@@ -1,6 +1,6 @@
-﻿namespace WSafe.Domain.Data.Entities
+﻿namespace WSafe.Common.Data.Entities
 {
-    class Actividad
+    public class Tarea
     {
         public int ID { get; set; }
         public string Nombre { get; set; }
