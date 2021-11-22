@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,14 +44,20 @@
   <ItemGroup>
     <Compile Include="Data\Entities\Accion.cs" />
     <Compile Include="Data\Entities\Actividad.cs" />
+    <Compile Include="Data\Entities\Cargo.cs" />
     <Compile Include="Data\Entities\CategoriaPeligro.cs" />
+    <Compile Include="Data\Entities\CategoriasAccion.cs" />
+    <Compile Include="Data\Entities\CategoriasGenero.cs" />
     <Compile Include="Data\Entities\Consecuencia.cs" />
     <Compile Include="Data\Entities\Control.cs" />
+    <Compile Include="Data\Entities\EstadosCivil.cs" />
     <Compile Include="Data\Entities\Operacion.cs" />
     <Compile Include="Data\Entities\Peligro.cs" />
     <Compile Include="Data\Entities\Proceso.cs" />
     <Compile Include="Data\Entities\Riesgo.cs" />
     <Compile Include="Data\Entities\Tarea.cs" />
+    <Compile Include="Data\Entities\TiposVinculacion.cs" />
+    <Compile Include="Data\Entities\Trabajador.cs" />
     <Compile Include="Data\Entities\Traza.cs" />
     <Compile Include="Data\Entities\Zona.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

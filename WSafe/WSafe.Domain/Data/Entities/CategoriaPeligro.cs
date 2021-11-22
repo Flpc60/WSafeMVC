@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace WSafe.Domain.Data.Entities
 {
-    class CategoriaPeligro
+    public class CategoriaPeligro
     {
+        public int ID { get; set; }
+        public string Descripcion { get; set; }
     }
 }
