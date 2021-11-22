@@ -1,7 +1,7 @@
 ﻿using System;
 namespace WSafe.Domain.Data.Entities
 {
-    class Accion
+    public class Accion
     {
         public int ID { get; set; }
         public int RiesgoID { get; set; }

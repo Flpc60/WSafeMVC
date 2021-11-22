@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WSafe.Domain.Data.Entities
+﻿namespace WSafe.Domain.Data.Entities
 {
-    class Proceso
+    public class Proceso
     {
+        public int ID { get; set; }
+        public string Descripcion { get; set; }
     }
 }
