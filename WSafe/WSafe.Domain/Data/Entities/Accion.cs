@@ -6,6 +6,7 @@ namespace WSafe.Domain.Data.Entities
     public class Accion
     {
         public int ID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatotio")]
         public int RiesgoID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         public CategoriasAccion Categoria { get; set; }
