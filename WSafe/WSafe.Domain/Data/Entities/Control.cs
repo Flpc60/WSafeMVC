@@ -1,12 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace WSafe.Domain.Data.Entities
 {
-    class Control
+    public class Control
     {
+        public int ID { get; set; }
+        [Required(ErrorMessage = "The field {0} is mandatory.")]
+        public string Codigo { get; set; }
+        [Required(ErrorMessage = "The field {0} is mandatory.")]
+        public string Nombre { get; set; }
+        [Required(ErrorMessage = "The field {0} is mandatory.")]
+        public string Finalidad { get; set; }
+        [Display(Name = "Descripción Url")]
+        public string DescripcionUrl { get; set; }
+        public string DescripcionPath => string.IsNullOrEmpty(DescripcionUrl)
+            ? null
+            : $"https://wsafe.azurewebsites.net{DescripcionUrl.Substring(1)}";
+
+        [Required(ErrorMessage = "The field {0} is mandatory.")]
+        public decimal Presupuesto { get; set; }
+        public string Aplicacion { get; set; }
+        public ICollection<Traza> Trazas { get; set; }
     }
+
+}
 }
