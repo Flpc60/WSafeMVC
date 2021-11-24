@@ -13,7 +13,7 @@ namespace WSafe.Domain.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202111232337544_InitialCreate"; }
+            get { return "202111240032511_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source
