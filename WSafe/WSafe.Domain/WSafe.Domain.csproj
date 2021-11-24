@@ -108,6 +108,10 @@
     <Compile Include="Migrations\202111240128574_InitialCreate.designer.cs">
       <DependentUpon>202111240128574_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202111241728205_UpdatePeligros.cs" />
+    <Compile Include="Migrations\202111241728205_UpdatePeligros.designer.cs">
+      <DependentUpon>202111241728205_UpdatePeligros.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CreateRiesgoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -128,6 +132,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202111240128574_InitialCreate.resx">
       <DependentUpon>202111240128574_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111241728205_UpdatePeligros.resx">
+      <DependentUpon>202111241728205_UpdatePeligros.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
