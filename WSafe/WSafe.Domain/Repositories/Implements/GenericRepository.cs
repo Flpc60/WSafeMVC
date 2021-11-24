@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Threading.Tasks;
 using WSafe.Domain.Data;
 
@@ -7,20 +9,24 @@ namespace WSafe.Domain.Repositories.Implements
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
         private readonly EmpresaContext _empresaContext;
+        public GenericRepository(EmpresaContext empresaContext)
+        {
+            _empresaContext = empresaContext;
+        }
 
         public async Task Delete(int id)
         {
             var entity = await GetById(id);
-            if(entity != null)
-            {
-                await _empresaContext.Set<TEntity>().Remove(entity);
+            if (entity == null)
+                throw new Exception("La entidad es nula");
 
-            }
+            _empresaContext.Set<TEntity>().Remove(entity);
+            await _empresaContext.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<TEntity>> GetALL()
+        public async Task<IEnumerable<TEntity>> GetALL()
         {
-            throw new System.NotImplementedException();
+            return await _empresaContext.Set<TEntity>().ToListAsync();
         }
 
         public async Task<TEntity> GetById(int id)
@@ -28,14 +34,18 @@ namespace WSafe.Domain.Repositories.Implements
             return await _empresaContext.Set<TEntity>().FindAsync(id);
         }
 
-        public Task<TEntity> Insert(TEntity entity)
+        public async Task<TEntity> Insert(TEntity entity)
         {
-            throw new System.NotImplementedException();
+            _empresaContext.Set<TEntity>().Add(entity);
+             await _empresaContext.SaveChangesAsync();
+            return entity;
         }
 
-        public Task<TEntity> Update(TEntity entity)
+        public async Task<TEntity> Update(TEntity entity)
         {
-            throw new System.NotImplementedException();
+            _empresaContext.Entry(entity).State = EntityState.Modified;
+            await _empresaContext.SaveChangesAsync();
+            return entity;
         }
     }
 }
