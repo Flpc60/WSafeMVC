@@ -3,7 +3,7 @@ using WSafe.Domain.Data.Entities;
 
 namespace WSafe.Domain.Data
 {
-    class EmpresaContext : DbContext
+    public class EmpresaContext : IdentityDbContext<ApplicationUser>
     {
         public EmpresaContext() : base("DefaultConnection")
         {
