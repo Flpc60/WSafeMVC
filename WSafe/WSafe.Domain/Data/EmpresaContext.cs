@@ -5,6 +5,10 @@ namespace WSafe.Domain.Data
 {
     class EmpresaContext : DbContext
     {
+        public EmpresaContext() : base("DefaultConnection")
+        {
+        }
+
         public DbSet<Riesgo> Riesgos { get; set; }
     }
 }
