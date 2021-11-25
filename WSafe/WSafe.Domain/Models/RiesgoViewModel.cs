@@ -6,8 +6,9 @@ using WSafe.Domain.Data.Entities;
 
 namespace WSafe.Domain.Models
 {
-    public class CreateRiesgoViewModel
+    public class RiesgoViewModel
     {
+        public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public Proceso Proceso { get; set; }
         public IEnumerable<SelectListItem> Procesos { get; set; }
@@ -57,5 +58,8 @@ namespace WSafe.Domain.Models
         public bool RequisitoLegal { get; set; }
         public Aplicacion Eliminacion { get; set; }
         public Aplicacion Sustitucion { get; set; }
+        public ICollection<Aplicacion> ControlesIngenieria { get; set; }
+        public ICollection<Aplicacion> ControlesAdmon { get; set; }
+        public ICollection<Aplicacion> ControlesEPP { get; set; }
     }
 }
