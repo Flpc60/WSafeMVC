@@ -108,8 +108,12 @@
     <Compile Include="Migrations\202111250002472_CargaInicial.designer.cs">
       <DependentUpon>202111250002472_CargaInicial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202111251242043_RefinarTablas.cs" />
+    <Compile Include="Migrations\202111251242043_RefinarTablas.designer.cs">
+      <DependentUpon>202111251242043_RefinarTablas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\CreateRiesgoViewModel.cs" />
+    <Compile Include="Models\RiesgoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implements\GenericRepository.cs" />
     <Compile Include="Repositories\IGenericRepository.cs" />
@@ -127,6 +131,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202111250002472_CargaInicial.resx">
       <DependentUpon>202111250002472_CargaInicial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111251242043_RefinarTablas.resx">
+      <DependentUpon>202111251242043_RefinarTablas.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

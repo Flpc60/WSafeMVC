@@ -1,0 +1,81 @@
+﻿@model IEnumerable<WSafe.Domain.Models.RiesgoViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Rutinaria)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EfectosPosibles)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NivelDeficiencia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NivelExposicion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NivelProbabilidad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NivelConsecuencias)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NivelRiesgo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NroExpuestos)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RequisitoLegal)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rutinaria)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EfectosPosibles)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NivelDeficiencia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NivelExposicion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NivelProbabilidad)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NivelConsecuencias)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NivelRiesgo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NroExpuestos)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequisitoLegal)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
