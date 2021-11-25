@@ -3,16 +3,14 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class UpdatePeligros : DbMigration
+    public partial class CargaInicial : DbMigration
     {
         public override void Up()
         {
-            AddColumn("dbo.Peligroes", "CategoriaPeligroID", c => c.Int(nullable: false));
         }
         
         public override void Down()
         {
-            DropColumn("dbo.Peligroes", "CategoriaPeligroID");
         }
     }
 }
