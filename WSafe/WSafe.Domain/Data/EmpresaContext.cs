@@ -5,7 +5,7 @@ namespace WSafe.Domain.Data
 {
     public class EmpresaContext : DbContext
     {
-        public EmpresaContext() : base("DefaultConnection")
+        public EmpresaContext() : base("EmpresaContext")
         {
         }
 
@@ -17,6 +17,5 @@ namespace WSafe.Domain.Data
         public DbSet<CategoriaPeligro> CategoriasPeligros { get; set; }
         public DbSet<Peligro> Peligros { get; set; }
         public DbSet<Trabajador> Trabajadores { get; set; }
-
     }
 }

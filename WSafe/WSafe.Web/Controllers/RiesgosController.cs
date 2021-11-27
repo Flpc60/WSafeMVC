@@ -1,42 +1,34 @@
-﻿using System.Data.Entity;
-using System.Net;
+﻿using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using WSafe.Domain.Data;
 using WSafe.Domain.Models;
-using WSafe.Domain.Repositories;
-using WSafe.Domain.Services;
+using WSafe.Domain.Repositories.Implements;
+using WSafe.Domain.Services.Implements;
 
 namespace WSafe.Web.Controllers
 {
     public class RiesgosController : Controller
     {
-        private readonly EmpresaContext _empresaContext;
-        private readonly IGenericRepository<RiesgoViewModel> _genericRepository;
-        private readonly IGenericService<RiesgoViewModel> _genericService;
-
-        public RiesgosController(EmpresaContext empresaContext, IGenericRepository<RiesgoViewModel> genericRepository
-            , IGenericService<RiesgoViewModel> genericService)
-        {
-            _empresaContext = empresaContext;
-            _genericRepository = genericRepository;
-            _genericService = genericService;
-        }
+        private EmpresaContext _empresaContext = new EmpresaContext();
 
         // GET: Riesgos
         public async Task<ActionResult> Index()
         {
-            return View(await _genericService.GetALL());
+            var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
+            return View(await consulta.GetALL());
         }
-
+        
         // GET: Riesgos/Details/5
-        public async Task<ActionResult> Details(int id)
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            RiesgoViewModel riesgoViewModel = await _genericService.GetById(id);
+
+            var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
+            RiesgoViewModel riesgoViewModel = await consulta.GetById(id.Value);
             if (riesgoViewModel == null)
             {
                 return HttpNotFound();
@@ -59,7 +51,8 @@ namespace WSafe.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _genericService.Insert(riesgoViewModel);
+                var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
+                await consulta.Insert(riesgoViewModel);
 
                 return RedirectToAction("Index");
             }
@@ -74,7 +67,8 @@ namespace WSafe.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            RiesgoViewModel riesgoViewModel = await _genericService.GetById(id.Value);
+            var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
+            RiesgoViewModel riesgoViewModel = await consulta.GetById(id.Value);
             if (riesgoViewModel == null)
             {
                 return HttpNotFound();
@@ -91,7 +85,8 @@ namespace WSafe.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _genericService.Update(riesgoViewModel);
+                var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
+                await consulta.Update(riesgoViewModel);
                 return RedirectToAction("Index");
             }
             return View(riesgoViewModel);
@@ -104,7 +99,8 @@ namespace WSafe.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            RiesgoViewModel riesgoViewModel = await _genericService.GetById(id.Value);
+            var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
+            RiesgoViewModel riesgoViewModel = await consulta.GetById(id.Value);
 
             if (riesgoViewModel == null)
             {
@@ -118,9 +114,10 @@ namespace WSafe.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            RiesgoViewModel riesgoViewModel = await _genericService.GetById(id);
-            await _genericService.Delete(id);
+            var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
+            RiesgoViewModel riesgoViewModel = await consulta.Delete(id);
             return RedirectToAction("Index");
         }
     }
+
 }
