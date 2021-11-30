@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using WSafe.Domain.Data;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace WSafe.Domain.Helpers.Implements
 {
@@ -50,6 +51,91 @@ namespace WSafe.Domain.Helpers.Implements
             });
 
             return list;
+        }
+
+        public IEnumerable<SelectListItem> GetNivelConsecuencias()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            list.Add(new SelectListItem
+            {
+                Text = "Mortal catastrófico (M)",
+                Value = "100"
+            });
+
+            list.Add(new SelectListItem
+            {
+                Text = "Muy grave (MG)",
+                Value = "60"
+            });
+            list.Add(new SelectListItem
+            {
+                Text = "Grave (G)",
+                Value = "25"
+            });
+            list.Add(new SelectListItem
+            {
+                Text = "Leve (L)",
+                Value = "10"
+            });
+
+            return list;
+        }
+
+        public IEnumerable<SelectListItem> GetNivelDeficiencia()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            list.Add(new SelectListItem
+            {
+                Text = "Muy alto (MA)",
+                Value = "10"
+            });
+
+            list.Add(new SelectListItem
+            {
+                Text = "Alto(A)",
+                Value = "6"
+            });
+            list.Add(new SelectListItem
+            {
+                Text = "Medio(M)",
+                Value = "2"
+            });
+            list.Add(new SelectListItem
+            {
+                Text = "Bajo(B)",
+                Value = "0"
+            });
+
+            return list;
+        }
+
+        public IEnumerable<SelectListItem> GetNivelExposicion()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            list.Add(new SelectListItem
+            {
+                Text = "Continua (EC)",
+                Value = "4"
+            });
+
+            list.Add(new SelectListItem
+            {
+                Text = "Frecuente (EF)",
+                Value = "3"
+            });
+            list.Add(new SelectListItem
+            {
+                Text = "Ocasional (EO)",
+                Value = "2"
+            });
+            list.Add(new SelectListItem
+            {
+                Text = "Esporadica (EE)",
+                Value = "1"
+            });
+
+            return list;
+
         }
 
         public IEnumerable<SelectListItem> GetComboPeligros()

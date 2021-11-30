@@ -23,9 +23,9 @@ namespace WSafe.Domain.Data.Entities
         public Peligro Peligro { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public EfectosPosibles EfectosPosibles { get; set; }
-        public Aplicacion ControlesFuente { get; set; }
-        public Aplicacion ControlesMedio { get; set; }
-        public Aplicacion ControlesIndividuo { get; set; }
+        public string ControlesFuente { get; set; }
+        public string ControlesMedio { get; set; }
+        public string ControlesIndividuo { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int NivelDeficiencia { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
@@ -35,7 +35,7 @@ namespace WSafe.Domain.Data.Entities
         [NotMapped]
         public string InterpretacionNP { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public int NivelConsecuencias { get; set; }
+        public int NivelConsecuencia { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int NivelRiesgo { get; set; }
         [NotMapped]
@@ -48,11 +48,7 @@ namespace WSafe.Domain.Data.Entities
         public Consecuencia PeorConsecuencia { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public bool RequisitoLegal { get; set; }
-        public Aplicacion Eliminacion { get; set; }
-        public Aplicacion Sustitucion { get; set; }
-        public ICollection<Aplicacion> ControlesIngenieria { get; set; }
-        public ICollection<Aplicacion> ControlesAdmon { get; set; }
-        public ICollection<Aplicacion> ControlesEPP { get; set; }
+        public ICollection<Aplicacion> MedidasIntervencion { get; set; }
         public ICollection<Accion> Acciones { get; set; }
     }
 }

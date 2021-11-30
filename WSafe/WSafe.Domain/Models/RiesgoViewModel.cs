@@ -8,6 +8,7 @@ namespace WSafe.Domain.Models
 {
     public class RiesgoViewModel
     {
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ProcesoID { get; set; }
@@ -30,7 +31,6 @@ namespace WSafe.Domain.Models
         public IEnumerable<SelectListItem> CategoriasPeligros { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int PeligroID { get; set; }
-        public Peligro Peligro { get; set; }
         public IEnumerable<SelectListItem> Peligros { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public EfectosPosibles EfectosPosibles { get; set; }
@@ -68,7 +68,6 @@ namespace WSafe.Domain.Models
         public Aplicacion Sustitucion { get; set; }
         public int ControlesIngeneriaID { get; set; }
         public ICollection<Aplicacion> ControlesIngenieria { get; set; }
-        public int AplicacionID { get; set; }
         public int ControlesAdmonID { get; set; }
         public ICollection<Aplicacion> ControlesAdmon { get; set; }
         public int ControlesEppID { get; set; }
