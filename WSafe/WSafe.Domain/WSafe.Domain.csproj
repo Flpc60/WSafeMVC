@@ -84,6 +84,7 @@
     <Compile Include="Data\Entities\Aplicacion.cs" />
     <Compile Include="Data\Entities\Cargo.cs" />
     <Compile Include="Data\Entities\CategoriaControl.cs" />
+    <Compile Include="Data\Entities\CategoriaIntervencion.cs" />
     <Compile Include="Data\Entities\CategoriaPeligro.cs" />
     <Compile Include="Data\Entities\CategoriasAccion.cs" />
     <Compile Include="Data\Entities\CategoriasEfectividad.cs" />
@@ -105,7 +106,9 @@
     <Compile Include="Data\Entities\Traza.cs" />
     <Compile Include="Data\Entities\Zona.cs" />
     <Compile Include="Helpers\IComboHelper.cs" />
+    <Compile Include="Helpers\IConverterHelper.cs" />
     <Compile Include="Helpers\Implements\ComboHelper.cs" />
+    <Compile Include="Helpers\Implements\ConverterHelper.cs" />
     <Compile Include="Migrations\202111250002472_CargaInicial.cs" />
     <Compile Include="Migrations\202111250002472_CargaInicial.designer.cs">
       <DependentUpon>202111250002472_CargaInicial.cs</DependentUpon>
