@@ -4,11 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WSafe.Web", "WSafe.Web\WSafe.Web.csproj", "{D0341839-D47F-45AF-B069-968E847148E4}"
-	ProjectSection(ProjectDependencies) = postProject
-		{62F487E0-1E32-4DD8-9DEC-F130128AD5A2} = {62F487E0-1E32-4DD8-9DEC-F130128AD5A2}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WSafe.Domain", "WSafe.Domain\WSafe.Domain.csproj", "{62F487E0-1E32-4DD8-9DEC-F130128AD5A2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D0341839-D47F-45AF-B069-968E847148E4} = {D0341839-D47F-45AF-B069-968E847148E4}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

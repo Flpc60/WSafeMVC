@@ -5,7 +5,7 @@ namespace WSafe.Domain.Data
 {
     public class EmpresaContext : DbContext
     {
-        public EmpresaContext() : base("EmpresaContext")
+        public EmpresaContext() : base("DefaultConnection")
         {
         }
 

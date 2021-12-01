@@ -1,9 +1,9 @@
-﻿namespace WSafe.Domain.Migrations
+namespace WSafe.Web.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class CargaInicial : DbMigration
+    public partial class CopiaDatos : DbMigration
     {
         public override void Up()
         {

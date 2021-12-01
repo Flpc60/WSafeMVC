@@ -28,6 +28,9 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string Documento { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Fecha nacimiento")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaNacimiento { get; set; }
         public string Foto { get; set; }
         public string Firma { get; set; }
@@ -41,6 +44,9 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public Cargo Cargo { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Fecha ingreso")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaIngreso { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string EPS { get; set; }
