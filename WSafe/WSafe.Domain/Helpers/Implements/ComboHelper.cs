@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using WSafe.Domain.Data;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace WSafe.Domain.Helpers.Implements
 {
@@ -58,7 +56,7 @@ namespace WSafe.Domain.Helpers.Implements
             List<SelectListItem> list = new List<SelectListItem>();
             list.Add(new SelectListItem
             {
-                Text = "Mortal catastrófico (M)",
+                Text = "Mortal o catastrófico (M)",
                 Value = "100"
             });
 

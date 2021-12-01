@@ -13,11 +13,9 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public CategoriasFinalidad Finalidad { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public CategoriaControl Categoria { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Descripción")]
-        public CategoriaIntervencion Intervencion { get; set; }
-        public string Descripcion { get; set; }
+        public JerarquiaControles Intervencion { get; set; }
+        public string Beneficios { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public decimal Presupuesto { get; set; }
         public ICollection<Traza> Trazas { get; set; }

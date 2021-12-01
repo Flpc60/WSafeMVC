@@ -26,8 +26,7 @@ namespace WSafe.Domain.Helpers.Implements
         {
             return new RiesgoViewModel
             {
-                ProcesoID = riesgo.ID;
-
+                ProcesoID = riesgo.ID
 
             };
         }

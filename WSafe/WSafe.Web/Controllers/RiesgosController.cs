@@ -18,6 +18,7 @@ namespace WSafe.Web.Controllers
             var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
             return View(await consulta.GetALL());
         }
+        /*
         
         // GET: Riesgos/Details/5
         public async Task<ActionResult> Details(int? id)
@@ -117,7 +118,6 @@ namespace WSafe.Web.Controllers
             var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
             RiesgoViewModel riesgoViewModel = await consulta.Delete(id);
             return RedirectToAction("Index");
-        }
+        }*/
     }
-
 }

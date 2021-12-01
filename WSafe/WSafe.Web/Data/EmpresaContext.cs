@@ -17,7 +17,5 @@ namespace WSafe.Domain.Data
         public DbSet<CategoriaPeligro> CategoriasPeligros { get; set; }
         public DbSet<Peligro> Peligros { get; set; }
         public DbSet<Trabajador> Trabajadores { get; set; }
-
-        public System.Data.Entity.DbSet<WSafe.Domain.Models.RiesgoViewModel> RiesgoViewModels { get; set; }
     }
 }
