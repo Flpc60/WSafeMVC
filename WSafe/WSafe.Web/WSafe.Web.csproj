@@ -291,6 +291,10 @@
     <Compile Include="Migrations\202112012314009_CopiaDatos.Designer.cs">
       <DependentUpon>202112012314009_CopiaDatos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202112022324312_ActualizaRiesgo.cs" />
+    <Compile Include="Migrations\202112022324312_ActualizaRiesgo.Designer.cs">
+      <DependentUpon>202112022324312_ActualizaRiesgo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\RiesgoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -367,6 +371,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112012314009_CopiaDatos.resx">
       <DependentUpon>202112012314009_CopiaDatos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112022324312_ActualizaRiesgo.resx">
+      <DependentUpon>202112022324312_ActualizaRiesgo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
