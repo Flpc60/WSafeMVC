@@ -17,22 +17,36 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public bool Rutinaria { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public int CategoriaPeligroID { get; set; }
+        public CategoriaPeligro CategoriaPeligro { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public Peligro Peligro { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Efectos posibles")]
         public EfectosPosibles EfectosPosibles { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int NivelDeficiencia { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int NivelExposicion { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public int NivelProbabilidad { get; set; }
+        public int NivelProbabilidad
+        {
+            get
+            {
+                return NivelDeficiencia * NivelExposicion;
+            }
+        }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int NivelConsecuencia { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public int NivelRiesgo { get; set; }
+        public int NivelRiesgo
+        {
+            get
+            {
+                return NivelProbabilidad * NivelConsecuencia;
+            }
+        }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [StringLength(1, MinimumLength = 1)]
         public string CategoriaRiesgo { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public CategoriasAceptabilidad Aceptabilidad { get; set; }
