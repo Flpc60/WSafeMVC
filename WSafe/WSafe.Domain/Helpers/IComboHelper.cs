@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace WSafe.Domain.Helpers
@@ -12,9 +13,12 @@ namespace WSafe.Domain.Helpers
         IEnumerable<SelectListItem> GetComboActividades();
         IEnumerable<SelectListItem> GetComboTareas();
         IEnumerable<SelectListItem> GetComboCategoriaPeligros();
-        IEnumerable<SelectListItem> GetComboPeligros();
+        IEnumerable<SelectListItem> GetComboPeligros(int id);
         IEnumerable<SelectListItem> GetNivelDeficiencia();
         IEnumerable<SelectListItem> GetNivelExposicion();
         IEnumerable<SelectListItem> GetNivelConsecuencias();
+        string GetInterpretaNP(int probabilidad);
+        string GetInterpretaNR(int nivelRiesgo);
+        string GetAceptabilidadNR(string nivelRiesgo);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using WSafe.Domain.Data;
 
@@ -47,6 +48,27 @@ namespace WSafe.Domain.Helpers.Implements
                 Text = "(Seleccione una categoria peligro ...)",
                 Value = "0"
             });
+
+            return list;
+        }
+
+        public IEnumerable<SelectListItem> GetComboPeligros(int id)
+        {
+            var list = _empresaContext.Peligros
+                .Where(cp => cp.CategoriaPeligroID == id)
+                .Select(p => new SelectListItem
+                {
+                    Text = p.Descripcion,
+                    Value = $"{p.ID}"
+                })
+                    .OrderBy(p => p.Text)
+                    .ToList();
+
+                list.Insert(0, new SelectListItem
+                {
+                    Text = "(Seleccione un peligro ...)",
+                    Value = "0"
+                });
 
             return list;
         }
@@ -136,24 +158,6 @@ namespace WSafe.Domain.Helpers.Implements
 
         }
 
-        public IEnumerable<SelectListItem> GetComboPeligros()
-        {
-            var list = _empresaContext.Peligros.Select(p => new SelectListItem
-            {
-                Text = p.Descripcion,
-                Value = $"{p.ID}"
-            })
-                .OrderBy(p => p.Text)
-                .ToList();
-
-            list.Insert(0, new SelectListItem
-            {
-                Text = "(Seleccione un peligro ...)",
-                Value = "0"
-            });
-
-            return list;
-        }
 
         public IEnumerable<SelectListItem> GetComboProcesos()
         {
@@ -210,6 +214,71 @@ namespace WSafe.Domain.Helpers.Implements
             });
 
             return list;
+        }
+
+        public string GetInterpretaNP(int probabilidad)
+        {
+            switch (probabilidad)
+            {
+                case int p when (p >= 24) :
+                    return "Muy alto (MA)";
+                    break;
+
+                case int p when (p >= 10 && p < 24):
+                    return "Alto (A)";
+                    break;
+
+                case int p when (p >= 8 && p < 10):
+                    return "Mdio (M)";
+                    break;
+
+                default:
+                    return "Bajo (B)";
+                    break;
+            }
+        }
+        public string GetInterpretaNR(int nivelRiesgo)
+        {
+            switch (nivelRiesgo)
+            {
+                case int nr when (nr >= 600):
+                    return "I";
+                    break;
+
+                case int nr when (nr >= 150 && nr < 600):
+                    return "II";
+                    break;
+
+                case int nr when (nr >= 40 && nr < 150):
+                    return "III";
+                    break;
+
+                default:
+                    return "IV";
+                    break;
+            }
+        }
+        public string GetAceptabilidadNR(string nivelRiesgo)
+        {
+            switch (nivelRiesgo)
+            {
+                case "I":
+                    return "No Aceptable";
+                    break;
+
+                case "II":
+                    return "No Aceptable o Aceptable con control Específico";
+                    break;
+
+                case "III":
+                    return "Mejorable";
+                    break;
+
+
+                default:
+                    return "Aceptable";
+                    break;
+            }
         }
     }
 }
