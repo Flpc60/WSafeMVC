@@ -51,7 +51,7 @@ namespace WSafe.Domain.Helpers.Implements
                 NivelesConsecuencia = _comboHelper.GetNivelConsecuencias(),
                 NivelRiesgo = riesgo.NivelRiesgo,
                 InterpretacionNR = _gestorHelper.GetInterpretaNR(riesgo.NivelRiesgo),
-                AceptabilidadNR = _gestorHelper.GetAceptabilidadNR(riesgo.CategoriaRiesgo),
+                AceptabilidadNR = riesgo.Aceptabilidad,
                 SignificadoNR = _gestorHelper.GetSignificadoNR(riesgo.CategoriaRiesgo),
                 NroExpuestos = riesgo.NroExpuestos,
                 PeorConsecuencia = riesgo.PeorConsecuencia,

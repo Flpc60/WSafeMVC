@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Web.Mvc;
 using WSafe.Domain.Data.Entities;
 
@@ -8,58 +7,79 @@ namespace WSafe.Domain.Models
 {
     public class RiesgoViewModel
     {
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public Proceso Proceso { get; set; }
-        public IEnumerable<SelectListItem> Procesos { get; set; }
-
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public Zona Zona { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un proceso.")]
+        public int ZonaID { get; set; }
+        [Display(Name = "Zona")]
         public IEnumerable<SelectListItem> Zonas { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public Actividad Actividad { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un proceso.")]
+        public int ProcesoID { get; set; }
+        [Display(Name = "Proceso")]
+        public IEnumerable<SelectListItem> Procesos { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un proceso.")]
+        public int ActividadID { get; set; }
+        [Display(Name = "Actividad")]
         public IEnumerable<SelectListItem> Actividades { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public Tarea Tarea { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un proceso.")]
+        public int TareaID { get; set; }
+        [Display(Name = "Tarea")]
         public IEnumerable<SelectListItem> Tareas { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public bool Rutinaria { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public CategoriaPeligro CategoriaPeligro { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un proceso.")]
+        public int CategoriaPeligroID { get; set; }
+        [Display(Name = "Clasificación")]
         public IEnumerable<SelectListItem> CategoriasPeligros { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public Peligro Peligro { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un proceso.")]
+        public int PeligroID { get; set; }
+        [Display(Name = "Descripción")]
         public IEnumerable<SelectListItem> Peligros { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Efectos posibles")]
         public EfectosPosibles EfectosPosibles { get; set; }
-        public Aplicacion ControlesFuente { get; set; }
-        public Aplicacion ControlesMedio { get; set; }
-        public Aplicacion ControlesIndividuo { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un proceso.")]
+        public int NivelesDeficienciaID { get; set; }
+        [Display(Name = "ND")]
+        public IEnumerable<SelectListItem> NivelesDeficiencia { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public int NivelDeficiencia { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un proceso.")]
+        public int NivelesExposicionID { get; set; }
+        [Display(Name = "NE")]
+        public IEnumerable<SelectListItem> NivelesExposicion { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public int NivelExposicion { get; set; }
+        [Display(Name = "NP")]
         public int NivelProbabilidad { get; set; }
-        [NotMapped]
+        [Display(Name = "Interpretación NP")]
         public string InterpretacionNP { get; set; }
+        public int NivelesConsecuenciaID { get; set; }
+        [Display(Name = "NC")]
+        public IEnumerable<SelectListItem> NivelesConsecuencia { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public int NivelConsecuencias { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "NR")]
         public int NivelRiesgo { get; set; }
-        [NotMapped]
+        [Display(Name = "Interpretación NR")]
         public string InterpretacionNR { get; set; }
-        [NotMapped]
-        public string AceptabilidadNR { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Aceptabilidad NR")]
+        public int AceptabilidadID { get; set; }
+        public CategoriasAceptabilidad AceptabilidadNR { get; set; }
+        [Display(Name = "Significado NR")]
+        public string SignificadoNR { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Nro. Expuestos")]
         public int NroExpuestos { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Peor consecuencia")]
         public Consecuencia PeorConsecuencia { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Requisito legal")]
         public bool RequisitoLegal { get; set; }
-        public Aplicacion Eliminacion { get; set; }
-        public Aplicacion Sustitucion { get; set; }
-        public ICollection<Aplicacion> ControlesIngenieria { get; set; }
-        public ICollection<Aplicacion> ControlesAdmon { get; set; }
-        public ICollection<Aplicacion> ControlesEPP { get; set; }
     }
 }
