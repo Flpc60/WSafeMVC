@@ -26,7 +26,8 @@ namespace WSafe.Domain.Repositories.Implements
 
         public async Task<IEnumerable<TEntity>> GetALL()
         {
-            return await _empresaContext.Set<TEntity>().ToListAsync();
+            var list = await _empresaContext.Set<TEntity>().ToListAsync();
+            return list;
         }
 
         public async Task<TEntity> GetById(int id)

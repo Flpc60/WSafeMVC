@@ -66,7 +66,9 @@ namespace WSafe.Domain.Models
         public int NivelRiesgo { get; set; }
         [Display(Name = "Interpretación NR")]
         public string InterpretacionNR { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Aceptabilidad NR")]
+        public int AceptabilidadID { get; set; }
         public CategoriasAceptabilidad AceptabilidadNR { get; set; }
         [Display(Name = "Significado NR")]
         public string SignificadoNR { get; set; }

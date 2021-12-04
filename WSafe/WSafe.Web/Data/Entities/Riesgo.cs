@@ -7,9 +7,9 @@ namespace WSafe.Domain.Data.Entities
     {
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public Proceso Proceso { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public Zona Zona { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public Proceso Proceso { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public Actividad Actividad { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
