@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Models;
@@ -32,9 +33,12 @@ namespace WSafe.Domain.Helpers.Implements
                 NivelExposicion = model.NivelesExposicionID,
                 NivelConsecuencia = model.NivelesConsecuenciaID,
                 CategoriaRiesgo = _gestorHelper.GetInterpretaNR(model.NivelRiesgo),
+                Aceptabilidad = model.AceptabilidadNR,
                 NroExpuestos = model.NroExpuestos,
                 PeorConsecuencia = model.PeorConsecuencia,
-                RequisitoLegal = model.RequisitoLegal
+                RequisitoLegal = model.RequisitoLegal,
+                MedidasIntervencion = isNew ? new List<Aplicacion>() : null,
+                Acciones = isNew ? new List<Accion>() : null
             };
         }
         public RiesgoViewModel ToRiesgoViewModel(Riesgo riesgo)
@@ -66,7 +70,7 @@ namespace WSafe.Domain.Helpers.Implements
                 NivelesConsecuencia = _comboHelper.GetNivelConsecuencias(),
                 NivelRiesgo = riesgo.NivelRiesgo,
                 InterpretacionNR = _gestorHelper.GetInterpretaNR(riesgo.NivelRiesgo),
-                AceptabilidadNR = _gestorHelper.GetAceptabilidadNR(riesgo.CategoriaRiesgo),
+                AceptabilidadNR = riesgo.Aceptabilidad,
                 SignificadoNR = _gestorHelper.GetSignificadoNR(riesgo.CategoriaRiesgo),
                 NroExpuestos = riesgo.NroExpuestos,
                 PeorConsecuencia = riesgo.PeorConsecuencia,
