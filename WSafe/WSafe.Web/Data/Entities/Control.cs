@@ -7,10 +7,12 @@ namespace WSafe.Domain.Data.Entities
     {
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public int RiesgoID { get; set; }
         public string Codigo { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string Nombre { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public CategoriaAplicacion CategoriaAplicacion { get; set; }
         public CategoriasFinalidad Finalidad { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Descripción")]

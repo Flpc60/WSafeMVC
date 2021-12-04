@@ -283,6 +283,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\IComboHelper.cs" />
+    <Compile Include="Helpers\IConverterHelper.cs" />
+    <Compile Include="Helpers\IGestorHelper.cs" />
+    <Compile Include="Helpers\Implements\ComboHelper.cs" />
+    <Compile Include="Helpers\Implements\ConverterHelper.cs" />
+    <Compile Include="Helpers\Implements\GestorHelper.cs" />
     <Compile Include="Migrations\202112012202348_InitialCreate.cs" />
     <Compile Include="Migrations\202112012202348_InitialCreate.Designer.cs">
       <DependentUpon>202112012202348_InitialCreate.cs</DependentUpon>
@@ -291,9 +297,13 @@
     <Compile Include="Migrations\202112012314009_CopiaDatos.Designer.cs">
       <DependentUpon>202112012314009_CopiaDatos.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202112022324312_ActualizaRiesgo.cs" />
-    <Compile Include="Migrations\202112022324312_ActualizaRiesgo.Designer.cs">
-      <DependentUpon>202112022324312_ActualizaRiesgo.cs</DependentUpon>
+    <Compile Include="Migrations\202112031630519_AdicionarRiesgo.cs" />
+    <Compile Include="Migrations\202112031630519_AdicionarRiesgo.Designer.cs">
+      <DependentUpon>202112031630519_AdicionarRiesgo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112032138210_ActualizaRiesgo.cs" />
+    <Compile Include="Migrations\202112032138210_ActualizaRiesgo.Designer.cs">
+      <DependentUpon>202112032138210_ActualizaRiesgo.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\RiesgoViewModel.cs" />
@@ -372,8 +382,11 @@
     <EmbeddedResource Include="Migrations\202112012314009_CopiaDatos.resx">
       <DependentUpon>202112012314009_CopiaDatos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112022324312_ActualizaRiesgo.resx">
-      <DependentUpon>202112022324312_ActualizaRiesgo.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202112031630519_AdicionarRiesgo.resx">
+      <DependentUpon>202112031630519_AdicionarRiesgo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112032138210_ActualizaRiesgo.resx">
+      <DependentUpon>202112032138210_ActualizaRiesgo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

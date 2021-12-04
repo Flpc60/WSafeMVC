@@ -9,8 +9,6 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int RiesgoID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public CategoriaAplicacion CategoriaAplicacion { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public Control Control { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public Trabajador Trabajador { get; set; }
