@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using WSafe.Domain.Data;
+using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Helpers;
 using WSafe.Domain.Models;
 using WSafe.Domain.Repositories;
@@ -17,17 +18,22 @@ namespace WSafe.Web.Controllers
         private readonly IRiesgoRepository _riesgoRepository;
         private readonly IRiesgoService _riesgoService;
         private readonly IConverterHelper _converterHelper;
-
+        private readonly IGenericRepository<Riesgo> _genericRepository;
+        private readonly IGenericService<Riesgo> _genericService;
         public RiesgosController(
             EmpresaContext empresaContext,
             IRiesgoRepository riesgoRepository,
             IRiesgoService riesgoService,
-            IConverterHelper converterHelper)
+            IConverterHelper converterHelper,
+            IGenericRepository<Riesgo> genericRepository,
+            IGenericService<Riesgo> genericService)
         {
             _empresaContext = empresaContext;
             _riesgoRepository = riesgoRepository;
             _riesgoService = riesgoService;
             _converterHelper = converterHelper;
+            _genericRepository = genericRepository;
+            _genericService = genericService;
         }
 
         // GET: Riesgos
@@ -66,19 +72,18 @@ namespace WSafe.Web.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,Rutinaria,EfectosPosibles,NivelDeficiencia,NivelExposicion,NivelProbabilidad,NivelConsecuencias,NivelRiesgo,NroExpuestos,RequisitoLegal")] RiesgoViewModel riesgoViewModel)
+        public async Task<ActionResult> Create(RiesgoViewModel model)
         {
             if (ModelState.IsValid)
             {
+                var riesgo = _converterHelper.ToRiesgoAsync(model, true);
                 var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
-                var riesgo = _converterHelper.ToRiesgoAsync(riesgoViewModel);
-
                 await consulta.Insert(riesgo);
 
                 return RedirectToAction("Index");
             }
 
-            return View(riesgoViewModel);
+            return View(model);
         }
 
         // GET: Riesgos/Edit/5

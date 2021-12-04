@@ -17,13 +17,6 @@ namespace WSafe.Domain.Helpers.Implements
             _comboHelper = comboHelper;
             _gestorHelper = gestorHelper;
         }
-
-        public Task<Riesgo> ToPropertyAsync(RiesgoViewModel model, bool isNew)
-        {
-
-            throw new NotImplementedException();
-        }
-
         public Task<Riesgo> ToRiesgoAsync(RiesgoViewModel model, bool isNew)
         {
             throw new NotImplementedException();
