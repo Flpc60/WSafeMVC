@@ -17,5 +17,6 @@ namespace WSafe.Domain.Data
         public DbSet<CategoriaPeligro> CategoriasPeligros { get; set; }
         public DbSet<Peligro> Peligros { get; set; }
         public DbSet<Trabajador> Trabajadores { get; set; }
+        public DbSet<Control> Controles { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Models;
@@ -16,27 +17,18 @@ namespace WSafe.Domain.Helpers.Implements
             _comboHelper = comboHelper;
             _gestorHelper = gestorHelper;
         }
-        public async Task<Riesgo> ToRiesgoAsync(RiesgoViewModel model, bool isNew)
+
+        public Task<Riesgo> ToPropertyAsync(RiesgoViewModel model, bool isNew)
         {
-            return new Riesgo
-            {
-                ID = isNew ? 0 : model.ID,
-                Zona = await _empresaContext.Zonas.FindAsync(model.ZonaID),
-                Proceso = await _empresaContext.Procesos.FindAsync(model.ProcesoID),
-                Actividad = await _empresaContext.Actividades.FindAsync(model.ActividadID),
-                Tarea = await _empresaContext.Tareas.FindAsync(model.TareaID),
-                Rutinaria = model.Rutinaria,
-                Peligro = await _empresaContext.Peligros.FindAsync(model.PeligroID),
-                EfectosPosibles = model.EfectosPosibles,
-                NivelDeficiencia = model.NivelesDeficienciaID,
-                NivelExposicion = model.NivelesExposicionID,
-                NivelConsecuencia = model.NivelesConsecuenciaID,
-                CategoriaRiesgo = _gestorHelper.GetInterpretaNR(model.NivelRiesgo),
-                NroExpuestos = model.NroExpuestos,
-                PeorConsecuencia = model.PeorConsecuencia,
-                RequisitoLegal = model.RequisitoLegal
-            };
+
+            throw new NotImplementedException();
         }
+
+        public Task<Riesgo> ToRiesgoAsync(RiesgoViewModel model, bool isNew)
+        {
+            throw new NotImplementedException();
+        }
+
         public RiesgoViewModel ToRiesgoViewModel(Riesgo riesgo)
         {
             return new RiesgoViewModel

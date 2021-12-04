@@ -7,17 +7,15 @@ namespace WSafe.Domain.Data.Entities
     {
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public Proceso Proceso { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public Zona Zona { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public Proceso Proceso { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public Actividad Actividad { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public Tarea Tarea { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public bool Rutinaria { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public int CategoriaPeligroID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public Peligro Peligro { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]

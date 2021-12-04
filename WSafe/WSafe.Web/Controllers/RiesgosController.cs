@@ -2,15 +2,33 @@
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using WSafe.Domain.Data;
+using WSafe.Domain.Helpers;
 using WSafe.Domain.Models;
+using WSafe.Domain.Repositories;
 using WSafe.Domain.Repositories.Implements;
+using WSafe.Domain.Services;
 using WSafe.Domain.Services.Implements;
 
 namespace WSafe.Web.Controllers
 {
     public class RiesgosController : Controller
     {
-        private EmpresaContext _empresaContext = new EmpresaContext();
+        private readonly EmpresaContext _empresaContext;
+        private readonly IRiesgoRepository _riesgoRepository;
+        private readonly IRiesgoService _riesgoService;
+        private readonly IConverterHelper _converterHelper;
+
+        public RiesgosController(
+            EmpresaContext empresaContext,
+            IRiesgoRepository riesgoRepository,
+            IRiesgoService riesgoService,
+            IConverterHelper converterHelper)
+        {
+            _empresaContext = empresaContext;
+            _riesgoRepository = riesgoRepository;
+            _riesgoService = riesgoService;
+            _converterHelper = converterHelper;
+        }
 
         // GET: Riesgos
         public async Task<ActionResult> Index()
@@ -18,8 +36,8 @@ namespace WSafe.Web.Controllers
             var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
             return View(await consulta.GetALL());
         }
+
         /*
-        
         // GET: Riesgos/Details/5
         public async Task<ActionResult> Details(int? id)
         {
@@ -35,7 +53,7 @@ namespace WSafe.Web.Controllers
                 return HttpNotFound();
             }
             return View(riesgoViewModel);
-        }
+        }*/
 
         // GET: Riesgos/Create
         public ActionResult Create()
@@ -53,7 +71,9 @@ namespace WSafe.Web.Controllers
             if (ModelState.IsValid)
             {
                 var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
-                await consulta.Insert(riesgoViewModel);
+                var riesgo = _converterHelper.ToRiesgoAsync(riesgoViewModel);
+
+                await consulta.Insert(riesgo);
 
                 return RedirectToAction("Index");
             }
@@ -118,6 +138,6 @@ namespace WSafe.Web.Controllers
             var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
             RiesgoViewModel riesgoViewModel = await consulta.Delete(id);
             return RedirectToAction("Index");
-        }*/
+        }
     }
 }
