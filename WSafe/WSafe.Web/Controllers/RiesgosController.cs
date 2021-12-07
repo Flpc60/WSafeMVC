@@ -1,8 +1,10 @@
 ﻿using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using WSafe.Domain.Data;
 using WSafe.Domain.Helpers;
+using WSafe.Domain.Models;
 using WSafe.Domain.Repositories.Implements;
 using WSafe.Domain.Services.Implements;
 
@@ -28,7 +30,7 @@ namespace WSafe.Web.Controllers
             return View(list.AsEnumerable());
         }
 
-        /*
+
         // GET: Riesgos/Details/5
         public async Task<ActionResult> Details(int? id)
         {
@@ -62,8 +64,9 @@ namespace WSafe.Web.Controllers
             if (ModelState.IsValid)
             {
                 var riesgo = _converterHelper.ToRiesgoAsync(model, true);
+
                 var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
-                await consulta.Insert(riesgo);
+                //await consulta.Insert(riesgo);
 
                 return RedirectToAction("Index");
             }
@@ -119,6 +122,7 @@ namespace WSafe.Web.Controllers
             }
             return View(riesgoViewModel);
         }
+        /*
 
         // POST: Riesgos/Delete/5
         [HttpPost, ActionName("Delete")]

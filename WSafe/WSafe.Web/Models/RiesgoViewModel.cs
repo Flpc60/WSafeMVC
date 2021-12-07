@@ -10,7 +10,7 @@ namespace WSafe.Domain.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un proceso.")]
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una zona.")]
         public int ZonaID { get; set; }
         [Display(Name = "Zona")]
         public IEnumerable<SelectListItem> Zonas { get; set; }
@@ -20,12 +20,12 @@ namespace WSafe.Domain.Models
         [Display(Name = "Proceso")]
         public IEnumerable<SelectListItem> Procesos { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un proceso.")]
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una actividad.")]
         public int ActividadID { get; set; }
         [Display(Name = "Actividad")]
         public IEnumerable<SelectListItem> Actividades { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un proceso.")]
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una tarea.")]
         public int TareaID { get; set; }
         [Display(Name = "Tarea")]
         public IEnumerable<SelectListItem> Tareas { get; set; }
