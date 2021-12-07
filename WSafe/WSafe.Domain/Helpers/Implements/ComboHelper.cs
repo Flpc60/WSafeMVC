@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using WSafe.Domain.Data;
 
@@ -19,7 +18,7 @@ namespace WSafe.Domain.Helpers.Implements
             var list = _empresaContext.Actividades.Select(a => new SelectListItem
             {
                 Text = a.Descripcion,
-                Value = $"{a.ID}"
+                Value = a.ID.ToString()
             })
                 .OrderBy(a => a.Text)
                 .ToList();
@@ -38,7 +37,7 @@ namespace WSafe.Domain.Helpers.Implements
             var list = _empresaContext.CategoriasPeligros.Select(cp => new SelectListItem
             {
                 Text = cp.Descripcion,
-                Value = $"{cp.ID}"
+                Value = cp.ID.ToString()
             })
                 .OrderBy(cp => cp.Text)
                 .ToList();
@@ -59,16 +58,16 @@ namespace WSafe.Domain.Helpers.Implements
                 .Select(p => new SelectListItem
                 {
                     Text = p.Descripcion,
-                    Value = $"{p.ID}"
+                    Value = p.ID.ToString()
                 })
                     .OrderBy(p => p.Text)
                     .ToList();
 
-                list.Insert(0, new SelectListItem
-                {
-                    Text = "(Seleccione un peligro ...)",
-                    Value = "0"
-                });
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione un peligro ...)",
+                Value = "0"
+            });
 
             return list;
         }
@@ -164,7 +163,7 @@ namespace WSafe.Domain.Helpers.Implements
             var list = _empresaContext.Procesos.Select(p => new SelectListItem
             {
                 Text = p.Descripcion,
-                Value = $"{p.ID}"
+                Value = p.ID.ToString()
             })
                 .OrderBy(p => p.Text)
                 .ToList();
@@ -183,7 +182,7 @@ namespace WSafe.Domain.Helpers.Implements
             var list = _empresaContext.Tareas.Select(t => new SelectListItem
             {
                 Text = t.Descripcion,
-                Value = $"{t.ID}"
+                Value = t.ID.ToString()
             })
                 .OrderBy(t => t.Text)
                 .ToList();
@@ -202,7 +201,7 @@ namespace WSafe.Domain.Helpers.Implements
             var list = _empresaContext.Zonas.Select(z => new SelectListItem
             {
                 Text = z.Descripcion,
-                Value = $"{z.ID}"
+                Value = z.ID.ToString()
             })
                 .OrderBy(z => z.Text)
                 .ToList();
