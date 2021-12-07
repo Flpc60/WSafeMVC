@@ -331,6 +331,10 @@
     <Compile Include="Migrations\202112042026465_ActualizaRiesgos.Designer.cs">
       <DependentUpon>202112042026465_ActualizaRiesgos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202112061955181_ActualizaRiesgoViewModel.cs" />
+    <Compile Include="Migrations\202112061955181_ActualizaRiesgoViewModel.Designer.cs">
+      <DependentUpon>202112061955181_ActualizaRiesgoViewModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\RiesgoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -417,6 +421,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112042026465_ActualizaRiesgos.resx">
       <DependentUpon>202112042026465_ActualizaRiesgos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112061955181_ActualizaRiesgoViewModel.resx">
+      <DependentUpon>202112061955181_ActualizaRiesgoViewModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

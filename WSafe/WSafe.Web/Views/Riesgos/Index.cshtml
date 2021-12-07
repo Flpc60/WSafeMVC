@@ -1,45 +1,45 @@
 ﻿@model IEnumerable<WSafe.Domain.Models.RiesgoViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Gestor de Roesgos";
 }
 
-<h2>Index</h2>
+<h2><strong><b></b>Gestor de riesgos</strong></h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Nuevo", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ZonaID)
+            @Html.DisplayNameFor(model => model.Zonas)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ProcesoID)
+            @Html.DisplayNameFor(model => model.Procesos)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ActividadID)
+            @Html.DisplayNameFor(model => model.Actividades)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TareaID)
+            @Html.DisplayNameFor(model => model.Tareas)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Rutinaria)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CategoriaPeligroID)
+            @Html.DisplayNameFor(model => model.CategoriasPeligros)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PeligroID)
+            @Html.DisplayNameFor(model => model.Peligros)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.EfectosPosibles)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NivelesDeficienciaID)
+            @Html.DisplayNameFor(model => model.NivelesDeficiencia)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NivelesExposicionID)
+            @Html.DisplayNameFor(model => model.NivelesExposicion)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.NivelProbabilidad)
@@ -48,16 +48,13 @@
             @Html.DisplayNameFor(model => model.InterpretacionNP)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NivelesConsecuenciaID)
+            @Html.DisplayNameFor(model => model.NivelesConsecuencia)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.NivelRiesgo)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.InterpretacionNR)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AceptabilidadID)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.AceptabilidadNR)
@@ -120,9 +117,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.InterpretacionNR)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AceptabilidadID)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.AceptabilidadNR)
