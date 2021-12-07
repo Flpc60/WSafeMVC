@@ -47,12 +47,12 @@ namespace WSafe.Domain.Models
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un proceso.")]
         public int NivelesDeficienciaID { get; set; }
         [Display(Name = "ND")]
-        public IEnumerable<SelectListItem> NivelesDeficiencia { get; set; }
+        public NivelesDeficiencia NivelesDeficiencia { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un proceso.")]
         public int NivelesExposicionID { get; set; }
         [Display(Name = "NE")]
-        public IEnumerable<SelectListItem> NivelesExposicion { get; set; }
+        public NivelesExposicion NivelesExposicion{ get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "NP")]
         public int NivelProbabilidad { get; set; }
@@ -60,15 +60,15 @@ namespace WSafe.Domain.Models
         public string InterpretacionNP { get; set; }
         public int NivelesConsecuenciaID { get; set; }
         [Display(Name = "NC")]
-        public IEnumerable<SelectListItem> NivelesConsecuencia { get; set; }
+        public NivelesConsecuencia NivelesConsecuencia{ get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "NR")]
         public int NivelRiesgo { get; set; }
         [Display(Name = "Interpretación NR")]
         public string InterpretacionNR { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Aceptabilidad NR")]
         public int AceptabilidadID { get; set; }
+        [Display(Name = "Aceptabilidad NR")]
         public CategoriasAceptabilidad AceptabilidadNR { get; set; }
         [Display(Name = "Significado NR")]
         public string SignificadoNR { get; set; }
@@ -77,6 +77,8 @@ namespace WSafe.Domain.Models
         public int NroExpuestos { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Peor consecuencia")]
+        public int ConsecuenciaID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public Consecuencia PeorConsecuencia { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Requisito legal")]

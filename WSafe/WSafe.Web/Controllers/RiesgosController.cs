@@ -51,7 +51,15 @@ namespace WSafe.Web.Controllers
         // GET: Riesgos/Create
         public ActionResult Create()
         {
-            return View();
+            var riesgoView = new RiesgoViewModel();
+            riesgoView.Procesos = _comboHelper.GetComboProcesos();
+            riesgoView.Zonas = _comboHelper.GetComboZonas();
+            riesgoView.Actividades = _comboHelper.GetComboActividades();
+            riesgoView.Tareas = _comboHelper.GetComboTareas();
+            riesgoView.CategoriasPeligros = _comboHelper.GetComboCategoriaPeligros();
+            riesgoView.Peligros = _comboHelper.GetComboPeligros(riesgoView.CategoriaPeligroID);
+
+            return View(riesgoView);
         }
 
         // POST: Riesgos/Create

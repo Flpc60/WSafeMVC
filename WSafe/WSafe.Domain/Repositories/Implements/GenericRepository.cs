@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Threading.Tasks;
 using WSafe.Domain.Data;
-using WSafe.Domain.Data.Entities;
-using WSafe.Domain.Helpers;
-using WSafe.Domain.Helpers.Implements;
-using WSafe.Domain.Models;
 
 namespace WSafe.Domain.Repositories.Implements
 {
@@ -43,7 +39,7 @@ namespace WSafe.Domain.Repositories.Implements
 
 
             // _empresaContext.Set<Riesgo>().Add(entity);
-             await _empresaContext.SaveChangesAsync();
+            await _empresaContext.SaveChangesAsync();
             return entity;
         }
 

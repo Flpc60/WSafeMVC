@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
@@ -17,11 +17,30 @@ namespace WSafe.Domain.Helpers.Implements
             _comboHelper = comboHelper;
             _gestorHelper = gestorHelper;
         }
-        public Task<Riesgo> ToRiesgoAsync(RiesgoViewModel model, bool isNew)
+        public async Task<Riesgo> ToRiesgoAsync(RiesgoViewModel model, bool isNew)
         {
-            throw new NotImplementedException();
+            return new Riesgo
+            {
+                ID = isNew ? 0 : model.ID,
+                Zona = await _empresaContext.Zonas.FindAsync(model.ZonaID),
+                Proceso = await _empresaContext.Procesos.FindAsync(model.ProcesoID),
+                Actividad = await _empresaContext.Actividades.FindAsync(model.ActividadID),
+                Tarea = await _empresaContext.Tareas.FindAsync(model.TareaID),
+                Rutinaria = model.Rutinaria,
+                Peligro = await _empresaContext.Peligros.FindAsync(model.PeligroID),
+                EfectosPosibles = model.EfectosPosibles,
+                NivelDeficiencia = model.NivelesDeficienciaID,
+                NivelExposicion = model.NivelesExposicionID,
+                NivelConsecuencia = model.NivelesConsecuenciaID,
+                CategoriaRiesgo = _gestorHelper.GetInterpretaNR(model.NivelRiesgo),
+                Aceptabilidad = model.AceptabilidadNR,
+                NroExpuestos = model.NroExpuestos,
+                PeorConsecuencia = model.PeorConsecuencia,
+                RequisitoLegal = model.RequisitoLegal,
+                MedidasIntervencion = isNew ? new List<Aplicacion>() : null,
+                Acciones = isNew ? new List<Accion>() : null
+            };
         }
-
         public RiesgoViewModel ToRiesgoViewModel(Riesgo riesgo)
         {
             return new RiesgoViewModel
@@ -42,13 +61,10 @@ namespace WSafe.Domain.Helpers.Implements
                 Peligros = _comboHelper.GetComboPeligros(riesgo.Peligro.CategoriaPeligroID),
                 EfectosPosibles = riesgo.EfectosPosibles,
                 NivelesDeficienciaID = riesgo.NivelDeficiencia,
-                NivelesDeficiencia = _comboHelper.GetNivelDeficiencia(),
                 NivelesExposicionID = riesgo.NivelExposicion,
-                NivelesExposicion = _comboHelper.GetNivelExposicion(),
                 NivelProbabilidad = riesgo.NivelProbabilidad,
                 InterpretacionNP = _gestorHelper.GetInterpretaNP(riesgo.NivelProbabilidad),
                 NivelesConsecuenciaID = riesgo.NivelConsecuencia,
-                NivelesConsecuencia = _comboHelper.GetNivelConsecuencias(),
                 NivelRiesgo = riesgo.NivelRiesgo,
                 InterpretacionNR = _gestorHelper.GetInterpretaNR(riesgo.NivelRiesgo),
                 AceptabilidadNR = riesgo.Aceptabilidad,
