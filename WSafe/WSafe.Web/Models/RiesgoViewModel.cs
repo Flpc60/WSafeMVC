@@ -44,23 +44,30 @@ namespace WSafe.Domain.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Efectos posibles")]
         public EfectosPosibles EfectosPosibles { get; set; }
-        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un proceso.")]
-        public int NivelesDeficienciaID { get; set; }
         [Display(Name = "ND")]
-        public NivelesDeficiencia NivelesDeficiencia { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un nivel deficiencia.")]
+        public int NivelesDeficienciaID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un proceso.")]
-        public int NivelesExposicionID { get; set; }
+        [Display(Name = "Niveles Deficiencia")]
+        public NivelesDeficiencia NivelesDeficiencia { get; set; }
         [Display(Name = "NE")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public int NivelesExposicionID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un nivel de exposición.")]
+        [Display(Name = "Niveles Exposición")]
         public NivelesExposicion NivelesExposicion{ get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "NP")]
         public int NivelProbabilidad { get; set; }
         [Display(Name = "Interpretación NP")]
         public string InterpretacionNP { get; set; }
-        public int NivelesConsecuenciaID { get; set; }
         [Display(Name = "NC")]
-        public NivelesConsecuencia NivelesConsecuencia{ get; set; }
+        public int NivelesConsecuenciaID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Niveles Consecuencia")]
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un nivel de consecuecnia.")]
+        public NivelesConsecuencia NivelesConsecuencia { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "NR")]
         public int NivelRiesgo { get; set; }
@@ -75,11 +82,6 @@ namespace WSafe.Domain.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Nro. Expuestos")]
         public int NroExpuestos { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Peor consecuencia")]
-        public int ConsecuenciaID { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public Consecuencia PeorConsecuencia { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Requisito legal")]
         public bool RequisitoLegal { get; set; }

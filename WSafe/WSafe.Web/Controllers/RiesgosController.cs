@@ -57,7 +57,7 @@ namespace WSafe.Web.Controllers
             riesgoView.Actividades = _comboHelper.GetComboActividades();
             riesgoView.Tareas = _comboHelper.GetComboTareas();
             riesgoView.CategoriasPeligros = _comboHelper.GetComboCategoriaPeligros();
-            riesgoView.Peligros = _comboHelper.GetComboPeligros(riesgoView.CategoriaPeligroID);
+            riesgoView.Peligros = _comboHelper.GetComboPeligros(1);
 
             return View(riesgoView);
         }

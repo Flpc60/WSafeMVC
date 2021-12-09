@@ -71,71 +71,72 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ZonaID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProcesoID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ActividadID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TareaID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Rutinaria)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CategoriaPeligroID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PeligroID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EfectosPosibles)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NivelesDeficienciaID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NivelesExposicionID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NivelProbabilidad)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.InterpretacionNP)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NivelesConsecuenciaID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NivelRiesgo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.InterpretacionNR)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AceptabilidadNR)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SignificadoNR)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NroExpuestos)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RequisitoLegal)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ZonaID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProcesoID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActividadID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TareaID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rutinaria)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoriaPeligroID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PeligroID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EfectosPosibles)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NivelesDeficienciaID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NivelesExposicionID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NivelProbabilidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InterpretacionNP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NivelesConsecuenciaID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NivelRiesgo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InterpretacionNR)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AceptabilidadNR)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SignificadoNR)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NroExpuestos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RequisitoLegal)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
 
 </table>
