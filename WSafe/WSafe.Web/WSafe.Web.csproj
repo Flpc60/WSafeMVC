@@ -339,6 +339,10 @@
     <Compile Include="Migrations\202112072218079_ActualizaTablasRiesgos.Designer.cs">
       <DependentUpon>202112072218079_ActualizaTablasRiesgos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202112082214215_RefinarRiesgo.cs" />
+    <Compile Include="Migrations\202112082214215_RefinarRiesgo.Designer.cs">
+      <DependentUpon>202112082214215_RefinarRiesgo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\RiesgoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -388,11 +392,13 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Riesgos\Create.cshtml" />
+    <Content Include="Views\Riesgos\Crear.cshtml" />
     <Content Include="Views\Riesgos\Delete.cshtml" />
     <Content Include="Views\Riesgos\Details.cshtml" />
     <Content Include="Views\Riesgos\Edit.cshtml" />
+    <Content Include="Views\Riesgos\Indice.cshtml" />
     <Content Include="Views\Riesgos\Index.cshtml" />
+    <Content Include="Views\Riesgos\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -431,6 +437,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112072218079_ActualizaTablasRiesgos.resx">
       <DependentUpon>202112072218079_ActualizaTablasRiesgos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112082214215_RefinarRiesgo.resx">
+      <DependentUpon>202112082214215_RefinarRiesgo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

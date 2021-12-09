@@ -35,7 +35,6 @@ namespace WSafe.Domain.Helpers.Implements
                 CategoriaRiesgo = _gestorHelper.GetInterpretaNR(model.NivelRiesgo),
                 Aceptabilidad = model.AceptabilidadNR,
                 NroExpuestos = model.NroExpuestos,
-                PeorConsecuencia = model.PeorConsecuencia,
                 RequisitoLegal = model.RequisitoLegal,
                 MedidasIntervencion = isNew ? new List<Aplicacion>() : null,
                 Acciones = isNew ? new List<Accion>() : null
@@ -70,7 +69,6 @@ namespace WSafe.Domain.Helpers.Implements
                 AceptabilidadNR = riesgo.Aceptabilidad,
                 SignificadoNR = _gestorHelper.GetSignificadoNR(riesgo.CategoriaRiesgo),
                 NroExpuestos = riesgo.NroExpuestos,
-                PeorConsecuencia = riesgo.PeorConsecuencia,
                 RequisitoLegal = riesgo.RequisitoLegal
             };
         }
