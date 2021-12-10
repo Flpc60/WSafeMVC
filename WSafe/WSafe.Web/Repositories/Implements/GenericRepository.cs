@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Threading.Tasks;
 using WSafe.Domain.Data;
+using WSafe.Domain.Data.Entities;
 
 namespace WSafe.Domain.Repositories.Implements
 {
@@ -36,8 +37,8 @@ namespace WSafe.Domain.Repositories.Implements
 
         public async Task<TEntity> Insert(TEntity entity)
         {
-            _empresaContext.Set<TEntity>().Add(entity);
-             await _empresaContext.SaveChangesAsync();
+             _empresaContext.Set<Riesgo>().Add(entity);
+            await _empresaContext.SaveChangesAsync();
             return entity;
         }
 
