@@ -18,8 +18,8 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Zonas, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownListFor(model => model.ZonaID, Model.Zonas, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Zonas, "", new { @class = "text-danger" })
+            @Html.DropDownListFor(model => model.ZonaID, @Model.Zonas, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ZonaID, "", new { @class = "text-danger" })
         </div>
     </div>
 
@@ -132,7 +132,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.NivelesConsecuencia, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EnumDropDownListFor(model => model.NivelesDeficiencia, htmlAttributes: new { @class = "form-control" })
+            @Html.EnumDropDownListFor(model => model.NivelesConsecuencia, htmlAttributes: new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.NivelesConsecuencia, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -204,7 +204,7 @@
 }
 
 <div>
-    @Html.ActionLink("Retirnar", "Index")
+    @Html.ActionLink("Retornar", "Index")
 </div>
 
 @section Scripts {

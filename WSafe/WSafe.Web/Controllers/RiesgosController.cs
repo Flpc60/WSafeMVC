@@ -51,6 +51,7 @@ namespace WSafe.Web.Controllers
         // GET: Riesgos/Create
         public ActionResult Create()
         {
+            // TODO
             var riesgoView = new RiesgoViewModel();
             riesgoView.Procesos = _comboHelper.GetComboProcesos();
             riesgoView.Zonas = _comboHelper.GetComboZonas();
@@ -69,12 +70,27 @@ namespace WSafe.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(RiesgoViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                // TODO
+                model.Zonas = _comboHelper.GetComboZonas();
+                model.Procesos = _comboHelper.GetComboProcesos();
+                model.Actividades = _comboHelper.GetComboActividades();
+                model.Tareas = _comboHelper.GetComboTareas();
+                model.Peligros = _comboHelper.GetComboPeligros(1);
+                model.CategoriasPeligros = _comboHelper.GetComboCategoriaPeligros();
+                model.Peligros = _comboHelper.GetComboPeligros(1);
+
+                return View(model);
+            }
+
+
             if (ModelState.IsValid)
             {
                 var riesgo = _converterHelper.ToRiesgoAsync(model, true);
 
                 var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
-                //await consulta.Insert(riesgo);
+                await consulta.Insert(riesgo);
 
                 return RedirectToAction("Index");
             }
