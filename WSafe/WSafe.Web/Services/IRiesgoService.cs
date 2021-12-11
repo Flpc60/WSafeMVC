@@ -3,7 +3,7 @@ using WSafe.Domain.Models;
 
 namespace WSafe.Domain.Services
 {
-    public interface IRiesgoService : IGenericService<RiesgoViewModel>
+    public interface IRiesgoService : IGenericService<Riesgo>
     {
     }
 }

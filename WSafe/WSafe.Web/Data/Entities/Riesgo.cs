@@ -22,10 +22,13 @@ namespace WSafe.Domain.Data.Entities
         [Display(Name = "Efectos posibles")]
         public EfectosPosibles EfectosPosibles { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "ND")]
         public int NivelDeficiencia { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "NE")]
         public int NivelExposicion { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "NP")]
         public int NivelProbabilidad
         {
             get
@@ -34,8 +37,10 @@ namespace WSafe.Domain.Data.Entities
             }
         }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "NC")]
         public int NivelConsecuencia { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "NR")]
         public int NivelRiesgo
         {
             get
@@ -45,12 +50,15 @@ namespace WSafe.Domain.Data.Entities
         }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [StringLength(1, MinimumLength = 1)]
+        [Display(Name = "Categoria")]
         public string CategoriaRiesgo { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public CategoriasAceptabilidad Aceptabilidad { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Expuestos")]
         public int NroExpuestos { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Requisito")]
         public bool RequisitoLegal { get; set; }
         public ICollection<Aplicacion> MedidasIntervencion { get; set; }
         public ICollection<Accion> Acciones { get; set; }

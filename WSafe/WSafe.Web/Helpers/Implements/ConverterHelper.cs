@@ -43,7 +43,7 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public RiesgoViewModel ToRiesgoViewModel(Riesgo riesgo)
         {
-            return new RiesgoViewModel
+            var model = new RiesgoViewModel
             {
                 ID = riesgo.ID,
                 ProcesoID = riesgo.Proceso.ID,
@@ -72,6 +72,8 @@ namespace WSafe.Domain.Helpers.Implements
                 NroExpuestos = riesgo.NroExpuestos,
                 RequisitoLegal = riesgo.RequisitoLegal
             };
+
+            return model;
         }
     }
 }
