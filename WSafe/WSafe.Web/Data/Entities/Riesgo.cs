@@ -51,8 +51,6 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int NroExpuestos { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public Consecuencia PeorConsecuencia { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public bool RequisitoLegal { get; set; }
         public ICollection<Aplicacion> MedidasIntervencion { get; set; }
         public ICollection<Accion> Acciones { get; set; }

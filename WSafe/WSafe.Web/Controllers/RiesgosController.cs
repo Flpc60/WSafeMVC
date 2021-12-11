@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -87,10 +88,18 @@ namespace WSafe.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                var riesgo = _converterHelper.ToRiesgoAsync(model, true);
-
                 var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
-                await consulta.Insert(riesgo);
+                var result = await _converterHelper.ToRiesgoAsync(model, true);
+                _empresaContext.Riesgos.Add(result);
+                try
+                {
+                    await _empresaContext.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
+                    return View("Error", new HandleErrorInfo(ex, "Riesgos", "Create"));
+                }
+
 
                 return RedirectToAction("Index");
             }
