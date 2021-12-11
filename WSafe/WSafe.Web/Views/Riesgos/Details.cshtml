@@ -1,21 +1,51 @@
-﻿@model WSafe.Domain.Models.RiesgoViewModel
+﻿@model WSafe.Domain.Data.Entities.Riesgo
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles";
 }
 
-<h2>Details</h2>
+<h2>Detalles</h2>
 
 <div>
-    <h4>RiesgoViewModel</h4>
+    <h4>Riesgo</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.Zona)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Zona.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Proceso)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Proceso.Descripcion)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Actividad)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Actividad.Descripcion)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Tarea)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Tarea.Descripcion)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.Rutinaria)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Rutinaria)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Peligro)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Peligro.Descripcion)
         </dd>
 
         <dt>
@@ -41,29 +71,42 @@
         <dd>
             @Html.DisplayFor(model => model.NivelExposicion)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.NivelProbabilidad)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.NivelProbabilidad)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.NivelConsecuencias)
+            @Html.DisplayNameFor(model => model.NivelConsecuencia)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.NivelConsecuencias)
+            @Html.DisplayFor(model => model.NivelConsecuencia)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.NivelRiesgo)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.NivelRiesgo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoriaRiesgo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoriaRiesgo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Aceptabilidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Aceptabilidad)
         </dd>
 
         <dt>
@@ -86,5 +129,5 @@
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Retornar", "Index")
 </p>

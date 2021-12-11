@@ -1,10 +1,10 @@
-﻿@model IEnumerable<WSafe.Domain.Models.RiesgoViewModel>
+﻿@model IEnumerable<WSafe.Domain.Data.Entities.Riesgo>
 
 @{
-    ViewBag.Title = "Gestor de Roesgos";
+    ViewBag.Title = "WSafe";
 }
 
-<h2><strong><b></b>Gestor de riesgos</strong></h2>
+<h2>Gestor de riesgos</h2>
 
 <p>
     @Html.ActionLink("Nuevo", "Create")
@@ -12,131 +12,108 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Zonas)
+            @Html.DisplayNameFor(model => model.Zona)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Procesos)
+            @Html.DisplayNameFor(model => model.Proceso)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Actividades)
+            @Html.DisplayNameFor(model => model.Actividad)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Tareas)
+            @Html.DisplayNameFor(model => model.Tarea)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Rutinaria)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CategoriasPeligros)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Peligros)
+            @Html.DisplayNameFor(model => model.Peligro)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.EfectosPosibles)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NivelesDeficiencia)
+            @Html.DisplayNameFor(model => model.NivelDeficiencia)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NivelesExposicion)
+            @Html.DisplayNameFor(model => model.NivelExposicion)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.NivelProbabilidad)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.InterpretacionNP)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NivelesConsecuencia)
+            @Html.DisplayNameFor(model => model.NivelConsecuencia)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.NivelRiesgo)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.InterpretacionNR)
+            @Html.DisplayNameFor(model => model.CategoriaRiesgo)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.AceptabilidadNR)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SignificadoNR)
+            @Html.DisplayNameFor(model => model.Aceptabilidad)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.NroExpuestos)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.RequisitoLegal)
+            Opciones
         </th>
-        <th></th>
     </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ZonaID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProcesoID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ActividadID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TareaID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rutinaria)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoriaPeligroID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PeligroID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EfectosPosibles)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NivelesDeficienciaID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NivelesExposicionID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NivelProbabilidad)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InterpretacionNP)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NivelesConsecuenciaID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NivelRiesgo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InterpretacionNR)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AceptabilidadNR)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SignificadoNR)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NroExpuestos)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RequisitoLegal)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-            </td>
-        </tr>
-    }
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Zona.Descripcion)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Proceso.Descripcion)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Actividad.Descripcion)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Tarea.Descripcion)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Rutinaria)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Peligro.Descripcion)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.EfectosPosibles)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.NivelDeficiencia)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.NivelExposicion)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.NivelProbabilidad)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.NivelConsecuencia)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.NivelRiesgo)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CategoriaRiesgo)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Aceptabilidad)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.NroExpuestos)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+    </td>
+</tr>
+}
 
 </table>
