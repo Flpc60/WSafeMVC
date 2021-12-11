@@ -19,9 +19,9 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public async Task<Riesgo> ToRiesgoAsync(RiesgoViewModel model, bool isNew)
         {
-            return new Riesgo
+            var result = new Riesgo
             {
-                ID = isNew ? 0 : model.ID,
+                ID = isNew ? 1 : model.ID,
                 Zona = await _empresaContext.Zonas.FindAsync(model.ZonaID),
                 Proceso = await _empresaContext.Procesos.FindAsync(model.ProcesoID),
                 Actividad = await _empresaContext.Actividades.FindAsync(model.ActividadID),
@@ -37,8 +37,9 @@ namespace WSafe.Domain.Helpers.Implements
                 NroExpuestos = model.NroExpuestos,
                 RequisitoLegal = model.RequisitoLegal,
                 MedidasIntervencion = isNew ? new List<Aplicacion>() : null,
-                Acciones = isNew ? new List<Accion>() : null
+                Acciones = isNew ? new List<Accion>() : null,
             };
+            return result;
         }
         public RiesgoViewModel ToRiesgoViewModel(Riesgo riesgo)
         {
