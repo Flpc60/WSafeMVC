@@ -4,6 +4,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using WSafe.Domain.Data;
+using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Helpers;
 using WSafe.Domain.Models;
 using WSafe.Domain.Repositories.Implements;
@@ -138,14 +139,7 @@ namespace WSafe.Web.Controllers
                 return HttpNotFound();
             }
 
-            var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
-            var riesgoViewModel = _converterHelper.ToRiesgoViewModel(result);
-
-            if (riesgoViewModel == null)
-            {
-                return HttpNotFound();
-            }
-            return View(riesgoViewModel);
+            return View(result);
         }
 
         // POST: Riesgos/Edit/5
@@ -153,29 +147,19 @@ namespace WSafe.Web.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(RiesgoViewModel model)
+        public async Task<ActionResult> Edit(Riesgo model)
         {
             if (!ModelState.IsValid)
             {
-                // TODO
-                model.Zonas = _comboHelper.GetComboZonas();
-                model.Procesos = _comboHelper.GetComboProcesos();
-                model.Actividades = _comboHelper.GetComboActividades();
-                model.Tareas = _comboHelper.GetComboTareas();
-                model.Peligros = _comboHelper.GetComboPeligros(1);
-                model.CategoriasPeligros = _comboHelper.GetComboCategoriaPeligros();
-                model.Peligros = _comboHelper.GetComboPeligros(1);
-
                 return View(model);
             }
 
             if (ModelState.IsValid)
             {
-                var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
-                var result = await _converterHelper.ToRiesgoAsync(model, true);
-                _empresaContext.Entry(result).State = EntityState.Modified;
+                //var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
                 try
                 {
+                    _empresaContext.Entry(model).State = EntityState.Modified;
                     await _empresaContext.SaveChangesAsync();
                 }
                 catch (Exception ex)
@@ -196,15 +180,28 @@ namespace WSafe.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
-            var result = await consulta.GetById(id.Value);
-            var riesgoViewModel = _converterHelper.ToRiesgoViewModel(result);
 
-            if (riesgoViewModel == null)
+            var result = await _empresaContext.Riesgos.Include(z => z.Zona)
+                .Include(p => p.Proceso)
+                .Include(a => a.Actividad)
+                .Include(t => t.Tarea)
+                .Include(cp => cp.Peligro)
+                .FirstOrDefaultAsync(i => i.ID == id.Value);
+
+            var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
+            try
+            {
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Create"));
+            }
+
+            if (result == null)
             {
                 return HttpNotFound();
             }
-            return View(riesgoViewModel);
+            return View(result);
         }
 
 
@@ -214,10 +211,9 @@ namespace WSafe.Web.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
-            var result = await consulta.GetById(id);
             try
             {
-                _empresaContext.Riesgos.Remove(result);
+                await consulta.Delete(id);
             }
             catch (Exception ex)
             {

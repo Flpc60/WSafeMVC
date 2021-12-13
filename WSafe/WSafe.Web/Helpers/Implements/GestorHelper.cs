@@ -20,19 +20,15 @@ namespace WSafe.Domain.Helpers.Implements
             {
                 case int p when (p >= 24):
                     return "Muy alto (MA)";
-                    break;
 
                 case int p when (p >= 10 && p < 24):
                     return "Alto (A)";
-                    break;
 
                 case int p when (p >= 8 && p < 10):
                     return "Mdio (M)";
-                    break;
 
                 default:
                     return "Bajo (B)";
-                    break;
             }
         }
         public string GetInterpretaNR(int nivelRiesgo)
@@ -41,19 +37,15 @@ namespace WSafe.Domain.Helpers.Implements
             {
                 case int nr when (nr >= 600):
                     return "I";
-                    break;
 
                 case int nr when (nr >= 150 && nr < 600):
                     return "II";
-                    break;
 
                 case int nr when (nr >= 40 && nr < 150):
                     return "III";
-                    break;
 
                 default:
                     return "IV";
-                    break;
             }
         }
         public string GetAceptabilidadNR(string nivelRiesgo)
@@ -62,20 +54,15 @@ namespace WSafe.Domain.Helpers.Implements
             {
                 case "I":
                     return "No Aceptable";
-                    break;
 
                 case "II":
                     return "No Aceptable o Aceptable con control Específico";
-                    break;
 
                 case "III":
                     return "Mejorable";
-                    break;
-
 
                 default:
                     return "Aceptable";
-                    break;
             }
         }
         public string GetSignificadoNR(string nivelRiesgo)
@@ -84,20 +71,15 @@ namespace WSafe.Domain.Helpers.Implements
             {
                 case "I":
                     return "red";
-                    break;
 
                 case "II":
                     return "yellow";
-                    break;
 
                 case "III":
                     return "orange";
-                    break;
-
 
                 default:
                     return "green";
-                    break;
             }
         }
         public List<Control> GetControlesFuente(int idRiesgo)
@@ -135,6 +117,61 @@ namespace WSafe.Domain.Helpers.Implements
                     Efectividad = c.Efectividad
                 }).ToList();
             return list;
+        }
+
+        public NivelesDeficiencia GetNivelDeficiencia(int deficiencia)
+        {
+            switch (deficiencia)
+            {
+                case 10:
+                    return NivelesDeficiencia.Muy_alto;
+
+                case 6:
+                    return NivelesDeficiencia.Alto;
+
+                case 2:
+                    return NivelesDeficiencia.Medio;
+
+                default:
+                    return NivelesDeficiencia.Bajo;
+            }
+        }
+
+        public NivelesExposicion GetNivelExposicion(int exposicion)
+        {
+            switch (exposicion)
+            {
+                case 4:
+                    return NivelesExposicion.Continua;
+
+                case 3:
+                    return NivelesExposicion.Frecuente;
+
+                case 2:
+                    return NivelesExposicion.Esporadica;
+
+                default:
+                    return NivelesExposicion.Ocasional;
+            }
+            throw new NotImplementedException();
+        }
+
+        public NivelesConsecuencia GetNivelConsecuencia(int consecuencia)
+        {
+            switch (consecuencia)
+            {
+                case 100:
+                    return NivelesConsecuencia.Mortal_catastrófico;
+
+                case 60:
+                    return NivelesConsecuencia.Muy_grave;
+
+                case 25:
+                    return NivelesConsecuencia.Grave;
+
+                default:
+                    return NivelesConsecuencia.Leve;
+            }
         }
     }
 }
