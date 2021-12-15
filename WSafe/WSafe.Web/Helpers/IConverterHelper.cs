@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using WSafe.Domain.Data.Entities;
-using WSafe.Domain.Models;
+using WSafe.Web.Models;
 
 namespace WSafe.Domain.Helpers
 {

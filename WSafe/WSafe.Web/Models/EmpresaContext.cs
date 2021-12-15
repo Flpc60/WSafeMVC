@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
 using WSafe.Domain.Data.Entities;
 
-namespace WSafe.Domain.Data
+namespace WSafe.Web.Models
 {
     public class EmpresaContext : DbContext
     {
@@ -19,6 +19,6 @@ namespace WSafe.Domain.Data
         public DbSet<Trabajador> Trabajadores { get; set; }
         public DbSet<Control> Controles { get; set; }
 
-        public System.Data.Entity.DbSet<WSafe.Domain.Models.RiesgoViewModel> RiesgoViewModels { get; set; }
+        public System.Data.Entity.DbSet<WSafe.Web.Models.RiesgoViewModel> RiesgoViewModels { get; set; }
     }
 }

@@ -12,5 +12,8 @@ namespace WSafe.Domain.Helpers
         string GetInterpretaNR(int nivelRiesgo);
         string GetAceptabilidadNR(string nivelRiesgo);
         string GetSignificadoNR(string nivelRiesgo);
+        NivelesDeficiencia GetNivelDeficiencia(int deficiencia);
+        NivelesExposicion GetNivelExposicion(int exposicion);
+        NivelesConsecuencia GetNivelConsecuencia(int consecuencia);
     }
 }

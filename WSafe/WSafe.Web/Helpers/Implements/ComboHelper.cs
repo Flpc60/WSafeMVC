@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Web.Mvc;
 using WSafe.Domain.Data;
+using WSafe.Domain.Data.Entities;
+using WSafe.Web.Models;
 
 namespace WSafe.Domain.Helpers.Implements
 {
@@ -50,28 +52,24 @@ namespace WSafe.Domain.Helpers.Implements
 
             return list;
         }
-
-        public IEnumerable<SelectListItem> GetComboPeligros(int id)
+        public IEnumerable<SelectListItem> GetComboPeligros(int categoriaID)
         {
-            var list = _empresaContext.Peligros
-                .Where(cp => cp.CategoriaPeligroID == id)
-                .Select(p => new SelectListItem
-                {
-                    Text = p.Descripcion,
-                    Value = p.ID.ToString()
-                })
-                    .OrderBy(p => p.Text)
-                    .ToList();
+            var list = _empresaContext.Peligros.Select(p => new SelectListItem
+            {
+                Text = p.Descripcion,
+                Value = p.ID.ToString()
+            })
+                .OrderBy(p => p.Text)
+                .ToList();
 
             list.Insert(0, new SelectListItem
             {
-                Text = "(Seleccione un peligro ...)",
+                Text = "(Seleccione una categoria peligro ...)",
                 Value = "0"
             });
 
             return list;
         }
-
         public IEnumerable<SelectListItem> GetNivelConsecuencias()
         {
             List<SelectListItem> list = new List<SelectListItem>();

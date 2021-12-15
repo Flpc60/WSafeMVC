@@ -18,5 +18,7 @@ namespace WSafe.Domain.Data
         public DbSet<Peligro> Peligros { get; set; }
         public DbSet<Trabajador> Trabajadores { get; set; }
         public DbSet<Control> Controles { get; set; }
+
+        public System.Data.Entity.DbSet<WSafe.Web.Models.RiesgoViewModel> RiesgoViewModels { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
-using WSafe.Domain.Models;
+using WSafe.Web.Models;
 
 namespace WSafe.Domain.Helpers.Implements
 {
@@ -21,7 +21,7 @@ namespace WSafe.Domain.Helpers.Implements
         {
             var result = new Riesgo
             {
-                ID = isNew ? 1 : model.ID,
+                ID = isNew ? 0 : model.ID,
                 Zona = await _empresaContext.Zonas.FindAsync(model.ZonaID),
                 Proceso = await _empresaContext.Procesos.FindAsync(model.ProcesoID),
                 Actividad = await _empresaContext.Actividades.FindAsync(model.ActividadID),
@@ -43,7 +43,7 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public RiesgoViewModel ToRiesgoViewModel(Riesgo riesgo)
         {
-            return new RiesgoViewModel
+            var model = new RiesgoViewModel
             {
                 ID = riesgo.ID,
                 ProcesoID = riesgo.Proceso.ID,
@@ -58,13 +58,16 @@ namespace WSafe.Domain.Helpers.Implements
                 CategoriaPeligroID = riesgo.Peligro.CategoriaPeligroID,
                 CategoriasPeligros = _comboHelper.GetComboCategoriaPeligros(),
                 PeligroID = riesgo.Peligro.ID,
-                Peligros = _comboHelper.GetComboPeligros(riesgo.Peligro.CategoriaPeligroID),
+                //Peligros = _comboHelper.GetComboPeligros(),
                 EfectosPosibles = riesgo.EfectosPosibles,
                 NivelesDeficienciaID = riesgo.NivelDeficiencia,
+                NivelesDeficiencia = _gestorHelper.GetNivelDeficiencia(riesgo.NivelDeficiencia),
                 NivelesExposicionID = riesgo.NivelExposicion,
+                NivelesExposicion = _gestorHelper.GetNivelExposicion(riesgo.NivelExposicion),
                 NivelProbabilidad = riesgo.NivelProbabilidad,
                 InterpretacionNP = _gestorHelper.GetInterpretaNP(riesgo.NivelProbabilidad),
                 NivelesConsecuenciaID = riesgo.NivelConsecuencia,
+                NivelesConsecuencia = _gestorHelper.GetNivelConsecuencia(riesgo.NivelConsecuencia),
                 NivelRiesgo = riesgo.NivelRiesgo,
                 InterpretacionNR = _gestorHelper.GetInterpretaNR(riesgo.NivelRiesgo),
                 AceptabilidadNR = riesgo.Aceptabilidad,
@@ -72,6 +75,8 @@ namespace WSafe.Domain.Helpers.Implements
                 NroExpuestos = riesgo.NroExpuestos,
                 RequisitoLegal = riesgo.RequisitoLegal
             };
+
+            return model;
         }
     }
 }

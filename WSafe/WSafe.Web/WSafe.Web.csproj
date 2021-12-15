@@ -60,6 +60,9 @@
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Bot.Configuration, Version=4.15.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bot.Configuration.4.15.1\lib\netstandard2.0\Microsoft.Bot.Configuration.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Data.SqlClient, Version=4.0.0.0, Culture=neutral, PublicKeyToken=23ec7fc2d6eaa4a5, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Data.SqlClient.4.0.0\lib\net461\Microsoft.Data.SqlClient.dll</HintPath>
@@ -179,8 +182,8 @@
     <Reference Include="System.Text.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Json.4.6.0\lib\net461\System.Text.Json.dll</HintPath>
     </Reference>
-    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Transactions" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -271,7 +274,11 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RiesgosController.cs" />
-    <Compile Include="Data\EmpresaContext.cs" />
+    <Compile Include="Migrations\202112150110187_RefinarRiesgo9.cs" />
+    <Compile Include="Migrations\202112150110187_RefinarRiesgo9.Designer.cs">
+      <DependentUpon>202112150110187_RefinarRiesgo9.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmpresaContext.cs" />
     <Compile Include="Data\Entities\Accion.cs" />
     <Compile Include="Data\Entities\Actividad.cs" />
     <Compile Include="Data\Entities\Aplicacion.cs" />
@@ -354,6 +361,30 @@
     <Compile Include="Migrations\202112112321137_RefinarRiesgos2.cs" />
     <Compile Include="Migrations\202112112321137_RefinarRiesgos2.Designer.cs">
       <DependentUpon>202112112321137_RefinarRiesgos2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112131544448_RefinarRiesgo3.cs" />
+    <Compile Include="Migrations\202112131544448_RefinarRiesgo3.Designer.cs">
+      <DependentUpon>202112131544448_RefinarRiesgo3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112131620349_RefinarRiesgo4.cs" />
+    <Compile Include="Migrations\202112131620349_RefinarRiesgo4.Designer.cs">
+      <DependentUpon>202112131620349_RefinarRiesgo4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112132259077_RefinarRiesgo5.cs" />
+    <Compile Include="Migrations\202112132259077_RefinarRiesgo5.Designer.cs">
+      <DependentUpon>202112132259077_RefinarRiesgo5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112140001210_RefinarRiesgo6.cs" />
+    <Compile Include="Migrations\202112140001210_RefinarRiesgo6.Designer.cs">
+      <DependentUpon>202112140001210_RefinarRiesgo6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112141946560_RefinarRiesgo7.cs" />
+    <Compile Include="Migrations\202112141946560_RefinarRiesgo7.Designer.cs">
+      <DependentUpon>202112141946560_RefinarRiesgo7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112142205542_RefinarRiesgo8.cs" />
+    <Compile Include="Migrations\202112142205542_RefinarRiesgo8.Designer.cs">
+      <DependentUpon>202112142205542_RefinarRiesgo8.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\RiesgoViewModel.cs" />
@@ -461,6 +492,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112112321137_RefinarRiesgos2.resx">
       <DependentUpon>202112112321137_RefinarRiesgos2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112131544448_RefinarRiesgo3.resx">
+      <DependentUpon>202112131544448_RefinarRiesgo3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112131620349_RefinarRiesgo4.resx">
+      <DependentUpon>202112131620349_RefinarRiesgo4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112132259077_RefinarRiesgo5.resx">
+      <DependentUpon>202112132259077_RefinarRiesgo5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112140001210_RefinarRiesgo6.resx">
+      <DependentUpon>202112140001210_RefinarRiesgo6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112141946560_RefinarRiesgo7.resx">
+      <DependentUpon>202112141946560_RefinarRiesgo7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112142205542_RefinarRiesgo8.resx">
+      <DependentUpon>202112142205542_RefinarRiesgo8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112150110187_RefinarRiesgo9.resx">
+      <DependentUpon>202112150110187_RefinarRiesgo9.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
