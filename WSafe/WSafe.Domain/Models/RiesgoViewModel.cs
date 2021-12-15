@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using WSafe.Domain.Data.Entities;
 
-namespace WSafe.Domain.Models
+namespace WSafe.Web.Models
 {
     public class RiesgoViewModel
     {
@@ -40,7 +40,7 @@ namespace WSafe.Domain.Models
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un proceso.")]
         public int PeligroID { get; set; }
         [Display(Name = "Descripción")]
-        public IEnumerable<SelectListItem> Peligros { get; set; }
+        public IEnumerable<Peligro> Peligros { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Efectos posibles")]
         public EfectosPosibles EfectosPosibles { get; set; }
@@ -56,7 +56,7 @@ namespace WSafe.Domain.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un nivel de exposición.")]
         [Display(Name = "Niveles Exposición")]
-        public NivelesExposicion NivelesExposicion{ get; set; }
+        public NivelesExposicion NivelesExposicion { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "NP")]
         public int NivelProbabilidad { get; set; }

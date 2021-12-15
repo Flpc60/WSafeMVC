@@ -36,9 +36,7 @@ namespace WSafe.Domain.Repositories.Implements
 
         public async Task<TEntity> Insert(TEntity entity)
         {
-
-
-            // _empresaContext.Set<Riesgo>().Add(entity);
+            _empresaContext.Set<TEntity>().Add(entity);
             await _empresaContext.SaveChangesAsync();
             return entity;
         }

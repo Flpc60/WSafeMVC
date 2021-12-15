@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using WSafe.Domain.Data;
+using WSafe.Domain.Data.Entities;
 
 namespace WSafe.Domain.Helpers.Implements
 {
@@ -51,22 +52,24 @@ namespace WSafe.Domain.Helpers.Implements
             return list;
         }
 
-        public IEnumerable<SelectListItem> GetComboPeligros(int id)
+        public List<Peligro> GetComboPeligros()
         {
             var list = _empresaContext.Peligros
-                .Where(cp => cp.CategoriaPeligroID == id)
-                .Select(p => new SelectListItem
+                //.Where(cp => cp.CategoriaPeligroID == id)
+                .Select(p => new Peligro()
                 {
-                    Text = p.Descripcion,
-                    Value = p.ID.ToString()
+                    ID = p.ID,
+                    Descripcion = p.Descripcion,
+                    CategoriaPeligroID = p.CategoriaPeligroID
                 })
-                    .OrderBy(p => p.Text)
+                    .OrderBy(p => p.Descripcion)
                     .ToList();
 
-            list.Insert(0, new SelectListItem
+            list.Insert(0, new Peligro()
             {
-                Text = "(Seleccione un peligro ...)",
-                Value = "0"
+                ID = 0,
+                Descripcion = "(Seleccione un peligro ...)",
+                CategoriaPeligroID = 0
             });
 
             return list;

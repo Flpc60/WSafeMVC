@@ -10,6 +10,5 @@ namespace WSafe.Domain.Repositories
         Task<TEntity> Insert(TEntity entity);
         Task<TEntity> Update(TEntity entity);
         Task Delete(int id);
-
     }
 }

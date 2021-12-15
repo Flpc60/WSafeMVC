@@ -1,18 +1,15 @@
 namespace WSafe.Web.Migrations
 {
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<WSafe.Domain.Data.EmpresaContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<WSafe.Web.Models.EmpresaContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(WSafe.Domain.Data.EmpresaContext context)
+        protected override void Seed(WSafe.Web.Models.EmpresaContext context)
         {
             //  This method will be called after migrating to the latest version.
 

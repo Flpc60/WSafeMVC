@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using WSafe.Domain.Data;
-using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Helpers;
-using WSafe.Domain.Models;
 using WSafe.Domain.Repositories.Implements;
 using WSafe.Domain.Services.Implements;
+using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
 {
@@ -32,6 +31,7 @@ namespace WSafe.Web.Controllers
                 .Include(a => a.Actividad)
                 .Include(t => t.Tarea)
                 .Include(cp => cp.Peligro)
+                .OrderBy(cr => cr.CategoriaRiesgo)
                 .ToListAsync();
 
             return View(list);
@@ -64,13 +64,15 @@ namespace WSafe.Web.Controllers
         public ActionResult Create()
         {
             // TODO
-            var riesgoView = new RiesgoViewModel();
-            riesgoView.Procesos = _comboHelper.GetComboProcesos();
-            riesgoView.Zonas = _comboHelper.GetComboZonas();
-            riesgoView.Actividades = _comboHelper.GetComboActividades();
-            riesgoView.Tareas = _comboHelper.GetComboTareas();
-            riesgoView.CategoriasPeligros = _comboHelper.GetComboCategoriaPeligros();
-            riesgoView.Peligros = _comboHelper.GetComboPeligros(1);
+            var riesgoView = new RiesgoViewModel
+            {
+                Procesos = _comboHelper.GetComboProcesos(),
+                Zonas = _comboHelper.GetComboZonas(),
+                Actividades = _comboHelper.GetComboActividades(),
+                Tareas = _comboHelper.GetComboTareas(),
+                CategoriasPeligros = _comboHelper.GetComboCategoriaPeligros(),
+                Peligros = _comboHelper.GetComboPeligros(1)
+            };
 
             return View(riesgoView);
         }
@@ -89,28 +91,15 @@ namespace WSafe.Web.Controllers
                 model.Procesos = _comboHelper.GetComboProcesos();
                 model.Actividades = _comboHelper.GetComboActividades();
                 model.Tareas = _comboHelper.GetComboTareas();
-                model.Peligros = _comboHelper.GetComboPeligros(1);
                 model.CategoriasPeligros = _comboHelper.GetComboCategoriaPeligros();
                 model.Peligros = _comboHelper.GetComboPeligros(1);
-
-                return View(model);
             }
-
 
             if (ModelState.IsValid)
             {
                 var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
-                var result = await _converterHelper.ToRiesgoAsync(model, true);
-                _empresaContext.Riesgos.Add(result);
-                try
-                {
-                    await _empresaContext.SaveChangesAsync();
-                }
-                catch (Exception ex)
-                {
-                    return View("Error", new HandleErrorInfo(ex, "Riesgos", "Create"));
-                }
-
+                var riesgo = await _converterHelper.ToRiesgoAsync(model, true);
+                await consulta.Insert(riesgo);
 
                 return RedirectToAction("Index");
             }
@@ -134,12 +123,14 @@ namespace WSafe.Web.Controllers
                 .Include(cp => cp.Peligro)
                 .FirstOrDefaultAsync(i => i.ID == id.Value);
 
-            if (result == null)
+            var riesgoViewModel = _converterHelper.ToRiesgoViewModel(result);
+
+            if (riesgoViewModel == null)
             {
                 return HttpNotFound();
             }
 
-            return View(result);
+            return View(riesgoViewModel);
         }
 
         // POST: Riesgos/Edit/5
@@ -147,27 +138,26 @@ namespace WSafe.Web.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(Riesgo model)
+        public async Task<ActionResult> Edit(RiesgoViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            if (ModelState.IsValid)
+            try
             {
-                //var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
-                try
+                if (ModelState.IsValid)
                 {
-                    _empresaContext.Entry(model).State = EntityState.Modified;
+                    var result = await _converterHelper.ToRiesgoAsync(model, false);
+                    _empresaContext.Entry(result).State = EntityState.Modified;
                     await _empresaContext.SaveChangesAsync();
+                    return RedirectToAction("Index");
                 }
-                catch (Exception ex)
-                {
-                    return View("Error", new HandleErrorInfo(ex, "Riesgos", "Create"));
-                }
-
-                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Create"));
             }
 
             return View(model);
@@ -188,7 +178,6 @@ namespace WSafe.Web.Controllers
                 .Include(cp => cp.Peligro)
                 .FirstOrDefaultAsync(i => i.ID == id.Value);
 
-            var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
             try
             {
             }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Web.Mvc;
+using WSafe.Domain.Data.Entities;
 
 namespace WSafe.Domain.Helpers
 {
@@ -11,7 +11,7 @@ namespace WSafe.Domain.Helpers
         IEnumerable<SelectListItem> GetComboActividades();
         IEnumerable<SelectListItem> GetComboTareas();
         IEnumerable<SelectListItem> GetComboCategoriaPeligros();
-        IEnumerable<SelectListItem> GetComboPeligros(int id);
+        List<Peligro> GetComboPeligros();
         IEnumerable<SelectListItem> GetNivelDeficiencia();
         IEnumerable<SelectListItem> GetNivelExposicion();
         IEnumerable<SelectListItem> GetNivelConsecuencias();

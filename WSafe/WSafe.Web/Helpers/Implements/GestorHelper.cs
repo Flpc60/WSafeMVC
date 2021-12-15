@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
+using WSafe.Web.Models;
 
 namespace WSafe.Domain.Helpers.Implements
 {
@@ -108,7 +109,7 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public List<Control> GetControlesPersona(int idRiesgo)
         {
-            var  list = _empresaContext.Controles
+            var list = _empresaContext.Controles
                 .Where(c => c.RiesgoID == idRiesgo && c.CategoriaAplicacion == CategoriaAplicacion.Individuo)
                 .Select(c => new Control
                 {
