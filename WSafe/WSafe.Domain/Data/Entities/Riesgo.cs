@@ -49,6 +49,7 @@ namespace WSafe.Domain.Data.Entities
             }
         }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [StringLength(1, MinimumLength = 1)]
         [Display(Name = "Categoria")]
         public string CategoriaRiesgo { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]

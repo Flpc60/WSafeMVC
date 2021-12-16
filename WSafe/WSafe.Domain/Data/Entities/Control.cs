@@ -7,6 +7,8 @@ namespace WSafe.Domain.Data.Entities
     {
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public int AplicacionID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int RiesgoID { get; set; }
         public string Codigo { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
@@ -22,5 +24,6 @@ namespace WSafe.Domain.Data.Entities
         public decimal Presupuesto { get; set; }
         public ICollection<Traza> Trazas { get; set; }
         public int Efectividad { get; set; }
+        public CategoriasEfectividad CategoriaEfectividad { get; set; }
     }
 }

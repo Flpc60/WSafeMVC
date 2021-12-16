@@ -7,9 +7,11 @@ namespace WSafe.Domain.Data.Entities
     {
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        public int RiesgoID { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatotio")]
         public int ControlID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatotio")]
+        public int AplicacionID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatotio")]
+        public int RiesgoolID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         public DateTime FechaInicial { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
