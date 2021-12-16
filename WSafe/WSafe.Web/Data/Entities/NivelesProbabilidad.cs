@@ -2,15 +2,15 @@
 
 namespace WSafe.Domain.Data.Entities
 {
-    public enum NivelesDeficiencia
+    public enum NivelesProbabilidad
     {
         [Display(Name = "Muy Alto (MA)")]
-        Muy_alto = 1,
+        Continua = 1,
         [Display(Name = "Alto (A)")]
-        Alto = 2,
+        Frecuente = 2,
         [Display(Name = "Medio (M)")]
-        Medio = 3,
-        [Display(Name = "Bajo (B)")]
-        Bajo = 4
+        Ocasional = 3,
+        [Display(Name = "Bajo (B)" )]
+        Esporadica = 4
     }
 }

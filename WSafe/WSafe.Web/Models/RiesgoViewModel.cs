@@ -32,12 +32,13 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public bool Rutinaria { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un proceso.")]
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una categoria de peligro.")]
         public int CategoriaPeligroID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Clasificación")]
         public IEnumerable<SelectListItem> CategoriasPeligros { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un proceso.")]
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un peligro.")]
         public int PeligroID { get; set; }
         [Display(Name = "Descripción")]
         public IEnumerable<SelectListItem> Peligros { get; set; }
@@ -71,6 +72,9 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "NR")]
         public int NivelRiesgo { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Categoria")]
+        public string CategoriaRiesgo { get; set; }
         [Display(Name = "Interpretación NR")]
         public string InterpretacionNR { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -66,8 +68,8 @@ namespace WSafe.Web.Controllers
             // TODO
             var riesgoView = new RiesgoViewModel
             {
-                Procesos = _comboHelper.GetComboProcesos(),
                 Zonas = _comboHelper.GetComboZonas(),
+                Procesos = _comboHelper.GetComboProcesos(),
                 Actividades = _comboHelper.GetComboActividades(),
                 Tareas = _comboHelper.GetComboTareas(),
                 CategoriasPeligros = _comboHelper.GetComboCategoriaPeligros(),
@@ -87,26 +89,34 @@ namespace WSafe.Web.Controllers
             if (!ModelState.IsValid)
             {
                 // TODO
-                model.Zonas = _comboHelper.GetComboZonas();
-                model.Procesos = _comboHelper.GetComboProcesos();
-                model.Actividades = _comboHelper.GetComboActividades();
-                model.Tareas = _comboHelper.GetComboTareas();
-                model.CategoriasPeligros = _comboHelper.GetComboCategoriaPeligros();
-                model.Peligros = _comboHelper.GetComboPeligros(1);
             }
 
-            if (ModelState.IsValid)
+            try
             {
-                var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
-                var riesgo = await _converterHelper.ToRiesgoAsync(model, true);
-                await consulta.Insert(riesgo);
+                if (ModelState.IsValid)
+                {
+                    var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
+                    var riesgo = await _converterHelper.ToRiesgoAsync(model, true);
+                    await consulta.Insert(riesgo);
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Trace.TraceInformation("Property: {0} Error: {1}",
+                            validationError.PropertyName,
+                            validationError.ErrorMessage);
+                    }
+                }
             }
 
             return View(model);
         }
-
 
         // GET: Riesgos/Edit/5
         public async Task<ActionResult> Edit(int? id)
@@ -150,14 +160,15 @@ namespace WSafe.Web.Controllers
                 if (ModelState.IsValid)
                 {
                     var result = await _converterHelper.ToRiesgoAsync(model, false);
-                    _empresaContext.Entry(result).State = EntityState.Modified;
-                    await _empresaContext.SaveChangesAsync();
+                    var modifico = _empresaContext.Entry(result).State = EntityState.Modified;
+                    var salvo = await _empresaContext.SaveChangesAsync();
                     return RedirectToAction("Index");
                 }
             }
-            catch (Exception ex)
+            catch (DbEntityValidationException ex)
             {
-                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Create"));
+                //return View("Error", new HandleErrorInfo(ex, "Riesgos", "Create"));
+                throw ex;
             }
 
             return View(model);

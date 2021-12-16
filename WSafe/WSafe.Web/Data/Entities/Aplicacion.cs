@@ -24,7 +24,6 @@ namespace WSafe.Domain.Data.Entities
         public DateTime FechaFinal { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public decimal Presupuesto { get; set; }
-        public CategoriasEfectividad CategoriaEfectividad { get; set; }
         public string Observaciones { get; set; }
     }
 }

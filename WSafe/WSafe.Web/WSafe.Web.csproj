@@ -274,9 +274,19 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RiesgosController.cs" />
+    <Compile Include="Data\Entities\NivelesProbabilidad.cs" />
+    <Compile Include="Data\Entities\NivelesRiesgo.cs" />
     <Compile Include="Migrations\202112150110187_RefinarRiesgo9.cs" />
     <Compile Include="Migrations\202112150110187_RefinarRiesgo9.Designer.cs">
       <DependentUpon>202112150110187_RefinarRiesgo9.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112152046457_refinarRiesgo10.cs" />
+    <Compile Include="Migrations\202112152046457_refinarRiesgo10.Designer.cs">
+      <DependentUpon>202112152046457_refinarRiesgo10.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112152153203_refinarRiesgo11.cs" />
+    <Compile Include="Migrations\202112152153203_refinarRiesgo11.Designer.cs">
+      <DependentUpon>202112152153203_refinarRiesgo11.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\EmpresaContext.cs" />
     <Compile Include="Data\Entities\Accion.cs" />
@@ -513,6 +523,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112150110187_RefinarRiesgo9.resx">
       <DependentUpon>202112150110187_RefinarRiesgo9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112152046457_refinarRiesgo10.resx">
+      <DependentUpon>202112152046457_refinarRiesgo10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112152153203_refinarRiesgo11.resx">
+      <DependentUpon>202112152153203_refinarRiesgo11.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
