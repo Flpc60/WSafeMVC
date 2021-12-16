@@ -101,6 +101,8 @@
     <Compile Include="Data\Entities\NivelesConsecuencia.cs" />
     <Compile Include="Data\Entities\NivelesDeficiencia.cs" />
     <Compile Include="Data\Entities\NivelesExposicion.cs" />
+    <Compile Include="Data\Entities\NivelesProbabilidad.cs" />
+    <Compile Include="Data\Entities\NivelesRiesgo.cs" />
     <Compile Include="Data\Entities\Peligro.cs" />
     <Compile Include="Data\Entities\Proceso.cs" />
     <Compile Include="Data\Entities\Riesgo.cs" />

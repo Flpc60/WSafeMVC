@@ -1,10 +1,16 @@
-﻿namespace WSafe.Domain.Data.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace WSafe.Domain.Data.Entities
 {
     public enum CategoriasAceptabilidad
     {
-        No_Aceptable = 1,
-        Aceptable_Control_Especifico = 2,
+        [Display(Name = "No Aceptable")]
+        NoAceptable = 1,
+        [Display(Name = "No Aceptable  o Aceptable con control específico")]
+        AceptableControlEspecifico = 2,
+        [Display(Name = "Mejorable")]
         Mejorable = 3,
+        [Display(Name = "Aceptable")]
         Aceptable = 4
     }
 }

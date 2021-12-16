@@ -33,7 +33,6 @@ namespace WSafe.Web.Controllers
                 .Include(a => a.Actividad)
                 .Include(t => t.Tarea)
                 .Include(cp => cp.Peligro)
-                .OrderBy(cr => cr.CategoriaRiesgo)
                 .ToListAsync();
 
             return View(list);
@@ -65,17 +64,7 @@ namespace WSafe.Web.Controllers
         // GET: Riesgos/Create
         public ActionResult Create()
         {
-            // TODO
-            var riesgoView = new RiesgoViewModel
-            {
-                Zonas = _comboHelper.GetComboZonas(),
-                Procesos = _comboHelper.GetComboProcesos(),
-                Actividades = _comboHelper.GetComboActividades(),
-                Tareas = _comboHelper.GetComboTareas(),
-                CategoriasPeligros = _comboHelper.GetComboCategoriaPeligros(),
-                Peligros = _comboHelper.GetComboPeligros(1)
-            };
-
+            var riesgoView = _converterHelper.ToRiesgoViewModelNew();
             return View(riesgoView);
         }
 

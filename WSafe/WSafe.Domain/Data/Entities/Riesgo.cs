@@ -5,6 +5,7 @@ namespace WSafe.Domain.Data.Entities
 {
     public class Riesgo
     {
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public Zona Zona { get; set; }
@@ -49,10 +50,29 @@ namespace WSafe.Domain.Data.Entities
             }
         }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [StringLength(1, MinimumLength = 1)]
         [Display(Name = "Categoria")]
-        public string CategoriaRiesgo { get; set; }
+        public string CategoriaRiesgo
+        {
+            get
+            {
+                switch (NivelRiesgo)
+                {
+                    case int nr when (nr >= 600):
+                        return "I";
+
+                    case int nr when (nr >= 150 && nr < 600):
+                        return "II";
+
+                    case int nr when (nr >= 40 && nr < 150):
+                        return "III";
+
+                    default:
+                        return "IV";
+                }
+            }
+         }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Aceptabilidad riesgo")]
         public CategoriasAceptabilidad Aceptabilidad { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Expuestos")]
