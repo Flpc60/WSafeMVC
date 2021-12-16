@@ -29,10 +29,9 @@ namespace WSafe.Domain.Helpers.Implements
                 Rutinaria = model.Rutinaria,
                 Peligro = await _empresaContext.Peligros.FindAsync(model.PeligroID),
                 EfectosPosibles = model.EfectosPosibles,
-                NivelDeficiencia = model.NivelesDeficienciaID,
-                NivelExposicion = model.NivelesExposicionID,
-                NivelConsecuencia = model.NivelesConsecuenciaID,
-                CategoriaRiesgo = _gestorHelper.GetInterpretaNR(model.NivelRiesgo),
+                NivelDeficiencia = model.NivelDeficiencia,
+                NivelExposicion = model.NivelExposicion,
+                NivelConsecuencia = model.NivelConsecuencia,
                 Aceptabilidad = model.AceptabilidadNR,
                 NroExpuestos = model.NroExpuestos,
                 RequisitoLegal = model.RequisitoLegal,
@@ -46,10 +45,10 @@ namespace WSafe.Domain.Helpers.Implements
             var model = new RiesgoViewModel
             {
                 ID = riesgo.ID,
-                ProcesoID = riesgo.Proceso.ID,
-                Procesos = _comboHelper.GetComboProcesos(),
                 ZonaID = riesgo.Zona.ID,
                 Zonas = _comboHelper.GetComboZonas(),
+                ProcesoID = riesgo.Proceso.ID,
+                Procesos = _comboHelper.GetComboProcesos(),
                 ActividadID = riesgo.Actividad.ID,
                 Actividades = _comboHelper.GetComboActividades(),
                 TareaID = riesgo.Tarea.ID,
@@ -60,23 +59,34 @@ namespace WSafe.Domain.Helpers.Implements
                 PeligroID = riesgo.Peligro.ID,
                 Peligros = _comboHelper.GetComboPeligros(riesgo.Peligro.CategoriaPeligroID),
                 EfectosPosibles = riesgo.EfectosPosibles,
-                NivelesDeficienciaID = riesgo.NivelDeficiencia,
+                NivelDeficiencia = riesgo.NivelDeficiencia,
                 NivelesDeficiencia = _gestorHelper.GetNivelDeficiencia(riesgo.NivelDeficiencia),
-                NivelesExposicionID = riesgo.NivelExposicion,
+                NivelExposicion = riesgo.NivelExposicion,
                 NivelesExposicion = _gestorHelper.GetNivelExposicion(riesgo.NivelExposicion),
-                NivelProbabilidad = riesgo.NivelProbabilidad,
-                InterpretacionNP = _gestorHelper.GetInterpretaNP(riesgo.NivelProbabilidad),
-                NivelesConsecuenciaID = riesgo.NivelConsecuencia,
+                NivelConsecuencia = riesgo.NivelConsecuencia,
                 NivelesConsecuencia = _gestorHelper.GetNivelConsecuencia(riesgo.NivelConsecuencia),
-                NivelRiesgo = riesgo.NivelRiesgo,
-                InterpretacionNR = _gestorHelper.GetInterpretaNR(riesgo.NivelRiesgo),
                 AceptabilidadNR = riesgo.Aceptabilidad,
-                SignificadoNR = _gestorHelper.GetSignificadoNR(riesgo.CategoriaRiesgo),
                 NroExpuestos = riesgo.NroExpuestos,
                 RequisitoLegal = riesgo.RequisitoLegal
             };
 
             return model;
         }
+
+        public RiesgoViewModel ToRiesgoViewModelNew()
+        {
+            var model = new RiesgoViewModel
+            {
+                Zonas = _comboHelper.GetComboZonas(),
+                Procesos = _comboHelper.GetComboProcesos(),
+                Actividades = _comboHelper.GetComboActividades(),
+                Tareas = _comboHelper.GetComboTareas(),
+                CategoriasPeligros = _comboHelper.GetComboCategoriaPeligros(),
+                Peligros = _comboHelper.GetComboPeligros(1),
+            };
+
+            return model;
+        }
+
     }
 }

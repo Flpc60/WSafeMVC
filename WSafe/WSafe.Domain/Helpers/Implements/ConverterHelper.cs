@@ -32,7 +32,6 @@ namespace WSafe.Domain.Helpers.Implements
                 NivelDeficiencia = model.NivelesDeficienciaID,
                 NivelExposicion = model.NivelesExposicionID,
                 NivelConsecuencia = model.NivelesConsecuenciaID,
-                CategoriaRiesgo = _gestorHelper.GetInterpretaNR(model.NivelRiesgo),
                 Aceptabilidad = model.AceptabilidadNR,
                 NroExpuestos = model.NroExpuestos,
                 RequisitoLegal = model.RequisitoLegal,

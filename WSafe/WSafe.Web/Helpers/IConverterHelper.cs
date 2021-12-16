@@ -8,5 +8,6 @@ namespace WSafe.Domain.Helpers
     {
         Task<Riesgo> ToRiesgoAsync(RiesgoViewModel model, bool isNew);
         RiesgoViewModel ToRiesgoViewModel(Riesgo riesgo);
+        RiesgoViewModel ToRiesgoViewModelNew();
     }
 }
