@@ -33,6 +33,7 @@ namespace WSafe.Web.Controllers
                 .Include(a => a.Actividad)
                 .Include(t => t.Tarea)
                 .Include(cp => cp.Peligro)
+                .OrderBy(cr => cr.CategoriaRiesgo)
                 .ToListAsync();
 
             return View(list);
@@ -148,9 +149,9 @@ namespace WSafe.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
                     var result = await _converterHelper.ToRiesgoAsync(model, false);
-                    var modifico = _empresaContext.Entry(result).State = EntityState.Modified;
-                    var salvo = await _empresaContext.SaveChangesAsync();
+                    await consulta.Update(result);
                     return RedirectToAction("Index");
                 }
             }
