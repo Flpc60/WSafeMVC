@@ -280,6 +280,14 @@
     <Compile Include="Migrations\202112161956571_RefinarRiesgo1.Designer.cs">
       <DependentUpon>202112161956571_RefinarRiesgo1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202112162257082_RefinarRiesgo2.cs" />
+    <Compile Include="Migrations\202112162257082_RefinarRiesgo2.Designer.cs">
+      <DependentUpon>202112162257082_RefinarRiesgo2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112170243292_RefinarRiesgo3.cs" />
+    <Compile Include="Migrations\202112170243292_RefinarRiesgo3.Designer.cs">
+      <DependentUpon>202112170243292_RefinarRiesgo3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\EmpresaContext.cs" />
     <Compile Include="Data\Entities\Accion.cs" />
     <Compile Include="Data\Entities\Actividad.cs" />
@@ -445,6 +453,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112161956571_RefinarRiesgo1.resx">
       <DependentUpon>202112161956571_RefinarRiesgo1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112162257082_RefinarRiesgo2.resx">
+      <DependentUpon>202112162257082_RefinarRiesgo2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112170243292_RefinarRiesgo3.resx">
+      <DependentUpon>202112170243292_RefinarRiesgo3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
