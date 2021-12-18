@@ -1,11 +1,16 @@
-﻿namespace WSafe.Domain.Data.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace WSafe.Domain.Data.Entities
 {
     public enum JerarquiaControles
     {
-        Eliminación = 1,
-        Sustitución = 2,
-        Conteroles_Ingeniería = 3,
-        Conteroles_Administración = 4,
+        Eliminacion = 1,
+        Sustitucion = 2,
+        [Display(Name = "Controles de ingeniería")]
+        Controles_Ingeniería = 3,
+        [Display(Name = "Controles de administración")]
+        Controles_Admon = 4,
+        [Display(Name = "Equipos, EPP")]
         Conteroles_EPP = 5
     }
 }

@@ -33,7 +33,7 @@ namespace WSafe.Web.Controllers
                 .Include(a => a.Actividad)
                 .Include(t => t.Tarea)
                 .Include(cp => cp.Peligro)
-                .OrderBy(cr => cr.CategoriaRiesgo)
+                .OrderByDescending(cr => cr.NivelRiesgo)
                 .ToListAsync();
 
             return View(list);

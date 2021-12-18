@@ -197,11 +197,10 @@
 </div>
 }
 
-<div>
-    @Html.ActionLink("Regresar", "Index")
-    @Html.ActionLink("Controles existente", "Control")
-    @Html.ActionLink("Medidas intervención", "Intervencion")
-    @Html.ActionLink("Acciones", "Action")
+<div class="form-group">
+    @Html.ActionLink(" Controles", "Control", new { @class = "glyphicon glyphicon-edit" }, new { @class = "btn btn-warning" })
+    @Html.ActionLink(" Acciones", "Action", new { @class = "glyphicon glyphicon-edit" }, new { @class = "btn btn-warning" })
+    @Html.ActionLink(" Intervenciones", "Intervencion", new { @class = "glyphicon glyphicon-edit" }, new { @class = "btn btn-warning" })
 </div>
 
 @section Scripts {
