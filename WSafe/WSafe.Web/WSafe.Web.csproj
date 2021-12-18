@@ -274,6 +274,8 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RiesgosController.cs" />
+    <Compile Include="Data\Entities\CategoriasCausa.cs" />
+    <Compile Include="Data\Entities\FuentesAccion.cs" />
     <Compile Include="Data\Entities\NivelesProbabilidad.cs" />
     <Compile Include="Data\Entities\NivelesRiesgo.cs" />
     <Compile Include="Migrations\202112161956571_RefinarRiesgo1.cs" />
