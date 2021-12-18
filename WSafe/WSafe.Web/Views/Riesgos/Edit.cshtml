@@ -198,9 +198,12 @@
 }
 
 <div class="form-group">
-    @Html.ActionLink(" Controles", "Control", new { @class = "glyphicon glyphicon-edit" }, new { @class = "btn btn-warning" })
-    @Html.ActionLink(" Acciones", "Action", new { @class = "glyphicon glyphicon-edit" }, new { @class = "btn btn-warning" })
-    @Html.ActionLink(" Intervenciones", "Intervencion", new { @class = "glyphicon glyphicon-edit" }, new { @class = "btn btn-warning" })
+    @Html.ActionLink(" Controles", "Control", new { @class = "glyphicon glyphicon-edit" }, 
+    new { @class = "btn btn-warning btn-lg active" })
+    @Html.ActionLink(" Acciones", "Action", new { @class = "glyphicon glyphicon-edit" }, 
+    new { @class = "btn btn-warning btn-lg active" })
+    @Html.ActionLink(" Intervenciones", "Intervencion", new { @class = "glyphicon glyphicon-edit" }, 
+    new { @class = "btn btn-warning btn-lg active" })
 </div>
 
 @section Scripts {
