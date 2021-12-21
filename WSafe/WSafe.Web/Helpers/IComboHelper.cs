@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using WSafe.Domain.Data.Entities;
 
 namespace WSafe.Domain.Helpers
 {
     public interface IComboHelper
     {
+        IEnumerable<SelectListItem> GetComboTrabajadores();
         IEnumerable<SelectListItem> GetComboProcesos();
         IEnumerable<SelectListItem> GetComboZonas();
         IEnumerable<SelectListItem> GetComboActividades();

@@ -1,16 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using WSafe.Domain.Data;
-using WSafe.Domain.Data.Entities;
 using WSafe.Web.Models;
 
 namespace WSafe.Domain.Helpers.Implements
 {
     public class ComboHelper : IComboHelper
     {
-        private readonly Web.Models.EmpresaContext _empresaContext;
-        public ComboHelper(Web.Models.EmpresaContext empresaContext)
+        private readonly EmpresaContext _empresaContext;
+        public ComboHelper(EmpresaContext empresaContext)
         {
             _empresaContext = empresaContext;
         }
@@ -207,6 +205,24 @@ namespace WSafe.Domain.Helpers.Implements
             list.Insert(0, new SelectListItem
             {
                 Text = "(Seleccione una zona...)",
+                Value = "0"
+            });
+
+            return list;
+        }
+        public IEnumerable<SelectListItem> GetComboTrabajadores()
+        {
+            var list = _empresaContext.Trabajadores.Select(t => new SelectListItem
+            {
+                Text = t.NombreCompleto,
+                Value = t.ID.ToString()
+            })
+                .OrderBy(p => p.Text)
+                .ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione un proceso...)",
                 Value = "0"
             });
 

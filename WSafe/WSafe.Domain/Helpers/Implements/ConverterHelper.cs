@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
 using WSafe.Web.Models;
 
@@ -8,10 +7,10 @@ namespace WSafe.Domain.Helpers.Implements
 {
     public class ConverterHelper : IConverterHelper
     {
-        private readonly Web.Models.EmpresaContext _empresaContext;
+        private readonly EmpresaContext _empresaContext;
         private readonly IComboHelper _comboHelper;
         private readonly IGestorHelper _gestorHelper;
-        public ConverterHelper(Web.Models.EmpresaContext empresaContext, IComboHelper comboHelper, IGestorHelper gestorHelper)
+        public ConverterHelper(EmpresaContext empresaContext, IComboHelper comboHelper, IGestorHelper gestorHelper)
         {
             _empresaContext = empresaContext;
             _comboHelper = comboHelper;
@@ -87,6 +86,15 @@ namespace WSafe.Domain.Helpers.Implements
 
             return model;
         }
+        public AccionViewModel ToAccionViewModelNew(int id)
+        {
+            var model = new AccionViewModel
+            {
+                RiesgoID = id,
+                //Trabajadores = _comboHelper.GetComboTrabajadores()
+            };
 
+            return model;
+        }
     }
 }

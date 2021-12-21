@@ -18,7 +18,7 @@ namespace WSafe.Domain.Data.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaSolicitud { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name ="responsable")]
+        [Display(Name ="Responsable")]
         public Trabajador Trabajador { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name ="Fuente origen")]

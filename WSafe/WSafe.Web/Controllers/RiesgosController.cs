@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -84,7 +83,7 @@ namespace WSafe.Web.Controllers
                     var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
                     var riesgo = await _converterHelper.ToRiesgoAsync(model, true);
                     var saved = await consulta.Insert(riesgo);
-                    if(saved != null)
+                    if (saved != null)
                     {
                         return RedirectToAction("Index");
                     }
@@ -211,6 +210,22 @@ namespace WSafe.Web.Controllers
                 .Where(c => c.RiesgoID == id)
                 .ToListAsync();
 
+            var result = await _empresaContext.Riesgos.Include(z => z.Zona)
+                .Include(p => p.Proceso)
+                .Include(a => a.Actividad)
+                .Include(t => t.Tarea)
+                .Include(cp => cp.Peligro)
+                .FirstOrDefaultAsync(r => r.ID == id);
+
+            ViewBag.Zona = result.Zona.Descripcion;
+            ViewBag.Proceso = result.Proceso.Descripcion;
+            ViewBag.Actividad = result.Actividad.Descripcion;
+            ViewBag.Tarea = result.Tarea.Descripcion;
+            ViewBag.Riesgo = result.Peligro.Descripcion;
+            ViewBag.Nivel = result.CategoriaRiesgo;
+            ViewBag.Expuestos = result.NroExpuestos;
+            ViewBag.RiesgoID = result.ID;
+
             return View(list);
         }
         // GET: Controles
@@ -221,7 +236,56 @@ namespace WSafe.Web.Controllers
                 .Where(c => c.RiesgoID == id)
                 .ToListAsync();
 
+            var result = await _empresaContext.Riesgos.Include(z => z.Zona)
+                .Include(p => p.Proceso)
+                .Include(a => a.Actividad)
+                .Include(t => t.Tarea)
+                .Include(cp => cp.Peligro)
+                .FirstOrDefaultAsync(r => r.ID == id);
+
+            ViewBag.Zona = result.Zona.Descripcion;
+            ViewBag.Proceso = result.Proceso.Descripcion;
+            ViewBag.Actividad = result.Actividad.Descripcion;
+            ViewBag.Tarea = result.Tarea.Descripcion;
+            ViewBag.Riesgo = result.Peligro.Descripcion;
+            ViewBag.Nivel = result.CategoriaRiesgo;
+            ViewBag.Expuestos = result.NroExpuestos;
+
             return View(list);
+        }
+
+        // GET: Riesgos/Create
+        public ActionResult CreateAcciones(int id)
+        {
+            var accionView = _converterHelper.ToAccionViewModelNew(id);
+            return View(accionView);
+        }
+
+        // POST: Riesgos/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateAcciones(RiesgoViewModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
+                    var riesgo = await _converterHelper.ToRiesgoAsync(model, true);
+                    var saved = await consulta.Insert(riesgo);
+                    if (saved != null)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
+                return View(model);
+            }
+            catch
+            {
+                return View(model);
+            }
         }
         // GET: Controles
         public async Task<ActionResult> GetIntervenciones(int id)
