@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
 using WSafe.Web.Models;
 
@@ -87,6 +86,15 @@ namespace WSafe.Domain.Helpers.Implements
 
             return model;
         }
+        public AccionViewModel ToAccionViewModelNew(int id)
+        {
+            var model = new AccionViewModel
+            {
+                RiesgoID = id,
+                Trabajadores = _comboHelper.GetComboTrabajadores()
+            };
 
+            return model;
+        }
     }
 }

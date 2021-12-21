@@ -4,6 +4,13 @@
     ViewBag.Title = "GetAllAcciones";
 }
 
+<p>
+    <br><label class="label label-warning" style="font-size:20px"> Zona : @ViewBag.Zona , Proceso : @ViewBag.Proceso</label>
+    <br><label class="label label-warning" style="font-size:20px"> Actividad : @ViewBag.Actividad , Tarea : @ViewBag.Tarea</label>
+    <br><label class="label label-warning" style="font-size:20px"> Riesgo : @ViewBag.Riesgo , Nivel : @ViewBag.Nivel</label>
+    <br><label class="label label-warning" style="font-size:20px"> Número de trabajadores expuestos : @ViewBag.Expuestos</label>
+</p>
+
 <h2>Acciones</h2>
 
 <p>
@@ -51,49 +58,50 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Categoria)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaSolicitud)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FuenteAccion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CausasAccion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaInicial)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaFinal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Plan)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Seguimiento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaSeguimiento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaCierre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Efectividad)
-        </td>
-        <td>
-            @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) |
-            @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "glyphicon glyphicon-trash" })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Categoria)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaSolicitud)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FuenteAccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CausasAccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaInicial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaFinal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Plan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Seguimiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaSeguimiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaCierre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Efectividad)
+            </td>
+            <td>
+                @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) |
+                @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "glyphicon glyphicon-trash" })
+            </td>
+        </tr>
+    }
 
 </table>
