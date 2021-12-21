@@ -1,16 +1,17 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using WSafe.Domain.Data.Entities;
 
-namespace WSafe.Domain.Data.Entities
+namespace WSafe.Web.Models
 {
-    public class Accion
+    public class AccionViewModel
     {
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         public int RiesgoID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name ="Tipo acción")]
+        [Display(Name = "Tipo acción")]
         public CategoriasAccion Categoria { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Fecha solicitud")]
@@ -18,21 +19,19 @@ namespace WSafe.Domain.Data.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaSolicitud { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name ="responsable")]
         public Trabajador Trabajador { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name ="Fuente origen")]
+        [Display(Name = "Fuente origen")]
         public FuentesAccion FuenteAccion { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         public string Descripcion { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name ="Causas")]
+        [Display(Name = "Causas")]
         public CategoriasCausa CausasAccion { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Fecha inicial")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-
         public DateTime FechaInicial { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Fecha final")]

@@ -1,0 +1,90 @@
+﻿@model IEnumerable<WSafe.Domain.Data.Entities.Control>
+
+@{
+    ViewBag.Title = "GetControles";
+}
+
+<h2>Controles existentes</h2>
+
+<table class="table">
+    <tr style="background-color:gainsboro">
+        <th>
+            @Html.DisplayNameFor(model => model.Codigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoriaAplicacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Finalidad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Intervencion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Beneficios)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Presupuesto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Efectividad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoriaEfectividad)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    string strStyle = String.Empty;
+    switch (((int)item.CategoriaEfectividad))
+    {
+        case 3:
+            strStyle = "background-color:red;";
+            break;
+
+        case 2:
+            strStyle = "background-color:yellow;";
+            break;
+
+        default:
+            strStyle = "background-color:green;";
+            break;
+    }
+
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Codigo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CategoriaAplicacion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Finalidad)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Intervencion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Beneficios)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Presupuesto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Efectividad)
+        </td>
+        <td style="@strStyle">
+            @Html.DisplayFor(modelItem => item.CategoriaEfectividad)
+        </td>
+    </tr>
+}
+
+</table>

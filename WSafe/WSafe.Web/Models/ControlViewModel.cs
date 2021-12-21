@@ -1,33 +1,33 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using WSafe.Domain.Data.Entities;
 
-namespace WSafe.Domain.Data.Entities
+namespace WSafe.Web.Models
 {
-    public class Control
+    public class ControlViewModel
     {
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ID { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public int AplicacionID { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public int RiesgoID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string Codigo { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string Nombre { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Aplicación")]
+        public int CategoriaAppID { get; set; }
         public CategoriaAplicacion CategoriaAplicacion { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Finalidad Aplicación")]
+        public int FinalidadID { get; set; }
         public CategoriasFinalidad Finalidad { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Medida intervención")]
+        [Display(Name = "Medida de intervención")]
         public JerarquiaControles Intervencion { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string Beneficios { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public decimal Presupuesto { get; set; }
-        public ICollection<Traza> Trazas { get; set; }
-        public int Efectividad { get; set; }
-        [Display(Name = "Grado efectividad")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Medida de intervención")]
+        public int EfectividadID { get; set; }
         public CategoriasEfectividad CategoriaEfectividad { get; set; }
     }
 }

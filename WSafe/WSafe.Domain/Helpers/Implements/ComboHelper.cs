@@ -3,13 +3,14 @@ using System.Linq;
 using System.Web.Mvc;
 using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
+using WSafe.Web.Models;
 
 namespace WSafe.Domain.Helpers.Implements
 {
     public class ComboHelper : IComboHelper
     {
-        private readonly EmpresaContext _empresaContext;
-        public ComboHelper(EmpresaContext empresaContext)
+        private readonly Web.Models.EmpresaContext _empresaContext;
+        public ComboHelper(Web.Models.EmpresaContext empresaContext)
         {
             _empresaContext = empresaContext;
         }
@@ -51,30 +52,24 @@ namespace WSafe.Domain.Helpers.Implements
 
             return list;
         }
-
-        public List<Peligro> GetComboPeligros()
+        public IEnumerable<SelectListItem> GetComboPeligros(int categoriaID)
         {
-            var list = _empresaContext.Peligros
-                //.Where(cp => cp.CategoriaPeligroID == id)
-                .Select(p => new Peligro()
-                {
-                    ID = p.ID,
-                    Descripcion = p.Descripcion,
-                    CategoriaPeligroID = p.CategoriaPeligroID
-                })
-                    .OrderBy(p => p.Descripcion)
-                    .ToList();
-
-            list.Insert(0, new Peligro()
+            var list = _empresaContext.Peligros.Select(p => new SelectListItem
             {
-                ID = 0,
-                Descripcion = "(Seleccione un peligro ...)",
-                CategoriaPeligroID = 0
+                Text = p.Descripcion,
+                Value = p.ID.ToString()
+            })
+                .OrderBy(p => p.Text)
+                .ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione una categoria peligro ...)",
+                Value = "0"
             });
 
             return list;
         }
-
         public IEnumerable<SelectListItem> GetNivelConsecuencias()
         {
             List<SelectListItem> list = new List<SelectListItem>();

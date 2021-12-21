@@ -10,36 +10,36 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Zona")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una zona.")]
         public int ZonaID { get; set; }
-        [Display(Name = "Zona")]
         public IEnumerable<SelectListItem> Zonas { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Proceso")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un proceso.")]
         public int ProcesoID { get; set; }
-        [Display(Name = "Proceso")]
         public IEnumerable<SelectListItem> Procesos { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Actividad")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una actividad.")]
         public int ActividadID { get; set; }
-        [Display(Name = "Actividad")]
         public IEnumerable<SelectListItem> Actividades { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Tarea")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una tarea.")]
         public int TareaID { get; set; }
-        [Display(Name = "Tarea")]
         public IEnumerable<SelectListItem> Tareas { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public bool Rutinaria { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Clasificación")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una categoria de peligro.")]
         public int CategoriaPeligroID { get; set; }
-        [Display(Name = "Clasificación")]
         public IEnumerable<SelectListItem> CategoriasPeligros { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Descripción")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un peligro.")]
         public int PeligroID { get; set; }
-        [Display(Name = "Descripción")]
         public IEnumerable<SelectListItem> Peligros { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Efectos posibles")]

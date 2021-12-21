@@ -294,6 +294,20 @@
     <Compile Include="Migrations\202112181717310_RefinarRiesgo4.Designer.cs">
       <DependentUpon>202112181717310_RefinarRiesgo4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202112202228110_RefinaRiesgo5.cs" />
+    <Compile Include="Migrations\202112202228110_RefinaRiesgo5.Designer.cs">
+      <DependentUpon>202112202228110_RefinaRiesgo5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112202304124_RefinaRiesgo6.cs" />
+    <Compile Include="Migrations\202112202304124_RefinaRiesgo6.Designer.cs">
+      <DependentUpon>202112202304124_RefinaRiesgo6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112210051471_RefinaRiesgo7.cs" />
+    <Compile Include="Migrations\202112210051471_RefinaRiesgo7.Designer.cs">
+      <DependentUpon>202112210051471_RefinaRiesgo7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccionViewModel.cs" />
+    <Compile Include="Models\ControlViewModel.cs" />
     <Compile Include="Models\EmpresaContext.cs" />
     <Compile Include="Data\Entities\Accion.cs" />
     <Compile Include="Data\Entities\Actividad.cs" />
@@ -363,6 +377,7 @@
       <DependentUpon>202112072218079_ActualizaTablasRiesgos.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\IntervencionViewModel.cs" />
     <Compile Include="Models\RiesgoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IGenericRepository.cs" />
@@ -415,9 +430,10 @@
     <Content Include="Views\Riesgos\Delete.cshtml" />
     <Content Include="Views\Riesgos\Details.cshtml" />
     <Content Include="Views\Riesgos\Edit.cshtml" />
-    <Content Include="Views\Riesgos\Indice.cshtml" />
     <Content Include="Views\Riesgos\Index.cshtml" />
     <Content Include="Views\Riesgos\Create.cshtml" />
+    <Content Include="Views\Riesgos\GetControles.cshtml" />
+    <Content Include="Views\Riesgos\GetAllAcciones.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -468,6 +484,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112181717310_RefinarRiesgo4.resx">
       <DependentUpon>202112181717310_RefinarRiesgo4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112202228110_RefinaRiesgo5.resx">
+      <DependentUpon>202112202228110_RefinaRiesgo5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112202304124_RefinaRiesgo6.resx">
+      <DependentUpon>202112202304124_RefinaRiesgo6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112210051471_RefinaRiesgo7.resx">
+      <DependentUpon>202112210051471_RefinaRiesgo7.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
