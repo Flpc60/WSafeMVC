@@ -28,6 +28,7 @@ namespace WSafe.Web.Controllers
         // GET: Riesgos
         public async Task<ActionResult> Index()
         {
+            // TODO
             var list = await _empresaContext.Riesgos.Include(z => z.Zona)
                 .Include(p => p.Proceso)
                 .Include(a => a.Actividad)
@@ -76,36 +77,24 @@ namespace WSafe.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(RiesgoViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                // TODO
-            }
-
             try
             {
                 if (ModelState.IsValid)
                 {
                     var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
                     var riesgo = await _converterHelper.ToRiesgoAsync(model, true);
-                    await consulta.Insert(riesgo);
-
-                    return RedirectToAction("Index");
-                }
-            }
-            catch (DbEntityValidationException dbEx)
-            {
-                foreach (var validationErrors in dbEx.EntityValidationErrors)
-                {
-                    foreach (var validationError in validationErrors.ValidationErrors)
+                    var saved = await consulta.Insert(riesgo);
+                    if(saved != null)
                     {
-                        Trace.TraceInformation("Property: {0} Error: {1}",
-                            validationError.PropertyName,
-                            validationError.ErrorMessage);
+                        return RedirectToAction("Index");
                     }
                 }
+                return View(model);
             }
-
-            return View(model);
+            catch
+            {
+                return View(model);
+            }
         }
 
         // GET: Riesgos/Edit/5
@@ -129,6 +118,7 @@ namespace WSafe.Web.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.RiesgoID = id;
 
             return View(riesgoViewModel);
         }
@@ -211,6 +201,37 @@ namespace WSafe.Web.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        // GET: Controles
+        public async Task<ActionResult> GetControles(int id)
+        {
+            // TODO
+            var list = await _empresaContext.Controles
+                .Where(c => c.RiesgoID == id)
+                .ToListAsync();
+
+            return View(list);
+        }
+        // GET: Controles
+        public async Task<ActionResult> GetAllAcciones(int id)
+        {
+            // TODO
+            var list = await _empresaContext.Acciones
+                .Where(c => c.RiesgoID == id)
+                .ToListAsync();
+
+            return View(list);
+        }
+        // GET: Controles
+        public async Task<ActionResult> GetIntervenciones(int id)
+        {
+            // TODO
+            var list = await _empresaContext.Controles
+                .Where(c => c.RiesgoID == id)
+                .ToListAsync();
+
+            return View(list);
         }
     }
 }

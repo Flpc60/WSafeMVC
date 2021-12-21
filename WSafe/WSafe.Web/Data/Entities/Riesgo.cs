@@ -92,7 +92,7 @@ namespace WSafe.Domain.Data.Entities
             }
         }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Aceptabilidad riesgo")]
+        [Display(Name = "Aceptable")]
         public CategoriasAceptabilidad Aceptabilidad { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Expuestos")]
@@ -100,7 +100,7 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Requisito")]
         public bool RequisitoLegal { get; set; }
-        public ICollection<Aplicacion> MedidasIntervencion { get; set; }
         public ICollection<Accion> Acciones { get; set; }
+        public ICollection<Aplicacion> MedidasIntervencion { get; set; }
     }
 }

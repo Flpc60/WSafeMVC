@@ -28,51 +28,71 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "NE")]
         public int NivelExposicion { get; set; }
+        private int _nivelProbabilidad {get; set;}
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "NP")]
         public int NivelProbabilidad
         {
             get
             {
-                return NivelDeficiencia * NivelExposicion;
+                return _nivelProbabilidad = NivelDeficiencia * NivelExposicion;
+            }
+            set
+            {
+                _nivelProbabilidad = value;
             }
         }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "NC")]
         public int NivelConsecuencia { get; set; }
+        private int _nivelRiesgo { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "NR")]
         public int NivelRiesgo
         {
             get
             {
-                return NivelProbabilidad * NivelConsecuencia;
+                return _nivelRiesgo = NivelProbabilidad * NivelConsecuencia;
+            }
+            set
+            {
+                _nivelRiesgo = value;
             }
         }
+        private string _categoriaRiesgo { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Categoria")]
         public string CategoriaRiesgo
         {
             get
             {
+                var cat = "";
                 switch (NivelRiesgo)
                 {
                     case int nr when (nr >= 600):
-                        return "I";
-
+                        cat = "I";
+                        break;
                     case int nr when (nr >= 150 && nr < 600):
-                        return "II";
+                        cat = "II";
+                        break;
 
                     case int nr when (nr >= 40 && nr < 150):
-                        return "III";
+                        cat = "III";
+                        break;
 
                     default:
-                        return "IV";
+                        cat = "IV";
+                        break;
                 }
+                return _categoriaRiesgo = cat;
             }
-         }
+            set
+            {
+                _categoriaRiesgo = value;
+            }
+        }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Aceptabilidad riesgo")]
+        [Display(Name = "Aceptable")]
         public CategoriasAceptabilidad Aceptabilidad { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Expuestos")]
@@ -80,7 +100,7 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Requisito")]
         public bool RequisitoLegal { get; set; }
-        public ICollection<Aplicacion> MedidasIntervencion { get; set; }
         public ICollection<Accion> Acciones { get; set; }
+        public ICollection<Aplicacion> MedidasIntervencion { get; set; }
     }
 }
