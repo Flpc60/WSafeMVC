@@ -86,12 +86,12 @@ namespace WSafe.Domain.Helpers.Implements
 
             return model;
         }
-        public AccionViewModel ToAccionViewModelNew(int id)
+        public EditAccionViewModel ToAccionViewModelNew(int id)
         {
-            var model = new AccionViewModel
+            var model = new EditAccionViewModel
             {
                 RiesgoID = id,
-                //Trabajadores = _comboHelper.GetComboTrabajadores()
+                Trabajadores = _comboHelper.GetComboTrabajadores()
             };
 
             return model;

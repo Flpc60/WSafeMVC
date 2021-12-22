@@ -9,8 +9,8 @@ namespace WSafe.Domain.Helpers.Implements
 {
     public class GestorHelper : IGestorHelper
     {
-        private readonly Data.EmpresaContext _empresaContext;
-        public GestorHelper(Data.EmpresaContext empresaContext)
+        private readonly Web.Models.EmpresaContext _empresaContext;
+        public GestorHelper(Web.Models.EmpresaContext empresaContext)
         {
             _empresaContext = empresaContext;
         }

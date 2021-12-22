@@ -6,7 +6,7 @@ using WSafe.Domain.Data.Entities;
 
 namespace WSafe.Web.Models
 {
-    public class AccionViewModel
+    public class EditAccionViewModel
     {
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         public int ID { get; set; }
@@ -59,6 +59,5 @@ namespace WSafe.Web.Models
         public DateTime FechaCierre { get; set; }
         [Display(Name = "Efectiva")]
         public bool Efectividad { get; set; }
-
     }
 }

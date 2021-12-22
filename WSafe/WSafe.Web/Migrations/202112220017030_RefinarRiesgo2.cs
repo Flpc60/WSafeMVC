@@ -3,7 +3,7 @@ namespace WSafe.Web.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class RefinaRiesgo6 : DbMigration
+    public partial class RefinarRiesgo2 : DbMigration
     {
         public override void Up()
         {
