@@ -18,7 +18,7 @@ namespace WSafe.Web.Models
         public DbSet<Peligro> Peligros { get; set; }
         public DbSet<Trabajador> Trabajadores { get; set; }
         public DbSet<Control> Controles { get; set; }
-
+        public DbSet<Accion> Acciones { get; set; }
         public System.Data.Entity.DbSet<WSafe.Web.Models.RiesgoViewModel> RiesgoViewModels { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

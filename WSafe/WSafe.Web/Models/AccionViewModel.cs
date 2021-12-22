@@ -36,7 +36,6 @@ namespace WSafe.Web.Models
         [Display(Name = "Fecha inicial")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-
         public DateTime FechaInicial { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Fecha final")]
@@ -59,5 +58,6 @@ namespace WSafe.Web.Models
         public DateTime FechaCierre { get; set; }
         [Display(Name = "Efectiva")]
         public bool Efectividad { get; set; }
+
     }
 }

@@ -121,6 +121,7 @@
     <Compile Include="Helpers\Implements\GestorHelper.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
     <Compile Include="Models\ControlViewModel.cs" />
+    <Compile Include="Models\EditAccionViewModel.cs" />
     <Compile Include="Models\EmpresaContext.cs" />
     <Compile Include="Models\IntervencionViewModel.cs" />
     <Compile Include="Models\RiesgoViewModel.cs" />

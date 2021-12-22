@@ -96,5 +96,50 @@ namespace WSafe.Domain.Helpers.Implements
 
             return model;
         }
+        public AccionViewModel ToAccionViewModel(Accion accion)
+        {
+            var model = new AccionViewModel
+            {
+                RiesgoID = accion.ID,
+                Categoria = accion.Categoria,
+                FechaSolicitud = accion.FechaSolicitud,
+                TrabajadorID = accion.Trabajador.ID,
+                Trabajadores = _comboHelper.GetComboTrabajadores(),
+                FuenteAccion = accion.FuenteAccion,
+                Descripcion = accion.Descripcion,
+                CausasAccion = accion.CausasAccion,
+                FechaInicial = accion.FechaInicial,
+                FechaFinal = accion.FechaFinal,
+                Plan = accion.Plan,
+                Seguimiento = accion.Seguimiento,
+                FechaSeguimiento = accion.FechaSeguimiento,
+                FechaCierre = accion.FechaCierre,
+                Efectividad = accion.Efectividad
+            };
+
+            return model;
+        }
+        public async Task<Accion> ToAccionAsync(AccionViewModel model, bool isNew)
+        {
+            var result = new Accion
+            {
+                ID = isNew ? 0 : model.ID,
+                RiesgoID = model.RiesgoID,
+                Categoria = model.Categoria,
+                FechaSolicitud = model.FechaSolicitud,
+                Trabajador = await _empresaContext.Trabajadores.FindAsync(model.TrabajadorID),
+                FuenteAccion = model.FuenteAccion,
+                Descripcion = model.Descripcion,
+                CausasAccion = model.CausasAccion,
+                FechaInicial = model.FechaInicial,
+                FechaFinal = model.FechaFinal,
+                Plan = model.Plan,
+                Seguimiento = model.Seguimiento,
+                FechaSeguimiento = model.FechaSeguimiento,
+                FechaCierre = model.FechaCierre,
+                Efectividad = model.Efectividad
+            };
+            return result;
+        }
     }
 }

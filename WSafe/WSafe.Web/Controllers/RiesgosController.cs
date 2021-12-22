@@ -266,18 +266,18 @@ namespace WSafe.Web.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateAcciones(RiesgoViewModel model)
+        public async Task<ActionResult> CreateAcciones(AccionViewModel model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
-                    var riesgo = await _converterHelper.ToRiesgoAsync(model, true);
-                    var saved = await consulta.Insert(riesgo);
+                    var consulta = new AccionService(new AccionRepository(_empresaContext));
+                    var accion = await _converterHelper.ToAccionAsync(model, true);
+                    var saved = await consulta.Insert(accion);
                     if (saved != null)
                     {
-                        return RedirectToAction("Index");
+                        return RedirectToAction("GetAllAcciones");
                     }
                 }
                 return View(model);
@@ -287,6 +287,104 @@ namespace WSafe.Web.Controllers
                 return View(model);
             }
         }
+
+        // GET: Riesgos/Edit/5
+        public async Task<ActionResult> EditAccion(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var result = await _empresaContext.Acciones.Include(t => t.Trabajador)
+                .FirstOrDefaultAsync(i => i.ID == id.Value);
+
+            var accionViewModel = _converterHelper.ToAccionViewModel(result);
+
+            if (accionViewModel == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(accionViewModel);
+        }
+
+        // POST: Riesgos/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditAccion(AccionViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var consulta = new AccionService(new AccionRepository(_empresaContext));
+                    var result = await _converterHelper.ToAccionAsync(model, false);
+                    await consulta.Update(result);
+                    return RedirectToAction("GetAllAcciones");
+                }
+            }
+            catch (DbEntityValidationException ex)
+            {
+                //return View("Error", new HandleErrorInfo(ex, "Riesgos", "Create"));
+                throw ex;
+            }
+
+            return View(model);
+        }
+
+        // GET: Riesgos/Delete/5
+        public async Task<ActionResult> DeleteAccion(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var result = await _empresaContext.Acciones.Include(t => t.Trabajador)
+                .FirstOrDefaultAsync(i => i.ID == id.Value);
+
+            try
+            {
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Create"));
+            }
+
+            if (result == null)
+            {
+                return HttpNotFound();
+            }
+            return View(result);
+        }
+
+
+        // POST: Riesgos/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteAccionConfirmed(int id)
+        {
+            var consulta = new AccionService(new AccionRepository(_empresaContext));
+            try
+            {
+                await consulta.Delete(id);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Create"));
+            }
+
+            return RedirectToAction("GetAllAcciones");
+        }
+
         // GET: Controles
         public async Task<ActionResult> GetIntervenciones(int id)
         {

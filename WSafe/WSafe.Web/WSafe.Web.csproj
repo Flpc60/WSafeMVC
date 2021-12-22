@@ -278,43 +278,16 @@
     <Compile Include="Data\Entities\FuentesAccion.cs" />
     <Compile Include="Data\Entities\NivelesProbabilidad.cs" />
     <Compile Include="Data\Entities\NivelesRiesgo.cs" />
-    <Compile Include="Migrations\202112161956571_RefinarRiesgo1.cs" />
-    <Compile Include="Migrations\202112161956571_RefinarRiesgo1.Designer.cs">
-      <DependentUpon>202112161956571_RefinarRiesgo1.cs</DependentUpon>
+    <Compile Include="Migrations\202112220003458_RefinarRiesgo1.cs" />
+    <Compile Include="Migrations\202112220003458_RefinarRiesgo1.Designer.cs">
+      <DependentUpon>202112220003458_RefinarRiesgo1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202112162257082_RefinarRiesgo2.cs" />
-    <Compile Include="Migrations\202112162257082_RefinarRiesgo2.Designer.cs">
-      <DependentUpon>202112162257082_RefinarRiesgo2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112170243292_RefinarRiesgo3.cs" />
-    <Compile Include="Migrations\202112170243292_RefinarRiesgo3.Designer.cs">
-      <DependentUpon>202112170243292_RefinarRiesgo3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112181717310_RefinarRiesgo4.cs" />
-    <Compile Include="Migrations\202112181717310_RefinarRiesgo4.Designer.cs">
-      <DependentUpon>202112181717310_RefinarRiesgo4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112202228110_RefinaRiesgo5.cs" />
-    <Compile Include="Migrations\202112202228110_RefinaRiesgo5.Designer.cs">
-      <DependentUpon>202112202228110_RefinaRiesgo5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112202304124_RefinaRiesgo6.cs" />
-    <Compile Include="Migrations\202112202304124_RefinaRiesgo6.Designer.cs">
-      <DependentUpon>202112202304124_RefinaRiesgo6.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112210051471_RefinaRiesgo7.cs" />
-    <Compile Include="Migrations\202112210051471_RefinaRiesgo7.Designer.cs">
-      <DependentUpon>202112210051471_RefinaRiesgo7.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112212115089_RefinaRiesgo8.cs" />
-    <Compile Include="Migrations\202112212115089_RefinaRiesgo8.Designer.cs">
-      <DependentUpon>202112212115089_RefinaRiesgo8.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112212214285_RefinaRiesgo9.cs" />
-    <Compile Include="Migrations\202112212214285_RefinaRiesgo9.Designer.cs">
-      <DependentUpon>202112212214285_RefinaRiesgo9.cs</DependentUpon>
+    <Compile Include="Migrations\202112220017030_RefinarRiesgo2.cs" />
+    <Compile Include="Migrations\202112220017030_RefinarRiesgo2.Designer.cs">
+      <DependentUpon>202112220017030_RefinarRiesgo2.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AccionViewModel.cs" />
+    <Compile Include="Models\EditAccionViewModel.cs" />
     <Compile Include="Models\ControlViewModel.cs" />
     <Compile Include="Models\EmpresaContext.cs" />
     <Compile Include="Data\Entities\Accion.cs" />
@@ -388,11 +361,15 @@
     <Compile Include="Models\IntervencionViewModel.cs" />
     <Compile Include="Models\RiesgoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IAccionRepository.cs" />
     <Compile Include="Repositories\IGenericRepository.cs" />
+    <Compile Include="Repositories\Implements\AccionRepository.cs" />
     <Compile Include="Repositories\Implements\GenericRepository.cs" />
     <Compile Include="Repositories\Implements\RiesgoRepository.cs" />
     <Compile Include="Repositories\IRiesgoRepository.cs" />
+    <Compile Include="Services\IAccionService.cs" />
     <Compile Include="Services\IGenericService.cs" />
+    <Compile Include="Services\Implements\AccionService.cs" />
     <Compile Include="Services\Implements\GenericService.cs" />
     <Compile Include="Services\Implements\RiesgoService.cs" />
     <Compile Include="Services\IRiesgoService.cs" />
@@ -481,32 +458,11 @@
     <EmbeddedResource Include="Migrations\202112072218079_ActualizaTablasRiesgos.resx">
       <DependentUpon>202112072218079_ActualizaTablasRiesgos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112161956571_RefinarRiesgo1.resx">
-      <DependentUpon>202112161956571_RefinarRiesgo1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202112220003458_RefinarRiesgo1.resx">
+      <DependentUpon>202112220003458_RefinarRiesgo1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112162257082_RefinarRiesgo2.resx">
-      <DependentUpon>202112162257082_RefinarRiesgo2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112170243292_RefinarRiesgo3.resx">
-      <DependentUpon>202112170243292_RefinarRiesgo3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112181717310_RefinarRiesgo4.resx">
-      <DependentUpon>202112181717310_RefinarRiesgo4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112202228110_RefinaRiesgo5.resx">
-      <DependentUpon>202112202228110_RefinaRiesgo5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112202304124_RefinaRiesgo6.resx">
-      <DependentUpon>202112202304124_RefinaRiesgo6.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112210051471_RefinaRiesgo7.resx">
-      <DependentUpon>202112210051471_RefinaRiesgo7.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112212115089_RefinaRiesgo8.resx">
-      <DependentUpon>202112212115089_RefinaRiesgo8.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112212214285_RefinaRiesgo9.resx">
-      <DependentUpon>202112212214285_RefinaRiesgo9.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202112220017030_RefinarRiesgo2.resx">
+      <DependentUpon>202112220017030_RefinarRiesgo2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
