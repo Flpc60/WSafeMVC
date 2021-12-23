@@ -236,26 +236,13 @@ namespace WSafe.Web.Controllers
                 .Where(c => c.RiesgoID == id)
                 .ToListAsync();
 
-            var result = await _empresaContext.Riesgos.Include(z => z.Zona)
-                .Include(p => p.Proceso)
-                .Include(a => a.Actividad)
-                .Include(t => t.Tarea)
-                .Include(cp => cp.Peligro)
-                .FirstOrDefaultAsync(r => r.ID == id);
-
-            ViewBag.Zona = result.Zona.Descripcion;
-            ViewBag.Proceso = result.Proceso.Descripcion;
-            ViewBag.Actividad = result.Actividad.Descripcion;
-            ViewBag.Tarea = result.Tarea.Descripcion;
-            ViewBag.Riesgo = result.Peligro.Descripcion;
-            ViewBag.Nivel = result.CategoriaRiesgo;
-            ViewBag.Expuestos = result.NroExpuestos;
-
+            var result = await _empresaContext.Acciones.Include(t => t.Trabajador)
+                .FirstOrDefaultAsync(a => a.ID == id);
             return View(list);
         }
 
         // GET: Riesgos/Create
-        public ActionResult CreateAcciones(int id)
+        public ActionResult CreateAccion(int id)
         {
             var accionView = _converterHelper.ToAccionViewModelNew(id);
             return View(accionView);
@@ -266,7 +253,7 @@ namespace WSafe.Web.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateAcciones(AccionViewModel model)
+        public async Task<ActionResult> CreateAccion(AccionViewModel model)
         {
             try
             {

@@ -4,6 +4,6 @@
     {
         Masculino = 1,
         Femenino = 2,
-        Trans = 3
+        Otro = 3
     }
 }

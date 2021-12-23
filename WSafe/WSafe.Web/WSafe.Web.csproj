@@ -276,8 +276,21 @@
     <Compile Include="Controllers\RiesgosController.cs" />
     <Compile Include="Data\Entities\CategoriasCausa.cs" />
     <Compile Include="Data\Entities\FuentesAccion.cs" />
+    <Compile Include="Data\Entities\Incidentes\AccidenteProbabilidad.cs" />
+    <Compile Include="Data\Entities\Incidentes\CalificacionesEquipo.cs" />
+    <Compile Include="Data\Entities\Incidentes\CategoriasIncidente.cs" />
+    <Compile Include="Data\Entities\Incidentes\ConsecuenciasDaño.cs" />
+    <Compile Include="Data\Entities\Incidentes\ConsecuenciasImagen.cs" />
+    <Compile Include="Data\Entities\Incidentes\ConsecuenciasLesion.cs" />
+    <Compile Include="Data\Entities\Incidentes\ConsecuenciasMedio.cs" />
+    <Compile Include="Data\Entities\Incidentes\Incidente.cs" />
+    <Compile Include="Data\Entities\Incidentes\TipoPerdida.cs" />
     <Compile Include="Data\Entities\NivelesProbabilidad.cs" />
     <Compile Include="Data\Entities\NivelesRiesgo.cs" />
+    <Compile Include="Data\Entities\TiposIndicador.cs" />
+    <Compile Include="Data\Entities\TiposPeriodicidad.cs" />
+    <Compile Include="Helpers\Implements\IIndicadorHelper.cs" />
+    <Compile Include="Helpers\Implements\IndicadorHelper.cs" />
     <Compile Include="Migrations\202112220003458_RefinarRiesgo1.cs" />
     <Compile Include="Migrations\202112220003458_RefinarRiesgo1.Designer.cs">
       <DependentUpon>202112220003458_RefinarRiesgo1.cs</DependentUpon>
@@ -286,8 +299,11 @@
     <Compile Include="Migrations\202112220017030_RefinarRiesgo2.Designer.cs">
       <DependentUpon>202112220017030_RefinarRiesgo2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202112220137471_RefinarRiesgo3.cs" />
+    <Compile Include="Migrations\202112220137471_RefinarRiesgo3.Designer.cs">
+      <DependentUpon>202112220137471_RefinarRiesgo3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccionViewModel.cs" />
-    <Compile Include="Models\EditAccionViewModel.cs" />
     <Compile Include="Models\ControlViewModel.cs" />
     <Compile Include="Models\EmpresaContext.cs" />
     <Compile Include="Data\Entities\Accion.cs" />
@@ -411,7 +427,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Riesgos\Crear.cshtml" />
     <Content Include="Views\Riesgos\Delete.cshtml" />
     <Content Include="Views\Riesgos\Details.cshtml" />
     <Content Include="Views\Riesgos\Edit.cshtml" />
@@ -419,6 +434,9 @@
     <Content Include="Views\Riesgos\Create.cshtml" />
     <Content Include="Views\Riesgos\GetControles.cshtml" />
     <Content Include="Views\Riesgos\GetAllAcciones.cshtml" />
+    <Content Include="Views\Riesgos\CreateAccion.cshtml" />
+    <Content Include="Views\Riesgos\EditAccion.cshtml" />
+    <Content Include="Views\Riesgos\DeleteAccion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -463,6 +481,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112220017030_RefinarRiesgo2.resx">
       <DependentUpon>202112220017030_RefinarRiesgo2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112220137471_RefinarRiesgo3.resx">
+      <DependentUpon>202112220137471_RefinarRiesgo3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
