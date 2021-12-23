@@ -55,5 +55,7 @@ namespace WSafe.Domain.Data.Entities
         public DateTime FechaCierre { get; set; }
         [Display(Name ="Efectiva")]
         public bool Efectividad { get; set; }
+        [Display(Name="Acción prioritaria")]
+        public bool Prioritaria { get; set; }
     }
 }

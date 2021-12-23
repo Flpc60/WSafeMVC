@@ -25,5 +25,7 @@ namespace WSafe.Web.Models
         {
 
         }
+
+        public System.Data.Entity.DbSet<WSafe.Web.Models.AccionViewModel> AccionViewModels { get; set; }
     }
 }

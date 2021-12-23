@@ -214,10 +214,10 @@ namespace WSafe.Domain.Helpers.Implements
         {
             var list = _empresaContext.Trabajadores.Select(t => new SelectListItem
             {
-                Text = t.NombreCompleto,
+                Text = t.PrimerNombre + " " + t.PrimerApellido + " "+ t.Documento,
                 Value = t.ID.ToString()
             })
-                .OrderBy(p => p.Text)
+                .OrderBy(t => t.Text)
                 .ToList();
 
             list.Insert(0, new SelectListItem
