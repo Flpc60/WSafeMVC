@@ -6,7 +6,7 @@ namespace WSafe.Domain.Data.Entities.Incidentes
     {
         [Display(Name ="Incidentes")]
         Incidente = 1,
-        [Display(Name = "Accidentes De Trabajo")]
+        [Display(Name = "Accidentes de Trabajo")]
         Accidente = 2,
         [Display(Name = "Enfermedad Laboral")]
         Enfermedad = 3

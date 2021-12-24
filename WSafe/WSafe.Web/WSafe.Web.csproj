@@ -289,7 +289,7 @@
     <Compile Include="Data\Entities\NivelesRiesgo.cs" />
     <Compile Include="Data\Entities\TiposIndicador.cs" />
     <Compile Include="Data\Entities\TiposPeriodicidad.cs" />
-    <Compile Include="Helpers\Implements\IIndicadorHelper.cs" />
+    <Compile Include="Helpers\IIndicadorHelper.cs" />
     <Compile Include="Helpers\Implements\IndicadorHelper.cs" />
     <Compile Include="Migrations\202112220003458_RefinarRiesgo1.cs" />
     <Compile Include="Migrations\202112220003458_RefinarRiesgo1.Designer.cs">

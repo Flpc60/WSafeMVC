@@ -37,20 +37,43 @@ namespace WSafe.Domain.Data.Entities.Incidentes
         [Display(Name = "Trabajador informante")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public Trabajador Informante { get; set; }
+        [Display(Name = "Naturaleza lesión")]
         public string NaturalezaLesion { get; set; }
+        [Display(Name = "Partes afectadas")]
         public string PartesAfectadas { get; set; }
+        [Display(Name = "Tipo incidente")]
         public string TipoIncidente { get; set; }
+        [Display(Name = "Agente lesión")]
         public string AgenteLesion { get; set; }
+        [Display(Name = "Actos inseguros")]
+        public string ActosInseguros { get; set; }
+        [Display(Name = "Condiciones inseguras")]
+        public string CondicionesInsegura { get; set; }
+        [Display(Name = "Tipo daño")]
+        public string TipoDaño { get; set; }
+        [Display(Name = "Maquinaria, Equipo, Proceso afectado")]
+        public string Afectacion { get; set; }
+        [Display(Name = "Daños ocasionados")]
         public string DañosOcasionados { get; set; }
+        [Display(Name = "Tipo vehiculo")]
         public string TipoVehiculo { get; set; }
+        [Display(Name = "Marca vehiculo")]
         public string MarcaVehiculo { get; set; }
+        [Display(Name = "Modelo vehiculo")]
         public string ModeloVehiculo { get; set; }
-        public string KilometrajeVehiculo { get; set; }
+        [Display(Name = "Kilometraje vehiculo")]
+        public int KilometrajeVehiculo { get; set; }
+        [Display(Name = "Costos estimados")]
         public decimal CostosEstimados { get; set; }
+        [Display(Name = "Descripción incidente")]
         public string DescripcionIncidente { get; set; }
+        [Display(Name = "Cómo pudo haberse evitado")]
         public string EvitarIncidente { get; set; }
+        [Display(Name = "Qué acciones inmediatas se tomaron después del evento")]
         public string AccionesInmediatas { get; set; }
+        [Display(Name = "Comentarios Adicionales")]
         public string ComentariosAdicionales { get; set; }
+        [Display(Name = "Atención brindada")]
         public string AtencionBrindada { get; set; }
         public CalificacionesEquipo EquipoInvestigador { get; set; }
         public TipoPerdida LesionPersonal { get; set; }
