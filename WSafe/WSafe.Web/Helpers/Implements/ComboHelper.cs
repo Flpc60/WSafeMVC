@@ -214,7 +214,7 @@ namespace WSafe.Domain.Helpers.Implements
         {
             var list = _empresaContext.Trabajadores.Select(t => new SelectListItem
             {
-                Text = t.PrimerNombre + " " + t.PrimerApellido + " "+ t.Documento,
+                Text = t.Nombres + " " + t.PrimerApellido + " "+ t.Documento,
                 Value = t.ID.ToString()
             })
                 .OrderBy(t => t.Text)

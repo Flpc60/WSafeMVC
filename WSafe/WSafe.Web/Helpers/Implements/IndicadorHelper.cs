@@ -1,43 +1,55 @@
-﻿namespace WSafe.Domain.Helpers.Implements
+﻿using System;
+using System.Linq;
+using WSafe.Web.Models;
+
+namespace WSafe.Domain.Helpers.Implements
 {
     public class IndicadorHelper : IIndicadorHelper
     {
-        public int AccientesTrabajo(string fechaInicial, string fechaFinal)
+        private readonly EmpresaContext _empresaContext;
+        public IndicadorHelper(EmpresaContext empresaContext)
+        {
+            _empresaContext = empresaContext;
+        }
+        public int AccientesTrabajo(DateTime fechaInicial, DateTime fechaFinal)
+        {
+            return  _empresaContext.Incidentes
+                .Where(i => i.FechaIncidente >= fechaInicial && i.FechaIncidente <= fechaFinal)
+                .Count();
+        }
+        public int AccientesTrabajoInvestigados(DateTime fechaInicial, DateTime fechaFinal)
+        {
+            return _empresaContext.Incidentes
+                .Where(i => i.FechaIncidente >= fechaInicial && i.FechaIncidente <= fechaFinal && i.RequiereInvestigacion == true)
+                .Count();
+        }
+
+        public int AccientesTrabajoMortales(DateTime fechaInicial, DateTime fechaFinal)
         {
             throw new System.NotImplementedException();
         }
 
-        public int AccientesTrabajoInvestigados(string fechaInicial, string fechaFinal)
+        public int DiasIncapacidadAccientesTrabajo(DateTime fechaInicial, DateTime fechaFinal)
         {
             throw new System.NotImplementedException();
         }
 
-        public int AccientesTrabajoMortales(string fechaInicial, string fechaFinal)
+        public int DíasAusenciaIncapacidadLaboralComun(DateTime fechaInicial, DateTime fechaFinal)
         {
             throw new System.NotImplementedException();
         }
 
-        public int DiasIncapacidadAccientesTrabajo(string fechaInicial, string fechaFinal)
+        public int EnfermedadesIncidentesAusentismos(DateTime fechaInicial, DateTime fechaFinal)
         {
             throw new System.NotImplementedException();
         }
 
-        public int DíasAusenciaIncapacidadLaboralComun(string fechaInicial, string fechaFinal)
+        public int NumeroCasosEnfermedadLabora(DateTime fechaInicial, DateTime fechaFinal)
         {
             throw new System.NotImplementedException();
         }
 
-        public int EnfermedadesIncidentesAusentismos(string fechaInicial, string fechaFinal)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public int NumeroCasosEnfermedadLabora(string fechaInicial, string fechaFinal)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public int NumeroCasosNuevosEnfermedadLabora(string fechaInicial, string fechaFinal)
+        public int NumeroCasosNuevosEnfermedadLabora(DateTime fechaInicial, DateTime fechaFinal)
         {
             throw new System.NotImplementedException();
         }

@@ -13,7 +13,7 @@ namespace WSafe.Domain.Data.Entities.Incidentes
         [Display(Name = "Daño Mayor")]
         EfectoMayor = 4,
         [Display(Name = "Daño Superor")]
-        EfectoFatal = 5,
+        EfectoSuperior = 5,
         [Display(Name = "Daño generalizado")]
         EfectoFatalGeneralizado = 6
     }
