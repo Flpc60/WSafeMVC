@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace WSafe.Domain.Data.Entities
@@ -7,10 +8,17 @@ namespace WSafe.Domain.Data.Entities
     {
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         public int ID { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatotio")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public Zona Zona { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public Proceso Proceso { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public Actividad Actividad { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public Tarea Tarea { get; set; }
         public int RiesgoID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name ="Tipo acción")]
+        [Display(Name = "Tipo acción")]
         public CategoriasAccion Categoria { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Fecha solicitud")]
@@ -18,21 +26,27 @@ namespace WSafe.Domain.Data.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaSolicitud { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name ="Responsable")]
+        [Display(Name = "Responsable")]
         public Trabajador Trabajador { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name ="Fuente origen")]
+        [Display(Name = "Fuente origen")]
         public FuentesAccion FuenteAccion { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
+        [Display(Name = "Descripción de la no conformidad")]
         public string Descripcion { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name ="Causas")]
+        [Display(Name = "Causas")]
         public CategoriasCausa CausasAccion { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatotio")]
+        [Display(Name = "Otras Causas")]
+        public CategoriasCausa SubCausasAccion { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatotio")]
+        [Display(Name = "Porque de la acción")]
+        public string PorqueAccion { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Fecha inicial")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-
         public DateTime FechaInicial { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Fecha final")]
@@ -40,22 +54,21 @@ namespace WSafe.Domain.Data.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaFinal { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name ="Plan de acción")]
-        public string Plan { get; set; }
-        public string Seguimiento { get; set; }
+        [Display(Name = "Planes de acción")]
+        public IEnumerable<PlanAccion> Planes { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "Fecha seguimiento")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime FechaSeguimiento { get; set; }
+        [Display(Name = "Seguimientos Planes de acción")]
+        public IEnumerable<Seguimiento> Seguimientos { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Fecha cierre")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaCierre { get; set; }
-        [Display(Name ="Efectiva")]
-        public bool Efectividad { get; set; }
-        [Display(Name="Acción prioritaria")]
+        [Display(Name = "Efectiva")]
+        public CategoriasEfectividad Efectividad { get; set; }
+        [Display(Name = "Acción prioritaria")]
         public bool Prioritaria { get; set; }
+        [Display(Name = "Costos ejecución")]
+        public decimal Costos { get; set; }
     }
 }

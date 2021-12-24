@@ -15,9 +15,7 @@ namespace WSafe.Domain.Data.Entities
         public string SegundoApellido { get; set; }
         [Display(Name = "Primer Nombre")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public string PrimerNombre { get; set; }
-        [Display(Name = "Segundo Nombre")]
-        public string SegundoNombre { get; set; }
+        public string Nombres { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string Documento { get; set; }
         [NotMapped]
@@ -25,7 +23,7 @@ namespace WSafe.Domain.Data.Entities
         {
             get
             {
-                return Documento + " " +PrimerNombre + " " + SegundoNombre + " " + PrimerApellido + " " + SegundoApellido;
+                return Documento + " " +Nombres + " " + PrimerApellido + " " + SegundoApellido;
             }
         }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
@@ -38,5 +36,11 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Estado civil")]
         public EstadosCivil EstadoCivil { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Tipo vinculación")]
+        public TiposVinculacion TipoVinculacion { get; set; }
+        public string EPS { get; set; }
+        public string AFP { get; set; }
+        public string ARL { get; set; }
     }
 }

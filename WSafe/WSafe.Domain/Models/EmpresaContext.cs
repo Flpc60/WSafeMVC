@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using WSafe.Domain.Data.Entities;
+using WSafe.Domain.Data.Entities.Incidentes;
 
 namespace WSafe.Web.Models
 {
@@ -19,11 +20,14 @@ namespace WSafe.Web.Models
         public DbSet<Trabajador> Trabajadores { get; set; }
         public DbSet<Control> Controles { get; set; }
         public DbSet<Accion> Acciones { get; set; }
+        public DbSet<Incidente> Incidentes { get; set; }
         public System.Data.Entity.DbSet<WSafe.Web.Models.RiesgoViewModel> RiesgoViewModels { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 
         }
+
+        public System.Data.Entity.DbSet<WSafe.Web.Models.AccionViewModel> AccionViewModels { get; set; }
     }
 }
