@@ -285,8 +285,11 @@
     <Compile Include="Data\Entities\Incidentes\ConsecuenciasMedio.cs" />
     <Compile Include="Data\Entities\Incidentes\Incidente.cs" />
     <Compile Include="Data\Entities\Incidentes\TipoPerdida.cs" />
+    <Compile Include="Data\Entities\Indicador.cs" />
     <Compile Include="Data\Entities\NivelesProbabilidad.cs" />
     <Compile Include="Data\Entities\NivelesRiesgo.cs" />
+    <Compile Include="Data\Entities\PlanAccion.cs" />
+    <Compile Include="Data\Entities\Seguimiento.cs" />
     <Compile Include="Data\Entities\TiposIndicador.cs" />
     <Compile Include="Data\Entities\TiposPeriodicidad.cs" />
     <Compile Include="Helpers\IIndicadorHelper.cs" />

@@ -110,11 +110,11 @@ namespace WSafe.Domain.Helpers.Implements
                 CausasAccion = accion.CausasAccion,
                 FechaInicial = accion.FechaInicial,
                 FechaFinal = accion.FechaFinal,
-                Plan = accion.Plan,
-                Seguimiento = accion.Seguimiento,
-                FechaSeguimiento = accion.FechaSeguimiento,
+                //Plan = accion.PlanAcion,
+                //Seguimiento = accion.Seguimiento,
+                //FechaSeguimiento = accion.FechaSeguimiento,
                 FechaCierre = accion.FechaCierre,
-                Efectividad = accion.Efectividad
+                //Efectividad = accion.Efectividad
             };
 
             return model;
@@ -133,11 +133,11 @@ namespace WSafe.Domain.Helpers.Implements
                 CausasAccion = model.CausasAccion,
                 FechaInicial = model.FechaInicial,
                 FechaFinal = model.FechaFinal,
-                Plan = model.Plan,
-                Seguimiento = model.Seguimiento,
-                FechaSeguimiento = model.FechaSeguimiento,
+                //Plan = model.Plan,
+                //Seguimiento = model.Seguimiento,
+                //FechaSeguimiento = model.FechaSeguimiento,
                 FechaCierre = model.FechaCierre,
-                Efectividad = model.Efectividad
+                //Efectividad = model.Efectividad
             };
             return result;
         }
