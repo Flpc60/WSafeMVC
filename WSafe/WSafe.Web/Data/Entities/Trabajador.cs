@@ -32,6 +32,14 @@ namespace WSafe.Domain.Data.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaNacimiento { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Fecha pago nomina")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime FechaNomina { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Dias a pagar")]
+        public int DiasPago { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public CategoriasGenero Genero { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Estado civil")]
