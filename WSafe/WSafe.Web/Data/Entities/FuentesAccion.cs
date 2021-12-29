@@ -24,7 +24,9 @@ namespace WSafe.Domain.Data.Entities
         Revision = 9,
         [Display(Name = "Encuesta de Satisfacción")]
         Encuesta = 10,
+        [Display(Name = "Investigación incidente / accidente")]
+        Incidente = 11,
         [Display(Name = "Otra fuente")]
-        OtraFuente = 11
+        OtraFuente = 12
     }
 }
