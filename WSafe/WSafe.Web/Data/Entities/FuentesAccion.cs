@@ -12,7 +12,7 @@ namespace WSafe.Domain.Data.Entities
         Mapa = 3,
         [Display(Name = "Producto y/o servicio no conforme")]
         NoConformidad = 4,
-        [Display(Name = "Indicadores de Gestión del procesos")]
+        [Display(Name = "Indicadores de Gestión de los procesos")]
         Indicador = 5,
         [Display(Name = "Incumplimiento de documentos del SIG")]
         Incumplimiento = 6,
@@ -23,6 +23,8 @@ namespace WSafe.Domain.Data.Entities
         [Display(Name = "Revisión por la dirección")]
         Revision = 9,
         [Display(Name = "Encuesta de Satisfacción")]
-        Encuesta = 10
+        Encuesta = 10,
+        [Display(Name = "Otra fuente")]
+        OtraFuente = 11
     }
 }
