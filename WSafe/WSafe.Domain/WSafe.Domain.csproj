@@ -127,10 +127,12 @@
     <Compile Include="Data\Entities\Trabajador.cs" />
     <Compile Include="Data\Entities\Traza.cs" />
     <Compile Include="Data\Entities\Zona.cs" />
+    <Compile Include="Helpers\IChartHelper.cs" />
     <Compile Include="Helpers\IComboHelper.cs" />
     <Compile Include="Helpers\IConverterHelper.cs" />
     <Compile Include="Helpers\IGestorHelper.cs" />
     <Compile Include="Helpers\IIndicadorHelper.cs" />
+    <Compile Include="Helpers\Implements\ChartHelper.cs" />
     <Compile Include="Helpers\Implements\ComboHelper.cs" />
     <Compile Include="Helpers\Implements\ConverterHelper.cs" />
     <Compile Include="Helpers\Implements\GestorHelper.cs" />
@@ -139,6 +141,9 @@
     <Compile Include="Models\ControlViewModel.cs" />
     <Compile Include="Models\EditAccionViewModel.cs" />
     <Compile Include="Models\EmpresaContext.cs" />
+    <Compile Include="Models\IndicadorDetallesViewModel.cs" />
+    <Compile Include="Models\IndicadorResultadosViewModel.cs" />
+    <Compile Include="Models\IndicadorViewModel.cs" />
     <Compile Include="Models\IntervencionViewModel.cs" />
     <Compile Include="Models\RiesgoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

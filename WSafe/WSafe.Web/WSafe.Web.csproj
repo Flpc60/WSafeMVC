@@ -293,7 +293,9 @@
     <Compile Include="Data\Entities\Seguimiento.cs" />
     <Compile Include="Data\Entities\TiposIndicador.cs" />
     <Compile Include="Data\Entities\TiposPeriodicidad.cs" />
+    <Compile Include="Helpers\IChartHelper.cs" />
     <Compile Include="Helpers\IIndicadorHelper.cs" />
+    <Compile Include="Helpers\Implements\ChartHelper.cs" />
     <Compile Include="Helpers\Implements\IndicadorHelper.cs" />
     <Compile Include="Migrations\202112220003458_RefinarRiesgo1.cs" />
     <Compile Include="Migrations\202112220003458_RefinarRiesgo1.Designer.cs">
@@ -378,6 +380,9 @@
       <DependentUpon>202112072218079_ActualizaTablasRiesgos.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\IndicadorDetallesViewModel.cs" />
+    <Compile Include="Models\IndicadorResultadosViewModel.cs" />
+    <Compile Include="Models\IndicadorViewModel.cs" />
     <Compile Include="Models\IntervencionViewModel.cs" />
     <Compile Include="Models\RiesgoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

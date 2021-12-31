@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
+using WSafe.Web.Models;
 
 namespace WSafe.Domain.Helpers.Implements
 {
     public class GestorHelper : IGestorHelper
     {
-        private readonly Web.Models.EmpresaContext _empresaContext;
-        public GestorHelper(Web.Models.EmpresaContext empresaContext)
+        private readonly EmpresaContext _empresaContext;
+        public GestorHelper(EmpresaContext empresaContext)
         {
             _empresaContext = empresaContext;
         }

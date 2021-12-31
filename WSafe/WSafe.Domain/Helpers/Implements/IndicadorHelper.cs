@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using WSafe.Domain.Data.Entities;
 using WSafe.Web.Models;
 
 namespace WSafe.Domain.Helpers.Implements
@@ -13,30 +11,38 @@ namespace WSafe.Domain.Helpers.Implements
         {
             _empresaContext = empresaContext;
         }
-        public int AccientesTrabajo(DateTime fechaInicial, DateTime fechaFinal)
+        public int AccidentesTrabajo(DateTime fechaInicial, DateTime fechaFinal)
         {
             return _empresaContext.Incidentes
-                .Where(i => i.FechaIncidente >= fechaInicial && i.FechaIncidente <= fechaFinal)
+                .Where(i => i.FechaIncidente >= fechaInicial && i.FechaIncidente <= fechaFinal && i.CategoriaIncidente == Data.Entities.Incidentes.CategoriasIncidente.Accidente)
                 .Count();
         }
-        public int AccientesTrabajoInvestigados(DateTime fechaInicial, DateTime fechaFinal)
+        public int AccidentesTrabajoInvestigados(DateTime fechaInicial, DateTime fechaFinal)
         {
             return _empresaContext.Incidentes
-                .Where(i => i.FechaIncidente >= fechaInicial && i.FechaIncidente <= fechaFinal && i.RequiereInvestigacion == true)
+                .Where(i => i.FechaIncidente >= fechaInicial && i.FechaIncidente <= fechaFinal && i.CategoriaIncidente == Data.Entities.Incidentes.CategoriasIncidente.Accidente && i.RequiereInvestigacion == true)
                 .Count();
         }
 
-        public int AccientesTrabajoMortales(DateTime fechaInicial, DateTime fechaFinal)
+        public int AccidentesTrabajoMortales(DateTime fechaInicial, DateTime fechaFinal)
         {
-            throw new System.NotImplementedException();
+            return _empresaContext.Incidentes
+                .Where(i => i.FechaIncidente >= fechaInicial && i.FechaIncidente <= fechaFinal && i.CategoriaIncidente == Data.Entities.Incidentes.CategoriasIncidente.Accidente && i.ConsecuenciasLesion == Data.Entities.Incidentes.ConsecuenciasLesion.Mortal)
+                .Count();
         }
 
-        public IEnumerable<Indicador> AusentismoCausaMedica(DateTime fechaInicial, DateTime fechaFinal)
+        public int AusentismoCausaMedica(DateTime fechaInicial, DateTime fechaFinal)
         {
             throw new NotImplementedException();
         }
 
-        public int DiasIncapacidadAccientesTrabajo(DateTime fechaInicial, DateTime fechaFinal)
+        public int DiasIncapacidadAccidentesTrabajo(DateTime fechaInicial, DateTime fechaFinal)
+        {
+            return _empresaContext.Incidentes
+                .Where(i => i.FechaIncidente >= fechaInicial && i.FechaIncidente <= fechaFinal && i.IncapacidadMedica == true)
+                .Sum(i => i.DiasIncapacidad);
+        }
+        public int DiasCargadosAccidentesTrabajo(DateTime fechaInicial, DateTime fechaFinal)
         {
             throw new System.NotImplementedException();
         }
@@ -51,54 +57,103 @@ namespace WSafe.Domain.Helpers.Implements
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<Indicador> FrecuenciaAccidentalidad(DateTime fechaInicial, DateTime fechaFinal)
+        public decimal FrecuenciaAccidentalidad(DateTime fechaInicial, DateTime fechaFinal)
         {
-            throw new NotImplementedException();
+            return Convert.ToDecimal(AccidentesTrabajo(fechaInicial, fechaFinal))
+                / Convert.ToDecimal(NumeroTrabajadoresMes(fechaInicial, fechaFinal)) * 100;
+        }
+        public decimal IncidenciaEnfermedad(DateTime fechaInicial, DateTime fechaFinal)
+        {
+
+            return Convert.ToDecimal(NumeroCasosNuevosEnfermedadLaboral(fechaInicial, fechaFinal))
+                / Convert.ToDecimal(PromedioTrabajadores(fechaInicial, fechaFinal)) * 100000;
         }
 
-        public IEnumerable<Indicador> IncidenciaEnfermedad(DateTime fechaInicial, DateTime fechaFinal)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int NumeroCasosEnfermedadLabora(DateTime fechaInicial, DateTime fechaFinal)
+        public int NumeroCasosEnfermedadLaboral(DateTime fechaInicial, DateTime fechaFinal)
         {
             throw new System.NotImplementedException();
         }
 
-        public int NumeroCasosNuevosEnfermedadLabora(DateTime fechaInicial, DateTime fechaFinal)
+        public int NumeroCasosNuevosEnfermedadLaboral(DateTime fechaInicial, DateTime fechaFinal)
         {
             throw new System.NotImplementedException();
         }
-
-        public int NumeroDiasTrabajadosMes()
+        public decimal PrevalenciaEnfermedad(DateTime fechaInicial, DateTime fechaFinal)
         {
-            throw new NotImplementedException();
+            return Convert.ToDecimal(NumeroCasosEnfermedadLaboral(fechaInicial, fechaFinal))
+                / Convert.ToDecimal(PromedioTrabajadores(fechaInicial, fechaFinal)) * 100000;
+        }
+        public decimal PromedioTrabajadores(DateTime fechaInicial, DateTime fechaFinal)
+        {
+            return _empresaContext.Trabajadores
+                .Where(i => i.FechaNomina >= fechaInicial && i.FechaNomina <= fechaFinal)
+                .Count();
         }
 
-        public int NumeroTrabajadoresMes()
+        public decimal ProporcionAccidentesMortales(DateTime fechaInicial, DateTime fechaFinal)
         {
-            throw new NotImplementedException();
+            return Convert.ToDecimal(AccidentesTrabajoMortales(fechaInicial, fechaFinal))
+                / Convert.ToDecimal(AccidentesTrabajo(fechaInicial, fechaFinal)) * 100;
+        }
+        public decimal SeveridadAccidentalidad(DateTime fechaInicial, DateTime fechaFinal)
+        {
+            return Convert.ToDecimal(DiasIncapacidadAccidentesTrabajo(fechaInicial, fechaFinal))
+                + Convert.ToDecimal(DiasCargadosAccidentesTrabajo(fechaInicial, fechaFinal))
+                 / Convert.ToDecimal(NumeroTrabajadoresMes(fechaInicial, fechaFinal)) * 100; ;
+        }
+        public int NumeroACPAccidentes(DateTime fechaInicial, DateTime fechaFinal)
+        {
+            return _empresaContext.Acciones
+                .Where(i => i.FechaSolicitud >= fechaInicial && i.FechaSolicitud <= fechaFinal && i.FuenteAccion == Data.Entities.FuentesAccion.Incidente)
+                .Count();
+        }
+        public int NumeroACP(DateTime fechaInicial, DateTime fechaFinal)
+        {
+            return _empresaContext.Acciones
+                .Where(i => i.FechaSolicitud >= fechaInicial && i.FechaSolicitud <= fechaFinal)
+                .Count();
+        }
+        public decimal ProporcionACPAccidentes(DateTime fechaInicial, DateTime fechaFinal)
+        {
+            return Convert.ToDecimal(NumeroACPAccidentes(fechaInicial, fechaFinal))
+                / Convert.ToDecimal(NumeroACP(fechaInicial, fechaFinal)) * 100;
+        }
+        public decimal ProporcionAccidentesInvestigados(DateTime fechaInicial, DateTime fechaFinal)
+        {
+            return Convert.ToDecimal(AccidentesTrabajoInvestigados(fechaInicial, fechaFinal))
+                / Convert.ToDecimal(AccidentesTrabajo(fechaInicial, fechaFinal)) * 100;
         }
 
-        public IEnumerable<Indicador> PrevalenciaEnfermedad(DateTime fechaInicial, DateTime fechaFinal)
+        public int IncidentesInvestigados(DateTime fechaInicial, DateTime fechaFinal)
         {
-            throw new NotImplementedException();
+            return _empresaContext.Incidentes
+                .Where(i => i.FechaIncidente >= fechaInicial && i.FechaIncidente <= fechaFinal && i.CategoriaIncidente == Data.Entities.Incidentes.CategoriasIncidente.Incidente && i.RequiereInvestigacion == true)
+                .Count();
         }
 
-        public int PromedioTrabajadores()
+        public int TotalIncidentes(DateTime fechaInicial, DateTime fechaFinal)
         {
-            throw new NotImplementedException();
+            return _empresaContext.Incidentes
+                .Where(i => i.FechaIncidente >= fechaInicial && i.FechaIncidente <= fechaFinal && i.CategoriaIncidente == Data.Entities.Incidentes.CategoriasIncidente.Incidente)
+                .Count();
         }
 
-        public IEnumerable<Indicador> ProporcionAccidentesMortales(DateTime fechaInicial, DateTime fechaFinal)
+        public decimal ProporcionIncidentesInvestigados(DateTime fechaInicial, DateTime fechaFinal)
         {
-            throw new NotImplementedException();
+            return Convert.ToDecimal(IncidentesInvestigados(fechaInicial, fechaFinal))
+                / Convert.ToDecimal(TotalIncidentes(fechaInicial, fechaFinal)) * 100;
         }
 
-        public IEnumerable<Indicador> SeveridadAccidentalidad(DateTime fechaInicial, DateTime fechaFinal)
+        public int NumeroTrabajadoresMes(DateTime fechaInicial, DateTime fechaFinal)
         {
-            throw new NotImplementedException();
+            return _empresaContext.Trabajadores
+                .Where(i => i.FechaNomina >= fechaInicial && i.FechaNomina <= fechaFinal)
+                .Count();
+        }
+
+        public decimal NumeroDiasTrabajadosMes(DateTime fechaInicial, DateTime fechaFinal)
+        {
+            return Convert.ToDecimal(_empresaContext.Trabajadores.Average(dp => dp.DiasPago));
         }
     }
 }
