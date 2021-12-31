@@ -28,18 +28,24 @@ namespace WSafe.Domain.Helpers.Implements
         public IEnumerable<IndicadorDetallesViewModel> GetAccidentesTrabajo(DateTime fechaInicial, DateTime fechaFinal)
         {
             var denominador = _indicadorHelper.NumeroTrabajadoresMes(fechaInicial, fechaFinal);
-            var lista = from at in _empresaContext.Incidentes
+
+            var resultado = _empresaContext.Incidentes
                     .Where(at => at.FechaIncidente >= fechaInicial && at.FechaIncidente <= fechaFinal && at.CategoriaIncidente == Data.Entities.Incidentes.CategoriasIncidente.Accidente)
-                    .OrderByDescending(at => at.FechaIncidente.Year)
-                    .OrderByDescending(at => at.FechaIncidente.Month)
-                    .GroupBy(at => at.FechaIncidente.Month into MesyAnn
-                        select new IndicadorDetallesViewModel()
-                        {
-                            MesAnn = MesyAnn,
-                            Numerador = MesyAnn.Count(),
-                            Denominador = denominador,
-                            Resultado = (MesyAnn.Count() / denominador * 100),
-                        });
+                    .OrderByDescending(at => at.FechaIncidente)
+                    .GroupBy(at => new { at.FechaIncidente.Month, at.FechaIncidente.Year });
+
+            var viewModel = new List<IndicadorDetallesViewModel>();
+            foreach (var item in resultado)
+            {
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    MesAnn = ("{0}-{1}", item.key, item.FechaIncidente.Year),
+                    Numerador = item.Count(),
+                    Denominador = denominador,
+                    Resultado = (item.Count() / denominador * 100),
+                });
+            }
+            return viewModel;
         }
 
         public IEnumerable<IndicadorDetallesViewModel> GetAccidentesTrabajoInvestigados(DateTime fechaInicial, DateTime fechaFinal)
