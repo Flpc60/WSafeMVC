@@ -107,13 +107,13 @@ namespace WSafe.Domain.Helpers.Implements
                 Trabajadores = _comboHelper.GetComboTrabajadores(),
                 FuenteAccion = accion.FuenteAccion,
                 Descripcion = accion.Descripcion,
-                CausasAccion = accion.CausasAccion,
-                FechaInicial = accion.FechaInicial,
-                FechaFinal = accion.FechaFinal,
-                //Plan = accion.Plan,
+                //CausasAccion = accion.CausasAccion,
+                //FechaInicial = accion.FechaInicial,
+                //FechaFinal = accion.FechaFinal,
+                //Plan = accion.PlanAcion,
                 //Seguimiento = accion.Seguimiento,
                 //FechaSeguimiento = accion.FechaSeguimiento,
-                FechaCierre = accion.FechaCierre,
+                //FechaCierre = accion.FechaCierre,
                 //Efectividad = accion.Efectividad
             };
 
@@ -130,13 +130,13 @@ namespace WSafe.Domain.Helpers.Implements
                 Trabajador = await _empresaContext.Trabajadores.FindAsync(model.TrabajadorID),
                 FuenteAccion = model.FuenteAccion,
                 Descripcion = model.Descripcion,
-                CausasAccion = model.CausasAccion,
-                FechaInicial = model.FechaInicial,
-                FechaFinal = model.FechaFinal,
+                //CausasAccion = model.CausasAccion,
+                //FechaInicial = model.FechaInicial,
+                //FechaFinal = model.FechaFinal,
                 //Plan = model.Plan,
                 //Seguimiento = model.Seguimiento,
                 //FechaSeguimiento = model.FechaSeguimiento,
-                FechaCierre = model.FechaCierre,
+                //FechaCierre = model.FechaCierre,
                 //Efectividad = model.Efectividad
             };
             return result;
