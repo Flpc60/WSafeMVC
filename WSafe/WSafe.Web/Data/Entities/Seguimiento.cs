@@ -11,8 +11,6 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int AccionID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public int RiesgoID { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Fecha seguimiento")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
