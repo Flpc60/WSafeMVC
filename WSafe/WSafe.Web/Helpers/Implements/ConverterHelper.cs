@@ -130,14 +130,14 @@ namespace WSafe.Domain.Helpers.Implements
                 Trabajador = await _empresaContext.Trabajadores.FindAsync(model.TrabajadorID),
                 FuenteAccion = model.FuenteAccion,
                 Descripcion = model.Descripcion,
-                //CausasAccion = model.CausasAccion,
-                //FechaInicial = model.FechaInicial,
-                //FechaFinal = model.FechaFinal,
-                //Plan = model.Plan,
-                //Seguimiento = model.Seguimiento,
-                //FechaSeguimiento = model.FechaSeguimiento,
-                //FechaCierre = model.FechaCierre,
-                //Efectividad = model.Efectividad
+                CausasAccion = model.CausasAccion,
+                FechaInicial = model.FechaInicial,
+                FechaFinal = model.FechaFinal,
+                Plan = model.Plan,
+                Seguimiento = model.Seguimiento,
+                FechaSeguimiento = model.FechaSeguimiento,
+                FechaCierre = model.FechaCierre,
+                Efectividad = model.Efectividad
             };
             return result;
         }
