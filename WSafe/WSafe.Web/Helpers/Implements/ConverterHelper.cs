@@ -143,24 +143,23 @@ namespace WSafe.Domain.Helpers.Implements
             return result;
         }
 
-        public Task<Incidente> ToIncidenteAsync(IncidenteViewModel model, bool isNew)
+        public async Task<Incidente> ToIncidenteAsync(IncidenteViewModel model, bool isNew)
         {
             var result = new Incidente
             {
                 ID = isNew ? 0 : model.ID,
                 FechaReporte = model.FechaReporte,
-                Lesionados = await _empresaContext.Trabajadores.FindAsync(model.TrabajadorID),
+                //Trabajador = await _empresaContext.Trabajadores.FindAsync(model.LesionadoID),
 
             };
             return result;
         }
-
-        public IncidenteViewModel ToIncidenteViewModel(Riesgo riesgo)
+        public IncidenteViewModel ToIncidenteViewModelNew()
         {
             throw new System.NotImplementedException();
         }
 
-        public IncidenteViewModel ToIncidenteViewModelNew()
+        public IncidenteViewModel ToIncidenteViewModel(Incidente incidente)
         {
             throw new System.NotImplementedException();
         }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using WSafe.Domain.Data.Entities;
+using WSafe.Domain.Data.Entities.Incidentes;
 using WSafe.Web.Models;
 
 namespace WSafe.Domain.Helpers.Implements
@@ -140,6 +141,27 @@ namespace WSafe.Domain.Helpers.Implements
                 //Efectividad = model.Efectividad
             };
             return result;
+        }
+
+        public async Task<Incidente> ToIncidenteAsync(IncidenteViewModel model, bool isNew)
+        {
+            var result = new Incidente
+            {
+                ID = isNew ? 0 : model.ID,
+                FechaReporte = model.FechaReporte,
+                //Lesionados = await _empresaContext.Trabajadores.FindAsync(model.LesionadoID),
+
+            };
+            return result;
+        }
+        public IncidenteViewModel ToIncidenteViewModelNew()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IncidenteViewModel ToIncidenteViewModel(Incidente incidente)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

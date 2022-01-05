@@ -15,6 +15,10 @@ namespace WSafe.Web.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaReporte { get; set; }
+        [Display(Name = "Trabajadores lesionados")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public int LesionadoID { get; set; }
+        public IEnumerable<SelectListItem> Lesionados { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Fecha incidente")]
         [DataType(DataType.Date)]

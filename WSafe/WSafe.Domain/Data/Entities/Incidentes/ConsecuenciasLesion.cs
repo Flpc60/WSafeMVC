@@ -4,17 +4,13 @@ namespace WSafe.Domain.Data.Entities.Incidentes
 {
     public enum ConsecuenciasLesion
     {
-        [Display(Name = "Sin Lesión")]
-        Sinlesion = 1,
-        [Display(Name = "Efecto Menor")]
-        EfectoMenor = 2,
-        [Display(Name = "Efecto Medio")]
-        EfectoMedio = 3,
-        [Display(Name = "Efecto Mayor")]
-        EfectoMayor = 4,
-        [Display(Name = "Fatalidad invalidez")]
-        Fatalidad = 5,
-        [Display(Name = "Fatalidad Múltiple")]
-        FatalidadMultiple = 6
+        [Display(Name = "Leve")]
+        Leve = 1,
+        [Display(Name = "Grave")]
+        Grave = 2,
+        [Display(Name = "Muy grave")]
+        MuyGrave = 3,
+        [Display(Name = "Mortal")]
+        Mortal = 4
     }
 }

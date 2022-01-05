@@ -22,12 +22,8 @@ namespace WSafe.Web.Models
         public DbSet<Accion> Acciones { get; set; }
         public DbSet<Incidente> Incidentes { get; set; }
         public System.Data.Entity.DbSet<WSafe.Web.Models.RiesgoViewModel> RiesgoViewModels { get; set; }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-
-        }
-
+        protected override void OnModelCreating(DbModelBuilder modelBuilder) {}
         public System.Data.Entity.DbSet<WSafe.Web.Models.AccionViewModel> AccionViewModels { get; set; }
+        public System.Data.Entity.DbSet<WSafe.Web.Models.IncidenteViewModel> IncidenteViewModels { get; set; }
     }
 }

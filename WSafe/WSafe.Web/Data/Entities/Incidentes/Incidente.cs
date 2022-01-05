@@ -1,28 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace WSafe.Domain.Data.Entities.Incidentes
 {
     public class Incidente
     {
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Key]
         public int ID { get; set; }
-        public Zona Zona { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public Proceso Proceso { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public Actividad Actividad { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public Tarea Tarea { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Fecha reporte")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaReporte { get; set; }
-        [Display(Name = "Trabajadores lesionados")]
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public IEnumerable<Trabajador> Lesionados { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Fecha incidente")]
         [DataType(DataType.Date)]

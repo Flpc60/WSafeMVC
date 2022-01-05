@@ -6,7 +6,7 @@ namespace WSafe.Domain.Data.Entities
 {
     public class Trabajador
     {
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Key]
         public int ID { get; set; }
         [Display(Name = "Primer Apellido")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
