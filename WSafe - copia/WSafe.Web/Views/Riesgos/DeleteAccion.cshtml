@@ -1,0 +1,136 @@
+﻿@model WSafe.Web.Models.AccionViewModel
+
+@{
+    ViewBag.Title = "DeleteAccion";
+}
+
+<h2>DeleteAccion</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>AccionViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RiesgoID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RiesgoID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Categoria)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Categoria)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaSolicitud)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaSolicitud)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TrabajadorID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TrabajadorID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FuenteAccion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FuenteAccion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CausasAccion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CausasAccion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaInicial)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaInicial)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaFinal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaFinal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Plan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Plan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Seguimiento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seguimiento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaSeguimiento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaSeguimiento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaCierre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaCierre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Efectividad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Efectividad)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
