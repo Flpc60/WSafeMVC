@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Threading.Tasks;
 using WSafe.Domain.Data;
+using WSafe.Web.Models;
 
 namespace WSafe.Domain.Repositories.Implements
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
-        private readonly EmpresaContext _empresaContext;
-        public GenericRepository(EmpresaContext empresaContext)
+        private readonly Web.Models.EmpresaContext _empresaContext;
+        public GenericRepository(Web.Models.EmpresaContext empresaContext)
         {
             _empresaContext = empresaContext;
         }
