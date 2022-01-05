@@ -1,0 +1,101 @@
+﻿@model IEnumerable<WSafe.Domain.Data.Entities.Control>
+
+@{
+    ViewBag.Title = "GetControles";
+}
+
+<p>
+    <br><label class="label label-warning" style="font-size:20px"> Zona : @ViewBag.Zona , Proceso : @ViewBag.Proceso</label>
+    <br><label class="label label-warning" style="font-size:20px"> Actividad : @ViewBag.Actividad , Tarea : @ViewBag.Tarea</label>
+    <br><label class="label label-warning" style="font-size:20px"> Riesgo : @ViewBag.Riesgo , Nivel : @ViewBag.Nivel</label>
+    <br><label class="label label-warning" style="font-size:20px"> Número de trabajadores expuestos : @ViewBag.Expuestos</label>
+</p>
+
+<h2>Controles existentes</h2>
+
+<p>
+    @Html.ActionLink("Acciones", "CreateAccion", new { Id = @ViewBag.RiesgoID }, new { @class = "btn btn-info btn-lg active" })
+</p>
+
+<table class="table">
+    <tr style="background-color:gainsboro">
+        <th>
+            @Html.DisplayNameFor(model => model.Codigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoriaAplicacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Finalidad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Intervencion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Beneficios)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Presupuesto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Efectividad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoriaEfectividad)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        string strStyle = String.Empty;
+        switch (((int)item.CategoriaEfectividad))
+        {
+            case 3:
+                strStyle = "background-color:red;";
+                break;
+
+            case 2:
+                strStyle = "background-color:yellow;";
+                break;
+
+            default:
+                strStyle = "background-color:green;";
+                break;
+        }
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Codigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoriaAplicacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Finalidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Intervencion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Beneficios)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Presupuesto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Efectividad)
+            </td>
+            <td style="@strStyle">
+                @Html.DisplayFor(modelItem => item.CategoriaEfectividad)
+            </td>
+        </tr>
+    }
+
+</table>
