@@ -11,6 +11,26 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Zona")]
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una zona.")]
+        public int ZonaID { get; set; }
+        public IEnumerable<SelectListItem> Zonas { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Proceso")]
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un proceso.")]
+        public int ProcesoID { get; set; }
+        public IEnumerable<SelectListItem> Procesos { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Actividad")]
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una actividad.")]
+        public int ActividadID { get; set; }
+        public IEnumerable<SelectListItem> Actividades { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Tarea")]
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una tarea.")]
+        public int TareaID { get; set; }
+        public IEnumerable<SelectListItem> Tareas { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Fecha reporte")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
@@ -26,6 +46,11 @@ namespace WSafe.Web.Models
         public CategoriasIncidente CategoriasIncidente { get; set; }
         [Display(Name = "Incapacidad médica")]
         public bool IncapacidadMedica { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Lesionados")]
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una actividad.")]
+        public int TrabajadorID { get; set; }
+        public IEnumerable<SelectListItem> Trabajadores { get; set; }
         [Display(Name = "Días de incapacidad médica")]
         public int DiasIncapacidad { get; set; }
         [Display(Name = "Naturaleza lesión")]

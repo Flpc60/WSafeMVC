@@ -1,4 +1,4 @@
-﻿using WSafe.Domain.Data.Entities.Incidentes;
+﻿using WSafe.Domain.Data.Entities;
 
 namespace WSafe.Domain.Repositories
 {

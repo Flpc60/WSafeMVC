@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Threading.Tasks;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Data.Entities.Incidentes;
@@ -148,20 +149,114 @@ namespace WSafe.Domain.Helpers.Implements
             var result = new Incidente
             {
                 ID = isNew ? 0 : model.ID,
+                ZonaID = model.ZonaID,
+                ProcesoID = model.ProcesoID,
+                ActividadID = model.ActividadID,
+                TareaID = model.TareaID,
                 FechaReporte = model.FechaReporte,
-                //Lesionados = await _empresaContext.Trabajadores.FindAsync(model.LesionadoID),
-
+                FechaIncidente = model.FechaIncidente,
+                CategoriaIncidente = model.CategoriasIncidente,
+                IncapacidadMedica = model.IncapacidadMedica,
+                DiasIncapacidad = model.DiasIncapacidad,
+                TrabajadorID = model.TrabajadorID,
+                NaturalezaLesion = model.NaturalezaLesion,
+                PartesAfectadas = model.PartesAfectadas,
+                TipoIncidente = model.TipoIncidente,
+                AgenteLesion = model.AgenteLesion,
+                ActosInseguros = model.ActosInseguros,
+                CondicionesInsegura = model.CondicionesInsegura,
+                TipoDaño = model.TipoDaño,
+                Afectacion = model.Afectacion,
+                DañosOcasionados = model.DañosOcasionados,
+                TipoVehiculo = model.TipoVehiculo,
+                MarcaVehiculo = model.MarcaVehiculo,
+                ModeloVehiculo = model.ModeloVehiculo,
+                KilometrajeVehiculo = model.KilometrajeVehiculo,
+                CostosEstimados = model.CostosEstimados,
+                DescripcionIncidente = model.DescripcionIncidente,
+                EvitarIncidente = model.EvitarIncidente,
+                AccionesInmediatas = model.AccionesInmediatas,
+                ComentariosAdicionales = model.ComentariosAdicionales,
+                AtencionBrindada = model.AtencionBrindada,
+                EquipoInvestigador = model.EquiposInvestigador,
+                LesionPersonal = model.LesionPersonal,
+                DañoMaterial = model.DañoMaterial,
+                MedioAmbiente = model.MedioAmbiente,
+                Imagen = model.Imagen,
+                RequiereInvestigacion = model.RequiereInvestigacion,
+                ConsecuenciasLesion = model.ConsecuenciasLesion,
+                ConsecuenciasDaño = model.ConsecuenciasDaño,
+                ConsecuenciasMedio = model.ConsecuenciasMedio,
+                ConsecuenciasImagen = model.ConsecuenciasImagen,
+                Probabilidad = model.Probabilidad
             };
             return result;
         }
         public IncidenteViewModel ToIncidenteViewModelNew()
         {
-            throw new System.NotImplementedException();
+            var model = new IncidenteViewModel
+            {
+                Zonas = _comboHelper.GetComboZonas(),
+                Procesos = _comboHelper.GetComboProcesos(),
+                Actividades = _comboHelper.GetComboActividades(),
+                Tareas = _comboHelper.GetComboTareas()
+            };
+
+            return model;
         }
 
         public IncidenteViewModel ToIncidenteViewModel(Incidente incidente)
         {
-            throw new System.NotImplementedException();
+            var model = new IncidenteViewModel
+            {
+                ID = incidente.ID,
+                ZonaID = incidente.ZonaID,
+                Zonas = _comboHelper.GetComboZonas(),
+                ProcesoID = incidente.ProcesoID,
+                Procesos = _comboHelper.GetComboProcesos(),
+                ActividadID = incidente.ActividadID,
+                Actividades = _comboHelper.GetComboActividades(),
+                TareaID = incidente.TareaID,
+                Tareas = _comboHelper.GetComboTareas(),
+                FechaReporte = incidente.FechaReporte,
+                FechaIncidente = incidente.FechaIncidente,
+                CategoriasIncidente = incidente.CategoriaIncidente,
+                IncapacidadMedica = incidente.IncapacidadMedica,
+                DiasIncapacidad = incidente.DiasIncapacidad,
+                TrabajadorID = incidente.TrabajadorID,
+                NaturalezaLesion = incidente.NaturalezaLesion,
+                PartesAfectadas = incidente.PartesAfectadas,
+                TipoIncidente = incidente.TipoIncidente,
+                AgenteLesion = incidente.AgenteLesion,
+                ActosInseguros = incidente.ActosInseguros,
+                CondicionesInsegura = incidente.CondicionesInsegura,
+                TipoDaño = incidente.TipoDaño,
+                Afectacion = incidente.Afectacion,
+                DañosOcasionados = incidente.DañosOcasionados,
+                TipoVehiculo = incidente.TipoVehiculo,
+                MarcaVehiculo = incidente.MarcaVehiculo,
+                ModeloVehiculo = incidente.ModeloVehiculo,
+                KilometrajeVehiculo = incidente.KilometrajeVehiculo,
+                CostosEstimados = incidente.CostosEstimados,
+                DescripcionIncidente = incidente.DescripcionIncidente,
+                EvitarIncidente = incidente.EvitarIncidente,
+                AccionesInmediatas = incidente.AccionesInmediatas,
+                ComentariosAdicionales = incidente.ComentariosAdicionales,
+                AtencionBrindada = incidente.AtencionBrindada,
+                EquiposInvestigador = incidente.EquipoInvestigador,
+                LesionPersonal = incidente.LesionPersonal,
+                DañoMaterial = incidente.DañoMaterial,
+                MedioAmbiente = incidente.MedioAmbiente,
+                Imagen = incidente.Imagen,
+                RequiereInvestigacion = incidente.RequiereInvestigacion,
+                ConsecuenciasLesion = incidente.ConsecuenciasLesion,
+                ConsecuenciasDaño = incidente.ConsecuenciasDaño,
+                ConsecuenciasMedio = incidente.ConsecuenciasMedio,
+                ConsecuenciasImagen = incidente.ConsecuenciasImagen,
+                Probabilidad = incidente.Probabilidad
+            };
+
+            return model;
         }
     }
 }

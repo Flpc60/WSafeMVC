@@ -2,7 +2,7 @@
 
 namespace WSafe.Domain.Services
 {
-    public interface IIncidenteService : IGenericService<Incidente>
+    public interface IAccionService : IGenericService<Accion>
     {
     }
 }

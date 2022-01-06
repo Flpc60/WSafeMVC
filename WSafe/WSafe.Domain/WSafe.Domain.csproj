@@ -88,6 +88,7 @@
     <Compile Include="Data\Entities\CategoriaIntervencion.cs" />
     <Compile Include="Data\Entities\CategoriasCausa.cs" />
     <Compile Include="Data\Entities\FuentesAccion.cs" />
+    <Compile Include="Data\Entities\Incidente.cs" />
     <Compile Include="Data\Entities\Incidentes\AccidenteProbabilidad.cs" />
     <Compile Include="Data\Entities\Incidentes\CalificacionesEquipo.cs" />
     <Compile Include="Data\Entities\Incidentes\CategoriasIncidente.cs" />
@@ -157,14 +158,21 @@
     <Compile Include="Repositories\Implements\IncidenteRepository.cs" />
     <Compile Include="Repositories\Implements\RiesgoRepository.cs" />
     <Compile Include="Repositories\IRiesgoRepository.cs" />
+    <Compile Include="Services\IAccionService.cs" />
     <Compile Include="Services\IGenericService.cs" />
+    <Compile Include="Services\IIncidenteService.cs" />
+    <Compile Include="Services\Implements\AccionService.cs" />
     <Compile Include="Services\Implements\GenericService.cs" />
+    <Compile Include="Services\Implements\IncidenteService.cs" />
     <Compile Include="Services\Implements\RiesgoService.cs" />
     <Compile Include="Services\IRiesgoService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

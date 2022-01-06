@@ -6,7 +6,6 @@ namespace WSafe.Domain.Data.Entities
 {
     public class Trabajador
     {
-        [Key]
         public int ID { get; set; }
         [Display(Name = "Primer Apellido")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
@@ -23,7 +22,7 @@ namespace WSafe.Domain.Data.Entities
         {
             get
             {
-                return Documento + " " +Nombres + " " + PrimerApellido + " " + SegundoApellido;
+                return Documento + " " + Nombres + " " + PrimerApellido + " " + SegundoApellido;
             }
         }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]

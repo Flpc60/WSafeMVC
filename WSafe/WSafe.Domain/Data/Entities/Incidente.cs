@@ -1,12 +1,17 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using WSafe.Domain.Data.Entities.Incidentes;
 
-namespace WSafe.Domain.Data.Entities.Incidentes
+namespace WSafe.Domain.Data.Entities
 {
     public class Incidente
     {
-        [Key]
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ID { get; set; }
+        public int ZonaID { get; set; }
+        public int ProcesoID { get; set; }
+        public int ActividadID { get; set; }
+        public int TareaID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Fecha reporte")]
         [DataType(DataType.Date)]
@@ -24,6 +29,7 @@ namespace WSafe.Domain.Data.Entities.Incidentes
         public bool IncapacidadMedica { get; set; }
         [Display(Name = "Días de incapacidad médica")]
         public int DiasIncapacidad { get; set; }
+        public int TrabajadorID { get; set; }
         [Display(Name = "Naturaleza lesión")]
         public string NaturalezaLesion { get; set; }
         [Display(Name = "Partes afectadas")]
