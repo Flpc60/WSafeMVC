@@ -4,7 +4,6 @@ using System.Data.Entity.Validation;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using WSafe.Domain.Data.Entities.Incidentes;
 using WSafe.Domain.Helpers;
 using WSafe.Domain.Repositories.Implements;
 using WSafe.Domain.Services.Implements;
@@ -64,15 +63,15 @@ namespace WSafe.Web.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(RiesgoViewModel model)
+        public async Task<ActionResult> Create(IncidenteViewModel model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
-                    var riesgo = await _converterHelper.ToRiesgoAsync(model, true);
-                    var saved = await consulta.Insert(riesgo);
+                    var consulta = new IncidenteService(new IncidenteRepository(_empresaContext));
+                    var incidente = await _converterHelper.ToIncidenteAsync(model, true);
+                    var saved = await consulta.Insert(incidente);
                     if (saved != null)
                     {
                         return RedirectToAction("Index");
@@ -94,22 +93,17 @@ namespace WSafe.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var result = await _empresaContext.Riesgos.Include(z => z.Zona)
-                .Include(p => p.Proceso)
-                .Include(a => a.Actividad)
-                .Include(t => t.Tarea)
-                .Include(cp => cp.Peligro)
-                .FirstOrDefaultAsync(i => i.ID == id.Value);
+            var result = await _empresaContext.Incidentes.FirstOrDefaultAsync(i => i.ID == id.Value);
 
-            var riesgoViewModel = _converterHelper.ToRiesgoViewModel(result);
+            var incidenteViewModel = _converterHelper.ToIncidenteViewModel(result);
 
-            if (riesgoViewModel == null)
+            if (incidenteViewModel == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.RiesgoID = id;
+            ViewBag.IncidenteID = id;
 
-            return View(riesgoViewModel);
+            return View(incidenteViewModel);
         }
 
         // POST: Riesgos/Edit/5
@@ -117,7 +111,7 @@ namespace WSafe.Web.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(RiesgoViewModel model)
+        public async Task<ActionResult> Edit(IncidenteViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -128,8 +122,8 @@ namespace WSafe.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
-                    var result = await _converterHelper.ToRiesgoAsync(model, false);
+                    var consulta = new IncidenteService(new IncidenteRepository(_empresaContext));
+                    var result = await _converterHelper.ToIncidenteAsync(model, false);
                     await consulta.Update(result);
                     return RedirectToAction("Index");
                 }
@@ -151,12 +145,7 @@ namespace WSafe.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var result = await _empresaContext.Riesgos.Include(z => z.Zona)
-                .Include(p => p.Proceso)
-                .Include(a => a.Actividad)
-                .Include(t => t.Tarea)
-                .Include(cp => cp.Peligro)
-                .FirstOrDefaultAsync(i => i.ID == id.Value);
+            var result = await _empresaContext.Incidentes.FirstOrDefaultAsync(i => i.ID == id.Value);
 
             try
             {
@@ -179,7 +168,7 @@ namespace WSafe.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
+            var consulta = new IncidenteService(new IncidenteRepository(_empresaContext));
             try
             {
                 await consulta.Delete(id);
