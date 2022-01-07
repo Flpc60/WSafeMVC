@@ -27,7 +27,7 @@ namespace WSafe.Domain.Data.Entities
         public CategoriasIncidente CategoriaIncidente { get; set; }
         [Display(Name = "Incapacidad médica")]
         public bool IncapacidadMedica { get; set; }
-        [Display(Name = "Días de incapacidad médica")]
+        [Display(Name = "Días de incapacidad")]
         public int DiasIncapacidad { get; set; }
         public int TrabajadorID { get; set; }
         [Display(Name = "Naturaleza lesión")]
@@ -44,7 +44,7 @@ namespace WSafe.Domain.Data.Entities
         public string CondicionesInsegura { get; set; }
         [Display(Name = "Tipo daño")]
         public string TipoDaño { get; set; }
-        [Display(Name = "Maquinaria, Equipo, Proceso afectado")]
+        [Display(Name = "Maquinaria, Proceso")]
         public string Afectacion { get; set; }
         [Display(Name = "Daños ocasionados")]
         public string DañosOcasionados { get; set; }
@@ -60,23 +60,32 @@ namespace WSafe.Domain.Data.Entities
         public decimal CostosEstimados { get; set; }
         [Display(Name = "Descripción incidente")]
         public string DescripcionIncidente { get; set; }
-        [Display(Name = "Cómo pudo haberse evitado")]
+        [Display(Name = "Cómo evitarse")]
         public string EvitarIncidente { get; set; }
-        [Display(Name = "Qué acciones inmediatas se tomaron después del evento")]
+        [Display(Name = "Acciones inmediatas")]
         public string AccionesInmediatas { get; set; }
         [Display(Name = "Comentarios Adicionales")]
         public string ComentariosAdicionales { get; set; }
         [Display(Name = "Atención brindada")]
         public string AtencionBrindada { get; set; }
+        [Display(Name = "Investigadores")]
         public CalificacionesEquipo EquipoInvestigador { get; set; }
+        [Display(Name = "Lesión personal")]
         public TipoPerdida LesionPersonal { get; set; }
+        [Display(Name = "Material")]
         public TipoPerdida DañoMaterial { get; set; }
+        [Display(Name = "Ambiente")]
         public TipoPerdida MedioAmbiente { get; set; }
         public TipoPerdida Imagen { get; set; }
+        [Display(Name = "Investigar")]
         public bool RequiereInvestigacion { get; set; }
+        [Display(Name = "Consecuencias lesión")]
         public ConsecuenciasLesion ConsecuenciasLesion { get; set; }
+        [Display(Name = "Consecuencias daño")]
         public ConsecuenciasDaño ConsecuenciasDaño { get; set; }
+        [Display(Name = "Consecuencias medio")]
         public ConsecuenciasMedio ConsecuenciasMedio { get; set; }
+        [Display(Name = "Consecuencias imagen")]
         public ConsecuenciasImagen ConsecuenciasImagen { get; set; }
         public AccidenteProbabilidad Probabilidad { get; set; }
     }

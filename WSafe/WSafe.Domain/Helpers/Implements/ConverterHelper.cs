@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Data.Entity;
 using System.Threading.Tasks;
 using WSafe.Domain.Data.Entities;
-using WSafe.Domain.Data.Entities.Incidentes;
 using WSafe.Web.Models;
 
 namespace WSafe.Domain.Helpers.Implements
@@ -199,7 +197,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Zonas = _comboHelper.GetComboZonas(),
                 Procesos = _comboHelper.GetComboProcesos(),
                 Actividades = _comboHelper.GetComboActividades(),
-                Tareas = _comboHelper.GetComboTareas()
+                Tareas = _comboHelper.GetComboTareas(),
+                Trabajadores = _comboHelper.GetComboTrabajadores()
             };
 
             return model;
@@ -224,6 +223,7 @@ namespace WSafe.Domain.Helpers.Implements
                 IncapacidadMedica = incidente.IncapacidadMedica,
                 DiasIncapacidad = incidente.DiasIncapacidad,
                 TrabajadorID = incidente.TrabajadorID,
+                Trabajadores = _comboHelper.GetComboTrabajadores(),
                 NaturalezaLesion = incidente.NaturalezaLesion,
                 PartesAfectadas = incidente.PartesAfectadas,
                 TipoIncidente = incidente.TipoIncidente,

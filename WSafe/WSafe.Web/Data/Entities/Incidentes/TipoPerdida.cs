@@ -2,6 +2,7 @@
 {
     public enum TipoPerdida
     {
-        Real, Potencial
+        Real = 1,
+        Potencial = 2
     }
 }
