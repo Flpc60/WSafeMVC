@@ -1,16 +1,17 @@
-﻿@model IEnumerable<WSafe.Domain.Data.Entities.Incidentes.Incidente>
+﻿@model IEnumerable<WSafe.Domain.Data.Entities.Incidente>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "WSafe";
 }
 
-<h2>Index</h2>
+<h2>GESTIÓN DE INCIDENTES</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Nuevo", "Create", new { @class = "glyphicon glyphicon-plus" },
+    new { @class = "btn btn-info btn-lg active" })
 </p>
 <table class="table">
-    <tr>
+    <tr style="background-color:gainsboro">
         <th>
             @Html.DisplayNameFor(model => model.FechaReporte)
         </th>
@@ -114,12 +115,28 @@
             @Html.DisplayNameFor(model => model.ConsecuenciasImagen)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Probabilidad)
+            Acciones
         </th>
-        <th></th>
     </tr>
 
-@foreach (var item in Model) {
+    @foreach (var item in Model)
+    {
+        string strStyle = String.Empty;
+        switch (Convert.ToInt32(item.CategoriaIncidente))
+        {
+            case 2:
+                strStyle = "background-color:red;";
+                break;
+
+            case 1:
+                strStyle = "background-color:yellow;";
+                break;
+
+            default:
+                strStyle = "background-color:green;";
+                break;
+        }
+
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.FechaReporte)
@@ -127,7 +144,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.FechaIncidente)
         </td>
-        <td>
+        <td style="@strStyle">
             @Html.DisplayFor(modelItem => item.CategoriaIncidente)
         </td>
         <td>
@@ -223,15 +240,12 @@
         <td>
             @Html.DisplayFor(modelItem => item.ConsecuenciasImagen)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Probabilidad)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        <td style="font-size:12px">
+            @Html.ActionLink(" ", "Create", "Riesgos", new { id = item.ID }, new { @class = "glyphicon glyphicon-search" }) |
+            @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) |
+            @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "glyphicon glyphicon-trash" })
         </td>
     </tr>
-}
+    }
 
 </table>

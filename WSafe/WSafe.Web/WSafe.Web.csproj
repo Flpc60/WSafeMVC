@@ -308,6 +308,10 @@
     <Compile Include="Migrations\202201060556531_CreatenewIncidente111111111111.Designer.cs">
       <DependentUpon>202201060556531_CreatenewIncidente111111111111.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201061831073_MejoraIncidentes.cs" />
+    <Compile Include="Migrations\202201061831073_MejoraIncidentes.Designer.cs">
+      <DependentUpon>202201061831073_MejoraIncidentes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccionViewModel.cs" />
     <Compile Include="Models\ControlViewModel.cs" />
     <Compile Include="Models\EmpresaContext.cs" />
@@ -374,14 +378,14 @@
     <Compile Include="Services\IRiesgoService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Start\Content\bootstrap-theme.css" />
-    <Content Include="App_Start\Content\bootstrap-theme.min.css" />
-    <Content Include="App_Start\Content\bootstrap.css" />
-    <Content Include="App_Start\Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="App_Start\Content\Site.css" />
+    <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -434,10 +438,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="App_Start\Content\bootstrap.min.css.map" />
-    <Content Include="App_Start\Content\bootstrap.css.map" />
-    <Content Include="App_Start\Content\bootstrap-theme.min.css.map" />
-    <Content Include="App_Start\Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
@@ -448,6 +452,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201060556531_CreatenewIncidente111111111111.resx">
       <DependentUpon>202201060556531_CreatenewIncidente111111111111.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201061831073_MejoraIncidentes.resx">
+      <DependentUpon>202201061831073_MejoraIncidentes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

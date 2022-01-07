@@ -1,6 +1,5 @@
 ﻿using System.Data.Entity;
 using WSafe.Domain.Data.Entities;
-using WSafe.Domain.Data.Entities.Incidentes;
 
 namespace WSafe.Web.Models
 {
