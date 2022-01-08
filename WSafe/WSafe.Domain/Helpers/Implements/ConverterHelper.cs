@@ -36,6 +36,7 @@ namespace WSafe.Domain.Helpers.Implements
                 RequisitoLegal = model.RequisitoLegal,
                 MedidasIntervencion = isNew ? new List<Aplicacion>() : null,
                 Acciones = isNew ? new List<Accion>() : null,
+                IncidenteID = model.IncidenteID
             };
             return result;
         }
@@ -66,7 +67,8 @@ namespace WSafe.Domain.Helpers.Implements
                 NivelesConsecuencia = _gestorHelper.GetNivelConsecuencia(riesgo.NivelConsecuencia),
                 AceptabilidadNR = riesgo.Aceptabilidad,
                 NroExpuestos = riesgo.NroExpuestos,
-                RequisitoLegal = riesgo.RequisitoLegal
+                RequisitoLegal = riesgo.RequisitoLegal,
+                IncidenteID = riesgo.IncidenteID
             };
 
             return model;
