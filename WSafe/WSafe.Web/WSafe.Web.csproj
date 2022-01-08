@@ -312,6 +312,22 @@
     <Compile Include="Migrations\202201061831073_MejoraIncidentes.Designer.cs">
       <DependentUpon>202201061831073_MejoraIncidentes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201071554175_IntegrateIncidente.cs" />
+    <Compile Include="Migrations\202201071554175_IntegrateIncidente.Designer.cs">
+      <DependentUpon>202201071554175_IntegrateIncidente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201071850424_IntegrateIncidente1.cs" />
+    <Compile Include="Migrations\202201071850424_IntegrateIncidente1.Designer.cs">
+      <DependentUpon>202201071850424_IntegrateIncidente1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201080013020_IntegracionIncidente2.cs" />
+    <Compile Include="Migrations\202201080013020_IntegracionIncidente2.Designer.cs">
+      <DependentUpon>202201080013020_IntegracionIncidente2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201080106289_IntegracionIncidente3.cs" />
+    <Compile Include="Migrations\202201080106289_IntegracionIncidente3.Designer.cs">
+      <DependentUpon>202201080106289_IntegracionIncidente3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccionViewModel.cs" />
     <Compile Include="Models\ControlViewModel.cs" />
     <Compile Include="Models\EmpresaContext.cs" />
@@ -429,6 +445,8 @@
     <Content Include="Views\Incidentes\Details.cshtml" />
     <Content Include="Views\Incidentes\Edit.cshtml" />
     <Content Include="Views\Incidentes\Index.cshtml" />
+    <Content Include="Views\Incidentes\CreateRiesgo.cshtml" />
+    <Content Include="Views\Incidentes\EditRiesgo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -455,6 +473,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201061831073_MejoraIncidentes.resx">
       <DependentUpon>202201061831073_MejoraIncidentes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201071554175_IntegrateIncidente.resx">
+      <DependentUpon>202201071554175_IntegrateIncidente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201071850424_IntegrateIncidente1.resx">
+      <DependentUpon>202201071850424_IntegrateIncidente1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201080013020_IntegracionIncidente2.resx">
+      <DependentUpon>202201080013020_IntegracionIncidente2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201080106289_IntegracionIncidente3.resx">
+      <DependentUpon>202201080106289_IntegracionIncidente3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

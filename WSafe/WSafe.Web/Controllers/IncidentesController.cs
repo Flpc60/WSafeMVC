@@ -181,5 +181,111 @@ namespace WSafe.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        // GET: Riesgos/Create
+        public async Task<ActionResult> CreateRiesgo(int id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var result = await _empresaContext.Riesgos.Include(z => z.Zona)
+                .Include(p => p.Proceso)
+                .Include(a => a.Actividad)
+                .Include(t => t.Tarea)
+                .Include(cp => cp.Peligro)
+                .FirstOrDefaultAsync(i => i.IncidenteID == id);
+
+            if (result != null)
+            {
+                return View("EditRiesgo");
+            }
+
+            var riesgoView = _converterHelper.ToRiesgoViewModelNew();
+            riesgoView.IncidenteID = id;
+            return View(riesgoView);
+        }
+
+        // POST: Riesgos/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateRiesgo(RiesgoViewModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
+                    var riesgo = await _converterHelper.ToRiesgoAsync(model, true);
+                    var saved = await consulta.Insert(riesgo);
+                    if (saved != null)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
+                return View(model);
+            }
+            catch
+            {
+                return View(model);
+            }
+        }
+        public async Task<ActionResult> EditRiesgo(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var result = await _empresaContext.Riesgos.Include(z => z.Zona)
+                .Include(p => p.Proceso)
+                .Include(a => a.Actividad)
+                .Include(t => t.Tarea)
+                .Include(cp => cp.Peligro)
+                .FirstOrDefaultAsync(i => i.IncidenteID == id.Value);
+
+            var riesgoViewModel = _converterHelper.ToRiesgoViewModel(result);
+
+            if (riesgoViewModel == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.RiesgoID = id;
+
+            return View(riesgoViewModel);
+        }
+
+        // POST: Riesgos/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditRiesgo(RiesgoViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
+                    var result = await _converterHelper.ToRiesgoAsync(model, false);
+                    await consulta.Update(result);
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (DbEntityValidationException ex)
+            {
+                //return View("Error", new HandleErrorInfo(ex, "Riesgos", "Create"));
+                throw ex;
+            }
+
+            return View(model);
+        }
     }
 }
