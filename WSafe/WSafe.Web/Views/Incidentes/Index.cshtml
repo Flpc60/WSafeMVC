@@ -11,114 +11,115 @@
     new { @class = "btn btn-info btn-lg active" })
 </p>
 <table class="table">
-    <tr style="background-color:gainsboro">
-        <th>
-            @Html.DisplayNameFor(model => model.FechaReporte)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FechaIncidente)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CategoriaIncidente)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IncapacidadMedica)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DiasIncapacidad)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NaturalezaLesion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PartesAfectadas)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TipoIncidente)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AgenteLesion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ActosInseguros)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CondicionesInsegura)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TipoDaño)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Afectacion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DañosOcasionados)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TipoVehiculo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MarcaVehiculo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ModeloVehiculo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.KilometrajeVehiculo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CostosEstimados)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DescripcionIncidente)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EvitarIncidente)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AccionesInmediatas)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ComentariosAdicionales)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AtencionBrindada)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EquipoInvestigador)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LesionPersonal)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DañoMaterial)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MedioAmbiente)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Imagen)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RequiereInvestigacion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ConsecuenciasLesion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ConsecuenciasDaño)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ConsecuenciasMedio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ConsecuenciasImagen)
-        </th>
-        <th>
-            Acciones
-        </th>
-    </tr>
-
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaReporte)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaIncidente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoriaIncidente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IncapacidadMedica)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiasIncapacidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NaturalezaLesion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PartesAfectadas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoIncidente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AgenteLesion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActosInseguros)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CondicionesInsegura)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoDaño)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Afectacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DañosOcasionados)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoVehiculo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MarcaVehiculo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModeloVehiculo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KilometrajeVehiculo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CostosEstimados)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DescripcionIncidente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EvitarIncidente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccionesInmediatas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ComentariosAdicionales)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AtencionBrindada)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EquipoInvestigador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LesionPersonal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DañoMaterial)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MedioAmbiente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Imagen)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RequiereInvestigacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ConsecuenciasLesion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ConsecuenciasDaño)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ConsecuenciasMedio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ConsecuenciasImagen)
+            </th>
+            <th>
+                Acciones
+            </th>
+        </tr>
+    </thead>
     @foreach (var item in Model)
     {
         string strStyle = String.Empty;
@@ -137,115 +138,115 @@
                 break;
         }
 
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaReporte)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaIncidente)
-        </td>
-        <td style="@strStyle">
-            @Html.DisplayFor(modelItem => item.CategoriaIncidente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IncapacidadMedica)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DiasIncapacidad)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NaturalezaLesion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PartesAfectadas)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TipoIncidente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AgenteLesion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ActosInseguros)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CondicionesInsegura)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TipoDaño)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Afectacion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DañosOcasionados)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TipoVehiculo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MarcaVehiculo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ModeloVehiculo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.KilometrajeVehiculo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CostosEstimados)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DescripcionIncidente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EvitarIncidente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AccionesInmediatas)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ComentariosAdicionales)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AtencionBrindada)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EquipoInvestigador)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LesionPersonal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DañoMaterial)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MedioAmbiente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Imagen)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RequiereInvestigacion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ConsecuenciasLesion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ConsecuenciasDaño)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ConsecuenciasMedio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ConsecuenciasImagen)
-        </td>
-        <td style="font-size:12px">
-            @Html.ActionLink(" ", "CreateRiesgo", new { id = item.ID }, new { @class = "glyphicon glyphicon-search" }) |
-            @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) |
-            @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "glyphicon glyphicon-trash" })
-        </td>
-    </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaReporte)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaIncidente)
+            </td>
+            <td style="@strStyle">
+                @Html.DisplayFor(modelItem => item.CategoriaIncidente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IncapacidadMedica)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiasIncapacidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NaturalezaLesion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PartesAfectadas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoIncidente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AgenteLesion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActosInseguros)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CondicionesInsegura)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoDaño)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Afectacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DañosOcasionados)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoVehiculo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MarcaVehiculo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModeloVehiculo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KilometrajeVehiculo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CostosEstimados)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DescripcionIncidente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EvitarIncidente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccionesInmediatas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ComentariosAdicionales)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AtencionBrindada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EquipoInvestigador)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LesionPersonal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DañoMaterial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MedioAmbiente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Imagen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RequiereInvestigacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ConsecuenciasLesion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ConsecuenciasDaño)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ConsecuenciasMedio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ConsecuenciasImagen)
+            </td>
+            <td style="font-size:12px">
+                @Html.ActionLink(" ", "CreateRiesgo", new { id = item.ID }, new { @class = "glyphicon glyphicon-search" }) |
+                @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) |
+                @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "glyphicon glyphicon-trash" })
+            </td>
+        </tr>
     }
 
 </table>

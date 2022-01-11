@@ -17,14 +17,14 @@ namespace WSafe.Domain.Helpers.Implements
             _empresaContext = empresaContext;
             _indicadorHelper = indicadorHelper;
         }
-        public void DrawImagen(string tipo, string nombre, List<IndicadorDetallesViewModel> lista)
+        public void DrawImagen(string tipo, string nombre, IEnumerable<IndicadorDetallesViewModel> lista)
         {
             new Chart(width: 500, height: 300)
                  .AddTitle(nombre)
                       .AddSeries(chartType: tipo,
                         xValue: lista, xField:"MesAnn",
                           yValues: lista, yFields:"Resultado")
-                        .Write("bmp");
+                        .Write(".../Images/Indicador.jpg");
         }
         public IEnumerable<IndicadorDetallesViewModel> GetFrecuenciaAccidentes(DateTime fechaInicial, DateTime fechaFinal)
         {

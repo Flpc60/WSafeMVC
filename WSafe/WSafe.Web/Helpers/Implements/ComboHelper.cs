@@ -222,12 +222,29 @@ namespace WSafe.Domain.Helpers.Implements
 
             list.Insert(0, new SelectListItem
             {
-                Text = "(Seleccione un proceso...)",
+                Text = "(Seleccione un trabajador...)",
                 Value = "0"
             });
 
             return list;
         }
+        public IEnumerable<SelectListItem> GetComboIndicadores()
+        {
+            var list = _empresaContext.Indicadores.Select(i => new SelectListItem
+            {
+                Text = i.Nombre,
+                Value = i.ID.ToString()
+            })
+                .OrderBy(t => t.Text)
+                .ToList();
 
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione un indicador...)",
+                Value = "0"
+            });
+
+            return list;
+        }
     }
 }

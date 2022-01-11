@@ -12,6 +12,7 @@ namespace WSafe.Domain.Helpers
         IEnumerable<SelectListItem> GetComboTareas();
         IEnumerable<SelectListItem> GetComboCategoriaPeligros();
         IEnumerable<SelectListItem> GetComboPeligros(int id);
+        IEnumerable<SelectListItem> GetComboIndicadores();
         IEnumerable<SelectListItem> GetNivelDeficiencia();
         IEnumerable<SelectListItem> GetNivelExposicion();
         IEnumerable<SelectListItem> GetNivelConsecuencias();
