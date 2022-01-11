@@ -15,5 +15,6 @@ namespace WSafe.Domain.Helpers
         Task<Incidente> ToIncidenteAsync(IncidenteViewModel model, bool isNew);
         IncidenteViewModel ToIncidenteViewModel(Incidente incidente);
         IncidenteViewModel ToIncidenteViewModelNew();
+        IndicadorViewModel ToIndicadorViewModel(Indicador indicador);
     }
 }

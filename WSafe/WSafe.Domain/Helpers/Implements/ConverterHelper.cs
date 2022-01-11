@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using WSafe.Domain.Data.Entities;
 using WSafe.Web.Models;
@@ -10,11 +11,17 @@ namespace WSafe.Domain.Helpers.Implements
         private readonly EmpresaContext _empresaContext;
         private readonly IComboHelper _comboHelper;
         private readonly IGestorHelper _gestorHelper;
-        public ConverterHelper(EmpresaContext empresaContext, IComboHelper comboHelper, IGestorHelper gestorHelper)
+        private readonly IChartHelper _chartHelper;
+        public ConverterHelper
+            (EmpresaContext empresaContext,
+            IComboHelper comboHelper,
+            IGestorHelper gestorHelper,
+            IChartHelper chartHelper)
         {
             _empresaContext = empresaContext;
             _comboHelper = comboHelper;
             _gestorHelper = gestorHelper;
+            _chartHelper = chartHelper;
         }
         public async Task<Riesgo> ToRiesgoAsync(RiesgoViewModel model, bool isNew)
         {
@@ -258,6 +265,29 @@ namespace WSafe.Domain.Helpers.Implements
                 Probabilidad = incidente.Probabilidad
             };
 
+            return model;
+        }
+
+        public IndicadorViewModel ToIndicadorViewModel(Indicador indicador)
+        {
+            var datos = _chartHelper.GetFrecuenciaAccidentes(DateTime.Today, DateTime.Today);
+            _chartHelper.DrawImagen("line", "Indicador de frecuencia", datos);
+            var model = new IndicadorViewModel
+            {
+                ID = indicador.ID,
+                FechaInicial = System.DateTime.Today,
+                FechaFinal = System.DateTime.Today,
+                Indicadores = _comboHelper.GetComboIndicadores(),
+                Nombre = indicador.Nombre,
+                Definicion = indicador.Definicion,
+                Numerador = indicador.Numerador,
+                Denominador = indicador.Denominador,
+                Formula = indicador.Formula,
+                Interpretacion = indicador.Interpretacion,
+                Periodicidad = indicador.Periodicidad,
+                Datos = datos,
+                Imagen = ".../Images/Indicador.jpg"
+            };
             return model;
         }
     }

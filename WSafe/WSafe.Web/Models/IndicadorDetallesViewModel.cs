@@ -7,6 +7,8 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Periodo")]
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una zona.")]
         public string MesAnn { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int Numerador { get; set; }
