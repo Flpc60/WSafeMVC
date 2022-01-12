@@ -15,7 +15,7 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int Denominador { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public int Resultado { get; set; }
+        public decimal Resultado { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int AcumuladoNumerador { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]

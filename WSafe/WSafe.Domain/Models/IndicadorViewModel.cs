@@ -19,7 +19,7 @@ namespace WSafe.Web.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaFinal { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Seleccione un indicador")]
+        [Display(Name = "Indicador")]
         public int IndicadorID { get; set; }
         public IEnumerable<SelectListItem> Indicadores { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
