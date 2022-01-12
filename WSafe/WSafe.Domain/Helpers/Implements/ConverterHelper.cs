@@ -270,13 +270,13 @@ namespace WSafe.Domain.Helpers.Implements
 
         public IndicadorViewModel ToIndicadorViewModel(Indicador indicador)
         {
-            var datos = _chartHelper.GetFrecuenciaAccidentes(DateTime.Today, DateTime.Today);
-            _chartHelper.DrawImagen("line", "Indicador de frecuencia", datos);
+            var datos = _chartHelper.GetFrecuenciaAccidentes(Convert.ToDateTime("2021/06/01"), Convert.ToDateTime("2021/12/31"));
+            _chartHelper.DrawImagen(indicador.TipoChart, "Indicador de frecuencia", datos);
             var model = new IndicadorViewModel
             {
                 ID = indicador.ID,
-                FechaInicial = System.DateTime.Today,
-                FechaFinal = System.DateTime.Today,
+                FechaInicial = Convert.ToDateTime("2021/06/01"),
+                FechaFinal = Convert.ToDateTime("2021/12/31"),
                 Indicadores = _comboHelper.GetComboIndicadores(),
                 Nombre = indicador.Nombre,
                 Definicion = indicador.Definicion,

@@ -24,7 +24,7 @@ namespace WSafe.Domain.Helpers.Implements
                       .AddSeries(chartType: tipo,
                         xValue: lista, xField:"MesAnn",
                           yValues: lista, yFields:"Resultado")
-                        .Write(".../Images/Indicador.jpg");
+                        .Write();
         }
         public IEnumerable<IndicadorDetallesViewModel> GetFrecuenciaAccidentes(DateTime fechaInicial, DateTime fechaFinal)
         {
