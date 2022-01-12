@@ -345,6 +345,10 @@
     <Compile Include="Migrations\202201112353355_IndicatorsImplementation111.Designer.cs">
       <DependentUpon>202201112353355_IndicatorsImplementation111.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201121723408_IndicatorsImplementationController.cs" />
+    <Compile Include="Migrations\202201121723408_IndicatorsImplementationController.Designer.cs">
+      <DependentUpon>202201121723408_IndicatorsImplementationController.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccionViewModel.cs" />
     <Compile Include="Models\ControlViewModel.cs" />
     <Compile Include="Models\EmpresaContext.cs" />
@@ -418,6 +422,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\chart01.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -518,6 +523,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201112353355_IndicatorsImplementation111.resx">
       <DependentUpon>202201112353355_IndicatorsImplementation111.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201121723408_IndicatorsImplementationController.resx">
+      <DependentUpon>202201121723408_IndicatorsImplementationController.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
