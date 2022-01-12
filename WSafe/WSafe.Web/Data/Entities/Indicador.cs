@@ -21,5 +21,6 @@ namespace WSafe.Domain.Data.Entities
         public string Interpretacion { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string Periodicidad { get; set; }
+        public string TipoChart { get; set; }
     }
 }
