@@ -19,7 +19,7 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public void DrawImagen(string tipo, string nombre, IEnumerable<IndicadorDetallesViewModel> lista)
         {
-            var filePathName = ".../Images/chart01.jpg";
+            var filePathName = "D:/Projects/WSafe/WSafe.Web/Images/chart01.jpg";
             var chartImage = new Chart(width: 500, height: 300, theme: ChartTheme.Green);
             chartImage.AddTitle(nombre);
             chartImage.AddSeries(chartType: tipo,
@@ -44,10 +44,10 @@ namespace WSafe.Domain.Helpers.Implements
                 {
                     viewModel.Add(new IndicadorDetallesViewModel
                     {
-                        MesAnn = grupo.Clave.ToString(),
+                        MesAnn = (grupo.Clave.Month + "-" + grupo.Clave.Year).ToString(),
                         Numerador = grupo.Datos.Count(),
                         Denominador = denominador,
-                        Resultado = (grupo.Datos.Count() / denominador * 100),
+                        Resultado = Convert.ToDecimal((double)grupo.Datos.Count() / (double)denominador * 100),
                     });
                 }
                 return viewModel;
