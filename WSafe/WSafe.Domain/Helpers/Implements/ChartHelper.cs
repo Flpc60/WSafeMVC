@@ -19,7 +19,7 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public void DrawImagen(string tipo, string nombre, IEnumerable<IndicadorDetallesViewModel> lista)
         {
-            var filePathName = "D:/Projects/WSafe/WSafe.Web/Images/chart01.jpg";
+            var filePathName = "~/Images/chart04.jpg";
             var chartImage = new Chart(width: 500, height: 300, theme: ChartTheme.Green);
             chartImage.AddTitle(nombre);
             chartImage.AddSeries(chartType: tipo,
