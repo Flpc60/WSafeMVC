@@ -286,7 +286,7 @@ namespace WSafe.Domain.Helpers.Implements
                 Interpretacion = indicador.Interpretacion,
                 Periodicidad = indicador.Periodicidad,
                 Datos = datos,
-                Imagen = "D:/Projects/WSafe/WSafe.Web/Images/chart01.jpg"
+                Imagen = "~/Images/chart04.jpg"
             };
             return model;
         }
