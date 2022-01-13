@@ -31,23 +31,33 @@ namespace WSafe.Domain.Data.Entities
         public int DiasIncapacidad { get; set; }
         public int TrabajadorID { get; set; }
         [Display(Name = "Naturaleza lesión")]
+        [MaxLength(250)]
         public string NaturalezaLesion { get; set; }
+        [MaxLength(250)]
         [Display(Name = "Partes afectadas")]
         public string PartesAfectadas { get; set; }
+        [MaxLength(250)]
         [Display(Name = "Tipo incidente")]
         public string TipoIncidente { get; set; }
+        [MaxLength(250)]
         [Display(Name = "Agente lesión")]
         public string AgenteLesion { get; set; }
+        [MaxLength(250)]
         [Display(Name = "Actos inseguros")]
         public string ActosInseguros { get; set; }
+        [MaxLength(250)]
         [Display(Name = "Condiciones inseguras")]
         public string CondicionesInsegura { get; set; }
+        [MaxLength(250)]
         [Display(Name = "Tipo daño")]
         public string TipoDaño { get; set; }
+        [MaxLength(250)]
         [Display(Name = "Maquinaria, Proceso")]
         public string Afectacion { get; set; }
+        [MaxLength(250)]
         [Display(Name = "Daños ocasionados")]
         public string DañosOcasionados { get; set; }
+        [MaxLength(250)]
         [Display(Name = "Tipo vehiculo")]
         public string TipoVehiculo { get; set; }
         [Display(Name = "Marca vehiculo")]
@@ -58,14 +68,19 @@ namespace WSafe.Domain.Data.Entities
         public int KilometrajeVehiculo { get; set; }
         [Display(Name = "Costos estimados")]
         public decimal CostosEstimados { get; set; }
+        [MaxLength(250)]
         [Display(Name = "Descripción incidente")]
         public string DescripcionIncidente { get; set; }
+        [MaxLength(250)]
         [Display(Name = "Cómo evitarse")]
         public string EvitarIncidente { get; set; }
+        [MaxLength(250)]
         [Display(Name = "Acciones inmediatas")]
         public string AccionesInmediatas { get; set; }
+        [MaxLength(250)]
         [Display(Name = "Comentarios Adicionales")]
         public string ComentariosAdicionales { get; set; }
+        [MaxLength(250)]
         [Display(Name = "Atención brindada")]
         public string AtencionBrindada { get; set; }
         [Display(Name = "Investigadores")]
