@@ -31,6 +31,7 @@ namespace WSafe.Web
             container.RegisterType<IConverterHelper, ConverterHelper>();
             container.RegisterType<IGestorHelper, GestorHelper>();
             container.RegisterType<IChartHelper, ChartHelper>();
+            container.RegisterType<IIndicadorHelper, IndicadorHelper>();
 
             return container;
         }

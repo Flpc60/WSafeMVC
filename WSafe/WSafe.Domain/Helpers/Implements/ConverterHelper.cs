@@ -12,16 +12,19 @@ namespace WSafe.Domain.Helpers.Implements
         private readonly IComboHelper _comboHelper;
         private readonly IGestorHelper _gestorHelper;
         private readonly IChartHelper _chartHelper;
+        private readonly IIndicadorHelper _indicadorHelper;
         public ConverterHelper
             (EmpresaContext empresaContext,
             IComboHelper comboHelper,
             IGestorHelper gestorHelper,
-            IChartHelper chartHelper)
+            IChartHelper chartHelper,
+            IIndicadorHelper indicadorHelper)
         {
             _empresaContext = empresaContext;
             _comboHelper = comboHelper;
             _gestorHelper = gestorHelper;
             _chartHelper = chartHelper;
+            _indicadorHelper = indicadorHelper;
         }
         public async Task<Riesgo> ToRiesgoAsync(RiesgoViewModel model, bool isNew)
         {
@@ -277,7 +280,44 @@ namespace WSafe.Domain.Helpers.Implements
                 ID = indicador.ID,
                 FechaInicial = Convert.ToDateTime("2021/06/01"),
                 FechaFinal = Convert.ToDateTime("2021/12/31"),
-                Indicadores = _comboHelper.GetComboIndicadores(),
+                Nombre = indicador.Nombre,
+                Definicion = indicador.Definicion,
+                Numerador = indicador.Numerador,
+                Denominador = indicador.Denominador,
+                Formula = indicador.Formula,
+                Interpretacion = indicador.Interpretacion,
+                Periodicidad = indicador.Periodicidad,
+                Datos = datos,
+                Imagen = "~/Images/chart05.jpg"
+            };
+            return model;
+        }
+        public IndicadorViewModel ToIndicadorViewModelNew(Indicador indicador, DateTime fechaInicial, DateTime fechaFinal)
+        {
+            var datos = _chartHelper.GetFrecuenciaAccidentes(fechaInicial, fechaFinal);
+            switch (indicador.ID)
+            {
+                case 1:
+                    datos = _chartHelper.GetFrecuenciaAccidentes(fechaInicial, fechaFinal);
+                    break;
+
+                case 2:
+                    //datos = _indicadorHelper.SeveridadAccidentalidad(fechaInicial, fechaFinal);
+                    break;
+
+                //case 3:
+                    //return NivelesDeficiencia.Medio;
+
+                //default:
+                    //return NivelesDeficiencia.Bajo;
+            }
+
+            _chartHelper.DrawImagen(indicador.TipoChart, indicador.Nombre, datos);
+            var model = new IndicadorViewModel
+            {
+                ID = indicador.ID,
+                FechaInicial = fechaInicial,
+                FechaFinal = fechaFinal,
                 Nombre = indicador.Nombre,
                 Definicion = indicador.Definicion,
                 Numerador = indicador.Numerador,
@@ -290,5 +330,6 @@ namespace WSafe.Domain.Helpers.Implements
             };
             return model;
         }
+
     }
 }

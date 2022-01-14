@@ -4,7 +4,7 @@ using WSafe.Domain.Data.Entities;
 
 namespace WSafe.Domain.Helpers.Implements
 {
-    interface IIndicadorHelper
+    public interface IIndicadorHelper
     {
         int AccidentesTrabajo(DateTime fechaInicial, DateTime fechaFinal);
         int AccidentesTrabajoMortales(DateTime fechaInicial, DateTime fechaFinal);

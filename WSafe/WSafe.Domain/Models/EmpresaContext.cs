@@ -26,5 +26,7 @@ namespace WSafe.Web.Models
         public DbSet<IncidenteViewModel> IncidenteViewModels { get; set; }
 
         public System.Data.Entity.DbSet<WSafe.Web.Models.IndicadorViewModel> IndicadorViewModels { get; set; }
+
+        public System.Data.Entity.DbSet<WSafe.Web.Models.CreateIndicatorsViewModel> CreateIndicatorsViewModels { get; set; }
     }
 }

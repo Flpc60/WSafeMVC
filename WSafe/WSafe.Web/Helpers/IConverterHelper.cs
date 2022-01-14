@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using WSafe.Domain.Data.Entities;
 using WSafe.Web.Models;
 
@@ -16,5 +17,6 @@ namespace WSafe.Domain.Helpers
         IncidenteViewModel ToIncidenteViewModel(Incidente incidente);
         IncidenteViewModel ToIncidenteViewModelNew();
         IndicadorViewModel ToIndicadorViewModel(Indicador indicador);
+        IndicadorViewModel ToIndicadorViewModelNew(Indicador indicador, DateTime fechaInicial, DateTime fechaFinal);
     }
 }

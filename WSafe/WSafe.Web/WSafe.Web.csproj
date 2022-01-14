@@ -309,8 +309,17 @@
     <Compile Include="Migrations\202201131611220_AplicateDataAnnotation1.Designer.cs">
       <DependentUpon>202201131611220_AplicateDataAnnotation1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201132234377_CreateIndicatorsVM.cs" />
+    <Compile Include="Migrations\202201132234377_CreateIndicatorsVM.Designer.cs">
+      <DependentUpon>202201132234377_CreateIndicatorsVM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201140139259_CreateIndicatorsVM1.cs" />
+    <Compile Include="Migrations\202201140139259_CreateIndicatorsVM1.Designer.cs">
+      <DependentUpon>202201140139259_CreateIndicatorsVM1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccionViewModel.cs" />
     <Compile Include="Models\ControlViewModel.cs" />
+    <Compile Include="Models\CreateIndicatorsViewModel.cs" />
     <Compile Include="Models\EmpresaContext.cs" />
     <Compile Include="Data\Entities\Accion.cs" />
     <Compile Include="Data\Entities\Actividad.cs" />
@@ -386,6 +395,7 @@
     <Content Include="Images\chart02.jpg" />
     <Content Include="Images\chart03.jpg" />
     <Content Include="Images\chart04.jpg" />
+    <Content Include="Images\chart05.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -436,6 +446,7 @@
     <Content Include="Views\Indicadores\Details.cshtml" />
     <Content Include="Views\Indicadores\Edit.cshtml" />
     <Content Include="Views\Indicadores\Index.cshtml" />
+    <Content Include="Views\Indicadores\CreateNuevaConsulta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -459,6 +470,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201131611220_AplicateDataAnnotation1.resx">
       <DependentUpon>202201131611220_AplicateDataAnnotation1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201132234377_CreateIndicatorsVM.resx">
+      <DependentUpon>202201132234377_CreateIndicatorsVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201140139259_CreateIndicatorsVM1.resx">
+      <DependentUpon>202201140139259_CreateIndicatorsVM1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
