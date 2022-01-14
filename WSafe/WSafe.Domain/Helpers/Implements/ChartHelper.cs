@@ -19,7 +19,7 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public void DrawImagen(string tipo, string nombre, IEnumerable<IndicadorDetallesViewModel> lista)
         {
-            var filePathName = "~/Images/chart04.jpg";
+            var filePathName = "~/Images/chart05.jpg";
             var chartImage = new Chart(width: 500, height: 300, theme: ChartTheme.Green);
             chartImage.AddTitle(nombre);
             chartImage.AddSeries(chartType: tipo,
@@ -35,7 +35,7 @@ namespace WSafe.Domain.Helpers.Implements
 
                 var result = from at in _empresaContext.Incidentes
                                 where at.FechaIncidente >= fechaInicial && at.FechaIncidente <= fechaFinal && at.CategoriaIncidente == Data.Entities.Incidentes.CategoriasIncidente.Accidente
-                                group at by new { at.FechaIncidente.Month, at.FechaIncidente.Year } into datosAgrupados
+                                group at by new { at.FechaIncidente.Year, at.FechaIncidente.Month } into datosAgrupados
                                 orderby datosAgrupados.Key
                                 select new { Clave = datosAgrupados.Key, Datos = datosAgrupados };
 
@@ -86,6 +86,37 @@ namespace WSafe.Domain.Helpers.Implements
         public void SaveIndicadores(string nombre, string ejeX, string ejeY, List<IndicadorDetallesViewModel> lista)
         {
             throw new System.NotImplementedException();
+        }
+
+        public IEnumerable<IndicadorDetallesViewModel> GetSeveridadAccidentalidad(DateTime fechaInicial, DateTime fechaFinal)
+        {
+            try
+            {
+                var denominador = _indicadorHelper.NumeroTrabajadoresMes(fechaInicial, fechaFinal);
+
+                var result = from at in _empresaContext.Incidentes
+                             where at.FechaIncidente >= fechaInicial && at.FechaIncidente <= fechaFinal && at.CategoriaIncidente == Data.Entities.Incidentes.CategoriasIncidente.Accidente
+                             group at by new { at.FechaIncidente.Year, at.FechaIncidente.Month } into datosAgrupados
+                             orderby datosAgrupados.Key
+                             select new { Clave = datosAgrupados.Key, Datos = datosAgrupados };
+
+                var viewModel = new List<IndicadorDetallesViewModel>();
+                foreach (var grupo in result)
+                {
+                    viewModel.Add(new IndicadorDetallesViewModel
+                    {
+                        MesAnn = (grupo.Clave.Month + "-" + grupo.Clave.Year).ToString(),
+                        Numerador = grupo.Datos.Count(),
+                        Denominador = denominador,
+                        Resultado = Convert.ToDecimal((double)grupo.Datos.Count() / (double)denominador * 100),
+                    });
+                }
+                return viewModel;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
         }
     }
 }

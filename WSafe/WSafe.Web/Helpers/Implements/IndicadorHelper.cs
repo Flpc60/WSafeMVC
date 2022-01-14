@@ -147,7 +147,7 @@ namespace WSafe.Domain.Helpers.Implements
         public int NumeroTrabajadoresMes(DateTime fechaInicial, DateTime fechaFinal)
         {
             return _empresaContext.Trabajadores
-                .Where(i => i.FechaNomina >= fechaInicial && i.FechaNomina <= fechaFinal)
+                .Where(t => t.FechaNomina >= fechaInicial && t.FechaNomina <= fechaFinal)
                 .Count();
         }
 

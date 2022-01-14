@@ -37,25 +37,12 @@ namespace WSafe.Web.Controllers
             return View(result);
         }
 
-        // GET: Indicadores/Details/5
-        public async Task<ActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            IndicadorViewModel indicadorViewModel = await _empresaContext.IndicadorViewModels.FindAsync(id);
-            if (indicadorViewModel == null)
-            {
-                return HttpNotFound();
-            }
-            return View(indicadorViewModel);
-        }
-
         // GET: Indicadores/Create
-        public ActionResult Create()
+        public ActionResult CreateNuevaConsulta()
         {
-            return View();
+            var result = new CreateIndicatorsViewModel();
+            result.Indicadores = _comboHelper.GetComboIndicadores();
+            return View(result);
         }
 
         // POST: Indicadores/Create
@@ -63,82 +50,16 @@ namespace WSafe.Web.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,FechaInicial,FechaFinal,IndicadorID")] IndicadorViewModel indicadorViewModel)
+        public ActionResult CreateNuevaConsulta(CreateIndicatorsViewModel model)
         {
             if (ModelState.IsValid)
             {
-                _empresaContext.IndicadorViewModels.Add(indicadorViewModel);
-                await _empresaContext.SaveChangesAsync();
-                return RedirectToAction("Index");
+                var indicador = _empresaContext.Indicadores.FirstOrDefault(i => i.ID == model.IndicadorID);
+                var result = _converterHelper.ToIndicadorViewModelNew(indicador, model.FechaInicial, model.FechaFinal);
+                return View("Index", result);
             }
 
-            return View(indicadorViewModel);
-        }
-
-        // GET: Indicadores/Edit/5
-        public async Task<ActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            IndicadorViewModel indicadorViewModel = await _empresaContext.IndicadorViewModels.FindAsync(id);
-            if (indicadorViewModel == null)
-            {
-                return HttpNotFound();
-            }
-            return View(indicadorViewModel);
-        }
-
-        // POST: Indicadores/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,FechaInicial,FechaFinal,IndicadorID")] IndicadorViewModel indicadorViewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                _empresaContext.Entry(indicadorViewModel).State = EntityState.Modified;
-                await _empresaContext.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            return View(indicadorViewModel);
-        }
-
-        // GET: Indicadores/Delete/5
-        public async Task<ActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            IndicadorViewModel indicadorViewModel = await _empresaContext.IndicadorViewModels.FindAsync(id);
-            if (indicadorViewModel == null)
-            {
-                return HttpNotFound();
-            }
-            return View(indicadorViewModel);
-        }
-
-        // POST: Indicadores/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
-        {
-            IndicadorViewModel indicadorViewModel = await _empresaContext.IndicadorViewModels.FindAsync(id);
-            _empresaContext.IndicadorViewModels.Remove(indicadorViewModel);
-            await _empresaContext.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _empresaContext.Dispose();
-            }
-            base.Dispose(disposing);
+            return View("Index");
         }
     }
 }
