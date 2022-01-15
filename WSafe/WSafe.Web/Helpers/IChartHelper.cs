@@ -6,7 +6,7 @@ namespace WSafe.Domain.Helpers
 {
     public interface IChartHelper
     {
-        void DrawImagen(string tipo, string nombre, IEnumerable<IndicadorDetallesViewModel> lista);
+        void DrawImagen(string arcchivo, string tipo, string nombre, IEnumerable<IndicadorDetallesViewModel> lista);
         void SaveIndicadores(string nombre, string ejeX, string ejeY, List<IndicadorDetallesViewModel> lista);
         void PrintIndicadores(string nombre, string ejeX, string ejeY, List<IndicadorDetallesViewModel> lista);
         IEnumerable<IndicadorDetallesViewModel> GetFrecuenciaAccidentes(DateTime fechaInicial, DateTime fechaFinal);

@@ -1,9 +1,9 @@
 ﻿@model WSafe.Web.Models.IndicadorViewModel
 
 @{
+    var imagePath = "";
     ViewBag.Title = "Index";
-    var datos = Model.Datos;
-    var imagePath = Model.Imagen;
+    imagePath = Model.Imagen;
 }
 
 <h2>Indicadores de resultados</h2>
@@ -120,7 +120,7 @@
     </div>
 
     <div>
-        <img src="~/Images/chart05.jpg" alt="Sample Image" width="500" />
+        <img src="@Url.Content(@Model.Imagen)" alt="Sample Image" width="500" />
     </div>
 
 </div>

@@ -4,6 +4,7 @@ using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using WSafe.Domain.Data.Entities.Incidentes;
 using WSafe.Web.Models;
 
 namespace WSafe.Domain.Helpers.Implements
@@ -17,15 +18,14 @@ namespace WSafe.Domain.Helpers.Implements
             _empresaContext = empresaContext;
             _indicadorHelper = indicadorHelper;
         }
-        public void DrawImagen(string tipo, string nombre, IEnumerable<IndicadorDetallesViewModel> lista)
+        public void DrawImagen(string archivo, string tipo, string nombre, IEnumerable<IndicadorDetallesViewModel> lista)
         {
-            var filePathName = "~/Images/chart05.jpg";
             var chartImage = new Chart(width: 500, height: 300, theme: ChartTheme.Green);
             chartImage.AddTitle(nombre);
             chartImage.AddSeries(chartType: tipo,
                         xValue: lista, xField: "MesAnn",
                           yValues: lista, yFields: "Resultado");
-            chartImage.Save(path: filePathName);
+            chartImage.Save(path: archivo);
         }
         public IEnumerable<IndicadorDetallesViewModel> GetFrecuenciaAccidentes(DateTime fechaInicial, DateTime fechaFinal)
         {
@@ -65,7 +65,37 @@ namespace WSafe.Domain.Helpers.Implements
 
         public IEnumerable<IndicadorDetallesViewModel> GetAccidentesTrabajoMortales(DateTime fechaInicial, DateTime fechaFinal)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var result = from at in _empresaContext.Incidentes
+                             where at.FechaIncidente >= fechaInicial && at.FechaIncidente <= fechaFinal && at.CategoriaIncidente == CategoriasIncidente.Accidente
+                             group at by new { at.FechaIncidente.Year, at.FechaIncidente.Month } into datosAgrupados
+                             orderby datosAgrupados.Key
+                             select new { Clave = datosAgrupados.Key, Datos = datosAgrupados };
+
+                var viewModel = new List<IndicadorDetallesViewModel>();
+                foreach (var grupo in result)
+                {
+                    viewModel.Add(new IndicadorDetallesViewModel
+                    {
+                        MesAnn = (grupo.Clave.Month + "-" + grupo.Clave.Year).ToString(),
+                        Numerador = _indicadorHelper.AccidentesTrabajoMortales(fechaInicial, fechaFinal),
+                        Denominador = grupo.Datos.Count()
+                    });
+                }
+
+                foreach (var item in viewModel)
+                {
+                    item.Resultado = Convert.ToDecimal((double)item.Numerador /
+                        (double)item.Denominador) * 100;
+                }
+
+                return viewModel;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
         }
 
         public IEnumerable<IndicadorDetallesViewModel> GetAllIncidentes(DateTime fechaInicial, DateTime fechaFinal)
@@ -98,7 +128,12 @@ namespace WSafe.Domain.Helpers.Implements
                              where at.FechaIncidente >= fechaInicial && at.FechaIncidente <= fechaFinal && at.CategoriaIncidente == Data.Entities.Incidentes.CategoriasIncidente.Accidente
                              group at by new { at.FechaIncidente.Year, at.FechaIncidente.Month } into datosAgrupados
                              orderby datosAgrupados.Key
-                             select new { Clave = datosAgrupados.Key, Datos = datosAgrupados };
+                             select new
+                             { 
+                                 Clave = datosAgrupados.Key, 
+                                 Datos = datosAgrupados,
+                                 Dias = datosAgrupados.Sum(di => di.DiasIncapacidad)
+                             };
 
                 var viewModel = new List<IndicadorDetallesViewModel>();
                 foreach (var grupo in result)
@@ -106,9 +141,9 @@ namespace WSafe.Domain.Helpers.Implements
                     viewModel.Add(new IndicadorDetallesViewModel
                     {
                         MesAnn = (grupo.Clave.Month + "-" + grupo.Clave.Year).ToString(),
-                        Numerador = grupo.Datos.Count(),
+                        Numerador = grupo.Dias,
                         Denominador = denominador,
-                        Resultado = Convert.ToDecimal((double)grupo.Datos.Count() / (double)denominador * 100),
+                        Resultado = Convert.ToDecimal((double)grupo.Dias / (double)denominador * 100),
                     });
                 }
                 return viewModel;
