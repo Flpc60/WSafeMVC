@@ -274,7 +274,7 @@ namespace WSafe.Domain.Helpers.Implements
         public IndicadorViewModel ToIndicadorViewModel(Indicador indicador)
         {
             var datos = _chartHelper.GetFrecuenciaAccidentes(Convert.ToDateTime("2021/06/01"), Convert.ToDateTime("2021/12/31"));
-            _chartHelper.DrawImagen(indicador.TipoChart, indicador.Nombre, datos);
+            //_chartHelper.DrawImagen(indicador.TipoChart, indicador.Nombre, datos);
             var model = new IndicadorViewModel
             {
                 ID = indicador.ID,
@@ -294,6 +294,10 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public IndicadorViewModel ToIndicadorViewModelNew(Indicador indicador, DateTime fechaInicial, DateTime fechaFinal)
         {
+            Random random = new Random();
+            var filename = "chart" + random.Next(1, 100) + ".jpg";
+            var filePathName = "~/Images/" + filename;
+
             var datos = _chartHelper.GetFrecuenciaAccidentes(fechaInicial, fechaFinal);
             switch (indicador.ID)
             {
@@ -302,17 +306,15 @@ namespace WSafe.Domain.Helpers.Implements
                     break;
 
                 case 2:
-                    //datos = _indicadorHelper.SeveridadAccidentalidad(fechaInicial, fechaFinal);
+                     datos = _chartHelper.GetSeveridadAccidentalidad(fechaInicial, fechaFinal);
                     break;
 
-                //case 3:
-                    //return NivelesDeficiencia.Medio;
-
-                //default:
-                    //return NivelesDeficiencia.Bajo;
+                case 3:
+                    datos = _chartHelper.GetAccidentesTrabajoMortales(fechaInicial, fechaFinal);
+                    break;
             }
 
-            _chartHelper.DrawImagen(indicador.TipoChart, indicador.Nombre, datos);
+            _chartHelper.DrawImagen(filePathName, indicador.TipoChart, indicador.Nombre, datos);
             var model = new IndicadorViewModel
             {
                 ID = indicador.ID,
@@ -326,7 +328,7 @@ namespace WSafe.Domain.Helpers.Implements
                 Interpretacion = indicador.Interpretacion,
                 Periodicidad = indicador.Periodicidad,
                 Datos = datos,
-                Imagen = "~/Images/chart04.jpg"
+                Imagen = filePathName
             };
             return model;
         }

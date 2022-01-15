@@ -396,6 +396,8 @@
     <Content Include="Images\chart03.jpg" />
     <Content Include="Images\chart04.jpg" />
     <Content Include="Images\chart05.jpg" />
+    <Content Include="Images\chart22.jpg" />
+    <Content Include="Images\chart62.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using WSafe.Domain.Data.Entities.Incidentes;
 using WSafe.Web.Models;
 
 namespace WSafe.Domain.Helpers.Implements
@@ -27,7 +28,7 @@ namespace WSafe.Domain.Helpers.Implements
         public int AccidentesTrabajoMortales(DateTime fechaInicial, DateTime fechaFinal)
         {
             return _empresaContext.Incidentes
-                .Where(i => i.FechaIncidente >= fechaInicial && i.FechaIncidente <= fechaFinal && i.CategoriaIncidente == Data.Entities.Incidentes.CategoriasIncidente.Accidente && i.ConsecuenciasLesion == Data.Entities.Incidentes.ConsecuenciasLesion.Mortal)
+                .Where(i => i.FechaIncidente >= fechaInicial && i.FechaIncidente <= fechaFinal && i.CategoriaIncidente == CategoriasIncidente.Accidente && i.ConsecuenciasLesion == ConsecuenciasLesion.Mortal)
                 .Count();
         }
 
