@@ -10,8 +10,8 @@ namespace WSafe.Web.Models
     {
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         public int ID { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatotio")]
         public int RiesgoID { get; set; }
+        public IEnumerable<SelectListItem> Riesgos { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Tipo acción")]
         public CategoriasAccion Categoria { get; set; }
@@ -28,37 +28,16 @@ namespace WSafe.Web.Models
         [Display(Name = "Fuente origen")]
         public FuentesAccion FuenteAccion { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
+        [Display(Name = "Descripción de la no conformidad")]
         public string Descripcion { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Causas")]
-        public CategoriasCausa CausasAccion { get; set; }
+        public CategoriasCausa CausaAccion { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "Fecha inicial")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime FechaInicial { get; set; }
+        [Display(Name = "Otras Causas")]
+        public CategoriasCausa SubCausa { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "Fecha final")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime FechaFinal { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "Plan de acción")]
-        public string Plan { get; set; }
-        public string Seguimiento { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "Fecha seguimiento")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime FechaSeguimiento { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "Fecha cierre")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime FechaCierre { get; set; }
-        [Display(Name = "Efectiva")]
-        public bool Efectividad { get; set; }
-        [Display(Name = "Acción prioritaria")]
-        public bool Prioritaria { get; set; }
+        [Display(Name = "Porque de la acción")]
+        public CategoriasCausa UltraCausa { get; set; }
     }
 }

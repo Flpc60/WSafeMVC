@@ -1,0 +1,82 @@
+﻿@model IEnumerable<WSafe.Domain.Data.Entities.Accion>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>SEGUIMIENTO ACCIONES</h2>
+
+<p>
+    @Html.ActionLink("Nueva Acción ", "Create", new { @class = "glyphicon glyphicon-plus" },
+    new { @class = "btn btn-info btn-lg active" })
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Categoria)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaSolicitud)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Trabajador)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FuenteAccion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CausaAccion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubCausa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UltraCausa)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        var nombres = item.Trabajador.Documento + " " +
+            item.Trabajador.Nombres + " " +
+            item.Trabajador.PrimerApellido + " " +
+            item.Trabajador.SegundoApellido;
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Categoria)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaSolicitud)
+            </td>
+            <td>
+                nombres
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FuenteAccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CausaAccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubCausa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UltraCausa)
+            </td>
+            <td>
+                @Html.ActionLink(" ", "GetControles", new { id = item.ID }, new { @class = "glyphicon glyphicon-search" }) |
+                @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) |
+                @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "glyphicon glyphicon-trash" })
+            </td>
+        </tr>
+    }
+
+</table>

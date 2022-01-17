@@ -272,6 +272,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Controllers\AccionesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IncidentesController.cs" />
     <Compile Include="Controllers\IndicadoresController.cs" />
@@ -316,6 +317,14 @@
     <Compile Include="Migrations\202201140139259_CreateIndicatorsVM1.cs" />
     <Compile Include="Migrations\202201140139259_CreateIndicatorsVM1.Designer.cs">
       <DependentUpon>202201140139259_CreateIndicatorsVM1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201170119513_CreateAccionVM.cs" />
+    <Compile Include="Migrations\202201170119513_CreateAccionVM.Designer.cs">
+      <DependentUpon>202201170119513_CreateAccionVM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201170257239_CreateAccionVM11.cs" />
+    <Compile Include="Migrations\202201170257239_CreateAccionVM11.Designer.cs">
+      <DependentUpon>202201170257239_CreateAccionVM11.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AccionViewModel.cs" />
     <Compile Include="Models\ControlViewModel.cs" />
@@ -449,6 +458,11 @@
     <Content Include="Views\Indicadores\Edit.cshtml" />
     <Content Include="Views\Indicadores\Index.cshtml" />
     <Content Include="Views\Indicadores\CreateNuevaConsulta.cshtml" />
+    <Content Include="Views\Acciones\Create.cshtml" />
+    <Content Include="Views\Acciones\Delete.cshtml" />
+    <Content Include="Views\Acciones\Details.cshtml" />
+    <Content Include="Views\Acciones\Edit.cshtml" />
+    <Content Include="Views\Acciones\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -478,6 +492,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201140139259_CreateIndicatorsVM1.resx">
       <DependentUpon>202201140139259_CreateIndicatorsVM1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201170119513_CreateAccionVM.resx">
+      <DependentUpon>202201170119513_CreateAccionVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201170257239_CreateAccionVM11.resx">
+      <DependentUpon>202201170257239_CreateAccionVM11.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
