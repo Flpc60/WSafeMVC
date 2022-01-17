@@ -8,7 +8,6 @@ namespace WSafe.Domain.Data.Entities
     {
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         public int ID { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int RiesgoID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Tipo acción")]

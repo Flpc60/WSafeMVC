@@ -14,9 +14,6 @@ namespace WSafe.Domain.Data.Entities
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaSeguimiento { get; set; }
-        [Display(Name = "Tipo acción")]
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public CategoriasAccion TipoAccion { get; set; }
         [Display(Name = "Nombre quien reporta")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public Trabajador Trabajador { get; set; }

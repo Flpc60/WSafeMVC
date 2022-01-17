@@ -246,5 +246,24 @@ namespace WSafe.Domain.Helpers.Implements
 
             return list;
         }
+
+        public IEnumerable<SelectListItem> GetComboRiesgo()
+        {
+            var list = _empresaContext.Riesgos.Select(t => new SelectListItem
+            {
+                Text = t.Tarea.Descripcion + " " + t.Peligro.Descripcion + " " + t.NivelRiesgo,
+                Value = t.ID.ToString()
+            })
+                .OrderBy(t => t.Text)
+                .ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione un riesgo...)",
+                Value = "0"
+            });
+
+            return list;
+        }
     }
 }

@@ -16,5 +16,6 @@ namespace WSafe.Domain.Helpers
         IEnumerable<SelectListItem> GetNivelDeficiencia();
         IEnumerable<SelectListItem> GetNivelExposicion();
         IEnumerable<SelectListItem> GetNivelConsecuencias();
+        IEnumerable<SelectListItem> GetComboRiesgo();
     }
 }
