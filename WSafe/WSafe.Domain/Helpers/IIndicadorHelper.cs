@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using WSafe.Domain.Data.Entities;
 
 namespace WSafe.Domain.Helpers.Implements
 {
@@ -20,13 +18,12 @@ namespace WSafe.Domain.Helpers.Implements
         int EnfermedadesIncidentesAusentismos(DateTime fechaInicial, DateTime fechaFinal);
         int NumeroTrabajadoresMes(DateTime fechaInicial, DateTime fechaFinal);
         decimal PromedioTrabajadores(DateTime fechaInicial, DateTime fechaFinal);
-        decimal NumeroDiasTrabajadosMes(DateTime fechaInicial, DateTime fechaFinal);
+        int NumeroDiasTrabajadosMes();
         decimal FrecuenciaAccidentalidad(DateTime fechaInicial, DateTime fechaFinal);
         decimal SeveridadAccidentalidad(DateTime fechaInicial, DateTime fechaFinal);
         decimal ProporcionAccidentesMortales(DateTime fechaInicial, DateTime fechaFinal);
         decimal PrevalenciaEnfermedad(DateTime fechaInicial, DateTime fechaFinal);
         decimal IncidenciaEnfermedad(DateTime fechaInicial, DateTime fechaFinal);
-        int AusentismoCausaMedica(DateTime fechaInicial, DateTime fechaFinal);
         int NumeroACPAccidentes(DateTime fechaInicial, DateTime fechaFinal);
         int NumeroACP(DateTime fechaInicial, DateTime fechaFinal);
         decimal ProporcionACPAccidentes(DateTime fechaInicial, DateTime fechaFinal);

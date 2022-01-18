@@ -153,5 +153,41 @@ namespace WSafe.Domain.Helpers.Implements
                 throw ex;
             }
         }
+
+        public IEnumerable<IndicadorDetallesViewModel> GetAusentismoCausaMedica(DateTime fechaInicial, DateTime fechaFinal)
+        {
+            try
+            {
+                var trabajadores = _indicadorHelper.NumeroTrabajadoresMes(fechaInicial, fechaFinal);
+                var result = from at in _empresaContext.Incidentes
+                             where at.FechaIncidente >= fechaInicial && at.FechaIncidente <= fechaFinal && at.IncapacidadMedica == true
+                             group at by new { at.FechaIncidente.Year, at.FechaIncidente.Month } into datosAgrupados
+                             orderby datosAgrupados.Key
+                             select new
+                             {
+                                 Clave = datosAgrupados.Key,
+                                 Datos = datosAgrupados,
+                                 Dias = datosAgrupados.Sum(di => di.DiasIncapacidad)
+                             };
+
+                var viewModel = new List<IndicadorDetallesViewModel>();
+                foreach (var grupo in result)
+                {
+                    viewModel.Add(new IndicadorDetallesViewModel
+                    {
+                        MesAnn = (grupo.Clave.Month + "-" + grupo.Clave.Year).ToString(),
+                        Numerador = grupo.Dias,
+                        Denominador = _indicadorHelper.NumeroDiasTrabajadosMes()*trabajadores,
+                        Resultado = Convert.ToDecimal((double)grupo.Dias / 
+                        (double)_indicadorHelper.NumeroDiasTrabajadosMes() * 100)
+                    });
+                }
+                return viewModel;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

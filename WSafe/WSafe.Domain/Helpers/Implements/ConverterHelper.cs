@@ -312,6 +312,18 @@ namespace WSafe.Domain.Helpers.Implements
                 case 3:
                     datos = _chartHelper.GetAccidentesTrabajoMortales(fechaInicial, fechaFinal);
                     break;
+
+                case 4:
+                    datos = _chartHelper.GetAccidentesTrabajoMortales(fechaInicial, fechaFinal);
+                    break;
+
+                case 5:
+                    datos = _chartHelper.GetAccidentesTrabajoMortales(fechaInicial, fechaFinal);
+                    break;
+
+                case 6:
+                    datos = _chartHelper.GetAusentismoCausaMedica (fechaInicial, fechaFinal);
+                    break;
             }
 
             _chartHelper.DrawImagen(filePathName, indicador.TipoChart, indicador.Nombre, datos);
