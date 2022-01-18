@@ -32,9 +32,10 @@ namespace WSafe.Domain.Helpers.Implements
                 .Count();
         }
 
-        public int AusentismoCausaMedica(DateTime fechaInicial, DateTime fechaFinal)
+        public decimal AusentismoCausaMedica(DateTime fechaInicial, DateTime fechaFinal)
         {
-            throw new NotImplementedException();
+            return Convert.ToDecimal(IncidentesInvestigados(fechaInicial, fechaFinal))
+                / Convert.ToDecimal(TotalIncidentes(fechaInicial, fechaFinal)) * 100;
         }
 
         public int DiasIncapacidadAccidentesTrabajo(DateTime fechaInicial, DateTime fechaFinal)
@@ -50,7 +51,9 @@ namespace WSafe.Domain.Helpers.Implements
 
         public int DíasAusenciaIncapacidadLaboral(DateTime fechaInicial, DateTime fechaFinal)
         {
-            throw new NotImplementedException();
+            return _empresaContext.Incidentes
+                .Where(i => i.FechaIncidente >= fechaInicial && i.FechaIncidente <= fechaFinal && i.IncapacidadMedica == true)
+                .Sum(i => i.DiasIncapacidad);
         }
 
         public int EnfermedadesIncidentesAusentismos(DateTime fechaInicial, DateTime fechaFinal)
@@ -152,9 +155,9 @@ namespace WSafe.Domain.Helpers.Implements
                 .Count();
         }
 
-        public decimal NumeroDiasTrabajadosMes(DateTime fechaInicial, DateTime fechaFinal)
+        public int NumeroDiasTrabajadosMes()
         {
-            return Convert.ToDecimal(_empresaContext.Trabajadores.Average(dp => dp.DiasPago));
+            return _empresaContext.Trabajadores.Sum(dp => dp.DiasPago);
         }
     }
 }
