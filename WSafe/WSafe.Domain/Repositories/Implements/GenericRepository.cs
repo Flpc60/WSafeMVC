@@ -9,8 +9,8 @@ namespace WSafe.Domain.Repositories.Implements
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
-        private readonly Web.Models.EmpresaContext _empresaContext;
-        public GenericRepository(Web.Models.EmpresaContext empresaContext)
+        private readonly EmpresaContext _empresaContext;
+        public GenericRepository(EmpresaContext empresaContext)
         {
             _empresaContext = empresaContext;
         }

@@ -158,6 +158,7 @@ namespace WSafe.Domain.Helpers.Implements
         {
             try
             {
+                var trabajadores = _indicadorHelper.NumeroTrabajadoresMes(fechaInicial, fechaFinal);
                 var result = from at in _empresaContext.Incidentes
                              where at.FechaIncidente >= fechaInicial && at.FechaIncidente <= fechaFinal && at.IncapacidadMedica == true
                              group at by new { at.FechaIncidente.Year, at.FechaIncidente.Month } into datosAgrupados
@@ -176,7 +177,7 @@ namespace WSafe.Domain.Helpers.Implements
                     {
                         MesAnn = (grupo.Clave.Month + "-" + grupo.Clave.Year).ToString(),
                         Numerador = grupo.Dias,
-                        Denominador = _indicadorHelper.NumeroDiasTrabajadosMes(),
+                        Denominador = _indicadorHelper.NumeroDiasTrabajadosMes()*trabajadores,
                         Resultado = Convert.ToDecimal((double)grupo.Dias / 
                         (double)_indicadorHelper.NumeroDiasTrabajadosMes() * 100)
                     });
