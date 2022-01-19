@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Linq;
@@ -382,5 +383,29 @@ namespace WSafe.Web.Controllers
 
             return View(list);
         }
+        public IEnumerable<SelectListItem> GetPeligros()
+        {
+            List<SelectListItem> peligros = new List<SelectListItem>()
+            {
+                new SelectListItem
+                {
+                    Value = null,
+                    Text = " "
+                }
+            };
+            return peligros;
+        }
+
+        [HttpGet]
+        public ActionResult GetPeligros(int id)
+        {
+            if (id != null)
+            {
+                var peligros = _comboHelper.GetComboPeligros(id);
+                return Json(peligros, JsonRequestBehavior.AllowGet);
+            }
+            return null;
+        }
+
     }
 }

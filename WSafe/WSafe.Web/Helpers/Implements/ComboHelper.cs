@@ -52,10 +52,12 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public IEnumerable<SelectListItem> GetComboPeligros(int categoriaID)
         {
-            var list = _empresaContext.Peligros.Select(p => new SelectListItem
+            var list = _empresaContext.Peligros
+                .Where(p => p.CategoriaPeligroID == categoriaID)
+                .Select(p => new SelectListItem
             {
                 Text = p.Descripcion,
-                Value = p.ID.ToString()
+                Value = p.CategoriaPeligroID.ToString()
             })
                 .OrderBy(p => p.Text)
                 .ToList();
