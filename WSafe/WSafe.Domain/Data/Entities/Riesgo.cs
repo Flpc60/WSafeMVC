@@ -61,7 +61,7 @@ namespace WSafe.Domain.Data.Entities
         }
         private string _categoriaRiesgo { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Categoria")]
+        [Display(Name = "INR")]
         public string CategoriaRiesgo
         {
             get
@@ -92,7 +92,7 @@ namespace WSafe.Domain.Data.Entities
             }
         }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Aceptable")]
+        [Display(Name = "Aceptabilidad")]
         public CategoriasAceptabilidad Aceptabilidad { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Expuestos")]

@@ -194,16 +194,13 @@
     </div>
 }
 
-<div class="row">
-    <div class="col-md-4">
-        @Html.ActionLink(" Controles", "GetControles", "Riesgos", new { @class = "btn btn-warning btn-lg active" })
-    </div>
-    <div class="col-md-4">
-        @Html.ActionLink(" Acciones", "GetAllAcciones", "Riesgos", new { Id = @ViewBag.RiesgoID},
+<div class=" style=" display:inline-flex"">
+    <div>
+        @Html.ActionLink(" Controles", "GetControles", "Riesgos", new { @class = "glyphicon glyphicon-edit" },
         new { @class = "btn btn-warning btn-lg active" })
     </div>
-    <div class="col-md-4">
-        @Html.ActionLink(" Intervenciones", "AddIntervencion", "Riesgos", new { @class = "btn btn-warning btn-lg active" })
+    <div>
+        @Html.ActionLink(" Intervenciones", "Index", "Aplicaciones", new { id = @Model.ID }, new { @class = "glyphicon glyphicon-edit" })
     </div>
 </div>
 

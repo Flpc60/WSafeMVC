@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
+using WSafe.Domain.Data.Entities;
 
-namespace WSafe.Domain.Data.Entities
+namespace WSafe.Web.Models
 {
-    public class Aplicacion
+    public class AplicationsViewModel
     {
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int RiesgoID { get; set; }
@@ -20,9 +24,11 @@ namespace WSafe.Domain.Data.Entities
         public string Beneficios { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public decimal Presupuesto { get; set; }
-
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public Trabajador Trabajador { get; set; }
+        [Display(Name = "Trabajador responsable")]
+        public int TrabajorID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public IEnumerable<SelectListItem> Trabajadores { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Fecha inicial")]
         [DataType(DataType.Date)]
