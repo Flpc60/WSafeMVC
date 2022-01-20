@@ -106,7 +106,7 @@ namespace WSafe.Web.Models
         }
 
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Categoria")]
+        [Display(Name = "Interpretación NR")]
         public string CategoriaRiesgo
         {
             get
