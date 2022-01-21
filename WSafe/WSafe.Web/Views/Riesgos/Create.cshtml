@@ -204,101 +204,144 @@
     </div>
 </div>
 
-@section Scripts {
+@section Scripts
+{
     <script type="text/javascript">
-            $('#categoria').change(function () {
-                var selectedCategoria = $("#categoria").val();
-                var peligroSelect = $('#peligro');
-                peligroSelect.empty();
-                if (selectedCategoria != null && selectedCategoria != '') {
-                    $.getJSON('@Url.Action("GetPeligros")', { ID: selectedCategoria }, function (peligros) {
-                        if (peligros != null && !jQuery.isEmptyObject(peligros))
-                        {
-                            peligroSelect.append($('<option/>', {
-                                value: null,
-                                text: ""
-                            }));
-                            $.each(peligros, function (index, item) {
-                                peligroSelect.append($('<option/>', {
-                                    value: item.Value,
-                                    text: item.Text
-                                }));
-                            });
-                        };
-                    });
-                }
-            });
 
-            $('#deficienciaSelected').change(function () {
-                let selectedCategoria = $('#deficienciaSelected').val();
-                    var nd = 0;
-                    switch (selectedCategoria) {
-                        case "1":
-                            nd = 10;
-                            break;
+        $('#deficienciaSelected').click(function () {
+            var selectedCategoria = $('#deficienciaSelected').val();
+            var nd = 0;
+            switch (selectedCategoria)
+            {
+                case "1":
+                    nd = 10;
+                    break;
 
-                        case "2":
-                            nd = 6;
-                            break;
+                case "2":
+                    nd = 6;
+                    break;
 
-                        case "3":
-                            nd = 2;
-                            break;
+                case "3":
+                    nd = 2;
+                    break;
 
-                        default:
-                            nd = 0;
-                            break;
-                    }
+                default:
+                    nd = 0;
+                    break;
+            }
 
-                    $('#deficiencia').val(nd);
-            });
+            $('#deficiencia').val(nd);
+            calcularProbabilidad();
+        });
 
-            $('#exposicionSelected').change(function () {
-                let selectedExposicion = $('#exposicionSelected').val();
-                var ne = 0;
-                switch (selectedExposicion) {
-                    case "1":
-                        ne = 4;
-                        break;
+        $('#exposicionSelected').click(function () {
+            var selectedExposicion = $('#exposicionSelected').val();
+            var ne = 0;
+            switch (selectedExposicion)
+            {
+                case "1":
+                    ne = 4;
+                    break;
 
-                    case "2":
-                        ne = 3;
-                        break;
+                case "2":
+                    ne = 3;
+                    break;
 
-                    case "3":
-                        ne = 2;
-                        break;
+                case "3":
+                    ne = 2;
+                    break;
 
-                    default:
-                        ne = 1;
-                        break;
-                }
+                default:
+                    ne = 1;
+                    break;
+            }
 
-                $('#exposicion').val(ne);
-                let nd = $('#deficiencia').val();
-                $('#probabilidad').val(nd * ne);
-                let probabilidad = $('#probabilidad').val();
-                let interpretaNP = "";
-                switch (probabilidad) {
-                    case int p when(p >= 24):
-                        interpretaNP = "Muy alto (MA)";
-                        break;
+            $('#exposicion').val(ne);
+            calcularProbabilidad();
+        });
 
-                    case int p when(p >= 10 && p < 24):
-                        interpretaNP = "Alto (A)";
-                        break;
+        $('#consecuenciaSelected').click(function () {
+            var selectedExposicion = $('#consecuenciaSelected').val();
+            var nc = 0;
+            switch (selectedExposicion)
+            {
+                case "1":
+                    nc = 100;
+                    break;
 
-                    case int p when(p >= 8 && p < 10):
-                        interpretaNP = "Mdio (M)";
-                        break;
+                case "2":
+                    nc = 60;
+                    break;
 
-                    default:
-                        interpretaNP = "Bajo (B)";
-                        break;
-                }
-                $('#interpretaNP').val(interpretaNP);
+                case "3":
+                    nc = 25;
+                    break;
 
-            });
+                default:
+                    nc = 10;
+                    break;
+            }
+            $('#consecuencia').val(nc);
+            calcularRiesgo();
+        });
+
+        function calcularProbabilidad() {
+            var nd = $('#deficiencia').val();
+            var ne = $('#exposicion').val();
+            var probabilidad = nd * ne;
+            $('#probabilidad').val(probabilidad);
+            var interpretaNP = " ";
+            switch (true) {
+                case (probabilidad >= 24 && probabilidad <= 40):
+                    interpretaNP = "Muy alto (MA)";
+                    break;
+                case (probabilidad >= 10 && probabilidad < 24):
+                    interpretaNP = "Alto (A)";
+                    break;
+                case (probabilidad >= 8 && probabilidad < 10):
+                    interpretaNP = "Mdio (M)";
+                    break;
+                case (probabilidad >= 2 && probabilidad < 8):
+                    interpretaNP = "Bajo (B)";
+                    break;
+
+                default:
+                    interpretaNP = "Bajo (B)";
+                    break;
+            }
+            $('#interpretaNP').val(interpretaNP);
+        }
+
+        function calcularRiesgo() {
+            calcularProbabilidad();
+            var np = $('#probabilidad').val();
+            var nc = $('#consecuencia').val();
+            var riesgo = np * nc;
+            $('#riesgo').val(riesgo);
+            var interpretaNR = " ";
+            var  colorStyle = " ";
+            switch (true) {
+                case (riesgo >= 600):
+                    interpretaNR = "I";
+                    colorStyle = "red";
+                    break;
+                case (riesgo >= 150 && riesgo < 600):
+                    interpretaNR = "II";
+                    colorStyle = "yellow";
+                    break;
+                case (riesgo >= 40 && riesgo < 150):
+                    interpretaNR = "III";
+                    colorStyle = "orange";
+                    break;
+
+                default:
+                    interpretaNR = "IV";
+                    colorStyle = "green";
+                    break;
+            }
+            $('#interpretaNR').val(interpretaNR);
+            $('#interpretaNR').css({ "backgroundColor": colorStyle });
+        }
 
     </script>
 }
