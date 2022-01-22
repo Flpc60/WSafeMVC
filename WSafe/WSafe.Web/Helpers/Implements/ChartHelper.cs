@@ -22,7 +22,7 @@ namespace WSafe.Domain.Helpers.Implements
         {
             var chartImage = new Chart(width: 500, height: 300, theme: ChartTheme.Green);
             chartImage.AddTitle(nombre);
-            chartImage.AddSeries(chartType: tipo,
+            chartImage.AddSeries("Default", chartType: tipo,
                         xValue: lista, xField: "MesAnn",
                           yValues: lista, yFields: "Resultado");
             chartImage.Save(path: archivo);
@@ -182,6 +182,39 @@ namespace WSafe.Domain.Helpers.Implements
                         (double)_indicadorHelper.NumeroDiasTrabajadosMes() * 100)
                     });
                 }
+                return viewModel;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<IndicadorDetallesViewModel> GetFatorRiesgoOcupacional()
+        {
+            try
+            {
+                var result = from at in _empresaContext.Riesgos
+                             group at by new { at.Peligro.CategoriaPeligroID } into datosAgrupados
+                             orderby datosAgrupados.Count() ascending
+                             select new { Clave = datosAgrupados.Key, Datos = datosAgrupados };
+
+                var viewModel = new List<IndicadorDetallesViewModel>();
+                foreach (var grupo in result)
+                {
+                    viewModel.Add(new IndicadorDetallesViewModel
+                    {
+                        ID = grupo.Datos.Key.CategoriaPeligroID,
+                        Numerador = grupo.Datos.Count(),
+                        Denominador = 1,
+                        Resultado = grupo.Datos.Count()
+                    });
+                }
+                foreach (var item in viewModel)
+                {
+                    item.MesAnn = _empresaContext.CategoriasPeligros.FirstOrDefault(cp => cp.ID == item.ID).Descripcion;
+                }
+
                 return viewModel;
             }
             catch (DbEntityValidationException ex)
