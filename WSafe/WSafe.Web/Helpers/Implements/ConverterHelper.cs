@@ -324,6 +324,10 @@ namespace WSafe.Domain.Helpers.Implements
                 case 6:
                     datos = _chartHelper.GetAusentismoCausaMedica (fechaInicial, fechaFinal);
                     break;
+
+                case 7:
+                    datos = _chartHelper.GetFatorRiesgoOcupacional();
+                    break;
             }
 
             _chartHelper.DrawImagen(filePathName, indicador.TipoChart, indicador.Nombre, datos);

@@ -16,5 +16,6 @@ namespace WSafe.Domain.Helpers
         IEnumerable<IndicadorDetallesViewModel> GetAllIncidentes(DateTime fechaInicial, DateTime fechaFinal);
         IEnumerable<IndicadorDetallesViewModel> GetIncidentesInvestigados(DateTime fechaInicial, DateTime fechaFinal);
         IEnumerable<IndicadorDetallesViewModel> GetAusentismoCausaMedica(DateTime fechaInicial, DateTime fechaFinal);
+        IEnumerable<IndicadorDetallesViewModel> GetFatorRiesgoOcupacional();
     }
 }
