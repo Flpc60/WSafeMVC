@@ -25,10 +25,10 @@ namespace WSafe.Web.Controllers
             _converterHelper = converterHelper;
         }
 
+
         // GET: Riesgos
         public async Task<ActionResult> Index()
         {
-            // TODO
             var list = await _empresaContext.Riesgos.Include(z => z.Zona)
                 .Include(p => p.Proceso)
                 .Include(a => a.Actividad)
@@ -36,8 +36,8 @@ namespace WSafe.Web.Controllers
                 .Include(cp => cp.Peligro)
                 .OrderByDescending(cr => cr.NivelRiesgo)
                 .ToListAsync();
-
-            return View(list);
+            var modelo  = _converterHelper.ToRiesgoViewModelList(list);
+            return View(modelo);
         }
 
         // GET: Riesgos/Details/5
@@ -405,6 +405,34 @@ namespace WSafe.Web.Controllers
                 return Json(peligros, JsonRequestBehavior.AllowGet);
             }
             return null;
+        }
+
+        [HttpGet]
+        public ActionResult GetZonas()
+        {
+            var zonas = _comboHelper.GetComboZonas();
+            return Json(zonas, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult GetProcesos()
+        {
+            var procesos = _comboHelper.GetComboProcesos();
+            return Json(procesos, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult GetActivities()
+        {
+            var activities = _comboHelper.GetComboActividades();
+            return Json(activities, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult GetTareas()
+        {
+            var tareas = _comboHelper.GetComboTareas();
+            return Json(tareas, JsonRequestBehavior.AllowGet);
         }
 
     }

@@ -44,7 +44,7 @@ namespace WSafe.Domain.Helpers.Implements
 
             list.Insert(0, new SelectListItem
             {
-                Text = "(Seleccione una categoria peligro ...)",
+                Text = "(Seleccione una categoria de peligro ...)",
                 Value = "0"
             });
 
@@ -64,7 +64,7 @@ namespace WSafe.Domain.Helpers.Implements
 
             list.Insert(0, new SelectListItem
             {
-                Text = "(Seleccione una categoria peligro ...)",
+                Text = "(Seleccione un tipo de peligro ...)",
                 Value = "0"
             });
 

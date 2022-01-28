@@ -56,13 +56,13 @@ namespace WSafe.Domain.Helpers.Implements
             {
                 ID = riesgo.ID,
                 ZonaID = riesgo.Zona.ID,
-                Zonas = _comboHelper.GetComboZonas(),
+                //Zonas = _comboHelper.GetComboZonas(),
                 ProcesoID = riesgo.Proceso.ID,
-                Procesos = _comboHelper.GetComboProcesos(),
+                //Procesos = _comboHelper.GetComboProcesos(),
                 ActividadID = riesgo.Actividad.ID,
-                Actividades = _comboHelper.GetComboActividades(),
+                //Actividades = _comboHelper.GetComboActividades(),
                 TareaID = riesgo.Tarea.ID,
-                Tareas = _comboHelper.GetComboTareas(),
+                //Tareas = _comboHelper.GetComboTareas(),
                 Rutinaria = riesgo.Rutinaria,
                 CategoriaPeligroID = riesgo.Peligro.CategoriaPeligroID,
                 CategoriasPeligros = _comboHelper.GetComboCategoriaPeligros(),
@@ -349,5 +349,32 @@ namespace WSafe.Domain.Helpers.Implements
             return model;
         }
 
+        public IEnumerable<ListaRiesgosVM> ToRiesgoViewModelList(IEnumerable<Riesgo> riesgo)
+        {
+            var model = new List<ListaRiesgosVM>();
+            foreach (var item in riesgo)
+            {
+                model.Add(new ListaRiesgosVM
+                {
+                    ID = item.ID,
+                    Zona = _empresaContext.Zonas.Find(item.Zona.ID).Descripcion,
+                    Proceso = _empresaContext.Procesos.Find(item.Proceso.ID).Descripcion,
+                    Actividad = _empresaContext.Actividades.Find(item.Actividad.ID).Descripcion,
+                    Tarea = _empresaContext.Tareas.Find(item.Tarea.ID).Descripcion,
+                    Rutinaria = item.Rutinaria,
+                    Clasificacion = _empresaContext.CategoriasPeligros.Find(item.Peligro.CategoriaPeligroID).Descripcion,
+                    Peligro = _empresaContext.Peligros.Find(item.Peligro.ID).Descripcion,
+                    EfectosPosibles = item.EfectosPosibles,
+                    NivelDeficiencia = item.NivelDeficiencia,
+                    NivelExposicion = item.NivelExposicion,
+                    NivelConsecuencia = item.NivelConsecuencia,
+                    Aceptabilidad = item.Aceptabilidad,
+                    NroExpuestos = item.NroExpuestos,
+                    RequisitoLegal = item.RequisitoLegal
+                });
+            }
+
+            return model;
+        }
     }
 }
