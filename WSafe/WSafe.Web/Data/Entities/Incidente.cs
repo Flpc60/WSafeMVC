@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using WSafe.Domain.Data.Entities.Incidentes;
 
@@ -29,7 +30,12 @@ namespace WSafe.Domain.Data.Entities
         public bool IncapacidadMedica { get; set; }
         [Display(Name = "Días de incapacidad")]
         public int DiasIncapacidad { get; set; }
-        public int TrabajadorID { get; set; }
+        [Display(Name = "Trabajadores Lesinados")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public ICollection<Trabajador> Trabajadores { get; set; }
+        [Display(Name = "Reportado por")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public string  Informante { get; set; }
         [Display(Name = "Naturaleza lesión")]
         [MaxLength(250)]
         public string NaturalezaLesion { get; set; }

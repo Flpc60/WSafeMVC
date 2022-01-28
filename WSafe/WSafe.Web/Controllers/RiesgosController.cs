@@ -435,5 +435,12 @@ namespace WSafe.Web.Controllers
             return Json(tareas, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public ActionResult GetTrabajadores()
+        {
+            var works = _comboHelper.GetComboTrabajadores();
+            return Json(works, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
