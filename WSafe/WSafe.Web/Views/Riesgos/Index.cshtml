@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WSafe.Domain.Data.Entities.Riesgo>
+﻿@model IEnumerable<WSafe.Web.Models.ListaRiesgosVM>
 
 @{
     ViewBag.Title = "WSafe";
@@ -7,11 +7,18 @@
 <h2>GESTIÓN DE RIESGOS</h2>
 
 <div class="row">
-    <div class="col-sm-4">
+    <div class="col-md-4">
         @Html.ActionLink("Nuevo", "Create", new { @class = "glyphicon glyphicon-plus" },
         new { @class = "btn btn-info btn-lg active" })
     </div>
+    <div class="col-md-4">
+        <input type="text" id="myInput" placeholder="Escriba un nombre de elemento para filtrar" style="width:350px">
+    </div>
+    <div class="col-md-4">
+        <input type="button" class="btn btn-info" id="reportPdf" value="Descargar PDF">
+    </div>
 </div>
+<hr />
 
 <table class="table">
     <tr style="background-color:gainsboro">
@@ -29,6 +36,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Rutinaria)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Clasificacion)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Peligro)
@@ -84,55 +94,58 @@
                     strStyle = "background-color:green;";
                     break;
             }
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Proceso.Descripcion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Zona.Descripcion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Actividad.Descripcion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Tarea.Descripcion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Rutinaria)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Peligro.Descripcion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EfectosPosibles)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NivelDeficiencia)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NivelExposicion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NivelProbabilidad)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NivelConsecuencia)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NivelRiesgo)
-                </td>
-                <td style="@strStyle">
-                    @Html.DisplayFor(modelItem => item.CategoriaRiesgo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Aceptabilidad)
-                </td>
-                <td style="font-size:12px">
-                    @Html.ActionLink(" ", "GetControles", new { id = item.ID }, new { @class = "glyphicon glyphicon-search" }) |
-                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) |
-                    @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "glyphicon glyphicon-trash" })
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Proceso)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zona)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Actividad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tarea)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rutinaria)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Clasificacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Peligro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EfectosPosibles)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NivelDeficiencia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NivelExposicion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NivelProbabilidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NivelConsecuencia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NivelRiesgo)
+            </td>
+            <td style="@strStyle">
+                @Html.DisplayFor(modelItem => item.CategoriaRiesgo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Aceptabilidad)
+            </td>
+            <td style="font-size:12px">
+                @Html.ActionLink(" ", "GetControles", new { id = item.ID }, new { @class = "glyphicon glyphicon-search" }) |
+                @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) |
+                @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "glyphicon glyphicon-trash" })
+            </td>
+        </tr>
         }
 
     </tbody>

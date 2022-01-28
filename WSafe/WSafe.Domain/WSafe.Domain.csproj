@@ -147,6 +147,7 @@
     <Compile Include="Models\IndicadorDetallesViewModel.cs" />
     <Compile Include="Models\IndicadorViewModel.cs" />
     <Compile Include="Models\IntervencionViewModel.cs" />
+    <Compile Include="Models\ListaRiesgosVM.cs" />
     <Compile Include="Models\RiesgoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IAccionRepository.cs" />
