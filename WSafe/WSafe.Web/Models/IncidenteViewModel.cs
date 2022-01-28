@@ -70,6 +70,9 @@ namespace WSafe.Web.Models
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un trabajador.")]
         public int TrabajadorID { get; set; }
         public IEnumerable<SelectListItem> Trabajadores { get; set; }
+        [Display(Name = "Reportado por")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public string Informante { get; set; }
         [Display(Name = "Naturaleza lesión")]
         public string NaturalezaLesion { get; set; }
         [Display(Name = "Partes afectadas")]

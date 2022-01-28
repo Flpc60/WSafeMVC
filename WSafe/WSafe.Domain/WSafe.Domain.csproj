@@ -78,6 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Entities\Accidentado.cs" />
     <Compile Include="Data\Entities\Accion.cs" />
     <Compile Include="Data\Entities\Actividad.cs" />
     <Compile Include="Data\Entities\Aplicacion.cs" />
@@ -138,6 +139,7 @@
     <Compile Include="Helpers\Implements\ConverterHelper.cs" />
     <Compile Include="Helpers\Implements\GestorHelper.cs" />
     <Compile Include="Helpers\Implements\IndicadorHelper.cs" />
+    <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
     <Compile Include="Models\AplicationsViewModel.cs" />
     <Compile Include="Models\ControlViewModel.cs" />

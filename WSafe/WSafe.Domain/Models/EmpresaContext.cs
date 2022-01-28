@@ -30,5 +30,6 @@ namespace WSafe.Web.Models
         public System.Data.Entity.DbSet<WSafe.Web.Models.CreateIndicatorsViewModel> CreateIndicatorsViewModels { get; set; }
 
         public DbSet<Aplicacion> Aplicaciones { get; set; }
+        public DbSet<Accidentado> Accidentados { get; set; }
     }
 }
