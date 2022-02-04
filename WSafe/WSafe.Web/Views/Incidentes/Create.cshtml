@@ -3,6 +3,11 @@
 @{
     ViewBag.Title = "WSafe";
 }
+<style>
+    .detal {
+        display: none;
+    }
+</style>
 
 <h2>Ingresar incidente</h2>
 
@@ -138,9 +143,17 @@
         </div>
     </div>
 
-    <div class="form-group">
-        <button type="button" id="detalles" class="btn btn-secondary btn-lg btn-block">DETALLES DEL INCIDENTE </button>
-        <div style="display:none">
+    <div>
+        <button type="button" class="btn btn-secondary btn-lg btn-block" id="detalles">DETALLES DEL INCIDENTE </button>
+    </div>
+
+    <div class="detal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.NaturalezaLesion, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NaturalezaLesion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NaturalezaLesion, "", new { @class = "text-danger" })
+            </div>
         </div>
     </div>
 
@@ -156,15 +169,8 @@
         <button type="button" id="matriz" class="btn btn-secondary btn-lg btn-block">MATRIZ POTENCIAL</button>
     </div>
 
-    <div class="form-group" style="display:none" id="detal" >
-        @Html.LabelFor(model => model.NaturalezaLesion, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.NaturalezaLesion, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.NaturalezaLesion, "", new { @class = "text-danger" })
-        </div>
-    </div>
 
-    <div class="form-group" style="display:none" id="detal" >
+    <div class="form-group" id="detal" >
         @Html.LabelFor(model => model.PartesAfectadas, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.PartesAfectadas, new { htmlAttributes = new { @class = "form-control" } })
@@ -172,7 +178,7 @@
         </div>
     </div>
 
-    <div class="form-group" style="display:none" id="detal" >
+    <div class="form-group" id="detal" >
         @Html.LabelFor(model => model.TipoIncidente, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.TipoIncidente, new { htmlAttributes = new { @class = "form-control" } })
@@ -180,7 +186,7 @@
         </div>
     </div>
 
-    <div class="form-group" style="display:none" id="detal" >
+    <div class="form-group" id="detal" >
         @Html.LabelFor(model => model.AgenteLesion, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.AgenteLesion, new { htmlAttributes = new { @class = "form-control" } })
@@ -188,7 +194,7 @@
         </div>
     </div>
 
-    <div class="form-group" style="display:none" id="detal" >
+    <div class="form-group" id="detal" >
         @Html.LabelFor(model => model.ActosInseguros, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.ActosInseguros, new { htmlAttributes = new { @class = "form-control" } })
@@ -196,15 +202,17 @@
         </div>
     </div>
 
-    <div class="form-group" style="display:none" id="detal" >
-        @Html.LabelFor(model => model.CondicionesInsegura, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.CondicionesInsegura, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.CondicionesInsegura, "", new { @class = "text-danger" })
+    <div class="form-group" id="detal" >
+        <div class="tab">
+            @Html.LabelFor(model => model.CondicionesInsegura, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CondicionesInsegura, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CondicionesInsegura, "", new { @class = "text-danger" })
+            </div>
         </div>
     </div>
 
-    <div class="form-group" style="display:none" id="detal" >
+    <div class="form-group" id="detal" >
         @Html.LabelFor(model => model.TipoDaño, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.TipoDaño, new { htmlAttributes = new { @class = "form-control" } })
@@ -212,7 +220,7 @@
         </div>
     </div>
 
-    <div class="form-group" style="display:none" id="detal" >
+    <div class="form-group" id="detal" >
         @Html.LabelFor(model => model.Afectacion, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.Afectacion, new { htmlAttributes = new { @class = "form-control" } })
@@ -220,7 +228,7 @@
         </div>
     </div>
 
-    <div class="form-group" style="display:none" id="detal" >
+    <div class="form-group" id="detal" >
         @Html.LabelFor(model => model.DañosOcasionados, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.DañosOcasionados, new { htmlAttributes = new { @class = "form-control" } })
@@ -228,7 +236,7 @@
         </div>
     </div>
 
-    <div class="form-group" style="display:none" id="detal" >
+    <div class="form-group" id="detal" >
         @Html.LabelFor(model => model.TipoVehiculo, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-4">
             @Html.EditorFor(model => model.TipoVehiculo, new { htmlAttributes = new { @class = "form-control" } })
@@ -236,7 +244,7 @@
         </div>
     </div>
 
-    <div class="form-group" style="display:none" id="detal" >
+    <div class="form-group" id="detal" >
         @Html.LabelFor(model => model.MarcaVehiculo, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-4">
             @Html.EditorFor(model => model.MarcaVehiculo, new { htmlAttributes = new { @class = "form-control" } })
@@ -244,7 +252,7 @@
         </div>
     </div>
 
-    <div class="form-group" style="display:none" id="detal" >
+    <div class="form-group" id="detal" >
         @Html.LabelFor(model => model.ModeloVehiculo, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-4">
             @Html.EditorFor(model => model.ModeloVehiculo, new { htmlAttributes = new { @class = "form-control" } })
@@ -252,7 +260,7 @@
         </div>
     </div>
 
-    <div class="form-group" style="display:none" id="detal" >
+    <div class="form-group" id="detal" >
         @Html.LabelFor(model => model.KilometrajeVehiculo, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-4">
             @Html.EditorFor(model => model.KilometrajeVehiculo, new { htmlAttributes = new { @class = "form-control" } })
@@ -260,7 +268,7 @@
         </div>
     </div>
 
-    <div class="form-group" style="display:none" id="detal" >
+    <div class="form-group" id="detal" >
         @Html.LabelFor(model => model.CostosEstimados, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-4">
             @Html.EditorFor(model => model.CostosEstimados, new { htmlAttributes = new { @class = "form-control" } })
@@ -268,7 +276,7 @@
         </div>
     </div>
 
-    <div class="form-group" style="display:none" id="detal" >
+    <div class="form-group" id="detal" >
         @Html.LabelFor(model => model.DescripcionIncidente, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-4">
             @Html.EditorFor(model => model.DescripcionIncidente, new { htmlAttributes = new { @class = "form-control" } })
@@ -276,7 +284,7 @@
         </div>
     </div>
 
-    <div class="form-group" style="display:none" id="detal" >
+    <div class="form-group" id="detal" >
         @Html.LabelFor(model => model.EvitarIncidente, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.EvitarIncidente, new { htmlAttributes = new { @class = "form-control" } })
@@ -413,10 +421,16 @@
 @section Scripts
 {
     <script type="text/javascript">
+        $('#detalles').click(function () {
+            $(".detal").css("display", "block");
+        });
+
+        function changeStyle() {
+            alert("Has ingresado a detalles incidente y el atributo de la clase es : ");
+            document.getElementsByClassName("detal")[0].style.display = "block";
+        }
+/*
         $(document).ready(function () {
-            $('#dealles').click(function () {
-                $('#detal').css("display", "block" );
-            }
             $("#addLesionado").click(function () {
                 var idLesionado = $("#idLeionado").val();
                 $("#idAgregar").click(function () {
@@ -470,51 +484,7 @@
             hilera.appendChild(celda);
             tabla.appendChild(hilera);
         };
-
-        $('#addAccident').change(function () {
-            var workSelect = $('#work').val();
-            workSelect.empty();
-            $.getJSON('@Url.Action("GetTrabajadores")', function (works)
-            {
-                if (works != null && !jQuery.isEmptyObject(works))
-                {
-                    $.each(works, function (index, item)
-                    {
-                        workSelect.append($('<option />',
-                        {
-                            value: item.Value,
-                            text: item.Text
-                        }));
-                    });
-                };
-            });
-
-            $('<div id="newAccident"></div>')
-                .html
-                (
-                    '@Html.DropDownListFor(model => model.TrabajadorID, Model.Trabajadores, new { @class = "form-control", @id = "work" })'+
-                     '/n'+'@Html.ValidationMessageFor(model => model.TrabajadorID, "", new { @class = "text-danger" })'
-                ).appendTo('body');
-        });
-
-        $('#work').change(function () {
-            var procesosSelect = $('#proceso').val();
-            procesosSelect.empty();
-            $.getJSON('@Url.Action("GetProcesos")', function (procesos)
-            {
-                if (procesos != null && !jQuery.isEmptyObject(procesos))
-                {
-                    $.each(procesos, function (index, item)
-                    {
-                        procesosSelect.append($('<option />',
-                        {
-                            value: item.Value,
-                            text: item.Text
-                        }));
-                    });
-                };
-            });
-        });
+*/
 
         $('#activity').change(function () {
             var activitySelect = $('#activity').val();
