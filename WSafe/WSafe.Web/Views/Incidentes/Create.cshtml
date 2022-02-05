@@ -3,415 +3,411 @@
 @{
     ViewBag.Title = "WSafe";
 }
+
 <style>
-    .detal {
+    .detal, .tabGeneral, .tabLesionados, .tabDescrip, .tabAcciones, .tabMatriz {
         display: none;
     }
 </style>
-
-<h2>Ingresar incidente</h2>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.Zonas, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.DropDownListFor(model => model.ZonaID, Model.Zonas, new { @class = "form-control", @title = "Seleccione el lugar del accidente" })
-            @Html.ValidationMessageFor(model => model.ZonaID, "", new { @class = "text-danger" })
-        </div>
-    </div>
+    <div class="form-horizontal">
+        <h1>Reporte de incidentes y accidentes de trabajo</h1>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Procesos, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.DropDownListFor(model => model.ProcesoID, Model.Procesos, new
-            {
-                @class = "form-control",
-            @title = "Seleccione el proceso que estaba ejecuntando cuando ocurrio el incidente"
-            })
-            @Html.ValidationMessageFor(model => model.ProcesoID, "", new { @class = "text-danger" })
+        <div>
+            <button type="button" class="btn btn-secondary btn-lg btn-block" id="general">INFORMACIÓN GENERAL DEL INCIDENTE </button>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Actividades, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.DropDownListFor(model => model.ActividadID, Model.Actividades, new
-            {
-                @class = "form-control",
-            @title = "Seleccione la actividad que estaba ejecuntando cuando ocurrio el incidente"
-            })
-            @Html.ValidationMessageFor(model => model.ActividadID, "", new { @class = "text-danger" })
-        </div>
-    </div>
+        <div class="tabGeneral">
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Tareas, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.DropDownListFor(model => model.TareaID, Model.Tareas, new
-            {
-                @class = "form-control",
-            @title = "Seleccione la tarea que estaba ejecuntando cuando ocurrio el incidente"
-            })
-            @Html.ValidationMessageFor(model => model.TareaID, "", new { @class = "text-danger" })
-        </div>
-    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Zonas, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.DropDownListFor(model => model.ZonaID, Model.Zonas, new { @class = "form-control", @title = "Seleccione el lugar del accidente" })
+                    @Html.ValidationMessageFor(model => model.ZonaID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Procesos, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.DropDownListFor(model => model.ProcesoID, Model.Procesos, new
+                    {
+                        @class = "form-control",
+                    @title = "Seleccione el proceso que estaba ejecuntando cuando ocurrio el incidente"
+                    })
+                    @Html.ValidationMessageFor(model => model.ProcesoID, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.FechaReporte, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.EditorFor(model => model.FechaReporte, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.FechaReporte, "", new { @class = "text-danger" })
-        </div>
-    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Actividades, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.DropDownListFor(model => model.ActividadID, Model.Actividades, new
+                    {
+                        @class = "form-control",
+                    @title = "Seleccione la actividad que estaba ejecuntando cuando ocurrio el incidente"
+                    })
+                    @Html.ValidationMessageFor(model => model.ActividadID, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.FechaIncidente, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.EditorFor(model => model.FechaIncidente, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.FechaIncidente, "", new { @class = "text-danger" })
-        </div>
-    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Tareas, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.DropDownListFor(model => model.TareaID, Model.Tareas, new
+                    {
+                        @class = "form-control",
+                    @title = "Seleccione la tarea que estaba ejecuntando cuando ocurrio el incidente"
+                    })
+                    @Html.ValidationMessageFor(model => model.TareaID, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.CategoriasIncidente, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.EnumDropDownListFor(model => model.CategoriasIncidente, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.CategoriasIncidente, "", new { @class = "text-danger" })
-        </div>
-    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.FechaReporte, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.FechaReporte, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FechaReporte, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.IncapacidadMedica, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            <div class="checkbox">
-                @Html.EditorFor(model => model.IncapacidadMedica)
-                @Html.ValidationMessageFor(model => model.IncapacidadMedica, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.FechaIncidente, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.FechaIncidente, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FechaIncidente, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CategoriasIncidente, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EnumDropDownListFor(model => model.CategoriasIncidente, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CategoriasIncidente, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IncapacidadMedica, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.IncapacidadMedica)
+                        @Html.ValidationMessageFor(model => model.IncapacidadMedica, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DiasIncapacidad, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.EditorFor(model => model.DiasIncapacidad, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DiasIncapacidad, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.DiasIncapacidad, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-2">
-            @Html.EditorFor(model => model.DiasIncapacidad, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DiasIncapacidad, "", new { @class = "text-danger" })
+        <div>
+            <button type="button" class="btn btn-secondary btn-lg btn-block" id="lesionados">TRABAJADORES INVOLUCRADOS EN EL INCIDENTE </button>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="row">
-            @Html.LabelFor(model => model.TrabajadorID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
-                @Html.DropDownListFor(model => model.TrabajadorID, Model.Trabajadores, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.TrabajadorID, "", new { @class = "text-danger", @id = "idLesionado" })
+        <div class="tabLesionados">
+            <div class="form-group">
+                <div class="row">
+                    @Html.LabelFor(model => model.TrabajadorID, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.DropDownListFor(model => model.TrabajadorID, Model.Trabajadores, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.TrabajadorID, "", new { @class = "text-danger", @id = "idLesionado" })
+                    </div>
+                    <div class="col-md-4" style="display:flex">
+                        <button type="button" id="addLesionado" class="btn btn-danger" title="Agregue todos los trabajadores involucrados en el incidente">Agregar</button>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4" style="display:flex">
-                <button type="button" id="addLesionado" class="btn btn-danger" title="Agregue todos los trabajadores involucrados en el incidente">Agregar</button>
+
+            <div class="form-group">
+                <div id="lesionados" style="overflow-x:auto;">
+                    <table class="table" id="personsLesion">
+                        <tr style="background-color:gainsboro">
+                            <th>
+                                Nombres
+                            </th>
+                            <th>
+                                Documento
+                            </th>
+                            <th>
+                                Fecha nacimiento
+                            </th>
+                            <th>
+                                Estado civil
+                            </th>
+                            <th>
+                                Cargo
+                            </th>
+                            <th>
+                                Fecha ingreso
+                            </th>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div id="lesionados" style="overflow-x:auto;">
-            <table class="table" id="personsLesion">
-                <tr style="background-color:gainsboro">
-                    <th>
-                        Nombres
-                    </th>
-                    <th>
-                        Documento
-                    </th>
-                    <th>
-                        Fecha nacimiento
-                    </th>
-                    <th>
-                        Estado civil
-                    </th>
-                    <th>
-                        Cargo
-                    </th>
-                    <th>
-                        Fecha ingreso
-                    </th>
-            </table>
+        <div>
+            <button type="button" class="btn btn-secondary btn-lg btn-block" id="detalles">DETALLES DEL INCIDENTE </button>
         </div>
-    </div>
+        <div class="detal">
+            <div class="form-group">
+                @Html.LabelFor(model => model.NaturalezaLesion, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NaturalezaLesion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NaturalezaLesion, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.PartesAfectadas, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PartesAfectadas, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PartesAfectadas, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group" id="detal">
+                @Html.LabelFor(model => model.TipoIncidente, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TipoIncidente, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TipoIncidente, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.AgenteLesion, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.AgenteLesion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AgenteLesion, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-    <div>
-        <button type="button" class="btn btn-secondary btn-lg btn-block" id="detalles">DETALLES DEL INCIDENTE </button>
-    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ActosInseguros, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ActosInseguros, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ActosInseguros, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CondicionesInsegura, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CondicionesInsegura, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CondicionesInsegura, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.TipoDaño, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TipoDaño, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TipoDaño, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Afectacion, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Afectacion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Afectacion, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.DañosOcasionados, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DañosOcasionados, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DañosOcasionados, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.TipoVehiculo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.TipoVehiculo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TipoVehiculo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.MarcaVehiculo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.MarcaVehiculo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MarcaVehiculo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ModeloVehiculo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.ModeloVehiculo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ModeloVehiculo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.KilometrajeVehiculo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.KilometrajeVehiculo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.KilometrajeVehiculo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CostosEstimados, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.CostosEstimados, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CostosEstimados, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
 
-    <div class="detal">
         <div class="form-group">
-            @Html.LabelFor(model => model.NaturalezaLesion, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NaturalezaLesion, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NaturalezaLesion, "", new { @class = "text-danger" })
+            <button type="button" id="descripcion" class="btn btn-secondary btn-lg btn-block">DESCRIPCIÓN CLARA DEL INCIDENTE </button>
+        </div>
+
+        <div class="tabDescrip">
+            <div class="form-group">
+                @Html.LabelFor(model => model.DescripcionIncidente, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.DescripcionIncidente, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DescripcionIncidente, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="button" id="acciones" class="btn btn-secondary btn-lg btn-block">ACCIONES DE CONTROL</button>
+        </div>
+
+        <div class="tabAcciones">
+            <div class="form-group" id="detal">
+                @Html.LabelFor(model => model.EvitarIncidente, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.EvitarIncidente, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.EvitarIncidente, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.AccionesInmediatas, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.AccionesInmediatas, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AccionesInmediatas, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ComentariosAdicionales, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ComentariosAdicionales, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ComentariosAdicionales, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.AtencionBrindada, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.AtencionBrindada, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AtencionBrindada, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <button type="button" id="matriz" class="btn btn-secondary btn-lg btn-block">MATRIZ POTENCIAL</button>
+        </div>
+
+        <div class="tabMatriz">
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ConsecuenciasLesion, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EnumDropDownListFor(model => model.ConsecuenciasLesion, htmlAttributes: new { @class = "form-control", @id = "idLesion" })
+                    @Html.ValidationMessageFor(model => model.ConsecuenciasLesion, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ConsecuenciasDaño, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EnumDropDownListFor(model => model.ConsecuenciasDaño, htmlAttributes: new { @class = "form-control", @id = "idDaño" })
+                    @Html.ValidationMessageFor(model => model.ConsecuenciasDaño, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ConsecuenciasMedio, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EnumDropDownListFor(model => model.ConsecuenciasMedio, htmlAttributes: new { @class = "form-control", @id = "idMedio" })
+                    @Html.ValidationMessageFor(model => model.ConsecuenciasMedio, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ConsecuenciasImagen, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EnumDropDownListFor(model => model.ConsecuenciasImagen, htmlAttributes: new { @class = "form-control", @id = "idImagen" })
+                    @Html.ValidationMessageFor(model => model.ConsecuenciasImagen, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Probabilidad, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EnumDropDownListFor(model => model.Probabilidad, htmlAttributes: new { @class = "form-control", @id = "interpretaP" })
+                    @Html.ValidationMessageFor(model => model.Probabilidad, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.EquiposInvestigador, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EnumDropDownListFor(model => model.EquiposInvestigador, htmlAttributes: new { @class = "form-control", @id = "equipoInvest" })
+                    @Html.ValidationMessageFor(model => model.EquiposInvestigador, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.LesionPersonal, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EnumDropDownListFor(model => model.LesionPersonal, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.LesionPersonal, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.DañoMaterial, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EnumDropDownListFor(model => model.DañoMaterial, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.DañoMaterial, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.MedioAmbiente, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EnumDropDownListFor(model => model.MedioAmbiente, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.MedioAmbiente, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Imagen, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EnumDropDownListFor(model => model.Imagen, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Imagen, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.RequiereInvestigacion, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.RequiereInvestigacion)
+                        @Html.ValidationMessageFor(model => model.RequiereInvestigacion, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-success" />
             </div>
         </div>
     </div>
-
-    <div class="form-group">
-        <button type="button" id="descripcion" class="btn btn-secondary btn-lg btn-block">DESCRIPCIÓN CLARA DEL INCIDENTE </button>
-    </div>
-
-    <div class="form-group">
-        <button type="button" id="acciones" class="btn btn-secondary btn-lg btn-block">ACCIONES DE CONTROL</button>
-    </div>
-
-    <div class="form-group">
-        <button type="button" id="matriz" class="btn btn-secondary btn-lg btn-block">MATRIZ POTENCIAL</button>
-    </div>
-
-
-    <div class="form-group" id="detal" >
-        @Html.LabelFor(model => model.PartesAfectadas, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.PartesAfectadas, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.PartesAfectadas, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group" id="detal" >
-        @Html.LabelFor(model => model.TipoIncidente, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.TipoIncidente, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.TipoIncidente, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group" id="detal" >
-        @Html.LabelFor(model => model.AgenteLesion, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.AgenteLesion, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.AgenteLesion, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group" id="detal" >
-        @Html.LabelFor(model => model.ActosInseguros, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.ActosInseguros, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.ActosInseguros, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group" id="detal" >
-        <div class="tab">
-            @Html.LabelFor(model => model.CondicionesInsegura, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CondicionesInsegura, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CondicionesInsegura, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group" id="detal" >
-        @Html.LabelFor(model => model.TipoDaño, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.TipoDaño, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.TipoDaño, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group" id="detal" >
-        @Html.LabelFor(model => model.Afectacion, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Afectacion, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Afectacion, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group" id="detal" >
-        @Html.LabelFor(model => model.DañosOcasionados, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DañosOcasionados, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DañosOcasionados, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group" id="detal" >
-        @Html.LabelFor(model => model.TipoVehiculo, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.EditorFor(model => model.TipoVehiculo, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.TipoVehiculo, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group" id="detal" >
-        @Html.LabelFor(model => model.MarcaVehiculo, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.EditorFor(model => model.MarcaVehiculo, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.MarcaVehiculo, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group" id="detal" >
-        @Html.LabelFor(model => model.ModeloVehiculo, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.EditorFor(model => model.ModeloVehiculo, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.ModeloVehiculo, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group" id="detal" >
-        @Html.LabelFor(model => model.KilometrajeVehiculo, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.EditorFor(model => model.KilometrajeVehiculo, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.KilometrajeVehiculo, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group" id="detal" >
-        @Html.LabelFor(model => model.CostosEstimados, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.EditorFor(model => model.CostosEstimados, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.CostosEstimados, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group" id="detal" >
-        @Html.LabelFor(model => model.DescripcionIncidente, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.EditorFor(model => model.DescripcionIncidente, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DescripcionIncidente, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group" id="detal" >
-        @Html.LabelFor(model => model.EvitarIncidente, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.EvitarIncidente, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.EvitarIncidente, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.AccionesInmediatas, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.AccionesInmediatas, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.AccionesInmediatas, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.ComentariosAdicionales, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.ComentariosAdicionales, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.ComentariosAdicionales, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.AtencionBrindada, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.AtencionBrindada, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.AtencionBrindada, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.EquiposInvestigador, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.EnumDropDownListFor(model => model.EquiposInvestigador, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.EquiposInvestigador, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.LesionPersonal, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.EnumDropDownListFor(model => model.LesionPersonal, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.LesionPersonal, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.DañoMaterial, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.EnumDropDownListFor(model => model.DañoMaterial, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.DañoMaterial, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.MedioAmbiente, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.EnumDropDownListFor(model => model.MedioAmbiente, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.MedioAmbiente, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Imagen, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.EnumDropDownListFor(model => model.Imagen, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Imagen, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.RequiereInvestigacion, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            <div class="checkbox">
-                @Html.EditorFor(model => model.RequiereInvestigacion)
-                @Html.ValidationMessageFor(model => model.RequiereInvestigacion, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.ConsecuenciasLesion, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.EnumDropDownListFor(model => model.ConsecuenciasLesion, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.ConsecuenciasLesion, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.ConsecuenciasDaño, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.EnumDropDownListFor(model => model.ConsecuenciasDaño, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.ConsecuenciasDaño, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.ConsecuenciasMedio, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.EnumDropDownListFor(model => model.ConsecuenciasMedio, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.ConsecuenciasMedio, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.ConsecuenciasImagen, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.EnumDropDownListFor(model => model.ConsecuenciasImagen, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.ConsecuenciasImagen, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Probabilidad, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.EnumDropDownListFor(model => model.Probabilidad, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Probabilidad, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Guardar" class="btn btn-success" />
-        </div>
-    </div>
-</div>
 }
 
 <div>
@@ -421,266 +417,175 @@
 @section Scripts
 {
     <script type="text/javascript">
+
+        // tabs de formato incidentes
+        $('#general').click(function () {
+            $(".tabGeneral").css("display", "block");
+        });
+        $('#general').dblclick(function () {
+            $(".tabGeneral").css("display", "none");
+        });
+
         $('#detalles').click(function () {
             $(".detal").css("display", "block");
         });
+        $('#detalles').dblclick(function () {
+            $(".detal").css("display", "none");
+        });
 
-        function changeStyle() {
-            alert("Has ingresado a detalles incidente y el atributo de la clase es : ");
-            document.getElementsByClassName("detal")[0].style.display = "block";
-        }
-/*
-        $(document).ready(function () {
-            $("#addLesionado").click(function () {
-                var idLesionado = $("#idLeionado").val();
-                $("#idAgregar").click(function () {
-                    $.ajax({
-                        url: "GetLesionado",
-                        data: { idLesionado },
-                        type: "GET",
-                        dataType: "json",
-                        success: function (datos) {
-                            $.each(datos, function (index, obj) {
-                                llenarTabla(obj.Documento, obj.Nombres, obj.Cargo);
+        $('#lesionados').click(function () {
+            $(".tabLesionados").css("display", "block");
+        });
+        $('#lesionados').dblclick(function () {
+            $(".tabLesionados").css("display", "none");
+        });
+
+        $('#descripcion').click(function () {
+            $(".tabDescrip").css("display", "block");
+        });
+        $('#descripcion').dblclick(function () {
+            $(".tabDescrip").css("display", "none");
+        });
+
+        $('#acciones').click(function () {
+            $(".tabAcciones").css("display", "block");
+        });
+        $('#acciones').dblclick(function () {
+            $(".tabAcciones").css("display", "none");
+        });
+
+        $('#matriz').click(function () {
+            $(".tabMatriz").css("display", "block");
+        });
+        $('#matriz').dblclick(function () {
+            $(".tabMatriz").css("display", "none");
+        });
+
+        $('#equipoInvest').click(function () {
+            var equipo = $('#equipoInvest').val();
+            var colorAttrib;
+            switch (equipo) {
+                case "1":
+                    colorAttrib = "red";
+                    break;
+
+                case "2":
+                    colorAttrib = "yellow";
+                    break;
+
+                default:
+                    colorAttrib = "green";
+                    break;
+            }
+
+            $("#equipoInvest").css("backgroundColor", colorAttrib, "color", "black");
+        });
+
+        $('#interpretaP').change(function () {
+            var valLesion = $('#idLesion').val();
+            var valDaño = $('#idDaño').val();
+            var valMedio = $('#idMedio').val();
+            var valImagen = $('#idImagen').val();
+            var valInterpretaP = $('#interpretaP').val();
+
+            if ((valLesion == "1" || valLesion == "2") && (valDaño == "1" || valDaño == "2") && (valMedio == "1" || valMedio == "2")
+                && (valImagen == "1" || valImagen == "2")) {
+                $('#interpretaP').css("backgroundColor", "green");
+            };
+
+            if (valLesion == "3" && valDaño == "3" && valMedio == "3" && valImagen == "3" && (valInterpretaP == "1" || valInterpretaP == "2" || valInterpretaP == "3")) {
+                $('#interpretaP').css("backgroundColor", "green");
+            };
+
+            if (valLesion == "3" && valDaño == "3" && valMedio == "3" && valImagen == "3" && (valInterpretaP == "4" || valInterpretaP == "5")) {
+                $('#interpretaP').css("backgroundColor", "yellow");
+            };
+
+            if (valLesion == "4" && valDaño == "4" && valMedio == "4" && valImagen == "4" && (valInterpretaP == "1" || valInterpretaP == "2")) {
+                $('#interpretaP').css("backgroundColor", "green");
+            };
+
+            if (valLesion == "4" && valDaño == "4" && valMedio == "4" && valImagen == "4" && (valInterpretaP == "3" || valInterpretaP == "4" || valInterpretaP == "5")) {
+                $('#interpretaP').css("backgroundColor", "yellow");
+            };
+
+            if (valLesion == "5" && valDaño == "5" && valMedio == "5" && valImagen == "5" && valInterpretaP == "1") {
+                $('#interpretaP').css("backgroundColor", "green");
+            };
+
+            if (valLesion == "5" && valDaño == "5" && valMedio == "5" && valImagen == "5" && (valInterpretaP == "2" || valInterpretaP == "3"  )) {
+                $('#interpretaP').css("backgroundColor", "yellow");
+            };
+
+            if (valLesion == "5" && valDaño == "5" && valMedio == "5" && valImagen == "5" && (valInterpretaP == "4" || valInterpretaP == "5")) {
+                $('#interpretaP').css("backgroundColor", "red");
+            };
+
+            if (valLesion == "6" && valDaño == "6" && valMedio == "6" && valImagen == "6" && (valInterpretaP == "1" || valInterpretaP == "2")) {
+                $('#interpretaP').css("backgroundColor", "yellow");
+            };
+
+            if (valLesion == "6" && valDaño == "6" && valMedio == "6" && valImagen == "6" && (valInterpretaP == "3" || valInterpretaP == "4" || valInterpretaP == "5")) {
+                $('#interpretaP').css("backgroundColor", "red");
+            };
+        });
+
+        /*
+                        $(document).ready(function () {
+                            $("#addLesionado").click(function () {
+                                var idLesionado = $("#idLeionado").val();
+                                $("#idAgregar").click(function () {
+                                    $.ajax({
+                                        url: "GetLesionado",
+                                        data: { idLesionado },
+                                        type: "GET",
+                                        dataType: "json",
+                                        success: function (datos) {
+                                            $.each(datos, function (index, obj) {
+                                                llenarTabla(obj.Documento, obj.Nombres, obj.Cargo);
+                                            });
+                                        },
+                                        error: function (xhr, status, error) {
+                                            alert("Mensaje :" + xhr + "/nEstado :" + status + "/nError :" + error);
+                                        }
+                                    });
+                                });
+
                             });
-                        },
-                        error: function (xhr, status, error) {
-                            alert("Mensaje :" + xhr + "/nEstado :" + status + "/nError :" + error);
-                        }
-                    });
-                });
-
-            });
-        });
-
-        function llenarTabla(doc, nom, cargo) {
-            var tabla = document.getElementById("personsLesion");
-            tabla.empty();
-            var hilera = "";
-            var celda = "";
-            var textoCelda = "";
-
-            // Columna 1
-            hilera = document.createElement("tr");
-            celda = document.createElement("td");
-            textoCelda = document.createTextNode(doc.value);
-            celda.appendChild(textoCelda);
-            hilera.appendChild(celda);
-            tabla.appendChild(hilera);
-
-            // Columna 2
-            hilera = document.createElement("tr");
-            celda = document.createElement("td");
-            textoCelda = document.createTextNode(nom.value);
-            celda.appendChild(textoCelda);
-            hilera.appendChild(celda);
-            tabla.appendChild(hilera);
-
-            // Columna 3
-            hilera = document.createElement("tr");
-            celda = document.createElement("td");
-            textoCelda = document.createTextNode(cargo.value);
-            celda.appendChild(textoCelda);
-            hilera.appendChild(celda);
-            tabla.appendChild(hilera);
-        };
-*/
-
-        $('#activity').change(function () {
-            var activitySelect = $('#activity').val();
-            activitySelect.empty();
-            $.getJSON('@Url.Action("GetActivities")', function (activities)
-            {
-                if (activities != null && !jQuery.isEmptyObject(activities))
-                {
-                    $.each(activities, function (index, item)
-                    {
-                        activitySelect.append($('<option />',
-                        {
-                            value: item.Value,
-                            text: item.Text
-                        }));
-                    });
-                };
-            });
-        });
-
-        $('#tarea').change(function () {
-            var tareasSelect = $('#tarea').val();
-            tareasSelect.empty();
-            $.getJSON('@Url.Action("GetTareas")', function (tareas)
-            {
-                if (tareas != null && !jQuery.isEmptyObject(tareas))
-                {
-                    $.each(tareas, function (index, item)
-                    {
-                        tareasSelect.append($('<option />',
-                        {
-                            value: item.Value,
-                            text: item.Text
-                        }));
-                    });
-                };
-            });
-        });
-
-        $('#categoria').change(function () {
-            var selectedCategoria = $("#categoria").val();
-            var peligroSelect = $('#peligro');
-            peligroSelect.empty();
-            if (selectedCategoria != null && selectedCategoria != '')
-            {
-                $.getJSON('@Url.Action("GetPeligros")', { ID: selectedCategoria }, function (peligros)
-                {
-                    if (peligros != null && !jQuery.isEmptyObject(peligros))
-                    {
-                        $.each(peligros, function (index, item)
-                        {
-                            peligroSelect.append($('<option />',
-                            {
-                                value: item.Value,
-                                text: item.Text
-                            }));
                         });
-                    };
-                });
-            }
-        });
 
-        $('#deficienciaSelected').click(function () {
-            var selectedCategoria = $('#deficienciaSelected').val();
-            var nd = 0;
-            switch (selectedCategoria)
-            {
-                case "1":
-                    nd = 10;
-                    break;
+                        function llenarTabla(doc, nom, cargo) {
+                            var tabla = document.getElementById("personsLesion");
+                            tabla.empty();
+                            var hilera = "";
+                            var celda = "";
+                            var textoCelda = "";
 
-                case "2":
-                    nd = 6;
-                    break;
+                            // Columna 1
+                            hilera = document.createElement("tr");
+                            celda = document.createElement("td");
+                            textoCelda = document.createTextNode(doc.value);
+                            celda.appendChild(textoCelda);
+                            hilera.appendChild(celda);
+                            tabla.appendChild(hilera);
 
-                case "3":
-                    nd = 2;
-                    break;
+                            // Columna 2
+                            hilera = document.createElement("tr");
+                            celda = document.createElement("td");
+                            textoCelda = document.createTextNode(nom.value);
+                            celda.appendChild(textoCelda);
+                            hilera.appendChild(celda);
+                            tabla.appendChild(hilera);
 
-                default:
-                    nd = 0;
-                    break;
-            }
-
-            $('#deficiencia').val(nd);
-            calcularProbabilidad();
-        });
-
-        $('#exposicionSelected').click(function () {
-            var selectedExposicion = $('#exposicionSelected').val();
-            var ne = 0;
-            switch (selectedExposicion)
-            {
-                case "1":
-                    ne = 4;
-                    break;
-
-                case "2":
-                    ne = 3;
-                    break;
-
-                case "3":
-                    ne = 2;
-                    break;
-
-                default:
-                    ne = 1;
-                    break;
-            }
-
-            $('#exposicion').val(ne);
-            calcularProbabilidad();
-        });
-
-        $('#consecuenciaSelected').click(function () {
-            var selectedExposicion = $('#consecuenciaSelected').val();
-            var nc = 0;
-            switch (selectedExposicion)
-            {
-                case "1":
-                    nc = 100;
-                    break;
-
-                case "2":
-                    nc = 60;
-                    break;
-
-                case "3":
-                    nc = 25;
-                    break;
-
-                default:
-                    nc = 10;
-                    break;
-            }
-            $('#consecuencia').val(nc);
-            calcularRiesgo();
-        });
-
-        function calcularProbabilidad() {
-            var nd = $('#deficiencia').val();
-            var ne = $('#exposicion').val();
-            var probabilidad = nd * ne;
-            $('#probabilidad').val(probabilidad);
-            var interpretaNP = " ";
-            switch (true) {
-                case (probabilidad >= 24 && probabilidad <= 40):
-                    interpretaNP = "Muy alto (MA)";
-                    break;
-                case (probabilidad >= 10 && probabilidad < 24):
-                    interpretaNP = "Alto (A)";
-                    break;
-                case (probabilidad >= 8 && probabilidad < 10):
-                    interpretaNP = "Mdio (M)";
-                    break;
-                case (probabilidad >= 2 && probabilidad < 8):
-                    interpretaNP = "Bajo (B)";
-                    break;
-
-                default:
-                    interpretaNP = "Bajo (B)";
-                    break;
-            }
-            $('#interpretaNP').val(interpretaNP);
-        }
-
-        function calcularRiesgo() {
-            calcularProbabilidad();
-            var np = $('#probabilidad').val();
-            var nc = $('#consecuencia').val();
-            var riesgo = np * nc;
-            $('#riesgo').val(riesgo);
-            var interpretaNR = " ";
-            var  colorStyle = " ";
-            switch (true) {
-                case (riesgo >= 600):
-                    interpretaNR = "I";
-                    colorStyle = "red";
-                    break;
-                case (riesgo >= 150 && riesgo < 600):
-                    interpretaNR = "II";
-                    colorStyle = "yellow";
-                    break;
-                case (riesgo >= 40 && riesgo < 150):
-                    interpretaNR = "III";
-                    colorStyle = "orange";
-                    break;
-
-                default:
-                    interpretaNR = "IV";
-                    colorStyle = "green";
-                    break;
-            }
-            $('#interpretaNR').val(interpretaNR);
-            $('#interpretaNR').css({ "backgroundColor": colorStyle, "font-size": "200%" });
-        }
+                            // Columna 3
+                            hilera = document.createElement("tr");
+                            celda = document.createElement("td");
+                            textoCelda = document.createTextNode(cargo.value);
+                            celda.appendChild(textoCelda);
+                            hilera.appendChild(celda);
+                            tabla.appendChild(hilera);
+                        };
+                */
 
     </script>
 }
