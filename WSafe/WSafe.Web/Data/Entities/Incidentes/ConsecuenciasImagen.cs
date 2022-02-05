@@ -11,10 +11,10 @@ namespace WSafe.Domain.Data.Entities.Incidentes
         [Display(Name = "Local")]
         Local = 3,
         [Display(Name = "Regional")]
-        Regional = 3,
+        Regional = 4,
         [Display(Name = "Clientes")]
-        Clientes = 4,
+        Clientes = 5,
         [Display(Name = "Nacional")]
-        Nacional = 5
+        Nacional = 6
     }
 }
