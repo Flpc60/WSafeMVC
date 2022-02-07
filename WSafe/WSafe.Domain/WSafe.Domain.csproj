@@ -96,6 +96,7 @@
     <Compile Include="Data\Entities\Incidentes\ConsecuenciasImagen.cs" />
     <Compile Include="Data\Entities\Incidentes\ConsecuenciasLesion.cs" />
     <Compile Include="Data\Entities\Incidentes\ConsecuenciasMedio.cs" />
+    <Compile Include="Data\Entities\Incidentes\EquipoInvestiga.cs" />
     <Compile Include="Data\Entities\Incidentes\Incidente.cs" />
     <Compile Include="Data\Entities\Incidentes\IndicadorMes.cs" />
     <Compile Include="Data\Entities\Incidentes\TipoPerdida.cs" />
@@ -145,6 +146,7 @@
     <Compile Include="Models\ControlViewModel.cs" />
     <Compile Include="Models\CreateIndicatorsViewModel.cs" />
     <Compile Include="Models\EmpresaContext.cs" />
+    <Compile Include="Models\EquipoInvestigaVM.cs" />
     <Compile Include="Models\IncidenteViewModel.cs" />
     <Compile Include="Models\IndicadorDetallesViewModel.cs" />
     <Compile Include="Models\IndicadorViewModel.cs" />

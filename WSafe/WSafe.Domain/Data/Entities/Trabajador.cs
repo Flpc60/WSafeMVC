@@ -22,7 +22,7 @@ namespace WSafe.Domain.Data.Entities
         {
             get
             {
-                return Documento + " " + Nombres + " " + PrimerApellido + " " + SegundoApellido;
+                return Nombres + " " + PrimerApellido + " " + SegundoApellido;
             }
         }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]

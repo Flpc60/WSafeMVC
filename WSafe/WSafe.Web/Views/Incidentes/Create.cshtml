@@ -529,63 +529,61 @@
                 $('#interpretaP').css("backgroundColor", "red");
             };
         });
-
-        /*
-                        $(document).ready(function () {
-                            $("#addLesionado").click(function () {
-                                var idLesionado = $("#idLeionado").val();
-                                $("#idAgregar").click(function () {
-                                    $.ajax({
-                                        url: "GetLesionado",
-                                        data: { idLesionado },
-                                        type: "GET",
-                                        dataType: "json",
-                                        success: function (datos) {
-                                            $.each(datos, function (index, obj) {
-                                                llenarTabla(obj.Documento, obj.Nombres, obj.Cargo);
-                                            });
-                                        },
-                                        error: function (xhr, status, error) {
-                                            alert("Mensaje :" + xhr + "/nEstado :" + status + "/nError :" + error);
-                                        }
-                                    });
-                                });
-
+        
+        $(document).ready(function () {
+            $("#addLesionado").click(function () {
+                var idLesionado = $("#idLeionado").val();
+                $("#idAgregar").click(function () {
+                    $.ajax({
+                        url: "GetLesionado",
+                        data: { idLesionado },
+                        type: "GET",
+                        dataType: "json",
+                        success: function (datos) {
+                            $.each(datos, function (index, obj) {
+                                llenarTabla(obj.Documento, obj.Nombres, obj.Cargo);
                             });
-                        });
+                        },
+                        error: function (xhr, status, error) {
+                            alert("Mensaje :" + xhr + "/nEstado :" + status + "/nError :" + error);
+                        }
+                    });
+                });
 
-                        function llenarTabla(doc, nom, cargo) {
-                            var tabla = document.getElementById("personsLesion");
-                            tabla.empty();
-                            var hilera = "";
-                            var celda = "";
-                            var textoCelda = "";
+            });
+        });
 
-                            // Columna 1
-                            hilera = document.createElement("tr");
-                            celda = document.createElement("td");
-                            textoCelda = document.createTextNode(doc.value);
-                            celda.appendChild(textoCelda);
-                            hilera.appendChild(celda);
-                            tabla.appendChild(hilera);
+        function llenarTabla(doc, nom, cargo) {
+            var tabla = document.getElementById("personsLesion");
+            tabla.empty();
+            var hilera = "";
+            var celda = "";
+            var textoCelda = "";
 
-                            // Columna 2
-                            hilera = document.createElement("tr");
-                            celda = document.createElement("td");
-                            textoCelda = document.createTextNode(nom.value);
-                            celda.appendChild(textoCelda);
-                            hilera.appendChild(celda);
-                            tabla.appendChild(hilera);
+            // Columna 1
+            hilera = document.createElement("tr");
+            celda = document.createElement("td");
+            textoCelda = document.createTextNode(doc.value);
+            celda.appendChild(textoCelda);
+            hilera.appendChild(celda);
+            tabla.appendChild(hilera);
 
-                            // Columna 3
-                            hilera = document.createElement("tr");
-                            celda = document.createElement("td");
-                            textoCelda = document.createTextNode(cargo.value);
-                            celda.appendChild(textoCelda);
-                            hilera.appendChild(celda);
-                            tabla.appendChild(hilera);
-                        };
-                */
+            // Columna 2
+            hilera = document.createElement("tr");
+            celda = document.createElement("td");
+            textoCelda = document.createTextNode(nom.value);
+            celda.appendChild(textoCelda);
+            hilera.appendChild(celda);
+            tabla.appendChild(hilera);
+
+            // Columna 3
+            hilera = document.createElement("tr");
+            celda = document.createElement("td");
+            textoCelda = document.createTextNode(cargo.value);
+            celda.appendChild(textoCelda);
+            hilera.appendChild(celda);
+            tabla.appendChild(hilera);
+        };                
 
     </script>
 }
