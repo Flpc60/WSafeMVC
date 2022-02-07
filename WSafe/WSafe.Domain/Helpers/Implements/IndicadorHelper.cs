@@ -28,7 +28,7 @@ namespace WSafe.Domain.Helpers.Implements
         public int AccidentesTrabajoMortales(DateTime fechaInicial, DateTime fechaFinal)
         {
             return _empresaContext.Incidentes
-                .Where(i => i.FechaIncidente >= fechaInicial && i.FechaIncidente <= fechaFinal && i.CategoriaIncidente == CategoriasIncidente.Accidente && i.ConsecuenciasLesion == ConsecuenciasLesion.Mortal)
+                .Where(i => i.FechaIncidente >= fechaInicial && i.FechaIncidente <= fechaFinal && i.CategoriaIncidente == CategoriasIncidente.Accidente && i.ConsecuenciasLesion == ConsecuenciasLesion.EfectoMayor)
                 .Count();
         }
 

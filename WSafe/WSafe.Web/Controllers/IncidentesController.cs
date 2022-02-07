@@ -287,5 +287,14 @@ namespace WSafe.Web.Controllers
 
             return View(model);
         }
+
+        [HttpGet]
+        public async Task<ActionResult> GetLesionados(int id)
+        {
+
+            var works = _comboHelper.GetComboTrabajadores();
+            return Json(works, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

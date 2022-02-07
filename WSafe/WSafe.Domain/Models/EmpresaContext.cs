@@ -31,5 +31,6 @@ namespace WSafe.Web.Models
 
         public DbSet<Aplicacion> Aplicaciones { get; set; }
         public DbSet<Accidentado> Accidentados { get; set; }
+        public DbSet<Cargo> Cargos { get; set; }
     }
 }

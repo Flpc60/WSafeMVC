@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WSafe.Domain.Data.Entities
+namespace WSafe.Domain.Data.Entities.Incidentes
 {
-    public class Accidentado
+    public class EquipoInvestiga
     {
         [Key]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]

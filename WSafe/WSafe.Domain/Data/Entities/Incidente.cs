@@ -32,10 +32,10 @@ namespace WSafe.Domain.Data.Entities
         public int DiasIncapacidad { get; set; }
         [Display(Name = "Trabajadores Lesinados")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public ICollection<Trabajador> Trabajadores { get; set; }
+        public ICollection<Accidentado> Lesionados { get; set; }
         [Display(Name = "Reportado por")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public string  Informante { get; set; }
+        public string Informante { get; set; }
         [Display(Name = "Naturaleza lesión")]
         [MaxLength(250)]
         public string NaturalezaLesion { get; set; }
@@ -109,5 +109,6 @@ namespace WSafe.Domain.Data.Entities
         [Display(Name = "Consecuencias imagen")]
         public ConsecuenciasImagen ConsecuenciasImagen { get; set; }
         public AccidenteProbabilidad Probabilidad { get; set; }
+        public IEnumerable<EquipoInvestiga> EquipoInvestiga { get; set; }
     }
 }

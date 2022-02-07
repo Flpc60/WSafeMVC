@@ -265,7 +265,7 @@ namespace WSafe.Domain.Helpers.Implements
                 ConsecuenciasDaño = incidente.ConsecuenciasDaño,
                 ConsecuenciasMedio = incidente.ConsecuenciasMedio,
                 ConsecuenciasImagen = incidente.ConsecuenciasImagen,
-                Probabilidad = incidente.Probabilidad
+                Probabilidad = incidente.Probabilidad,
             };
 
             return model;
