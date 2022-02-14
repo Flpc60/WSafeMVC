@@ -71,6 +71,10 @@ namespace WSafe.Web.Controllers
                 {
                     var consulta = new IncidenteService(new IncidenteRepository(_empresaContext));
                     var incidente = await _converterHelper.ToIncidenteAsync(model, true);
+                    foreach (var item in model.Lesionados)
+                    {
+                        item.IncidenteID = model.ID;
+                    }
                     var saved = await consulta.Insert(incidente);
                     if (saved != null)
                     {
@@ -93,7 +97,9 @@ namespace WSafe.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var result = await _empresaContext.Incidentes.FirstOrDefaultAsync(i => i.ID == id.Value);
+            var result = await _empresaContext.Incidentes
+                .Include(l => l.Lesionados)
+                .FirstOrDefaultAsync(i => i.ID == id.Value);
 
             var incidenteViewModel = _converterHelper.ToIncidenteViewModel(result);
 
@@ -289,12 +295,24 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetLesionados(int id)
+        public async Task<JsonResult> GetLesionado(int id)
         {
+            if (id == null)
+            {
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
-            var works = _comboHelper.GetComboTrabajadores();
-            return Json(works, JsonRequestBehavior.AllowGet);
+            var result = await _empresaContext.Trabajadores
+                .Include(c => c.Cargo)
+                .FirstOrDefaultAsync(i => i.ID == id);
+
+            var lesionado = _converterHelper.ToLesionadoViewModel(result);
+
+            if (lesionado == null)
+            {
+                //return HttpNotFound();
+            }
+            return Json(lesionado, JsonRequestBehavior.AllowGet);
         }
-
     }
 }

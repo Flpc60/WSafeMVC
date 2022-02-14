@@ -155,6 +155,5 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una probabilidad.")]
         public AccidenteProbabilidad Probabilidad { get; set; }
-        public IEnumerable<EquipoInvestigaVM> EquipoInvestiga { get; set; }
     }
 }

@@ -20,5 +20,6 @@ namespace WSafe.Domain.Helpers
         IncidenteViewModel ToIncidenteViewModelNew();
         IndicadorViewModel ToIndicadorViewModel(Indicador indicador);
         IndicadorViewModel ToIndicadorViewModelNew(Indicador indicador, DateTime fechaInicial, DateTime fechaFinal);
+        AccidentadoVM ToLesionadoViewModel(Trabajador lesionado);
     }
 }

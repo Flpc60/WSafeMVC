@@ -11,6 +11,6 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int IncidenteID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public Trabajador Trabajador { get; set; }
+        public int TrabajadorID { get; set; }
     }
 }

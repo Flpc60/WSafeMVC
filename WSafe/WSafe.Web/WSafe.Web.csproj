@@ -310,9 +310,9 @@
     <Compile Include="Helpers\Implements\ConverterHelper.cs" />
     <Compile Include="Helpers\Implements\GestorHelper.cs" />
     <Compile Include="Helpers\Implements\IndicadorHelper.cs" />
-    <Compile Include="Migrations\202202070252503_CreateEquipoInvestiga111.cs" />
-    <Compile Include="Migrations\202202070252503_CreateEquipoInvestiga111.Designer.cs">
-      <DependentUpon>202202070252503_CreateEquipoInvestiga111.cs</DependentUpon>
+    <Compile Include="Migrations\202202071607509_createAccidentadoViewModel11.cs" />
+    <Compile Include="Migrations\202202071607509_createAccidentadoViewModel11.Designer.cs">
+      <DependentUpon>202202071607509_createAccidentadoViewModel11.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -485,8 +485,8 @@
     <EmbeddedResource Include="Migrations\202112012202348_InitialCreate.resx">
       <DependentUpon>202112012202348_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202202070252503_CreateEquipoInvestiga111.resx">
-      <DependentUpon>202202070252503_CreateEquipoInvestiga111.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202202071607509_createAccidentadoViewModel11.resx">
+      <DependentUpon>202202071607509_createAccidentadoViewModel11.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

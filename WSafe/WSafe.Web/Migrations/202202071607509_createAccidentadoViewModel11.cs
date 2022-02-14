@@ -3,7 +3,7 @@ namespace WSafe.Web.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class CreateEquipoInvestiga111 : DbMigration
+    public partial class createAccidentadoViewModel11 : DbMigration
     {
         public override void Up()
         {
@@ -19,9 +19,10 @@ namespace WSafe.Web.Migrations
                     })
                 .PrimaryKey(t => t.ID);
             
-            CreateIndex("dbo.Accidentadoes", "TrabajadorID");
+            AddColumn("dbo.Trabajadors", "Cargo_ID", c => c.Int());
             CreateIndex("dbo.Accidentadoes", "IncidenteID");
-            AddForeignKey("dbo.Accidentadoes", "TrabajadorID", "dbo.Trabajadors", "ID", cascadeDelete: true);
+            CreateIndex("dbo.Trabajadors", "Cargo_ID");
+            AddForeignKey("dbo.Trabajadors", "Cargo_ID", "dbo.Cargoes", "ID");
             AddForeignKey("dbo.Accidentadoes", "IncidenteID", "dbo.Incidentes", "ID", cascadeDelete: true);
             DropColumn("dbo.Trabajadors", "Incidente_ID");
         }
@@ -30,9 +31,10 @@ namespace WSafe.Web.Migrations
         {
             AddColumn("dbo.Trabajadors", "Incidente_ID", c => c.Int());
             DropForeignKey("dbo.Accidentadoes", "IncidenteID", "dbo.Incidentes");
-            DropForeignKey("dbo.Accidentadoes", "TrabajadorID", "dbo.Trabajadors");
+            DropForeignKey("dbo.Trabajadors", "Cargo_ID", "dbo.Cargoes");
+            DropIndex("dbo.Trabajadors", new[] { "Cargo_ID" });
             DropIndex("dbo.Accidentadoes", new[] { "IncidenteID" });
-            DropIndex("dbo.Accidentadoes", new[] { "TrabajadorID" });
+            DropColumn("dbo.Trabajadors", "Cargo_ID");
             DropTable("dbo.Cargoes");
             CreateIndex("dbo.Trabajadors", "Incidente_ID");
             AddForeignKey("dbo.Trabajadors", "Incidente_ID", "dbo.Incidentes", "ID");

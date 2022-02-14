@@ -4,6 +4,8 @@
     ViewBag.Title = "WSafe";
 }
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
 <style>
     .detal, .tabGeneral, .tabLesionados, .tabDescrip, .tabAcciones, .tabMatriz {
         display: none;
@@ -18,11 +20,17 @@
     <div class="form-horizontal">
         <h1>Reporte de incidentes y accidentes de trabajo</h1>
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div>
-            <button type="button" class="btn btn-secondary btn-lg btn-block" id="general">INFORMACIÓN GENERAL DEL INCIDENTE </button>
+        <div class="btn-group btn-group-justified">
+            <button type="button" class="btn btn-secondary" id="general">INFORMACIÓN GENERAL</button>
+            <button type="button" class="btn btn-secondary" id="lesionados">TRABAJADORES LESIONADOS</button>
+            <button type="button" class="btn btn-secondary" id="detalles">DETALLES</button>
+            <button type="button" class="btn btn-secondary" id="descripcion">DESCRIPCIÓN</button>
+            <button type="button" class="btn btn-secondary" id="acciones">ACCIONES DE CONTROL</button>
+            <button type="button" class="btn btn-secondary" id="matriz">MATRIZ POTENCIAL</button>
         </div>
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         <div class="tabGeneral">
 
@@ -111,17 +119,14 @@
                 </div>
             </div>
         </div>
-        <div>
-            <button type="button" class="btn btn-secondary btn-lg btn-block" id="lesionados">TRABAJADORES INVOLUCRADOS EN EL INCIDENTE </button>
-        </div>
 
         <div class="tabLesionados">
             <div class="form-group">
                 <div class="row">
                     @Html.LabelFor(model => model.TrabajadorID, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-4">
-                        @Html.DropDownListFor(model => model.TrabajadorID, Model.Trabajadores, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.TrabajadorID, "", new { @class = "text-danger", @id = "idLesionado" })
+                        @Html.DropDownListFor(model => model.TrabajadorID, Model.Trabajadores, new { @class = "form-control", @id = "idLesionado" })
+                        @Html.ValidationMessageFor(model => model.TrabajadorID, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-4" style="display:flex">
                         <button type="button" id="addLesionado" class="btn btn-danger" title="Agregue todos los trabajadores involucrados en el incidente">Agregar</button>
@@ -131,34 +136,35 @@
 
             <div class="form-group">
                 <div id="lesionados" style="overflow-x:auto;">
-                    <table class="table" id="personsLesion">
-                        <tr style="background-color:gainsboro">
-                            <th>
-                                Nombres
-                            </th>
-                            <th>
-                                Documento
-                            </th>
-                            <th>
-                                Fecha nacimiento
-                            </th>
-                            <th>
-                                Estado civil
-                            </th>
-                            <th>
-                                Cargo
-                            </th>
-                            <th>
-                                Fecha ingreso
-                            </th>
+                    <table id="personsLesion" class="table">
+                        <thead>
+                            <tr style="background-color:gainsboro">
+                                <th>
+                                    Documento
+                                </th>
+                                <th>
+                                    Nombres
+                                </th>
+                                <th>
+                                    Genero
+                                </th>
+                                <th>
+                                    Estado civil
+                                </th>
+                                <th>
+                                    TipoVinculación
+                                </th>
+                                <th>
+                                    Cargo
+                                </th>
+                        </thead>
+                        <tbody>
+                        </tbody>
                     </table>
                 </div>
             </div>
         </div>
 
-        <div>
-            <button type="button" class="btn btn-secondary btn-lg btn-block" id="detalles">DETALLES DEL INCIDENTE </button>
-        </div>
         <div class="detal">
             <div class="form-group">
                 @Html.LabelFor(model => model.NaturalezaLesion, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -261,10 +267,6 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <button type="button" id="descripcion" class="btn btn-secondary btn-lg btn-block">DESCRIPCIÓN CLARA DEL INCIDENTE </button>
-        </div>
-
         <div class="tabDescrip">
             <div class="form-group">
                 @Html.LabelFor(model => model.DescripcionIncidente, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -273,10 +275,6 @@
                     @Html.ValidationMessageFor(model => model.DescripcionIncidente, "", new { @class = "text-danger" })
                 </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            <button type="button" id="acciones" class="btn btn-secondary btn-lg btn-block">ACCIONES DE CONTROL</button>
         </div>
 
         <div class="tabAcciones">
@@ -312,10 +310,6 @@
                 </div>
             </div>
 
-        </div>
-
-        <div class="form-group">
-            <button type="button" id="matriz" class="btn btn-secondary btn-lg btn-block">MATRIZ POTENCIAL</button>
         </div>
 
         <div class="tabMatriz">
@@ -416,8 +410,7 @@
 
 @section Scripts
 {
-    <script type="text/javascript">
-
+    <script>
         // tabs de formato incidentes
         $('#general').click(function () {
             $(".tabGeneral").css("display", "block");
@@ -529,61 +522,59 @@
                 $('#interpretaP').css("backgroundColor", "red");
             };
         });
-        
-        $(document).ready(function () {
-            $("#addLesionado").click(function () {
-                var idLesionado = $("#idLeionado").val();
-                $("#idAgregar").click(function () {
-                    $.ajax({
-                        url: "GetLesionado",
-                        data: { idLesionado },
-                        type: "GET",
-                        dataType: "json",
-                        success: function (datos) {
-                            $.each(datos, function (index, obj) {
-                                llenarTabla(obj.Documento, obj.Nombres, obj.Cargo);
-                            });
-                        },
-                        error: function (xhr, status, error) {
-                            alert("Mensaje :" + xhr + "/nEstado :" + status + "/nError :" + error);
-                        }
-                    });
-                });
 
+        $(document).ready(function () {
+            $("#lesionados").click(function () {
+                var idAccidented = $("#idLesionado").val();
+                $("#addLesionado").click(function () {
+                    if (idAccidented != null && idAccidented != '') {
+                        $.ajax({
+                            type: "GET",                                              // tipo de request que estamos generando
+                            url: 'GetLesionado',                                      // URL al que vamos a hacer el pedido
+                            data: { ID: $("#idLesionado").val() },                                         // data es un arreglo JSON que contiene los parámetros que
+                            contentType: "application/json; charset=utf-8",            // tipo de contenido
+                            dataType: "json",                                          // formato de transmición de datos
+                            async: true,                                               // si es asincrónico o no
+                            success: function (accidented) {                           // función que va a ejecutar si el pedido fue exitoso
+                                if (accidented != null && !jQuery.isEmptyObject(accidented)) {
+                                    var modelo = @Html.Raw(Json.Encode(Model));
+                                    var idTrabajador = accidented.TrabajadorID;
+                                    var result = -1;
+                                    modelo.Lesionados.forEach(function (i, item) {
+                                        var id = item.TrabajadorID;
+                                        if (id == idTrabajador) {
+                                          result = i;
+                                       }
+                                    });
+
+                                    if (result < 0) {
+                                        var consulta = "";
+                                        consulta += '<tr>';
+                                        consulta += '<td>' + accidented.Documento + '</td>';
+                                        consulta += '<td>' + accidented.NombreCompleto + '</td>';
+                                        consulta += '<td>' + accidented.Genero + '</td>';
+                                        consulta += '<td>' + accidented.EstadoCivil + '</td>';
+                                        consulta += '<td>' + accidented.TipoVinculacion + '</td>';
+                                        consulta += '<td>' + accidented.Cargo + '</td>';
+                                        consulta += '</tr>';
+                                        $("#personsLesion").append(consulta);
+
+                                        modelo.Lesionados.append($({
+                                            IncidenteID: modelo.IncidenteID,
+                                            TrabajadorID: accidented.TrabajadorID
+                                        }));
+                                    }
+                                };
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) { // función que va a ejecutar si hubo algún tipo de error en el pedido
+                                var error = eval("(" + XMLHttpRequest.responseText + ")");
+                                aler(error.Message);
+                            }
+                        });
+                    }
+                });
             });
         });
-
-        function llenarTabla(doc, nom, cargo) {
-            var tabla = document.getElementById("personsLesion");
-            tabla.empty();
-            var hilera = "";
-            var celda = "";
-            var textoCelda = "";
-
-            // Columna 1
-            hilera = document.createElement("tr");
-            celda = document.createElement("td");
-            textoCelda = document.createTextNode(doc.value);
-            celda.appendChild(textoCelda);
-            hilera.appendChild(celda);
-            tabla.appendChild(hilera);
-
-            // Columna 2
-            hilera = document.createElement("tr");
-            celda = document.createElement("td");
-            textoCelda = document.createTextNode(nom.value);
-            celda.appendChild(textoCelda);
-            hilera.appendChild(celda);
-            tabla.appendChild(hilera);
-
-            // Columna 3
-            hilera = document.createElement("tr");
-            celda = document.createElement("td");
-            textoCelda = document.createTextNode(cargo.value);
-            celda.appendChild(textoCelda);
-            hilera.appendChild(celda);
-            tabla.appendChild(hilera);
-        };                
 
     </script>
 }

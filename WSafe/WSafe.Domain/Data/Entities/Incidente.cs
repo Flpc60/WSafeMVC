@@ -109,6 +109,5 @@ namespace WSafe.Domain.Data.Entities
         [Display(Name = "Consecuencias imagen")]
         public ConsecuenciasImagen ConsecuenciasImagen { get; set; }
         public AccidenteProbabilidad Probabilidad { get; set; }
-        public IEnumerable<EquipoInvestiga> EquipoInvestiga { get; set; }
     }
 }
