@@ -173,5 +173,65 @@ namespace WSafe.Domain.Helpers.Implements
                     return NivelesConsecuencia.Leve;
             }
         }
+
+        public string GetGenero(string genero)
+        {
+            switch (genero)
+            {
+                case "1":
+                    return "Masculino";
+
+                case "2":
+                    return "Femenino";
+
+                case "3":
+                    return "Otro";
+
+                default:
+                    return "Masculino";
+            }
+        }
+        public string GetEstadoCivil(string estado)
+        {
+            switch (estado)
+            {
+                case "1":
+                    return "Soltero";
+
+                case "2":
+                    return "Casado";
+
+                case "3":
+                    return "Unión libre";
+                case "4":
+                    return "Separado";
+
+                case "5":
+                    return "Divorsiado";
+
+                case "6":
+                    return "Viudo";
+
+                default:
+                    return "Soltero";
+            }
+        }
+        public string GetTipoVinculacion(string tipo)
+        {
+            switch (tipo)
+            {
+                case "1":
+                    return "Nomina";
+
+                case "2":
+                    return "Prestacion_Servicios";
+
+                case "3":
+                    return "Agremiacion";
+
+                default:
+                    return "Nomina";
+            }
+        }
     }
 }

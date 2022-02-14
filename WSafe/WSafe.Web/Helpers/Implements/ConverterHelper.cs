@@ -198,7 +198,8 @@ namespace WSafe.Domain.Helpers.Implements
                 ConsecuenciasDaño = model.ConsecuenciasDaño,
                 ConsecuenciasMedio = model.ConsecuenciasMedio,
                 ConsecuenciasImagen = model.ConsecuenciasImagen,
-                Probabilidad = model.Probabilidad
+                Probabilidad = model.Probabilidad,
+                //Lesionados = model.Lesionados
             };
             return result;
         }
@@ -210,7 +211,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Procesos = _comboHelper.GetComboProcesos(),
                 Actividades = _comboHelper.GetComboActividades(),
                 Tareas = _comboHelper.GetComboTareas(),
-                Trabajadores = _comboHelper.GetComboTrabajadores()
+                Trabajadores = _comboHelper.GetComboTrabajadores(),
+                Lesionados = new List<AccidentadoVM>()
             };
 
             return model;
@@ -266,6 +268,7 @@ namespace WSafe.Domain.Helpers.Implements
                 ConsecuenciasMedio = incidente.ConsecuenciasMedio,
                 ConsecuenciasImagen = incidente.ConsecuenciasImagen,
                 Probabilidad = incidente.Probabilidad,
+                Lesionados = new List<AccidentadoVM>()
             };
 
             return model;
@@ -375,6 +378,21 @@ namespace WSafe.Domain.Helpers.Implements
             }
 
             return model;
+        }
+        public AccidentadoVM ToLesionadoViewModel(Trabajador lesionado)
+        {
+            var modelo = new AccidentadoVM()
+            {
+                TrabajadorID = lesionado.ID,
+                Documento = lesionado.Documento,
+                NombreCompleto = lesionado.NombreCompleto,
+                FechaNacimiento = lesionado.FechaNacimiento,
+                Genero = _gestorHelper.GetGenero(lesionado.Genero),
+                EstadoCivil = _gestorHelper.GetEstadoCivil(lesionado.EstadoCivil),
+                TipoVinculacion = _gestorHelper.GetTipoVinculacion(lesionado.TipoVinculacion),
+                Cargo = lesionado.Cargo.Descripcion
+            };
+            return modelo;
         }
     }
 }
