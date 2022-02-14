@@ -56,13 +56,13 @@ namespace WSafe.Domain.Helpers.Implements
             {
                 ID = riesgo.ID,
                 ZonaID = riesgo.Zona.ID,
-                Zonas = _comboHelper.GetComboZonas(),
+                //Zonas = _comboHelper.GetComboZonas(),
                 ProcesoID = riesgo.Proceso.ID,
-                Procesos = _comboHelper.GetComboProcesos(),
+                //Procesos = _comboHelper.GetComboProcesos(),
                 ActividadID = riesgo.Actividad.ID,
-                Actividades = _comboHelper.GetComboActividades(),
+                //Actividades = _comboHelper.GetComboActividades(),
                 TareaID = riesgo.Tarea.ID,
-                Tareas = _comboHelper.GetComboTareas(),
+                //Tareas = _comboHelper.GetComboTareas(),
                 Rutinaria = riesgo.Rutinaria,
                 CategoriaPeligroID = riesgo.Peligro.CategoriaPeligroID,
                 CategoriasPeligros = _comboHelper.GetComboCategoriaPeligros(),
@@ -168,7 +168,7 @@ namespace WSafe.Domain.Helpers.Implements
                 CategoriaIncidente = model.CategoriasIncidente,
                 IncapacidadMedica = model.IncapacidadMedica,
                 DiasIncapacidad = model.DiasIncapacidad,
-                TrabajadorID = model.TrabajadorID,
+                Informante = model.Informante,
                 NaturalezaLesion = model.NaturalezaLesion,
                 PartesAfectadas = model.PartesAfectadas,
                 TipoIncidente = model.TipoIncidente,
@@ -198,7 +198,8 @@ namespace WSafe.Domain.Helpers.Implements
                 ConsecuenciasDaño = model.ConsecuenciasDaño,
                 ConsecuenciasMedio = model.ConsecuenciasMedio,
                 ConsecuenciasImagen = model.ConsecuenciasImagen,
-                Probabilidad = model.Probabilidad
+                Probabilidad = model.Probabilidad,
+                //Lesionados = model.Lesionados
             };
             return result;
         }
@@ -210,7 +211,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Procesos = _comboHelper.GetComboProcesos(),
                 Actividades = _comboHelper.GetComboActividades(),
                 Tareas = _comboHelper.GetComboTareas(),
-                Trabajadores = _comboHelper.GetComboTrabajadores()
+                Trabajadores = _comboHelper.GetComboTrabajadores(),
+                Lesionados = new List<AccidentadoVM>()
             };
 
             return model;
@@ -234,7 +236,7 @@ namespace WSafe.Domain.Helpers.Implements
                 CategoriasIncidente = incidente.CategoriaIncidente,
                 IncapacidadMedica = incidente.IncapacidadMedica,
                 DiasIncapacidad = incidente.DiasIncapacidad,
-                TrabajadorID = incidente.TrabajadorID,
+                Informante = incidente.Informante,
                 Trabajadores = _comboHelper.GetComboTrabajadores(),
                 NaturalezaLesion = incidente.NaturalezaLesion,
                 PartesAfectadas = incidente.PartesAfectadas,
@@ -265,7 +267,8 @@ namespace WSafe.Domain.Helpers.Implements
                 ConsecuenciasDaño = incidente.ConsecuenciasDaño,
                 ConsecuenciasMedio = incidente.ConsecuenciasMedio,
                 ConsecuenciasImagen = incidente.ConsecuenciasImagen,
-                Probabilidad = incidente.Probabilidad
+                Probabilidad = incidente.Probabilidad,
+                Lesionados = new List<AccidentadoVM>()
             };
 
             return model;
@@ -349,5 +352,47 @@ namespace WSafe.Domain.Helpers.Implements
             return model;
         }
 
+        public IEnumerable<ListaRiesgosVM> ToRiesgoViewModelList(IEnumerable<Riesgo> riesgo)
+        {
+            var model = new List<ListaRiesgosVM>();
+            foreach (var item in riesgo)
+            {
+                model.Add(new ListaRiesgosVM
+                {
+                    ID = item.ID,
+                    Zona = _empresaContext.Zonas.Find(item.Zona.ID).Descripcion,
+                    Proceso = _empresaContext.Procesos.Find(item.Proceso.ID).Descripcion,
+                    Actividad = _empresaContext.Actividades.Find(item.Actividad.ID).Descripcion,
+                    Tarea = _empresaContext.Tareas.Find(item.Tarea.ID).Descripcion,
+                    Rutinaria = item.Rutinaria,
+                    Clasificacion = _empresaContext.CategoriasPeligros.Find(item.Peligro.CategoriaPeligroID).Descripcion,
+                    Peligro = _empresaContext.Peligros.Find(item.Peligro.ID).Descripcion,
+                    EfectosPosibles = item.EfectosPosibles,
+                    NivelDeficiencia = item.NivelDeficiencia,
+                    NivelExposicion = item.NivelExposicion,
+                    NivelConsecuencia = item.NivelConsecuencia,
+                    Aceptabilidad = item.Aceptabilidad,
+                    NroExpuestos = item.NroExpuestos,
+                    RequisitoLegal = item.RequisitoLegal
+                });
+            }
+
+            return model;
+        }
+        public AccidentadoVM ToLesionadoViewModel(Trabajador lesionado)
+        {
+            var modelo = new AccidentadoVM()
+            {
+                TrabajadorID = lesionado.ID,
+                Documento = lesionado.Documento,
+                NombreCompleto = lesionado.NombreCompleto,
+                FechaNacimiento = lesionado.FechaNacimiento,
+                Genero = _gestorHelper.GetGenero(lesionado.Genero),
+                EstadoCivil = _gestorHelper.GetEstadoCivil(lesionado.EstadoCivil),
+                TipoVinculacion = _gestorHelper.GetTipoVinculacion(lesionado.TipoVinculacion),
+                Cargo = lesionado.Cargo.Descripcion
+            };
+            return modelo;
+        }
     }
 }

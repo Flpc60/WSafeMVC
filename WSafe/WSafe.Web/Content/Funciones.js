@@ -102,3 +102,187 @@ $('#deficienciaSelected').click(function () {
 
     $('#deficiencia').val(nd);
 });
+
+
+$('#categoria').change(function () {
+    var selectedCategoria = $("#categoria").val();
+    var peligroSelect = $('#peligro');
+    peligroSelect.empty();
+    if (selectedCategoria != null && selectedCategoria != '') {
+        $.getJSON('@Url.Action("GetPeligros")', { ID: selectedCategoria }, function (peligros) {
+            if (peligros != null && !jQuery.isEmptyObject(peligros)) {
+                $.each(peligros, function (index, item) {
+                    peligroSelect.append($('<option />',
+                        {
+                            value: item.Value,
+                            text: item.Text
+                        }));
+                });
+            };
+        });
+    }
+});
+
+$('#deficienciaSelected').click(function () {
+    var selectedCategoria = $('#deficienciaSelected').val();
+    var nd = 0;
+    switch (selectedCategoria) {
+        case "1":
+            nd = 10;
+            break;
+
+        case "2":
+            nd = 6;
+            break;
+
+        case "3":
+            nd = 2;
+            break;
+
+        default:
+            nd = 0;
+            break;
+    }
+
+    $('#deficiencia').val(nd);
+    calcularProbabilidad();
+});
+
+$('#exposicionSelected').click(function () {
+    var selectedExposicion = $('#exposicionSelected').val();
+    var ne = 0;
+    switch (selectedExposicion) {
+        case "1":
+            ne = 4;
+            break;
+
+        case "2":
+            ne = 3;
+            break;
+
+        case "3":
+            ne = 2;
+            break;
+
+        default:
+            ne = 1;
+            break;
+    }
+
+    $('#exposicion').val(ne);
+    calcularProbabilidad();
+});
+
+$('#consecuenciaSelected').click(function () {
+    var selectedExposicion = $('#consecuenciaSelected').val();
+    var nc = 0;
+    switch (selectedExposicion) {
+        case "1":
+            nc = 100;
+            break;
+
+        case "2":
+            nc = 60;
+            break;
+
+        case "3":
+            nc = 25;
+            break;
+
+        default:
+            nc = 10;
+            break;
+    }
+    $('#consecuencia').val(nc);
+    calcularRiesgo();
+});
+
+function calcularProbabilidad() {
+    var nd = $('#deficiencia').val();
+    var ne = $('#exposicion').val();
+    var probabilidad = nd * ne;
+    $('#probabilidad').val(probabilidad);
+    var interpretaNP = " ";
+    switch (true) {
+        case (probabilidad >= 24 && probabilidad <= 40):
+            interpretaNP = "Muy alto (MA)";
+            break;
+        case (probabilidad >= 10 && probabilidad < 24):
+            interpretaNP = "Alto (A)";
+            break;
+        case (probabilidad >= 8 && probabilidad < 10):
+            interpretaNP = "Mdio (M)";
+            break;
+        case (probabilidad >= 2 && probabilidad < 8):
+            interpretaNP = "Bajo (B)";
+            break;
+
+        default:
+            interpretaNP = "Bajo (B)";
+            break;
+    }
+    $('#interpretaNP').val(interpretaNP);
+}
+
+function calcularRiesgo() {
+    calcularProbabilidad();
+    var np = $('#probabilidad').val();
+    var nc = $('#consecuencia').val();
+    var riesgo = np * nc;
+    $('#riesgo').val(riesgo);
+    var interpretaNR = " ";
+    var colorStyle = " ";
+    switch (true) {
+        case (riesgo >= 600):
+            interpretaNR = "I";
+            colorStyle = "red";
+            break;
+        case (riesgo >= 150 && riesgo < 600):
+            interpretaNR = "II";
+            colorStyle = "yellow";
+            break;
+        case (riesgo >= 40 && riesgo < 150):
+            interpretaNR = "III";
+            colorStyle = "orange";
+            break;
+
+        default:
+            interpretaNR = "IV";
+            colorStyle = "green";
+            break;
+    }
+    $('#interpretaNR').val(interpretaNR);
+    $('#interpretaNR').css({ "backgroundColor": colorStyle, "font-size": "200%" });
+}
+
+$('#activity').change(function () {
+    var activitySelect = $('#activity').val();
+    activitySelect.empty();
+    $.getJSON('@Url.Action("GetActivities")', function (activities) {
+        if (activities != null && !jQuery.isEmptyObject(activities)) {
+            $.each(activities, function (index, item) {
+                activitySelect.append($('<option />',
+                    {
+                        value: item.Value,
+                        text: item.Text
+                    }));
+            });
+        };
+    });
+});
+
+$('#tarea').change(function () {
+    var tareasSelect = $('#tarea').val();
+    tareasSelect.empty();
+    $.getJSON('@Url.Action("GetTareas")', function (tareas) {
+        if (tareas != null && !jQuery.isEmptyObject(tareas)) {
+            $.each(tareas, function (index, item) {
+                tareasSelect.append($('<option />',
+                    {
+                        value: item.Value,
+                        text: item.Text
+                    }));
+            });
+        };
+    });
+});

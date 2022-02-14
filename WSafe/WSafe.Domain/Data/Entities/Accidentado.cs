@@ -1,12 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WSafe.Domain.Data.Entities
 {
-    public class Zona
+    public class Accidentado
     {
+        [Key]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public string Descripcion { get; set; }
+        public int IncidenteID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public int TrabajadorID { get; set; }
     }
 }

@@ -17,7 +17,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Zonas, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                @Html.DropDownListFor(model => model.ZonaID, Model.Zonas, new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.ZonaID, Model.Zonas, new { @class = "form-control", @id = "zona" })
                 @Html.ValidationMessageFor(model => model.ZonaID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -25,7 +25,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Procesos, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                @Html.DropDownListFor(model => model.ProcesoID, Model.Procesos, new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.ProcesoID, Model.Procesos, new { @class = "form-control", @id = "proceso" })
                 @Html.ValidationMessageFor(model => model.ProcesoID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -33,7 +33,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Actividades, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                @Html.DropDownListFor(model => model.ActividadID, Model.Actividades, new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.ActividadID, Model.Actividades, new { @class = "form-control", @id = "activity" })
                 @Html.ValidationMessageFor(model => model.ActividadID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -41,7 +41,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Tareas, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                @Html.DropDownListFor(model => model.TareaID, Model.Tareas, new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.TareaID, Model.Tareas, new { @class = "form-control", @id = "tarea" })
                 @Html.ValidationMessageFor(model => model.TareaID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -207,6 +207,104 @@
 @section Scripts
 {
     <script type="text/javascript">
+        $('#zona').change(function () {
+            var zonasSelect = $('#zona').val();
+            zonasSelect.empty();
+            $.getJSON('@Url.Action("GetZonas")', function (zonas)
+            {
+                if (zonas != null && !jQuery.isEmptyObject(zonas))
+                {
+                    $.each(zonas, function (index, item)
+                    {
+                        zonasSelect.append($('<option />',
+                        {
+                            value: item.Value,
+                            text: item.Text
+                        }));
+                    });
+                };
+            });
+        });
+
+        $('#proceso').change(function () {
+            var procesosSelect = $('#proceso').val();
+            procesosSelect.empty();
+            $.getJSON('@Url.Action("GetProcesos")', function (procesos)
+            {
+                if (procesos != null && !jQuery.isEmptyObject(procesos))
+                {
+                    $.each(procesos, function (index, item)
+                    {
+                        procesosSelect.append($('<option />',
+                        {
+                            value: item.Value,
+                            text: item.Text
+                        }));
+                    });
+                };
+            });
+        });
+
+        $('#activity').change(function () {
+            var activitySelect = $('#activity').val();
+            activitySelect.empty();
+            $.getJSON('@Url.Action("GetActivities")', function (activities)
+            {
+                if (activities != null && !jQuery.isEmptyObject(activities))
+                {
+                    $.each(activities, function (index, item)
+                    {
+                        activitySelect.append($('<option />',
+                        {
+                            value: item.Value,
+                            text: item.Text
+                        }));
+                    });
+                };
+            });
+        });
+
+        $('#tarea').change(function () {
+            var tareasSelect = $('#tarea').val();
+            tareasSelect.empty();
+            $.getJSON('@Url.Action("GetTareas")', function (tareas)
+            {
+                if (tareas != null && !jQuery.isEmptyObject(tareas))
+                {
+                    $.each(tareas, function (index, item)
+                    {
+                        tareasSelect.append($('<option />',
+                        {
+                            value: item.Value,
+                            text: item.Text
+                        }));
+                    });
+                };
+            });
+        });
+
+        $('#categoria').change(function () {
+            var selectedCategoria = $("#categoria").val();
+            var peligroSelect = $('#peligro');
+            peligroSelect.empty();
+            if (selectedCategoria != null && selectedCategoria != '')
+            {
+                $.getJSON('@Url.Action("GetPeligros")', { ID: selectedCategoria }, function (peligros)
+                {
+                    if (peligros != null && !jQuery.isEmptyObject(peligros))
+                    {
+                        $.each(peligros, function (index, item)
+                        {
+                            peligroSelect.append($('<option />',
+                            {
+                                value: item.Value,
+                                text: item.Text
+                            }));
+                        });
+                    };
+                });
+            }
+        });
 
         $('#deficienciaSelected').click(function () {
             var selectedCategoria = $('#deficienciaSelected').val();

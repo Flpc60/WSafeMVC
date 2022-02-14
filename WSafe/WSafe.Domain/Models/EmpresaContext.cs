@@ -24,11 +24,10 @@ namespace WSafe.Web.Models
         public DbSet<RiesgoViewModel> RiesgoViewModels { get; set; }
         public DbSet<AccionViewModel> AccionViewModels { get; set; }
         public DbSet<IncidenteViewModel> IncidenteViewModels { get; set; }
-
-        public System.Data.Entity.DbSet<WSafe.Web.Models.IndicadorViewModel> IndicadorViewModels { get; set; }
-
-        public System.Data.Entity.DbSet<WSafe.Web.Models.CreateIndicatorsViewModel> CreateIndicatorsViewModels { get; set; }
-
+        public DbSet<IndicadorViewModel> IndicadorViewModels { get; set; }
+        public DbSet<CreateIndicatorsViewModel> CreateIndicatorsViewModels { get; set; }
         public DbSet<Aplicacion> Aplicaciones { get; set; }
+        public DbSet<Accidentado> Accidentados { get; set; }
+        public DbSet<Cargo> Cargos { get; set; }
     }
 }
