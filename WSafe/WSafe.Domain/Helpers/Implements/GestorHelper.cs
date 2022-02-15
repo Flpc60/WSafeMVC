@@ -173,60 +173,60 @@ namespace WSafe.Domain.Helpers.Implements
                     return NivelesConsecuencia.Leve;
             }
         }
-
-        public string GetGenero(string genero)
+        public string GetGenero(CategoriasGenero genero)
         {
             switch (genero)
             {
-                case "1":
+                case CategoriasGenero.Masculino:
                     return "Masculino";
 
-                case "2":
+                case CategoriasGenero.Femenino:
                     return "Femenino";
 
-                case "3":
+                case CategoriasGenero.Otro:
                     return "Otro";
 
                 default:
                     return "Masculino";
             }
         }
-        public string GetEstadoCivil(string estado)
+        public string GetEstadoCivil(EstadosCivil estado)
         {
             switch (estado)
             {
-                case "1":
+                case EstadosCivil.Soltero:
                     return "Soltero";
 
-                case "2":
+                case EstadosCivil.Casado:
                     return "Casado";
 
-                case "3":
+                case EstadosCivil.Union_libre:
                     return "Unión libre";
-                case "4":
+
+                case EstadosCivil.Separado:
                     return "Separado";
 
-                case "5":
+                case EstadosCivil.Divorsiado:
                     return "Divorsiado";
 
-                case "6":
+                case EstadosCivil.Viudo:
                     return "Viudo";
 
                 default:
                     return "Soltero";
             }
         }
-        public string GetTipoVinculacion(string tipo)
+        public string GetTipoVinculacion(TiposVinculacion tipo)
         {
             switch (tipo)
             {
-                case "1":
+                case TiposVinculacion.Nomina:
                     return "Nomina";
 
-                case "2":
+                case TiposVinculacion.Prestacion_Servicios:
                     return "Prestacion_Servicios";
 
-                case "3":
+                case TiposVinculacion.Agremiacion:
                     return "Agremiacion";
 
                 default:

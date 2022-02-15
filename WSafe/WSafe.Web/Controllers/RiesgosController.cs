@@ -34,6 +34,7 @@ namespace WSafe.Web.Controllers
                 .Include(a => a.Actividad)
                 .Include(t => t.Tarea)
                 .Include(cp => cp.Peligro)
+                .Include(i => i.MedidasIntervencion)
                 .OrderByDescending(cr => cr.NivelRiesgo)
                 .ToListAsync();
             var modelo  = _converterHelper.ToRiesgoViewModelList(list);
@@ -110,6 +111,7 @@ namespace WSafe.Web.Controllers
                 .Include(a => a.Actividad)
                 .Include(t => t.Tarea)
                 .Include(cp => cp.Peligro)
+                .Include(i => i.MedidasIntervencion)
                 .FirstOrDefaultAsync(i => i.ID == id.Value);
 
             var riesgoViewModel = _converterHelper.ToRiesgoViewModel(result);
@@ -167,6 +169,7 @@ namespace WSafe.Web.Controllers
                 .Include(a => a.Actividad)
                 .Include(t => t.Tarea)
                 .Include(cp => cp.Peligro)
+                .Include(i => i.MedidasIntervencion)
                 .FirstOrDefaultAsync(i => i.ID == id.Value);
 
             try
@@ -372,17 +375,6 @@ namespace WSafe.Web.Controllers
 
             return RedirectToAction("GetAllAcciones");
         }
-
-        // GET: Controles
-        public async Task<ActionResult> GetIntervenciones(int id)
-        {
-            // TODO
-            var list = await _empresaContext.Controles
-                .Where(c => c.RiesgoID == id)
-                .ToListAsync();
-
-            return View(list);
-        }
         public IEnumerable<SelectListItem> GetPeligros()
         {
             List<SelectListItem> peligros = new List<SelectListItem>()
@@ -441,6 +433,25 @@ namespace WSafe.Web.Controllers
             var works = _comboHelper.GetComboTrabajadores();
             return Json(works, JsonRequestBehavior.AllowGet);
         }
+        [HttpGet]
+        public async Task<ActionResult> GetIntervenciones(int idRiesgo)
+        {
+            if (idRiesgo == null)
+            {
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
+            var result = await _empresaContext.Aplicaciones
+                .Where(a => a.ID == idRiesgo)
+                .Include(t => t.Trabajador).ToListAsync();
+
+            var intervenciones = _converterHelper.ToIntervencionesViewModel(result);
+
+            if (intervenciones == null)
+            {
+                //return HttpNotFound();
+            }
+            return Json(intervenciones, JsonRequestBehavior.AllowGet);
+        }
     }
 }

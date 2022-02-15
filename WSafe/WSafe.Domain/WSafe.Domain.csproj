@@ -142,6 +142,7 @@
     <Compile Include="Helpers\Implements\IndicadorHelper.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
+    <Compile Include="Models\AplicacionVM.cs" />
     <Compile Include="Models\AplicationsViewModel.cs" />
     <Compile Include="Models\ControlViewModel.cs" />
     <Compile Include="Models\CreateIndicatorsViewModel.cs" />

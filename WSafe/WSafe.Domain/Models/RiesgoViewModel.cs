@@ -137,5 +137,6 @@ namespace WSafe.Web.Models
         [Display(Name = "Requisito legal")]
         public bool RequisitoLegal { get; set; }
         public int IncidenteID { get; set; }
+        public ICollection<AplicacionVM> Intervenciones { get; set; }
     }
 }

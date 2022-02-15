@@ -15,8 +15,8 @@ namespace WSafe.Domain.Helpers
         NivelesDeficiencia GetNivelDeficiencia(int deficiencia);
         NivelesExposicion GetNivelExposicion(int exposicion);
         NivelesConsecuencia GetNivelConsecuencia(int consecuencia);
-        string GetGenero(string genero);
-        string GetEstadoCivil(string estado);
-        string GetTipoVinculacion(string tipo);
+        string GetGenero(CategoriasGenero genero);
+        string GetEstadoCivil(EstadosCivil estado);
+        string GetTipoVinculacion(TiposVinculacion tipo);
     }
 }
