@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using WSafe.Domain.Data.Entities;
 
 namespace WSafe.Web.Models
@@ -102,5 +103,6 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Requisito")]
         public bool RequisitoLegal { get; set; }
+        public ICollection<AplicacionVM> Intervenciones { get; set; }
     }
 }

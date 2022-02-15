@@ -375,7 +375,8 @@ namespace WSafe.Domain.Helpers.Implements
                     NivelConsecuencia = item.NivelConsecuencia,
                     Aceptabilidad = item.Aceptabilidad,
                     NroExpuestos = item.NroExpuestos,
-                    RequisitoLegal = item.RequisitoLegal
+                    RequisitoLegal = item.RequisitoLegal,
+                    //Intervenciones = item.MedidasIntervencion
                 });
             }
 

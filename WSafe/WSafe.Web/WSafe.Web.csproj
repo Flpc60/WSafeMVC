@@ -318,6 +318,14 @@
     <Compile Include="Migrations\202202142339062_CreateIntervencion.Designer.cs">
       <DependentUpon>202202142339062_CreateIntervencion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202202152247122_CreateMedidasInter.cs" />
+    <Compile Include="Migrations\202202152247122_CreateMedidasInter.Designer.cs">
+      <DependentUpon>202202152247122_CreateMedidasInter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202202152259347_CreateMedidasInterII.cs" />
+    <Compile Include="Migrations\202202152259347_CreateMedidasInterII.Designer.cs">
+      <DependentUpon>202202152259347_CreateMedidasInterII.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
     <Compile Include="Models\AplicacionVM.cs" />
@@ -496,6 +504,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202202142339062_CreateIntervencion.resx">
       <DependentUpon>202202142339062_CreateIntervencion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202152247122_CreateMedidasInter.resx">
+      <DependentUpon>202202152247122_CreateMedidasInter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202152259347_CreateMedidasInterII.resx">
+      <DependentUpon>202202152259347_CreateMedidasInterII.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
