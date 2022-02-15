@@ -34,7 +34,6 @@ namespace WSafe.Web.Controllers
                 .Include(a => a.Actividad)
                 .Include(t => t.Tarea)
                 .Include(cp => cp.Peligro)
-                .Include(i => i.MedidasIntervencion)
                 .OrderByDescending(cr => cr.NivelRiesgo)
                 .ToListAsync();
             var modelo  = _converterHelper.ToRiesgoViewModelList(list);
