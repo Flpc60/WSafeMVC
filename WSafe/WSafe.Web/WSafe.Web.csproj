@@ -469,6 +469,7 @@
     <Content Include="Views\Aplicaciones\Details.cshtml" />
     <Content Include="Views\Aplicaciones\Edit.cshtml" />
     <Content Include="Views\Aplicaciones\Index.cshtml" />
+    <Content Include="Views\Riesgos\prueba.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
