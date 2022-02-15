@@ -314,8 +314,13 @@
     <Compile Include="Migrations\202202071607509_createAccidentadoViewModel11.Designer.cs">
       <DependentUpon>202202071607509_createAccidentadoViewModel11.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202202142339062_CreateIntervencion.cs" />
+    <Compile Include="Migrations\202202142339062_CreateIntervencion.Designer.cs">
+      <DependentUpon>202202142339062_CreateIntervencion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
+    <Compile Include="Models\AplicacionVM.cs" />
     <Compile Include="Models\AplicationsViewModel.cs" />
     <Compile Include="Models\ControlViewModel.cs" />
     <Compile Include="Models\CreateIndicatorsViewModel.cs" />
@@ -487,6 +492,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202202071607509_createAccidentadoViewModel11.resx">
       <DependentUpon>202202071607509_createAccidentadoViewModel11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202142339062_CreateIntervencion.resx">
+      <DependentUpon>202202142339062_CreateIntervencion.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

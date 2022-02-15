@@ -1,9 +1,15 @@
 ﻿@model WSafe.Web.Models.RiesgoViewModel
-
 @{
     ViewBag.Title = "Create";
 }
 
+<style>
+    #intervencion, #capInterven
+    {
+        display:none
+    }
+
+</style>
 
 @using (Html.BeginForm())
 {
@@ -194,19 +200,158 @@
     </div>
 }
 
-<div class=" style=" display:inline-flex"">
-    <div>
-        @Html.ActionLink(" Controles", "GetControles", "Riesgos", new { @class = "glyphicon glyphicon-edit" },
-        new { @class = "btn btn-warning btn-lg active" })
-    </div>
-    <div>
-        @Html.ActionLink(" Intervenciones", "Index", "Aplicaciones", new { id = @Model.ID }, new { @class = "glyphicon glyphicon-edit" })
+<div class="btn-group btn-group-justified">
+    <button type="button" class="btn btn-info" id="consultarInte">CONSULTAR MEDIDAS DE INTERVENCIÓN</button>
+    <button type="button" class="btn btn-info" id="aplicarMedi">APLICAR MEDIDAS DE INTERVENCIÓN</button>
+    <button type="button" class="btn btn-warning" id="Retornar">Volver al Indice</button>
+</div>
+
+<div id="intervencion">
+    <table id="listaInterven" class="table">
+        <thead>
+            <tr style="background-color:gainsboro">
+                <th>
+                    descripción
+                </th>
+                <th>
+                    Categoria
+                </th>
+                <th>
+                    Finalidad
+                </th>
+                <th>
+                    Intervención
+                </th>
+                <th>
+                    Presupuesto
+                </th>
+                <th>
+                    Responsable
+                </th>
+                <th>
+                    Responsable
+                </th>
+                <th>
+                    Fecha inicial
+                </th>
+                <th>
+                    Fecha final
+                </th>
+                <th>
+                    Observaciones
+                </th>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+<div id="capInterven">
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>MEDIDAS DE INTERVENCIÓN</h4>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @foreach (var item in Model.Intervenciones)
+        {
+            <div class="form-group">
+                @Html.LabelFor(modelItem => item.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(modelItem => item.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(modelItem => item.Nombre, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        }
+
     </div>
 </div>
 
+
 @section Scripts
 {
-    <script type="text/javascript">
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+            $("#consultarInte").click(function () {
+                $.ajax({
+                    type: "GET",                                              // tipo de request que estamos generando
+                    url: 'GeIntervenciones',                                  // URL al que vamos a hacer el pedido
+                    data: { ID: @Model.ID },                                  // data es un arreglo JSON que contiene los parámetros que
+                    contentType: "application/json; charset=utf-8",           // tipo de contenido
+                    dataType: "json",                                         // formato de transmición de datos
+                    async: true,                                              // si es asincrónico o no
+                    success: function (intervencion) {                        // función que va a ejecutar si el pedido fue exitoso
+                        if (intervencion != null && !jQuery.isEmptyObject(intervencion)) {
+                            $.each(intervencion, function (i, datos) {
+                                var consulta = "";
+                                consulta += '<tr>';
+                                consulta += '<td>' + datos.Nombre + '</td>';
+                                consulta += '<td>' + datos.CategoriaAplicacion + '</td>';
+                                consulta += '<td>' + datos.Finalidad + '</td>';
+                                consulta += '<td>' + datos.Intervencion + '</td>';
+                                consulta += '<td>' + datos.Beneficios + '</td>';
+                                consulta += '<td>' + datos.Presupuesto + '</td>';
+                                consulta += '<td>' + datos.Trabajador + '</td>';
+                                consulta += '<td>' + datos.FechaInicial + '</td>';
+                                consulta += '<td>' + datos.Fechafinal + '</td>';
+                                consulta += '<td>' + datos.Observaciones + '</td>';
+                                consulta += '</tr>';
+                                $("#listaInterven").append(consulta);
+                            });
+
+                            $("#intervencion").css("display", "block");
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) { // función que va a ejecutar si hubo algún tipo de error en el pedido
+                        var error = eval("(" + XMLHttpRequest.responseText + ")");
+                        aler(error.Message);
+                    }
+                });
+            });
+        });
+
+        $(document).ready(function () {
+            $("#aplicarMedi").click(function () {
+                $.ajax({
+                    type: "POST",                                              // tipo de request que estamos generando
+                    url: 'GeIntervenciones',                                   // URL al que vamos a hacer el pedido
+                    data: { ID: @Model.ID },                                   // data es un arreglo JSON que contiene los parámetros que
+                    contentType: "application/json; charset=utf-8",            // tipo de contenido
+                    dataType: "json",                                          // formato de transmición de datos
+                    async: true,                                               // si es asincrónico o no
+                    success: function (intervencion) {                         // función que va a ejecutar si el pedido fue exitoso
+                        if (intervencion != null && !jQuery.isEmptyObject(intervencion)) {
+                            $.each(intervencion, function (i, datos) {
+                                var consulta = "";
+                                consulta += '<tr>';
+                                consulta += '<td>' + datos.Nombre + '</td>';
+                                consulta += '<td>' + datos.CategoriaAplicacion + '</td>';
+                                consulta += '<td>' + datos.Finalidad + '</td>';
+                                consulta += '<td>' + datos.Intervencion + '</td>';
+                                consulta += '<td>' + datos.Beneficios + '</td>';
+                                consulta += '<td>' + datos.Presupuesto + '</td>';
+                                consulta += '<td>' + datos.Trabajador + '</td>';
+                                consulta += '<td>' + datos.FechaInicial + '</td>';
+                                consulta += '<td>' + datos.Fechafinal + '</td>';
+                                consulta += '<td>' + datos.Observaciones + '</td>';
+                                consulta += '</tr>';
+                                $("#listaInterven").append(consulta);
+                            });
+
+                            $("#intervencion").css("display", "block");
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) { // función que va a ejecutar si hubo algún tipo de error en el pedido
+                        var error = eval("(" + XMLHttpRequest.responseText + ")");
+                        aler(error.Message);
+                    }
+                });
+            });
+        });
+
         $('#zona').change(function () {
             var zonasSelect = $('#zona').val();
             zonasSelect.empty();
@@ -441,5 +586,5 @@
             $('#interpretaNR').css({ "backgroundColor": colorStyle, "font-size": "200%" });
         }
 
-    </script>
-}
+            </script>
+        }

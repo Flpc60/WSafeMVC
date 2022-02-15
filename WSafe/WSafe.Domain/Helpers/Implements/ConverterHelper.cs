@@ -78,7 +78,8 @@ namespace WSafe.Domain.Helpers.Implements
                 AceptabilidadNR = riesgo.Aceptabilidad,
                 NroExpuestos = riesgo.NroExpuestos,
                 RequisitoLegal = riesgo.RequisitoLegal,
-                IncidenteID = riesgo.IncidenteID
+                IncidenteID = riesgo.IncidenteID,
+                Intervenciones = new List<AplicacionVM>()
             };
 
             return model;
@@ -94,6 +95,7 @@ namespace WSafe.Domain.Helpers.Implements
                 Tareas = _comboHelper.GetComboTareas(),
                 CategoriasPeligros = _comboHelper.GetComboCategoriaPeligros(),
                 Peligros = _comboHelper.GetComboPeligros(1),
+                Intervenciones = new List<AplicacionVM>()
             };
 
             return model;
@@ -198,7 +200,8 @@ namespace WSafe.Domain.Helpers.Implements
                 ConsecuenciasDaño = model.ConsecuenciasDaño,
                 ConsecuenciasMedio = model.ConsecuenciasMedio,
                 ConsecuenciasImagen = model.ConsecuenciasImagen,
-                Probabilidad = model.Probabilidad
+                Probabilidad = model.Probabilidad,
+                //Lesionados = model.Lesionados
             };
             return result;
         }
@@ -267,7 +270,7 @@ namespace WSafe.Domain.Helpers.Implements
                 ConsecuenciasMedio = incidente.ConsecuenciasMedio,
                 ConsecuenciasImagen = incidente.ConsecuenciasImagen,
                 Probabilidad = incidente.Probabilidad,
-                //Lesionados = incidente.Lesionados
+                Lesionados = new List<AccidentadoVM>()
             };
 
             return model;
@@ -308,7 +311,7 @@ namespace WSafe.Domain.Helpers.Implements
                     break;
 
                 case 2:
-                     datos = _chartHelper.GetSeveridadAccidentalidad(fechaInicial, fechaFinal);
+                    datos = _chartHelper.GetSeveridadAccidentalidad(fechaInicial, fechaFinal);
                     break;
 
                 case 3:
@@ -324,7 +327,7 @@ namespace WSafe.Domain.Helpers.Implements
                     break;
 
                 case 6:
-                    datos = _chartHelper.GetAusentismoCausaMedica (fechaInicial, fechaFinal);
+                    datos = _chartHelper.GetAusentismoCausaMedica(fechaInicial, fechaFinal);
                     break;
 
                 case 7:
@@ -378,7 +381,6 @@ namespace WSafe.Domain.Helpers.Implements
 
             return model;
         }
-
         public AccidentadoVM ToLesionadoViewModel(Trabajador lesionado)
         {
             var modelo = new AccidentadoVM()
@@ -387,11 +389,34 @@ namespace WSafe.Domain.Helpers.Implements
                 Documento = lesionado.Documento,
                 NombreCompleto = lesionado.NombreCompleto,
                 FechaNacimiento = lesionado.FechaNacimiento,
-                Genero = _gestorHelper.GetGenero(lesionado.Genero.ToString()),
-                EstadoCivil = _gestorHelper.GetEstadoCivil(lesionado.EstadoCivil.ToString()),
-                TipoVinculacion = _gestorHelper.GetTipoVinculacion(lesionado.TipoVinculacion.ToString()),
+                Genero = _gestorHelper.GetGenero(lesionado.Genero),
+                EstadoCivil = _gestorHelper.GetEstadoCivil(lesionado.EstadoCivil),
+                TipoVinculacion = _gestorHelper.GetTipoVinculacion(lesionado.TipoVinculacion),
                 Cargo = lesionado.Cargo.Descripcion
             };
+            return modelo;
+        }
+
+        public IEnumerable<AplicacionVM> ToIntervencionesViewModel(IEnumerable<Aplicacion> listaAplicacion)
+        {
+            var modelo = new List<AplicacionVM>();
+            foreach (var item in listaAplicacion)
+            {
+                modelo.Add(new AplicacionVM
+                {
+                    RiesgoID = item.ID,
+                    Nombre = item.Nombre,
+                    CategoriaAplicacion = item.CategoriaAplicacion,
+                    Finalidad = item.Finalidad,
+                    Intervencion = item.Intervencion,
+                    Beneficios = item.Beneficios,
+                    Presupuesto = item.Presupuesto,
+                    Trabajadores = _comboHelper.GetComboTrabajadores(),
+                    FechaInicial = item.FechaInicial,
+                    FechaFinal = item.FechaFinal,
+                    Observaciones = item.Observaciones
+                });
+            }
             return modelo;
         }
     }
