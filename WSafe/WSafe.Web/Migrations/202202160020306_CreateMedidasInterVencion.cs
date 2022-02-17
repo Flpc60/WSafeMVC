@@ -3,7 +3,7 @@ namespace WSafe.Web.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class CreateMedidasInter : DbMigration
+    public partial class CreateMedidasInterVencion : DbMigration
     {
         public override void Up()
         {

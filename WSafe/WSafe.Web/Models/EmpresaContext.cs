@@ -27,6 +27,7 @@ namespace WSafe.Web.Models
         public DbSet<IndicadorViewModel> IndicadorViewModels { get; set; }
         public DbSet<CreateIndicatorsViewModel> CreateIndicatorsViewModels { get; set; }
         public DbSet<Aplicacion> Aplicaciones { get; set; }
+        public DbSet<AplicacionVM> AplicacionVMs { get; set; }
         public DbSet<Accidentado> Accidentados { get; set; }
         public DbSet<Cargo> Cargos { get; set; }
     }
