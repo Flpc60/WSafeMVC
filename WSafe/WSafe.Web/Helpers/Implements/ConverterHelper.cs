@@ -44,10 +44,24 @@ namespace WSafe.Domain.Helpers.Implements
                 Aceptabilidad = model.AceptabilidadNR,
                 NroExpuestos = model.NroExpuestos,
                 RequisitoLegal = model.RequisitoLegal,
-                MedidasIntervencion = isNew ? new List<Aplicacion>() : null,
-                Acciones = isNew ? new List<Accion>() : null,
                 IncidenteID = model.IncidenteID
             };
+            foreach (var item in model.Intervenciones)
+            {
+                result.MedidasIntervencion.Add(new Aplicacion
+                {
+                    RiesgoID = item.ID,
+                    Nombre = item.Nombre,
+                    CategoriaAplicacion = item.CategoriaAplicacion,
+                    Finalidad = item.Finalidad,
+                    Intervencion = item.Intervencion,
+                    Beneficios = item.Beneficios,
+                    Presupuesto = item.Presupuesto,
+                    //Trabajador = item.Trabajadores,
+                    Observaciones = item.Observaciones
+                });
+            }
+
             return result;
         }
         public RiesgoViewModel ToRiesgoViewModel(Riesgo riesgo)
@@ -97,6 +111,13 @@ namespace WSafe.Domain.Helpers.Implements
                 Peligros = _comboHelper.GetComboPeligros(1),
                 Intervenciones = new List<AplicacionVM>()
             };
+
+            model.Intervenciones.Add(
+                new AplicacionVM()
+                {
+                    Trabajadores = _comboHelper.GetComboTrabajadores()
+                }
+                );
 
             return model;
         }

@@ -2,17 +2,15 @@
 @{
     ViewBag.Title = "Create";
 }
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <style>
-    .tabInterven, .capInterven, .tabPeligros, .tabEvalRiesgos, .tabMediAplica, .consInterven, tabInterven {
-        display: none
+    .tabInterven, .capInterven, .tabPeligros, .tabEvalRiesgos, .tabMediAplica, .consInterven, .tabInterven {
+        display: none;
     }
 </style>
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
     <div class="form-horizontal">
         <h4>EVALUAR RIESGO</h4>
         <hr />
@@ -21,9 +19,7 @@
             <button type="button" class="btn btn-secondary" id="evalRiesgos">EVALUACIÓN RIESGOS</button>
             <button type="button" class="btn btn-warning" id="mediAplica">MEDIDAS INTERVENCIÓN</button>
         </div>
-
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
         <div class="tabPeligros">
             <div class="form-group">
                 @Html.LabelFor(model => model.Zonas, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -246,80 +242,6 @@
                 </table>
             </div>
 
-            <div class="tabInterven">
-                @{
-                    var model = Model.Intervenciones;
-                    model.Add(new WSafe.Web.Models.AplicacionVM());
-
-                    foreach (var item in model)
-                    {
-                        <div class="form-group">
-                            @Html.LabelFor(modelItem => item.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
-                                @Html.EditorFor(modelItem => item.Nombre, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(modelItem => item.Nombre, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(modelItem => item.CategoriaAplicacion, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
-                                @Html.EnumDropDownListFor(modelItem => item.CategoriaAplicacion, htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(modelItem => item.CategoriaAplicacion, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(modelItem => item.Finalidad, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
-                                @Html.EnumDropDownListFor(modelItem => item.Finalidad, htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(modelItem => item.Finalidad, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(modelItem => item.Intervencion, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
-                                @Html.EnumDropDownListFor(modelItem => item.Intervencion, htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(modelItem => item.Intervencion, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(modelItem => item.Presupuesto, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
-                                @Html.EnumDropDownListFor(modelItem => item.Presupuesto, htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(modelItem => item.Presupuesto, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(modelItem => item.TrabajadorID, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
-                                @Html.DropDownListFor(modelItem => item.TrabajadorID, item.Trabajadores, new { @class = "form-control", @id = "idLesionado" })
-                                @Html.ValidationMessageFor(model => item.TrabajadorID, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(modelItem => item.FechaInicial, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
-                                @Html.EditorFor(modelItem => item.FechaInicial, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(modelItem => item.FechaInicial, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(modelItem => item.FechaFinal, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
-                                @Html.EditorFor(modelItem => item.FechaFinal, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(modelItem => item.FechaFinal, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(modelItem => item.Observaciones, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
-                                @Html.EditorFor(modelItem => item.Observaciones, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(modelItem => item.Observaciones, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                    }
-                }
-            </div>
         </div>
 
         <div class="col-md-offset-2 col-md-4">
@@ -622,3 +544,4 @@
 
     </script>
 }
+
