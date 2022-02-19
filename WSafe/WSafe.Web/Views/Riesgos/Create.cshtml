@@ -1,6 +1,4 @@
 ﻿@model WSafe.Web.Models.RiesgoViewModel
-@using System.Web.Mvc.Html;
-
 @{
     ViewBag.Title = "Create";
 }
@@ -12,7 +10,7 @@
         display: none;
     }
 </style>
-@using (Html.BeginForm("Create", "Riesgos", FormMethod.Post, new { model = @Model}))
+@using (Html.BeginForm(FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 <div class="form-horizontal">
@@ -325,7 +323,7 @@
                 </div>
             }
             <div class="col-md-offset-2 col-md-4">
-                <button type="button" class="btn btn-success" id="addInterven">Agregar</button>
+                <button type="button" class="btn btn-success" onclick="AddInterven()">Agregar</button>
             </div>
         </div>
     </div>
@@ -336,13 +334,49 @@
 @section Scripts
 
 {
-    <script type="text/javascript">
+<script type="text/javascript">
+    $.ajaxSetup({
+
+        error: function (jqXHR, textStatus, errorThrown) {
+
+            if (jqXHR.status === 0) {
+
+                alert('Not connect: Verify Network.');
+
+            } else if (jqXHR.status == 404) {
+
+                alert('Requested page not found [404]');
+
+            } else if (jqXHR.status == 500) {
+
+                alert('Internal Server Error [500].');
+
+            } else if (textStatus === 'parsererror') {
+
+                alert('Requested JSON parse failed.');
+
+            } else if (textStatus === 'timeout') {
+
+                alert('Time out error.');
+
+            } else if (textStatus === 'abort') {
+
+                alert('Ajax request aborted.');
+
+            } else {
+
+                alert('Uncaught Error: ' + jqXHR.responseText);
+
+            }
+
+        }
+    });
 
     $(document).ready(function () {
         $("#consultarInte").click(function () {
             $.ajax({
                 type: "GET",                                              // tipo de request que estamos generando
-                url: 'GeIntervenciones',                                  // URL al que vamos a hacer el pedido
+                url: 'GetIntervenciones',                                  // URL al que vamos a hacer el pedido
                 data: { ID: @Model.ID },                                  // data es un arreglo JSON que contiene los parámetros que
                 contentType: "application/json; charset=utf-8",           // tipo de contenido
                 dataType: "json",                                         // formato de transmición de datos
@@ -385,7 +419,7 @@
         $("#aplicarMedi").click(function () {
             $.ajax({
                 type: "GET",                                              // tipo de request que estamos generando
-                url: "GeTrabajadores",                                  // URL al que vamos a hacer el pedido
+                url: "GetTrabajadores",                                  // URL al que vamos a hacer el pedido
                 contentType: "application/json; charset=utf-8",           // tipo de contenido
                 dataType: "json",                                         // formato de transmición de datos
                 async: true,                                              // si es asincrónico o no
@@ -408,25 +442,6 @@
         });
     });
 
-    $(document).ready(function () {
-        $("#addInterven").click(function () {
-            var model = @Model
-            model.Intervenciones.Add(new AplicacionVM(
-            {
-                RiesgoID: model.RiesgoID,
-                Nombre: $("#idNombre").val(),
-                CategoriaAplicacion: $("#idCatApli").val(),
-                Finalidad: $("#idFinal").val(),
-                TrabajadorID: $("#idRespons").val(),
-                Intervencion: $("#idInterven").val(),
-                Presupuesto: $("#idPresup").val(),
-                FechaInicial: $("#idFechaIni").val(),
-                FechaFinal: $("#idFechaFin").val(),
-                Observaciones: $("#idObserv").val()
-            }));
-            $(".tabInterven").css("display", "none");
-        });
-    });
 
     $(document).ready(function () {
         $("#idPeligros").click(function () {
@@ -637,6 +652,30 @@
         $('#consecuencia').val(nc);
         calcularRiesgo();
     });
+
+    function AddInterven() {
+        $(".tabMediAplica").css("display", "none");
+        var riesgoID = 1
+        var datos = {
+            RiesgoID: riesgoID,
+            Nombre: $("#idNombre").val(),
+            CategoriaAplicacion: $("#idCatApli").val(),
+            Finalidad: $("#idFinal").val(),
+            TrabajadorID: $("#idRespons").val(),
+            Intervencion: $("#idInterven").val(),
+            Presupuesto: $("#idPresup").val(),
+            FechaInicial: $("#idFechaIni").val(),
+            FechaFinal: $("#idFechaFin").val(),
+            Observaciones: $("#idObserv").val()
+        }
+        $.ajax({
+            url: "/Riesgos/AddIntervenciones",
+            type: "POST",
+            data: {datos},
+            success: function (data, textStatus, jqXHR) { }
+                //data - response from server
+        });
+    }
 
     function calcularProbabilidad() {
         var nd = $('#deficiencia').val();

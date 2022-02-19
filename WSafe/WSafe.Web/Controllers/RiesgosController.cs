@@ -36,7 +36,7 @@ namespace WSafe.Web.Controllers
                 .Include(cp => cp.Peligro)
                 .OrderByDescending(cr => cr.NivelRiesgo)
                 .ToListAsync();
-            var modelo  = _converterHelper.ToRiesgoViewModelList(list);
+            var modelo = _converterHelper.ToRiesgoViewModelList(list);
             return View(modelo);
         }
 
@@ -451,6 +451,31 @@ namespace WSafe.Web.Controllers
                 //return HttpNotFound();
             }
             return Json(intervenciones, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddIntervenciones(AplicacionVM model)
+        {
+            if (model == null)
+            {
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var result = await _converterHelper.ToAplicacionAsync(model, true);
+                    _empresaContext.Aplicaciones.Add(result);
+                    var saved = await _empresaContext.SaveChangesAsync();
+                }
+                return View(model);
+            }
+            catch
+            {
+                return View(model);
+            }
         }
     }
 }
