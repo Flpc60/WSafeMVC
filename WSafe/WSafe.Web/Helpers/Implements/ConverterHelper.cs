@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using WSafe.Domain.Data.Entities;
 using WSafe.Web.Models;
@@ -439,6 +441,25 @@ namespace WSafe.Domain.Helpers.Implements
                 });
             }
             return modelo;
+        }
+
+        public async Task<Aplicacion> ToAplicacionAsync(AplicacionVM model, bool isNew)
+        {
+            var result = new Aplicacion
+            {
+                ID = isNew ? 0 : model.ID,
+                RiesgoID = model.ID,
+                Nombre = model.Nombre,
+                CategoriaAplicacion = model.CategoriaAplicacion,
+                Finalidad = model.Finalidad,
+                Intervencion = model.Intervencion,
+                Beneficios = model.Beneficios,
+                Presupuesto = model.Presupuesto,
+                Trabajador = await _empresaContext.Trabajadores.FindAsync(model.TrabajadorID),
+                Observaciones = model.Observaciones
+            };
+
+            return result;
         }
     }
 }

@@ -556,3 +556,23 @@ function calcularRiesgo() {
     $('#interpretaNR').val(interpretaNR);
     $('#interpretaNR').css({ "backgroundColor": colorStyle, "font-size": "200%" });
 }
+
+$(document).ready(function () {
+    $("#addInterven").click(function () {
+        $(".tabMediAplica").css("display", "none");
+        var model = @Model.Intervenciones
+        model.Add(new AplicacionVM(
+            {
+                RiesgoID: model.RiesgoID,
+                Nombre: $("#idNombre").val(),
+                CategoriaAplicacion: $("#idCatApli").val(),
+                Finalidad: $("#idFinal").val(),
+                TrabajadorID: $("#idRespons").val(),
+                Intervencion: $("#idInterven").val(),
+                Presupuesto: $("#idPresup").val(),
+                FechaInicial: $("#idFechaIni").val(),
+                FechaFinal: $("#idFechaFin").val(),
+                Observaciones: $("#idObserv").val()
+            }));
+    });
+});
