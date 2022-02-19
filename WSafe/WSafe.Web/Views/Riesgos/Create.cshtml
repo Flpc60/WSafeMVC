@@ -293,6 +293,13 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    @Html.LabelFor(modelItem => item.Beneficios, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(modelItem => item.Beneficios, new { htmlAttributes = new { @class = "form-control", @id = "idBeneficio" } })
+                        @Html.ValidationMessageFor(modelItem => item.Beneficios, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
                     @Html.LabelFor(modelItem => item.Presupuesto, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-4">
                         @Html.EditorFor(modelItem => item.Presupuesto, new { htmlAttributes = new { @class = "form-control", @id = "idPresup" } })
@@ -332,46 +339,8 @@
 
 
 @section Scripts
-
 {
-<script type="text/javascript">
-    $.ajaxSetup({
-
-        error: function (jqXHR, textStatus, errorThrown) {
-
-            if (jqXHR.status === 0) {
-
-                alert('Not connect: Verify Network.');
-
-            } else if (jqXHR.status == 404) {
-
-                alert('Requested page not found [404]');
-
-            } else if (jqXHR.status == 500) {
-
-                alert('Internal Server Error [500].');
-
-            } else if (textStatus === 'parsererror') {
-
-                alert('Requested JSON parse failed.');
-
-            } else if (textStatus === 'timeout') {
-
-                alert('Time out error.');
-
-            } else if (textStatus === 'abort') {
-
-                alert('Ajax request aborted.');
-
-            } else {
-
-                alert('Uncaught Error: ' + jqXHR.responseText);
-
-            }
-
-        }
-    });
-
+    <script type="text/javascript">
     $(document).ready(function () {
         $("#consultarInte").click(function () {
             $.ajax({
@@ -655,25 +624,33 @@
 
     function AddInterven() {
         $(".tabMediAplica").css("display", "none");
-        var riesgoID = 1
-        var datos = {
-            RiesgoID: riesgoID,
-            Nombre: $("#idNombre").val(),
-            CategoriaAplicacion: $("#idCatApli").val(),
-            Finalidad: $("#idFinal").val(),
-            TrabajadorID: $("#idRespons").val(),
-            Intervencion: $("#idInterven").val(),
-            Presupuesto: $("#idPresup").val(),
-            FechaInicial: $("#idFechaIni").val(),
-            FechaFinal: $("#idFechaFin").val(),
-            Observaciones: $("#idObserv").val()
-        }
+        var riesgoID = 10;
+        var token = $('input[name=_token]').val();
+
         $.ajax({
-            url: "/Riesgos/AddIntervenciones",
             type: "POST",
-            data: {datos},
-            success: function (data, textStatus, jqXHR) { }
-                //data - response from server
+            url: "AgregarIntervenciones",
+            data: {
+                ID: "0",
+                RiesgoID: riesgoID,
+                Nombre: $("#idNombre").val(),
+                CategoriaAplicacion: $("#idCatApli").val(),
+                Finalidad: $("#idFinal").val(),
+                TrabajadorID: $("#idRespons").val(),
+                Intervencion: $("#idInterven").val(),
+                Beneficios: $("#idBeneficio").val(),
+                Presupuesto: $("#idPresup").val(),
+                FechaInicial: $("#idFechaIni").val(),
+                FechaFinal: $("#idFechaFin").val(),
+                Observaciones: $("#idObserv").val(),
+                tok: token
+            },
+            dataType: "json",
+            success: function (data, textStatus, jqXHR) { },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
         });
     }
 
