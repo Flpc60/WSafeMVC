@@ -11,6 +11,7 @@ namespace WSafe.Web
         {
             Database.SetInitializer(
                 new MigrateDatabaseToLatestVersion<Models.EmpresaContext, Migrations.Configuration>());
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

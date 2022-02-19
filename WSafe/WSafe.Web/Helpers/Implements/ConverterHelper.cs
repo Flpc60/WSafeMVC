@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
 using System.Threading.Tasks;
 using WSafe.Domain.Data.Entities;
 using WSafe.Web.Models;
@@ -448,7 +446,7 @@ namespace WSafe.Domain.Helpers.Implements
             var result = new Aplicacion
             {
                 ID = isNew ? 0 : model.ID,
-                RiesgoID = model.ID,
+                RiesgoID = model.RiesgoID,
                 Nombre = model.Nombre,
                 CategoriaAplicacion = model.CategoriaAplicacion,
                 Finalidad = model.Finalidad,
@@ -456,6 +454,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Beneficios = model.Beneficios,
                 Presupuesto = model.Presupuesto,
                 Trabajador = await _empresaContext.Trabajadores.FindAsync(model.TrabajadorID),
+                FechaInicial = model.FechaInicial,
+                FechaFinal = model.FechaFinal,
                 Observaciones = model.Observaciones
             };
 

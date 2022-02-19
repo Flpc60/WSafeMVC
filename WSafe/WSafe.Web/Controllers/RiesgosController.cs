@@ -454,8 +454,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AddIntervenciones(AplicacionVM model)
+        public async Task<ActionResult> AgregarIntervenciones(AplicacionVM model)
         {
             if (model == null)
             {
