@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WSafe.Domain.Data.Entities
 {
-    public class Seguimiento
+    public class SeguimientoAccion
     {
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ID { get; set; }
@@ -17,11 +17,5 @@ namespace WSafe.Domain.Data.Entities
         [Display(Name = "Nombre quien reporta")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public Trabajador Trabajador { get; set; }
-        public string Resultado { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "Fecha cierre")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime FechaCierre { get; set; }
     }
 }

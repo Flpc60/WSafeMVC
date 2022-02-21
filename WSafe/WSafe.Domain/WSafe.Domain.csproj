@@ -123,6 +123,7 @@
     <Compile Include="Data\Entities\Proceso.cs" />
     <Compile Include="Data\Entities\Riesgo.cs" />
     <Compile Include="Data\Entities\Seguimiento.cs" />
+    <Compile Include="Data\Entities\SeguimientoAccion.cs" />
     <Compile Include="Data\Entities\Tarea.cs" />
     <Compile Include="Data\Entities\TiposIndicador.cs" />
     <Compile Include="Data\Entities\TiposPeriodicidad.cs" />
@@ -153,7 +154,9 @@
     <Compile Include="Models\IndicadorViewModel.cs" />
     <Compile Include="Models\IntervencionViewModel.cs" />
     <Compile Include="Models\ListaRiesgosVM.cs" />
+    <Compile Include="Models\PlanAccionVM.cs" />
     <Compile Include="Models\RiesgoViewModel.cs" />
+    <Compile Include="Models\SeguimientoAccionVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IAccionRepository.cs" />
     <Compile Include="Repositories\IAplicationRepository.cs" />

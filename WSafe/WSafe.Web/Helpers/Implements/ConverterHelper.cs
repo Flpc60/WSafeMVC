@@ -125,7 +125,6 @@ namespace WSafe.Domain.Helpers.Implements
         {
             var model = new AccionViewModel
             {
-                RiesgoID = id,
                 Trabajadores = _comboHelper.GetComboTrabajadores()
             };
 
@@ -135,7 +134,6 @@ namespace WSafe.Domain.Helpers.Implements
         {
             var model = new AccionViewModel
             {
-                RiesgoID = accion.ID,
                 Categoria = accion.Categoria,
                 FechaSolicitud = accion.FechaSolicitud,
                 TrabajadorID = accion.Trabajador.ID,
@@ -159,7 +157,6 @@ namespace WSafe.Domain.Helpers.Implements
             var result = new Accion
             {
                 ID = isNew ? 0 : model.ID,
-                RiesgoID = model.RiesgoID,
                 Categoria = model.Categoria,
                 FechaSolicitud = model.FechaSolicitud,
                 Trabajador = await _empresaContext.Trabajadores.FindAsync(model.TrabajadorID),
