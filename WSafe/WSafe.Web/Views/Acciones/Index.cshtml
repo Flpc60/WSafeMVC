@@ -4,23 +4,30 @@
     ViewBag.Title = "Index";
 }
 
-<h2>SEGUIMIENTO ACCIONES</h2>
+<h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Nueva Acción ", "Create", new { @class = "glyphicon glyphicon-plus" },
-    new { @class = "btn btn-info btn-lg active" })
+    @Html.ActionLink("Create New", "Create")
 </p>
-
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Categoria)
+            @Html.DisplayNameFor(model => model.ZonaID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProcesoID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActividadID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TareaID)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FechaSolicitud)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Trabajador)
+            @Html.DisplayNameFor(model => model.Categoria)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FuenteAccion)
@@ -29,54 +36,70 @@
             @Html.DisplayNameFor(model => model.Descripcion)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CausaAccion)
+            @Html.DisplayNameFor(model => model.EficaciaAntes)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SubCausa)
+            @Html.DisplayNameFor(model => model.EficaciaDespues)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UltraCausa)
+            @Html.DisplayNameFor(model => model.FechaCierre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Efectiva)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estado)
         </th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
-    {
-        var nombres = item.Trabajador.Documento + " " +
-            item.Trabajador.Nombres + " " +
-            item.Trabajador.PrimerApellido + " " +
-            item.Trabajador.SegundoApellido;
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Categoria)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaSolicitud)
-            </td>
-            <td>
-                nombres
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FuenteAccion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CausaAccion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SubCausa)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UltraCausa)
-            </td>
-            <td>
-                @Html.ActionLink(" ", "GetControles", new { id = item.ID }, new { @class = "glyphicon glyphicon-search" }) |
-                @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) |
-                @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "glyphicon glyphicon-trash" })
-            </td>
-        </tr>
-    }
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ZonaID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProcesoID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActividadID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TareaID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaSolicitud)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Categoria)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FuenteAccion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EficaciaAntes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EficaciaDespues)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaCierre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Efectiva)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Estado)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
 
 </table>
