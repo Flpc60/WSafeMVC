@@ -318,6 +318,10 @@
     <Compile Include="Migrations\202202211905222_CreateAccionesVM1.Designer.cs">
       <DependentUpon>202202211905222_CreateAccionesVM1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202202212204043_CreateAccionesVM11.cs" />
+    <Compile Include="Migrations\202202212204043_CreateAccionesVM11.Designer.cs">
+      <DependentUpon>202202212204043_CreateAccionesVM11.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
     <Compile Include="Models\AplicacionVM.cs" />
@@ -498,6 +502,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202202211905222_CreateAccionesVM1.resx">
       <DependentUpon>202202211905222_CreateAccionesVM1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202212204043_CreateAccionesVM11.resx">
+      <DependentUpon>202202212204043_CreateAccionesVM11.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

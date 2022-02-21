@@ -34,12 +34,6 @@ namespace WSafe.Domain.Data.Entities
         [Display(Name = "Descripción de la no conformidad")]
         public string Descripcion { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "Planes de acción")]
-        public IEnumerable<PlanAccion> Planes { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "Seguimientos Planes de acción")]
-        public IEnumerable<SeguimientoAccion> Seguimientos { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Variable o Indicador de Control Antes")]
         public CategoriasEfectividad EficaciaAntes { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
@@ -56,5 +50,11 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Acción abierta o cerrada ?")]
         public bool Estado { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatotio")]
+        [Display(Name = "Planes de acción")]
+        public IEnumerable<PlanAccion> Planes { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatotio")]
+        [Display(Name = "Seguimientos Planes de acción")]
+        public IEnumerable<SeguimientoAccion> Seguimientos { get; set; }
     }
 }

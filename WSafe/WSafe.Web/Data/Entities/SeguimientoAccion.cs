@@ -16,6 +16,6 @@ namespace WSafe.Domain.Data.Entities
         public DateTime FechaSeguimiento { get; set; }
         [Display(Name = "Nombre quien reporta")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public Trabajador Trabajador { get; set; }
+        public int TrabajadorID { get; set; }
     }
 }

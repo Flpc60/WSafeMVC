@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -109,5 +108,65 @@ namespace WSafe.Web.Controllers
             await _empresaContext.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+        // GET: Plan acción/Create
+        [HttpGet]
+        public ActionResult CreatePlanAccion(int idAccion)
+        {
+            if (idAccion == null)
+            {
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var model = new PlanAccionVM
+            {
+                AccionID = idAccion,
+                Trabajadores = _comboHelper.GetComboTrabajadores()
+            };
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        // POST: Plan acción
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        public async Task<ActionResult> CreatePlanAccion(PlanAccion planAccion)
+        {
+            if (ModelState.IsValid)
+            {
+                _empresaContext.PlanesAccion.Add(planAccion);
+                await _empresaContext.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+
+            return Json(planAccion, JsonRequestBehavior.AllowGet);
+        }
+
+        // GET: Seguimineto Plan acción/Create
+        [HttpGet]
+        public ActionResult CreateSeguiminetoPlan(int idAccion)
+        {
+            var model = new SeguimientoAccionVM
+            {
+                AccionID = idAccion,
+                Trabajadores = _comboHelper.GetComboTrabajadores()
+            };
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        // POST: Seguimiento Plan acción
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        public async Task<ActionResult> SeguiminentoPlan(SeguimientoAccion seguimientoAccion)
+        {
+            if (ModelState.IsValid)
+            {
+                _empresaContext.SeguimientosAccion.Add(seguimientoAccion);
+                await _empresaContext.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return Json(seguimientoAccion, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
