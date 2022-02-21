@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
+using WSafe.Domain.Data.Entities;
 
-namespace WSafe.Domain.Data.Entities
+namespace WSafe.Web.Models
 {
-    public class PlanAccion
+    public class PlanAccionVM
     {
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ID { get; set; }
@@ -21,9 +24,12 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Plan acción")]
         public string Accion { get; set; }
-        [Display(Name = "Trabajador responsable")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public Trabajador Trabajador { get; set; }
+        [Display(Name = "Responsable")]
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un trabajador.")]
+        public int TrabajadorID { get; set; }
+        public IEnumerable<SelectListItem> Trabajadores { get; set; }
+
         [Display(Name = "Acción prioritaria")]
         public bool Prioritaria { get; set; }
         [Display(Name = "Costos ejecución")]

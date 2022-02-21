@@ -100,7 +100,6 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Requisito")]
         public bool RequisitoLegal { get; set; }
-        public ICollection<Accion> Acciones { get; set; }
         public ICollection<Aplicacion> MedidasIntervencion { get; set; }
         public int IncidenteID { get; set; }
     }

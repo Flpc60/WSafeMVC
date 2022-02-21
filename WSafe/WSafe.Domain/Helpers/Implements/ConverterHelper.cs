@@ -44,10 +44,24 @@ namespace WSafe.Domain.Helpers.Implements
                 Aceptabilidad = model.AceptabilidadNR,
                 NroExpuestos = model.NroExpuestos,
                 RequisitoLegal = model.RequisitoLegal,
-                MedidasIntervencion = isNew ? new List<Aplicacion>() : null,
-                Acciones = isNew ? new List<Accion>() : null,
                 IncidenteID = model.IncidenteID
             };
+            foreach (var item in model.Intervenciones)
+            {
+                result.MedidasIntervencion.Add(new Aplicacion
+                {
+                    RiesgoID = item.ID,
+                    Nombre = item.Nombre,
+                    CategoriaAplicacion = item.CategoriaAplicacion,
+                    Finalidad = item.Finalidad,
+                    Intervencion = item.Intervencion,
+                    Beneficios = item.Beneficios,
+                    Presupuesto = item.Presupuesto,
+                    //Trabajador = item.Trabajadores,
+                    Observaciones = item.Observaciones
+                });
+            }
+
             return result;
         }
         public RiesgoViewModel ToRiesgoViewModel(Riesgo riesgo)
@@ -98,13 +112,19 @@ namespace WSafe.Domain.Helpers.Implements
                 Intervenciones = new List<AplicacionVM>()
             };
 
+            model.Intervenciones.Add(
+                new AplicacionVM()
+                {
+                    Trabajadores = _comboHelper.GetComboTrabajadores()
+                }
+                );
+
             return model;
         }
         public AccionViewModel ToAccionViewModelNew(int id)
         {
             var model = new AccionViewModel
             {
-                RiesgoID = id,
                 Trabajadores = _comboHelper.GetComboTrabajadores()
             };
 
@@ -114,7 +134,6 @@ namespace WSafe.Domain.Helpers.Implements
         {
             var model = new AccionViewModel
             {
-                RiesgoID = accion.ID,
                 Categoria = accion.Categoria,
                 FechaSolicitud = accion.FechaSolicitud,
                 TrabajadorID = accion.Trabajador.ID,
@@ -138,7 +157,6 @@ namespace WSafe.Domain.Helpers.Implements
             var result = new Accion
             {
                 ID = isNew ? 0 : model.ID,
-                RiesgoID = model.RiesgoID,
                 Categoria = model.Categoria,
                 FechaSolicitud = model.FechaSolicitud,
                 Trabajador = await _empresaContext.Trabajadores.FindAsync(model.TrabajadorID),
@@ -375,8 +393,7 @@ namespace WSafe.Domain.Helpers.Implements
                     NivelConsecuencia = item.NivelConsecuencia,
                     Aceptabilidad = item.Aceptabilidad,
                     NroExpuestos = item.NroExpuestos,
-                    RequisitoLegal = item.RequisitoLegal,
-                    //Intervenciones = item.MedidasIntervencion
+                    RequisitoLegal = item.RequisitoLegal
                 });
             }
 
@@ -419,6 +436,27 @@ namespace WSafe.Domain.Helpers.Implements
                 });
             }
             return modelo;
+        }
+
+        public async Task<Aplicacion> ToAplicacionAsync(AplicacionVM model, bool isNew)
+        {
+            var result = new Aplicacion
+            {
+                ID = isNew ? 0 : model.ID,
+                RiesgoID = model.RiesgoID,
+                Nombre = model.Nombre,
+                CategoriaAplicacion = model.CategoriaAplicacion,
+                Finalidad = model.Finalidad,
+                Intervencion = model.Intervencion,
+                Beneficios = model.Beneficios,
+                Presupuesto = model.Presupuesto,
+                Trabajador = await _empresaContext.Trabajadores.FindAsync(model.TrabajadorID),
+                FechaInicial = model.FechaInicial,
+                FechaFinal = model.FechaFinal,
+                Observaciones = model.Observaciones
+            };
+
+            return result;
         }
     }
 }

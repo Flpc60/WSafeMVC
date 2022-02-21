@@ -236,7 +236,6 @@ namespace WSafe.Web.Controllers
         {
             // TODO
             var list = await _empresaContext.Acciones
-                .Where(c => c.RiesgoID == id)
                 .ToListAsync();
 
             var result = await _empresaContext.Acciones.Include(t => t.Trabajador)
@@ -469,12 +468,11 @@ namespace WSafe.Web.Controllers
                     _empresaContext.Aplicaciones.Add(result);
                     var saved = await _empresaContext.SaveChangesAsync();
                 }
-                return View(model);
             }
             catch
             {
-                return View(model);
             }
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
     }
 }

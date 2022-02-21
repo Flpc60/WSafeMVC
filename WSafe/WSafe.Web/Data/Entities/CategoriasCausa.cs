@@ -6,7 +6,7 @@ namespace WSafe.Domain.Data.Entities
     {
         [Display(Name = "Falta medición o control")]
         Medicion = 1,
-        [Display(Name = "Incumplimiento de un  método")]
+        [Display(Name = "Incumplimiento de un  método o procedimiento")]
         Incumplimiento = 2,
         [Display(Name = "Método inexistente")]
         Inexistente = 3,
