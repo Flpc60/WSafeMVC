@@ -17,7 +17,10 @@ namespace WSafe.Web.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaSeguimiento { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Responsable")]
+        [Display(Name = "Resultado seguimiento")]
+        public string Resultado { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Realizado por")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un trabajador.")]
         public int TrabajadorID { get; set; }
         public IEnumerable<SelectListItem> Trabajadores { get; set; }

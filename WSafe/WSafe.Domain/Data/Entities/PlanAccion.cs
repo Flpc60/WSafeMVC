@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace WSafe.Domain.Data.Entities
@@ -24,7 +25,7 @@ namespace WSafe.Domain.Data.Entities
         public CategoriasCausa Causa { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Plan acción")]
-        public string Accion { get; set; }
+        public string DetalleAccion { get; set; }
         [Display(Name = "Trabajador responsable")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int TrabajadorID { get; set; }

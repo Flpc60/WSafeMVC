@@ -50,11 +50,8 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Acción abierta o cerrada ?")]
         public bool Estado { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Planes de acción")]
         public IEnumerable<PlanAccion> Planes { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "Seguimientos Planes de acción")]
         public IEnumerable<SeguimientoAccion> Seguimientos { get; set; }
     }
 }

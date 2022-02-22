@@ -33,6 +33,7 @@ namespace WSafe.Web.Controllers
         // GET: Acciones/Create
         public ActionResult Create()
         {
+            //var consulta = _converterHelper.ToAccionViewModel();
             return View();
         }
 

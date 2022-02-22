@@ -98,7 +98,6 @@ namespace WSafe.Domain.Helpers.Implements
 
             return model;
         }
-
         public RiesgoViewModel ToRiesgoViewModelNew()
         {
             var model = new RiesgoViewModel
@@ -121,10 +120,14 @@ namespace WSafe.Domain.Helpers.Implements
 
             return model;
         }
-        public AccionViewModel ToAccionViewModelNew(int id)
+        public AccionViewModel ToAccionViewModelNew()
         {
             var model = new AccionViewModel
             {
+                Zonas = _comboHelper.GetComboZonas(),
+                Procesos = _comboHelper.GetComboProcesos(),
+                Actividades = _comboHelper.GetComboActividades(),
+                Tareas = _comboHelper.GetComboTareas(),
                 Trabajadores = _comboHelper.GetComboTrabajadores()
             };
 
@@ -438,7 +441,6 @@ namespace WSafe.Domain.Helpers.Implements
             }
             return modelo;
         }
-
         public async Task<Aplicacion> ToAplicacionAsync(AplicacionVM model, bool isNew)
         {
             var result = new Aplicacion
@@ -458,6 +460,36 @@ namespace WSafe.Domain.Helpers.Implements
             };
 
             return result;
+        }
+
+        public PlanAccionVM ToPlanAccionVM(PlanAccion planAccion)
+        {
+            throw new NotImplementedException();
+        }
+
+        public PlanAccionVM ToPlanAccionVMNew()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PlanAccion> ToPlanAccionAsync(PlanAccionVM model, bool isNew)
+        {
+            throw new NotImplementedException();
+        }
+
+        public SeguimientoAccionVM ToSeguimientoAccionVM(SeguimientoAccion seguimientoAccion)
+        {
+            throw new NotImplementedException();
+        }
+
+        public SeguimientoAccionVM ToSeguimientoAccionVMNew()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<SeguimientoAccion> ToSeguimientoAccionAsync(SeguimientoAccionVM model, bool isNew)
+        {
+            throw new NotImplementedException();
         }
     }
 }

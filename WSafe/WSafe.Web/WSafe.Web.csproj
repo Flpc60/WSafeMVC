@@ -314,13 +314,9 @@
     <Compile Include="Migrations\202202160020306_CreateMedidasInterVencion.Designer.cs">
       <DependentUpon>202202160020306_CreateMedidasInterVencion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202202211905222_CreateAccionesVM1.cs" />
-    <Compile Include="Migrations\202202211905222_CreateAccionesVM1.Designer.cs">
-      <DependentUpon>202202211905222_CreateAccionesVM1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202202212204043_CreateAccionesVM11.cs" />
-    <Compile Include="Migrations\202202212204043_CreateAccionesVM11.Designer.cs">
-      <DependentUpon>202202212204043_CreateAccionesVM11.cs</DependentUpon>
+    <Compile Include="Migrations\202202222317507_CreateSeguimientosAccion111111.cs" />
+    <Compile Include="Migrations\202202222317507_CreateSeguimientosAccion111111.Designer.cs">
+      <DependentUpon>202202222317507_CreateSeguimientosAccion111111.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -500,11 +496,8 @@
     <EmbeddedResource Include="Migrations\202202160020306_CreateMedidasInterVencion.resx">
       <DependentUpon>202202160020306_CreateMedidasInterVencion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202202211905222_CreateAccionesVM1.resx">
-      <DependentUpon>202202211905222_CreateAccionesVM1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202202212204043_CreateAccionesVM11.resx">
-      <DependentUpon>202202212204043_CreateAccionesVM11.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202202222317507_CreateSeguimientosAccion111111.resx">
+      <DependentUpon>202202222317507_CreateSeguimientosAccion111111.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

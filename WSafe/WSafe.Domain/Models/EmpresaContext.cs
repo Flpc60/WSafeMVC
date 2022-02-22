@@ -30,5 +30,7 @@ namespace WSafe.Web.Models
         public DbSet<AplicacionVM> AplicacionVMs { get; set; }
         public DbSet<Accidentado> Accidentados { get; set; }
         public DbSet<Cargo> Cargos { get; set; }
+        public DbSet<PlanAccion> PlanesAccion { get; set; }
+        public DbSet<SeguimientoAccion> SeguimientosAccion { get; set; }
     }
 }
