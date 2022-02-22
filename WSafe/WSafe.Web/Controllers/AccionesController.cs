@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -168,5 +169,31 @@ namespace WSafe.Web.Controllers
             return Json(seguimientoAccion, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public async Task<ActionResult> CreateAccion(AccionViewModel model)
+        {
+            if (model == null)
+            {
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var result = await _converterHelper.ToAccionAsync(model, true);
+                    _empresaContext.Acciones.Add(result);
+                    var saved = await _empresaContext.SaveChangesAsync();
+                }
+            }
+            catch
+            {
+            }
+
+            var idAccion = from acc in _empresaContext.Acciones orderby acc.ID ascending
+                           select new { ID = acc.ID };
+
+            return Json(idAccion, JsonRequestBehavior.AllowGet);
+        }
     }
 }
