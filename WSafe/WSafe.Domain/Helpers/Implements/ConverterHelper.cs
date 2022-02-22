@@ -157,19 +157,20 @@ namespace WSafe.Domain.Helpers.Implements
             var result = new Accion
             {
                 ID = isNew ? 0 : model.ID,
-                Categoria = model.Categoria,
+                ZonaID = model.ZonaID,
+                ProcesoID = model.ProcesoID,
+                ActividadID = model.ActividadID,
+                TareaID = model.TareaID,
                 FechaSolicitud = model.FechaSolicitud,
+                Categoria = model.Categoria,
                 Trabajador = await _empresaContext.Trabajadores.FindAsync(model.TrabajadorID),
                 FuenteAccion = model.FuenteAccion,
                 Descripcion = model.Descripcion,
-                //CausasAccion = model.CausasAccion,
-                //FechaInicial = model.FechaInicial,
-                //FechaFinal = model.FechaFinal,
-                //Plan = model.Plan,
-                //Seguimiento = model.Seguimiento,
-                //FechaSeguimiento = model.FechaSeguimiento,
-                //FechaCierre = model.FechaCierre,
-                //Efectividad = model.Efectividad
+                EficaciaAntes = model.EficaciaAntes,
+                EficaciaDespues = model.EficaciaDespues,
+                FechaCierre = model.FechaCierre,
+                Efectiva = model.Efectiva,
+                Estado = model.Estado
             };
             return result;
         }
