@@ -8,7 +8,7 @@ namespace WSafe.Web.Models
 {
     public class AccionViewModel
     {
-        [Required(ErrorMessage = "El campo {0} es obligatotio")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Zona")]

@@ -8,7 +8,7 @@ namespace WSafe.Web.Models
 {
     public class AccionViewModel
     {
-        [Required(ErrorMessage = "El campo {0} es obligatotio")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Zona")]
@@ -65,7 +65,6 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Acción abierta o cerrada ?")]
         public bool Estado { get; set; }
-        public ICollection<PlanAccion> Planes { get; set; }
-        public ICollection<SeguimientoAccion> Seguimientos { get; set; }
+        public ICollection<PlanAccionVM> Planes { get; set; }
     }
 }

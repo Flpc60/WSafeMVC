@@ -246,8 +246,8 @@ namespace WSafe.Web.Controllers
         // GET: Riesgos/Create
         public ActionResult CreateAccion(int id)
         {
-            var accionView = _converterHelper.ToAccionViewModelNew(id);
-            return View(accionView);
+            //var accionView = _converterHelper.ToAccionViewModelNew(id);
+            return View();
         }
 
         // POST: Riesgos/Create

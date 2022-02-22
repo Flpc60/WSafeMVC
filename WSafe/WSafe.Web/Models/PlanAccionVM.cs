@@ -23,7 +23,7 @@ namespace WSafe.Web.Models
         public CategoriasCausa Causa { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Plan acción")]
-        public string Accion { get; set; }
+        public string DetalleAccion { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Responsable")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un trabajador.")]
