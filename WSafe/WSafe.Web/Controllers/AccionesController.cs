@@ -31,7 +31,7 @@ namespace WSafe.Web.Controllers
         }
 
         // GET: Acciones/Create
-        public ActionResult Create()
+        public ActionResult CreateAccion()
         {
             //var consulta = _converterHelper.ToAccionViewModel();
             return View();
@@ -41,8 +41,7 @@ namespace WSafe.Web.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Accion accion)
+        public async Task<ActionResult> CreateAccion(Accion accion)
         {
             if (ModelState.IsValid)
             {
@@ -159,7 +158,7 @@ namespace WSafe.Web.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<ActionResult> SeguiminentoPlan(SeguimientoAccion seguimientoAccion)
+        public async Task<ActionResult> CreateSeguiminentoPlan(SeguimientoAccion seguimientoAccion)
         {
             if (ModelState.IsValid)
             {
