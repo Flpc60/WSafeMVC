@@ -25,7 +25,7 @@ namespace WSafe.Domain.Data.Entities
         public CategoriasCausa Causa { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Plan acción")]
-        public string DetalleAccion { get; set; }
+        public string Accion { get; set; }
         [Display(Name = "Trabajador responsable")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int TrabajadorID { get; set; }
