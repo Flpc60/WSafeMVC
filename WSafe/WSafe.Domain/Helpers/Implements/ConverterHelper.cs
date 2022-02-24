@@ -128,7 +128,9 @@ namespace WSafe.Domain.Helpers.Implements
                 Procesos = _comboHelper.GetComboProcesos(),
                 Actividades = _comboHelper.GetComboActividades(),
                 Tareas = _comboHelper.GetComboTareas(),
-                Trabajadores = _comboHelper.GetComboTrabajadores()
+                Trabajadores = _comboHelper.GetComboTrabajadores(),
+                Planes = new List<PlanAccion>(),
+                Seguimientos = new List<SeguimientoAccion>()
             };
 
             return model;
@@ -139,7 +141,7 @@ namespace WSafe.Domain.Helpers.Implements
             {
                 Categoria = accion.Categoria,
                 FechaSolicitud = accion.FechaSolicitud,
-                TrabajadorID = accion.Trabajador.ID,
+                TrabajadorID = accion.TrabajadorID,
                 Trabajadores = _comboHelper.GetComboTrabajadores(),
                 FuenteAccion = accion.FuenteAccion,
                 Descripcion = accion.Descripcion,
@@ -155,7 +157,7 @@ namespace WSafe.Domain.Helpers.Implements
 
             return model;
         }
-        public async Task<Accion> ToAccionAsync(AccionViewModel model, bool isNew)
+        public async Task<Accion> ToAccionAsync(Accion model, bool isNew)
         {
             var result = new Accion
             {
@@ -166,7 +168,7 @@ namespace WSafe.Domain.Helpers.Implements
                 TareaID = model.TareaID,
                 FechaSolicitud = model.FechaSolicitud,
                 Categoria = model.Categoria,
-                Trabajador = await _empresaContext.Trabajadores.FindAsync(model.TrabajadorID),
+                TrabajadorID = model.TrabajadorID,
                 FuenteAccion = model.FuenteAccion,
                 Descripcion = model.Descripcion,
                 EficaciaAntes = model.EficaciaAntes,

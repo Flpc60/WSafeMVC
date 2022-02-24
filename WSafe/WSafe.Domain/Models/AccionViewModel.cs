@@ -63,8 +63,9 @@ namespace WSafe.Web.Models
         [Display(Name = "La acción tomada fué efectiva ?")]
         public bool Efectiva { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "Acción abierta o cerrada ?")]
+        [Display(Name = "Abierta o cerrada ?")]
         public bool Estado { get; set; }
-        public ICollection<PlanAccionVM> Planes { get; set; }
+        public ICollection<PlanAccion> Planes { get; set; }
+        public ICollection<SeguimientoAccion> Seguimientos { get; set; }
     }
 }

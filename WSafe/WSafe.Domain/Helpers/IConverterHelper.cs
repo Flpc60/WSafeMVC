@@ -13,7 +13,7 @@ namespace WSafe.Domain.Helpers
         RiesgoViewModel ToRiesgoViewModelNew();
         AccionViewModel ToAccionViewModel(Accion accion);
         IEnumerable<ListaRiesgosVM> ToRiesgoViewModelList(IEnumerable<Riesgo> riesgo);
-        Task<Accion> ToAccionAsync(AccionViewModel model, bool isNew);
+        Task<Accion> ToAccionAsync(Accion model, bool isNew);
         AccionViewModel ToAccionViewModelNew();
         Task<Incidente> ToIncidenteAsync(IncidenteViewModel model, bool isNew);
         IncidenteViewModel ToIncidenteViewModel(Incidente incidente);

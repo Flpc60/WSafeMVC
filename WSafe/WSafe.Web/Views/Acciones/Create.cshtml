@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
 <style>
-    .tabIdCausas, .tabPlanAcc, .tabSeguimAcc, .tabEficaciaAcc {
+    .tabIdCausas, .tabPlanAcc, .tabSeguimAcc {
         display: none;
     }
 </style>
@@ -23,8 +23,7 @@
     <div class="btn-group btn-group-justified">
         <button type="button" class="btn btn-warning" id="idCausas" title="doble click para cerrar la ventana"> IDENTIFICACIÓN CAUSAS</button>
         <button type="button" class="btn btn-warning" id="planAcc" title="doble click para cerrar la ventana"> PLANES DE ACCIÓN</button>
-        <button type="button" class="btn btn-warning" id="seguimAcc" title="doble click para cerrar la ventana"> SEGUIMINETOS</button>
-        <button type="button" class="btn btn-warning" id="eficaciaAcc" title="doble click para cerrar la ventana"> EFICACIA ACCIÓN</button>
+        <button type="button" class="btn btn-warning" id="seguimAcc" title="doble click para cerrar la ventana"> SEGUIMIENTOS</button>
     </div>
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="tabIdCausas">
@@ -56,28 +55,30 @@
                 @Html.ValidationMessageFor(model => model.TareaID, "", new { @class = "text-danger" })
             </div>
         </div>
-        @Html.LabelFor(model => model.FechaSolicitud, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.FechaSolicitud, new { htmlAttributes = new { @class = "form-control", @id = "fechaSolicitud" } })
-            @Html.ValidationMessageFor(model => model.FechaSolicitud, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.FechaSolicitud, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.FechaSolicitud, new { htmlAttributes = new { @class = "form-control", @id = "fechaSolicitud" } })
+                @Html.ValidationMessageFor(model => model.FechaSolicitud, "", new { @class = "text-danger" })
+            </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.Categoria, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-4">
                 @Html.EnumDropDownListFor(model => model.Categoria, htmlAttributes: new { @class = "form-control", @id = "categoriaAcc" })
                 @Html.ValidationMessageFor(model => model.Categoria, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.TrabajadorID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TrabajadorID, new { htmlAttributes = new { @class = "form-control", @id = "idTrabajador" } })
+            <div class="col-md-4">
+                @Html.DropDownListFor(model => model.TrabajadorID, Model.Trabajadores, new { @class = "form-control", @id = "idTrabajador" })
                 @Html.ValidationMessageFor(model => model.TrabajadorID, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.FuenteAccion, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-4">
                 @Html.EnumDropDownListFor(model => model.FuenteAccion, htmlAttributes: new { @class = "form-control", @id = "idFuente" })
                 @Html.ValidationMessageFor(model => model.FuenteAccion, "", new { @class = "text-danger" })
             </div>
@@ -91,28 +92,28 @@
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.EficaciaAntes, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-4">
                 @Html.EnumDropDownListFor(model => model.EficaciaAntes, htmlAttributes: new { @class = "form-control", @id = "idEficaciaAnt" })
                 @Html.ValidationMessageFor(model => model.EficaciaAntes, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.EficaciaDespues, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-4">
                 @Html.EnumDropDownListFor(model => model.EficaciaDespues, htmlAttributes: new { @class = "form-control", @id = "idEficaciaDesp" })
                 @Html.ValidationMessageFor(model => model.EficaciaDespues, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.FechaCierre, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-4">
                 @Html.EditorFor(model => model.FechaCierre, new { htmlAttributes = new { @class = "form-control", @id = "idFechaCierre" } })
                 @Html.ValidationMessageFor(model => model.FechaCierre, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.Efectiva, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-4">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.Efectiva, new {htmlAttributes = new { @class = "control-label col-md-2", @id = "idEfectiva" } })
                     @Html.ValidationMessageFor(model => model.Efectiva, "", new { @class = "text-danger" })
@@ -121,7 +122,7 @@
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.Estado, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-4">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.Estado, new { htmlAttributes = new { @class = "control-label col-md-2", @id = "idEstado" } }))
                     @Html.ValidationMessageFor(model => model.Estado, "", new { @class = "text-danger" })
@@ -207,7 +208,7 @@
             </div>
             <div class="form-group">
                 @Html.LabelFor(modelItem => item.Resultado, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
+                <div class="col-md-10">
                     @Html.EditorFor(modelItem => item.Resultado, new { htmlAttributes = new { @class = "form-control", @id = "idResultado" } })
                     @Html.ValidationMessageFor(modelItem => item.Resultado, "", new { @class = "text-danger" })
                 </div>
@@ -225,21 +226,45 @@
         </div>
 
     </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Aceptar" class="btn btn-default" />
-        </div>
-    </div>
 </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    <div class="col-md-4">
+        @Html.ActionLink("Guardar", "Index", new { @class = "glyphicon glyphicon-plus" },
+        new { @class = "btn btn-success btn-lg active" })
+    </div>
 </div>
 
 @section Scripts
 {
     <script>
+        $(document).ready(function () {
+            $("#idCausas").click(function () {
+                $(".tabIdCausas").css("display", "block");
+            });
+
+            $("#idCausas").dblclick(function () {
+                $(".tabIdCausas").css("display", "none");
+            });
+
+            $("#planAcc").click(function () {
+                $(".tabPlanAcc").css("display", "block");
+            });
+
+            $("#planAcc").dblclick(function () {
+                $(".tabPlanAcc").css("display", "none");
+            });
+
+            $("#seguimAcc").click(function () {
+                $(".tabSeguimAcc").css("display", "block");
+            });
+
+            $("#seguimAcc").dblclick(function () {
+                $(".tabSeguimAcc").css("display", "none");
+            });
+        });
+
         function AddAccion() {
             $(".tabIdCausas").css("display", "none");
             $.ajax({
@@ -257,7 +282,7 @@
                     FuenteAccion: $("#idFuente").val(),
                     Descripcion: $("#idDescrip").val(),
                     EficaciaAntes: $("#idEficaciaAnt").val(),
-                    Eficaciadespues: $("#idEficaciaDesp").val(),
+                    EficaciaDespues: $("#idEficaciaDesp").val(),
                     FechaCierre: $("#idFechaCierre").val(),
                     Efectiva: $("#idEfectiva").val(),
                     Estado: $("#idEstado").val()
@@ -280,9 +305,9 @@
                 url: "CreatePlanAccion",
                 data: {
                     ID: "0",
-                    AccionID: @Model.ID,
-                    FechaInicial: $("#fechaIni").val(),
-                    FechaFinal: $("#fechaFin").val(),
+                    AccionID: Model.ID,
+                    FechaInicial: $("#idFechaIni").val(),
+                    FechaFinal: $("#idFechaFin").val(),
                     Causa: $("#idCausa").val(),
                     Accion: $("#accion").val(),
                     TrabajadorID: $("#idRespons").val(),
@@ -291,7 +316,7 @@
                 },
                 dataType: "json",
                 success: function (planAccion) {
-                    Model.PlanAccion = planAccion;
+                    //Model.Planes = planAccion;
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     alert(xhr.status);
@@ -307,14 +332,14 @@
                 url: "CreateSeguimientoPlan",
                 data: {
                     ID: "0",
-                    AccionID: @Model.ID,
+                    AccionID: Model.ID,
                     FechaSeguimiento: $("#fechaSegui").val(),
                     Resultado: $("#idResultado").val(),
                     TrabajadorID: $("#idRespons").val(),
                 },
                 dataType: "json",
                 success: function (seguimientoPlan) {
-                    Model.PlanAccion = planAccion;
+                    //Model.Seguimientos = seguimientoPlan;
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     alert(xhr.status);
