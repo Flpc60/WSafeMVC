@@ -3,26 +3,24 @@
 @{
     ViewBag.Title = "Index";
 }
+<h2>GESTIÓN DE ACCIONES</h2>
 
-<h2>Index</h2>
+<div class="row">
+    <div class="col-md-4">
+        @Html.ActionLink("Nuevo", "Create", new { @class = "glyphicon glyphicon-plus" },
+        new { @class = "btn btn-info btn-lg active" })
+    </div>
+    <div class="col-md-4">
+        <input type="search" id="myInput" placeholder="Escriba un nombre de elemento para filtrar" style="width:350px">
+    </div>
+    <div class="col-md-4">
+        <input type="button" class="btn btn-info" id="reportPdf" value="Descargar PDF">
+    </div>
+</div>
+<hr />
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ZonaID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProcesoID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ActividadID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TareaID)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.FechaSolicitud)
         </th>
@@ -53,53 +51,42 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ZonaID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProcesoID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ActividadID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TareaID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaSolicitud)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Categoria)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FuenteAccion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EficaciaAntes)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EficaciaDespues)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaCierre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Efectiva)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Estado)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaSolicitud)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Categoria)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FuenteAccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EficaciaAntes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EficaciaDespues)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaCierre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Efectiva)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
 
 </table>

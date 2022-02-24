@@ -7,13 +7,13 @@ namespace WSafe.Web.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class CreateSeguimientosAccion111111 : IMigrationMetadata
+    public sealed partial class Createseguimientos4 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateSeguimientosAccion111111));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Createseguimientos4));
         
         string IMigrationMetadata.Id
         {
-            get { return "202202222317507_CreateSeguimientosAccion111111"; }
+            get { return "202202232329047_Createseguimientos4"; }
         }
         
         string IMigrationMetadata.Source
