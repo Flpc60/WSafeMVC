@@ -133,6 +133,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Seguimientos = new List<SeguimientoAccion>()
             };
 
+            model.Planes.Add(new PlanAccion());
+            model.Seguimientos.Add( new SeguimientoAccion());
             return model;
         }
         public AccionViewModel ToAccionViewModel(Accion accion)
