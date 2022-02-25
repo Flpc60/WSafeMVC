@@ -43,7 +43,7 @@ namespace WSafe.Web.Controllers
         [HttpPost]
         public ActionResult Create(AccionViewModel model)
         {
-            return RedirectToAction("Index",model);
+            return RedirectToAction("Index", model);
         }
 
         // GET: Acciones/Edit/5
@@ -119,9 +119,6 @@ namespace WSafe.Web.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
-        // POST: Plan acción
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         public async Task<ActionResult> CreatePlanAccion(PlanAccion planAccion)
         {
@@ -147,11 +144,8 @@ namespace WSafe.Web.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
-        // POST: Seguimiento Plan acción
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<ActionResult> CreateSeguiminentoPlan(SeguimientoAccion seguimientoAccion)
+        public async Task<ActionResult> CreateSeguimientoPlan(SeguimientoAccion seguimientoAccion)
         {
             if (ModelState.IsValid)
             {
@@ -183,10 +177,7 @@ namespace WSafe.Web.Controllers
             {
             }
 
-            var idAccion = from acc in _empresaContext.Acciones
-                           orderby acc.ID descending
-                           select new { ID = acc.ID } ;
-
+            var idAccion = _empresaContext.Acciones.OrderByDescending(x => x.ID).First().ID;
             return Json(idAccion, JsonRequestBehavior.AllowGet);
         }
     }

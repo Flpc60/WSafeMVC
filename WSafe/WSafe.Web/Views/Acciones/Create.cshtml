@@ -230,38 +230,81 @@
 }
 
 <div>
-    <div class="col-md-4">
-        @Html.ActionLink("Guardar", "Index", new { @class = "glyphicon glyphicon-plus" },
-        new { @class = "btn btn-success btn-lg active" })
+    <div class="tabCerrar">
+        @Html.ActionLink("Cerrar", "Index", new { @class = "glyphicon glyphicon-plus" },
+        new { @class = "btn btn-warning btn-lg active" })
     </div>
 </div>
 
 @section Scripts
 {
     <script>
+        var accionID;
+        $.ajaxSetup({
+
+            error: function (jqXHR, textStatus, errorThrown) {
+
+                if (jqXHR.status === 0) {
+
+                    alert('Not connect: Verify Network.');
+
+                } else if (jqXHR.status == 404) {
+
+                    alert('Requested page not found [404]');
+
+                } else if (jqXHR.status == 500) {
+
+                    alert('Internal Server Error [500].');
+
+                } else if (textStatus === 'parsererror') {
+
+                    alert('Requested JSON parse failed.');
+
+                } else if (textStatus === 'timeout') {
+
+                    alert('Time out error.');
+
+                } else if (textStatus === 'abort') {
+
+                    alert('Ajax request aborted.');
+
+                } else {
+
+                    alert('Uncaught Error: ' + jqXHR.responseText);
+
+                }
+            }
+        });
+
         $(document).ready(function () {
             $("#idCausas").click(function () {
                 $(".tabIdCausas").css("display", "block");
+                $(".tabCerrar").css("display", "none");
             });
 
             $("#idCausas").dblclick(function () {
                 $(".tabIdCausas").css("display", "none");
+                $(".tabCerrar").css("display", "block");
             });
 
             $("#planAcc").click(function () {
                 $(".tabPlanAcc").css("display", "block");
+                $(".tabCerrar").css("display", "none");
             });
 
             $("#planAcc").dblclick(function () {
                 $(".tabPlanAcc").css("display", "none");
+                $(".tabCerrar").css("display", "block");
             });
 
             $("#seguimAcc").click(function () {
                 $(".tabSeguimAcc").css("display", "block");
+                $(".tabCerrar").css("display", "none");
             });
 
             $("#seguimAcc").dblclick(function () {
                 $(".tabSeguimAcc").css("display", "none");
+                $(".tabCerrar").css("display", "block");
             });
         });
 
@@ -289,7 +332,7 @@
                 },
                 dataType: "json",
                 success: function (idAccion) {
-                    Model.ID = idAccion;
+                    accionID = idAccion;
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     alert(xhr.status);
@@ -305,7 +348,7 @@
                 url: "CreatePlanAccion",
                 data: {
                     ID: "0",
-                    AccionID: Model.ID,
+                    AccionID: accionID,
                     FechaInicial: $("#idFechaIni").val(),
                     FechaFinal: $("#idFechaFin").val(),
                     Causa: $("#idCausa").val(),
@@ -332,8 +375,8 @@
                 url: "CreateSeguimientoPlan",
                 data: {
                     ID: "0",
-                    AccionID: Model.ID,
-                    FechaSeguimiento: $("#fechaSegui").val(),
+                    AccionID: accionID,
+                    FechaSeguimiento: $("#idFechaSegui").val(),
                     Resultado: $("#idResultado").val(),
                     TrabajadorID: $("#idRespons").val(),
                 },
