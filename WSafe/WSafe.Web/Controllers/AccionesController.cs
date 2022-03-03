@@ -53,12 +53,21 @@ namespace WSafe.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Accion accion = await _empresaContext.Acciones.FindAsync(id);
-            if (accion == null)
+
+            var result = await _empresaContext.Acciones
+                .Include(pa => pa.Planes)
+                .Include(sa => sa.Seguimientos)
+                .FirstOrDefaultAsync(i => i.ID == id.Value);
+
+            var model = _converterHelper.ToAccionViewModel(result);
+
+            if (model == null)
             {
                 return HttpNotFound();
             }
-            return View(accion);
+            ViewBag.AccionID = id;
+
+            return View(model);
         }
 
         // POST: Acciones/Edit/5

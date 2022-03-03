@@ -82,6 +82,9 @@
     <Compile Include="Data\Entities\Accion.cs" />
     <Compile Include="Data\Entities\Actividad.cs" />
     <Compile Include="Data\Entities\Aplicacion.cs" />
+    <Compile Include="Data\Entities\Auditor\AuditaAccion.cs" />
+    <Compile Include="Data\Entities\Auditor\AuditRiesgo.cs" />
+    <Compile Include="Data\Entities\Auditor\TiposOperacion.cs" />
     <Compile Include="Data\Entities\Cargo.cs" />
     <Compile Include="Data\Entities\CategoriaAplicacion.cs" />
     <Compile Include="Data\Entities\CategoriaControl.cs" />
