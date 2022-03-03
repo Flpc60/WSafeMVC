@@ -279,6 +279,9 @@
     <Compile Include="Controllers\IndicadoresController.cs" />
     <Compile Include="Controllers\RiesgosController.cs" />
     <Compile Include="Data\Entities\Accidentado.cs" />
+    <Compile Include="Data\Entities\Auditor\AuditaAccion.cs" />
+    <Compile Include="Data\Entities\Auditor\AuditRiesgo.cs" />
+    <Compile Include="Data\Entities\Auditor\TiposOperacion.cs" />
     <Compile Include="Data\Entities\Cargo.cs" />
     <Compile Include="Data\Entities\CategoriasCausa.cs" />
     <Compile Include="Data\Entities\FuentesAccion.cs" />
@@ -317,6 +320,22 @@
     <Compile Include="Migrations\202202232329047_Createseguimientos4.cs" />
     <Compile Include="Migrations\202202232329047_Createseguimientos4.Designer.cs">
       <DependentUpon>202202232329047_Createseguimientos4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203012235231_CreateAuditor.cs" />
+    <Compile Include="Migrations\202203012235231_CreateAuditor.Designer.cs">
+      <DependentUpon>202203012235231_CreateAuditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203021427523_CreateAuditor2.cs" />
+    <Compile Include="Migrations\202203021427523_CreateAuditor2.Designer.cs">
+      <DependentUpon>202203021427523_CreateAuditor2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203021544263_CreateAuditor3.cs" />
+    <Compile Include="Migrations\202203021544263_CreateAuditor3.Designer.cs">
+      <DependentUpon>202203021544263_CreateAuditor3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203021618015_CreateAuditor4.cs" />
+    <Compile Include="Migrations\202203021618015_CreateAuditor4.Designer.cs">
+      <DependentUpon>202203021618015_CreateAuditor4.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -498,6 +517,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202202232329047_Createseguimientos4.resx">
       <DependentUpon>202202232329047_Createseguimientos4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203012235231_CreateAuditor.resx">
+      <DependentUpon>202203012235231_CreateAuditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203021427523_CreateAuditor2.resx">
+      <DependentUpon>202203021427523_CreateAuditor2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203021544263_CreateAuditor3.resx">
+      <DependentUpon>202203021544263_CreateAuditor3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203021618015_CreateAuditor4.resx">
+      <DependentUpon>202203021618015_CreateAuditor4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

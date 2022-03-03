@@ -7,7 +7,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        @Html.ActionLink("Nuevo", "Create", new { @class = "glyphicon glyphicon-plus" },
+        @Html.ActionLink("Nueva Acción", "Create", new { @class = "glyphicon glyphicon-plus" },
         new { @class = "btn btn-info btn-lg active" })
     </div>
     <div class="col-md-4">
@@ -17,10 +17,9 @@
         <input type="button" class="btn btn-info" id="reportPdf" value="Descargar PDF">
     </div>
 </div>
-<hr />
 
 <table class="table">
-    <tr>
+    <tr style="background-color:gainsboro">
         <th>
             @Html.DisplayNameFor(model => model.FechaSolicitud)
         </th>
@@ -48,7 +47,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Estado)
         </th>
-        <th></th>
+        <th>Opciones</th>
     </tr>
 
     @foreach (var item in Model)
@@ -81,10 +80,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Estado)
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            <td style="font-size:18px">
+                @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit"}) |
+                @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "glyphicon glyphicon-trash" })
             </td>
         </tr>
     }

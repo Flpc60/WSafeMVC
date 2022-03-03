@@ -50,9 +50,10 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Descripción de la no conformidad")]
         public string Descripcion { get; set; }
+        [Display(Name = "Indicador Antes")]
         public CategoriasEfectividad EficaciaAntes { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "Variable o Indicador de Control Despues")]
+        [Display(Name = "Indicador Despues")]
         public CategoriasEfectividad EficaciaDespues { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Fecha cierre")]
@@ -60,10 +61,10 @@ namespace WSafe.Web.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaCierre { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "La acción tomada fué efectiva ?")]
+        [Display(Name = "La acción fué efectiva ?")]
         public bool Efectiva { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "Abierta o cerrada ?")]
+        [Display(Name = "Cerrada ?")]
         public bool Estado { get; set; }
         public ICollection<PlanAccion> Planes { get; set; }
         public ICollection<SeguimientoAccion> Seguimientos { get; set; }

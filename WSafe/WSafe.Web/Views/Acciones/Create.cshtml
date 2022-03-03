@@ -21,10 +21,11 @@
     <hr />
     <h4>ACCIONES DE MEJORA</h4>
     <div class="btn-group btn-group-justified">
-        <button type="button" class="btn btn-warning" id="idCausas" title="doble click para cerrar la ventana"> IDENTIFICACIÓN CAUSAS</button>
-        <button type="button" class="btn btn-warning" id="planAcc" title="doble click para cerrar la ventana"> PLANES DE ACCIÓN</button>
-        <button type="button" class="btn btn-warning" id="seguimAcc" title="doble click para cerrar la ventana"> SEGUIMIENTOS</button>
+        <button type="button" class="btn btn-warning" id="idCausas" title="doble click para cerrar la ventana"> IDENTIFICAR NO CONFORMIDAD</button>
+        <button type="button" class="btn btn-warning" id="planAcc" title="doble click para cerrar la ventana"> PLAN DE ACCIÓN</button>
+        <button type="button" class="btn btn-warning" id="seguimAcc" title="doble click para cerrar la ventana"> SEGUIMIENTO</button>
     </div>
+    <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="tabIdCausas">
         <div class="form-group">
@@ -115,7 +116,7 @@
             @Html.LabelFor(model => model.Efectiva, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.Efectiva, new {htmlAttributes = new { @class = "control-label col-md-2", @id = "idEfectiva" } })
+                    @Html.EditorFor(model => model.Efectiva, new { htmlAttributes = new { @class = "control-label col-md-2", @id = "idEfectiva" } })
                     @Html.ValidationMessageFor(model => model.Efectiva, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -383,6 +384,7 @@
                 dataType: "json",
                 success: function (seguimientoPlan) {
                     //Model.Seguimientos = seguimientoPlan;
+                    //html += '<td><a href="#" onclick="return getbyID(' + item.Id + ')">Edit</a> | <a href="#" onclick="Delele(' + item.Id + ')">Delete</a></td>';
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     alert(xhr.status);

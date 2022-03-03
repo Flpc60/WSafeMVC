@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using WSafe.Domain.Data.Entities;
+using WSafe.Domain.Data.Entities.Auditor;
 
 namespace WSafe.Web.Models
 {
@@ -32,5 +33,7 @@ namespace WSafe.Web.Models
         public DbSet<Cargo> Cargos { get; set; }
         public DbSet<PlanAccion> PlanesAccion { get; set; }
         public DbSet<SeguimientoAccion> SeguimientosAccion { get; set; }
+        public DbSet<AuditRiesgo> AuditRiesgos { get; set; }
+        public DbSet<AuditaAccion> AuditaAcciones { get; set; }
     }
 }
