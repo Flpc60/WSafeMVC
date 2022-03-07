@@ -54,10 +54,7 @@ namespace WSafe.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var result = await _empresaContext.Acciones
-                .Include(pa => pa.Planes)
-                .Include(sa => sa.Seguimientos)
-                .FirstOrDefaultAsync(i => i.ID == id.Value);
+            var result = await _empresaContext.Acciones.FirstOrDefaultAsync(i => i.ID == id.Value);
 
             var model = _converterHelper.ToAccionViewModel(result);
 
@@ -188,6 +185,29 @@ namespace WSafe.Web.Controllers
 
             var idAccion = _empresaContext.Acciones.OrderByDescending(x => x.ID).First().ID;
             return Json(idAccion, JsonRequestBehavior.AllowGet);
+        }
+        // GET: Plan acción/ListarPlanAccion
+        [HttpGet]
+        public async Task<ActionResult> ListarPlanAccion(int? idAccion)
+        {
+            if (idAccion == null)
+            {
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            //var result =  _empresaContext.PlanesAccion.Where(pa => pa.AccionID == 43).ToList();
+            var data = (from pa in _empresaContext.PlanesAccion.Where(pa => pa.AccionID == 43).AsEnumerable()
+                        select new
+                        {
+                            FechaInicial = pa.FechaInicial.ToString("dd/MM/yyyy"),
+                            FechaFinal   = pa.FechaFinal.ToString("dd/MM/yyyy"),
+                            Causa = pa.Causa,
+                            Accion = pa.Accion,
+                            Prioritaria = pa.Prioritaria,
+                            Costos = pa.Costos
+                        }).ToList();
+
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -141,22 +141,27 @@ namespace WSafe.Domain.Helpers.Implements
         {
             var model = new AccionViewModel
             {
-                Categoria = accion.Categoria,
+                ID = accion.ID,
+                ZonaID = accion.ZonaID,
+                Zonas = _comboHelper.GetComboZonas(),
+                ProcesoID = accion.ProcesoID,
+                Procesos = _comboHelper.GetComboProcesos(),
+                ActividadID = accion.ActividadID,
+                Actividades = _comboHelper.GetComboActividades(),
+                TareaID = accion.TareaID,
+                Tareas = _comboHelper.GetComboTareas(),
                 FechaSolicitud = accion.FechaSolicitud,
+                Categoria = accion.Categoria,
                 TrabajadorID = accion.TrabajadorID,
                 Trabajadores = _comboHelper.GetComboTrabajadores(),
                 FuenteAccion = accion.FuenteAccion,
                 Descripcion = accion.Descripcion,
-                //CausasAccion = accion.CausasAccion,
-                //FechaInicial = accion.FechaInicial,
-                //FechaFinal = accion.FechaFinal,
-                //Plan = accion.PlanAcion,
-                //Seguimiento = accion.Seguimiento,
-                //FechaSeguimiento = accion.FechaSeguimiento,
-                //FechaCierre = accion.FechaCierre,
-                //Efectividad = accion.Efectividad
+                EficaciaAntes = accion.EficaciaAntes,
+                EficaciaDespues = accion.EficaciaDespues,
+                FechaCierre = accion.FechaCierre,
+                Efectiva = accion.Efectiva,
+                Estado = accion.Estado,
             };
-
             return model;
         }
         public async Task<Accion> ToAccionAsync(Accion model, bool isNew)

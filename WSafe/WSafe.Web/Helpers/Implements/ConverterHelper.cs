@@ -164,33 +164,6 @@ namespace WSafe.Domain.Helpers.Implements
                 Planes = new List<PlanAccion>(),
                 Seguimientos = new List<SeguimientoAccion>()
             };
-
-            foreach (var item in accion.Planes)
-            {
-                model.Planes.Add(new PlanAccion()
-                {
-                    AccionID = item.AccionID,
-                    FechaInicial = item.FechaInicial,
-                    FechaFinal = item.FechaFinal,
-                    Causa = item.Causa,
-                    Accion = item.Accion,
-                    TrabajadorID = item.TrabajadorID,
-                    Prioritaria = item.Prioritaria,
-                    Costos = item.Costos
-                });
-            }
-
-            foreach (var item in accion.Seguimientos)
-            {
-                model.Seguimientos.Add(new SeguimientoAccion()
-                {
-                    AccionID = item.AccionID,
-                    Resultado = item.Resultado,
-                    FechaSeguimiento = item.FechaSeguimiento,
-                    TrabajadorID = item.TrabajadorID,
-                });
-            }
-
             return model;
         }
         public async Task<Accion> ToAccionAsync(Accion model, bool isNew)
