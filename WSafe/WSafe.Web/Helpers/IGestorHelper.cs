@@ -18,5 +18,6 @@ namespace WSafe.Domain.Helpers
         string GetGenero(CategoriasGenero genero);
         string GetEstadoCivil(EstadosCivil estado);
         string GetTipoVinculacion(TiposVinculacion tipo);
+        string GetCausaAccion(CategoriasCausa categoria);
     }
 }

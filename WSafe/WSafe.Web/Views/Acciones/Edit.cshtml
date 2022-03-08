@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
 <style>
-    .tabIdCausas, .tabGesPlanAcc, .tabSeguimAcc {
+    .tabIdCausas, .tabGesPlanAcc, .tabGesSeguiPlanAcc {
         display: none;
     }
 </style>
@@ -139,8 +139,8 @@
 
     <div class="tabGesPlanAcc">
 
-        <div class="col-md-offset-2 col-md-4">
-            <button type="button" class="btn btn-success" onclick="AddPlanAcc()">Adicionar Nuevo Plan</button>
+        <div class="col-md-12">
+            <button type="button" class="btn btn-info" onclick="AddPlanAcc()">Adicionar Nuevo Plan</button>
         </div>
         <table class="table table-bordered table-hover">
             <thead>
@@ -172,6 +172,34 @@
             </tbody>
         </table>
     </div>
+
+    <div class="tabGesSeguiPlanAcc">
+
+        <div class="col-md-12">
+            <button type="button" class="btn btn-info" onclick="AddSeguiAcc()">Adicionar Seguimiento</button>
+        </div>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        Fecha seguimiento
+                    </th>
+                    <th>
+                        Responsable
+                    </th>
+                    <th>
+                        Resultado
+                    </th>
+                    <th>
+                        Opciones
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="tbody">
+            </tbody>
+        </table>
+    </div>
+
 </div>
 }
 
@@ -244,19 +272,21 @@
             });
 
             $("#seguimAcc").click(function () {
-                $(".tabSeguimAcc").css("display", "block");
+                $(".tabGesSeguiPlanAcc").css("display", "block");
                 $(".tabCerrar").css("display", "none");
+                mostrarSeguiPlanAcc();
             });
 
             $("#seguimAcc").dblclick(function () {
-                $(".tabSeguimAcc").css("display", "none");
+                $(".tabGesSeguiPlanAcc").css("display", "none");
                 $(".tabCerrar").css("display", "block");
             });
-
         });
 
-        //Load Data function
+        //mostrar resultados
         function mostrarPlanAcc() {
+            $(".tabGesSeguiPlanAcc").css("display", "none");
+
             $.ajax({
                 type: "GET",
                 url: "/Acciones/ListarPlanAccion",
@@ -286,5 +316,37 @@
                 }
             });
         }
+
+        //mostrar resultados
+        function mostrarSeguiPlanAcc() {
+            $(".tabGesPlanAcc").css("display", "none");
+
+            $.ajax({
+                type: "GET",
+                url: "/Acciones/ListarSeguimientoAccion",
+                data: { ID: @Model.ID },                                  // data es un arreglo JSON que contiene los parámetros que
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                async: true,                                               // si es asincrónico o no
+                success: function (data) {
+                    var html = '';
+                    $.each(data, function (key, item) {
+                        html += '<tr>';
+                        html += '<td>' + (item.FechaSeguimiento) + '</td>';
+                        html += '<td>' + item.Responsable + '</td>';
+                        html += '<td>' + item.Resultado + '</td>';
+                        html += '<td><a href="#" onclick="return getbyID(' + item.ID + ')">Editar</a> | <a href="#" onclick="Delele(' + item.ID + ')">Borrar</a></td > ';
+                        html += '</tr>';
+                    });
+                    $('.tbody').html(html);
+                    $('.tabGesSeguiPlanAcc').css("display", "block");
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+        }
+
     </script>
 }

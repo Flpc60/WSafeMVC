@@ -22,29 +22,29 @@ namespace WSafe.Domain.Data.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaSolicitud { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "Tipo acción")]
+        [Display(Name = "Tipo")]
         public CategoriasAccion Categoria { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Nombre de quien reporta")]
         public int TrabajadorID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "Fuente origen")]
+        [Display(Name = "Origen")]
         public FuentesAccion FuenteAccion { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "Descripción de la no conformidad")]
+        [Display(Name = "No conformidad")]
         public string Descripcion { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "Variable o Indicador de Control Antes")]
+        [Display(Name = "Indicador Antes")]
         public CategoriasEfectividad EficaciaAntes { get; set; }
-        [Display(Name = "Variable o Indicador de Control Despues")]
+        [Display(Name = "Indicador Despues")]
         public CategoriasEfectividad EficaciaDespues { get; set; }
         [Display(Name = "Fecha cierre")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaCierre { get; set; }
-        [Display(Name = "La acción tomada fué efectiva ?")]
+        [Display(Name = "Efectiva")]
         public bool Efectiva { get; set; }
-        [Display(Name = "Abierta o Cerrada ?")]
+        [Display(Name = "Cerrada")]
         public bool Estado { get; set; }
         public IEnumerable<PlanAccion> Planes { get; set; }
         public IEnumerable<SeguimientoAccion> Seguimientos { get; set; }

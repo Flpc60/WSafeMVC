@@ -16,11 +16,17 @@ namespace WSafe.Web.Controllers
         private readonly EmpresaContext _empresaContext;
         private readonly IComboHelper _comboHelper;
         private readonly IConverterHelper _converterHelper;
-        public AccionesController(EmpresaContext empresaContext, IComboHelper comboHelper, IConverterHelper converterHelper)
+        private readonly IGestorHelper _gestorHelper;
+        public AccionesController
+            (EmpresaContext empresaContext, 
+            IComboHelper comboHelper, 
+            IConverterHelper converterHelper,
+            IGestorHelper gestorHelper)
         {
             _empresaContext = empresaContext;
             _comboHelper = comboHelper;
             _converterHelper = converterHelper;
+            _gestorHelper = gestorHelper;
         }
 
         // GET: Acciones
@@ -201,13 +207,34 @@ namespace WSafe.Web.Controllers
                         {
                             FechaInicial = pa.FechaInicial.ToString("dd/MM/yyyy"),
                             FechaFinal   = pa.FechaFinal.ToString("dd/MM/yyyy"),
-                            Causa = pa.Causa,
-                            Accion = pa.Accion,
+                            Causa = _gestorHelper.GetCausaAccion(pa.Causa).ToUpper(),
+                            Accion = pa.Accion.ToUpper(),
                             Prioritaria = pa.Prioritaria,
                             Costos = pa.Costos
                         }).ToList();
 
             return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        // GET: Seguimiento acción/ListarSeguimientoAccion
+        [HttpGet]
+        public async Task<ActionResult> ListarSeguimientoAccion(int? idAccion)
+        {
+            if (idAccion == null)
+            {
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            //TODO
+            var seguimientos = (from sa in _empresaContext.SeguimientosAccion.Where(sa => sa.AccionID == 43).AsEnumerable()
+                        select new
+                        {
+                            ID = sa.ID,
+                            FechaSeguimiento = sa.FechaSeguimiento.ToString("dd/MM/yyyy"),
+                            Responsable = sa.TrabajadorID,
+                            Resultado = sa.Resultado.ToUpper()
+                        }).ToList();
+
+            return Json(seguimientos, JsonRequestBehavior.AllowGet);
         }
     }
 }
