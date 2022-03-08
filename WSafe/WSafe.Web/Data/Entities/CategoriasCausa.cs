@@ -25,8 +25,8 @@ namespace WSafe.Domain.Data.Entities
         [Display(Name = "Falta de entrenamiento")]
         Entrenamiento = 10,
         [Display(Name = "Dificultades en el clima Org")]
-        ClimaOrg = 10,
+        ClimaOrg = 11,
         [Display(Name = "Dificultades en la gobernabilidad")]
-        Gobernabilidad = 11
+        Gobernabilidad = 12
     }
 }

@@ -233,5 +233,37 @@ namespace WSafe.Domain.Helpers.Implements
                     return "Nomina";
             }
         }
+        public string GetCausaAccion(CategoriasCausa categoria)
+        {
+            switch (categoria)
+            {
+                case CategoriasCausa.Medicion:
+                    return "Falta medición o control";
+                case CategoriasCausa.Incumplimiento:
+                    return "Incumplimiento de un  método o procedimiento";
+                case CategoriasCausa.Inexistente:
+                    return "Método inexistente";
+                case CategoriasCausa.Inadecuada:
+                    return "Planeación inadecuada";
+                case CategoriasCausa.Economicos:
+                    return "Falta de recursos económicos";
+                case CategoriasCausa.Tecnicos:
+                    return "Falta de recursos técnicos";
+                case CategoriasCausa.Fisicos:
+                    return "Falta de recursos físicos";
+                case CategoriasCausa.Insumos:
+                    return "Falta de insumos o suministros";
+                case CategoriasCausa.Humanos:
+                    return "Falta de talento humano";
+                case CategoriasCausa.Entrenamiento:
+                    return "Falta de entrenamiento";
+                case CategoriasCausa.ClimaOrg:
+                    return "Dificultades en el clima Org";
+                case CategoriasCausa.Gobernabilidad:
+                    return "Dificultades en la gobernabilidad";
+                default:
+                    return "Falta medición o control";
+            }
+        }
     }
 }

@@ -161,6 +161,8 @@ namespace WSafe.Domain.Helpers.Implements
                 FechaCierre = accion.FechaCierre,
                 Efectiva = accion.Efectiva,
                 Estado = accion.Estado,
+                Planes = new List<PlanAccion>(),
+                Seguimientos = new List<SeguimientoAccion>()
             };
             return model;
         }
