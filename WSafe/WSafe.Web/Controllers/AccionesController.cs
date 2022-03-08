@@ -201,20 +201,23 @@ namespace WSafe.Web.Controllers
                 //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            //var result =  _empresaContext.PlanesAccion.Where(pa => pa.AccionID == 43).ToList();
-            var data = (from pa in _empresaContext.PlanesAccion.Where(pa => pa.AccionID == 43).AsEnumerable()
-                        select new
-                        {
-                            FechaInicial = pa.FechaInicial.ToString("dd/MM/yyyy"),
-                            FechaFinal   = pa.FechaFinal.ToString("dd/MM/yyyy"),
-                            Causa = _gestorHelper.GetCausaAccion(pa.Causa).ToUpper(),
-                            Accion = pa.Accion.ToUpper(),
-                            Prioritaria = pa.Prioritaria,
-                            Costos = pa.Costos
+            //TODO
+            var planes = (from pa in _empresaContext.PlanesAccion.Where(pa => pa.AccionID == 43).AsEnumerable()
+                          select new
+                          {
+                              ID = pa.ID,
+                              FechaInicial = pa.FechaInicial.ToString("dd/MM/yyyy"),
+                              FechaFinal = pa.FechaFinal.ToString("dd/MM/yyyy"),
+                              Responsable = pa.TrabajadorID,
+                              Causa = _gestorHelper.GetCausaAccion(pa.Causa).ToUpper(),
+                              Accion = pa.Accion.ToUpper(),
+                              Prioritaria = pa.Prioritaria,
+                              Costos = pa.Costos
                         }).ToList();
 
-            return Json(data, JsonRequestBehavior.AllowGet);
+            return Json(planes, JsonRequestBehavior.AllowGet);
         }
+
         // GET: Seguimiento acción/ListarSeguimientoAccion
         [HttpGet]
         public async Task<ActionResult> ListarSeguimientoAccion(int? idAccion)
@@ -235,6 +238,24 @@ namespace WSafe.Web.Controllers
                         }).ToList();
 
             return Json(seguimientos, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UpdatePlanAccion(PlanAccion planAccion)
+        {
+            if (ModelState.IsValid)
+            {
+                _empresaContext.Entry(planAccion).State = EntityState.Modified;
+                await _empresaContext.SaveChangesAsync();
+            }
+
+            return Json(planAccion, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult GetPlanByID(int ID)
+        {
+            var plan = _empresaContext.PlanesAccion.FirstOrDefault(pa => pa.ID == ID);
+            return Json(plan, JsonRequestBehavior.AllowGet);
         }
     }
 }
