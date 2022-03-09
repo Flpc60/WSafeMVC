@@ -239,6 +239,12 @@ namespace WSafe.Web.Controllers
 
             return Json(seguimientos, JsonRequestBehavior.AllowGet);
         }
+        [HttpGet]
+        public JsonResult GetPlanByID(int ID)
+        {
+            var plan = _empresaContext.PlanesAccion.FirstOrDefault(pa => pa.ID == ID);
+            return Json(plan, JsonRequestBehavior.AllowGet);
+        }
 
         [HttpPost]
         public async Task<ActionResult> UpdatePlanAccion(PlanAccion planAccion)
@@ -251,11 +257,17 @@ namespace WSafe.Web.Controllers
 
             return Json(planAccion, JsonRequestBehavior.AllowGet);
         }
-        [HttpGet]
-        public JsonResult GetPlanByID(int ID)
+        [HttpPost]
+        public async Task<ActionResult> DeletePlanAccion(int id)
         {
-            var plan = _empresaContext.PlanesAccion.FirstOrDefault(pa => pa.ID == ID);
-            return Json(plan, JsonRequestBehavior.AllowGet);
+            if (ModelState.IsValid)
+            {
+                PlanAccion accion = await _empresaContext.PlanesAccion.FindAsync(id);
+                _empresaContext.PlanesAccion.Remove(accion);
+                await _empresaContext.SaveChangesAsync();
+                return Json(accion, JsonRequestBehavior.AllowGet);
+            }
+            return RedirectToAction("Index");
         }
     }
 }

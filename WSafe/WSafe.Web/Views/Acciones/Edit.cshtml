@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = "Create";
     var accionID = @ViewBag.AccionID;
-
 }
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
@@ -203,9 +202,13 @@
         </table>
     </div>
     <div class="tabPlanAcc">
-        @foreach (var item in Model.Planes)
-        {
+        @{
+            var modelo = Model.Planes;
+            modelo.Add(new WSafe.Domain.Data.Entities.PlanAccion());
+        }
 
+        @foreach (var item in modelo)
+        {
             <div class="form-group">
                 @Html.LabelFor(modelItem => item.FechaInicial, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-4">
@@ -308,6 +311,8 @@
 @section Scripts
 {
     <script>
+        var planID;
+        var seguiID;
         $.ajaxSetup({
 
             error: function (jqXHR, textStatus, errorThrown) {
@@ -402,7 +407,7 @@
                         html += '<td>' + item.Costos + '</td>';
                         html += '<td>' + item.FechaInicial + '</td>';
                         html += '<td>' + item.FechaFinal + '</td>';
-                        html += '<td><a href="#" onclick="return getPlanByID(' + item.ID + ')">Editar</a> | <a href="#" onclick="Delele(' + item.ID + ')">Borrar</a></td > ';
+                        html += '<td><a href="#" onclick="return getPlanByID(' + item.ID + ')">Editar</a> | <a href="#" onclick="DeletePlan(' + item.ID + ')">Borrar</a></td > ';
                         html += '</tr>';
                     });
                     $('.tbody').html(html);
@@ -478,7 +483,8 @@
                 type: "POST",
                 url: "/Acciones/UpdatePlanAccion",
                 data: {
-                    AccionID: accionID,
+                    ID: planID,
+                    AccionID: @accionID,
                     FechaInicial: $("#idFechaIni").val(),
                     FechaFinal: $("#idFechaFin").val(),
                     Causa: $("#idCausa").val(),
@@ -497,6 +503,26 @@
                     alert(thrownError);
                 }
             });
+        }
+
+        function DeletePlan(id) {
+            var ans = confirm("Esta seguro de querer borrar este registro ?");
+            if (ans) {
+                $.ajax({
+                    url: "/Acciones/DeletePlanAccion" + "/" + id,
+                    type: "POST",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    async: true,                                               // si es asincrónico o no
+                    success: function (result) {
+                        mostrarPlanAcc();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                    }
+                });
+            }
         }
 
         function AddSeguiAcc() {
