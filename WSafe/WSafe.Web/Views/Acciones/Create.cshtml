@@ -136,61 +136,7 @@
 
     </div>
     <div class="tabPlanAcc">
-        @foreach (var item in Model.Planes)
-        {
-
-            <div class="form-group">
-                @Html.LabelFor(modelItem => item.FechaInicial, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
-                    @Html.EditorFor(modelItem => item.FechaInicial, new { htmlAttributes = new { @class = "form-control", @id = "idFechaIni" } })
-                    @Html.ValidationMessageFor(modelItem => item.FechaInicial, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(modelItem => item.FechaFinal, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
-                    @Html.EditorFor(modelItem => item.FechaFinal, new { htmlAttributes = new { @class = "form-control", @id = "idFechaFin" } })
-                    @Html.ValidationMessageFor(modelItem => item.FechaFinal, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(modelItem => item.Causa, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
-                    @Html.EnumDropDownListFor(modelItem => item.Causa, htmlAttributes: new { @class = "form-control", @id = "idCausa" })
-                    @Html.ValidationMessageFor(modelItem => item.Causa, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(modelItem => item.Accion, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
-                    @Html.EditorFor(modelItem => item.Accion, new { htmlAttributes = new { @class = "form-control", @id = "accion" } })
-                    @Html.ValidationMessageFor(modelItem => item.Accion, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(modelItem => item.TrabajadorID, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
-                    @Html.DropDownListFor(modelItem => item.TrabajadorID, Model.Trabajadores, new { @class = "form-control", @id = "idRespons" })
-                    @Html.ValidationMessageFor(modelItem => item.TrabajadorID, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(modelItem => item.Prioritaria, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
-                    <div class="checkbox">
-                        @Html.EditorFor(modelitem => item.Prioritaria, new { htmlAttributes = new { @class = "form-control", @id = "idPrioritaria" } })
-                        @Html.ValidationMessageFor(modelItem => item.Prioritaria, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(modelItem => item.Costos, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
-                    @Html.EditorFor(modelItem => item.Costos, new { htmlAttributes = new { @class = "form-control", @id = "idCostos" } })
-                    @Html.ValidationMessageFor(modelItem => item.Costos, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        }
+        @Html.Partial("_EditarPlanAcc")
         <div class="col-md-offset-2 col-md-4">
             <button type="button" class="btn btn-success" onclick="AddPlanAcc()">Agregar</button>
         </div>

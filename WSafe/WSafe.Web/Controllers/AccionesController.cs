@@ -194,7 +194,7 @@ namespace WSafe.Web.Controllers
         }
         // GET: Plan acción/ListarPlanAccion
         [HttpGet]
-        public async Task<ActionResult> ListarPlanAccion(int? idAccion)
+        public async Task<ActionResult> ListarPlanAccion(int idAccion)
         {
             if (idAccion == null)
             {
@@ -202,7 +202,7 @@ namespace WSafe.Web.Controllers
             }
 
             //TODO
-            var planes = (from pa in _empresaContext.PlanesAccion.Where(pa => pa.AccionID == 43).AsEnumerable()
+            var planes = (from pa in _empresaContext.PlanesAccion.Where(pa => pa.AccionID == idAccion).AsEnumerable()
                           select new
                           {
                               ID = pa.ID,
@@ -220,7 +220,7 @@ namespace WSafe.Web.Controllers
 
         // GET: Seguimiento acción/ListarSeguimientoAccion
         [HttpGet]
-        public async Task<ActionResult> ListarSeguimientoAccion(int? idAccion)
+        public async Task<ActionResult> ListarSeguimientoAccion(int idAccion)
         {
             if (idAccion == null)
             {
@@ -228,7 +228,7 @@ namespace WSafe.Web.Controllers
             }
 
             //TODO
-            var seguimientos = (from sa in _empresaContext.SeguimientosAccion.Where(sa => sa.AccionID == 43).AsEnumerable()
+            var seguimientos = (from sa in _empresaContext.SeguimientosAccion.Where(sa => sa.AccionID == idAccion).AsEnumerable()
                         select new
                         {
                             ID = sa.ID,

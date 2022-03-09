@@ -7,12 +7,12 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
 <style>
-    .tabIdCausas, .tabGesPlanAcc, .tabGesSeguiPlanAcc, .tabPlanAcc, .tabSeguimPlanAcc {
+    .tabIdCausas, .tabGesPlanAcc, .tabGesSeguiPlanAcc, .tabPlanAcc, .tabSeguimPlanAcc, .tabAddPlanAcc {
         display: none;
     }
 </style>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("_EditarPlanAcc"))
 {
     @Html.AntiForgeryToken()
 
@@ -139,7 +139,7 @@
     <div class="tabGesPlanAcc">
 
         <div class="col-md-12">
-            <button type="button" class="btn btn-info" onclick="AddPlanAcc()">Adicionar Nuevo Plan</button>
+            <button type="button" class="btn btn-info" id="addPlanAcc">Adicionar Nuevo Plan</button>
         </div>
         <table class="table table-bordered table-hover">
             <thead>
@@ -201,71 +201,22 @@
             </tbody>
         </table>
     </div>
-    <div class="tabPlanAcc">
-        @{
-            var modelo = Model.Planes;
-            modelo.Add(new WSafe.Domain.Data.Entities.PlanAccion());
-        }
 
-        @foreach (var item in modelo)
-        {
-            <div class="form-group">
-                @Html.LabelFor(modelItem => item.FechaInicial, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
-                    @Html.EditorFor(modelItem => item.FechaInicial, new { htmlAttributes = new { @class = "form-control", @id = "idFechaIni" } })
-                    @Html.ValidationMessageFor(modelItem => item.FechaInicial, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(modelItem => item.FechaFinal, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
-                    @Html.EditorFor(modelItem => item.FechaFinal, new { htmlAttributes = new { @class = "form-control", @id = "idFechaFin" } })
-                    @Html.ValidationMessageFor(modelItem => item.FechaFinal, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(modelItem => item.Causa, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
-                    @Html.EnumDropDownListFor(modelItem => item.Causa, htmlAttributes: new { @class = "form-control", @id = "idCausa" })
-                    @Html.ValidationMessageFor(modelItem => item.Causa, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(modelItem => item.Accion, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
-                    @Html.EditorFor(modelItem => item.Accion, new { htmlAttributes = new { @class = "form-control", @id = "accion" } })
-                    @Html.ValidationMessageFor(modelItem => item.Accion, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(modelItem => item.TrabajadorID, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
-                    @Html.DropDownListFor(modelItem => item.TrabajadorID, Model.Trabajadores, new { @class = "form-control", @id = "idRespons" })
-                    @Html.ValidationMessageFor(modelItem => item.TrabajadorID, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(modelItem => item.Prioritaria, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
-                    <div class="checkbox">
-                        @Html.EditorFor(modelitem => item.Prioritaria, new { htmlAttributes = new { @class = "form-control", @id = "idPrioritaria" } })
-                        @Html.ValidationMessageFor(modelItem => item.Prioritaria, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(modelItem => item.Costos, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
-                    @Html.EditorFor(modelItem => item.Costos, new { htmlAttributes = new { @class = "form-control", @id = "idCostos" } })
-                    @Html.ValidationMessageFor(modelItem => item.Costos, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        }
+    <div class="tabAddPlanAcc">
+        @Html.Partial("_EditarPlanAcc")
+        <div class="col-md-offset-2 col-md-4">
+            <button type="button" class="btn btn-success" onclick="AddPlanAcc()">Guardar</button>
+        </div>
+
+    </div>
+    <div class="tabPlanAcc">
+        @Html.Partial("_EditarPlanAcc")
         <div class="col-md-offset-2 col-md-4">
             <button type="button" class="btn btn-success" onclick="UpdatePlanAcc()">Guardar</button>
         </div>
 
     </div>
+
     <div class="tabSeguimAcc">
         @foreach (var item in Model.Seguimientos)
         {
@@ -311,44 +262,9 @@
 @section Scripts
 {
     <script>
+        ClearTextBox();
         var planID;
         var seguiID;
-        $.ajaxSetup({
-
-            error: function (jqXHR, textStatus, errorThrown) {
-
-                if (jqXHR.status === 0) {
-
-                    alert('Not connect: Verify Network.');
-
-                } else if (jqXHR.status == 404) {
-
-                    alert('Requested page not found [404]');
-
-                } else if (jqXHR.status == 500) {
-
-                    alert('Internal Server Error [500].');
-
-                } else if (textStatus === 'parsererror') {
-
-                    alert('Requested JSON parse failed.');
-
-                } else if (textStatus === 'timeout') {
-
-                    alert('Time out error.');
-
-                } else if (textStatus === 'abort') {
-
-                    alert('Ajax request aborted.');
-
-                } else {
-
-                    alert('Uncaught Error: ' + jqXHR.responseText);
-
-                }
-            }
-        });
-
         $(document).ready(function () {
             $("#idCausas").click(function () {
                 $(".tabIdCausas").css("display", "block");
@@ -383,35 +299,47 @@
                 $(".tabSeguiPlanAcc").css("display", "none");
                 $(".tabCerrar").css("display", "block");
             });
+
+            $("#addPlanAcc").click(function () {
+                $(".tabGesPlanAcc").css("display", "none");
+                $(".tabAddPlanAcc").css("display", "block");
+                $(".tabCerrar").css("display", "none");
+            });
         });
 
-        //mostrar resultados
-        function mostrarPlanAcc() {
-            $(".tabGesSeguiPlanAcc").css("display", "none");
+        function ClearTextBox() {
+            $("#idFechaIni").val("");
+            $("#idFechaFin").val("");
+            $("#idCausa").val("");
+            $("#accion").val("");
+            $("#idRespons").val("");
+            $("#idPrioritaria").val("");
+            $("#idCostos").val("");
+            $('#tabAddPlanAcc').css("display", "none");
+            $('#tabPlanAcc').css("display", "none");
+            $('#tabSeguimAcc').css("display", "none");
+        }
 
+        function AddPlanAcc() {
+            $(".tabAddPlanAcc").css("display", "none");
+            var accionID = @accionID;
             $.ajax({
-                type: "GET",
-                url: "/Acciones/ListarPlanAccion",
-                data: { ID: @accionID },
-                contentType: "application/json;charset=utf-8",
+                type: "POST",
+                url: "/Acciones/CreatePlanAccion",
+                data: {
+                    ID: "0",
+                    AccionID: accionID,
+                    FechaInicial: $("#idFechaIni").val(),
+                    FechaFinal: $("#idFechaFin").val(),
+                    Causa: $("#idCausa").val(),
+                    Accion: $("#accion").val(),
+                    TrabajadorID: $("#idRespons").val(),
+                    Prioritaria: $("#idPrioritaria").val(),
+                    Costos: $("#idCostos").val()
+                },
                 dataType: "json",
-                async: true,                                               // si es asincrónico o no
                 success: function (result) {
-                    var html = '';
-                    $.each(result, function (key, item) {
-                        html += '<tr>';
-                        html += '<td>' + item.Causa + '</td>';
-                        html += '<td>' + item.Accion + '</td>';
-                        html += '<td>' + item.Prioritaria + '</td>';
-                        html += '<td>' + item.Responsable + '</td>';
-                        html += '<td>' + item.Costos + '</td>';
-                        html += '<td>' + item.FechaInicial + '</td>';
-                        html += '<td>' + item.FechaFinal + '</td>';
-                        html += '<td><a href="#" onclick="return getPlanByID(' + item.ID + ')">Editar</a> | <a href="#" onclick="DeletePlan(' + item.ID + ')">Borrar</a></td > ';
-                        html += '</tr>';
-                    });
-                    $('.tbody').html(html);
-                    $('.tabGesPlanAcc').css("display", "block");
+                    mostrarPlanAcc();
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     alert(xhr.status);
@@ -420,39 +348,8 @@
             });
         }
 
-        //mostrar resultados
-        function mostrarSeguiPlanAcc() {
-            $(".tabGesPlanAcc").css("display", "none");
-
-            $.ajax({
-                type: "GET",
-                url: "/Acciones/ListarSeguimientoAccion",
-                data: { ID: @Model.ID },                                  // data es un arreglo JSON que contiene los parámetros que
-                contentType: "application/json;charset=utf-8",
-                dataType: "json",
-                async: true,                                               // si es asincrónico o no
-                success: function (data) {
-                    var html = '';
-                    $.each(data, function (key, item) {
-                        html += '<tr>';
-                        html += '<td>' + (item.FechaSeguimiento) + '</td>';
-                        html += '<td>' + item.Responsable + '</td>';
-                        html += '<td>' + item.Resultado + '</td>';
-                        html += '<td><a href="#" onclick="return getbyID(' + item.ID + ')">Editar</a> | <a href="#" onclick="Delele(' + item.ID + ')">Borrar</a></td > ';
-                        html += '</tr>';
-                    });
-                    $('.tbody').html(html);
-                    $('.tabGesSeguiPlanAcc').css("display", "block");
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    alert(xhr.status);
-                    alert(thrownError);
-                }
-            });
-        }
-
-        //Function for getting the Data Based upon PlanAcc ID
         function getPlanByID(PlanID) {
+            planID = PlanID;
             $.ajax({
                 url: "/Acciones/GetPlanByID/",
                 data: { ID: PlanID },
@@ -509,7 +406,7 @@
             var ans = confirm("Esta seguro de querer borrar este registro ?");
             if (ans) {
                 $.ajax({
-                    url: "/Acciones/DeletePlanAccion" + "/" + id,
+                    url: "/Acciones/DeletePlanAccion/" + id,
                     type: "POST",
                     contentType: "application/json;charset=UTF-8",
                     dataType: "json",
@@ -541,6 +438,73 @@
                 success: function (seguimientoPlan) {
                     //Model.Seguimientos = seguimientoPlan;
                     //html += '<td><a href="#" onclick="return getbyID(' + item.Id + ')">Edit</a> | <a href="#" onclick="Delele(' + item.Id + ')">Delete</a></td>';
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+        }
+
+        //mostrar resultados
+        function mostrarPlanAcc() {
+            $(".tabGesSeguiPlanAcc").css("display", "none");
+            $(".tabGesPlanAcc").css("display", "block");
+            var accionID = @accionID;
+            $.ajax({
+                url: "/Acciones/ListarPlanAccion/",
+                data: { idAccion: accionID },
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                async: true,                                               // si es asincrónico o no
+                success: function (result) {
+                    var html = '';
+                    $.each(result, function (key, item) {
+                        html += '<tr>';
+                        html += '<td>' + item.Causa + '</td>';
+                        html += '<td>' + item.Accion + '</td>';
+                        html += '<td>' + item.Prioritaria + '</td>';
+                        html += '<td>' + item.Responsable + '</td>';
+                        html += '<td>' + item.Costos + '</td>';
+                        html += '<td>' + item.FechaInicial + '</td>';
+                        html += '<td>' + item.FechaFinal + '</td>';
+                        html += '<td><a href="#" onclick="return getPlanByID(' + item.ID + ')">Editar</a> | <a href="#" onclick="DeletePlan(' + item.ID + ')">Borrar</a></td > ';
+                        html += '</tr>';
+                    });
+                    $('.tbody').html(html);
+                    $('.tabGesPlanAcc').css("display", "block");
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+        }
+
+        //mostrar resultados
+        function mostrarSeguiPlanAcc() {
+            $(".tabGesPlanAcc").css("display", "none");
+            var accionID = @accionID;
+            $.ajax({
+                url: "/Acciones/ListarSeguimientoAccion/",
+                data: { idAccion: accionID },
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                async: true,                                               // si es asincrónico o no
+                success: function (data) {
+                    var html = '';
+                    $.each(data, function (key, item) {
+                        html += '<tr>';
+                        html += '<td>' + (item.FechaSeguimiento) + '</td>';
+                        html += '<td>' + item.Responsable + '</td>';
+                        html += '<td>' + item.Resultado + '</td>';
+                        html += '<td><a href="#" onclick="return getbyID(' + item.ID + ')">Editar</a> | <a href="#" onclick="Delele(' + item.ID + ')">Borrar</a></td > ';
+                        html += '</tr>';
+                    });
+                    $('.tbody').html(html);
+                    $('.tabGesSeguiPlanAcc').css("display", "block");
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     alert(xhr.status);

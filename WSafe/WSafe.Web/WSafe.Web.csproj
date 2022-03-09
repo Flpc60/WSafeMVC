@@ -491,6 +491,7 @@
     <Content Include="Views\Aplicaciones\Edit.cshtml" />
     <Content Include="Views\Aplicaciones\Index.cshtml" />
     <Content Include="Views\Riesgos\prueba.cshtml" />
+    <Content Include="Views\Shared\_EditarPlanAcc.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
