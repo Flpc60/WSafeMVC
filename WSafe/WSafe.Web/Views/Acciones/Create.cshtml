@@ -19,11 +19,11 @@
 <div class="form-horizontal">
     <hr />
     <hr />
-    <h4>ACCIONES DE MEJORA</h4>
+    <h4>ACCIONES CORRECTIVAS, PREVENTIVAS Y DE MEJORA</h4>
     <div class="btn-group btn-group-justified">
-        <button type="button" class="btn btn-warning" id="idCausas" title="doble click para cerrar la ventana"> IDENTIFICAR NO CONFORMIDAD</button>
-        <button type="button" class="btn btn-warning" id="planAcc" title="doble click para cerrar la ventana"> PLAN DE ACCIÓN</button>
-        <button type="button" class="btn btn-warning" id="seguimAcc" title="doble click para cerrar la ventana"> SEGUIMIENTO</button>
+        <button type="button" class="btn btn-warning" id="idCausas" title="doble click para cerrar la ventana"> 1. IDENTIFICAR NO CONFORMIDAD</button>
+        <button type="button" class="btn btn-warning" id="planAcc" title="doble click para cerrar la ventana"> 2. PLAN DE ACCIÓN</button>
+        <button type="button" class="btn btn-warning" id="seguimAcc" title="doble click para cerrar la ventana"> 3. SEGUIMIENTO</button>
     </div>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -227,6 +227,8 @@
             $("#idCausas").click(function () {
                 $(".tabIdCausas").css("display", "block");
                 $(".tabCerrar").css("display", "none");
+                $(".tabPlanAcc").css("display", "none");
+                $(".tabSeguimAcc").css("display", "none");
             });
 
             $("#idCausas").dblclick(function () {
@@ -292,9 +294,9 @@
             $(".tabPlanAcc").css("display", "none");
             $.ajax({
                 type: "POST",
-                url: "CreatePlanAccion",
+                url: "/Acciones/CreatePlanAccion",
                 data: {
-                    ID: "0",
+                    ID: 0,
                     AccionID: accionID,
                     FechaInicial: $("#idFechaIni").val(),
                     FechaFinal: $("#idFechaFin").val(),

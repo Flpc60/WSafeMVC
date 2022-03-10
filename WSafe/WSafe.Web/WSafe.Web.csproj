@@ -337,6 +337,10 @@
     <Compile Include="Migrations\202203021618015_CreateAuditor4.Designer.cs">
       <DependentUpon>202203021618015_CreateAuditor4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202203101621188_CreaatePlan.cs" />
+    <Compile Include="Migrations\202203101621188_CreaatePlan.Designer.cs">
+      <DependentUpon>202203101621188_CreaatePlan.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
     <Compile Include="Models\AplicacionVM.cs" />
@@ -530,6 +534,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202203021618015_CreateAuditor4.resx">
       <DependentUpon>202203021618015_CreateAuditor4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203101621188_CreaatePlan.resx">
+      <DependentUpon>202203101621188_CreaatePlan.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -12,21 +12,22 @@
     }
 </style>
 
-@using (Html.BeginForm("_EditarPlanAcc"))
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
     <hr />
     <hr />
-    <h4>GESTIONAR ACCIONES</h4>
+    <h4>GESTIONAR ACCIONES CORRECTIVAS, PREVENTIVAS Y DE MEJORA</h4>
     <div class="btn-group btn-group-justified">
-        <button type="button" class="btn btn-warning" id="idCausas"  title="doble click para cerrar la ventana"> IDENTIFICAR NO CONFORMIDAD</button>
-        <button type="button" class="btn btn-warning" id="planAcc"   title="doble click para cerrar la ventana"> PLAN DE ACCIÓN</button>
-        <button type="button" class="btn btn-warning" id="seguimAcc" title="doble click para cerrar la ventana"> SEGUIMIENTO</button>
+        <button type="button" class="btn btn-warning" id="idCausas"  title="doble click para cerrar la ventana"> 1.IDENTIFICAR NO CONFORMIDAD</button>
+        <button type="button" class="btn btn-warning" id="planAcc"   title="doble click para cerrar la ventana"> 2.PLAN DE ACCIÓN</button>
+        <button type="button" class="btn btn-warning" id="seguimAcc" title="doble click para cerrar la ventana"> 3.SEGUIMIENTO</button>
     </div>
-    <hr />
+
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
     <div class="tabIdCausas">
         <div class="form-group">
             @Html.LabelFor(model => model.Zonas, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -131,15 +132,14 @@
             </div>
         </div>
         <div class="col-md-offset-2 col-md-4">
-            <button type="button" class="btn btn-success" onclick="AddAccion()">Agregar</button>
+            <input type="submit" class="btn btn-success" value="Guardar" />
         </div>
-
     </div>
 
     <div class="tabGesPlanAcc">
-
+        <hr />
         <div class="col-md-12">
-            <button type="button" class="btn btn-info" id="addPlanAcc">Adicionar Nueva Acción</button>
+            <button type="button" class="btn btn-success" id="addPlanAcc">Adicionar Una Nueva Acción</button>
         </div>
         <table class="table table-bordered table-hover">
             <thead>
@@ -176,7 +176,6 @@
     </div>
 
     <div class="tabGesSeguiPlanAcc">
-
         <div class="col-md-12">
             <button type="button" class="btn btn-info" onclick="AddSeguiAcc()">Adicionar Seguimiento</button>
         </div>
@@ -207,8 +206,8 @@
         <div class="col-md-offset-2 col-md-4">
             <button type="button" class="btn btn-success" onclick="AddPlanAcc()">Guardar</button>
         </div>
-
     </div>
+
     <div class="tabPlanAcc">
         @Html.Partial("_EditarPlanAcc")
         <div class="col-md-offset-2 col-md-4">
@@ -252,13 +251,6 @@
 </div>
 }
 
-<div>
-    <div class="tabCerrar">
-        @Html.ActionLink("Cerrar", "Index", new { @class = "glyphicon glyphicon-plus" },
-        new { @class = "btn btn-warning btn-lg active" })
-    </div>
-</div>
-
 @section Scripts
 {
     <script>
@@ -266,13 +258,17 @@
         var planID;
         var seguiID;
         $(document).ready(function () {
+            ClearTextBox();
             $("#idCausas").click(function () {
                 $(".tabIdCausas").css("display", "block");
+                $(".tabAddPlanAcc").css("display", "none");
+                $(".tabGesPlanAcc").css("display", "none");
                 $(".tabCerrar").css("display", "none");
             });
 
             $("#idCausas").dblclick(function () {
                 $(".tabIdCausas").css("display", "none");
+                $(".tabAddPlanAcc").css("display", "none");
                 $(".tabCerrar").css("display", "block");
             });
 
@@ -315,9 +311,46 @@
             $("#idRespons").val("");
             $("#idPrioritaria").val("");
             $("#idCostos").val("");
-            $('#tabAddPlanAcc').css("display", "none");
-            $('#tabPlanAcc').css("display", "none");
-            $('#tabSeguimAcc').css("display", "none");
+            $(".tabGesPlanAcc").css("display", "none");
+            $('.tabAddPlanAcc').css("display", "none");
+            $('.tabPlanAcc').css("display", "none");
+            $('.tabSeguimAcc').css("display", "none");
+        }
+
+        //mostrar resultados
+        function mostrarPlanAcc() {
+            $(".tabGesSeguiPlanAcc").css("display", "none");
+            $(".tabGesPlanAcc").css("display", "block");
+            var accionID = @accionID;
+            $.ajax({
+                url: "/Acciones/ListarPlanAccion/",
+                data: { idAccion: accionID },
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                async: true,                                               // si es asincrónico o no
+                success: function (result) {
+                    var html = '';
+                    $.each(result, function (key, item) {
+                        html += '<tr>';
+                        html += '<td>' + item.Causa + '</td>';
+                        html += '<td>' + item.Accion + '</td>';
+                        html += '<td>' + item.Prioritaria + '</td>';
+                        html += '<td>' + item.Responsable + '</td>';
+                        html += '<td>' + item.Costos + '</td>';
+                        html += '<td>' + item.FechaInicial + '</td>';
+                        html += '<td>' + item.FechaFinal + '</td>';
+                        html += '<td><a href="#" onclick="return getPlanByID(' + item.ID + ')">Editar</a> | <a href="#" onclick="DeletePlan(' + item.ID + ')">Borrar</a></td > ';
+                        html += '</tr>';
+                    });
+                    $('.tbody').html(html);
+                    $('.tabGesPlanAcc').css("display", "block");
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
         }
 
         function AddPlanAcc() {
@@ -327,7 +360,7 @@
                 type: "POST",
                 url: "/Acciones/CreatePlanAccion",
                 data: {
-                    ID: "0",
+                    ID: 0,
                     AccionID: accionID,
                     FechaInicial: $("#idFechaIni").val(),
                     FechaFinal: $("#idFechaFin").val(),
@@ -404,7 +437,7 @@
         }
 
         function DeletePlan(id) {
-            var ans = confirm("Esta seguro de querer borrar este registro ?");
+            var ans = confirm("Esta seguro de querer borrar este registro ?" + id);
             if (ans) {
                 $.ajax({
                     url: "/Acciones/DeletePlanAccion/" + id,
@@ -437,44 +470,6 @@
                 },
                 dataType: "json",
                 success: function (seguimientoPlan) {
-                    //Model.Seguimientos = seguimientoPlan;
-                    //html += '<td><a href="#" onclick="return getbyID(' + item.Id + ')">Edit</a> | <a href="#" onclick="Delele(' + item.Id + ')">Delete</a></td>';
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    alert(xhr.status);
-                    alert(thrownError);
-                }
-            });
-        }
-
-        //mostrar resultados
-        function mostrarPlanAcc() {
-            $(".tabGesSeguiPlanAcc").css("display", "none");
-            $(".tabGesPlanAcc").css("display", "block");
-            var accionID = @accionID;
-            $.ajax({
-                url: "/Acciones/ListarPlanAccion/",
-                data: { idAccion: accionID },
-                type: "GET",
-                contentType: "application/json;charset=utf-8",
-                dataType: "json",
-                async: true,                                               // si es asincrónico o no
-                success: function (result) {
-                    var html = '';
-                    $.each(result, function (key, item) {
-                        html += '<tr>';
-                        html += '<td>' + item.Causa + '</td>';
-                        html += '<td>' + item.Accion + '</td>';
-                        html += '<td>' + item.Prioritaria + '</td>';
-                        html += '<td>' + item.Responsable + '</td>';
-                        html += '<td>' + item.Costos + '</td>';
-                        html += '<td>' + item.FechaInicial + '</td>';
-                        html += '<td>' + item.FechaFinal + '</td>';
-                        html += '<td><a href="#" onclick="return getPlanByID(' + item.ID + ')">Editar</a> | <a href="#" onclick="DeletePlan(' + item.ID + ')">Borrar</a></td > ';
-                        html += '</tr>';
-                    });
-                    $('.tbody').html(html);
-                    $('.tabGesPlanAcc').css("display", "block");
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     alert(xhr.status);
@@ -506,6 +501,39 @@
                     });
                     $('.tbody').html(html);
                     $('.tabGesSeguiPlanAcc').css("display", "block");
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+        }
+
+        function UpdateAccion() {
+            $(".tabIdCausas").css("display", "none");
+            $.ajax({
+                type: "POST",
+                url: "CreateAccion",
+                data: {
+                    ID: "0",
+                    ZonaID: $("#zona").val(),
+                    procesoID: $("#proceso").val(),
+                    ActividadID: $("#activity").val(),
+                    TareaID: $("#tarea").val(),
+                    FechaSolicitud: $("#fechaSolicitud").val(),
+                    Categoria: $("#categoriaAcc").val(),
+                    TrabajadorID: $("#idTrabajador").val(),
+                    FuenteAccion: $("#idFuente").val(),
+                    Descripcion: $("#idDescrip").val(),
+                    EficaciaAntes: $("#idEficaciaAnt").val(),
+                    EficaciaDespues: $("#idEficaciaDesp").val(),
+                    FechaCierre: $("#idFechaCierre").val(),
+                    Efectiva: $("#idEfectiva").val(),
+                    Estado: $("#idEstado").val()
+                },
+                dataType: "json",
+                success: function (idAccion) {
+                    accionID = idAccion;
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     alert(xhr.status);
