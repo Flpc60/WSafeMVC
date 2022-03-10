@@ -21,8 +21,8 @@
     <hr />
     <h4>GESTIONAR ACCIONES</h4>
     <div class="btn-group btn-group-justified">
-        <button type="button" class="btn btn-warning" id="idCausas" title="doble click para cerrar la ventana"> IDENTIFICAR NO CONFORMIDAD</button>
-        <button type="button" class="btn btn-warning" id="planAcc" title="doble click para cerrar la ventana"> PLAN DE ACCIÓN</button>
+        <button type="button" class="btn btn-warning" id="idCausas"  title="doble click para cerrar la ventana"> IDENTIFICAR NO CONFORMIDAD</button>
+        <button type="button" class="btn btn-warning" id="planAcc"   title="doble click para cerrar la ventana"> PLAN DE ACCIÓN</button>
         <button type="button" class="btn btn-warning" id="seguimAcc" title="doble click para cerrar la ventana"> SEGUIMIENTO</button>
     </div>
     <hr />
@@ -139,7 +139,7 @@
     <div class="tabGesPlanAcc">
 
         <div class="col-md-12">
-            <button type="button" class="btn btn-info" id="addPlanAcc">Adicionar Nuevo Plan</button>
+            <button type="button" class="btn btn-info" id="addPlanAcc">Adicionar Nueva Acción</button>
         </div>
         <table class="table table-bordered table-hover">
             <thead>
@@ -262,7 +262,7 @@
 @section Scripts
 {
     <script>
-        ClearTextBox();
+        //ClearTextBox();
         var planID;
         var seguiID;
         $(document).ready(function () {
@@ -351,19 +351,20 @@
         function getPlanByID(PlanID) {
             planID = PlanID;
             $.ajax({
-                url: "/Acciones/GetPlanByID/",
+                url: "/Acciones/UpdatePlanAccion",
                 data: { ID: PlanID },
                 typr: "GET",
                 contentType: "application/json;charset=UTF-8",
                 dataType: "json",
-                success: function (result) {
-                    $('#idFechaIni').val(result.FechaInicial);
-                    $('#idFechaFin').val(result.FechaFinal);
-                    $('#idCausa').val(result.Causa);
-                    $('#accion').val(result.Accion);
-                    $('#idRespons').val(result.TrabajadorID);
-                    $('#idPrioritaria').val(result.Prioritaria);
-                    $('#idCostos').val(result.Costos);
+                success: function (planAcc) {
+                    ClearTextBox();
+                    $('#idFechaIni').val(planAcc.FechaInicial);
+                    $('#idFechaFin').val(planAcc.FechaFinal);
+                    $('#idCausa').val(planAcc.Causa);
+                    $('#accion').val(planAcc.Accion);
+                    $('#idRespons').val(planAcc.TrabajadorID);
+                    $('#idPrioritaria').val(planAcc.Prioritaria);
+                    $('#idCostos').val(planAcc.Costos);
                     $(".tabGesPlanAcc").css("display", "none");
                     $(".tabPlanAcc").css("display", "block");
                 },
