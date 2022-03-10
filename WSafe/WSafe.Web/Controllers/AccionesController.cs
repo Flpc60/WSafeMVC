@@ -240,7 +240,7 @@ namespace WSafe.Web.Controllers
             return Json(seguimientos, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
-        public JsonResult GetPlanByID(int ID)
+        public JsonResult UpdatePlanAccion(int ID)
         {
             var plan = _empresaContext.PlanesAccion.FirstOrDefault(pa => pa.ID == ID);
             return Json(plan, JsonRequestBehavior.AllowGet);
