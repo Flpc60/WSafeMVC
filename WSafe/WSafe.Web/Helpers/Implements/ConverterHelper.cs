@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using WSafe.Domain.Data.Entities;
 using WSafe.Web.Models;
@@ -472,12 +473,23 @@ namespace WSafe.Domain.Helpers.Implements
 
             return result;
         }
-
-        public PlanAccionVM ToPlanAccionVM(PlanAccion planAccion)
+        public PlanAccionVM ToPlanAccionVM(PlanAccion plan)
         {
-            throw new NotImplementedException();
+            var result = new PlanAccionVM
+            {
+                ID = plan.ID,
+                AccionID = plan.AccionID,
+                FechaInicial = plan.FechaInicial.ToString("dd/MM/yyyy"),
+                FechaFinal = plan.FechaFinal.ToString("dd/MM/yyyy"),
+                Causa = _gestorHelper.GetCausaAccion(plan.Causa).ToUpper(),
+                Accion = plan.Accion,
+                Prioritaria = plan.Prioritaria,
+                Costos = plan.Costos,
+                TrabajadorID = plan.TrabajadorID,
+                Responsable = _empresaContext.Trabajadores.Find(plan.TrabajadorID).NombreCompleto.ToUpper()
+            };
+            return result;
         }
-
         public PlanAccionVM ToPlanAccionVMNew()
         {
             throw new NotImplementedException();
@@ -501,6 +513,28 @@ namespace WSafe.Domain.Helpers.Implements
         public Task<SeguimientoAccion> ToSeguimientoAccionAsync(SeguimientoAccionVM model, bool isNew)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<PlanAccionVM> ToPlanAccionVMList(IEnumerable<PlanAccion> plan)
+        {
+            var model = new List<PlanAccionVM>();
+            foreach (var item in plan)
+            {
+                model.Add(new PlanAccionVM
+                {
+                    ID = item.ID,
+                    AccionID = item.AccionID,
+                    FechaInicial = item.FechaInicial.ToString("dd/MM/yyyy"),
+                    FechaFinal = item.FechaFinal.ToString("dd/MM/yyyy"),
+                    Causa = _gestorHelper.GetCausaAccion(item.Causa).ToUpper(),
+                    Accion = item.Accion.ToUpper(),
+                    Prioritaria = item.Prioritaria,
+                    Costos = item.Costos,
+                    TrabajadorID = item.TrabajadorID,
+                    Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpper()
+                });
+            }
+            return model;
         }
     }
 }
