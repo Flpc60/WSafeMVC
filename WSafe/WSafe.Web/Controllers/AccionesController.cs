@@ -18,8 +18,8 @@ namespace WSafe.Web.Controllers
         private readonly IConverterHelper _converterHelper;
         private readonly IGestorHelper _gestorHelper;
         public AccionesController
-            (EmpresaContext empresaContext, 
-            IComboHelper comboHelper, 
+            (EmpresaContext empresaContext,
+            IComboHelper comboHelper,
             IConverterHelper converterHelper,
             IGestorHelper gestorHelper)
         {
@@ -132,8 +132,14 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreatePlanAccion(PlanAccion planAccion)
+        public async Task<ActionResult> CreatePlanAccion([Bind(Include = "ID, AccionID, FechaInicial, FechaFinal, Causa, Accion, TrabajadorID, Prioritaria, Costos")] PlanAccion planAccion)
         {
+            if (planAccion.AccionID == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+
             if (ModelState.IsValid)
             {
                 _empresaContext.PlanesAccion.Add(planAccion);
@@ -213,7 +219,7 @@ namespace WSafe.Web.Controllers
                               Accion = pa.Accion.ToUpper(),
                               Prioritaria = pa.Prioritaria,
                               Costos = pa.Costos
-                        }).ToList();
+                          }).ToList();
 
             return Json(planes, JsonRequestBehavior.AllowGet);
         }
@@ -229,13 +235,13 @@ namespace WSafe.Web.Controllers
 
             //TODO
             var seguimientos = (from sa in _empresaContext.SeguimientosAccion.Where(sa => sa.AccionID == idAccion).AsEnumerable()
-                        select new
-                        {
-                            ID = sa.ID,
-                            FechaSeguimiento = sa.FechaSeguimiento.ToString("dd/MM/yyyy"),
-                            Responsable = sa.TrabajadorID,
-                            Resultado = sa.Resultado.ToUpper()
-                        }).ToList();
+                                select new
+                                {
+                                    ID = sa.ID,
+                                    FechaSeguimiento = sa.FechaSeguimiento.ToString("dd/MM/yyyy"),
+                                    Responsable = sa.TrabajadorID,
+                                    Resultado = sa.Resultado.ToUpper()
+                                }).ToList();
 
             return Json(seguimientos, JsonRequestBehavior.AllowGet);
         }
@@ -247,7 +253,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> UpdatePlanAccion(PlanAccion planAccion)
+        public async Task<ActionResult> UpdatePlanAccion([Bind(Include = "ID, AccionID, FechaInicial, FechaFinal, Causa, Accion, TrabajadorID, Prioritaria, Costos")] PlanAccion planAccion)
         {
             if (ModelState.IsValid)
             {
