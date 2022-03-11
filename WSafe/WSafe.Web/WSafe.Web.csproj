@@ -341,6 +341,18 @@
     <Compile Include="Migrations\202203101621188_CreaatePlan.Designer.cs">
       <DependentUpon>202203101621188_CreaatePlan.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202203112127025_CreatePlanVM.cs" />
+    <Compile Include="Migrations\202203112127025_CreatePlanVM.Designer.cs">
+      <DependentUpon>202203112127025_CreatePlanVM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203112250122_CreatePlanVM1.cs" />
+    <Compile Include="Migrations\202203112250122_CreatePlanVM1.Designer.cs">
+      <DependentUpon>202203112250122_CreatePlanVM1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203112314055_CreatePlanVM11.cs" />
+    <Compile Include="Migrations\202203112314055_CreatePlanVM11.Designer.cs">
+      <DependentUpon>202203112314055_CreatePlanVM11.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
     <Compile Include="Models\AplicacionVM.cs" />
@@ -538,6 +550,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202203101621188_CreaatePlan.resx">
       <DependentUpon>202203101621188_CreaatePlan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203112127025_CreatePlanVM.resx">
+      <DependentUpon>202203112127025_CreatePlanVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203112250122_CreatePlanVM1.resx">
+      <DependentUpon>202203112250122_CreatePlanVM1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203112314055_CreatePlanVM11.resx">
+      <DependentUpon>202203112314055_CreatePlanVM11.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

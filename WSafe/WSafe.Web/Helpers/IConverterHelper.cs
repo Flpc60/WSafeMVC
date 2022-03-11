@@ -29,5 +29,6 @@ namespace WSafe.Domain.Helpers
         SeguimientoAccionVM ToSeguimientoAccionVM(SeguimientoAccion seguimientoAccion);
         SeguimientoAccionVM ToSeguimientoAccionVMNew();
         Task<SeguimientoAccion> ToSeguimientoAccionAsync(SeguimientoAccionVM model, bool isNew);
+        IEnumerable<PlanAccionVM> ToPlanAccionVMList(IEnumerable<PlanAccion> plan);
     }
 }

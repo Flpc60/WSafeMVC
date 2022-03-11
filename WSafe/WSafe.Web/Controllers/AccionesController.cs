@@ -126,7 +126,7 @@ namespace WSafe.Web.Controllers
             var model = new PlanAccionVM
             {
                 AccionID = idAccion,
-                Trabajadores = _comboHelper.GetComboTrabajadores()
+                //Trabajadores = _comboHelper.GetComboTrabajadores()
             };
             return Json(model, JsonRequestBehavior.AllowGet);
         }
@@ -157,7 +157,7 @@ namespace WSafe.Web.Controllers
             var model = new SeguimientoAccionVM
             {
                 AccionID = idAccion,
-                Trabajadores = _comboHelper.GetComboTrabajadores()
+                //Trabajadores = _comboHelper.GetComboTrabajadores()
             };
             return Json(model, JsonRequestBehavior.AllowGet);
         }
@@ -208,20 +208,10 @@ namespace WSafe.Web.Controllers
             }
 
             //TODO
-            var planes = (from pa in _empresaContext.PlanesAccion.Where(pa => pa.AccionID == idAccion).AsEnumerable()
-                          select new
-                          {
-                              ID = pa.ID,
-                              FechaInicial = pa.FechaInicial.ToString("dd/MM/yyyy"),
-                              FechaFinal = pa.FechaFinal.ToString("dd/MM/yyyy"),
-                              Responsable = pa.TrabajadorID,
-                              Causa = _gestorHelper.GetCausaAccion(pa.Causa).ToUpper(),
-                              Accion = pa.Accion.ToUpper(),
-                              Prioritaria = pa.Prioritaria,
-                              Costos = pa.Costos
-                          }).ToList();
+            var planes = _empresaContext.PlanesAccion.Where(pa => pa.AccionID == idAccion).ToList();
+            var result = _converterHelper.ToPlanAccionVMList(planes);
 
-            return Json(planes, JsonRequestBehavior.AllowGet);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Seguimiento acción/ListarSeguimientoAccion
@@ -249,7 +239,8 @@ namespace WSafe.Web.Controllers
         public JsonResult UpdatePlanAccion(int ID)
         {
             var plan = _empresaContext.PlanesAccion.FirstOrDefault(pa => pa.ID == ID);
-            return Json(plan, JsonRequestBehavior.AllowGet);
+            var model = _converterHelper.ToPlanAccionVM(plan);
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
