@@ -495,11 +495,23 @@ namespace WSafe.Domain.Helpers.Implements
             throw new NotImplementedException();
         }
 
-        public Task<PlanAccion> ToPlanAccionAsync(PlanAccionVM model, bool isNew)
+        public async Task<PlanAccion> ToPlanAccionAsync(PlanAccion plan)
         {
-            throw new NotImplementedException();
+            
+            var result = new PlanAccion
+            {
+                ID = plan.ID,
+                AccionID = plan.AccionID,
+                FechaInicial = plan.FechaInicial,
+                FechaFinal = plan.FechaFinal,
+                Causa = plan.Causa,
+                Accion = plan.Accion,
+                TrabajadorID = plan.TrabajadorID,
+                Prioritaria = plan.Prioritaria,
+                Costos = plan.Costos
+            };
+            return result;
         }
-
         public SeguimientoAccionVM ToSeguimientoAccionVM(SeguimientoAccion seguimientoAccion)
         {
             throw new NotImplementedException();
