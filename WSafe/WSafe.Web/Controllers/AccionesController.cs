@@ -138,16 +138,17 @@ namespace WSafe.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            PlanAccion model = await _converterHelper.ToPlanAccionAsync(planAccion);
 
 
             if (ModelState.IsValid)
             {
-                _empresaContext.PlanesAccion.Add(planAccion);
+                _empresaContext.PlanesAccion.Add(model);
                 await _empresaContext.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            return Json(planAccion, JsonRequestBehavior.AllowGet);
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Seguimineto Plan acción/Create

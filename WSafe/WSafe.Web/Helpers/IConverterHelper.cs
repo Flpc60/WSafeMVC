@@ -25,7 +25,7 @@ namespace WSafe.Domain.Helpers
         Task<Aplicacion> ToAplicacionAsync(AplicacionVM model, bool isNew);
         PlanAccionVM ToPlanAccionVM(PlanAccion planAccion);
         PlanAccionVM ToPlanAccionVMNew();
-        Task<PlanAccion> ToPlanAccionAsync(PlanAccionVM model, bool isNew);
+        Task<PlanAccion> ToPlanAccionAsync(PlanAccion plan);
         SeguimientoAccionVM ToSeguimientoAccionVM(SeguimientoAccion seguimientoAccion);
         SeguimientoAccionVM ToSeguimientoAccionVMNew();
         Task<SeguimientoAccion> ToSeguimientoAccionAsync(SeguimientoAccionVM model, bool isNew);

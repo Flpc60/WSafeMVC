@@ -12,15 +12,15 @@ namespace WSafe.Web.Models
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int AccionID { get; set; }
-        public DateTime FechaInicial { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Fecha inicial")]
+        public string FechaInicial { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Fecha final")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime FechaFinal { get; set; }
+        public string FechaFinal { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Causa que originó la acción")]
-        public CategoriasCausa Causa { get; set; }
+        public string Causa { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Plan acción")]
         public string Accion { get; set; }

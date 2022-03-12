@@ -3,6 +3,7 @@
 function AddPlanAccion(accionID, mostrar) {
     $(".tabAddPlanAcc").css("display", "none");
     $(".tabPlanAcc").css("display", "none");
+    if ($("#idPrioritaria").val() == null) { $("#idPrioritaria").val(false) };
     $.ajax({
         type: "POST",
         url: "/Acciones/CreatePlanAccion",
@@ -36,7 +37,7 @@ function ClearTextBox() {
     $("#idCausa").val("");
     $("#accion").val("");
     $("#idRespons").val("");
-    $("#idPrioritaria").val("");
+    $("#idPrioritaria").val(false);
     $("#idCostos").val("");
     $(".tabGesPlanAcc").css("display", "none");
     $('.tabAddPlanAcc').css("display", "none");
