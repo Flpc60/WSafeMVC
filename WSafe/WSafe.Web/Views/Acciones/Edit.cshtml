@@ -257,10 +257,10 @@
 @section Scripts
 {
     <script type="text/javascript">
+        ClearTextBox();
         var planID;
         var seguiID;
         $(document).ready(function () {
-            ClearTextBox();
             $("#idCausas").click(function () {
                 $(".tabIdCausas").css("display", "block");
                 $(".tabAddPlanAcc").css("display", "none");
@@ -341,6 +341,7 @@
         }
 
         function getPlanByID(PlanID) {
+            ClearTextBox();
             planID = PlanID;
             $.ajax({
                 url: "/Acciones/UpdatePlanAccion",
@@ -348,17 +349,19 @@
                 typr: "GET",
                 contentType: "application/json;charset=UTF-8",
                 dataType: "json",
-                success: function (planAcc) {
+                success: function (result) {
                     ClearTextBox();
-                    $('#idFechaIni').val(planAcc.FechaInicial);
-                    $('#idFechaFin').val(planAcc.FechaFinal);
-                    $('#idCausa').val(planAcc.Causa);
-                    $('#accion').val(planAcc.Accion);
-                    $('#idRespons').val(planAcc.TrabajadorID);
-                    $('#idPrioritaria').val(planAcc.Prioritaria);
-                    $('#idCostos').val(planAcc.Costos);
-                    $(".tabGesPlanAcc").css("display", "none");
-                    $(".tabPlanAcc").css("display", "block");
+                    $.each(result, function (key, item) {
+                        $('#idFechaIni').value = item.FechaInicial;
+                        $('#idFechaFin').value = item.FechaFinal;
+                        $('#idCausa').value = item.Causa;
+                        $('#accion').value = item.Accion;
+                        $('#idRespons').value = item.TrabajadorID;
+                        $('#idPrioritaria').value = item.Prioritaria;
+                        $('#idCostos').value = item.Costos;
+                        $(".tabGesPlanAcc").css("display", "none");
+                        $(".tabPlanAcc").css("display", "block");
+                    });
                 },
                 error: function (errormessage) {
                     alert(errormessage.responseText);
