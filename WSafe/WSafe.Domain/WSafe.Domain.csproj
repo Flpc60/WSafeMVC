@@ -161,6 +161,7 @@
     <Compile Include="Models\IndicadorViewModel.cs" />
     <Compile Include="Models\IntervencionViewModel.cs" />
     <Compile Include="Models\ListaRiesgosVM.cs" />
+    <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\PlanAccionVM.cs" />
     <Compile Include="Models\RiesgoViewModel.cs" />
     <Compile Include="Models\RoleOperationVM.cs" />

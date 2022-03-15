@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using WSafe.Domain.Helpers;
 using WSafe.Domain.Repositories.Implements;
 using WSafe.Domain.Services.Implements;
+using WSafe.Web.Filters;
 using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
@@ -27,6 +28,7 @@ namespace WSafe.Web.Controllers
 
 
         // GET: Riesgos
+        //[AuthorizeUser(roleID: 1, operationID: 1)]
         public async Task<ActionResult> Index()
         {
             var list = await _empresaContext.Riesgos.Include(z => z.Zona)

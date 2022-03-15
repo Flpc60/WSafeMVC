@@ -39,5 +39,7 @@ namespace WSafe.Web.Models
         public DbSet<Role> Roles { get; set; }
         public DbSet<Operation> Operations { get; set; }
         public DbSet<RoleOperation> RoleOperations { get; set; }
+
+        public System.Data.Entity.DbSet<WSafe.Web.Models.LoginViewModel> LoginViewModels { get; set; }
     }
 }
