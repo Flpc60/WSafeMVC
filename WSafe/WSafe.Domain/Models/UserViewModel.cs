@@ -23,7 +23,7 @@ namespace WSafe.Web.Models
         [NotMapped]
         public string ConfirmPassword { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "Rol usuario")]
+        [Display(Name = "Perfil usuario")]
         public int RoleID { get; set; }
         public IEnumerable<SelectListItem> Roles { get; set; }
     }

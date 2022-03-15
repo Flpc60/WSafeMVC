@@ -1,26 +1,78 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using WSafe.Domain.Data.Entities;
+using WSafe.Domain.Helpers;
 using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
 {
     public class AccountsController : Controller
     {
-        private EmpresaContext db = new EmpresaContext();
+        private readonly EmpresaContext _empresaContext;
+        private readonly IConverterHelper _converterHelper;
+        private readonly IComboHelper _comboHelper;
+        private readonly IGestorHelper _gestorHelper;
+
+        public AccountsController
+            (
+                EmpresaContext empresaContext,
+                IConverterHelper converterHelper,
+                IComboHelper comboHelper,
+                IGestorHelper gestorHelper
+            )
+        {
+            empresaContext = _empresaContext;
+            converterHelper = _converterHelper;
+            comboHelper = _comboHelper;
+            gestorHelper = _gestorHelper;
+        }
+
 
         // GET: Accounts
         public async Task<ActionResult> Index()
         {
-            return View(await db.Users.ToListAsync());
+            return View(await _empresaContext.Users.ToListAsync());
         }
+
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(string user, string password)
+        {
+            if (user == null || password == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            try
+            {
+                var result = _empresaContext.Users.Where(u => u.Email == user.Trim() && u.Password == password.Trim()).FirstOrDefault();
+                if (result == null)
+                {
+                    ViewBag.Error = "Usuario o contraseña inválidos";
+                    return View();
+                }
+
+                Session["User"] = result;
+
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+                return View();
+            }
+        }
+
+
 
         // GET: Accounts/Details/5
         public async Task<ActionResult> Details(int? id)
@@ -29,7 +81,7 @@ namespace WSafe.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = await db.Users.FindAsync(id);
+            User user = await _empresaContext.Users.FindAsync(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -52,8 +104,8 @@ namespace WSafe.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Users.Add(user);
-                await db.SaveChangesAsync();
+                _empresaContext.Users.Add(user);
+                await _empresaContext.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
@@ -67,7 +119,7 @@ namespace WSafe.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = await db.Users.FindAsync(id);
+            User user = await _empresaContext.Users.FindAsync(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -84,8 +136,8 @@ namespace WSafe.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                _empresaContext.Entry(user).State = EntityState.Modified;
+                await _empresaContext.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             return View(user);
@@ -98,7 +150,7 @@ namespace WSafe.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = await db.Users.FindAsync(id);
+            User user = await _empresaContext.Users.FindAsync(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -111,9 +163,9 @@ namespace WSafe.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            User user = await db.Users.FindAsync(id);
-            db.Users.Remove(user);
-            await db.SaveChangesAsync();
+            User user = await _empresaContext.Users.FindAsync(id);
+            _empresaContext.Users.Remove(user);
+            await _empresaContext.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
@@ -121,9 +173,15 @@ namespace WSafe.Web.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _empresaContext.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult Logout()
+        {
+            Session["User"] = null;
+            return null;
         }
     }
 }
