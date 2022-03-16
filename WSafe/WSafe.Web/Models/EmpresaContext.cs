@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using WSafe.Domain.Data.Entities;
+using WSafe.Domain.Data.Entities.Auditor;
 
 namespace WSafe.Web.Models
 {
@@ -27,7 +28,18 @@ namespace WSafe.Web.Models
         public DbSet<IndicadorViewModel> IndicadorViewModels { get; set; }
         public DbSet<CreateIndicatorsViewModel> CreateIndicatorsViewModels { get; set; }
         public DbSet<Aplicacion> Aplicaciones { get; set; }
+        public DbSet<AplicacionVM> AplicacionVMs { get; set; }
         public DbSet<Accidentado> Accidentados { get; set; }
         public DbSet<Cargo> Cargos { get; set; }
+        public DbSet<PlanAccion> PlanesAccion { get; set; }
+        public DbSet<SeguimientoAccion> SeguimientosAccion { get; set; }
+        public DbSet<AuditRiesgo> AuditRiesgos { get; set; }
+        public DbSet<AuditaAccion> AuditaAcciones { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<Operation> Operations { get; set; }
+        public DbSet<RoleOperation> RoleOperations { get; set; }
+
+        public System.Data.Entity.DbSet<WSafe.Web.Models.LoginViewModel> LoginViewModels { get; set; }
     }
 }

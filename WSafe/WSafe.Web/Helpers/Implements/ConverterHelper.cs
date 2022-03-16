@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using WSafe.Domain.Data.Entities;
 using WSafe.Web.Models;
@@ -44,10 +45,24 @@ namespace WSafe.Domain.Helpers.Implements
                 Aceptabilidad = model.AceptabilidadNR,
                 NroExpuestos = model.NroExpuestos,
                 RequisitoLegal = model.RequisitoLegal,
-                MedidasIntervencion = isNew ? new List<Aplicacion>() : null,
-                Acciones = isNew ? new List<Accion>() : null,
                 IncidenteID = model.IncidenteID
             };
+            foreach (var item in model.Intervenciones)
+            {
+                result.MedidasIntervencion.Add(new Aplicacion
+                {
+                    RiesgoID = item.ID,
+                    Nombre = item.Nombre,
+                    CategoriaAplicacion = item.CategoriaAplicacion,
+                    Finalidad = item.Finalidad,
+                    Intervencion = item.Intervencion,
+                    Beneficios = item.Beneficios,
+                    Presupuesto = item.Presupuesto,
+                    //Trabajador = item.Trabajadores,
+                    Observaciones = item.Observaciones
+                });
+            }
+
             return result;
         }
         public RiesgoViewModel ToRiesgoViewModel(Riesgo riesgo)
@@ -84,7 +99,6 @@ namespace WSafe.Domain.Helpers.Implements
 
             return model;
         }
-
         public RiesgoViewModel ToRiesgoViewModelNew()
         {
             var model = new RiesgoViewModel
@@ -98,60 +112,80 @@ namespace WSafe.Domain.Helpers.Implements
                 Intervenciones = new List<AplicacionVM>()
             };
 
+            model.Intervenciones.Add(
+                new AplicacionVM()
+                {
+                    Trabajadores = _comboHelper.GetComboTrabajadores()
+                }
+                );
+
             return model;
         }
-        public AccionViewModel ToAccionViewModelNew(int id)
+        public AccionViewModel ToAccionViewModelNew()
         {
             var model = new AccionViewModel
             {
-                RiesgoID = id,
-                Trabajadores = _comboHelper.GetComboTrabajadores()
+                Zonas = _comboHelper.GetComboZonas(),
+                Procesos = _comboHelper.GetComboProcesos(),
+                Actividades = _comboHelper.GetComboActividades(),
+                Tareas = _comboHelper.GetComboTareas(),
+                Trabajadores = _comboHelper.GetComboTrabajadores(),
+                Planes = new List<PlanAccion>(),
+                Seguimientos = new List<SeguimientoAccion>()
             };
 
+            model.Planes.Add(new PlanAccion());
+            model.Seguimientos.Add( new SeguimientoAccion());
             return model;
         }
         public AccionViewModel ToAccionViewModel(Accion accion)
         {
             var model = new AccionViewModel
             {
-                RiesgoID = accion.ID,
-                Categoria = accion.Categoria,
+                ID = accion.ID,
+                ZonaID = accion.ZonaID,
+                Zonas = _comboHelper.GetComboZonas(),
+                ProcesoID = accion.ProcesoID,
+                Procesos = _comboHelper.GetComboProcesos(),
+                ActividadID = accion.ActividadID,
+                Actividades = _comboHelper.GetComboActividades(),
+                TareaID = accion.TareaID,
+                Tareas = _comboHelper.GetComboTareas(),
                 FechaSolicitud = accion.FechaSolicitud,
-                TrabajadorID = accion.Trabajador.ID,
+                Categoria = accion.Categoria,
+                TrabajadorID = accion.TrabajadorID,
                 Trabajadores = _comboHelper.GetComboTrabajadores(),
                 FuenteAccion = accion.FuenteAccion,
                 Descripcion = accion.Descripcion,
-                //CausasAccion = accion.CausasAccion,
-                //FechaInicial = accion.FechaInicial,
-                //FechaFinal = accion.FechaFinal,
-                //Plan = accion.PlanAcion,
-                //Seguimiento = accion.Seguimiento,
-                //FechaSeguimiento = accion.FechaSeguimiento,
-                //FechaCierre = accion.FechaCierre,
-                //Efectividad = accion.Efectividad
+                EficaciaAntes = accion.EficaciaAntes,
+                EficaciaDespues = accion.EficaciaDespues,
+                FechaCierre = accion.FechaCierre,
+                Efectiva = accion.Efectiva,
+                Estado = accion.Estado,
+                Planes = new List<PlanAccion>(),
+                Seguimientos = new List<SeguimientoAccion>()
             };
-
             return model;
         }
-        public async Task<Accion> ToAccionAsync(AccionViewModel model, bool isNew)
+        public async Task<Accion> ToAccionAsync(Accion model, bool isNew)
         {
             var result = new Accion
             {
                 ID = isNew ? 0 : model.ID,
-                RiesgoID = model.RiesgoID,
-                Categoria = model.Categoria,
+                ZonaID = model.ZonaID,
+                ProcesoID = model.ProcesoID,
+                ActividadID = model.ActividadID,
+                TareaID = model.TareaID,
                 FechaSolicitud = model.FechaSolicitud,
-                Trabajador = await _empresaContext.Trabajadores.FindAsync(model.TrabajadorID),
+                Categoria = model.Categoria,
+                TrabajadorID = model.TrabajadorID,
                 FuenteAccion = model.FuenteAccion,
                 Descripcion = model.Descripcion,
-                //CausasAccion = model.CausasAccion,
-                //FechaInicial = model.FechaInicial,
-                //FechaFinal = model.FechaFinal,
-                //Plan = model.Plan,
-                //Seguimiento = model.Seguimiento,
-                //FechaSeguimiento = model.FechaSeguimiento,
-                //FechaCierre = model.FechaCierre,
-                //Efectividad = model.Efectividad
+                EficaciaAntes = model.EficaciaAntes,
+                EficaciaDespues = model.EficaciaDespues,
+                FechaCierre = model.FechaCierre,
+                Efectiva = model.Efectiva,
+                Estado = model.Estado
             };
             return result;
         }
@@ -418,6 +452,101 @@ namespace WSafe.Domain.Helpers.Implements
                 });
             }
             return modelo;
+        }
+        public async Task<Aplicacion> ToAplicacionAsync(AplicacionVM model, bool isNew)
+        {
+            var result = new Aplicacion
+            {
+                ID = isNew ? 0 : model.ID,
+                RiesgoID = model.RiesgoID,
+                Nombre = model.Nombre,
+                CategoriaAplicacion = model.CategoriaAplicacion,
+                Finalidad = model.Finalidad,
+                Intervencion = model.Intervencion,
+                Beneficios = model.Beneficios,
+                Presupuesto = model.Presupuesto,
+                Trabajador = await _empresaContext.Trabajadores.FindAsync(model.TrabajadorID),
+                FechaInicial = model.FechaInicial,
+                FechaFinal = model.FechaFinal,
+                Observaciones = model.Observaciones
+            };
+
+            return result;
+        }
+        public PlanAccionVM ToPlanAccionVM(PlanAccion plan)
+        {
+            var result = new PlanAccionVM
+            {
+                ID = plan.ID,
+                AccionID = plan.AccionID,
+                FechaInicial = plan.FechaInicial.ToString("dd/MM/yyyy"),
+                FechaFinal = plan.FechaFinal.ToString("dd/MM/yyyy"),
+                Causa = _gestorHelper.GetCausaAccion(plan.Causa).ToUpper(),
+                Accion = plan.Accion,
+                Prioritaria = plan.Prioritaria,
+                Costos = plan.Costos,
+                TrabajadorID = plan.TrabajadorID,
+                Responsable = _empresaContext.Trabajadores.Find(plan.TrabajadorID).NombreCompleto.ToUpper()
+            };
+            return result;
+        }
+        public PlanAccionVM ToPlanAccionVMNew()
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<PlanAccion> ToPlanAccionAsync(PlanAccion plan)
+        {
+            
+            var result = new PlanAccion
+            {
+                ID = plan.ID,
+                AccionID = plan.AccionID,
+                FechaInicial = plan.FechaInicial,
+                FechaFinal = plan.FechaFinal,
+                Causa = plan.Causa,
+                Accion = plan.Accion,
+                TrabajadorID = plan.TrabajadorID,
+                Prioritaria = plan.Prioritaria,
+                Costos = plan.Costos
+            };
+            return result;
+        }
+        public SeguimientoAccionVM ToSeguimientoAccionVM(SeguimientoAccion seguimientoAccion)
+        {
+            throw new NotImplementedException();
+        }
+
+        public SeguimientoAccionVM ToSeguimientoAccionVMNew()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<SeguimientoAccion> ToSeguimientoAccionAsync(SeguimientoAccionVM model, bool isNew)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<PlanAccionVM> ToPlanAccionVMList(IEnumerable<PlanAccion> plan)
+        {
+            var model = new List<PlanAccionVM>();
+            foreach (var item in plan)
+            {
+                model.Add(new PlanAccionVM
+                {
+                    ID = item.ID,
+                    AccionID = item.AccionID,
+                    FechaInicial = item.FechaInicial.ToString("dd/MM/yyyy"),
+                    FechaFinal = item.FechaFinal.ToString("dd/MM/yyyy"),
+                    Causa = _gestorHelper.GetCausaAccion(item.Causa).ToUpper(),
+                    Accion = item.Accion.ToUpper(),
+                    Prioritaria = item.Prioritaria,
+                    Costos = item.Costos,
+                    TrabajadorID = item.TrabajadorID,
+                    Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpper()
+                });
+            }
+            return model;
         }
     }
 }

@@ -529,7 +529,7 @@
                 $("#addLesionado").click(function () {
                     if (idAccidented != null && idAccidented != '') {
                         $.ajax({
-                            type: "GET",                                              // tipo de request que estamos generando
+                            type: "GET",                                            // tipo de request que estamos generando
                             url: 'GetLesionado',                                      // URL al que vamos a hacer el pedido
                             data: { ID: $("#idLesionado").val() },                                         // data es un arreglo JSON que contiene los parámetros que
                             contentType: "application/json; charset=utf-8",            // tipo de contenido

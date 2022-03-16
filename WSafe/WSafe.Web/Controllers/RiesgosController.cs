@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using WSafe.Domain.Helpers;
 using WSafe.Domain.Repositories.Implements;
 using WSafe.Domain.Services.Implements;
+using WSafe.Web.Filters;
 using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
@@ -25,8 +26,8 @@ namespace WSafe.Web.Controllers
             _converterHelper = converterHelper;
         }
 
-
         // GET: Riesgos
+        [AuthorizeUser(1,2)]
         public async Task<ActionResult> Index()
         {
             var list = await _empresaContext.Riesgos.Include(z => z.Zona)
@@ -34,10 +35,9 @@ namespace WSafe.Web.Controllers
                 .Include(a => a.Actividad)
                 .Include(t => t.Tarea)
                 .Include(cp => cp.Peligro)
-                .Include(i => i.MedidasIntervencion)
                 .OrderByDescending(cr => cr.NivelRiesgo)
                 .ToListAsync();
-            var modelo  = _converterHelper.ToRiesgoViewModelList(list);
+            var modelo = _converterHelper.ToRiesgoViewModelList(list);
             return View(modelo);
         }
 
@@ -232,131 +232,6 @@ namespace WSafe.Web.Controllers
 
             return View(list);
         }
-        // GET: Controles
-        public async Task<ActionResult> GetAllAcciones(int id)
-        {
-            // TODO
-            var list = await _empresaContext.Acciones
-                .Where(c => c.RiesgoID == id)
-                .ToListAsync();
-
-            var result = await _empresaContext.Acciones.Include(t => t.Trabajador)
-                .FirstOrDefaultAsync(a => a.ID == id);
-            return View(list);
-        }
-
-        // GET: Riesgos/Create
-        public ActionResult CreateAccion(int id)
-        {
-            var accionView = _converterHelper.ToAccionViewModelNew(id);
-            return View(accionView);
-        }
-
-        // POST: Riesgos/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateAccion(AccionViewModel model)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    var consulta = new AccionService(new AccionRepository(_empresaContext));
-                    var accion = await _converterHelper.ToAccionAsync(model, true);
-                    var saved = await consulta.Insert(accion);
-                    if (saved != null)
-                    {
-                        return RedirectToAction("GetAllAcciones");
-                    }
-                }
-                return View(model);
-            }
-            catch
-            {
-                return View(model);
-            }
-        }
-
-        // GET: Riesgos/Edit/5
-        public async Task<ActionResult> EditAccion(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            var result = await _empresaContext.Acciones.Include(t => t.Trabajador)
-                .FirstOrDefaultAsync(i => i.ID == id.Value);
-
-            var accionViewModel = _converterHelper.ToAccionViewModel(result);
-
-            if (accionViewModel == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View(accionViewModel);
-        }
-
-        // POST: Riesgos/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditAccion(AccionViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    var consulta = new AccionService(new AccionRepository(_empresaContext));
-                    var result = await _converterHelper.ToAccionAsync(model, false);
-                    await consulta.Update(result);
-                    return RedirectToAction("GetAllAcciones");
-                }
-            }
-            catch (DbEntityValidationException ex)
-            {
-                //return View("Error", new HandleErrorInfo(ex, "Riesgos", "Create"));
-                throw ex;
-            }
-
-            return View(model);
-        }
-
-        // GET: Riesgos/Delete/5
-        public async Task<ActionResult> DeleteAccion(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            var result = await _empresaContext.Acciones.Include(t => t.Trabajador)
-                .FirstOrDefaultAsync(i => i.ID == id.Value);
-
-            try
-            {
-            }
-            catch (Exception ex)
-            {
-                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Create"));
-            }
-
-            if (result == null)
-            {
-                return HttpNotFound();
-            }
-            return View(result);
-        }
-
 
         // POST: Riesgos/Delete/5
         [HttpPost, ActionName("Delete")]
@@ -452,6 +327,29 @@ namespace WSafe.Web.Controllers
                 //return HttpNotFound();
             }
             return Json(intervenciones, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AgregarIntervenciones(AplicacionVM model)
+        {
+            if (model == null)
+            {
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var result = await _converterHelper.ToAplicacionAsync(model, true);
+                    _empresaContext.Aplicaciones.Add(result);
+                    var saved = await _empresaContext.SaveChangesAsync();
+                }
+            }
+            catch
+            {
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
     }
 }

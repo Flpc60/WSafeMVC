@@ -273,12 +273,16 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Controllers\AccionesController.cs" />
+    <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\AplicacionesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IncidentesController.cs" />
     <Compile Include="Controllers\IndicadoresController.cs" />
     <Compile Include="Controllers\RiesgosController.cs" />
     <Compile Include="Data\Entities\Accidentado.cs" />
+    <Compile Include="Data\Entities\Auditor\AuditaAccion.cs" />
+    <Compile Include="Data\Entities\Auditor\AuditRiesgo.cs" />
+    <Compile Include="Data\Entities\Auditor\TiposOperacion.cs" />
     <Compile Include="Data\Entities\Cargo.cs" />
     <Compile Include="Data\Entities\CategoriasCausa.cs" />
     <Compile Include="Data\Entities\FuentesAccion.cs" />
@@ -296,10 +300,16 @@
     <Compile Include="Data\Entities\Indicador.cs" />
     <Compile Include="Data\Entities\NivelesProbabilidad.cs" />
     <Compile Include="Data\Entities\NivelesRiesgo.cs" />
+    <Compile Include="Data\Entities\Operation.cs" />
     <Compile Include="Data\Entities\PlanAccion.cs" />
-    <Compile Include="Data\Entities\Seguimiento.cs" />
+    <Compile Include="Data\Entities\Role.cs" />
+    <Compile Include="Data\Entities\RoleOperation.cs" />
+    <Compile Include="Data\Entities\SeguimientoAccion.cs" />
     <Compile Include="Data\Entities\TiposIndicador.cs" />
     <Compile Include="Data\Entities\TiposPeriodicidad.cs" />
+    <Compile Include="Data\Entities\User.cs" />
+    <Compile Include="Filters\AuthorizeUser.cs" />
+    <Compile Include="Filters\VerificaSession.cs" />
     <Compile Include="Helpers\IChartHelper.cs" />
     <Compile Include="Helpers\IComboHelper.cs" />
     <Compile Include="Helpers\IConverterHelper.cs" />
@@ -310,13 +320,57 @@
     <Compile Include="Helpers\Implements\ConverterHelper.cs" />
     <Compile Include="Helpers\Implements\GestorHelper.cs" />
     <Compile Include="Helpers\Implements\IndicadorHelper.cs" />
-    <Compile Include="Migrations\202202071607509_createAccidentadoViewModel11.cs" />
-    <Compile Include="Migrations\202202071607509_createAccidentadoViewModel11.Designer.cs">
-      <DependentUpon>202202071607509_createAccidentadoViewModel11.cs</DependentUpon>
+    <Compile Include="Migrations\202202160020306_CreateMedidasInterVencion.cs" />
+    <Compile Include="Migrations\202202160020306_CreateMedidasInterVencion.Designer.cs">
+      <DependentUpon>202202160020306_CreateMedidasInterVencion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202202142339062_CreateIntervencion.cs" />
-    <Compile Include="Migrations\202202142339062_CreateIntervencion.Designer.cs">
-      <DependentUpon>202202142339062_CreateIntervencion.cs</DependentUpon>
+    <Compile Include="Migrations\202202232329047_Createseguimientos4.cs" />
+    <Compile Include="Migrations\202202232329047_Createseguimientos4.Designer.cs">
+      <DependentUpon>202202232329047_Createseguimientos4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203012235231_CreateAuditor.cs" />
+    <Compile Include="Migrations\202203012235231_CreateAuditor.Designer.cs">
+      <DependentUpon>202203012235231_CreateAuditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203021427523_CreateAuditor2.cs" />
+    <Compile Include="Migrations\202203021427523_CreateAuditor2.Designer.cs">
+      <DependentUpon>202203021427523_CreateAuditor2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203021544263_CreateAuditor3.cs" />
+    <Compile Include="Migrations\202203021544263_CreateAuditor3.Designer.cs">
+      <DependentUpon>202203021544263_CreateAuditor3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203021618015_CreateAuditor4.cs" />
+    <Compile Include="Migrations\202203021618015_CreateAuditor4.Designer.cs">
+      <DependentUpon>202203021618015_CreateAuditor4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203101621188_CreaatePlan.cs" />
+    <Compile Include="Migrations\202203101621188_CreaatePlan.Designer.cs">
+      <DependentUpon>202203101621188_CreaatePlan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203112127025_CreatePlanVM.cs" />
+    <Compile Include="Migrations\202203112127025_CreatePlanVM.Designer.cs">
+      <DependentUpon>202203112127025_CreatePlanVM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203112250122_CreatePlanVM1.cs" />
+    <Compile Include="Migrations\202203112250122_CreatePlanVM1.Designer.cs">
+      <DependentUpon>202203112250122_CreatePlanVM1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203112314055_CreatePlanVM11.cs" />
+    <Compile Include="Migrations\202203112314055_CreatePlanVM11.Designer.cs">
+      <DependentUpon>202203112314055_CreatePlanVM11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203141629414_CreateUsers.cs" />
+    <Compile Include="Migrations\202203141629414_CreateUsers.Designer.cs">
+      <DependentUpon>202203141629414_CreateUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203142215154_CreateRoles.cs" />
+    <Compile Include="Migrations\202203142215154_CreateRoles.Designer.cs">
+      <DependentUpon>202203142215154_CreateRoles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203142220395_CreateRoles1.cs" />
+    <Compile Include="Migrations\202203142220395_CreateRoles1.Designer.cs">
+      <DependentUpon>202203142220395_CreateRoles1.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -368,7 +422,13 @@
     <Compile Include="Models\IntervencionViewModel.cs" />
     <Compile Include="Models\ListaRiesgosVM.cs" />
     <Compile Include="Models\EquipoInvestigaVM.cs" />
+    <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\PlanAccionVM.cs" />
     <Compile Include="Models\RiesgoViewModel.cs" />
+    <Compile Include="Models\RoleOperationVM.cs" />
+    <Compile Include="Models\RoleViewModel.cs" />
+    <Compile Include="Models\SeguimientoAccionVM.cs" />
+    <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IAccionRepository.cs" />
     <Compile Include="Repositories\IAplicationRepository.cs" />
@@ -397,6 +457,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Funciones.js" />
+    <Content Include="Scripts\GestorRiesgosSST.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -469,6 +530,20 @@
     <Content Include="Views\Aplicaciones\Details.cshtml" />
     <Content Include="Views\Aplicaciones\Edit.cshtml" />
     <Content Include="Views\Aplicaciones\Index.cshtml" />
+    <Content Include="Views\Riesgos\prueba.cshtml" />
+    <Content Include="Views\Shared\_EditarPlanAcc.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Accounts\Create.cshtml" />
+    <Content Include="Views\Accounts\Delete.cshtml" />
+    <Content Include="Views\Accounts\Details.cshtml" />
+    <Content Include="Views\Accounts\Edit.cshtml" />
+    <Content Include="Views\Accounts\Index.cshtml" />
+    <Content Include="Views\Accounts\Login.cshtml" />
+    <Content Include="Views\Accounts\Login - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -490,11 +565,44 @@
     <EmbeddedResource Include="Migrations\202112012202348_InitialCreate.resx">
       <DependentUpon>202112012202348_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202202071607509_createAccidentadoViewModel11.resx">
-      <DependentUpon>202202071607509_createAccidentadoViewModel11.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202202160020306_CreateMedidasInterVencion.resx">
+      <DependentUpon>202202160020306_CreateMedidasInterVencion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202202142339062_CreateIntervencion.resx">
-      <DependentUpon>202202142339062_CreateIntervencion.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202202232329047_Createseguimientos4.resx">
+      <DependentUpon>202202232329047_Createseguimientos4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203012235231_CreateAuditor.resx">
+      <DependentUpon>202203012235231_CreateAuditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203021427523_CreateAuditor2.resx">
+      <DependentUpon>202203021427523_CreateAuditor2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203021544263_CreateAuditor3.resx">
+      <DependentUpon>202203021544263_CreateAuditor3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203021618015_CreateAuditor4.resx">
+      <DependentUpon>202203021618015_CreateAuditor4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203101621188_CreaatePlan.resx">
+      <DependentUpon>202203101621188_CreaatePlan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203112127025_CreatePlanVM.resx">
+      <DependentUpon>202203112127025_CreatePlanVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203112250122_CreatePlanVM1.resx">
+      <DependentUpon>202203112250122_CreatePlanVM1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203112314055_CreatePlanVM11.resx">
+      <DependentUpon>202203112314055_CreatePlanVM11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203141629414_CreateUsers.resx">
+      <DependentUpon>202203141629414_CreateUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203142215154_CreateRoles.resx">
+      <DependentUpon>202203142215154_CreateRoles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203142220395_CreateRoles1.resx">
+      <DependentUpon>202203142220395_CreateRoles1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

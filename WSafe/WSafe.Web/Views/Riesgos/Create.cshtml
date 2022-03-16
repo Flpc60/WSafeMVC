@@ -3,23 +3,27 @@
     ViewBag.Title = "Create";
 }
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
 <style>
-    #intervencion, #capInterven
-    {
-        display:none
+    .tabInterven, .capInterven, .tabPeligros, .tabEvalRiesgos, .tabMediAplica, .consInterven, .tabInterven {
+        display: none;
     }
-
 </style>
-
-@using (Html.BeginForm())
+@using (Html.BeginForm(FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>EVALUAR RIESGO</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
+<div class="form-horizontal">
+    <hr />
+    <hr />
+    <h4>GESTIÓN DE RIESGOS</h4>
+    <div class="btn-group btn-group-justified">
+        <button type="button" class="btn btn-warning" id="idPeligros" title="doble click para cerrar la ventana">1. IDENTIFICACIÓN PELIGROS</button>
+        <button type="button" class="btn btn-warning" id="evalRiesgos" title="doble click para cerrar la ventana">2. EVALUACIÓN RIESGOS</button>
+        <button type="button" class="btn btn-warning" id="mediAplica" title="doble click para cerrar la ventana">3. MEDIDAS INTERVENCIÓN</button>
+    </div>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="tabPeligros">
         <div class="form-group">
             @Html.LabelFor(model => model.Zonas, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
@@ -85,7 +89,12 @@
                 @Html.ValidationMessageFor(model => model.EfectosPosibles, "", new { @class = "text-danger" })
             </div>
         </div>
+        <div class="col-md-offset-2 col-md-4">
+            <input type="submit" value="Aceptar" class="btn btn-success" />
+        </div>
+    </div>
 
+    <div class="tabEvalRiesgos">
         <div class="form-group">
             @Html.LabelFor(model => model.NivelesDeficiencia, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
@@ -191,400 +200,519 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-offset-2 col-md-4">
+            <input type="submit" value="Aceptar" class="btn btn-success" />
+        </div>
+    </div>
 
-        <div class="form-group">
+    <div class="tabMediAplica">
+
+        <div class="btn-group btn-group-justified">
+            <button type="button" class="btn btn-info" id="consultarInte" title="doble click para cerrar la ventana">CONSULTAR MEDIDAS DE INTERVENCIÓN</button>
+            <button type="button" class="btn btn-info" id="aplicarMedi" title="doble click para cerrar la ventana">APLICAR MEDIDAS DE INTERVENCIÓN</button>
+            <button type="button" class="btn btn-info" id="Retornar" title="doble click para cerrar la ventana">VOLVER AL INDICE</button>
+        </div>
+
+        <div class="consInterven">
+            <table id="listaInterven" class="table">
+                <thead>
+                    <tr style="background-color:gainsboro">
+                        <th>
+                            descripción
+                        </th>
+                        <th>
+                            Categoria
+                        </th>
+                        <th>
+                            Finalidad
+                        </th>
+                        <th>
+                            Intervención
+                        </th>
+                        <th>
+                            Presupuesto
+                        </th>
+                        <th>
+                            Responsable
+                        </th>
+                        <th>
+                            Responsable
+                        </th>
+                        <th>
+                            Fecha inicial
+                        </th>
+                        <th>
+                            Fecha final
+                        </th>
+                        <th>
+                            Observaciones
+                        </th>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="tabInterven">
+            @foreach (var item in Model.Intervenciones)
+            {
+                <div class="form-group">
+                    @Html.LabelFor(modelItem => item.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(modelItem => item.Nombre, new { htmlAttributes = new { @class = "form-control", @id = "idNombre" } })
+                        @Html.ValidationMessageFor(modelItem => item.Nombre, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(modelItem => item.CategoriaAplicacion, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EnumDropDownListFor(modelItem => item.CategoriaAplicacion, htmlAttributes: new { @class = "form-control", @id = "idCatApli" })
+                        @Html.ValidationMessageFor(modelItem => item.CategoriaAplicacion, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(modelItem => item.Finalidad, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EnumDropDownListFor(modelItem => item.Finalidad, htmlAttributes: new { @class = "form-control", @id = "idFinal" })
+                        @Html.ValidationMessageFor(modelItem => item.Finalidad, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(modelItem => item.TrabajadorID, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.DropDownListFor(modelItem => item.TrabajadorID, item.Trabajadores, new { @class = "form-control", @id = "idRespons" })
+                        @Html.ValidationMessageFor(modelItem => item.TrabajadorID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(modelItem => item.Intervencion, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EnumDropDownListFor(modelItem => item.Intervencion, htmlAttributes: new { @class = "form-control", @id = "idInterven" })
+                        @Html.ValidationMessageFor(modelItem => item.Intervencion, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(modelItem => item.Beneficios, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(modelItem => item.Beneficios, new { htmlAttributes = new { @class = "form-control", @id = "idBeneficio" } })
+                        @Html.ValidationMessageFor(modelItem => item.Beneficios, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(modelItem => item.Presupuesto, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(modelItem => item.Presupuesto, new { htmlAttributes = new { @class = "form-control", @id = "idPresup" } })
+                        @Html.ValidationMessageFor(modelItem => item.Presupuesto, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(modelItem => item.FechaInicial, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(modelItem => item.FechaInicial, new { htmlAttributes = new { @class = "form-control", @id = "idFechaIni" } })
+                        @Html.ValidationMessageFor(modelItem => item.FechaInicial, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(modelItem => item.FechaFinal, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(modelItem => item.FechaFinal, new { htmlAttributes = new { @class = "form-control", @id = "idFechaFin" } })
+                        @Html.ValidationMessageFor(modelItem => item.FechaFinal, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(modelItem => item.Observaciones, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(modelItem => item.Observaciones, new { htmlAttributes = new { @class = "form-control", @id = "idObserv" } })
+                        @Html.ValidationMessageFor(modelItem => item.Observaciones, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
             <div class="col-md-offset-2 col-md-4">
-                <input type="submit" value="Aceptar" class="btn btn-success" />
+                <button type="button" class="btn btn-success" onclick="AddInterven()">Agregar</button>
             </div>
         </div>
     </div>
+</div>
 }
-
-<div class="btn-group btn-group-justified">
-    <button type="button" class="btn btn-info" id="consultarInte">CONSULTAR MEDIDAS DE INTERVENCIÓN</button>
-    <button type="button" class="btn btn-info" id="aplicarMedi">APLICAR MEDIDAS DE INTERVENCIÓN</button>
-    <button type="button" class="btn btn-warning" id="Retornar">Volver al Indice</button>
-</div>
-
-<div id="intervencion">
-    <table id="listaInterven" class="table">
-        <thead>
-            <tr style="background-color:gainsboro">
-                <th>
-                    descripción
-                </th>
-                <th>
-                    Categoria
-                </th>
-                <th>
-                    Finalidad
-                </th>
-                <th>
-                    Intervención
-                </th>
-                <th>
-                    Presupuesto
-                </th>
-                <th>
-                    Responsable
-                </th>
-                <th>
-                    Responsable
-                </th>
-                <th>
-                    Fecha inicial
-                </th>
-                <th>
-                    Fecha final
-                </th>
-                <th>
-                    Observaciones
-                </th>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-</div>
-
-<div id="capInterven">
-
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>MEDIDAS DE INTERVENCIÓN</h4>
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-        @foreach (var item in Model.Intervenciones)
-        {
-            <div class="form-group">
-                @Html.LabelFor(modelItem => item.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
-                    @Html.EditorFor(modelItem => item.Nombre, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(modelItem => item.Nombre, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-        }
-
-    </div>
-</div>
 
 
 @section Scripts
 {
-        <script type="text/javascript">
-
-            $(document).ready(function () {
-            $("#consultarInte").click(function () {
-                $.ajax({
-                    type: "GET",                                              // tipo de request que estamos generando
-                    url: 'GeIntervenciones',                                  // URL al que vamos a hacer el pedido
-                    data: { ID: @Model.ID },                                  // data es un arreglo JSON que contiene los parámetros que
-                    contentType: "application/json; charset=utf-8",           // tipo de contenido
-                    dataType: "json",                                         // formato de transmición de datos
-                    async: true,                                              // si es asincrónico o no
-                    success: function (intervencion) {                        // función que va a ejecutar si el pedido fue exitoso
-                        if (intervencion != null && !jQuery.isEmptyObject(intervencion)) {
-                            $.each(intervencion, function (i, datos) {
-                                var consulta = "";
-                                consulta += '<tr>';
-                                consulta += '<td>' + datos.Nombre + '</td>';
-                                consulta += '<td>' + datos.CategoriaAplicacion + '</td>';
-                                consulta += '<td>' + datos.Finalidad + '</td>';
-                                consulta += '<td>' + datos.Intervencion + '</td>';
-                                consulta += '<td>' + datos.Beneficios + '</td>';
-                                consulta += '<td>' + datos.Presupuesto + '</td>';
-                                consulta += '<td>' + datos.Trabajador + '</td>';
-                                consulta += '<td>' + datos.FechaInicial + '</td>';
-                                consulta += '<td>' + datos.Fechafinal + '</td>';
-                                consulta += '<td>' + datos.Observaciones + '</td>';
-                                consulta += '</tr>';
-                                $("#listaInterven").append(consulta);
-                            });
-
-                            $("#intervencion").css("display", "block");
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) { // función que va a ejecutar si hubo algún tipo de error en el pedido
-                        var error = eval("(" + XMLHttpRequest.responseText + ")");
-                        aler(error.Message);
-                    }
-                });
-            });
-        });
-
-        $(document).ready(function () {
-            $("#aplicarMedi").click(function () {
-                $.ajax({
-                    type: "POST",                                              // tipo de request que estamos generando
-                    url: 'GeIntervenciones',                                   // URL al que vamos a hacer el pedido
-                    data: { ID: @Model.ID },                                   // data es un arreglo JSON que contiene los parámetros que
-                    contentType: "application/json; charset=utf-8",            // tipo de contenido
-                    dataType: "json",                                          // formato de transmición de datos
-                    async: true,                                               // si es asincrónico o no
-                    success: function (intervencion) {                         // función que va a ejecutar si el pedido fue exitoso
-                        if (intervencion != null && !jQuery.isEmptyObject(intervencion)) {
-                            $.each(intervencion, function (i, datos) {
-                                var consulta = "";
-                                consulta += '<tr>';
-                                consulta += '<td>' + datos.Nombre + '</td>';
-                                consulta += '<td>' + datos.CategoriaAplicacion + '</td>';
-                                consulta += '<td>' + datos.Finalidad + '</td>';
-                                consulta += '<td>' + datos.Intervencion + '</td>';
-                                consulta += '<td>' + datos.Beneficios + '</td>';
-                                consulta += '<td>' + datos.Presupuesto + '</td>';
-                                consulta += '<td>' + datos.Trabajador + '</td>';
-                                consulta += '<td>' + datos.FechaInicial + '</td>';
-                                consulta += '<td>' + datos.Fechafinal + '</td>';
-                                consulta += '<td>' + datos.Observaciones + '</td>';
-                                consulta += '</tr>';
-                                $("#listaInterven").append(consulta);
-                            });
-
-                            $("#intervencion").css("display", "block");
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) { // función que va a ejecutar si hubo algún tipo de error en el pedido
-                        var error = eval("(" + XMLHttpRequest.responseText + ")");
-                        aler(error.Message);
-                    }
-                });
-            });
-        });
-
-        $('#zona').change(function () {
-            var zonasSelect = $('#zona').val();
-            zonasSelect.empty();
-            $.getJSON('@Url.Action("GetZonas")', function (zonas)
-            {
-                if (zonas != null && !jQuery.isEmptyObject(zonas))
-                {
-                    $.each(zonas, function (index, item)
-                    {
-                        zonasSelect.append($('<option />',
-                        {
-                            value: item.Value,
-                            text: item.Text
-                        }));
-                    });
-                };
-            });
-        });
-
-        $('#proceso').change(function () {
-            var procesosSelect = $('#proceso').val();
-            procesosSelect.empty();
-            $.getJSON('@Url.Action("GetProcesos")', function (procesos)
-            {
-                if (procesos != null && !jQuery.isEmptyObject(procesos))
-                {
-                    $.each(procesos, function (index, item)
-                    {
-                        procesosSelect.append($('<option />',
-                        {
-                            value: item.Value,
-                            text: item.Text
-                        }));
-                    });
-                };
-            });
-        });
-
-        $('#activity').change(function () {
-            var activitySelect = $('#activity').val();
-            activitySelect.empty();
-            $.getJSON('@Url.Action("GetActivities")', function (activities)
-            {
-                if (activities != null && !jQuery.isEmptyObject(activities))
-                {
-                    $.each(activities, function (index, item)
-                    {
-                        activitySelect.append($('<option />',
-                        {
-                            value: item.Value,
-                            text: item.Text
-                        }));
-                    });
-                };
-            });
-        });
-
-        $('#tarea').change(function () {
-            var tareasSelect = $('#tarea').val();
-            tareasSelect.empty();
-            $.getJSON('@Url.Action("GetTareas")', function (tareas)
-            {
-                if (tareas != null && !jQuery.isEmptyObject(tareas))
-                {
-                    $.each(tareas, function (index, item)
-                    {
-                        tareasSelect.append($('<option />',
-                        {
-                            value: item.Value,
-                            text: item.Text
-                        }));
-                    });
-                };
-            });
-        });
-
-        $('#categoria').change(function () {
-            var selectedCategoria = $("#categoria").val();
-            var peligroSelect = $('#peligro');
-            peligroSelect.empty();
-            if (selectedCategoria != null && selectedCategoria != '')
-            {
-                $.getJSON('@Url.Action("GetPeligros")', { ID: selectedCategoria }, function (peligros)
-                {
-                    if (peligros != null && !jQuery.isEmptyObject(peligros))
-                    {
-                        $.each(peligros, function (index, item)
-                        {
-                            peligroSelect.append($('<option />',
-                            {
-                                value: item.Value,
-                                text: item.Text
-                            }));
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $("#consultarInte").click(function () {
+            $.ajax({
+                type: "GET",                                              // tipo de request que estamos generando
+                url: 'GetIntervenciones',                                  // URL al que vamos a hacer el pedido
+                data: { ID: @Model.ID },                                  // data es un arreglo JSON que contiene los parámetros que
+                contentType: "application/json; charset=utf-8",           // tipo de contenido
+                dataType: "json",                                         // formato de transmición de datos
+                async: true,                                              // si es asincrónico o no
+                success: function (intervencion) {                        // función que va a ejecutar si el pedido fue exitoso
+                    if (intervencion != null && !jQuery.isEmptyObject(intervencion)) {
+                        $.each(intervencion, function (i, datos) {
+                            var consulta = "";
+                            consulta += '<tr>';
+                            consulta += '<td>' + datos.Nombre + '</td>';
+                            consulta += '<td>' + datos.CategoriaAplicacion + '</td>';
+                            consulta += '<td>' + datos.Finalidad + '</td>';
+                            consulta += '<td>' + datos.Intervencion + '</td>';
+                            consulta += '<td>' + datos.Beneficios + '</td>';
+                            consulta += '<td>' + datos.Presupuesto + '</td>';
+                            consulta += '<td>' + datos.Trabajador + '</td>';
+                            consulta += '<td>' + datos.FechaInicial + '</td>';
+                            consulta += '<td>' + datos.Fechafinal + '</td>';
+                            consulta += '<td>' + datos.Observaciones + '</td>';
+                            consulta += '</tr>';
+                            $("#listaInterven").append(consulta);
                         });
-                    };
+
+                        $(".consInterven").css("display", "block")
+                    }
+                    else
+                    {
+                        alert("No hay medidas de intervención para mostrar")
+                    }
+                },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) { // función que va a ejecutar si hubo algún tipo de error en el pedido
+                        var error = eval("(" + XMLHttpRequest.responseText + ")");
+                        alert(error.Message);
+                    }
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $("#aplicarMedi").click(function () {
+            $.ajax({
+                type: "GET",                                              // tipo de request que estamos generando
+                url: "GetTrabajadores",                                  // URL al que vamos a hacer el pedido
+                contentType: "application/json; charset=utf-8",           // tipo de contenido
+                dataType: "json",                                         // formato de transmición de datos
+                async: true,                                              // si es asincrónico o no
+                success: function (lista) {                        // función que va a ejecutar si el pedido fue exitoso
+                    if (lista != null && !jQuery.isEmptyObject(lista))
+                    {
+                        var model = @Model
+                        model.Intervenciones.Add(new AplicacionVM(
+                        {
+                            Trabajadores: lista
+                        }));
+                        $(".tabInterven").css("display", "block");
+                    }
+                },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) { // función que va a ejecutar si hubo algún tipo de error en el pedido
+                    var error = eval("(" + XMLHttpRequest.responseText + ")");
+                    alert(error.Message);
+                }
+            });
+        });
+    });
+
+
+    $(document).ready(function () {
+        $("#idPeligros").click(function () {
+            $(".tabPeligros").css("display", "block");
+        });
+
+        $("#idPeligros").dblclick(function () {
+            $(".tabPeligros").css("display", "none");
+        });
+
+        $("#evalRiesgos").click(function () {
+            $(".tabEvalRiesgos").css("display", "block");
+        });
+
+        $("#evalRiesgos").dblclick(function () {
+            $(".tabEvalRiesgos").css("display", "none");
+        });
+
+        $("#mediAplica").click(function () {
+            $(".tabMediAplica").css("display", "block");
+        });
+
+        $("#mediAplica").dblclick(function () {
+            $(".tabMediAplica").css("display", "none");
+        });
+
+        $("#aplicarMedi").click(function () {
+            $(".tabInterven").css("display", "block");
+        });
+
+        $("#aplicarMedi").dblclick(function () {
+            $(".tabInterven").css("display", "none");
+        });
+    });
+
+    $('#zona').change(function () {
+        var zonasSelect = $('#zona').val();
+        zonasSelect.empty();
+        $.getJSON('@Url.Action("GetZonas")', function (zonas)
+        {
+            if (zonas != null && !jQuery.isEmptyObject(zonas))
+            {
+                $.each(zonas, function (index, item)
+                {
+                    zonasSelect.append($('<option />',
+                    {
+                        value: item.Value,
+                        text: item.Text
+                    }));
                 });
-            }
+            };
         });
+    });
 
-        $('#deficienciaSelected').click(function () {
-            var selectedCategoria = $('#deficienciaSelected').val();
-            var nd = 0;
-            switch (selectedCategoria)
+    $('#proceso').change(function () {
+        var procesosSelect = $('#proceso').val();
+        procesosSelect.empty();
+        $.getJSON('@Url.Action("GetProcesos")', function (procesos)
+        {
+            if (procesos != null && !jQuery.isEmptyObject(procesos))
             {
-                case "1":
-                    nd = 10;
-                    break;
-
-                case "2":
-                    nd = 6;
-                    break;
-
-                case "3":
-                    nd = 2;
-                    break;
-
-                default:
-                    nd = 0;
-                    break;
-            }
-
-            $('#deficiencia').val(nd);
-            calcularProbabilidad();
+                $.each(procesos, function (index, item)
+                {
+                    procesosSelect.append($('<option />',
+                    {
+                        value: item.Value,
+                        text: item.Text
+                    }));
+                });
+            };
         });
+    });
 
-        $('#exposicionSelected').click(function () {
-            var selectedExposicion = $('#exposicionSelected').val();
-            var ne = 0;
-            switch (selectedExposicion)
+    $('#activity').change(function () {
+        var activitySelect = $('#activity').val();
+        activitySelect.empty();
+        $.getJSON('@Url.Action("GetActivities")', function (activities)
+        {
+            if (activities != null && !jQuery.isEmptyObject(activities))
             {
-                case "1":
-                    ne = 4;
-                    break;
-
-                case "2":
-                    ne = 3;
-                    break;
-
-                case "3":
-                    ne = 2;
-                    break;
-
-                default:
-                    ne = 1;
-                    break;
-            }
-
-            $('#exposicion').val(ne);
-            calcularProbabilidad();
+                $.each(activities, function (index, item)
+                {
+                    activitySelect.append($('<option />',
+                    {
+                        value: item.Value,
+                        text: item.Text
+                    }));
+                });
+            };
         });
+    });
 
-        $('#consecuenciaSelected').click(function () {
-            var selectedExposicion = $('#consecuenciaSelected').val();
-            var nc = 0;
-            switch (selectedExposicion)
+    $('#tarea').change(function () {
+        var tareasSelect = $('#tarea').val();
+        tareasSelect.empty();
+        $.getJSON('@Url.Action("GetTareas")', function (tareas)
+        {
+            if (tareas != null && !jQuery.isEmptyObject(tareas))
             {
-                case "1":
-                    nc = 100;
-                    break;
-
-                case "2":
-                    nc = 60;
-                    break;
-
-                case "3":
-                    nc = 25;
-                    break;
-
-                default:
-                    nc = 10;
-                    break;
-            }
-            $('#consecuencia').val(nc);
-            calcularRiesgo();
+                $.each(tareas, function (index, item)
+                {
+                    tareasSelect.append($('<option />',
+                    {
+                        value: item.Value,
+                        text: item.Text
+                    }));
+                });
+            };
         });
+    });
 
-        function calcularProbabilidad() {
-            var nd = $('#deficiencia').val();
-            var ne = $('#exposicion').val();
-            var probabilidad = nd * ne;
-            $('#probabilidad').val(probabilidad);
-            var interpretaNP = " ";
-            switch (true) {
-                case (probabilidad >= 24 && probabilidad <= 40):
-                    interpretaNP = "Muy alto (MA)";
-                    break;
-                case (probabilidad >= 10 && probabilidad < 24):
-                    interpretaNP = "Alto (A)";
-                    break;
-                case (probabilidad >= 8 && probabilidad < 10):
-                    interpretaNP = "Mdio (M)";
-                    break;
-                case (probabilidad >= 2 && probabilidad < 8):
-                    interpretaNP = "Bajo (B)";
-                    break;
+    $('#categoria').change(function () {
+        var selectedCategoria = $("#categoria").val();
+        var peligroSelect = $('#peligro');
+        peligroSelect.empty();
+        if (selectedCategoria != null && selectedCategoria != '')
+        {
+            $.getJSON('@Url.Action("GetPeligros")', { ID: selectedCategoria }, function (peligros)
+            {
+                if (peligros != null && !jQuery.isEmptyObject(peligros))
+                {
+                    $.each(peligros, function (index, item)
+                    {
+                        peligroSelect.append($('<option />',
+                        {
+                            value: item.Value,
+                            text: item.Text
+                        }));
+                    });
+                };
+            });
+        }
+    });
 
-                default:
-                    interpretaNP = "Bajo (B)";
-                    break;
-            }
-            $('#interpretaNP').val(interpretaNP);
+    $('#deficienciaSelected').click(function () {
+        var selectedCategoria = $('#deficienciaSelected').val();
+        var nd = 0;
+        switch (selectedCategoria)
+        {
+            case "1":
+                nd = 10;
+                break;
+
+            case "2":
+                nd = 6;
+                break;
+
+            case "3":
+                nd = 2;
+                break;
+
+            default:
+                nd = 0;
+                break;
         }
 
-        function calcularRiesgo() {
-            calcularProbabilidad();
-            var np = $('#probabilidad').val();
-            var nc = $('#consecuencia').val();
-            var riesgo = np * nc;
-            $('#riesgo').val(riesgo);
-            var interpretaNR = " ";
-            var  colorStyle = " ";
-            switch (true) {
-                case (riesgo >= 600):
-                    interpretaNR = "I";
-                    colorStyle = "red";
-                    break;
-                case (riesgo >= 150 && riesgo < 600):
-                    interpretaNR = "II";
-                    colorStyle = "yellow";
-                    break;
-                case (riesgo >= 40 && riesgo < 150):
-                    interpretaNR = "III";
-                    colorStyle = "orange";
-                    break;
+        $('#deficiencia').val(nd);
+        calcularProbabilidad();
+    });
 
-                default:
-                    interpretaNR = "IV";
-                    colorStyle = "green";
-                    break;
+    $('#exposicionSelected').click(function () {
+        var selectedExposicion = $('#exposicionSelected').val();
+        var ne = 0;
+        switch (selectedExposicion)
+        {
+            case "1":
+                ne = 4;
+                break;
+
+            case "2":
+                ne = 3;
+                break;
+
+            case "3":
+                ne = 2;
+                break;
+
+            default:
+                ne = 1;
+                break;
+        }
+
+        $('#exposicion').val(ne);
+        calcularProbabilidad();
+    });
+
+    $('#consecuenciaSelected').click(function () {
+        var selectedExposicion = $('#consecuenciaSelected').val();
+        var nc = 0;
+        switch (selectedExposicion)
+        {
+            case "1":
+                nc = 100;
+                break;
+
+            case "2":
+                nc = 60;
+                break;
+
+            case "3":
+                nc = 25;
+                break;
+
+            default:
+                nc = 10;
+                break;
+        }
+        $('#consecuencia').val(nc);
+        calcularRiesgo();
+    });
+
+    function AddInterven() {
+        $(".tabMediAplica").css("display", "none");
+        var riesgoID = 10;
+        var token = $('input[name=_token]').val();
+
+        $.ajax({
+            type: "POST",
+            url: "AgregarIntervenciones",
+            data: {
+                ID: "0",
+                RiesgoID: riesgoID,
+                Nombre: $("#idNombre").val(),
+                CategoriaAplicacion: $("#idCatApli").val(),
+                Finalidad: $("#idFinal").val(),
+                TrabajadorID: $("#idRespons").val(),
+                Intervencion: $("#idInterven").val(),
+                Beneficios: $("#idBeneficio").val(),
+                Presupuesto: $("#idPresup").val(),
+                FechaInicial: $("#idFechaIni").val(),
+                FechaFinal: $("#idFechaFin").val(),
+                Observaciones: $("#idObserv").val(),
+                tok: token
+            },
+            dataType: "json",
+            success: function (data, textStatus, jqXHR) { },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
             }
-            $('#interpretaNR').val(interpretaNR);
-            $('#interpretaNR').css({ "backgroundColor": colorStyle, "font-size": "200%" });
-        }
+        });
+    }
 
-            </script>
+    function calcularProbabilidad() {
+        var nd = $('#deficiencia').val();
+        var ne = $('#exposicion').val();
+        var probabilidad = nd * ne;
+        $('#probabilidad').val(probabilidad);
+        var interpretaNP = " ";
+        switch (true) {
+            case (probabilidad >= 24 && probabilidad <= 40):
+                interpretaNP = "Muy alto (MA)";
+                break;
+            case (probabilidad >= 10 && probabilidad < 24):
+                interpretaNP = "Alto (A)";
+                break;
+            case (probabilidad >= 8 && probabilidad < 10):
+                interpretaNP = "Mdio (M)";
+                break;
+            case (probabilidad >= 2 && probabilidad < 8):
+                interpretaNP = "Bajo (B)";
+                break;
+
+            default:
+                interpretaNP = "Bajo (B)";
+                break;
         }
+        $('#interpretaNP').val(interpretaNP);
+    }
+
+    function calcularRiesgo() {
+        calcularProbabilidad();
+        var np = $('#probabilidad').val();
+        var nc = $('#consecuencia').val();
+        var riesgo = np * nc;
+        $('#riesgo').val(riesgo);
+        var interpretaNR = " ";
+        var  colorStyle = " ";
+        switch (true) {
+            case (riesgo >= 600):
+                interpretaNR = "I";
+                colorStyle = "red";
+                break;
+            case (riesgo >= 150 && riesgo < 600):
+                interpretaNR = "II";
+                colorStyle = "yellow";
+                break;
+            case (riesgo >= 40 && riesgo < 150):
+                interpretaNR = "III";
+                colorStyle = "orange";
+                break;
+
+            default:
+                interpretaNR = "IV";
+                colorStyle = "green";
+                break;
+        }
+        $('#interpretaNR').val(interpretaNR);
+        $('#interpretaNR').css({ "backgroundColor": colorStyle, "font-size": "200%" });
+    }
+
+
+    </script>
+}
+

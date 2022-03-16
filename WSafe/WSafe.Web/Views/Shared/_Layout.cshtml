@@ -5,13 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - WSafe</title>
     @Styles.Render("~/Content/css")
+    @Scripts.Render("~/Content/GestorRiesgosSST.js")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryunobtrusive")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/bootstrap")
-
+    @RenderSection("header", required: false)
 </head>
+
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -26,16 +29,18 @@
             <div class="navbar-collapse collapse navbar-menu">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Riesgos", "Index", "Riesgos")</li>
-                    <li class="dropdown dropdown-submenu">
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Evaluación", "Index", "Riesgos")</li>
-                            <li>@Html.ActionLink("Intervención", "Index", "Aplicaciones")</li>
-                        </ul>
-                    </li>
                     <li>@Html.ActionLink("Incidentes", "Index", "Incidentes")</li>
                     <li>@Html.ActionLink("Indicadores", "Index", "Indicadores")</li>
                     <li>@Html.ActionLink("Acciones", "Index", "Acciones")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a><b>Bienvenido @User.Identity.Name</b></a></li>
+                    </ul>
+                }
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("Cerrar sesion", "Logout", "Accounts", new { @class = "glyphicon glyphicon-log-out" })</li>
                 </ul>
             </div>
         </div>

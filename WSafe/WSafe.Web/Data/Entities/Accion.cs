@@ -8,38 +8,45 @@ namespace WSafe.Domain.Data.Entities
     {
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         public int ID { get; set; }
-        public int RiesgoID { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "Tipo acción")]
-        public CategoriasAccion Categoria { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public int ZonaID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public int ProcesoID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public int ActividadID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public int TareaID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Fecha solicitud")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaSolicitud { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "Responsable")]
-        public Trabajador Trabajador { get; set; }
+        [Display(Name = "Tipo")]
+        public CategoriasAccion Categoria { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "Fuente origen")]
+        [Display(Name = "Nombre de quien reporta")]
+        public int TrabajadorID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatotio")]
+        [Display(Name = "Origen")]
         public FuentesAccion FuenteAccion { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "Descripción de la no conformidad")]
+        [Display(Name = "No conformidad")]
         public string Descripcion { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "Causas")]
-        public CategoriasCausa CausaAccion { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "Otras Causas")]
-        public CategoriasCausa SubCausa { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "Porque de la acción")]
-        public CategoriasCausa UltraCausa { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "Planes de acción")]
+        [Display(Name = "Indicador Antes")]
+        public CategoriasEfectividad EficaciaAntes { get; set; }
+        [Display(Name = "Indicador Despues")]
+        public CategoriasEfectividad EficaciaDespues { get; set; }
+        [Display(Name = "Fecha cierre")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime FechaCierre { get; set; }
+        [Display(Name = "Efectiva")]
+        public bool Efectiva { get; set; }
+        [Display(Name = "Cerrada")]
+        public bool Estado { get; set; }
         public IEnumerable<PlanAccion> Planes { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "Seguimientos Planes de acción")]
-        public IEnumerable<Seguimiento> Seguimientos { get; set; }
+        public IEnumerable<SeguimientoAccion> Seguimientos { get; set; }
     }
 }

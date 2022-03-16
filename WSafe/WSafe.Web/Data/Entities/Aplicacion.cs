@@ -20,8 +20,8 @@ namespace WSafe.Domain.Data.Entities
         public string Beneficios { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public decimal Presupuesto { get; set; }
-
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Responsable")]
         public Trabajador Trabajador { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Fecha inicial")]
