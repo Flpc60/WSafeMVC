@@ -16,7 +16,6 @@ namespace WSafe.Web.Controllers
         private readonly IConverterHelper _converterHelper;
         private readonly IComboHelper _comboHelper;
         private readonly IGestorHelper _gestorHelper;
-
         public AccountsController
             (
                 EmpresaContext empresaContext,
@@ -25,44 +24,37 @@ namespace WSafe.Web.Controllers
                 IGestorHelper gestorHelper
             )
         {
-            empresaContext = _empresaContext;
-            converterHelper = _converterHelper;
-            comboHelper = _comboHelper;
-            gestorHelper = _gestorHelper;
-        }
-
-
-        // GET: Accounts
-        public async Task<ActionResult> Index()
-        {
-            return View(await _empresaContext.Users.ToListAsync());
+            _empresaContext = empresaContext;
+            _converterHelper = converterHelper;
+            _comboHelper = comboHelper;
+            _gestorHelper = gestorHelper;
         }
 
         [HttpGet]
         public ActionResult Login()
         {
-            return View();
+            var model = new LoginViewModel();
+            return View(model);
         }
 
         [HttpPost]
-        public ActionResult Login(string user, string password)
+        public ActionResult Login(LoginViewModel model)
         {
-            if (user == null || password == null)
+            if (model.Email == null || model.Password == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
             try
             {
-                var result = _empresaContext.Users.Where(u => u.Email == user.Trim() && u.Password == password.Trim()).FirstOrDefault();
+                var result = _empresaContext.Users.Where(u => u.Email == model.Email.Trim() && u.Password == model.Password.Trim()).FirstOrDefault();
                 if (result == null)
                 {
                     ViewBag.Error = "Usuario o contraseña inválidos";
-                    return View();
+                    return View("Login");
                 }
 
                 Session["User"] = result;
-
                 return RedirectToAction("Index", "Home");
             }
             catch (Exception ex)
@@ -71,8 +63,6 @@ namespace WSafe.Web.Controllers
                 return View();
             }
         }
-
-
 
         // GET: Accounts/Details/5
         public async Task<ActionResult> Details(int? id)

@@ -26,9 +26,8 @@ namespace WSafe.Web.Controllers
             _converterHelper = converterHelper;
         }
 
-
         // GET: Riesgos
-        //[AuthorizeUser(roleID: 1, operationID: 1)]
+        [AuthorizeUser(1,2)]
         public async Task<ActionResult> Index()
         {
             var list = await _empresaContext.Riesgos.Include(z => z.Zona)
