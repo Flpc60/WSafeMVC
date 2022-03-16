@@ -16,8 +16,8 @@ namespace WSafe.Web.Filters
         private int _roleID;
         public AuthorizeUser(int roleID, int operationID)
         {
-            _operationID = operationID;
             _roleID = roleID;
+            _operationID = operationID;
         }
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
