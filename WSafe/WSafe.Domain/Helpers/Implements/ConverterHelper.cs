@@ -156,6 +156,7 @@ namespace WSafe.Domain.Helpers.Implements
                 TrabajadorID = accion.TrabajadorID,
                 Trabajadores = _comboHelper.GetComboTrabajadores(),
                 FuenteAccion = accion.FuenteAccion,
+                Origen = _gestorHelper.GetFuenteAccion(accion.FuenteAccion).ToUpper(),
                 Descripcion = accion.Descripcion,
                 EficaciaAntes = accion.EficaciaAntes,
                 EficaciaDespues = accion.EficaciaDespues,
@@ -165,6 +166,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Planes = new List<PlanAccion>(),
                 Seguimientos = new List<SeguimientoAccion>()
             };
+            model.Planes.Add(new PlanAccion());
+            model.Seguimientos.Add(new SeguimientoAccion());
             return model;
         }
         public async Task<Accion> ToAccionAsync(Accion model, bool isNew)
@@ -495,11 +498,23 @@ namespace WSafe.Domain.Helpers.Implements
             throw new NotImplementedException();
         }
 
-        public Task<PlanAccion> ToPlanAccionAsync(PlanAccionVM model, bool isNew)
+        public async Task<PlanAccion> ToPlanAccionAsync(PlanAccion plan)
         {
-            throw new NotImplementedException();
+            
+            var result = new PlanAccion
+            {
+                ID = plan.ID,
+                AccionID = plan.AccionID,
+                FechaInicial = plan.FechaInicial,
+                FechaFinal = plan.FechaFinal,
+                Causa = plan.Causa,
+                Accion = plan.Accion,
+                TrabajadorID = plan.TrabajadorID,
+                Prioritaria = plan.Prioritaria,
+                Costos = plan.Costos
+            };
+            return result;
         }
-
         public SeguimientoAccionVM ToSeguimientoAccionVM(SeguimientoAccion seguimientoAccion)
         {
             throw new NotImplementedException();
@@ -532,6 +547,30 @@ namespace WSafe.Domain.Helpers.Implements
                     Costos = item.Costos,
                     TrabajadorID = item.TrabajadorID,
                     Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpper()
+                });
+            }
+            return model;
+        }
+        public IEnumerable<AccionViewModel> ToAccionVMList(IEnumerable<Accion> accion)
+        {
+            var model = new List<AccionViewModel>();
+            foreach (var item in accion)
+            {
+                model.Add(new AccionViewModel
+                {
+                    ID = item.ID,
+                    FechaSolicitud = item.FechaSolicitud,
+                    Categoria = item.Categoria,
+                    TrabajadorID = item.TrabajadorID,
+                    Trabajadores = _comboHelper.GetComboTrabajadores(),
+                    FuenteAccion = item.FuenteAccion,
+                    Origen = _gestorHelper.GetFuenteAccion(item.FuenteAccion).ToUpper(),
+                    Descripcion = item.Descripcion,
+                    EficaciaAntes = item.EficaciaAntes,
+                    EficaciaDespues = item.EficaciaDespues,
+                    FechaCierre = item.FechaCierre,
+                    Efectiva = item.Efectiva,
+                    Estado = item.Estado
                 });
             }
             return model;

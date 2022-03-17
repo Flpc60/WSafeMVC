@@ -265,5 +265,38 @@ namespace WSafe.Domain.Helpers.Implements
                     return "Falta medición o control";
             }
         }
+        public string GetFuenteAccion(FuentesAccion fuentes)
+        {
+            switch (fuentes)
+            {
+                case FuentesAccion.AuditoriaInt:
+                    return "Auditoria Interna  de Calidad o de Gestión";
+
+                case FuentesAccion.AuditoriaExt:
+                    return "Auditoria externa";
+                case FuentesAccion.Mapa:
+                    return "Mapa de riesgos";
+                case FuentesAccion.NoConformidad:
+                    return "Producto y/o servicio no conforme";
+                case FuentesAccion.Indicador:
+                    return "Indicadores de Gestión de los procesos";
+                case FuentesAccion.Incumplimiento:
+                    return "Incumplimiento de documentos del SIG";
+                case FuentesAccion.AccPropuesta:
+                    return "Acciones propuestas en reunión, comité, consejos";
+                case FuentesAccion.Quejas:
+                    return "Quejas, reclamos o Sugerencias";
+                case FuentesAccion.Revision:
+                    return "Revisión por la dirección";
+                case FuentesAccion.Encuesta:
+                    return "Encuesta de Satisfacción";
+                case FuentesAccion.Incidente:
+                    return "Investigación incidente / accidente";
+                case FuentesAccion.OtraFuente:
+                    return "Otra";
+                default:
+                    return "Auditoria Interna  de Calidad o de Gestión";
+            }
+        }
     }
 }
