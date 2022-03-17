@@ -1,12 +1,7 @@
 ﻿@model WSafe.Web.Models.AccionViewModel
-
-@{
-    var modelo = new List<WSafe.Domain.Data.Entities.PlanAccion>();
-    modelo.Add(new WSafe.Domain.Data.Entities.PlanAccion());
-}
 <hr />
 
-@foreach (var item in modelo)
+@foreach (var item in Model.Planes)
 {
     <div class="form-group">
         @Html.LabelFor(modelItem => item.FechaInicial, htmlAttributes: new { @class = "control-label col-md-2" })

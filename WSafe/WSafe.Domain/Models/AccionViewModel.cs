@@ -43,10 +43,12 @@ namespace WSafe.Web.Models
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un trabajador.")]
         public int TrabajadorID { get; set; }
         public IEnumerable<SelectListItem> Trabajadores { get; set; }
-
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Fuente origen")]
         public FuentesAccion FuenteAccion { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatotio")]
+        [Display(Name = "Fuente origen")]
+        public string Origen { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Descripción de la no conformidad")]
         public string Descripcion { get; set; }

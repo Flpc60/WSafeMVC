@@ -19,5 +19,6 @@ namespace WSafe.Domain.Helpers
         string GetEstadoCivil(EstadosCivil estado);
         string GetTipoVinculacion(TiposVinculacion tipo);
         string GetCausaAccion(CategoriasCausa categoria);
+        string GetFuenteAccion(FuentesAccion fuentes);
     }
 }

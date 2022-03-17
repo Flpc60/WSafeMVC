@@ -43,10 +43,12 @@ namespace WSafe.Web.Models
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un trabajador.")]
         public int TrabajadorID { get; set; }
         public IEnumerable<SelectListItem> Trabajadores { get; set; }
-
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Fuente origen")]
         public FuentesAccion FuenteAccion { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatotio")]
+        [Display(Name = "Fuente origen")]
+        public string Origen { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Descripción de la no conformidad")]
         public string Descripcion { get; set; }
@@ -61,10 +63,10 @@ namespace WSafe.Web.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaCierre { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "La acción fué efectiva ?")]
+        [Display(Name = "Efectiva")]
         public bool Efectiva { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "Cerrada ?")]
+        [Display(Name = "Cerrada")]
         public bool Estado { get; set; }
         public ICollection<PlanAccion> Planes { get; set; }
         public ICollection<SeguimientoAccion> Seguimientos { get; set; }

@@ -372,6 +372,10 @@
     <Compile Include="Migrations\202203142220395_CreateRoles1.Designer.cs">
       <DependentUpon>202203142220395_CreateRoles1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202203162034513_CreateAccionVM.cs" />
+    <Compile Include="Migrations\202203162034513_CreateAccionVM.Designer.cs">
+      <DependentUpon>202203162034513_CreateAccionVM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
     <Compile Include="Models\AplicacionVM.cs" />
@@ -603,6 +607,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202203142220395_CreateRoles1.resx">
       <DependentUpon>202203142220395_CreateRoles1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203162034513_CreateAccionVM.resx">
+      <DependentUpon>202203162034513_CreateAccionVM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

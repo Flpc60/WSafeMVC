@@ -260,6 +260,18 @@
 
         function AddAccion() {
             $(".tabIdCausas").css("display", "none");
+            if ($("#idEfectiva").is(':checked')) {
+                $("#idEfectiva").val(true)
+            }
+            else {
+                $("#idEfectiva").val(false)
+            }
+            if ($("#idEstado").is(':checked')) {
+                $("#idEstado").val(true)
+            }
+            else {
+                $("#idEstado").val(false)
+            }
             $.ajax({
                 type: "POST",
                 url: "CreateAccion",

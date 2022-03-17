@@ -32,8 +32,12 @@ namespace WSafe.Web.Controllers
         // GET: Acciones
         public async Task<ActionResult> Index()
         {
-            var consulta = new AccionService(new AccionRepository(_empresaContext));
-            return View(await consulta.GetALL());
+            var list = await _empresaContext.Acciones
+                .Where(a => a.Estado == false)
+                .OrderByDescending(a => a.FechaSolicitud)
+                .ToListAsync();
+            var modelo = _converterHelper.ToAccionVMList(list);
+            return View(modelo);
         }
 
         // GET: Acciones/Create
@@ -44,8 +48,6 @@ namespace WSafe.Web.Controllers
         }
 
         // POST: Acciones/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         public ActionResult Create(AccionViewModel model)
         {

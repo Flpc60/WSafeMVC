@@ -3,6 +3,13 @@
 function AddPlanAccion(accionID, mostrar) {
     $(".tabAddPlanAcc").css("display", "none");
     $(".tabPlanAcc").css("display", "none");
+    if ($("#idPrioritaria").is(':checked')) {
+        $("#idPrioritaria").val(true)
+    }
+    else {
+        $("#idPrioritaria").val(false)
+    }
+
     if ($("#idPrioritaria").val() == null) { $("#idPrioritaria").val(false) };
     $.ajax({
         type: "POST",
