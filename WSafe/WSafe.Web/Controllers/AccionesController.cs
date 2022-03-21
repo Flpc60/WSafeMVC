@@ -243,7 +243,7 @@ namespace WSafe.Web.Controllers
         {
             var plan = _empresaContext.PlanesAccion.FirstOrDefault(pa => pa.ID == ID);
             var model = _converterHelper.ToPlanAccionVM(plan);
-            return Json(model, JsonRequestBehavior.AllowGet);
+            return Json(data: new { success = true, data = model }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
