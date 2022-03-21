@@ -1,5 +1,4 @@
 ﻿@model WSafe.Web.Models.AccionViewModel
-<hr />
 
 @foreach (var item in Model.Planes)
 {
@@ -54,10 +53,4 @@
             @Html.ValidationMessageFor(modelItem => item.Costos, "", new { @class = "text-danger" })
         </div>
     </div>
-}
-
-@section Scripts
-{
-    <script>
-    </script>
 }

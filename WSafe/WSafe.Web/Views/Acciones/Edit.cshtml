@@ -5,6 +5,7 @@
     ViewBag.Title = "Create";
     var accionID = @ViewBag.AccionID;
 }
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
 <style>
@@ -212,11 +213,58 @@
         </div>
 
         <div class="tabPlanAcc">
-            @Html.Partial("_EditarPlanAcc")
+            <div id="_EditarPlanAcc">
+
+                @foreach (var item in Model.Planes)
+                {
+                    <div class="form-row">
+                        <hr />
+                        <div class="col-md-4 mb-3">
+                            <label for="idFechaIni">Fecha inicial :</label>
+                            <input type="date" class="form-control" id="idFechaIni" value="validarFecha('idFechaIni')" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="idFechaFin">Fecha final :</label>
+                            <input type="date" class="form-control" id="idFechaFin" value="validarFecha('idFechaFin')" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="idCausa">Causa :</label>
+                            @Html.EnumDropDownListFor(modelItem => item.Causa, htmlAttributes: new { @class = "form-control", @id = "idCausa" })
+                            @Html.ValidationMessageFor(modelItem => item.Causa, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <hr />
+                            <label for="accion">Acción</label>
+                            <textarea id="accion" style="resize:none;" class="form-control" placeholder="Escriba acciones a realizar" required></textarea>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-3 mb-4">
+                            <hr />
+                            <label for="idRespons">Trabajador responsable :</label>
+                            @Html.DropDownListFor(modelItem => item.TrabajadorID, Model.Trabajadores, new { @class = "form-control", @id = "idRespons" })
+                            @Html.ValidationMessageFor(modelItem => item.TrabajadorID, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-3 mb-4">
+                            <hr />
+                            <label for="idPrioritaria">Prioritaria :</label>
+                            <input type="checkbox" class="form-control" id="idPrioritaria">
+                        </div>
+                        <div class="col-md-3 mb-4">
+                            <hr />
+                            <label for="idCostos">Costos :</label>
+                            <input type="number" class="form-control" id="idCostos" onclick="validarCostos('idCostos')">
+                        </div>
+                    </div>
+                }
+        </div>
+
             <div class="col-md-offset-2 col-md-4">
+                <hr />
                 <button type="button" class="btn btn-primary" onclick="UpdatePlanAcc()">Guardar</button>
             </div>
-
         </div>
 
         <div class="tabSeguimAcc">
@@ -257,10 +305,10 @@
 @section Scripts
 {
     <script type="text/javascript">
-        ClearTextBox();
         var planID;
         var seguiID;
         $(document).ready(function () {
+            ClearTextBox();
             $("#idCausas").click(function () {
                 $(".tabIdCausas").css("display", "block");
                 $(".tabAddPlanAcc").css("display", "none");
@@ -327,7 +375,7 @@
                         html += '<td>' + item.Costos + '</td>';
                         html += '<td>' + item.FechaInicial + '</td>';
                         html += '<td>' + item.FechaFinal + '</td>';
-                        html += '<td><a href="#" onclick="return getPlanByID(' + item.ID + ')">Editar</a> | <a href="#" onclick="DeletePlan(' + item.ID + ')">Borrar</a></td > ';
+                        html += '<td><a href="#" onclick="return getPlanByID(' + item.ID + ')">Editar</a> | <a href = "#" onclick = "DeletePlan(' + item.ID + ')"> Borrar</a></td>';
                         html += '</tr>';
                     });
                     $('.tbody').html(html);
@@ -344,29 +392,32 @@
             ClearTextBox();
             planID = PlanID;
             $.ajax({
+                async: true,
+                type: 'GET',
                 url: "/Acciones/UpdatePlanAccion",
                 data: { ID: PlanID },
-                typr: "GET",
-                contentType: "application/json;charset=UTF-8",
                 dataType: "json",
+                contentType: "application/json;charset=UTF-8",
                 success: function (result) {
-                    ClearTextBox();
-                    $.each(result, function (key, item) {
-                        $('#idFechaIni').value = item.FechaInicial;
-                        $('#idFechaFin').value = item.FechaFinal;
-                        $('#idCausa').value = item.Causa;
-                        $('#accion').value = item.Accion;
-                        $('#idRespons').value = item.TrabajadorID;
-                        $('#idPrioritaria').value = item.Prioritaria;
-                        $('#idCostos').value = item.Costos;
-                        $(".tabGesPlanAcc").css("display", "none");
-                        $(".tabPlanAcc").css("display", "block");
-                    });
+                    editarAccion(result);
                 },
                 error: function (errormessage) {
                     alert(errormessage.responseText);
                 }
             });
+        }
+
+        function editarAccion(result) {
+            $("#idFechaIni").val(result.FechaInicial);
+            $("#idFechaFin").val(result.FechaFinal);
+            $("#idCausa").val(result.Causa);
+            $("#accion").val(result.Accion);
+            $("#idRespons").val(result.TrabajadorID);
+            $("#idPrioritaria").val(result.Prioritaria);
+            $("#idCostos").val(result.Costos);
+            $(".tabGesPlanAcc").css("display", "none");
+            $(".tabPlanAcc").css("display", "block");
+            $("#_EditarPlanAcc").css("display", "block");
         }
 
         function UpdatePlanAcc() {

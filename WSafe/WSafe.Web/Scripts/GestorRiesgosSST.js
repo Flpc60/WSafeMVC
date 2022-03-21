@@ -51,3 +51,11 @@ function ClearTextBox() {
     $('.tabPlanAcc').css("display", "none");
     $('.tabSeguimAcc').css("display", "none");
 }
+
+validarFecha = function (fecha) {
+    alert("validando fecha : " + fecha);
+}
+
+validarCostos = function (valor) {
+    alert("validando costos : " + valor);
+}

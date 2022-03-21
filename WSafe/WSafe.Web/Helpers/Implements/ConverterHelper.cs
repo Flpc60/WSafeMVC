@@ -498,7 +498,6 @@ namespace WSafe.Domain.Helpers.Implements
         {
             throw new NotImplementedException();
         }
-
         public async Task<PlanAccion> ToPlanAccionAsync(PlanAccion plan)
         {
             
