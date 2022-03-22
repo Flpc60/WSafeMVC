@@ -14,8 +14,7 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Fecha seguimiento")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime FechaSeguimiento { get; set; }
+        public string FechaSeguimiento { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Resultado seguimiento")]
         public string Resultado { get; set; }

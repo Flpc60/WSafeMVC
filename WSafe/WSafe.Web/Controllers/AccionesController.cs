@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Helpers;
-using WSafe.Domain.Repositories.Implements;
-using WSafe.Domain.Services.Implements;
 using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
 {
+    // Getionar todas las acciones correctvas, preventivas y de mejora
     public class AccionesController : Controller
     {
+        // Inyecciones
         private readonly EmpresaContext _empresaContext;
         private readonly IComboHelper _comboHelper;
         private readonly IConverterHelper _converterHelper;
@@ -29,7 +29,7 @@ namespace WSafe.Web.Controllers
             _gestorHelper = gestorHelper;
         }
 
-        // GET: Acciones
+        // Listar todas las acciones abiertas en orden de fecha de solicitud
         public async Task<ActionResult> Index()
         {
             var list = await _empresaContext.Acciones
@@ -63,9 +63,7 @@ namespace WSafe.Web.Controllers
             }
 
             var result = await _empresaContext.Acciones.FirstOrDefaultAsync(i => i.ID == id.Value);
-
             var model = _converterHelper.ToAccionViewModel(result);
-
             if (model == null)
             {
                 return HttpNotFound();
@@ -128,7 +126,6 @@ namespace WSafe.Web.Controllers
             var model = new PlanAccionVM
             {
                 AccionID = idAccion,
-                //Trabajadores = _comboHelper.GetComboTrabajadores()
             };
             return Json(model, JsonRequestBehavior.AllowGet);
         }
@@ -155,12 +152,16 @@ namespace WSafe.Web.Controllers
 
         // GET: Seguimineto Plan acción/Create
         [HttpGet]
-        public ActionResult CreateSeguiminetoPlan(int idAccion)
+        public ActionResult CreateSeguimientoPlan(int idAccion)
         {
+            if (idAccion == null)
+            {
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
             var model = new SeguimientoAccionVM
             {
                 AccionID = idAccion,
-                //Trabajadores = _comboHelper.GetComboTrabajadores()
             };
             return Json(model, JsonRequestBehavior.AllowGet);
         }
@@ -168,6 +169,12 @@ namespace WSafe.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateSeguimientoPlan(SeguimientoAccion seguimientoAccion)
         {
+            if (seguimientoAccion.AccionID == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            SeguimientoAccion model = await _converterHelper.ToSeguimientoAccionAsync(seguimientoAccion);
+
             if (ModelState.IsValid)
             {
                 _empresaContext.SeguimientosAccion.Add(seguimientoAccion);
@@ -227,23 +234,16 @@ namespace WSafe.Web.Controllers
             }
 
             //TODO
-            var seguimientos = (from sa in _empresaContext.SeguimientosAccion.Where(sa => sa.AccionID == idAccion).AsEnumerable()
-                                select new
-                                {
-                                    ID = sa.ID,
-                                    FechaSeguimiento = sa.FechaSeguimiento.ToString("dd/MM/yyyy"),
-                                    Responsable = sa.TrabajadorID,
-                                    Resultado = sa.Resultado.ToUpper()
-                                }).ToList();
-
-            return Json(seguimientos, JsonRequestBehavior.AllowGet);
+            var seguimientos = _empresaContext.SeguimientosAccion.Where(sa => sa.AccionID == idAccion).ToList();
+            var result = _converterHelper.ToSeguimientoAccionVMList(seguimientos);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
         public JsonResult UpdatePlanAccion(int ID)
         {
             var plan = _empresaContext.PlanesAccion.FirstOrDefault(pa => pa.ID == ID);
             var model = _converterHelper.ToPlanAccionVM(plan);
-            return Json(data: new { success = true, data = model }, JsonRequestBehavior.AllowGet);
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -264,6 +264,39 @@ namespace WSafe.Web.Controllers
             {
                 PlanAccion accion = await _empresaContext.PlanesAccion.FindAsync(id);
                 _empresaContext.PlanesAccion.Remove(accion);
+                await _empresaContext.SaveChangesAsync();
+                return Json(accion, JsonRequestBehavior.AllowGet);
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public JsonResult UpdateSeguimientoAccion(int ID)
+        {
+            var seguimiento = _empresaContext.SeguimientosAccion.FirstOrDefault(sa => sa.ID == ID);
+            var model = _converterHelper.ToSeguimientoAccionVM(seguimiento);
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UpdateSeguimientoAccion([Bind(Include = "ID, AccionID, FechaSeguimiento, Resultado, TrabajadorID")] SeguimientoAccion seguimientoAccion)
+        {
+            if (ModelState.IsValid)
+            {
+                _empresaContext.Entry(seguimientoAccion).State = EntityState.Modified;
+                await _empresaContext.SaveChangesAsync();
+            }
+
+            return Json(seguimientoAccion, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteSeguimientoAccion(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                SeguimientoAccion accion = await _empresaContext.SeguimientosAccion.FindAsync(id);
+                _empresaContext.SeguimientosAccion.Remove(accion);
                 await _empresaContext.SaveChangesAsync();
                 return Json(accion, JsonRequestBehavior.AllowGet);
             }
