@@ -166,8 +166,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Planes = new List<PlanAccion>(),
                 Seguimientos = new List<SeguimientoAccion>()
             };
-            model.Planes.Add(new PlanAccion());
-            model.Seguimientos.Add(new SeguimientoAccion());
+            model.Planes.Add(new PlanAccion() { AccionID = accion.ID });
+            model.Seguimientos.Add(new SeguimientoAccion() { AccionID = accion.ID });
             return model;
         }
         public async Task<Accion> ToAccionAsync(Accion model, bool isNew)
@@ -525,8 +525,18 @@ namespace WSafe.Domain.Helpers.Implements
             throw new NotImplementedException();
         }
 
-        public Task<SeguimientoAccion> ToSeguimientoAccionAsync(SeguimientoAccionVM model, bool isNew)
+        public async Task<SeguimientoAccion> ToSeguimientoAccionAsync(SeguimientoAccion model)
         {
+            var result = new SeguimientoAccion
+            {
+                ID = model.ID,
+                AccionID = model.AccionID,
+                FechaSeguimiento = model.FechaSeguimiento,
+                Resultado = model.Resultado.ToUpper(),
+                TrabajadorID = model.TrabajadorID
+            };
+            return result;
+
             throw new NotImplementedException();
         }
 
@@ -552,6 +562,7 @@ namespace WSafe.Domain.Helpers.Implements
             }
             return model;
         }
+        // Crea nueva lista de AccionViewModel
         public IEnumerable<AccionViewModel> ToAccionVMList(IEnumerable<Accion> accion)
         {
             var model = new List<AccionViewModel>();
@@ -573,6 +584,23 @@ namespace WSafe.Domain.Helpers.Implements
                     Efectiva = item.Efectiva,
                     Estado = item.Estado
                 });
+            }
+            return model;
+        }
+        public IEnumerable<SeguimientoAccionVM> ToSeguimientoAccionVMList(IEnumerable<SeguimientoAccion> accion)
+        {
+            var model = new List<SeguimientoAccionVM>();
+            foreach (var item in accion)
+            {
+                model.Add(new SeguimientoAccionVM
+                {
+                    ID = item.ID,
+                    AccionID = item.AccionID,
+                    FechaSeguimiento = item.FechaSeguimiento.ToString("dd/MM/yyyy"),
+                    Resultado = item.Resultado.ToUpper(),
+                    TrabajadorID = item.TrabajadorID,
+                    Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpper()
+                }); ;
             }
             return model;
         }

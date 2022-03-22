@@ -59,3 +59,116 @@ validarFecha = function (fecha) {
 validarCostos = function (valor) {
     alert("validando costos : " + valor);
 }
+
+function AddSeguimAccion(accionID, mostrar) {
+    $(".tabAddSeguimAcc").css("display", "none");
+    $(".tabSeguimAcc").css("display", "none");
+    $.ajax({
+        type: "POST",
+        url: "/Acciones/CreateSeguimientoPlan",
+        data: {
+            ID: 0,
+            AccionID: accionID,
+            FechaSeguimiento: $("#idFechaSegui").val(),
+            Resultado: $("#idResultado").val(),
+            TrabajadorID: $("#idRespons").val(),
+        },
+        dataType: "json",
+        success: function (result) {
+            if (mostrar) {
+                mostrarSeguimAcc();
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function getPlanByID(PlanID) {
+    //ClearTextBox();
+    $(".tabPlanAcc").css("display", "block");
+    $("#_EditarPlanAcc").css("display", "block");
+    planID = PlanID;
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: "/Acciones/UpdatePlanAccion",
+        data: { ID: PlanID },
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        success: function (result) {
+            $("#idFechaIni").val(result.FechaInicial);
+            $("#idFechaFin").val(result.FechaFinal);
+            $("#idCausa").val(result.Causa);
+            $("#accion").val(result.Accion);
+            $("#idRespons").val(result.TrabajadorID);
+            $("#idPrioritaria").val(result.Prioritaria);
+            $("#idCostos").val(result.Costos);
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function getSeguiByID(seguiID) {
+    $(".tabSeguimAcc").css("display", "block");
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: "/Acciones/UpdateSeguimientoAccion",
+        data: { ID: seguiID },
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        success: function (result) {
+            $("#idFechaSegui").val(result.FechaSeguimiento);
+            $("#idResultado").val(result.Resultado);
+            $("#idRespons").val(result.TrabajadorID);
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function DeleteSegui(id) {
+    var ans = confirm("Esta seguro de querer borrar este registro ?");
+    if (ans) {
+        $.ajax({
+            url: "/Acciones/DeleteSeguimientoAccion/" + id,
+            type: "POST",
+            contentType: "application/json;charset=UTF-8",
+            dataType: "json",
+            async: true,                                               // si es asincrónico o no
+            success: function (result) {
+                mostrarSegimAcc();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        });
+    }
+}
+
+function DeletePlan(id) {
+    var ans = confirm("Esta seguro de querer borrar este registro ?");
+    if (ans) {
+        $.ajax({
+            url: "/Acciones/DeletePlanAccion/" + id,
+            type: "POST",
+            contentType: "application/json;charset=UTF-8",
+            dataType: "json",
+            async: true,                                               // si es asincrónico o no
+            success: function (result) {
+                mostrarSeguimAcc();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        });
+    }
+}

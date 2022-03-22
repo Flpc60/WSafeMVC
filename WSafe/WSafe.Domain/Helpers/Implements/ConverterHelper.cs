@@ -166,8 +166,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Planes = new List<PlanAccion>(),
                 Seguimientos = new List<SeguimientoAccion>()
             };
-            model.Planes.Add(new PlanAccion());
-            model.Seguimientos.Add(new SeguimientoAccion());
+            model.Planes.Add(new PlanAccion() { AccionID = accion.ID });
+            model.Seguimientos.Add(new SeguimientoAccion() { AccionID = accion.ID });
             return model;
         }
         public async Task<Accion> ToAccionAsync(Accion model, bool isNew)
@@ -484,7 +484,8 @@ namespace WSafe.Domain.Helpers.Implements
                 AccionID = plan.AccionID,
                 FechaInicial = plan.FechaInicial.ToString("dd/MM/yyyy"),
                 FechaFinal = plan.FechaFinal.ToString("dd/MM/yyyy"),
-                Causa = _gestorHelper.GetCausaAccion(plan.Causa).ToUpper(),
+                Causa = plan.Causa,
+                Categoria = _gestorHelper.GetCausaAccion(plan.Causa).ToUpper(),
                 Accion = plan.Accion,
                 Prioritaria = plan.Prioritaria,
                 Costos = plan.Costos,
@@ -497,7 +498,6 @@ namespace WSafe.Domain.Helpers.Implements
         {
             throw new NotImplementedException();
         }
-
         public async Task<PlanAccion> ToPlanAccionAsync(PlanAccion plan)
         {
             
@@ -525,8 +525,18 @@ namespace WSafe.Domain.Helpers.Implements
             throw new NotImplementedException();
         }
 
-        public Task<SeguimientoAccion> ToSeguimientoAccionAsync(SeguimientoAccionVM model, bool isNew)
+        public async Task<SeguimientoAccion> ToSeguimientoAccionAsync(SeguimientoAccion model)
         {
+            var result = new SeguimientoAccion
+            {
+                ID = model.ID,
+                AccionID = model.AccionID,
+                FechaSeguimiento = model.FechaSeguimiento,
+                Resultado = model.Resultado.ToUpper(),
+                TrabajadorID = model.TrabajadorID
+            };
+            return result;
+
             throw new NotImplementedException();
         }
 
@@ -541,16 +551,18 @@ namespace WSafe.Domain.Helpers.Implements
                     AccionID = item.AccionID,
                     FechaInicial = item.FechaInicial.ToString("dd/MM/yyyy"),
                     FechaFinal = item.FechaFinal.ToString("dd/MM/yyyy"),
-                    Causa = _gestorHelper.GetCausaAccion(item.Causa).ToUpper(),
+                    Causa = item.Causa,
+                    Categoria = _gestorHelper.GetCausaAccion(item.Causa).ToUpper(),
                     Accion = item.Accion.ToUpper(),
                     Prioritaria = item.Prioritaria,
                     Costos = item.Costos,
                     TrabajadorID = item.TrabajadorID,
                     Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpper()
-                });
+                }); ;
             }
             return model;
         }
+        // Crea nueva lista de AccionViewModel
         public IEnumerable<AccionViewModel> ToAccionVMList(IEnumerable<Accion> accion)
         {
             var model = new List<AccionViewModel>();
@@ -565,13 +577,30 @@ namespace WSafe.Domain.Helpers.Implements
                     Trabajadores = _comboHelper.GetComboTrabajadores(),
                     FuenteAccion = item.FuenteAccion,
                     Origen = _gestorHelper.GetFuenteAccion(item.FuenteAccion).ToUpper(),
-                    Descripcion = item.Descripcion,
+                    Descripcion = item.Descripcion.ToUpper(),
                     EficaciaAntes = item.EficaciaAntes,
                     EficaciaDespues = item.EficaciaDespues,
                     FechaCierre = item.FechaCierre,
                     Efectiva = item.Efectiva,
                     Estado = item.Estado
                 });
+            }
+            return model;
+        }
+        public IEnumerable<SeguimientoAccionVM> ToSeguimientoAccionVMList(IEnumerable<SeguimientoAccion> accion)
+        {
+            var model = new List<SeguimientoAccionVM>();
+            foreach (var item in accion)
+            {
+                model.Add(new SeguimientoAccionVM
+                {
+                    ID = item.ID,
+                    AccionID = item.AccionID,
+                    FechaSeguimiento = item.FechaSeguimiento.ToString("dd/MM/yyyy"),
+                    Resultado = item.Resultado.ToUpper(),
+                    TrabajadorID = item.TrabajadorID,
+                    Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpper()
+                }); ;
             }
             return model;
         }
