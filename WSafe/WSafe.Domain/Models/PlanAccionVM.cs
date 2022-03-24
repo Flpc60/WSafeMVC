@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using WSafe.Domain.Data.Entities;
 
 namespace WSafe.Web.Models
 {
@@ -16,7 +17,10 @@ namespace WSafe.Web.Models
         public string FechaFinal { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Causa que originó la acción")]
-        public string Causa { get; set; }
+        public CategoriasCausa Causa { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Causa que originó la acción")]
+        public string Categoria { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Plan acción")]
         public string Accion { get; set; }

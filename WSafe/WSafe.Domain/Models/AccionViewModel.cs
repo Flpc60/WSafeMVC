@@ -63,10 +63,10 @@ namespace WSafe.Web.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaCierre { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "La acción fué efectiva ?")]
+        [Display(Name = "Efectiva")]
         public bool Efectiva { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "Cerrada ?")]
+        [Display(Name = "Cerrada")]
         public bool Estado { get; set; }
         public ICollection<PlanAccion> Planes { get; set; }
         public ICollection<SeguimientoAccion> Seguimientos { get; set; }

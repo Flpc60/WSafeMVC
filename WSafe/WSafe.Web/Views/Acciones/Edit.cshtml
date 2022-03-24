@@ -260,9 +260,10 @@
                         <input type="date" class="form-control" id="idFechaFin" value="validarFecha('idFechaFin')" required>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="idCausa">Causa :</label>
-                        @Html.EnumDropDownListFor(modelItem => item.Causa, htmlAttributes: new { @class = "form-control", @id = "idCausa" })
-                        @Html.ValidationMessageFor(modelItem => item.Causa, "", new { @class = "text-danger" })
+                        @Html.DropDownList("Causa :",
+                                            new SelectList(Enum.GetValues(typeof(WSafe.Domain.Data.Entities.CategoriasCausa))),
+                                            "Seleccone una causa",
+                                            new { @class = "form-control", @id="txtCausa" })
                     </div>
                 </div>
                 <div class="form-row">
@@ -300,35 +301,26 @@
     </div>
 
     <div class="tabSeguimAcc">
-        @foreach (var item in Model.Seguimientos)
-        {
-
-            <div class="form-group">
-                @Html.LabelFor(modelItem => item.FechaSeguimiento, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
-                    @Html.EditorFor(modelItem => item.FechaSeguimiento, new { htmlAttributes = new { @class = "form-control", @id = "idFechaSegui" } })
-                    @Html.ValidationMessageFor(modelItem => item.FechaSeguimiento, "", new { @class = "text-danger" })
-                </div>
+        <div class="form-group">
+            <input type="hidden" value="0" id="txtID" />
+        </div>
+        <div class="form-group">
+            <div class="col-md-3">
+                <label for="idFechaSegui">Fecha seguimiento :</label>
+                <input type="date" name ="idFechaSegui" class="form-control" id="idFechaSegui">
             </div>
-            <div class="form-group">
-                @Html.LabelFor(modelItem => item.Resultado, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(modelItem => item.Resultado, new { htmlAttributes = new { @class = "form-control", @id = "idResultado" } })
-                    @Html.ValidationMessageFor(modelItem => item.Resultado, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(modelItem => item.TrabajadorID, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
-                    @Html.DropDownListFor(modelItem => item.TrabajadorID, Model.Trabajadores, new { @class = "form-control", @id = "idRespons" })
-                    @Html.ValidationMessageFor(modelItem => item.TrabajadorID, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        }
+        </div>
+        <div class="form-group">
+            <label for="txtResultado">Resultado :</label>
+            <textarea id="txtResultado" style="resize:none;" class="form-control" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="txtRepons"> Trabajador responable :</label><br />
+            @Html.DropDownList("Trabajador responsable", Model.Trabajadores as IEnumerable<SelectListItem>, new { @id = "txtRespons" })
+        </div>
         <div class="col-md-offset-2 col-md-4">
             <button type="button" class="btn btn-primary" onclick="EditSeguiAcc()">Guardar</button>
         </div>
-
     </div>
 
 </div>

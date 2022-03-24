@@ -14,7 +14,7 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Fecha seguimiento")]
         [DataType(DataType.Date)]
-        public string FechaSeguimiento { get; set; }
+        public DateTime FechaSeguimiento { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Resultado seguimiento")]
         public string Resultado { get; set; }
