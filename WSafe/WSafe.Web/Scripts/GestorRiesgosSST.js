@@ -27,6 +27,7 @@ function AddPlanAccion(accionID, mostrar) {
         },
         dataType: "json",
         success: function (result) {
+            alert("El registro ha sido ingresado exitosamente");
             if (mostrar) {
                 mostrarPlanAcc();
             }
@@ -75,6 +76,7 @@ function AddSeguimAccion(accionID, mostrar) {
         },
         dataType: "json",
         success: function (result) {
+            alert("El registro ha sido ingresado exitosamenrte");
             if (mostrar) {
                 mostrarSeguimAcc();
             }
@@ -123,9 +125,10 @@ function getSeguiByID(seguiID) {
         dataType: "json",
         contentType: "application/json;charset=UTF-8",
         success: function (result) {
-            $("#idFechaSegui").val(result.FechaSeguimiento);
-            $("#idResultado").val(result.Resultado);
-            $("#idRespons").val(result.TrabajadorID);
+            var date = new Date(parseInt(result.FechaSeguimiento.substr(6)));
+            $("#idFechaSegui").val(date);
+            $("#txtResultado").val(result.Resultado);
+            $("#txtRespons").val(result.TrabajadorID);
         },
         error: function (errormessage) {
             alert(errormessage.responseText);

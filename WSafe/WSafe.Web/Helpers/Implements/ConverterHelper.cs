@@ -517,7 +517,16 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public SeguimientoAccionVM ToSeguimientoAccionVM(SeguimientoAccion seguimientoAccion)
         {
-            throw new NotImplementedException();
+            var result = new SeguimientoAccionVM
+            {
+                ID = seguimientoAccion.ID,
+                AccionID = seguimientoAccion.AccionID,
+                FechaSeguimiento = seguimientoAccion.FechaSeguimiento,
+                Resultado = seguimientoAccion.Resultado.ToUpper(),
+                TrabajadorID = seguimientoAccion.TrabajadorID,
+                Responsable = _empresaContext.Trabajadores.Find(seguimientoAccion.TrabajadorID).NombreCompleto.ToUpper()
+            };
+            return result;
         }
 
         public SeguimientoAccionVM ToSeguimientoAccionVMNew()
@@ -596,7 +605,7 @@ namespace WSafe.Domain.Helpers.Implements
                 {
                     ID = item.ID,
                     AccionID = item.AccionID,
-                    FechaSeguimiento = item.FechaSeguimiento.ToString("dd/MM/yyyy"),
+                    FechaSeguimiento = item.FechaSeguimiento,
                     Resultado = item.Resultado.ToUpper(),
                     TrabajadorID = item.TrabajadorID,
                     Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpper()
