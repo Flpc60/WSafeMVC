@@ -137,37 +137,15 @@
     </div>
     <div class="tabPlanAcc">
         @Html.Partial("_EditarPlanAcc")
+        <input type="hidden" id="txtAccionID" name="txtAccionID"/>
         <div class="col-md-offset-2 col-md-4">
-            <button type="button" class="btn btn-success" onclick="addPlanAcc()">Agregar</button>
+            <button type="button" class="btn btn-success" onclick="AddPlanAccion()">Agregar</button>
         </div>
 
     </div>
     <div class="tabSeguimAcc">
-        @foreach (var item in Model.Seguimientos)
-        {
-
-            <div class="form-group">
-                @Html.LabelFor(modelItem => item.FechaSeguimiento, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
-                    @Html.EditorFor(modelItem => item.FechaSeguimiento, new { htmlAttributes = new { @class = "form-control", @id = "idFechaSegui" } })
-                    @Html.ValidationMessageFor(modelItem => item.FechaSeguimiento, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(modelItem => item.Resultado, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(modelItem => item.Resultado, new { htmlAttributes = new { @class = "form-control", @id = "idResultado" } })
-                    @Html.ValidationMessageFor(modelItem => item.Resultado, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(modelItem => item.TrabajadorID, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
-                    @Html.DropDownListFor(modelItem => item.TrabajadorID, Model.Trabajadores, new { @class = "form-control", @id = "idRespons" })
-                    @Html.ValidationMessageFor(modelItem => item.TrabajadorID, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        }
+        @Html.Partial("_EditarSigueAcc")
+        <input type="hidden" id="txtAccionID" name="txtAccionID" />
         <div class="col-md-offset-2 col-md-4">
             <button type="button" class="btn btn-success" onclick="AddSeguiAcc()">Agregar</button>
         </div>
@@ -186,7 +164,6 @@
 @section Scripts
 {
     <script>
-        var accionID;
         $.ajaxSetup({
 
             error: function (jqXHR, textStatus, errorThrown) {
@@ -258,78 +235,11 @@
             });
         });
 
-        function AddAccion() {
-            $(".tabIdCausas").css("display", "none");
-            if ($("#idEfectiva").is(':checked')) {
-                $("#idEfectiva").val(true)
-            }
-            else {
-                $("#idEfectiva").val(false)
-            }
-            if ($("#idEstado").is(':checked')) {
-                $("#idEstado").val(true)
-            }
-            else {
-                $("#idEstado").val(false)
-            }
-            $.ajax({
-                type: "POST",
-                url: "CreateAccion",
-                data: {
-                    ID: "0",
-                    ZonaID: $("#zona").val(),
-                    procesoID: $("#proceso").val(),
-                    ActividadID: $("#activity").val(),
-                    TareaID: $("#tarea").val(),
-                    FechaSolicitud: $("#fechaSolicitud").val(),
-                    Categoria: $("#categoriaAcc").val(),
-                    TrabajadorID: $("#idTrabajador").val(),
-                    FuenteAccion: $("#idFuente").val(),
-                    Descripcion: $("#idDescrip").val(),
-                    EficaciaAntes: $("#idEficaciaAnt").val(),
-                    EficaciaDespues: $("#idEficaciaDesp").val(),
-                    FechaCierre: $("#idFechaCierre").val(),
-                    Efectiva: $("#idEfectiva").val(),
-                    Estado: $("#idEstado").val()
-                },
-                dataType: "json",
-                success: function (idAccion) {
-                    accionID = idAccion;
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    alert(xhr.status);
-                    alert(thrownError);
-                }
-            });
-        }
-
         function addPlanAcc() {
+            var accionID = $("#txtAccionID").val();
             AddPlanAccion(accionID, false);
         }
 
-        function AddSeguiAcc() {
-            $(".tabSeguimAcc").css("display", "none");
-            $.ajax({
-                type: "POST",
-                url: "CreateSeguimientoPlan",
-                data: {
-                    ID: "0",
-                    AccionID: accionID,
-                    FechaSeguimiento: $("#idFechaSegui").val(),
-                    Resultado: $("#idResultado").val(),
-                    TrabajadorID: $("#idRespons").val(),
-                },
-                dataType: "json",
-                success: function (seguimientoPlan) {
-                    //Model.Seguimientos = seguimientoPlan;
-                    //html += '<td><a href="#" onclick="return getbyID(' + item.Id + ')">Edit</a> | <a href="#" onclick="Delele(' + item.Id + ')">Delete</a></td>';
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    alert(xhr.status);
-                    alert(thrownError);
-                }
-            });
-        }
 
     </script>
 }

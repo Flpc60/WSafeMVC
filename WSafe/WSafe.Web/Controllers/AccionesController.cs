@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Helpers;
+using WSafe.Domain.Repositories.Implements;
+using WSafe.Domain.Services.Implements;
 using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
@@ -73,20 +75,17 @@ namespace WSafe.Web.Controllers
             return View(model);
         }
 
-        // POST: Acciones/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(Accion accion)
+        public async Task<ActionResult> UpdateAccion(Accion model)
         {
             if (ModelState.IsValid)
             {
-                _empresaContext.Entry(accion).State = EntityState.Modified;
-                await _empresaContext.SaveChangesAsync();
-                return RedirectToAction("Index");
+                var consulta = new AccionService(new AccionRepository(_empresaContext));
+                var result = await _converterHelper.ToAccionAsync(model, false);
+                await consulta.Update(result);
             }
-            return View(accion);
+            var idAccion = model.ID;
+            return Json(idAccion, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Acciones/Delete/5
@@ -131,22 +130,20 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreatePlanAccion([Bind(Include = "ID, AccionID, FechaInicial, FechaFinal, Causa, Accion, TrabajadorID, Prioritaria, Costos")] PlanAccion planAccion)
+        public async Task<ActionResult> CreatePlanAccion([Bind(Include = "ID, AccionID, FechaInicial, FechaFinal, Causa, Accion, TrabajadorID, Prioritaria, Costos")] PlanAccion model)
         {
-            if (planAccion.AccionID == 0)
+            if (model.AccionID == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PlanAccion model = await _converterHelper.ToPlanAccionAsync(planAccion);
 
-
+            PlanAccion result = await _converterHelper.ToPlanAccionAsync(model);
             if (ModelState.IsValid)
             {
-                _empresaContext.PlanesAccion.Add(model);
+                _empresaContext.PlanesAccion.Add(result);
                 await _empresaContext.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
@@ -183,9 +180,10 @@ namespace WSafe.Web.Controllers
             }
             return Json(seguimientoAccion, JsonRequestBehavior.AllowGet);
         }
-
+            
         [HttpPost]
-        public async Task<ActionResult> CreateAccion(Accion model)
+        public async Task<ActionResult> CreateAccion([Bind(Include="ID, ZonaID, ProcesoID, ActividadID, TareaID, FechaSolicitud, Categoria, TrabajadorID, " +
+            "FuenteAccion, Descripcion, EficaciaAntes, EficaciaDespues, FechaCierre, Efectiva, Estado")] Accion model)  
         {
             if (model == null)
             {

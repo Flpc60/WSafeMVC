@@ -1,44 +1,5 @@
 ﻿// Agregar funcionlidad principal del lado del cliente...
 
-function AddPlanAccion(accionID, mostrar) {
-    $(".tabAddPlanAcc").css("display", "none");
-    $(".tabPlanAcc").css("display", "none");
-    if ($("#idPrioritaria").is(':checked')) {
-        $("#idPrioritaria").val(true)
-    }
-    else {
-        $("#idPrioritaria").val(false)
-    }
-
-    if ($("#idPrioritaria").val() == null) { $("#idPrioritaria").val(false) };
-    $.ajax({
-        type: "POST",
-        url: "/Acciones/CreatePlanAccion",
-        data: {
-            ID: 0,
-            AccionID: accionID,
-            FechaInicial: $("#idFechaIni").val(),
-            FechaFinal: $("#idFechaFin").val(),
-            Causa: $("#idCausa").val(),
-            Accion: $("#accion").val(),
-            TrabajadorID: $("#idRespons").val(),
-            Prioritaria: $("#idPrioritaria").val(),
-            Costos: $("#idCostos").val()
-        },
-        dataType: "json",
-        success: function (result) {
-            alert("El registro ha sido ingresado exitosamente");
-            if (mostrar) {
-                mostrarPlanAcc();
-            }
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            alert(xhr.status);
-            alert(thrownError);
-        }
-    });
-}
-
 function ClearTextBox() {
     $("#idFechaIni").val("");
     $("#idFechaFin").val("");
@@ -61,32 +22,6 @@ validarCostos = function (valor) {
     alert("validando costos : " + valor);
 }
 
-function AddSeguimAccion(accionID, mostrar) {
-    $(".tabAddSeguimAcc").css("display", "none");
-    $(".tabSeguimAcc").css("display", "none");
-    $.ajax({
-        type: "POST",
-        url: "/Acciones/CreateSeguimientoPlan",
-        data: {
-            ID: 0,
-            AccionID: accionID,
-            FechaSeguimiento: $("#idFechaSegui").val(),
-            Resultado: $("#idResultado").val(),
-            TrabajadorID: $("#idRespons").val(),
-        },
-        dataType: "json",
-        success: function (result) {
-            alert("El registro ha sido ingresado exitosamenrte");
-            if (mostrar) {
-                mostrarSeguimAcc();
-            }
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            alert(xhr.status);
-            alert(thrownError);
-        }
-    });
-}
 
 function getPlanByID(PlanID) {
     //ClearTextBox();
@@ -125,8 +60,10 @@ function getSeguiByID(seguiID) {
         dataType: "json",
         contentType: "application/json;charset=UTF-8",
         success: function (result) {
-            var date = new Date(parseInt(result.FechaSeguimiento.substr(6)));
-            $("#idFechaSegui").val(date);
+            var txtfecha = JSON.stringify(result.FechaSeguimiento);
+            //var fechaSigue = txtfecha.slice(0, 10).split("-").reverse().join("/");
+            //document.getElementById("txtFechaSeg").innerHTML = fechaSigue;
+            $("#txtFechaSeg").val(result.FechaSeguimiento);
             $("#txtResultado").val(result.Resultado);
             $("#txtRespons").val(result.TrabajadorID);
         },
@@ -174,4 +111,167 @@ function DeletePlan(id) {
             }
         });
     }
+}
+
+// las siguientes funciones cran una nueva accion, plan acción y nuevo seguimiento
+function AddAccion() {
+    // Crea una nueva acción, para una nueva no conformidad
+    // Retorna la accionID, y se la pasa a PlanAccion y SeguimientoAccion
+    var fechaCierre = $("#fechaSolicitud").val();
+    $(".tabIdCausas").css("display", "none");
+    if ($("#idEfectiva").is(':checked')) {
+        $("#idEfectiva").val(true)
+    }
+    else {
+        $("#idEfectiva").val(false)
+    }
+    if ($("#idEstado").is(':checked')) {
+        $("#idEstado").val(true)
+    }
+    else {
+        $("#idEstado").val(false)
+    }
+    if ($("#idFechaCierre").is(':empty')) {
+        $("#idFechaCierre").val(fechaCierre)
+    }
+
+    var accionVM = {
+        ID: "0",
+        ZonaID: $("#zona").val(),
+        ProcesoID: $("#proceso").val(),
+        ActividadID: $("#activity").val(),
+        TareaID: $("#tarea").val(),
+        FechaSolicitud: $("#fechaSolicitud").val(),
+        Categoria: $("#categoriaAcc").val(),
+        TrabajadorID: $("#idTrabajador").val(),
+        FuenteAccion: $("#idFuente").val(),
+        Descripcion: $("#idDescrip").val(),
+        EficaciaAntes: $("#idEficaciaAnt").val(),
+        EficaciaDespues: $("#idEficaciaDesp").val(),
+        FechaCierre: $("#idFechaCierre").val(),
+        Efectiva: $("#idEfectiva").val(),
+        Estado: $("#idEstado").val()
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/Acciones/CreateAccion",
+        data: { model: accionVM },
+        dataType: "json",
+        success: function (idAccion) {
+            $("#txtAccionID").val(idAccion);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function UpdateAccion(id) {
+    $(".tabIdCausas").css("display", "none");
+    $("#txtAccionID").val(id);
+    var accionVM = {
+        ID: $("#txtAccionID").val(),
+        ZonaID: $("#zona").val(),
+        ProcesoID: $("#proceso").val(),
+        ActividadID: $("#activity").val(),
+        TareaID: $("#tarea").val(),
+        FechaSolicitud: $("#fechaSolicitud").val(),
+        Categoria: $("#categoriaAcc").val(),
+        TrabajadorID: $("#idTrabajador").val(),
+        FuenteAccion: $("#idFuente").val(),
+        Descripcion: $("#idDescrip").val(),
+        EficaciaAntes: $("#idEficaciaAnt").val(),
+        EficaciaDespues: $("#idEficaciaDesp").val(),
+        FechaCierre: $("#idFechaCierre").val(),
+        Efectiva: $("#idEfectiva").val(),
+        Estado: $("#idEstado").val()
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/Acciones/UpdateAccion",
+        data: { model: accionVM },
+        dataType: "json",
+        success: function (idAccion) {
+            $("#txtAccionID").val(idAccion);
+            alert("Actualzación realizada exitosamente !!")
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function AddPlanAccion() {
+    // Crea una nueva accion, captura la accionID de id = txtAccionID
+    // llama la acción del controlador CreatePlanAccion
+    $(".tabAddPlanAcc").css("display", "none");
+    $(".tabPlanAcc").css("display", "none");
+    if ($("#idPrioritaria").is(':checked')) {
+        $("#idPrioritaria").val(true)
+    }
+    else {
+        $("#idPrioritaria").val(false)
+    }
+
+    if ($("#idPrioritaria").val() == null) { $("#idPrioritaria").val(false) };
+    var accionID = $("#txtAccionID").val();
+    var planAccionVM = {
+        ID: 0,
+        AccionID: accionID,
+        FechaInicial: $("#idFechaIni").val(),
+        FechaFinal: $("#idFechaFin").val(),
+        Causa: $("#idCausa").val(),
+        Accion: $("#accion").val(),
+        TrabajadorID: $("#idRespons").val(),
+        Prioritaria: $("#idPrioritaria").val(),
+        Costos: $("#idCostos").val()
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/Acciones/CreatePlanAccion",
+        data: { model: planAccionVM },
+        dataType: "json",
+        success: function (result) {
+            alert("El registro ha sido ingresado exitosamente");
+            ClearTextBox();
+            mostrarPlanAcc();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function AddSeguiAcc() {
+    $(".tabSeguimAcc").css("display", "none");
+    $(".tabSeguimAcc").css("display", "none");
+    var accionID = $("#txtAccionID").val();
+    var seguimientoVM = {
+        ID: "0",
+        AccionID: accionID,
+        FechaSeguimiento: $("#idFechaSegui").val(),
+        Resultado: $("#idResultado").val(),
+        TrabajadorID: $("#idRespons").val(),
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/Acciones/CreateSeguimientoPlan",
+        data: { seguimientoAccion: seguimientoVM },
+        dataType: "json",
+        success: function (seguimientoPlan) {
+            ClearTextBox();
+            mostrarSeguimAcc();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
 }

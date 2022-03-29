@@ -527,7 +527,7 @@
     <Content Include="Views\Acciones\Create.cshtml" />
     <Content Include="Views\Acciones\Delete.cshtml" />
     <Content Include="Views\Acciones\Details.cshtml" />
-    <Content Include="Views\Acciones\Edit.cshtml" />
+    <Content Include="Views\Acciones\Editar.cshtml" />
     <Content Include="Views\Acciones\Index.cshtml" />
     <Content Include="Views\Aplicaciones\Create.cshtml" />
     <Content Include="Views\Aplicaciones\Delete.cshtml" />
@@ -548,6 +548,9 @@
     <Content Include="Views\Accounts\Index.cshtml" />
     <Content Include="Views\Accounts\Login.cshtml" />
     <Content Include="Views\Accounts\Login - Copy.cshtml" />
+    <Content Include="Views\Shared\_EditarSigueAcc.cshtml" />
+    <Content Include="Views\Acciones\Edit.cshtml" />
+    <Content Include="Views\Shared\_EditarNoConformidad.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
