@@ -517,7 +517,16 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public SeguimientoAccionVM ToSeguimientoAccionVM(SeguimientoAccion seguimientoAccion)
         {
-            throw new NotImplementedException();
+            var result = new SeguimientoAccionVM
+            {
+                ID = seguimientoAccion.ID,
+                AccionID = seguimientoAccion.AccionID,
+                FechaSeguimiento = seguimientoAccion.FechaSeguimiento.ToString("yyyy-MM-dd"),
+                Resultado = seguimientoAccion.Resultado.ToUpper(),
+                TrabajadorID = seguimientoAccion.TrabajadorID,
+                Responsable = _empresaContext.Trabajadores.Find(seguimientoAccion.TrabajadorID).NombreCompleto.ToUpper()
+            };
+            return result;
         }
 
         public SeguimientoAccionVM ToSeguimientoAccionVMNew()

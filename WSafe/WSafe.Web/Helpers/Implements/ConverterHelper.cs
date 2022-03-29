@@ -521,7 +521,7 @@ namespace WSafe.Domain.Helpers.Implements
             {
                 ID = seguimientoAccion.ID,
                 AccionID = seguimientoAccion.AccionID,
-                FechaSeguimiento = seguimientoAccion.FechaSeguimiento,
+                FechaSeguimiento = seguimientoAccion.FechaSeguimiento.ToString("yyyy-MM-dd"),
                 Resultado = seguimientoAccion.Resultado.ToUpper(),
                 TrabajadorID = seguimientoAccion.TrabajadorID,
                 Responsable = _empresaContext.Trabajadores.Find(seguimientoAccion.TrabajadorID).NombreCompleto.ToUpper()
@@ -605,7 +605,7 @@ namespace WSafe.Domain.Helpers.Implements
                 {
                     ID = item.ID,
                     AccionID = item.AccionID,
-                    FechaSeguimiento = item.FechaSeguimiento,
+                    FechaSeguimiento = item.FechaSeguimiento.ToString("dd/MM/yyyy"),
                     Resultado = item.Resultado.ToUpper(),
                     TrabajadorID = item.TrabajadorID,
                     Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpper()
