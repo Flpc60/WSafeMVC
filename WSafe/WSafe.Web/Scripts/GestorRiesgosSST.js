@@ -14,21 +14,18 @@ function mostrarPlanAcc() {
         success: function (result) {
             var html = '';
             $.each(result, function (key, item) {
+                var indicador = "NO"
+                if (item.Prioritaria == true) { indicador = "SI" };
                 html += '<tr>';
                 html += '<td>' + item.Categoria + '</td>';
                 html += '<td>' + item.Accion + '</td>';
-                html += '<td>' + item.Prioritaria + '</td>';
+                html += '<td>' + indicador + '</td>';
                 html += '<td>' + item.Responsable + '</td>';
                 html += '<td>' + item.Costos + '</td>';
                 html += '<td>' + item.FechaInicial + '</td>';
                 html += '<td>' + item.FechaFinal + '</td>';
                 html += '<td><a href="#" onclick="return getPlanByID(' + item.ID + ')">Editar</a> | <a href = "#" onclick = "DeletePlan(' + item.ID + ')"> Borrar</a></td>';
                 html += '</tr>';
-                if (item.Prioritaria == true) {
-                    $("#idPrioritaria").prop('checked', true);
-                } else {
-                    $("#idPrioritaria").prop('checked', false);
-                }
             });
             $('.tbody').html(html);
             $('.tabGesPlanAcc').css("display", "block");
@@ -128,6 +125,8 @@ function getPlanByID(PlanID) {
             $("#txtPlanAccionID").val(result.ID);
             $("#txtAccionID").val(result.AccionID);
 
+            $("#txtAccionID").val(result.AccionID);
+            $("#planAccionID").val(result.ID);
             if (result.Prioritaria == true) {
                 $("#idPrioritaria").prop('checked', true);
             } else {
@@ -353,15 +352,12 @@ function UpdatePlanAcc() {
 
     if ($("#txtCausa").val() == 0) { $("#txtCausa").val(1) };
     if ($("#idPrioritaria").val() == null) { $("#idPrioritaria").val(false) };
-    var accionID = $("#txtAccionID").val();
-    var planAccionID = $("#planAccionID").val();
-    
     var planAccionVM = {
-        ID: planAccionID,
-        AccionID: accionID,
+        ID: $("#planAccionID").val(),
+        AccionID: $("#txtAccionID").val(),
         FechaInicial: $("#idFechaIni").val(),
         FechaFinal: $("#idFechaFin").val(),
-        Causa: $("#idCausa").val(),
+        Causa: $("#txtCausa").val(),
         Accion: $("#accion").val(),
         TrabajadorID: $("#idRespons").val(),
         Prioritaria: $("#idPrioritaria").val(),

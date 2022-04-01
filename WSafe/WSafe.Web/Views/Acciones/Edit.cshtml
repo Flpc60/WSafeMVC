@@ -31,8 +31,8 @@
 
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
+    <input type="hidden" id="txtAccionID" name="txtAccionID" />
     <div class="tabIdCausas">
-        <input type="hidden" id="txtAccionID" name="txtAccionID" />
         @Html.Partial("_EditarNoConformidad")
         <div class="col-md-offset-2 col-md-4">
             <button type="button" class="btn btn-success" onclick="UpdateAccion(@ViewBag.AccionID)">Guardar</button>
@@ -41,7 +41,7 @@
 
     <div class="tabGesPlanAcc">
         <hr />
-        <input type="hidden" id="txtAccionID" name="txtAccionID" />
+        <input type="hidden" id="planAccionID" name="planAccionID" />
         <div class="col-md-12">
             <button type="button" class="btn btn-primary" id="addPlanAcc">Adicionar nuevo plan acción</button>
         </div>
@@ -82,8 +82,6 @@
     <div class="tabPlanAcc">
 
         <div id="_EditarPlanAcc">
-            <input type="hidden" id="txtAccionID" name="txtAccionID" />
-            <input type="hidden" id="planAccionID" name="planAccionID" />
             <div class="form-row">
                 <hr />
                 <div class="col-md-4 mb-3">
@@ -96,7 +94,7 @@
                 </div>
                 <div class="col-md-4 mb-3">
                     <label for="causa">Causa :</label>
-                    @Html.DropDownList("Causa :", categorias as IEnumerable<SelectListItem>, new { @id = "txtCausa" })
+                        @Html.DropDownList("Categorias", categorias as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "txtCausa" })
                 </div>
             </div>
             <div class="form-row">
