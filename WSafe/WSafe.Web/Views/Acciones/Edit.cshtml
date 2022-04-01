@@ -2,8 +2,9 @@
 @using System.Web.Mvc.Html;
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "GESTIONAR ACCIONES CORRECTIVAS, PREVENTIVAS Y DE MEJORA";
     var accionID = @ViewBag.AccionID;
+    var categorias = ViewBag.Categorias;
 }
 
 <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">--->
@@ -21,7 +22,7 @@
 <div class="form-horizontal">
     <hr />
     <hr />
-    <h4>GESTIONAR ACCIONES CORRECTIVAS, PREVENTIVAS Y DE MEJORA</h4>
+    <h4>@ViewBag.Title</h4>
     <div class="btn-group btn-group-justified">
         <button type="button" class="btn btn-warning" id="idCausas" title="doble click para cerrar la ventana"> 1.IDENTIFICAR NO CONFORMIDAD</button>
         <button type="button" class="btn btn-warning" id="planAcc" title="doble click para cerrar la ventana"> 2.PLAN DE ACCIÓN</button>
@@ -30,24 +31,125 @@
 
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-<div class="tabIdCausas">
-    <input type="hidden" id="txtAccionID" name="txtAccionID" />
-    @Html.Partial("_EditarNoConformidad")
-    <div class="col-md-offset-2 col-md-4">
-        <button type="button" class="btn btn-success" onclick="UpdateAccion(@ViewBag.AccionID)">Guardar</button>
+    <div class="tabIdCausas">
+        <input type="hidden" id="txtAccionID" name="txtAccionID" />
+        @Html.Partial("_EditarNoConformidad")
+        <div class="col-md-offset-2 col-md-4">
+            <button type="button" class="btn btn-success" onclick="UpdateAccion(@ViewBag.AccionID)">Guardar</button>
+        </div>
     </div>
-</div>
+
+    <div class="tabGesPlanAcc">
+        <hr />
+        <input type="hidden" id="txtAccionID" name="txtAccionID" />
+        <div class="col-md-12">
+            <button type="button" class="btn btn-primary" id="addPlanAcc">Adicionar nuevo plan acción</button>
+        </div>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        Causa
+                    </th>
+                    <th>
+                        Accion
+                    </th>
+                    <th>
+                        Prioritaria
+                    </th>
+                    <th>
+                        Responsable
+                    </th>
+                    <th>
+                        Costos
+                    </th>
+                    <th>
+                        Fecha inicial
+                    </th>
+                    <th>
+                        Fecha final
+                    </th>
+                    <th>
+                        Opciones
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="tbody">
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tabPlanAcc">
+
+        <div id="_EditarPlanAcc">
+            <input type="hidden" id="txtAccionID" name="txtAccionID" />
+            <input type="hidden" id="planAccionID" name="planAccionID" />
+            <div class="form-row">
+                <hr />
+                <div class="col-md-4 mb-3">
+                    <label for="idFechaIni">Fecha inicial :</label>
+                    <input type="date" class="form-control" id="idFechaIni" onclick="validarFecha('idFechaIni')" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="idFechaFin">Fecha final :</label>
+                    <input type="date" class="form-control" id="idFechaFin" onclick="validarFecha('idFechaFin')" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="causa">Causa :</label>
+                    @Html.DropDownList("Causa :", categorias as IEnumerable<SelectListItem>, new { @id = "txtCausa" })
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-12">
+                    <hr />
+                    <label for="accion">Acción</label>
+                    <textarea id="accion" style="resize:none;" class="form-control" placeholder="Escriba acciones a realizar" required></textarea>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-3 mb-4">
+                    <hr />
+                    <label for="idRespons">Trabajador responsable :</label>
+                    @Html.DropDownListFor(model => model.TrabajadorID, Model.Trabajadores, new { @class = "form-control", @id = "idRespons" })
+                    @Html.ValidationMessageFor(model => model.TrabajadorID, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3 mb-4">
+                    <hr />
+                    <label for="prioritaria">Prioritaria :</label>
+                    <input type="checkbox" class="form-control" id="idPrioritaria" name="idPrioritaria">
+                </div>
+                <div class="col-md-3 mb-4">
+                    <hr />
+                    <label for="idCostos">Costos :</label>
+                    <input type="number" class="form-control" id="idCostos" onclick="validarCostos('idCostos')">
+                </div>
+            </div>
+            <div class="col-md-offset-2 col-md-4">
+                <hr />
+                <button type="button" class="btn btn-primary" onclick="UpdatePlanAcc()">Guardar</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="tabAddPlanAcc">
+        @Html.Partial("_EditarPlanAcc")
+        <div class="col-md-offset-2 col-md-4">
+            <button type="button" class="btn btn-primary" onclick="AddPlanAccion()">Guardar</button>
+        </div>
+    </div>
 
 </div>
 }
 
-@section Scripts
+    @section Scripts
 {
-    <script type="text/javascript">
+        <script type="text/javascript">
         var planID;
         var seguiID;
         $(document).ready(function () {
             ClearTextBox();
+            $("#txtAccionID").val(@accionID);
             $("#idCausas").click(function () {
                 $(".tabIdCausas").css("display", "block");
                 $(".tabAddPlanAcc").css("display", "none");
@@ -105,34 +207,6 @@
             });
         });
 
-        function UpdatePlanAcc() {
-            $(".tabPlanAcc").css("display", "none");
-            $(".tabGesPlanAcc").css("display", "none");
-            $.ajax({
-                type: "POST",
-                url: "/Acciones/UpdatePlanAccion",
-                data: {
-                    ID: planID,
-                    AccionID: @accionID,
-                    FechaInicial: $("#idFechaIni").val(),
-                    FechaFinal: $("#idFechaFin").val(),
-                    Causa: $("#idCausa").val(),
-                    Accion: $("#accion").val(),
-                    TrabajadorID: $("#idRespons").val(),
-                    Prioritaria: $("#idPrioritaria").val(),
-                    Costos: $("#idCostos").val()
-                },
-                dataType: "json",
-                success: function (planAccion) {
-                    $(".tabGesSeguiPlanAcc").css("display", "block");
-                    mostrarPlanAcc();
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    alert(xhr.status);
-                    alert(thrownError);
-                }
-            });
-        }
 
         function AddSeguiAcc() {
             $(".tabSeguimAcc").css("display", "none");
@@ -156,71 +230,5 @@
             });
         }
 
-    //mostrar resultados
-    function mostrarPlanAcc() {
-        $(".tabGesSeguiPlanAcc").css("display", "none");
-        var accionID = @accionID;
-        $.ajax({
-            url: "/Acciones/ListarPlanAccion/",
-            data: { idAccion: accionID },
-            type: "GET",
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            async: true,                                               // si es asincrónico o no
-            success: function (result) {
-                var html = '';
-                $.each(result, function (key, item) {
-                    html += '<tr>';
-                    html += '<td>' + item.Categoria + '</td>';
-                    html += '<td>' + item.Accion + '</td>';
-                    html += '<td>' + item.Prioritaria + '</td>';
-                    html += '<td>' + item.Responsable + '</td>';
-                    html += '<td>' + item.Costos + '</td>';
-                    html += '<td>' + item.FechaInicial + '</td>';
-                    html += '<td>' + item.FechaFinal + '</td>';
-                    html += '<td><a href="#" onclick="return getPlanByID(' + item.ID + ')">Editar</a> | <a href = "#" onclick = "DeletePlan(' + item.ID + ')"> Borrar</a></td>';
-                    html += '</tr>';
-                });
-                $('.tbody').html(html);
-                $('.tabGesPlanAcc').css("display", "block");
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                alert(xhr.status);
-                alert(thrownError);
-            }
-        });
+        </script>
     }
-
-    //mostrar resultados
-    function mostrarSeguimAcc() {
-        $(".tabGesSeguiPlanAcc").css("display", "none");
-        var accionID = @accionID;
-        $.ajax({
-            url: "/Acciones/ListarSeguimientoAccion/",
-            data: { idAccion: accionID },
-            type: "GET",
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            async: true,                                               // si es asincrónico o no
-            success: function (result) {
-                var html = '';
-                $.each(result, function (key, item) {
-                    html += '<tr>';
-                    html += '<td>' + item.FechaSeguimiento + '</td>';
-                    html += '<td>' + item.Resultado + '</td>';
-                    html += '<td>' + item.Responsable + '</td>';
-                    html += '<td><a href="#" onclick="return getSeguiByID(' + item.ID + ')">Editar</a> | <a href = "#" onclick = "DeleteSegui(' + item.ID + ')"> Borrar</a></td>';
-                    html += '</tr>';
-                });
-                $('.tbody').html(html);
-                $('.tabGesSeguiPlanAcc').css("display", "block");
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                alert(xhr.status);
-                alert(thrownError);
-            }
-        });
-    }
-
-    </script>
-}

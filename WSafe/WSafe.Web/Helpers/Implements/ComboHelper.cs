@@ -267,5 +267,79 @@ namespace WSafe.Domain.Helpers.Implements
 
             return list;
         }
+        public IEnumerable<SelectListItem> GetAllCausas()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            list.Add(new SelectListItem
+            {
+                Text = "Seleccione una causa...",
+                Value = "0"
+            });
+
+            list.Add(new SelectListItem
+            {
+                Text = "Falta medición o control",
+                Value = "1"
+            });
+
+            list.Add(new SelectListItem
+            {
+                Text = "Incumplimiento de un  método o procedimiento",
+                Value = "2"
+            });
+            list.Add(new SelectListItem
+            {
+                Text = "Método inexistente",
+                Value = "3"
+            });
+            list.Add(new SelectListItem
+            {
+                Text = "Planeación inadecuada",
+                Value = "4"
+            });
+            list.Add(new SelectListItem
+            {
+                Text = "Falta de recursos económicos",
+                Value = "5"
+            });
+            list.Add(new SelectListItem
+            {
+                Text = "Falta de recursos técnicos",
+                Value = "6"
+            });
+            list.Add(new SelectListItem
+            {
+                Text = "Falta de recursos físicos",
+                Value = "7"
+            });
+            list.Add(new SelectListItem
+            {
+                Text = "Falta de insumos o suministros",
+                Value = "8"
+            });
+            list.Add(new SelectListItem
+            {
+                Text = "Falta de talento humano",
+                Value = "9"
+            });
+            list.Add(new SelectListItem
+            {
+                Text = "Falta de entrenamiento",
+                Value = "10"
+            });
+            list.Add(new SelectListItem
+            {
+                Text = "Dificultades en el clima Org",
+                Value = "11"
+            });
+            list.Add(new SelectListItem
+            {
+                Text = "Dificultades en la gobernabilidad",
+                Value = "12"
+            });
+
+            return list;
+        }
+
     }
 }

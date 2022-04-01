@@ -1,4 +1,86 @@
 ﻿// Agregar funcionlidad principal del lado del cliente...
+//mostrar resultados
+
+function mostrarPlanAcc() {
+    $(".tabGesSeguiPlanAcc").css("display", "none");
+    var accionID = $("#txtAccionID").val();
+    $.ajax({
+        url: "/Acciones/ListarPlanAccion/",
+        data: { idAccion: accionID },
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,                                               // si es asincrónico o no
+        success: function (result) {
+            var html = '';
+            $.each(result, function (key, item) {
+                html += '<tr>';
+                html += '<td>' + item.Categoria + '</td>';
+                html += '<td>' + item.Accion + '</td>';
+                html += '<td>' + item.Prioritaria + '</td>';
+                html += '<td>' + item.Responsable + '</td>';
+                html += '<td>' + item.Costos + '</td>';
+                html += '<td>' + item.FechaInicial + '</td>';
+                html += '<td>' + item.FechaFinal + '</td>';
+                html += '<td><a href="#" onclick="return getPlanByID(' + item.ID + ')">Editar</a> | <a href = "#" onclick = "DeletePlan(' + item.ID + ')"> Borrar</a></td>';
+                html += '</tr>';
+                if (item.Prioritaria == true) {
+                    $("#idPrioritaria").prop('checked', true);
+                } else {
+                    $("#idPrioritaria").prop('checked', false);
+                }
+            });
+            $('.tbody').html(html);
+            $('.tabGesPlanAcc').css("display", "block");
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function convertProperty(item, key) {
+    // Indica el estado de una propiedad al visualizarla
+    if (item == true) {
+        $('#key').prop('checked', true);
+        return $('#key').val(true);
+    } else {
+        $('#key').prop('checked', false);
+        return $('#key').val(false);
+    }
+}
+
+//mostrar resultados
+function mostrarSeguimAcc() {
+    $(".tabGesSeguiPlanAcc").css("display", "none");
+    var accionID = $("#txtAccionID").val();
+    $.ajax({
+        url: "/Acciones/ListarSeguimientoAccion/",
+        data: { idAccion: accionID },
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,                                               // si es asincrónico o no
+        success: function (result) {
+            var html = '';
+            $.each(result, function (key, item) {
+                html += '<tr>';
+                html += '<td>' + item.FechaSeguimiento + '</td>';
+                html += '<td>' + item.Resultado + '</td>';
+                html += '<td>' + item.Responsable + '</td>';
+                html += '<td><a href="#" onclick="return getSeguiByID(' + item.ID + ')">Editar</a> | <a href = "#" onclick = "DeleteSegui(' + item.ID + ')"> Borrar</a></td>';
+                html += '</tr>';
+            });
+            $('.tbody').html(html);
+            $('.tabGesSeguiPlanAcc').css("display", "block");
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
 
 function ClearTextBox() {
     $("#idFechaIni").val("");
@@ -24,10 +106,10 @@ validarCostos = function (valor) {
 
 
 function getPlanByID(PlanID) {
+    // Trae la acción a modificar
     //ClearTextBox();
     $(".tabPlanAcc").css("display", "block");
     $("#_EditarPlanAcc").css("display", "block");
-    planID = PlanID;
     $.ajax({
         async: true,
         type: 'GET',
@@ -38,11 +120,19 @@ function getPlanByID(PlanID) {
         success: function (result) {
             $("#idFechaIni").val(result.FechaInicial);
             $("#idFechaFin").val(result.FechaFinal);
-            $("#idCausa").val(result.Causa);
+            $("#txtCausa").val(result.Causa);
             $("#accion").val(result.Accion);
             $("#idRespons").val(result.TrabajadorID);
             $("#idPrioritaria").val(result.Prioritaria);
             $("#idCostos").val(result.Costos);
+            $("#txtPlanAccionID").val(result.ID);
+            $("#txtAccionID").val(result.AccionID);
+
+            if (result.Prioritaria == true) {
+                $("#idPrioritaria").prop('checked', true);
+            } else {
+                $("#idPrioritaria").prop('checked', false);
+            }
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -239,6 +329,51 @@ function AddPlanAccion() {
         success: function (result) {
             alert("El registro ha sido ingresado exitosamente");
             ClearTextBox();
+            mostrarPlanAcc();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function UpdatePlanAcc() {
+    // Actualiza una accion creada, captura la accionID de id = txtAccionID
+    // llama la acción del controlador UpdatePlanAccion
+    $(".tabPlanAcc").css("display", "none");
+    $(".tabGesPlanAcc").css("display", "none");
+    $(".tabAddPlanAcc").css("display", "none");
+    if ($("#idPrioritaria").is(':checked')) {
+        $("#idPrioritaria").val(true)
+    }
+    else {
+        $("#idPrioritaria").val(false)
+    }
+
+    if ($("#txtCausa").val() == 0) { $("#txtCausa").val(1) };
+    if ($("#idPrioritaria").val() == null) { $("#idPrioritaria").val(false) };
+    var accionID = $("#txtAccionID").val();
+    var planAccionID = $("#planAccionID").val();
+    
+    var planAccionVM = {
+        ID: planAccionID,
+        AccionID: accionID,
+        FechaInicial: $("#idFechaIni").val(),
+        FechaFinal: $("#idFechaFin").val(),
+        Causa: $("#idCausa").val(),
+        Accion: $("#accion").val(),
+        TrabajadorID: $("#idRespons").val(),
+        Prioritaria: $("#idPrioritaria").val(),
+        Costos: $("#idCostos").val()
+    };
+    $.ajax({
+        type: "POST",
+        url: "/Acciones/UpdatePlanAccion",
+        data: { planAccion: planAccionVM },
+        dataType: "json",
+        success: function (result) {
+            $(".tabGesSeguiPlanAcc").css("display", "block");
             mostrarPlanAcc();
         },
         error: function (xhr, ajaxOptions, thrownError) {
