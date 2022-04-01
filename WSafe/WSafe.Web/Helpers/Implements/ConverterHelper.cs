@@ -482,8 +482,8 @@ namespace WSafe.Domain.Helpers.Implements
             {
                 ID = plan.ID,
                 AccionID = plan.AccionID,
-                FechaInicial = plan.FechaInicial.ToString("dd/MM/yyyy"),
-                FechaFinal = plan.FechaFinal.ToString("dd/MM/yyyy"),
+                FechaInicial = plan.FechaInicial.ToString("yyyy-MM-dd"),
+                FechaFinal = plan.FechaFinal.ToString("yyyy-MM-dd"),
                 Causa = plan.Causa,
                 Categoria = _gestorHelper.GetCausaAccion(plan.Causa).ToUpper(),
                 Accion = plan.Accion,

@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -71,6 +73,8 @@ namespace WSafe.Web.Controllers
                 return HttpNotFound();
             }
             ViewBag.AccionID = id;
+
+            ViewBag.Categorias = _comboHelper.GetAllCausas();
 
             return View(model);
         }
