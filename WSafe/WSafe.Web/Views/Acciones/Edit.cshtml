@@ -196,15 +196,20 @@
             </div>
         </div>
     </div>
+    <div class="tabAddSeguimAcc">
+        @Html.Partial("_EditarSigueAcc")
+        <div class="col-md-offset-2 col-md-4">
+            <button type="button" class="btn btn-primary" onclick="AddSeguiAcc()">Guardar</button>
+        </div>
+    </div>
 
 </div>
 }
 
-    @section Scripts
+@section Scripts
 {
-        <script type="text/javascript">
-        var planID;
-        var seguiID;
+    <script type="text/javascript">
+
         $(document).ready(function () {
             ClearTextBox();
             $("#txtAccionID").val(@accionID);
@@ -265,28 +270,5 @@
             });
         });
 
-
-        function AddSeguiAcc() {
-            $(".tabSeguimAcc").css("display", "none");
-            $.ajax({
-                type: "POST",
-                url: "CreateSeguimientoPlan",
-                data: {
-                    ID: "0",
-                    AccionID: accionID,
-                    FechaSeguimiento: $("#txtFechaSeg").val(),
-                    Resultado: $("#idResultado").val(),
-                    TrabajadorID: $("#idRespons").val(),
-                },
-                dataType: "json",
-                success: function (seguimientoPlan) {
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    alert(xhr.status);
-                    alert(thrownError);
-                }
-            });
-        }
-
-        </script>
-    }
+    </script>
+}

@@ -176,6 +176,7 @@ function getPlanByID(PlanID) {
 }
 
 function getSeguiByID(seguiID) {
+    // TODO
     $(".tabSeguimAcc").css("display", "block");
     $("#_EditarSigueAcc").css("display", "block");
     $.ajax({
@@ -417,6 +418,7 @@ function UpdatePlanAcc() {
 }
 
 function AddSeguiAcc() {
+    //TODO
     $(".tabSeguimAcc").css("display", "none");
     $(".tabSeguimAcc").css("display", "none");
     var accionID = $("#txtAccionID").val();
@@ -427,7 +429,6 @@ function AddSeguiAcc() {
         Resultado: $("#idResultado").val(),
         TrabajadorID: $("#idRespons").val(),
     };
-
     $.ajax({
         type: "POST",
         url: "/Acciones/CreateSeguimientoPlan",
@@ -445,6 +446,7 @@ function AddSeguiAcc() {
 }
 
 function UpdateSigueAcc() {
+    //TODO
     // Actualiza un seguimiento a una accion, captura la accionID de id = txtAccionID
     // llama la acción del controlador UpdatePlanAccion
     $(".tabSeguimAcc").css("display", "none");
