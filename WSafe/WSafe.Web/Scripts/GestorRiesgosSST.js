@@ -93,14 +93,50 @@ function ClearTextBox() {
     $('.tabSeguimAcc').css("display", "none");
 }
 
-validarFecha = function (fecha) {
-    alert("validando fecha : " + fecha);
+validarFechaIni = function () {
+    var fecha = Date.now();
+    var item = $("#idFechaIni").val();
+    var date = Date.parse(item);
+
+    if (date > fecha) {
+        alert("Fecha inicial incorrecta !!");
+        return false;
+    };
 }
 
-validarCostos = function (valor) {
-    alert("validando costos : " + valor);
+validarFechaFin = function () {
+    var item = $("#idFechaIni").val();
+    var fechaIni = Date.parse(item);
+    var item = $("#idFechaFin").val();
+    var fechaFin = Date.parse(item);
+
+    if (fechaIni > fechaFin) {
+        alert("Fecha final incorrecta !!");
+        return false;
+    };
 }
 
+validarSigue = function () {
+    var item = $("#idFechaIni").val();
+    var fechaIni = Date.parse(item);
+    var item = $("#idFechaFin").val();
+    var fechaFin = Date.parse(item);
+    var item = $("#txtFechaSeg").val();
+    var fechaSigue = Date.parse(item);
+
+    if (fechaSigue > fechaFin || fechaSigue < fechaIni) {
+        alert("Fecha seguimiento incorrecta !!");
+        return false;
+    };
+}
+
+validarCostos = function () {
+    var item = $("#idCostos").val();
+    if (item < 0) {
+        alert("El consto no puede ser inferior a cero");
+        return false;
+    }
+}
 
 function getPlanByID(PlanID) {
     // Trae la acción a modificar
@@ -141,6 +177,7 @@ function getPlanByID(PlanID) {
 
 function getSeguiByID(seguiID) {
     $(".tabSeguimAcc").css("display", "block");
+    $("#_EditarSigueAcc").css("display", "block");
     $.ajax({
         async: true,
         type: 'GET',
@@ -149,12 +186,12 @@ function getSeguiByID(seguiID) {
         dataType: "json",
         contentType: "application/json;charset=UTF-8",
         success: function (result) {
-            var txtfecha = JSON.stringify(result.FechaSeguimiento);
-            //var fechaSigue = txtfecha.slice(0, 10).split("-").reverse().join("/");
-            //document.getElementById("txtFechaSeg").innerHTML = fechaSigue;
             $("#txtFechaSeg").val(result.FechaSeguimiento);
             $("#txtResultado").val(result.Resultado);
-            $("#txtRespons").val(result.TrabajadorID);
+            $("#idRespons").val(result.TrabajadorID);
+
+            $("#txtAccionID").val(result.AccionID);
+            $("#sigueAccionID").val(result.ID);
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -369,7 +406,7 @@ function UpdatePlanAcc() {
         data: { planAccion: planAccionVM },
         dataType: "json",
         success: function (result) {
-            $(".tabGesSeguiPlanAcc").css("display", "block");
+            $(".tabGesPlanAcc").css("display", "block");
             mostrarPlanAcc();
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -399,6 +436,35 @@ function AddSeguiAcc() {
         success: function (seguimientoPlan) {
             ClearTextBox();
             mostrarSeguimAcc();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function UpdateSigueAcc() {
+    // Actualiza un seguimiento a una accion, captura la accionID de id = txtAccionID
+    // llama la acción del controlador UpdatePlanAccion
+    $(".tabSeguimAcc").css("display", "none");
+    $(".tabGesSeguiPlanAcc").css("display", "none");
+    $(".tabAddSeguimAcc").css("display", "none");
+    var sigueAccionVM = {
+        ID: $("#sigueAccionID").val(),
+        AccionID: $("#txtAccionID").val(),
+        FechaSeguimiento: $("#txtFechaSeg").val(),
+        Resultado: $("#txtResultado").val(),
+        TrabajadorID: $("#idRespons").val(),
+    };
+    $.ajax({
+        type: "POST",
+        url: "/Acciones/UpdateSeguimientoAccion",
+        data: { model: sigueAccionVM },
+        dataType: "json",
+        success: function (result) {
+            $(".tabGesSeguiPlanAcc").css("display", "block");
+            mostrarSeguimAcc;
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);

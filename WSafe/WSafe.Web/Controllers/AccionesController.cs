@@ -281,15 +281,15 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> UpdateSeguimientoAccion([Bind(Include = "ID, AccionID, FechaSeguimiento, Resultado, TrabajadorID")] SeguimientoAccion seguimientoAccion)
+        public async Task<ActionResult> UpdateSeguimientoAccion([Bind(Include = "ID, AccionID, FechaSeguimiento, Resultado, TrabajadorID")] SeguimientoAccion model)
         {
             if (ModelState.IsValid)
             {
-                _empresaContext.Entry(seguimientoAccion).State = EntityState.Modified;
+                _empresaContext.Entry(model).State = EntityState.Modified;
                 await _empresaContext.SaveChangesAsync();
             }
 
-            return Json(seguimientoAccion, JsonRequestBehavior.AllowGet);
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
