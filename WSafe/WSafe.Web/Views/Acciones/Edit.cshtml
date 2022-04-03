@@ -184,7 +184,7 @@
                 <div class="col-md-3 mb-4">
                     <hr />
                     <label for="Respons">Trabajador responsable :</label>
-                    @Html.DropDownListFor(model => model.TrabajadorID, Model.Trabajadores, new { @class = "form-control", @id = "idRespons" })
+                    @Html.DropDownListFor(model => model.TrabajadorID, Model.Trabajadores, new { @class = "form-control", @id = "responsID" })
                     @Html.ValidationMessageFor(model => model.TrabajadorID, "", new { @class = "text-danger" })
                 </div>
             </div>
