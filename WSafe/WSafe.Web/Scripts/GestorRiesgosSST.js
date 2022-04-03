@@ -201,6 +201,7 @@ function getSeguiByID(seguiID) {
 }
 
 function DeleteSegui(id) {
+    //TODO
     var ans = confirm("Esta seguro de querer borrar este registro ?");
     if (ans) {
         $.ajax({
@@ -221,6 +222,7 @@ function DeleteSegui(id) {
 }
 
 function DeletePlan(id) {
+    //TODO
     var ans = confirm("Esta seguro de querer borrar este registro ?");
     if (ans) {
         $.ajax({
@@ -421,13 +423,14 @@ function AddSeguiAcc() {
     //TODO
     $(".tabSeguimAcc").css("display", "none");
     $(".tabSeguimAcc").css("display", "none");
+    $(".tabAddSeguimAcc").css("display", "none");
     var accionID = $("#txtAccionID").val();
     var seguimientoVM = {
         ID: "0",
         AccionID: accionID,
         FechaSeguimiento: $("#idFechaSegui").val(),
         Resultado: $("#idResultado").val(),
-        TrabajadorID: $("#idRespons").val(),
+        TrabajadorID: $("#trabajadorID").val()
     };
     $.ajax({
         type: "POST",
@@ -435,6 +438,7 @@ function AddSeguiAcc() {
         data: { seguimientoAccion: seguimientoVM },
         dataType: "json",
         success: function (seguimientoPlan) {
+            alert("El registro ha sido ingresado exitosamente");
             ClearTextBox();
             mostrarSeguimAcc();
         },
@@ -457,7 +461,7 @@ function UpdateSigueAcc() {
         AccionID: $("#txtAccionID").val(),
         FechaSeguimiento: $("#txtFechaSeg").val(),
         Resultado: $("#txtResultado").val(),
-        TrabajadorID: $("#idRespons").val(),
+        TrabajadorID: $("#responsID").val(),
     };
     $.ajax({
         type: "POST",
