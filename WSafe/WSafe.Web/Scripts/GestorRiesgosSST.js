@@ -202,44 +202,89 @@ function getSeguiByID(seguiID) {
 
 function DeleteSegui(id) {
     //TODO
-    var ans = confirm("Esta seguro de querer borrar este registro ?");
-    if (ans) {
-        $.ajax({
-            url: "/Acciones/DeleteSeguimientoAccion/" + id,
-            type: "POST",
-            contentType: "application/json;charset=UTF-8",
-            dataType: "json",
-            async: true,                                               // si es asincrónico o no
-            success: function (result) {
-                mostrarSegimAcc();
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                alert(xhr.status);
-                alert(thrownError);
+    $.ajax({
+        url: "/Acciones/DeleteSeguimientoAccion/" + id,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        async: true,                                               // si es asincrónico o no
+        success: function (result) {
+            var text = "";
+            text += "Esta seguro de querer borrar este registro ? :\n\n";
+            text += "Fecha seguimiento : " + result.FechaSeguimiento + "\n";
+            text += "Resultado : " + result.Resultado + "\n";
+            text += "Responsable : " + result.Responsable + "\n";
+            var respuesta = confirm(text);
+
+            if (respuesta == true) {
+                $.ajax({
+                    url: "/Acciones/DeleteSeguimientoAccion/" + id,
+                    type: "POST",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    async: true,                                               // si es asincrónico o no
+                    success: function (result) {
+                        mostrarSegimAcc();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                    }
+                });
+                alert("El registro ha sido borrado exitosamente");
             }
-        });
-    }
+            ClearTextBox();
+            mostrarSeguimAcc();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
 }
 
 function DeletePlan(id) {
-    //TODO
-    var ans = confirm("Esta seguro de querer borrar este registro ?");
-    if (ans) {
-        $.ajax({
-            url: "/Acciones/DeletePlanAccion/" + id,
-            type: "POST",
-            contentType: "application/json;charset=UTF-8",
-            dataType: "json",
-            async: true,                                               // si es asincrónico o no
-            success: function (result) {
-                mostrarSeguimAcc();
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                alert(xhr.status);
-                alert(thrownError);
+    $.ajax({
+        url: "/Acciones/DeletePlanAccion/" + id,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        async: true,                                               // si es asincrónico o no
+        success: function (result) {
+            var text = "";
+            text += "Esta seguro de querer borrar este registro ? :\n\n";
+            text += "Fecha inicial : " + result.FechaInicial + "\n";
+            text += "Fecha final : " + result.FechaFinal + "\n";
+            text += "Causa : " + result.Categoria + "\n";
+            text += "Accion : " + result.Accion + "\n";
+            text += "Responsable : " + result.Responsable + "\n";
+            var respuesta = confirm(text);
+
+            if (respuesta == true) {
+                $.ajax({
+                    url: "/Acciones/DeletePlanAccion/" + id,
+                    type: "POST",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    async: true,                                               // si es asincrónico o no
+                    success: function (result) {
+                        mostrarPlanAcc();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                    }
+                });
+                alert("El registro ha sido borrado exitosamente");
             }
-        });
-    }
+            ClearTextBox();
+            mostrarPlanAcc();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
 }
 
 // las siguientes funciones cran una nueva accion, plan acción y nuevo seguimiento

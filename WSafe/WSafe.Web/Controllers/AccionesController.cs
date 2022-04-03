@@ -259,6 +259,22 @@ namespace WSafe.Web.Controllers
 
             return Json(planAccion, JsonRequestBehavior.AllowGet);
         }
+        // GET: Acciones/Delete/5
+        public async Task<ActionResult> DeletePlanAccion(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            PlanAccion plan = await _empresaContext.PlanesAccion.FindAsync(id);
+            var model = _converterHelper.ToPlanAccionVM(plan);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public async Task<ActionResult> DeletePlanAccion(int id)
         {
@@ -289,6 +305,22 @@ namespace WSafe.Web.Controllers
                 await _empresaContext.SaveChangesAsync();
             }
 
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        // GET: Acciones/Delete/5
+        public async Task<ActionResult> DeleteSeguimientoAccion(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            SeguimientoAccion sigue = await _empresaContext.SeguimientosAccion.FindAsync(id);
+            var model = _converterHelper.ToSeguimientoAccionVM(sigue);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
