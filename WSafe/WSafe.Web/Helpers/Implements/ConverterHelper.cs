@@ -164,7 +164,9 @@ namespace WSafe.Domain.Helpers.Implements
                 Efectiva = accion.Efectiva,
                 Estado = accion.Estado,
                 Planes = new List<PlanAccion>(),
-                Seguimientos = new List<SeguimientoAccion>()
+                Seguimientos = new List<SeguimientoAccion>(),
+                FechaSolicitudStr = accion.FechaSolicitud.ToString("yyyy-MM-dd"),
+                FechaCierreStr = accion.FechaCierre.ToString("yyyy-MM-dd")
             };
             model.Planes.Add(new PlanAccion() { AccionID = accion.ID });
             model.Seguimientos.Add(new SeguimientoAccion() { AccionID = accion.ID });
