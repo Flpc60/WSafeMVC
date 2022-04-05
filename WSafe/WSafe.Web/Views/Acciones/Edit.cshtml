@@ -24,9 +24,10 @@
     <hr />
     <h4>@ViewBag.Title</h4>
     <div class="btn-group btn-group-justified">
-        <button type="button" class="btn btn-warning" id="idCausas" title="doble click para cerrar la ventana"> 1.IDENTIFICAR NO CONFORMIDAD</button>
-        <button type="button" class="btn btn-warning" id="planAcc" title="doble click para cerrar la ventana"> 2.PLAN DE ACCIÓN</button>
+        <button type="button" class="btn btn-warning" id="idCausas"  title="doble click para cerrar la ventana"> 1.IDENTIFICAR NO CONFORMIDAD</button>
+        <button type="button" class="btn btn-warning" id="planAcc"   title="doble click para cerrar la ventana"> 2.PLAN DE ACCIÓN</button>
         <button type="button" class="btn btn-warning" id="seguimAcc" title="doble click para cerrar la ventana"> 3.SEGUIMIENTO</button>
+        <button type="button" class="btn btn-info"    id="idPdf"     onclick ="imprimirPdf(@ViewBag.AccionID) " title="doble click para cerrar la ventana"> DESCARGAR PDF</button>
     </div>
 
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })

@@ -13,9 +13,6 @@
     <div class="col-md-4">
         Buscar : <input type="search" id="myInput" placeholder="Escriba un nombre de elemento para filtrar" style="width:350px">
     </div>
-    <div class="col-md-4">
-        <input type="button" class="btn btn-info" id="reportPdf" value="Descargar PDF">
-    </div>
 </div>
 
 <table class="table">
@@ -52,42 +49,44 @@
     <tbody id="myTable">
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaSolicitud)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Categoria)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Origen)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Descripcion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EficaciaAntes)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EficaciaDespues)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaCierre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Efectiva)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Estado)
-                </td>
-                <td style="font-size:18px">
-                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) |
-                    @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "glyphicon glyphicon-trash" })
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaSolicitud)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Categoria)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Origen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EficaciaAntes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EficaciaDespues)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaCierre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Efectiva)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td style="font-size:12px">
+                @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) |
+                <button onclick="DeleteAccion('@item.ID')"><span class="glyphicon glyphicon-trash"></span></button>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
+<hr />
+<p>@ViewBag.ErrorMessage</p>
 
 @section Scripts
 {

@@ -70,5 +70,7 @@ namespace WSafe.Web.Models
         public bool Estado { get; set; }
         public ICollection<PlanAccion> Planes { get; set; }
         public ICollection<SeguimientoAccion> Seguimientos { get; set; }
+        public string FechaSolicitudStr { get; set; }
+        public string FechaCierreStr { get; set; }
     }
 }

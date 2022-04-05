@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -92,31 +91,48 @@ namespace WSafe.Web.Controllers
             return Json(idAccion, JsonRequestBehavior.AllowGet);
         }
 
-        // GET: Acciones/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        [HttpGet]
+        public async Task<ActionResult> DeleteAccion(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            var message = "";
             Accion accion = await _empresaContext.Acciones.FindAsync(id);
-            if (accion == null)
+            var planes = _empresaContext.PlanesAccion.Where(p => p.AccionID == id).Count();
+            if (planes != 0)
             {
-                return HttpNotFound();
+                message = "Esta acción tiene planes de acción pendientes por eliminar!!";
+                return Json(new { data = false, error = message }, JsonRequestBehavior.AllowGet );
             }
-            return View(accion);
+            var sigue = _empresaContext.SeguimientosAccion.Where(s => s.AccionID == id).Count();
+            if (sigue != 0)
+            {
+                message = "Esta acción tiene seguimientos pendientes por eliminar!!";
+                return Json(new { data = false, error = message }, JsonRequestBehavior.AllowGet);
+            }
+
+            var model = _converterHelper.ToAccionViewModel(accion);
+            return Json(new { data = model, error = message }, JsonRequestBehavior.AllowGet);
         }
 
-        // POST: Acciones/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        [HttpPost]
+        public async Task<ActionResult> DeleteAccion(int id)
         {
-            Accion accion = await _empresaContext.Acciones.FindAsync(id);
-            _empresaContext.Acciones.Remove(accion);
-            await _empresaContext.SaveChangesAsync();
-            return RedirectToAction("Index");
+            var consulta = new AccionService(new AccionRepository(_empresaContext));
+            try
+            {
+                await consulta.Delete(id);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Acciones", "Delete"));
+            }
+
+            return Json(new { data = true, message = "El registro ha sido eliminado exitosamente" }, JsonRequestBehavior.AllowGet);
         }
+
         // GET: Plan acción/Create
         [HttpGet]
         public ActionResult CreatePlanAccion(int idAccion)
@@ -184,10 +200,10 @@ namespace WSafe.Web.Controllers
             }
             return Json(seguimientoAccion, JsonRequestBehavior.AllowGet);
         }
-            
+
         [HttpPost]
         public async Task<ActionResult> CreateAccion([Bind(Include="ID, ZonaID, ProcesoID, ActividadID, TareaID, FechaSolicitud, Categoria, TrabajadorID, " +
-            "FuenteAccion, Descripcion, EficaciaAntes, EficaciaDespues, FechaCierre, Efectiva, Estado")] Accion model)  
+            "FuenteAccion, Descripcion, EficaciaAntes, EficaciaDespues, FechaCierre, Efectiva, Estado")] Accion model)
         {
             if (model == null)
             {
@@ -259,7 +275,7 @@ namespace WSafe.Web.Controllers
 
             return Json(planAccion, JsonRequestBehavior.AllowGet);
         }
-        // GET: Acciones/Delete/5
+
         public async Task<ActionResult> DeletePlanAccion(int? id)
         {
             if (id == null)

@@ -287,6 +287,58 @@ function DeletePlan(id) {
     });
 }
 
+function DeleteAccion(ID) {
+    var id = ID;
+    $.ajax({
+        url: "/Acciones/DeleteAccion/" + id,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        async: true,                                               // si es asincrónico o no
+        success: function (result) {
+            if (result.data == false) {
+                alert(result.error);
+            } else {
+                var text = "";
+                text += "Esta seguro de querer borrar este registro ? :\n\n";
+                text += "Fecha solicitud : " + result.data.FechaSolicitudStr + "\n";
+                text += "Categoria : " + result.data.Categoria + "\n";
+                text += "Origen : " + result.data.Origen + "\n";
+                text += "Descripcion : " + result.data.Descripcion + "\n";
+                text += "Eficacia antes : " + result.data.EficaciaAntes + "\n";
+                text += "Eficacia despues : " + result.data.EficaciaDespues + "\n";
+                text += "Fecha cierre : " + result.data.FechaCierreStr + "\n";
+                text += "Efectiva : " + result.data.Efectiva + "\n";
+                text += "Estado : " + result.data.Estado + "\n";
+                var respuesta = confirm(text);
+
+                if (respuesta == true) {
+                    $.ajax({
+                        url: "/Acciones/DeleteAccion/" + id,
+                        type: "POST",
+                        contentType: "application/json;charset=UTF-8",
+                        dataType: "json",
+                        async: true,
+                        success: function (response) {
+                            alert(response.message);
+                            location.reload(true);
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            alert(xhr.status);
+                            alert(thrownError);
+                        }
+                    });
+                }
+
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
 // las siguientes funciones cran una nueva accion, plan acción y nuevo seguimiento
 function AddAccion() {
     // Crea una nueva acción, para una nueva no conformidad
@@ -522,4 +574,7 @@ function UpdateSigueAcc() {
             alert(thrownError);
         }
     });
+}
+imprimirPdf = function (id) {
+    alert("Descargando pdf..."+id)
 }
