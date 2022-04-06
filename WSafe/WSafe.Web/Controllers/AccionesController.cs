@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -11,8 +12,10 @@ using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
 {
+    // Getionar todas las acciones correctvas, preventivas y de mejora
     public class AccionesController : Controller
     {
+        // Inyecciones
         private readonly EmpresaContext _empresaContext;
         private readonly IComboHelper _comboHelper;
         private readonly IConverterHelper _converterHelper;
@@ -29,11 +32,15 @@ namespace WSafe.Web.Controllers
             _gestorHelper = gestorHelper;
         }
 
-        // GET: Acciones
+        // Listar todas las acciones abiertas en orden de fecha de solicitud
         public async Task<ActionResult> Index()
         {
-            var consulta = new AccionService(new AccionRepository(_empresaContext));
-            return View(await consulta.GetALL());
+            var list = await _empresaContext.Acciones
+                .Where(a => a.Estado == false)
+                .OrderByDescending(a => a.FechaSolicitud)
+                .ToListAsync();
+            var modelo = _converterHelper.ToAccionVMList(list);
+            return View(modelo);
         }
 
         // GET: Acciones/Create
@@ -44,8 +51,6 @@ namespace WSafe.Web.Controllers
         }
 
         // POST: Acciones/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         public ActionResult Create(AccionViewModel model)
         {
@@ -61,59 +66,73 @@ namespace WSafe.Web.Controllers
             }
 
             var result = await _empresaContext.Acciones.FirstOrDefaultAsync(i => i.ID == id.Value);
-
             var model = _converterHelper.ToAccionViewModel(result);
-
             if (model == null)
             {
                 return HttpNotFound();
             }
             ViewBag.AccionID = id;
 
+            ViewBag.Categorias = _comboHelper.GetAllCausas();
+
             return View(model);
         }
 
-        // POST: Acciones/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(Accion accion)
+        public async Task<ActionResult> UpdateAccion(Accion model)
         {
             if (ModelState.IsValid)
             {
-                _empresaContext.Entry(accion).State = EntityState.Modified;
-                await _empresaContext.SaveChangesAsync();
-                return RedirectToAction("Index");
+                var consulta = new AccionService(new AccionRepository(_empresaContext));
+                var result = await _converterHelper.ToAccionAsync(model, false);
+                await consulta.Update(result);
             }
-            return View(accion);
+            var idAccion = model.ID;
+            return Json(idAccion, JsonRequestBehavior.AllowGet);
         }
 
-        // GET: Acciones/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        [HttpGet]
+        public async Task<ActionResult> DeleteAccion(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            var message = "";
             Accion accion = await _empresaContext.Acciones.FindAsync(id);
-            if (accion == null)
+            var planes = _empresaContext.PlanesAccion.Where(p => p.AccionID == id).Count();
+            if (planes != 0)
             {
-                return HttpNotFound();
+                message = "Esta acción tiene planes de acción pendientes por eliminar!!";
+                return Json(new { data = false, error = message }, JsonRequestBehavior.AllowGet );
             }
-            return View(accion);
+            var sigue = _empresaContext.SeguimientosAccion.Where(s => s.AccionID == id).Count();
+            if (sigue != 0)
+            {
+                message = "Esta acción tiene seguimientos pendientes por eliminar!!";
+                return Json(new { data = false, error = message }, JsonRequestBehavior.AllowGet);
+            }
+
+            var model = _converterHelper.ToAccionViewModel(accion);
+            return Json(new { data = model, error = message }, JsonRequestBehavior.AllowGet);
         }
 
-        // POST: Acciones/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        [HttpPost]
+        public async Task<ActionResult> DeleteAccion(int id)
         {
-            Accion accion = await _empresaContext.Acciones.FindAsync(id);
-            _empresaContext.Acciones.Remove(accion);
-            await _empresaContext.SaveChangesAsync();
-            return RedirectToAction("Index");
+            var consulta = new AccionService(new AccionRepository(_empresaContext));
+            try
+            {
+                await consulta.Delete(id);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Acciones", "Delete"));
+            }
+
+            return Json(new { data = true, message = "El registro ha sido eliminado exitosamente" }, JsonRequestBehavior.AllowGet);
         }
+
         // GET: Plan acción/Create
         [HttpGet]
         public ActionResult CreatePlanAccion(int idAccion)
@@ -126,39 +145,40 @@ namespace WSafe.Web.Controllers
             var model = new PlanAccionVM
             {
                 AccionID = idAccion,
-                //Trabajadores = _comboHelper.GetComboTrabajadores()
             };
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreatePlanAccion([Bind(Include = "ID, AccionID, FechaInicial, FechaFinal, Causa, Accion, TrabajadorID, Prioritaria, Costos")] PlanAccion planAccion)
+        public async Task<ActionResult> CreatePlanAccion([Bind(Include = "ID, AccionID, FechaInicial, FechaFinal, Causa, Accion, TrabajadorID, Prioritaria, Costos")] PlanAccion model)
         {
-            if (planAccion.AccionID == 0)
+            if (model.AccionID == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PlanAccion model = await _converterHelper.ToPlanAccionAsync(planAccion);
 
-
+            PlanAccion result = await _converterHelper.ToPlanAccionAsync(model);
             if (ModelState.IsValid)
             {
-                _empresaContext.PlanesAccion.Add(model);
+                _empresaContext.PlanesAccion.Add(result);
                 await _empresaContext.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Seguimineto Plan acción/Create
         [HttpGet]
-        public ActionResult CreateSeguiminetoPlan(int idAccion)
+        public ActionResult CreateSeguimientoPlan(int idAccion)
         {
+            if (idAccion == null)
+            {
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
             var model = new SeguimientoAccionVM
             {
                 AccionID = idAccion,
-                //Trabajadores = _comboHelper.GetComboTrabajadores()
             };
             return Json(model, JsonRequestBehavior.AllowGet);
         }
@@ -166,6 +186,12 @@ namespace WSafe.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateSeguimientoPlan(SeguimientoAccion seguimientoAccion)
         {
+            if (seguimientoAccion.AccionID == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            SeguimientoAccion model = await _converterHelper.ToSeguimientoAccionAsync(seguimientoAccion);
+
             if (ModelState.IsValid)
             {
                 _empresaContext.SeguimientosAccion.Add(seguimientoAccion);
@@ -176,7 +202,8 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateAccion(Accion model)
+        public async Task<ActionResult> CreateAccion([Bind(Include="ID, ZonaID, ProcesoID, ActividadID, TareaID, FechaSolicitud, Categoria, TrabajadorID, " +
+            "FuenteAccion, Descripcion, EficaciaAntes, EficaciaDespues, FechaCierre, Efectiva, Estado")] Accion model)
         {
             if (model == null)
             {
@@ -225,16 +252,9 @@ namespace WSafe.Web.Controllers
             }
 
             //TODO
-            var seguimientos = (from sa in _empresaContext.SeguimientosAccion.Where(sa => sa.AccionID == idAccion).AsEnumerable()
-                                select new
-                                {
-                                    ID = sa.ID,
-                                    FechaSeguimiento = sa.FechaSeguimiento.ToString("dd/MM/yyyy"),
-                                    Responsable = sa.TrabajadorID,
-                                    Resultado = sa.Resultado.ToUpper()
-                                }).ToList();
-
-            return Json(seguimientos, JsonRequestBehavior.AllowGet);
+            var seguimientos = _empresaContext.SeguimientosAccion.Where(sa => sa.AccionID == idAccion).ToList();
+            var result = _converterHelper.ToSeguimientoAccionVMList(seguimientos);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
         public JsonResult UpdatePlanAccion(int ID)
@@ -255,6 +275,22 @@ namespace WSafe.Web.Controllers
 
             return Json(planAccion, JsonRequestBehavior.AllowGet);
         }
+
+        public async Task<ActionResult> DeletePlanAccion(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            PlanAccion plan = await _empresaContext.PlanesAccion.FindAsync(id);
+            var model = _converterHelper.ToPlanAccionVM(plan);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public async Task<ActionResult> DeletePlanAccion(int id)
         {
@@ -262,6 +298,55 @@ namespace WSafe.Web.Controllers
             {
                 PlanAccion accion = await _empresaContext.PlanesAccion.FindAsync(id);
                 _empresaContext.PlanesAccion.Remove(accion);
+                await _empresaContext.SaveChangesAsync();
+                return Json(accion, JsonRequestBehavior.AllowGet);
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public JsonResult UpdateSeguimientoAccion(int ID)
+        {
+            var seguimiento = _empresaContext.SeguimientosAccion.FirstOrDefault(sa => sa.ID == ID);
+            var model = _converterHelper.ToSeguimientoAccionVM(seguimiento);
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UpdateSeguimientoAccion([Bind(Include = "ID, AccionID, FechaSeguimiento, Resultado, TrabajadorID")] SeguimientoAccion model)
+        {
+            if (ModelState.IsValid)
+            {
+                _empresaContext.Entry(model).State = EntityState.Modified;
+                await _empresaContext.SaveChangesAsync();
+            }
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        // GET: Acciones/Delete/5
+        public async Task<ActionResult> DeleteSeguimientoAccion(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            SeguimientoAccion sigue = await _empresaContext.SeguimientosAccion.FindAsync(id);
+            var model = _converterHelper.ToSeguimientoAccionVM(sigue);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteSeguimientoAccion(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                SeguimientoAccion accion = await _empresaContext.SeguimientosAccion.FindAsync(id);
+                _empresaContext.SeguimientosAccion.Remove(accion);
                 await _empresaContext.SaveChangesAsync();
                 return Json(accion, JsonRequestBehavior.AllowGet);
             }

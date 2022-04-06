@@ -324,53 +324,9 @@
     <Compile Include="Migrations\202202160020306_CreateMedidasInterVencion.Designer.cs">
       <DependentUpon>202202160020306_CreateMedidasInterVencion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202202232329047_Createseguimientos4.cs" />
-    <Compile Include="Migrations\202202232329047_Createseguimientos4.Designer.cs">
-      <DependentUpon>202202232329047_Createseguimientos4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202203012235231_CreateAuditor.cs" />
-    <Compile Include="Migrations\202203012235231_CreateAuditor.Designer.cs">
-      <DependentUpon>202203012235231_CreateAuditor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202203021427523_CreateAuditor2.cs" />
-    <Compile Include="Migrations\202203021427523_CreateAuditor2.Designer.cs">
-      <DependentUpon>202203021427523_CreateAuditor2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202203021544263_CreateAuditor3.cs" />
-    <Compile Include="Migrations\202203021544263_CreateAuditor3.Designer.cs">
-      <DependentUpon>202203021544263_CreateAuditor3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202203021618015_CreateAuditor4.cs" />
-    <Compile Include="Migrations\202203021618015_CreateAuditor4.Designer.cs">
-      <DependentUpon>202203021618015_CreateAuditor4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202203101621188_CreaatePlan.cs" />
-    <Compile Include="Migrations\202203101621188_CreaatePlan.Designer.cs">
-      <DependentUpon>202203101621188_CreaatePlan.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202203112127025_CreatePlanVM.cs" />
-    <Compile Include="Migrations\202203112127025_CreatePlanVM.Designer.cs">
-      <DependentUpon>202203112127025_CreatePlanVM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202203112250122_CreatePlanVM1.cs" />
-    <Compile Include="Migrations\202203112250122_CreatePlanVM1.Designer.cs">
-      <DependentUpon>202203112250122_CreatePlanVM1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202203112314055_CreatePlanVM11.cs" />
-    <Compile Include="Migrations\202203112314055_CreatePlanVM11.Designer.cs">
-      <DependentUpon>202203112314055_CreatePlanVM11.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202203141629414_CreateUsers.cs" />
-    <Compile Include="Migrations\202203141629414_CreateUsers.Designer.cs">
-      <DependentUpon>202203141629414_CreateUsers.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202203142215154_CreateRoles.cs" />
-    <Compile Include="Migrations\202203142215154_CreateRoles.Designer.cs">
-      <DependentUpon>202203142215154_CreateRoles.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202203142220395_CreateRoles1.cs" />
-    <Compile Include="Migrations\202203142220395_CreateRoles1.Designer.cs">
-      <DependentUpon>202203142220395_CreateRoles1.cs</DependentUpon>
+    <Compile Include="Migrations\202204051654073_UpdateAccionVM.cs" />
+    <Compile Include="Migrations\202204051654073_UpdateAccionVM.Designer.cs">
+      <DependentUpon>202204051654073_UpdateAccionVM.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -523,7 +479,7 @@
     <Content Include="Views\Acciones\Create.cshtml" />
     <Content Include="Views\Acciones\Delete.cshtml" />
     <Content Include="Views\Acciones\Details.cshtml" />
-    <Content Include="Views\Acciones\Edit.cshtml" />
+    <Content Include="Views\Acciones\Editar.cshtml" />
     <Content Include="Views\Acciones\Index.cshtml" />
     <Content Include="Views\Aplicaciones\Create.cshtml" />
     <Content Include="Views\Aplicaciones\Delete.cshtml" />
@@ -544,6 +500,9 @@
     <Content Include="Views\Accounts\Index.cshtml" />
     <Content Include="Views\Accounts\Login.cshtml" />
     <Content Include="Views\Accounts\Login - Copy.cshtml" />
+    <Content Include="Views\Shared\_EditarSigueAcc.cshtml" />
+    <Content Include="Views\Acciones\Edit.cshtml" />
+    <Content Include="Views\Shared\_EditarNoConformidad.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -568,41 +527,8 @@
     <EmbeddedResource Include="Migrations\202202160020306_CreateMedidasInterVencion.resx">
       <DependentUpon>202202160020306_CreateMedidasInterVencion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202202232329047_Createseguimientos4.resx">
-      <DependentUpon>202202232329047_Createseguimientos4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203012235231_CreateAuditor.resx">
-      <DependentUpon>202203012235231_CreateAuditor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203021427523_CreateAuditor2.resx">
-      <DependentUpon>202203021427523_CreateAuditor2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203021544263_CreateAuditor3.resx">
-      <DependentUpon>202203021544263_CreateAuditor3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203021618015_CreateAuditor4.resx">
-      <DependentUpon>202203021618015_CreateAuditor4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203101621188_CreaatePlan.resx">
-      <DependentUpon>202203101621188_CreaatePlan.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203112127025_CreatePlanVM.resx">
-      <DependentUpon>202203112127025_CreatePlanVM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203112250122_CreatePlanVM1.resx">
-      <DependentUpon>202203112250122_CreatePlanVM1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203112314055_CreatePlanVM11.resx">
-      <DependentUpon>202203112314055_CreatePlanVM11.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203141629414_CreateUsers.resx">
-      <DependentUpon>202203141629414_CreateUsers.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203142215154_CreateRoles.resx">
-      <DependentUpon>202203142215154_CreateRoles.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203142220395_CreateRoles1.resx">
-      <DependentUpon>202203142220395_CreateRoles1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202204051654073_UpdateAccionVM.resx">
+      <DependentUpon>202204051654073_UpdateAccionVM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

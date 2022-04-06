@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WSafe.Domain.Data.Entities.Accion>
+﻿@model IEnumerable<WSafe.Web.Models.AccionViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -13,9 +13,6 @@
     <div class="col-md-4">
         Buscar : <input type="search" id="myInput" placeholder="Escriba un nombre de elemento para filtrar" style="width:350px">
     </div>
-    <div class="col-md-4">
-        <input type="button" class="btn btn-info" id="reportPdf" value="Descargar PDF">
-    </div>
 </div>
 
 <table class="table">
@@ -27,7 +24,7 @@
             @Html.DisplayNameFor(model => model.Categoria)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FuenteAccion)
+            @Html.DisplayNameFor(model => model.Origen)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Descripcion)
@@ -49,9 +46,9 @@
         </th>
         <th>Opciones</th>
     </tr>
-
-    @foreach (var item in Model)
-    {
+    <tbody id="myTable">
+        @foreach (var item in Model)
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.FechaSolicitud)
@@ -60,7 +57,7 @@
                 @Html.DisplayFor(modelItem => item.Categoria)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FuenteAccion)
+                @Html.DisplayFor(modelItem => item.Origen)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Descripcion)
@@ -80,11 +77,29 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Estado)
             </td>
-            <td style="font-size:18px">
-                @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit"}) |
-                @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "glyphicon glyphicon-trash" })
+            <td style="font-size:12px">
+                @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) |
+                <button onclick="DeleteAccion('@item.ID')"><span class="glyphicon glyphicon-trash"></span></button>
             </td>
         </tr>
-    }
-
+        }
+    </tbody>
 </table>
+<hr />
+<p>@ViewBag.ErrorMessage</p>
+
+@section Scripts
+{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#myInput").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+
+    </script>
+}
