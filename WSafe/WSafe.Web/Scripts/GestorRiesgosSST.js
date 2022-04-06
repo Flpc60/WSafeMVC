@@ -575,6 +575,6 @@ function UpdateSigueAcc() {
         }
     });
 }
-imprimirPdf = function (id) {
-    alert("Descargando pdf..."+id)
+imprimirPdf = function (id, item) {
+    alert("Descargando pdf " + item);
 }
