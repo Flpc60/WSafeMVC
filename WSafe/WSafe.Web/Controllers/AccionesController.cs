@@ -9,6 +9,10 @@ using WSafe.Domain.Helpers;
 using WSafe.Domain.Repositories.Implements;
 using WSafe.Domain.Services.Implements;
 using WSafe.Web.Models;
+using System.IO;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.tool.xml;
 
 namespace WSafe.Web.Controllers
 {
@@ -104,7 +108,7 @@ namespace WSafe.Web.Controllers
             if (planes != 0)
             {
                 message = "Esta acción tiene planes de acción pendientes por eliminar!!";
-                return Json(new { data = false, error = message }, JsonRequestBehavior.AllowGet );
+                return Json(new { data = false, error = message }, JsonRequestBehavior.AllowGet);
             }
             var sigue = _empresaContext.SeguimientosAccion.Where(s => s.AccionID == id).Count();
             if (sigue != 0)
@@ -351,6 +355,22 @@ namespace WSafe.Web.Controllers
                 return Json(accion, JsonRequestBehavior.AllowGet);
             }
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public FileResult Export(string ExportData)
+        {
+            using (MemoryStream stream = new System.IO.MemoryStream())
+            {
+                StringReader reader = new StringReader(ExportData);
+                Document PdfFile = new Document(PageSize.A4);
+                PdfWriter writer = PdfWriter.GetInstance(PdfFile, stream);
+                PdfFile.Open();
+                XMLWorkerHelper.GetInstance().ParseXHtml(writer, PdfFile, reader);
+                PdfFile.Close();
+                return File(stream.ToArray(), "application/pdf", "ExportData.pdf");
+            }
         }
     }
 }
