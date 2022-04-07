@@ -575,6 +575,28 @@ function UpdateSigueAcc() {
         }
     });
 }
+
 imprimirPdf = function (id, item) {
     alert("Descargando pdf " + item);
 }
+
+imprimeEncabezado = function (form, title, fecha, num) {
+    alert("Imprimiendo encabezado " + title);
+}
+
+imprimeIdentify = function (item) {
+    alert("Imprimiendo identificación " + item);
+}
+
+imprimeDetails = function (item) {
+    alert("Imprimiendo detalles " + item);
+}
+
+imprimeCuerpo = function (item) {
+    alert("Imprimiendo cuerpo " + item);
+}
+
+imprimeFoot = function (item) {
+    alert("Imprimiendo pie de pagina " + item);
+}
+
