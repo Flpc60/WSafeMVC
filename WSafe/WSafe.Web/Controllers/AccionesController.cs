@@ -13,6 +13,7 @@ using System.IO;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using iTextSharp.tool.xml;
+using Rotativa;
 
 namespace WSafe.Web.Controllers
 {
@@ -356,21 +357,26 @@ namespace WSafe.Web.Controllers
             }
             return RedirectToAction("Index");
         }
-
-        [HttpPost]
-        [ValidateInput(false)]
-        public FileResult Export(string ExportData)
+ 
+        //Convert partial Page as PDF
+        public async Task<ActionResult> PrintAccionesToPdf(int id)
         {
-            using (MemoryStream stream = new System.IO.MemoryStream())
+            if (id == null)
             {
-                StringReader reader = new StringReader(ExportData);
-                Document PdfFile = new Document(PageSize.A4);
-                PdfWriter writer = PdfWriter.GetInstance(PdfFile, stream);
-                PdfFile.Open();
-                XMLWorkerHelper.GetInstance().ParseXHtml(writer, PdfFile, reader);
-                PdfFile.Close();
-                return File(stream.ToArray(), "application/pdf", "ExportData.pdf");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            var result = await _empresaContext.Acciones.FirstOrDefaultAsync(i => i.ID == id);
+            var model = _converterHelper.ToAccionViewModel(result);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.AccionID = id;
+
+            ViewBag.Categorias = _comboHelper.GetAllCausas();
+            var report = new PartialViewAsPdf("~/Views/Shared/DetailEmployee.cshtml", model);
+            return report;
         }
     }
 }
