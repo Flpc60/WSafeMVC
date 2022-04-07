@@ -357,8 +357,9 @@ namespace WSafe.Web.Controllers
             }
             return RedirectToAction("Index");
         }
- 
+
         //Convert partial Page as PDF
+        [HttpPost]
         public async Task<ActionResult> PrintAccionesToPdf(int id)
         {
             if (id == null)
