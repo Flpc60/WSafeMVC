@@ -19,5 +19,6 @@ namespace WSafe.Domain.Data.Entities
         [Display(Name = "Nombre quien reporta")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int TrabajadorID { get; set; }
+        public string Responsable { get; set; }
     }
 }

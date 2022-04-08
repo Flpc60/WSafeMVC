@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rotativa;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -9,11 +10,6 @@ using WSafe.Domain.Helpers;
 using WSafe.Domain.Repositories.Implements;
 using WSafe.Domain.Services.Implements;
 using WSafe.Web.Models;
-using System.IO;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using iTextSharp.tool.xml;
-using Rotativa;
 
 namespace WSafe.Web.Controllers
 {
@@ -359,7 +355,7 @@ namespace WSafe.Web.Controllers
         }
 
         //Convert partial Page as PDF
-        [HttpPost]
+        [HttpGet]
         public async Task<ActionResult> PrintAccionesToPdf(int id)
         {
             if (id == null)
@@ -367,16 +363,17 @@ namespace WSafe.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var result = await _empresaContext.Acciones.FirstOrDefaultAsync(i => i.ID == id);
-            var model = _converterHelper.ToAccionViewModel(result);
+            var result = await _empresaContext.Acciones
+                .Include(p => p.Planes)
+                .Include(s => s.Seguimientos)
+                .FirstOrDefaultAsync(i => i.ID == id);
+            var model = _converterHelper.ToAccionVMFull(result,1);
             if (model == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.AccionID = id;
-
-            ViewBag.Categorias = _comboHelper.GetAllCausas();
-            var report = new PartialViewAsPdf("~/Views/Shared/DetailEmployee.cshtml", model);
+            var report = new PartialViewAsPdf("Details.cshtml", model);
+            report.FileName = "ReporteAcciones.Pdf";
             return report;
         }
     }

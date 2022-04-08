@@ -32,5 +32,6 @@ namespace WSafe.Domain.Data.Entities
         public bool Prioritaria { get; set; }
         [Display(Name = "Costos ejecución")]
         public decimal Costos { get; set; }
+        public string Responsable { get; set; }
     }
 }
