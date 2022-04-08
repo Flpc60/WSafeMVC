@@ -615,5 +615,62 @@ namespace WSafe.Domain.Helpers.Implements
             }
             return model;
         }
+        public _DetailsAccionVM ToAccionVMFull(Accion accion, int id)
+        {
+            var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == id);
+            var model = new _DetailsAccionVM
+            {
+                ID = accion.ID,
+                Formato = document.Formato,
+                Estandar = document.Estandar,
+                Titulo = document.Titulo,
+                Version = document.Version,
+                FechaSolicitud = accion.FechaSolicitud.ToString("yyyy-MM-dd"),
+                Categoria = accion.Categoria,
+                Responsable = _empresaContext.Trabajadores.Find(accion.TrabajadorID).NombreCompleto.ToUpper(),
+                Cargo = _empresaContext.Trabajadores.Find(accion.TrabajadorID).Cargo.Descripcion.ToUpper(),
+                Proceso = _empresaContext.Procesos.Find(accion.ProcesoID).Descripcion,
+                FuenteAccion = _gestorHelper.GetFuenteAccion(accion.FuenteAccion).ToUpper(),
+                Descripcion = accion.Descripcion,
+                EficaciaAntes =  accion.EficaciaAntes,
+                EficaciaDespues = accion.EficaciaDespues,
+                FechaCierre = accion.FechaCierre.ToString("yyyy-MM-dd"),
+                Efectiva = accion.Efectiva,
+                Estado = accion.Estado,
+                Planes = new List<PlanAccion>(),
+                Seguimientos = new List<SeguimientoAccion>(),
+            };
+
+            foreach (var item in accion.Planes)
+            {
+                model.Planes.Add(new PlanAccion()
+                {
+                    ID = item.ID,
+                    AccionID = item.AccionID,
+                    FechaInicial = item.FechaInicial,
+                    FechaFinal = item.FechaFinal,
+                    Causa = item.Causa,
+                    Accion = item.Accion,
+                    TrabajadorID = item.TrabajadorID,
+                    Prioritaria = item.Prioritaria,
+                    Costos = item.Costos,
+                    Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpper()
+                });
+            }
+
+            foreach (var item in accion.Seguimientos)
+            {
+                model.Seguimientos.Add(new SeguimientoAccion()
+                {
+                    ID = item.ID,
+                    AccionID = item.AccionID,
+                    FechaSeguimiento = item.FechaSeguimiento,
+                    Resultado = item.Resultado.ToUpper(),
+                    TrabajadorID = item.TrabajadorID,
+                    Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpper()
+                });
+            }
+            return model;
+        }
     }
 }
