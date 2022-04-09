@@ -360,20 +360,19 @@ namespace WSafe.Web.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var result = await _empresaContext.Acciones
-                .Include(p => p.Planes)
-                .Include(s => s.Seguimientos)
-                .FirstOrDefaultAsync(i => i.ID == id);
+            var result = await _empresaContext.Acciones.FirstOrDefaultAsync(i => i.ID == id);
+
             var model = _converterHelper.ToAccionVMFull(result,1);
             if (model == null)
             {
-                return HttpNotFound();
+                //return HttpNotFound();
             }
             var report = new PartialViewAsPdf("Details.cshtml", model);
             report.FileName = "ReporteAcciones.Pdf";
+            report.PageSize = Rotativa.Options.Size.A4;
             return report;
         }
     }
