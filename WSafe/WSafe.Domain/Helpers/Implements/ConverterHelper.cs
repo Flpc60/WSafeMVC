@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using WSafe.Domain.Data.Entities;
@@ -617,6 +618,12 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public _DetailsAccionVM ToAccionVMFull(Accion accion, int id)
         {
+            var planes = _empresaContext.PlanesAccion.Where(pa => pa.AccionID == accion.ID).ToList();
+            var sigue = _empresaContext.SeguimientosAccion.Where(sa => sa.AccionID == accion.ID).ToList();
+            var responsable = _empresaContext.Trabajadores
+                .Include(c => c.Cargo)
+                .FirstOrDefault(t => t.ID == accion.TrabajadorID);
+
             var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == id);
             var model = new _DetailsAccionVM
             {
@@ -627,8 +634,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Version = document.Version,
                 FechaSolicitud = accion.FechaSolicitud.ToString("yyyy-MM-dd"),
                 Categoria = accion.Categoria,
-                Responsable = _empresaContext.Trabajadores.Find(accion.TrabajadorID).NombreCompleto.ToUpper(),
-                Cargo = _empresaContext.Trabajadores.Find(accion.TrabajadorID).Cargo.Descripcion.ToUpper(),
+                Responsable = responsable.NombreCompleto.ToUpper(),
+                Cargo = responsable.Cargo.Descripcion.ToUpper(),
                 Proceso = _empresaContext.Procesos.Find(accion.ProcesoID).Descripcion,
                 FuenteAccion = _gestorHelper.GetFuenteAccion(accion.FuenteAccion).ToUpper(),
                 Descripcion = accion.Descripcion,
@@ -637,38 +644,18 @@ namespace WSafe.Domain.Helpers.Implements
                 FechaCierre = accion.FechaCierre.ToString("yyyy-MM-dd"),
                 Efectiva = accion.Efectiva,
                 Estado = accion.Estado,
-                Planes = new List<PlanAccion>(),
-                Seguimientos = new List<SeguimientoAccion>(),
+                Planes = planes,
+                Seguimientos = sigue
             };
 
-            foreach (var item in accion.Planes)
+            foreach (var item in model.Planes)
             {
-                model.Planes.Add(new PlanAccion()
-                {
-                    ID = item.ID,
-                    AccionID = item.AccionID,
-                    FechaInicial = item.FechaInicial,
-                    FechaFinal = item.FechaFinal,
-                    Causa = item.Causa,
-                    Accion = item.Accion,
-                    TrabajadorID = item.TrabajadorID,
-                    Prioritaria = item.Prioritaria,
-                    Costos = item.Costos,
-                    Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpper()
-                });
+                item.Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpper();
             }
 
-            foreach (var item in accion.Seguimientos)
+            foreach (var item in model.Seguimientos)
             {
-                model.Seguimientos.Add(new SeguimientoAccion()
-                {
-                    ID = item.ID,
-                    AccionID = item.AccionID,
-                    FechaSeguimiento = item.FechaSeguimiento,
-                    Resultado = item.Resultado.ToUpper(),
-                    TrabajadorID = item.TrabajadorID,
-                    Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpper()
-                });
+                item.Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpper();
             }
             return model;
         }

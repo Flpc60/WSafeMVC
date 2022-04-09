@@ -576,27 +576,22 @@ function UpdateSigueAcc() {
     });
 }
 
-imprimirPdf = function (id, item) {
-    alert("Descargando pdf " + item);
+printPdf = function (id,item,frm) {
+    switch (frm)
+    {
+        case 1:
+            $.ajax({
+                type: "GET",
+                url: "/Acciones/PrintAccionesToPdf/" + id,
+                dataType: "json",
+                success: function (result) {
+                    alert("Descargando Pdf");
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+            break;
+    }
 }
-
-imprimeEncabezado = function (form, title, fecha, num) {
-    alert("Imprimiendo encabezado " + title);
-}
-
-imprimeIdentify = function (item) {
-    alert("Imprimiendo identificación " + item);
-}
-
-imprimeDetails = function (item) {
-    alert("Imprimiendo detalles " + item);
-}
-
-imprimeCuerpo = function (item) {
-    alert("Imprimiendo cuerpo " + item);
-}
-
-imprimeFoot = function (item) {
-    alert("Imprimiendo pie de pagina " + item);
-}
-
