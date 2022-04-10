@@ -353,26 +353,31 @@ namespace WSafe.Web.Controllers
             }
             return RedirectToAction("Index");
         }
-
-        //Convert partial Page as PDF
         [HttpGet]
-        public async Task<ActionResult> PrintAccionesToPdf(int id)
+        public async Task<ActionResult> Details(int id)
         {
             if (id == null)
             {
-                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
             var result = await _empresaContext.Acciones.FirstOrDefaultAsync(i => i.ID == id);
 
-            var model = _converterHelper.ToAccionVMFull(result,1);
-            if (model == null)
-            {
-                //return HttpNotFound();
-            }
-            var report = new PartialViewAsPdf("Details.cshtml", model);
+            var model = _converterHelper.ToAccionVMFull(result, 1);
+            ViewBag.planes = model.Planes.Count();
+            ViewBag.sigue = model.Seguimientos.Count();
+            return View(model);
+        }
+
+        [HttpGet]
+        public  ActionResult PrintAccionesToPdf(int id)
+        {
+            var report = new ActionAsPdf("Details", new { id = id });
             report.FileName = "ReporteAcciones.Pdf";
             report.PageSize = Rotativa.Options.Size.A4;
+            report.Copies = 1;
+            report.PageOrientation.GetValueOrDefault();
+
             return report;
         }
     }
