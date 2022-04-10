@@ -583,9 +583,8 @@ printPdf = function (id,item,frm) {
             $.ajax({
                 type: "GET",
                 url: "/Acciones/PrintAccionesToPdf/" + id,
-                dataType: "json",
-                success: function (result) {
-                    alert("Descargando Pdf");
+                success: function (respons) {
+                    alert("PDF Descargado");
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     alert(xhr.status);

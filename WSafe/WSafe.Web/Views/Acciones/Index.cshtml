@@ -77,8 +77,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Estado)
             </td>
-            <td style="font-size:12px">
+            <td style="font-size:18px">
                 @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) |
+                @Html.ActionLink(" ", "PrintAccionesToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt" }) |
+            </td>
+            <td style="font-size:10px">
                 <button onclick="DeleteAccion('@item.ID')"><span class="glyphicon glyphicon-trash"></span></button>
             </td>
         </tr>
