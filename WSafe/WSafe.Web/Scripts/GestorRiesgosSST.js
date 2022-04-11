@@ -575,22 +575,3 @@ function UpdateSigueAcc() {
         }
     });
 }
-
-printPdf = function (id,item,frm) {
-    switch (frm)
-    {
-        case 1:
-            $.ajax({
-                type: "GET",
-                url: "/Acciones/PrintAccionesToPdf/" + id,
-                success: function (respons) {
-                    alert("PDF Descargado");
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    alert(xhr.status);
-                    alert(thrownError);
-                }
-            });
-            break;
-    }
-}
