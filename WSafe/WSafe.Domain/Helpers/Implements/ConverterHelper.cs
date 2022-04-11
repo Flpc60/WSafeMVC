@@ -632,16 +632,16 @@ namespace WSafe.Domain.Helpers.Implements
                 Estandar = document.Estandar,
                 Titulo = document.Titulo,
                 Version = document.Version,
-                FechaSolicitud = accion.FechaSolicitud.ToString("yyyy-MM-dd"),
+                FechaSolicitud = accion.FechaSolicitud.ToString("dd-MM-yyyy"),
                 Categoria = accion.Categoria,
                 Responsable = responsable.NombreCompleto.ToUpper(),
                 Cargo = responsable.Cargo.Descripcion.ToUpper(),
                 Proceso = _empresaContext.Procesos.Find(accion.ProcesoID).Descripcion,
                 FuenteAccion = _gestorHelper.GetFuenteAccion(accion.FuenteAccion).ToUpper(),
-                Descripcion = accion.Descripcion,
+                Descripcion = accion.Descripcion.ToUpper(),
                 EficaciaAntes =  accion.EficaciaAntes,
                 EficaciaDespues = accion.EficaciaDespues,
-                FechaCierre = accion.FechaCierre.ToString("yyyy-MM-dd"),
+                FechaCierre = accion.FechaCierre.ToString("dd-MM-yyyy"),
                 Efectiva = accion.Efectiva,
                 Estado = accion.Estado,
                 Planes = planes,
@@ -651,11 +651,16 @@ namespace WSafe.Domain.Helpers.Implements
             foreach (var item in model.Planes)
             {
                 item.Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpper();
+                item.FechaInicial.ToString("dd-MM-yyyy");
+                item.FechaFinal.ToString("dd-MM-yyyy");
+                item.Accion.ToUpper();
             }
 
             foreach (var item in model.Seguimientos)
             {
                 item.Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpper();
+                item.FechaSeguimiento.ToString("dd-MM-yyyy");
+                item.Resultado.ToUpper();
             }
             return model;
         }
