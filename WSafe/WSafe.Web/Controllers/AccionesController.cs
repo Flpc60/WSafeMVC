@@ -370,7 +370,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public  ActionResult PrintAccionesToPdf(int id)
+        public ActionResult PrintAccionesToPdf(int id)
         {
             var report = new ActionAsPdf("Details", new { id = id });
             report.FileName = "ReporteAcciones.Pdf";
