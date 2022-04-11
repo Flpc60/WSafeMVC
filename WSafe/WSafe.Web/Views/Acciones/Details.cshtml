@@ -16,26 +16,31 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-3">
-            <p>
-                <img src="~/Images/LogoEntidad.png" class="rounded float-left" style="border-style:dotted"><img />
-                <h6>@ViewBag.Title</h6>
-                <strong><b>@Html.DisplayFor(model => model.Titulo)</b></strong>
-            </p>
+        <div class="col-md-2">
+            <img src="~/Images/LogoEntidad.png" class="img-responsive" alt="Cinque Terre" width="80" height="80"><img />
         </div>
-        <div class="col-md-3">
-        </div>
-        <div class="col-md-3">
-            <p style="display:inline-block">
-                FORMATO N°:  <strong><b>@Html.DisplayFor(model => model.Formato)</b></strong>
-                ESTANDAR :  <strong><b>@Html.DisplayFor(model => model.Estandar)</b></strong>
-                FECHA : <strong><b>@fecha</b></strong>
-                VERSIÓN : <strong><b>@Html.DisplayFor(model => model.Version)</b></strong>
-            </p>
+        <div class="col-md-10">
+            <div style="display:block">
+                <div style="text-align:center">
+                    <h6>@ViewBag.Title</h6>
+                </div>
+                <div style="text-align:center">
+                    <p>
+                        <strong><b>@Html.DisplayFor(model => model.Titulo)</b></strong>
+                    </p>
+                </div>
+                <div style="text-align:center">
+                    <p>
+                        FORMATO N°:  <strong><b>@Html.DisplayFor(model => model.Formato)</b></strong>
+                        ESTANDAR :  <strong><b>@Html.DisplayFor(model => model.Estandar)</b></strong>
+                        FECHA : <strong><b>@fecha</b></strong>
+                        VERSIÓN : <strong><b>@Html.DisplayFor(model => model.Version)</b></strong>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
 <div class="container">
     <div style="display:inline-flex">
         <p>
