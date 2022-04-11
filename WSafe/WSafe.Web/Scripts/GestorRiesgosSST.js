@@ -517,7 +517,6 @@ function UpdatePlanAcc() {
 }
 
 function AddSeguiAcc() {
-    //TODO
     $(".tabSeguimAcc").css("display", "none");
     $(".tabSeguimAcc").css("display", "none");
     $(".tabAddSeguimAcc").css("display", "none");
@@ -547,7 +546,6 @@ function AddSeguiAcc() {
 }
 
 function UpdateSigueAcc() {
-    //TODO
     // Actualiza un seguimiento a una accion, captura la accionID de id = txtAccionID
     // llama la acción del controlador UpdatePlanAccion
     $(".tabSeguimAcc").css("display", "none");
