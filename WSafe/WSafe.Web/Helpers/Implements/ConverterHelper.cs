@@ -664,5 +664,37 @@ namespace WSafe.Domain.Helpers.Implements
             }
             return model;
         }
+
+        public IEnumerable<MatrizRiesgosVM> ToRiesgoViewModelFul(IEnumerable<Riesgo> riesgo, int id)
+        {
+            var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == id);
+            var model = new List<MatrizRiesgosVM>();
+            foreach (var item in riesgo)
+            {
+                model.Add(new MatrizRiesgosVM
+                {
+                    ID = item.ID,
+                    Formato = document.Formato,
+                    Estandar = document.Estandar,
+                    Titulo = document.Titulo,
+                    Version = document.Version,
+                    Proceso = item.Proceso.Descripcion,
+                    Zona = item.Zona.Descripcion,
+                    Actividad = item.Actividad.Descripcion,
+                    Rutinaria = item.Rutinaria,
+                    CategoriaPeligro = _empresaContext.CategoriasPeligros.Find(item.Peligro.CategoriaPeligroID).Descripcion,
+                    Peligro = item.Peligro.Descripcion,
+                    EfectosPosibles = _gestorHelper.GetEfectos(item.EfectosPosibles),
+                    NivelDeficiencia = item.NivelDeficiencia,
+                    NivelExposicion = item.NivelExposicion,
+                    Fuente = item.fue
+                    NivelConsecuencia = item.NivelConsecuencia,
+                    Aceptabilidad = item.Aceptabilidad,
+                    NroExpuestos = item.NroExpuestos,
+                    RequisitoLegal = item.RequisitoLegal
+                });
+            }
+            return model;
+        }
     }
 }
