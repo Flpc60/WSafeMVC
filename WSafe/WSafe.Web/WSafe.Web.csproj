@@ -367,7 +367,13 @@
     <Compile Include="Migrations\202204082125572_UpdateSeguimiento.Designer.cs">
       <DependentUpon>202204082125572_UpdateSeguimiento.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202204141650332_CreateIntervencionesVM.cs" />
+    <Compile Include="Migrations\202204141650332_CreateIntervencionesVM.Designer.cs">
+      <DependentUpon>202204141650332_CreateIntervencionesVM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
+    <Compile Include="Models\IntervencionVM.cs" />
+    <Compile Include="Models\MatrizRiesgosVM.cs" />
     <Compile Include="Models\_DetailsAccionVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
     <Compile Include="Models\AplicacionVM.cs" />
@@ -582,6 +588,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202204082125572_UpdateSeguimiento.resx">
       <DependentUpon>202204082125572_UpdateSeguimiento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204141650332_CreateIntervencionesVM.resx">
+      <DependentUpon>202204141650332_CreateIntervencionesVM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

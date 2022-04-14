@@ -41,6 +41,20 @@ namespace WSafe.Web.Controllers
             return View(modelo);
         }
 
+        public async Task<ActionResult> GetAll()
+        {
+            var list = await _empresaContext.Riesgos.Include(z => z.Zona)
+                .Include(p => p.Proceso)
+                .Include(a => a.Actividad)
+                .Include(t => t.Tarea)
+                .Include(cp => cp.Peligro)
+                .Include(mi => mi.MedidasIntervencion)
+                .OrderByDescending(cr => cr.NivelRiesgo)
+                .ToListAsync();
+            var modelo = _converterHelper.ToRiesgoViewModelFul(list, 8);
+            return View(modelo);
+        }
+
         // GET: Riesgos/Details/5
         public async Task<ActionResult> Details(int? id)
         {
