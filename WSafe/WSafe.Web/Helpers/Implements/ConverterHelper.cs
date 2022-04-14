@@ -687,9 +687,7 @@ namespace WSafe.Domain.Helpers.Implements
                     EfectosPosibles = _gestorHelper.GetEfectos(item.EfectosPosibles),
                     NivelDeficiencia = item.NivelDeficiencia,
                     NivelExposicion = item.NivelExposicion,
-                    Fuente = item.fue
                     NivelConsecuencia = item.NivelConsecuencia,
-                    Aceptabilidad = item.Aceptabilidad,
                     NroExpuestos = item.NroExpuestos,
                     RequisitoLegal = item.RequisitoLegal
                 });
