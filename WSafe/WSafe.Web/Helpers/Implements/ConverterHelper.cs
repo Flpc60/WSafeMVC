@@ -669,8 +669,28 @@ namespace WSafe.Domain.Helpers.Implements
         {
             var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == id);
             var model = new List<MatrizRiesgosVM>();
+            var fuente = "";
+            var individuo = "";
+            var medio = "";
             foreach (var item in riesgo)
             {
+                foreach (var apl in item.MedidasIntervencion)
+                {
+                    switch (apl.CategoriaAplicacion)
+                    {
+                        case CategoriaAplicacion.Fuente:
+                            fuente += apl.Nombre + "; ";
+                            break;
+
+                        case CategoriaAplicacion.Medio:
+                            medio += apl.Nombre + "; ";
+                            break;
+
+                        case CategoriaAplicacion.Individuo:
+                            individuo += apl.Nombre + "; ";
+                            break;
+                    }
+                }
                 model.Add(new MatrizRiesgosVM
                 {
                     ID = item.ID,
@@ -685,10 +705,20 @@ namespace WSafe.Domain.Helpers.Implements
                     CategoriaPeligro = _empresaContext.CategoriasPeligros.Find(item.Peligro.CategoriaPeligroID).Descripcion,
                     Peligro = item.Peligro.Descripcion,
                     EfectosPosibles = _gestorHelper.GetEfectos(item.EfectosPosibles),
+                    Fuente = fuente,
+                    Medio = medio,
+                    Individuo = individuo,
                     NivelDeficiencia = item.NivelDeficiencia,
                     NivelExposicion = item.NivelExposicion,
+                    NivelProbabilidad = item.NivelProbabilidad,
+                    InterpretaNP = _gestorHelper.GetInterpretaNP(item.NivelProbabilidad),
                     NivelConsecuencia = item.NivelConsecuencia,
+                    NivelRiesgo = item.NivelRiesgo,
+                    CategoriaRiesgo = _gestorHelper.GetInterpretaNR(item.NivelRiesgo),
+                    AceptabilidadNR = _gestorHelper.GetAceptabilidadNR(item.CategoriaRiesgo),
+                    SignificadoNR = _gestorHelper.GetSignificadoNR(item.CategoriaRiesgo),
                     NroExpuestos = item.NroExpuestos,
+                    //PeorConsecuencia = _gestorHelper.GetNivelConsecuencia(item.NivelConsecuencia),
                     RequisitoLegal = item.RequisitoLegal
                 });
             }
