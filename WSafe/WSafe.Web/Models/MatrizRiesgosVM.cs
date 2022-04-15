@@ -6,11 +6,6 @@ namespace WSafe.Web.Models
     public class MatrizRiesgosVM
     {
         public int ID { get; set; }
-        public string Formato { get; set; }
-        public string Estandar { get; set; }
-        public string Titulo { get; set; }
-        public string Fecha { get; set; }
-        public string Version { get; set; }
         [Display(Name = "Proceso")]
         public string Proceso { get; set; }
         [Display(Name = "Zona / Lugar")]
