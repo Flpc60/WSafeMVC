@@ -32,40 +32,27 @@ namespace WSafe.Web.Models
         public int NivelDeficiencia { get; set; }
         [Display(Name = "NE")]
         public int NivelExposicion { get; set; }
-        [Display(Name = "NP")]
-        public int NivelProbabilidad
+        private int nivelProbabilidad
         {
             get
             {
                 return NivelDeficiencia * NivelExposicion;
             }
+
         }
-        [Display(Name = "Interpretación NP")]
-        public string InterpretacionNP
+        [Display(Name = "NP")]
+        public int NivelProbabilidad
         {
-            get
-            {
-                switch (NivelProbabilidad)
-                {
-                    case int p when (p >= 24):
-                        return "Muy alto (MA)";
-
-                    case int p when (p >= 10 && p < 24):
-                        return "Alto (A)";
-
-                    case int p when (p >= 8 && p < 10):
-                        return "Mdio (M)";
-
-                    default:
-                        return "Bajo (B)";
-                }
-
-            }
+            get { return nivelProbabilidad; }
+            set { NivelProbabilidad = value; }
         }
+
+        [Display(Name = "Interpretación NP")]
+        public string InterpretaNP { get; set; }
+
         [Display(Name = "NC")]
         public int NivelConsecuencia { get; set; }
-        [Display(Name = "NR")]
-        public int NivelRiesgo
+        public int nivelRiesgo
         {
             get
             {
@@ -73,27 +60,15 @@ namespace WSafe.Web.Models
             }
         }
 
-        [Display(Name = "Interpretación NR")]
-        public string CategoriaRiesgo
+        [Display(Name = "NR")]
+        public int NivelRiesgo
         {
-            get
-            {
-                switch (NivelRiesgo)
-                {
-                    case int nr when (nr >= 600):
-                        return "I";
-
-                    case int nr when (nr >= 150 && nr < 600):
-                        return "II";
-
-                    case int nr when (nr >= 40 && nr < 150):
-                        return "III";
-
-                    default:
-                        return "IV";
-                }
-            }
+            get { return nivelRiesgo; }
+            set { NivelRiesgo = value; }
         }
+
+        [Display(Name = "Interpretación NR")]
+        public string CategoriaRiesgo{ get; set; }
         [Display(Name = "Aceptabilidad NR")]
         public string AceptabilidadNR { get; set; }
         [Display(Name = "Significado NR")]
@@ -101,7 +76,7 @@ namespace WSafe.Web.Models
         [Display(Name = "Nro. Expuestos")]
         public int NroExpuestos { get; set; }
         [Display(Name = "Peor consecuencia")]
-        public string PeroConsecuencia { get; set; }
+        public string PeorConsecuencia { get; set; }
         [Display(Name = "Requisito legal")]
         public bool RequisitoLegal { get; set; }
         public ICollection<IntervencionVM> Intervenciones { get; set; }
