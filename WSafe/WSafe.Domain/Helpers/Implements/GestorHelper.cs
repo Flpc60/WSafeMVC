@@ -298,5 +298,32 @@ namespace WSafe.Domain.Helpers.Implements
                     return "Auditoria Interna  de Calidad o de Gestión";
             }
         }
+
+        public string GetEfectos(EfectosPosibles efecto)
+        {
+            switch (efecto)
+            {
+                case EfectosPosibles.Daño_Extremo:
+                    return "Daño extremo";
+
+                case EfectosPosibles.Daño_Leve:
+                    return "Daño leve";
+
+                case EfectosPosibles.Daño_Moderado:
+                    return "Daño Moderado";
+
+                case EfectosPosibles.Daño_Propiedad:
+                    return "Daño a la propiedad";
+
+                case EfectosPosibles.Fallas_procesos:
+                    return "Fallas en los procesos";
+
+                case EfectosPosibles.Pérdidas_económicas:
+                    return "Persidas económicas";
+
+                default:
+                    return "Nomina";
+            }
+        }
     }
 }

@@ -20,5 +20,6 @@ namespace WSafe.Domain.Helpers
         string GetTipoVinculacion(TiposVinculacion tipo);
         string GetCausaAccion(CategoriasCausa categoria);
         string GetFuenteAccion(FuentesAccion fuentes);
+        string GetEfectos(EfectosPosibles efecto);
     }
 }

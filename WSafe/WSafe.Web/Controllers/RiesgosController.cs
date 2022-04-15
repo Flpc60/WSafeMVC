@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Rotativa;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -9,7 +11,6 @@ using System.Web.Mvc;
 using WSafe.Domain.Helpers;
 using WSafe.Domain.Repositories.Implements;
 using WSafe.Domain.Services.Implements;
-using WSafe.Web.Filters;
 using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
@@ -27,7 +28,7 @@ namespace WSafe.Web.Controllers
         }
 
         // GET: Riesgos
-        [AuthorizeUser(1,2)]
+        //[AuthorizeUser(1,2)]
         public async Task<ActionResult> Index()
         {
             var list = await _empresaContext.Riesgos.Include(z => z.Zona)
@@ -59,6 +60,18 @@ namespace WSafe.Web.Controllers
             ViewBag.version = document.Version;
             ViewBag.fecha = DateTime.Now;
             return View(modelo);
+        }
+
+        [HttpGet]
+        public ActionResult PrintRiesgosToPdf()
+        {
+            var report = new ActionAsPdf("GetAll");
+            report.FileName = "MatrizRiesgos.Pdf";
+            report.PageSize = Rotativa.Options.Size.A4;
+            report.PageOrientation = Rotativa.Options.Orientation.Landscape;
+            report.PageWidth = 397;
+            report.PageHeight = 397;
+            return report;
         }
 
         // GET: Riesgos/Details/5
