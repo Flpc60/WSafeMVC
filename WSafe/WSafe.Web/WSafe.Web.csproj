@@ -371,6 +371,10 @@
     <Compile Include="Migrations\202204141650332_CreateIntervencionesVM.Designer.cs">
       <DependentUpon>202204141650332_CreateIntervencionesVM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202204151532045_UpdateTableRiesgo.cs" />
+    <Compile Include="Migrations\202204151532045_UpdateTableRiesgo.Designer.cs">
+      <DependentUpon>202204151532045_UpdateTableRiesgo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\IntervencionVM.cs" />
     <Compile Include="Models\MatrizRiesgosVM.cs" />
@@ -555,6 +559,7 @@
     <Content Include="Views\Shared\_EditarSigueAcc.cshtml" />
     <Content Include="Views\Acciones\Edit.cshtml" />
     <Content Include="Views\Shared\_EditarNoConformidad.cshtml" />
+    <Content Include="Views\Riesgos\GetAll.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -591,6 +596,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202204141650332_CreateIntervencionesVM.resx">
       <DependentUpon>202204141650332_CreateIntervencionesVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204151532045_UpdateTableRiesgo.resx">
+      <DependentUpon>202204151532045_UpdateTableRiesgo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

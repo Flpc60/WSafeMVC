@@ -51,7 +51,13 @@ namespace WSafe.Web.Controllers
                 .Include(mi => mi.MedidasIntervencion)
                 .OrderByDescending(cr => cr.NivelRiesgo)
                 .ToListAsync();
-            var modelo = _converterHelper.ToRiesgoViewModelFul(list, 8);
+            var modelo = _converterHelper.ToRiesgoViewModelFul(list);
+            var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == 8);
+            ViewBag.formato = document.Formato;
+            ViewBag.estandar = document.Estandar;
+            ViewBag.titulo = document.Titulo;
+            ViewBag.version = document.Version;
+            ViewBag.fecha = DateTime.Now;
             return View(modelo);
         }
 

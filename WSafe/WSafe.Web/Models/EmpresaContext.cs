@@ -42,5 +42,7 @@ namespace WSafe.Web.Models
         public DbSet<Document> Documents { get; set; }
 
         public System.Data.Entity.DbSet<WSafe.Web.Models._DetailsAccionVM> _DetailsAccionVM { get; set; }
+
+        public System.Data.Entity.DbSet<WSafe.Web.Models.MatrizRiesgosVM> MatrizRiesgosVMs { get; set; }
     }
 }

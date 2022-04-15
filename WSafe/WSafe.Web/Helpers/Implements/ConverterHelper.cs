@@ -665,9 +665,8 @@ namespace WSafe.Domain.Helpers.Implements
             return model;
         }
 
-        public IEnumerable<MatrizRiesgosVM> ToRiesgoViewModelFul(IEnumerable<Riesgo> riesgo, int id)
+        public IEnumerable<MatrizRiesgosVM> ToRiesgoViewModelFul(IEnumerable<Riesgo> riesgo)
         {
-            var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == id);
             var model = new List<MatrizRiesgosVM>();
             var fuente = "";
             var individuo = "";
@@ -694,10 +693,6 @@ namespace WSafe.Domain.Helpers.Implements
                 model.Add(new MatrizRiesgosVM
                 {
                     ID = item.ID,
-                    Formato = document.Formato,
-                    Estandar = document.Estandar,
-                    Titulo = document.Titulo,
-                    Version = document.Version,
                     Proceso = item.Proceso.Descripcion,
                     Zona = item.Zona.Descripcion,
                     Actividad = item.Actividad.Descripcion,
@@ -718,7 +713,7 @@ namespace WSafe.Domain.Helpers.Implements
                     AceptabilidadNR = _gestorHelper.GetAceptabilidadNR(item.CategoriaRiesgo),
                     SignificadoNR = _gestorHelper.GetSignificadoNR(item.CategoriaRiesgo),
                     NroExpuestos = item.NroExpuestos,
-                    //PeorConsecuencia = _gestorHelper.GetNivelConsecuencia(item.NivelConsecuencia),
+                    PeorConsecuencia = item.PeorConsecuencia,
                     RequisitoLegal = item.RequisitoLegal
                 });
             }
