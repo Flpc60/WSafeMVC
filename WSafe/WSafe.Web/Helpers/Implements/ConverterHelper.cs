@@ -671,8 +671,23 @@ namespace WSafe.Domain.Helpers.Implements
             var fuente = "";
             var individuo = "";
             var medio = "";
+            var eliminacion = "";
+            var sustituto = "";
+            var ingenieria = "";
+            var admon = "";
+            var señales = "";
+            var epp = "";
             foreach (var item in riesgo)
             {
+                fuente= "";
+                individuo = "";
+                medio = "";
+                eliminacion = "";
+                sustituto = "";
+                ingenieria = "";
+                admon = "";
+                señales = "";
+                epp = "";
                 foreach (var apl in item.MedidasIntervencion)
                 {
                     switch (apl.CategoriaAplicacion)
@@ -688,6 +703,34 @@ namespace WSafe.Domain.Helpers.Implements
                         case CategoriaAplicacion.Individuo:
                             individuo += apl.Nombre + "; ";
                             break;
+                    }
+
+                    switch (apl.Intervencion)
+                    {
+                        case JerarquiaControles.Eliminacion:
+                            eliminacion += apl.Nombre + "; ";
+                            break;
+
+                        case JerarquiaControles.Sustitucion:
+                            sustituto += apl.Nombre + "; ";
+                            break;
+
+                        case JerarquiaControles.Controles_Ingeniería:
+                            ingenieria += apl.Nombre + "; ";
+                            break;
+
+                        case JerarquiaControles.Controles_Admon:
+                            admon += apl.Nombre + "; ";
+                            break;
+
+                        case JerarquiaControles.Señaliza:
+                            señales += apl.Nombre + "; ";
+                            break;
+
+                        case JerarquiaControles.EPP:
+                            epp += apl.Nombre + "; ";
+                            break;
+
                     }
                 }
                 model.Add(new MatrizRiesgosVM
@@ -714,7 +757,13 @@ namespace WSafe.Domain.Helpers.Implements
                     SignificadoNR = _gestorHelper.GetSignificadoNR(item.CategoriaRiesgo),
                     NroExpuestos = item.NroExpuestos,
                     PeorConsecuencia = item.PeorConsecuencia,
-                    RequisitoLegal = item.RequisitoLegal
+                    RequisitoLegal = item.RequisitoLegal,
+                    Eliminacion = eliminacion,
+                    Sustitucion = sustituto,
+                    Ingenieria = ingenieria,
+                    Administracion = admon,
+                    Señalizacion = señales,
+                    EPP = epp
                 });
             }
             return model;

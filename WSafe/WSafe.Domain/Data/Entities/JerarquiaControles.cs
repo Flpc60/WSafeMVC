@@ -10,7 +10,9 @@ namespace WSafe.Domain.Data.Entities
         Controles_Ingeniería = 3,
         [Display(Name = "Controles de administración")]
         Controles_Admon = 4,
+        [Display(Name = "Señalización")]
+        Señaliza = 5,
         [Display(Name = "Equipos, EPP")]
-        Conteroles_EPP = 5
+        EPP = 6
     }
 }
