@@ -573,3 +573,34 @@ function UpdateSigueAcc() {
         }
     });
 }
+function AddInterven() {
+    $(".tabMediAplica").css("display", "none");
+    var riesgoID = 10;
+    var token = $('input[name=_token]').val();
+
+    $.ajax({
+        type: "POST",
+        url: "AgregarIntervenciones",
+        data: {
+            ID: "0",
+            RiesgoID: riesgoID,
+            Nombre: $("#idNombre").val(),
+            CategoriaAplicacion: $("#idCatApli").val(),
+            Finalidad: $("#idFinal").val(),
+            TrabajadorID: $("#idRespons").val(),
+            Intervencion: $("#idInterven").val(),
+            Beneficios: $("#idBeneficio").val(),
+            Presupuesto: $("#idPresup").val(),
+            FechaInicial: $("#idFechaIni").val(),
+            FechaFinal: $("#idFechaFin").val(),
+            Observaciones: $("#idObserv").val(),
+            tok: token
+        },
+        dataType: "json",
+        success: function (data, textStatus, jqXHR) { },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
