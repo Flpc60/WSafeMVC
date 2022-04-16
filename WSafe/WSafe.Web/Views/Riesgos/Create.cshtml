@@ -17,13 +17,20 @@
     <hr />
     <hr />
     <h4>GESTIÓN DE RIESGOS</h4>
-    <div class="btn-group btn-group-justified">
-        <button type="button" class="btn btn-warning" id="idPeligros" title="doble click para cerrar la ventana">1. IDENTIFICACIÓN PELIGROS</button>
-        <button type="button" class="btn btn-warning" id="evalRiesgos" title="doble click para cerrar la ventana">2. EVALUACIÓN RIESGOS</button>
-        <button type="button" class="btn btn-warning" id="mediAplica" title="doble click para cerrar la ventana">3. MEDIDAS INTERVENCIÓN</button>
+    <div class="row">
+        <div class="col-md-4">
+            <button type="button" class="btn btn-warning" id="idPeligros" title="doble click para cerrar la ventana">1. IDENTIFICACIÓN PELIGROS</button>
+        </div>
+        <div class="col-md-4">
+            <button type="button" class="btn btn-warning" id="evalRiesgos" title="doble click para cerrar la ventana">2. EVALUACIÓN RIESGOS</button>
+        </div>
+        <div class="col-md-4">
+            <button type="button" class="btn btn-warning" id="mediAplica" title="doble click para cerrar la ventana">3. MEDIDAS INTERVENCIÓN</button>
+        </div>
     </div>
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="tabPeligros">
+        <hr />
         <div class="form-group">
             @Html.LabelFor(model => model.Zonas, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
@@ -31,7 +38,6 @@
                 @Html.ValidationMessageFor(model => model.ZonaID, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Procesos, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
@@ -39,7 +45,6 @@
                 @Html.ValidationMessageFor(model => model.ProcesoID, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Actividades, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
@@ -47,7 +52,6 @@
                 @Html.ValidationMessageFor(model => model.ActividadID, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Tareas, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
@@ -55,7 +59,6 @@
                 @Html.ValidationMessageFor(model => model.TareaID, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Rutinaria, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
@@ -65,7 +68,6 @@
                 </div>
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.CategoriasPeligros, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
@@ -73,7 +75,6 @@
                 @Html.ValidationMessageFor(model => model.CategoriaPeligroID, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Peligros, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
@@ -81,7 +82,6 @@
                 @Html.ValidationMessageFor(model => model.PeligroID, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.EfectosPosibles, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
@@ -95,17 +95,16 @@
     </div>
 
     <div class="tabEvalRiesgos">
+        <hr />
+
         <div class="form-group">
             @Html.LabelFor(model => model.NivelesDeficiencia, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
+            <div class="col-md-2">
                 @Html.EnumDropDownListFor(model => model.NivelesDeficiencia, htmlAttributes: new { @class = "form-control", @id = "deficienciaSelected" })
                 @Html.ValidationMessageFor(model => model.NivelesDeficiencia, "", new { @class = "text-danger" })
             </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.NivelDeficiencia, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
+            <div class="col-md-1">
                 @Html.EditorFor(model => model.NivelDeficiencia, new { htmlAttributes = new { @class = "form-control", @id = "deficiencia" } })
                 @Html.ValidationMessageFor(model => model.NivelDeficiencia, "", new { @class = "text-danger" })
             </div>
@@ -113,31 +112,21 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.NivelesExposicion, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
+            <div class="col-md-2">
                 @Html.EnumDropDownListFor(model => model.NivelesExposicion, htmlAttributes: new { @class = "form-control", @id = "exposicionSelected" })
                 @Html.ValidationMessageFor(model => model.NivelesExposicion, "", new { @class = "text-danger" })
             </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.NivelExposicion, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
+            <div class="col-md-1">
                 @Html.EditorFor(model => model.NivelExposicion, new { htmlAttributes = new { @class = "form-control", @id = "exposicion" } })
                 @Html.ValidationMessageFor(model => model.NivelExposicion, "", new { @class = "text-danger" })
             </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.NivelProbabilidad, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
+            <div class="col-md-1">
                 @Html.EditorFor(model => model.NivelProbabilidad, new { htmlAttributes = new { @class = "form-control", @id = "probabilidad" } })
                 @Html.ValidationMessageFor(model => model.NivelProbabilidad, "", new { @class = "text-danger" })
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.InterpretacionNP, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
+            <div class="col-md-2">
                 @Html.EditorFor(model => model.InterpretacionNP, new { htmlAttributes = new { @class = "form-control", @id = "interpretaNP" } })
                 @Html.ValidationMessageFor(model => model.InterpretacionNP, "", new { @class = "text-danger" })
             </div>
@@ -145,55 +134,39 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.NivelesConsecuencia, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
+            <div class="col-md-2">
                 @Html.EnumDropDownListFor(model => model.NivelesConsecuencia, htmlAttributes: new { @class = "form-control", @id = "consecuenciaSelected" })
                 @Html.ValidationMessageFor(model => model.NivelesConsecuencia, "", new { @class = "text-danger" })
             </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.NivelConsecuencia, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
+            <div class="col-md-1">
                 @Html.EditorFor(model => model.NivelConsecuencia, new { htmlAttributes = new { @class = "form-control", @id = "consecuencia" } })
                 @Html.ValidationMessageFor(model => model.NivelConsecuencia, "", new { @class = "text-danger" })
             </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.NivelRiesgo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
+            <div class="col-md-1">
                 @Html.EditorFor(model => model.NivelRiesgo, new { htmlAttributes = new { @class = "form-control", @id = "riesgo" } })
                 @Html.ValidationMessageFor(model => model.NivelRiesgo, "", new { @class = "text-danger" })
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CategoriaRiesgo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
+            <div class="col-md-1">
                 @Html.EditorFor(model => model.CategoriaRiesgo, new { htmlAttributes = new { @class = "form-control", @id = "interpretaNR" } })
                 @Html.ValidationMessageFor(model => model.CategoriaRiesgo, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
+            <hr />
             @Html.LabelFor(model => model.AceptabilidadNR, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
+            <div class="col-md-2">
                 @Html.EnumDropDownListFor(model => model.AceptabilidadNR, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.AceptabilidadNR, "", new { @class = "text-danger" })
             </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.NroExpuestos, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
+            <div class="col-md-1">
                 @Html.EditorFor(model => model.NroExpuestos, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.NroExpuestos, "", new { @class = "text-danger" })
             </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.RequisitoLegal, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
+            <div class="col-md-1">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.RequisitoLegal)
                     @Html.ValidationMessageFor(model => model.RequisitoLegal, "", new { @class = "text-danger" })
@@ -415,6 +388,8 @@
     $(document).ready(function () {
         $("#idPeligros").click(function () {
             $(".tabPeligros").css("display", "block");
+            $(".tabEvalRiesgos").css("display", "none");
+            $(".tabMediAplica").css("display", "none");
         });
 
         $("#idPeligros").dblclick(function () {
@@ -423,6 +398,8 @@
 
         $("#evalRiesgos").click(function () {
             $(".tabEvalRiesgos").css("display", "block");
+            $(".tabPeligros").css("display", "none");
+            $(".tabMediAplica").css("display", "none");
         });
 
         $("#evalRiesgos").dblclick(function () {
@@ -431,6 +408,8 @@
 
         $("#mediAplica").click(function () {
             $(".tabMediAplica").css("display", "block");
+            $(".tabEvalRiesgos").css("display", "none");
+            $(".tabPeligros").css("display", "none");
         });
 
         $("#mediAplica").dblclick(function () {
@@ -622,37 +601,6 @@
         calcularRiesgo();
     });
 
-    function AddInterven() {
-        $(".tabMediAplica").css("display", "none");
-        var riesgoID = 10;
-        var token = $('input[name=_token]').val();
-
-        $.ajax({
-            type: "POST",
-            url: "AgregarIntervenciones",
-            data: {
-                ID: "0",
-                RiesgoID: riesgoID,
-                Nombre: $("#idNombre").val(),
-                CategoriaAplicacion: $("#idCatApli").val(),
-                Finalidad: $("#idFinal").val(),
-                TrabajadorID: $("#idRespons").val(),
-                Intervencion: $("#idInterven").val(),
-                Beneficios: $("#idBeneficio").val(),
-                Presupuesto: $("#idPresup").val(),
-                FechaInicial: $("#idFechaIni").val(),
-                FechaFinal: $("#idFechaFin").val(),
-                Observaciones: $("#idObserv").val(),
-                tok: token
-            },
-            dataType: "json",
-            success: function (data, textStatus, jqXHR) { },
-            error: function (xhr, ajaxOptions, thrownError) {
-                alert(xhr.status);
-                alert(thrownError);
-            }
-        });
-    }
 
     function calcularProbabilidad() {
         var nd = $('#deficiencia').val();

@@ -74,29 +74,6 @@ namespace WSafe.Web.Controllers
             return report;
         }
 
-        // GET: Riesgos/Details/5
-        public async Task<ActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            var result = await _empresaContext.Riesgos.Include(z => z.Zona)
-                .Include(p => p.Proceso)
-                .Include(a => a.Actividad)
-                .Include(t => t.Tarea)
-                .Include(cp => cp.Peligro)
-                .FirstOrDefaultAsync(i => i.ID == id.Value);
-
-            if (result == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View(result);
-        }
-
         // GET: Riesgos/Create
         public ActionResult Create()
         {

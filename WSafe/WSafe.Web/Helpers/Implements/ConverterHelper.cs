@@ -48,22 +48,6 @@ namespace WSafe.Domain.Helpers.Implements
                 RequisitoLegal = model.RequisitoLegal,
                 IncidenteID = model.IncidenteID
             };
-            foreach (var item in model.Intervenciones)
-            {
-                result.MedidasIntervencion.Add(new Aplicacion
-                {
-                    RiesgoID = item.ID,
-                    Nombre = item.Nombre,
-                    CategoriaAplicacion = item.CategoriaAplicacion,
-                    Finalidad = item.Finalidad,
-                    Intervencion = item.Intervencion,
-                    Beneficios = item.Beneficios,
-                    Presupuesto = item.Presupuesto,
-                    //Trabajador = item.Trabajadores,
-                    Observaciones = item.Observaciones
-                });
-            }
-
             return result;
         }
         public RiesgoViewModel ToRiesgoViewModel(Riesgo riesgo)
