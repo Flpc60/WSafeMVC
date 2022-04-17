@@ -81,12 +81,8 @@ namespace WSafe.Web.Controllers
             return View(riesgoView);
         }
 
-        // POST: Riesgos/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(RiesgoViewModel model)
+        public async Task<ActionResult> CreateRiesgo(RiesgoViewModel model)
         {
             try
             {
@@ -100,12 +96,13 @@ namespace WSafe.Web.Controllers
                         return RedirectToAction("Index");
                     }
                 }
-                return View(model);
             }
             catch
             {
-                return View(model);
             }
+
+            var idRiesgo = _empresaContext.Riesgos.OrderByDescending(x => x.ID).First().ID;
+            return Json(idRiesgo, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Riesgos/Edit/5
