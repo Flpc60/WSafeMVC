@@ -569,6 +569,8 @@
     <Content Include="Views\Shared\_EditarNoConformidad.cshtml" />
     <Content Include="Views\Riesgos\GetAll.cshtml" />
     <Content Include="Views\Shared\_CabezoteFormat.cshtml" />
+    <Content Include="Views\Shared\_EditarPeligros.cshtml" />
+    <Content Include="Views\Shared\_EvalRiesgo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

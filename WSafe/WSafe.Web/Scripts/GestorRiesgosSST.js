@@ -604,3 +604,54 @@ function AddInterven() {
         }
     });
 }
+
+// las siguientes funciones cran un nuevo riesgo
+function AddRiesgo() {
+    // Crea un nuevo riesgo
+    // Retorna la RiesgoID, y se la pasa a meddas de intervención
+
+    $(".tabPeligros").css("display", "none");
+    if ($("#txtRequisito").is(':checked')) {
+        $("#txtRequisito").val(true)
+    }
+    else {
+        $("#txtRequisito").val(false)
+    }
+    if ($("#txtRutinaria").is(':checked')) {
+        $("#txtRutinaria").val(true)
+    }
+    else {
+        $("#txtRutinaria").val(false)
+    }
+
+    var reiesgoVM = {
+        ID = 0,
+        ZonaID: $("#zona").val(),
+        ProcesoID: $("#proceso").val(),
+        ActividadID: $("#activity").val(),
+        TareaID: $("#tarea").val(),
+        Rutinaria = $("#txtRutinaria").val(),
+        PeligroID: $("#peligro").val(),
+        EfectosPosibles = $("#txtEfectos").val(),
+        NivelDeficiencia = $("#deficiencia").val(),
+        NivelExposicion = $("#exposicion").val(),
+        NivelConsecuencia = $("#consecuencia").val(),
+        Aceptabilidad = $("#txtAceptabilidad").val(),
+        NroExpuestos = $("#txtExpuestos").val(),
+        RequisitoLegal = $("#txtRequisito").val()
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/Riesgos/CreateRiesgo",
+        data: { model: riesgoVM },
+        dataType: "json",
+        success: function (idRiesgo) {
+            $("#txtRiesgoID").val(idRiesgo);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
