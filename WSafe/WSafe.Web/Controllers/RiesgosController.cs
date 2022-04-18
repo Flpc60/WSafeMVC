@@ -88,19 +88,22 @@ namespace WSafe.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
-                    var riesgo = await _converterHelper.ToRiesgoAsync(model, true);
-                    var saved = await consulta.Insert(riesgo);
-                    if (saved != null)
+                    if (model.ID == 0)
                     {
-                        return RedirectToAction("Index");
+                        var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
+                        var riesgo = await _converterHelper.ToRiesgoAsync(model, true);
+                        var saved = await consulta.Insert(riesgo);
+                        if (saved != null)
+                        {
+                            return RedirectToAction("Index");
+                        }
                     }
                 }
             }
             catch
             {
+                return View(model);
             }
-
             var idRiesgo = _empresaContext.Riesgos.OrderByDescending(x => x.ID).First().ID;
             return Json(idRiesgo, JsonRequestBehavior.AllowGet);
         }

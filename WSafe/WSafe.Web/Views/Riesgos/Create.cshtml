@@ -38,9 +38,9 @@
         <hr />
         @Html.Partial("_EvalRiesgo")
 
-        <div class="col-md-offset-2 col-md-4">
-            <button type="button" class="btn btn-success" onclick="AddRiesgo()">Agregar</button>
-        </div>
+    <div class="col-md-offset-2 col-md-4">
+        <button type="button" class="btn btn-success" onclick="AddNewRiesgo()">Agregar</button>
+    </div>
     </div>
 
     <div class="tabMediAplica">
@@ -175,7 +175,6 @@
 </div>
 }
 
-
 @section Scripts
 {
     <script type="text/javascript">
@@ -248,7 +247,6 @@
             });
         });
     });
-
 
     $(document).ready(function () {
         $("#idPeligros").click(function () {
@@ -466,7 +464,6 @@
         calcularRiesgo();
     });
 
-
     function calcularProbabilidad() {
         var nd = $('#deficiencia').val();
         var ne = $('#exposicion').val();
@@ -524,7 +521,6 @@
         $('#interpretaNR').val(interpretaNR);
         $('#interpretaNR').css({ "backgroundColor": colorStyle, "font-size": "200%" });
     }
-
     </script>
 }
 
