@@ -8,14 +8,14 @@
 
 <div class="row">
     <div class="col-md-4">
-        @Html.ActionLink("Nuevo", "Create", new { @class = "glyphicon glyphicon-plus" },
+        @Html.ActionLink("Nuevo riesgo", "Create", new { @class = "glyphicon glyphicon-plus" },
         new { @class = "btn btn-info btn-lg active" })
     </div>
     <div class="col-md-4">
         <input type="search" id="myInput" placeholder="Escriba un nombre de elemento para filtrar" style="width:350px">
     </div>
     <div class="col-md-4">
-        @Html.ActionLink("Descargar PDF", "PrintRiesgosToPdf", new { @class = "glyphicon glyphicon-download-alt" },
+        @Html.ActionLink("Descargar matriz PDF", "PrintRiesgosToPdf", new { @class = "glyphicon glyphicon-download-alt" },
         new { @class = "btn btn-info btn-lg active" })
     </div>
 </div>

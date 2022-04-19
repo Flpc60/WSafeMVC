@@ -69,8 +69,8 @@ namespace WSafe.Web.Controllers
             report.FileName = "MatrizRiesgos.Pdf";
             report.PageSize = Rotativa.Options.Size.A4;
             report.PageOrientation = Rotativa.Options.Orientation.Landscape;
-            report.PageWidth = 397;
-            report.PageHeight = 397;
+            report.PageWidth = 399;
+            report.PageHeight = 399;
             return report;
         }
 
@@ -93,7 +93,7 @@ namespace WSafe.Web.Controllers
                         var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
                         var riesgo = await _converterHelper.ToRiesgoAsync(model, true);
                         var saved = await consulta.Insert(riesgo);
-                        if (saved != null)
+                        if (saved == null)
                         {
                             return RedirectToAction("Index");
                         }

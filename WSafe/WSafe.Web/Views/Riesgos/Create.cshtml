@@ -39,7 +39,7 @@
         @Html.Partial("_EvalRiesgo")
 
     <div class="col-md-offset-2 col-md-4">
-        <button type="button" class="btn btn-success" onclick="AddNewRiesgo()">Agregar</button>
+        <button type="button" id="btnAddRiesgo" class="btn btn-success" onclick="AddNewRiesgo()">Agregar</button>
     </div>
     </div>
 
@@ -93,6 +93,7 @@
     </div>
     <div class="form-group">
         <div class="tabInterven">
+            <hr />
             @foreach (var item in Model.Intervenciones)
             {
                 <div class="form-group">
@@ -168,7 +169,7 @@
                 </div>
             }
             <div class="col-md-offset-2 col-md-4">
-                <button type="button" class="btn btn-success" onclick="AddInterven()">Agregar</button>
+                <button type="button" id="btnAddInterven" class="btn btn-success" onclick="AddInterven()">Agregar</button>
             </div>
         </div>
     </div>
@@ -180,10 +181,11 @@
     <script type="text/javascript">
     $(document).ready(function () {
         $("#consultarInte").click(function () {
+            var riesgoID = $("#txtRiesgoID").val();
             $.ajax({
                 type: "GET",                                              // tipo de request que estamos generando
-                url: 'GetIntervenciones',                                  // URL al que vamos a hacer el pedido
-                data: { ID: @Model.ID },                                  // data es un arreglo JSON que contiene los parámetros que
+                url: '/Riesgos/GetIntervenciones',                                  // URL al que vamos a hacer el pedido
+                data: { idRiesgo: riesgoID  },                                  // data es un arreglo JSON que contiene los parámetros que
                 contentType: "application/json; charset=utf-8",           // tipo de contenido
                 dataType: "json",                                         // formato de transmición de datos
                 async: true,                                              // si es asincrónico o no
@@ -225,7 +227,7 @@
         $("#aplicarMedi").click(function () {
             $.ajax({
                 type: "GET",                                              // tipo de request que estamos generando
-                url: "GetTrabajadores",                                  // URL al que vamos a hacer el pedido
+                url: "/Riesgos/GetTrabajadores",                                  // URL al que vamos a hacer el pedido
                 contentType: "application/json; charset=utf-8",           // tipo de contenido
                 dataType: "json",                                         // formato de transmición de datos
                 async: true,                                              // si es asincrónico o no
@@ -238,6 +240,7 @@
                             Trabajadores: lista
                         }));
                         $(".tabInterven").css("display", "block");
+                        $("#btnAddInterven").show();
                     }
                 },
                     error: function (XMLHttpRequest, textStatus, errorThrown) { // función que va a ejecutar si hubo algún tipo de error en el pedido

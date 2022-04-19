@@ -661,6 +661,9 @@ namespace WSafe.Domain.Helpers.Implements
             var admon = "";
             var señales = "";
             var epp = "";
+            var rutinaria = "";
+            var requisito = "";
+
             foreach (var item in riesgo)
             {
                 fuente= "";
@@ -672,47 +675,68 @@ namespace WSafe.Domain.Helpers.Implements
                 admon = "";
                 señales = "";
                 epp = "";
+                rutinaria = "";
+                requisito = "";
+
+                if (item.Rutinaria)
+                {
+                    rutinaria = "Si";
+                }
+                else
+                {
+                    rutinaria = "No";
+                }
+
+                if (item.RequisitoLegal)
+                {
+                    requisito = "Si";
+                }
+                else
+                {
+                    requisito = "No";
+                }
+
                 foreach (var apl in item.MedidasIntervencion)
                 {
                     switch (apl.CategoriaAplicacion)
                     {
                         case CategoriaAplicacion.Fuente:
-                            fuente += apl.Nombre + "; ";
+                            fuente += apl.Nombre + "\n";
                             break;
 
                         case CategoriaAplicacion.Medio:
-                            medio += apl.Nombre + "; ";
+                            medio += apl.Nombre + "\n";
                             break;
 
                         case CategoriaAplicacion.Individuo:
-                            individuo += apl.Nombre + "; ";
+                            individuo += apl.Nombre + "\n";
                             break;
                     }
 
                     switch (apl.Intervencion)
                     {
                         case JerarquiaControles.Eliminacion:
-                            eliminacion += apl.Nombre + "; ";
+                            eliminacion += apl.Nombre + "\n";
                             break;
 
                         case JerarquiaControles.Sustitucion:
-                            sustituto += apl.Nombre + "; ";
+                            sustituto += apl.Nombre + "\n";
                             break;
 
                         case JerarquiaControles.Controles_Ingeniería:
-                            ingenieria += apl.Nombre + "; ";
+                            ingenieria += apl.Nombre + "\n";
                             break;
 
                         case JerarquiaControles.Controles_Admon:
-                            admon += apl.Nombre + "; ";
+                            admon += apl.Nombre + "\n";
                             break;
 
                         case JerarquiaControles.Señaliza:
-                            señales += apl.Nombre + "; ";
+                            señales += apl.Nombre + "\n";
                             break;
 
                         case JerarquiaControles.EPP:
-                            epp += apl.Nombre + "; ";
+                            epp += apl.Nombre + "\n";
                             break;
 
                     }
@@ -723,7 +747,7 @@ namespace WSafe.Domain.Helpers.Implements
                     Proceso = item.Proceso.Descripcion,
                     Zona = item.Zona.Descripcion,
                     Actividad = item.Actividad.Descripcion,
-                    Rutinaria = item.Rutinaria,
+                    Rutinaria = rutinaria,
                     CategoriaPeligro = _empresaContext.CategoriasPeligros.Find(item.Peligro.CategoriaPeligroID).Descripcion,
                     Peligro = item.Peligro.Descripcion,
                     EfectosPosibles = _gestorHelper.GetEfectos(item.EfectosPosibles),
@@ -741,7 +765,7 @@ namespace WSafe.Domain.Helpers.Implements
                     SignificadoNR = _gestorHelper.GetSignificadoNR(item.CategoriaRiesgo),
                     NroExpuestos = item.NroExpuestos,
                     PeorConsecuencia = item.PeorConsecuencia,
-                    RequisitoLegal = item.RequisitoLegal,
+                    RequisitoLegal = requisito,
                     Eliminacion = eliminacion,
                     Sustitucion = sustituto,
                     Ingenieria = ingenieria,
