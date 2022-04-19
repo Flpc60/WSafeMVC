@@ -12,7 +12,7 @@ namespace WSafe.Web.Models
         public string Zona { get; set; }
         [Display(Name = "Actividades")]
         public string Actividad { get; set; }
-        public bool Rutinaria { get; set; }
+        public string Rutinaria { get; set; }
         [Display(Name = "Clasificación")]
         public string CategoriaPeligro { get; set; }
         [Display(Name = "Descripción")]
@@ -29,32 +29,32 @@ namespace WSafe.Web.Models
         public int NivelExposicion { get; set; }
         [Display(Name = "NP")]
         public int NivelProbabilidad { get; set; }
-        [Display(Name = "Interpretación NP")]
+        [Display(Name = "INP")]
         public string InterpretaNP { get; set; }
 
         [Display(Name = "NC")]
         public int NivelConsecuencia { get; set; }
         [Display(Name = "NR")]
         public int NivelRiesgo { get; set; }
-        [Display(Name = "Interpretación NR")]
+        [Display(Name = "INR")]
         public string CategoriaRiesgo{ get; set; }
-        [Display(Name = "Aceptabilidad NR")]
+        [Display(Name = "Aceptabilidad")]
         public string AceptabilidadNR { get; set; }
         [Display(Name = "Significado NR")]
         public string SignificadoNR { get; set; }
-        [Display(Name = "Nro. Expuestos")]
+        [Display(Name = "Exp")]
         public int NroExpuestos { get; set; }
         [Display(Name = "Peor consecuencia")]
         public string PeorConsecuencia { get; set; }
-        [Display(Name = "Requisito legal")]
-        public bool RequisitoLegal { get; set; }
+        [Display(Name = "Req legal")]
+        public string RequisitoLegal { get; set; }
         [Display(Name = "Eliminación")]
         public string Eliminacion { get; set; }
         [Display(Name = "Sustitución")]
         public string Sustitucion { get; set; }
-        [Display(Name = "Controles de ingeniería")]
+        [Display(Name = "Controles ingeniería")]
         public string Ingenieria { get; set; }
-        [Display(Name = "Controles de administración")]
+        [Display(Name = "Controles administración")]
         public string Administracion { get; set; }
         [Display(Name = "Señalización")]
         public string Señalizacion { get; set; }

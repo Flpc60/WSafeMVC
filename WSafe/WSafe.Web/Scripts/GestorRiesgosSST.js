@@ -596,12 +596,13 @@ function AddNewRiesgo() {
         ActividadID: $("#activity").val(),
         TareaID: $("#tarea").val(),
         Rutinaria: $("#txtRutinaria").val(),
+        CategoriaPeligroID: $("#categoria").val(),
         PeligroID: $("#peligro").val(),
         EfectosPosibles: $("#txtEfectos").val(),
         NivelDeficiencia: $("#deficiencia").val(),
         NivelExposicion: $("#exposicion").val(),
         NivelConsecuencia: $("#consecuencia").val(),
-        Aceptabilidad: $("#txtAceptabilidad").val(),
+        AceptabilidadNR: $("#txtAceptabilidad").val(),
         NroExpuestos: $("#txtExpuestos").val(),
         RequisitoLegal: $("#txtRequisito").val()
     };
@@ -613,7 +614,8 @@ function AddNewRiesgo() {
         dataType: "json",
         success: function (idRiesgo) {
             $("#txtRiesgoID").val(idRiesgo);
-            //$("#btnAddRiesgo").hide();
+            $("#btnAddRiesgo").hide();
+            $(".tabEvalRiesgos").css("display", "none");
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -624,29 +626,30 @@ function AddNewRiesgo() {
 
 function AddInterven() {
     $(".tabMediAplica").css("display", "none");
-    var riesgoID = 10;
-    var token = $('input[name=_token]').val();
-
+    var aplicacionVM = {
+        ID: "0",
+        RiesgoID: $("#txtRiesgoID").val(),
+        Nombre: $("#idNombre").val(),
+        CategoriaAplicacion: $("#idCatApli").val(),
+        Finalidad: $("#idFinal").val(),
+        TrabajadorID: $("#idRespons").val(),
+        Intervencion: $("#idInterven").val(),
+        Beneficios: $("#idBeneficio").val(),
+        Presupuesto: $("#idPresup").val(),
+        FechaInicial: $("#idFechaIni").val(),
+        FechaFinal: $("#idFechaFin").val(),
+        Observaciones: $("#idObserv").val(),
+    };
     $.ajax({
         type: "POST",
         url: "AgregarIntervenciones",
-        data: {
-            ID: "0",
-            RiesgoID: riesgoID,
-            Nombre: $("#idNombre").val(),
-            CategoriaAplicacion: $("#idCatApli").val(),
-            Finalidad: $("#idFinal").val(),
-            TrabajadorID: $("#idRespons").val(),
-            Intervencion: $("#idInterven").val(),
-            Beneficios: $("#idBeneficio").val(),
-            Presupuesto: $("#idPresup").val(),
-            FechaInicial: $("#idFechaIni").val(),
-            FechaFinal: $("#idFechaFin").val(),
-            Observaciones: $("#idObserv").val(),
-            tok: token
-        },
+        data: { model: aplicacionVM },
         dataType: "json",
-        success: function (data, textStatus, jqXHR) { },
+        success: function (data, textStatus, jqXHR) {
+            $("#btnAddInterven").hide();
+            $(".tabInterven").css("display", "none");
+            alert("Medida de Intervención aplicada exitosamente !!")
+        },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
             alert(thrownError);
