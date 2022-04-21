@@ -575,6 +575,7 @@
     <Content Include="Views\Shared\_CabezoteFormat.cshtml" />
     <Content Include="Views\Shared\_EditarPeligros.cshtml" />
     <Content Include="Views\Shared\_EvalRiesgo.cshtml" />
+    <Content Include="Views\Shared\_EditarIntervencion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
 <style>
-    .tabInterven, .capInterven, .tabPeligros, .tabEvalRiesgos, .tabMediAplica, .consInterven, .tabInterven {
+    .tabInterven, .capInterven, .tabPeligros, .tabEvalRiesgos, .tabMediAplica, .consInterven, .tabIntervencion, .tabAddInterven {
         display: none;
     }
 </style>
@@ -38,21 +38,20 @@
         <hr />
         @Html.Partial("_EvalRiesgo")
 
-    <div class="col-md-offset-2 col-md-4">
-        <button type="button" id="btnAddRiesgo" class="btn btn-success" onclick="AddNewRiesgo()">Agregar</button>
-    </div>
+        <div class="col-md-offset-2 col-md-4">
+            <button type="button" id="btnAddRiesgo" class="btn btn-success" onclick="AddNewRiesgo()">Agregar</button>
+        </div>
     </div>
 
     <div class="tabMediAplica">
-
-        <div class="btn-group btn-group-justified">
-            <button type="button" class="btn btn-info" id="consultarInte" title="doble click para cerrar la ventana">CONSULTAR MEDIDAS DE INTERVENCIÓN</button>
-            <button type="button" class="btn btn-info" id="aplicarMedi" title="doble click para cerrar la ventana">APLICAR MEDIDAS DE INTERVENCIÓN</button>
-            <button type="button" class="btn btn-info" id="Retornar" title="doble click para cerrar la ventana">VOLVER AL INDICE</button>
+        <hr />
+        <input type="hidden" id="txtRiesgoID" name="txtRiesgoID" />
+        <div class="col-md-12">
+            <button type="button" class="btn btn-primary" id="addIntervencion">Adicionar nueva medida de intervención</button>
         </div>
 
         <div class="consInterven">
-            <table id="listaInterven" class="table">
+            <table id="listaInterven" class="table table-bordered table-hover">
                 <thead>
                     <tr style="background-color:gainsboro">
                         <th>
@@ -90,89 +89,22 @@
                 </tbody>
             </table>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="tabInterven">
+        <div class="tabIntervencion">
             <hr />
-            @foreach (var item in Model.Intervenciones)
-            {
-                <div class="form-group">
-                    @Html.LabelFor(modelItem => item.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-4">
-                        @Html.EditorFor(modelItem => item.Nombre, new { htmlAttributes = new { @class = "form-control", @id = "idNombre" } })
-                        @Html.ValidationMessageFor(modelItem => item.Nombre, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(modelItem => item.CategoriaAplicacion, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-4">
-                        @Html.EnumDropDownListFor(modelItem => item.CategoriaAplicacion, htmlAttributes: new { @class = "form-control", @id = "idCatApli" })
-                        @Html.ValidationMessageFor(modelItem => item.CategoriaAplicacion, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(modelItem => item.Finalidad, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-4">
-                        @Html.EnumDropDownListFor(modelItem => item.Finalidad, htmlAttributes: new { @class = "form-control", @id = "idFinal" })
-                        @Html.ValidationMessageFor(modelItem => item.Finalidad, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(modelItem => item.TrabajadorID, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-4">
-                        @Html.DropDownListFor(modelItem => item.TrabajadorID, item.Trabajadores, new { @class = "form-control", @id = "idRespons" })
-                        @Html.ValidationMessageFor(modelItem => item.TrabajadorID, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(modelItem => item.Intervencion, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-4">
-                        @Html.EnumDropDownListFor(modelItem => item.Intervencion, htmlAttributes: new { @class = "form-control", @id = "idInterven" })
-                        @Html.ValidationMessageFor(modelItem => item.Intervencion, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(modelItem => item.Beneficios, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-4">
-                        @Html.EditorFor(modelItem => item.Beneficios, new { htmlAttributes = new { @class = "form-control", @id = "idBeneficio" } })
-                        @Html.ValidationMessageFor(modelItem => item.Beneficios, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(modelItem => item.Presupuesto, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-4">
-                        @Html.EditorFor(modelItem => item.Presupuesto, new { htmlAttributes = new { @class = "form-control", @id = "idPresup" } })
-                        @Html.ValidationMessageFor(modelItem => item.Presupuesto, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(modelItem => item.FechaInicial, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-4">
-                        @Html.EditorFor(modelItem => item.FechaInicial, new { htmlAttributes = new { @class = "form-control", @id = "idFechaIni" } })
-                        @Html.ValidationMessageFor(modelItem => item.FechaInicial, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(modelItem => item.FechaFinal, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-4">
-                        @Html.EditorFor(modelItem => item.FechaFinal, new { htmlAttributes = new { @class = "form-control", @id = "idFechaFin" } })
-                        @Html.ValidationMessageFor(modelItem => item.FechaFinal, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(modelItem => item.Observaciones, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(modelItem => item.Observaciones, new { htmlAttributes = new { @class = "form-control", @id = "idObserv" } })
-                        @Html.ValidationMessageFor(modelItem => item.Observaciones, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            }
+            @Html.Partial("_EditarIntervencion")
             <div class="col-md-offset-2 col-md-4">
                 <button type="button" id="btnAddInterven" class="btn btn-success" onclick="AddInterven()">Agregar</button>
             </div>
         </div>
     </div>
+
+    <div class="tabAddInterven">
+        @Html.Partial("_EditarIntervencion")
+        <div class="col-md-offset-2 col-md-4">
+            <button type="button" class="btn btn-primary" onclick="AddIntervencion()">Guardar</button>
+        </div>
+    </div>
+
 </div>
 }
 

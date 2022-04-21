@@ -656,3 +656,36 @@ function AddInterven() {
         }
     });
 }
+
+function UpdateInterven() {
+    $(".tabMediAplica").css("display", "none");
+    var aplicacionVM = {
+        ID: $("#txtID"),
+        RiesgoID: $("#txtRiesgoID").val(),
+        Nombre: $("#idNombre").val(),
+        CategoriaAplicacion: $("#idCatApli").val(),
+        Finalidad: $("#idFinal").val(),
+        TrabajadorID: $("#idRespons").val(),
+        Intervencion: $("#idInterven").val(),
+        Beneficios: $("#idBeneficio").val(),
+        Presupuesto: $("#idPresup").val(),
+        FechaInicial: $("#idFechaIni").val(),
+        FechaFinal: $("#idFechaFin").val(),
+        Observaciones: $("#idObserv").val(),
+    };
+    $.ajax({
+        type: "POST",
+        url: "UpdateIntervenciones",
+        data: { model: aplicacionVM },
+        dataType: "json",
+        success: function (data, textStatus, jqXHR) {
+            $("#btnAddInterven").hide();
+            $(".tabInterven").css("display", "none");
+            alert("Medida de Intervención aplicada exitosamente !!")
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}

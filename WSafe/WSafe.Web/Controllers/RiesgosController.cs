@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Helpers;
 using WSafe.Domain.Repositories.Implements;
 using WSafe.Domain.Services.Implements;
@@ -315,35 +316,46 @@ namespace WSafe.Web.Controllers
             var works = _comboHelper.GetComboTrabajadores();
             return Json(works, JsonRequestBehavior.AllowGet);
         }
+
         [HttpGet]
         public async Task<ActionResult> GetIntervenciones(int idRiesgo)
         {
-            if (idRiesgo == null)
+            try
             {
-                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                var result = await _empresaContext.Aplicaciones
+                    .Where(a => a.RiesgoID == idRiesgo)
+                    .Include(t => t.Trabajador).ToListAsync();
+
+                var intervenciones = _converterHelper.ToIntervencionesViewModel(result);
+                return Json(intervenciones, JsonRequestBehavior.AllowGet);
             }
-
-            var result = await _empresaContext.Aplicaciones
-                .Where(a => a.ID == idRiesgo)
-                .Include(t => t.Trabajador).ToListAsync();
-
-            var intervenciones = _converterHelper.ToIntervencionesViewModel(result);
-
-            if (intervenciones == null)
+            catch (Exception ex)
             {
-                //return HttpNotFound();
+                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
             }
-            return Json(intervenciones, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> UpdateIntervencion(int id)
+        {
+            try
+            {
+                var result = await _empresaContext.Aplicaciones
+                    .Where(a => a.ID == id)
+                    .Include(t => t.Trabajador).ToListAsync();
+
+                var intervenciones = _converterHelper.ToIntervencionesViewModel(result);
+                return Json(intervenciones, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
+            }
         }
 
         [HttpPost]
-        public async Task<ActionResult> AgregarIntervenciones(AplicacionVM model)
+        public async Task<ActionResult> UpdateIntervencion(AplicacionVM model)
         {
-            if (model == null)
-            {
-                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
             try
             {
                 if (ModelState.IsValid)
@@ -351,12 +363,71 @@ namespace WSafe.Web.Controllers
                     var result = await _converterHelper.ToAplicacionAsync(model, true);
                     _empresaContext.Aplicaciones.Add(result);
                     var saved = await _empresaContext.SaveChangesAsync();
+                    return Json(model, JsonRequestBehavior.AllowGet);
                 }
+                return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
+                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
             }
-            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AddIntervenciones(AplicacionVM model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var result = await _converterHelper.ToAplicacionAsync(model, true);
+                    _empresaContext.Aplicaciones.Add(result);
+                    var saved = await _empresaContext.SaveChangesAsync();
+                    return Json(model, JsonRequestBehavior.AllowGet);
+                }
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> DeleteIntervencion(int? id)
+        {
+            try
+            {
+                var result = await _empresaContext.Aplicaciones
+                    .Where(a => a.ID == id)
+                    .Include(t => t.Trabajador).ToListAsync();
+                var model = _converterHelper.ToIntervencionesViewModel(result);
+                return Json(model, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteIntervencion(int id)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var result = await _empresaContext.Aplicaciones.FindAsync(id);
+                    _empresaContext.Aplicaciones.Remove(result);
+                    await _empresaContext.SaveChangesAsync();
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
+            }
         }
     }
 }
