@@ -1,0 +1,73 @@
+﻿@model WSafe.Web.Models.RiesgoViewModel
+
+<div class="form-group">
+    <div class="col-md-12">
+        <hr />
+        <label for="intervencion">Descripcion</label>
+        <textarea id="idNombre" style="resize:none;" class="form-control" rows=3 cols=70 required></textarea>
+    </div>
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.CategoriaAplicacion, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-4">
+        @Html.EnumDropDownListFor(m => m.CategoriaAplicacion, htmlAttributes: new { @class = "form-control", @id = "idCatApli" })
+        @Html.ValidationMessageFor(m => m.CategoriaAplicacion, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.Finalidad, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-4">
+        @Html.EnumDropDownListFor(m => m.Finalidad, htmlAttributes: new { @class = "form-control", @id = "idFinal" })
+        @Html.ValidationMessageFor(m => m.Finalidad, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.TrabajadorID, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-4">
+        @Html.DropDownListFor(m => m.TrabajadorID, Model.Trabajadores, new { @class = "form-control", @id = "idRespons" })
+        @Html.ValidationMessageFor(m => m.TrabajadorID, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.Intervencion, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-4">
+        @Html.EnumDropDownListFor(m => m.Intervencion, htmlAttributes: new { @class = "form-control", @id = "idInterven" })
+        @Html.ValidationMessageFor(m => m.Intervencion, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.Beneficios, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-4">
+        @Html.EditorFor(m => m.Beneficios, new { htmlAttributes = new { @class = "form-control", @id = "idBeneficio" } })
+        @Html.ValidationMessageFor(m => m.Beneficios, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.Presupuesto, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-4">
+        @Html.EditorFor(m => m.Presupuesto, new { htmlAttributes = new { @class = "form-control", @id = "idPresup" } })
+        @Html.ValidationMessageFor(m => m.Presupuesto, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.FechaInicial, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-4">
+        @Html.EditorFor(m => m.FechaInicial, new { htmlAttributes = new { @class = "form-control", @id = "idFechaIni" } })
+        @Html.ValidationMessageFor(m => m.FechaInicial, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.FechaFinal, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-4">
+        @Html.EditorFor(m => m.FechaFinal, new { htmlAttributes = new { @class = "form-control", @id = "idFechaFin" } })
+        @Html.ValidationMessageFor(m => m.FechaFinal, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.Observaciones, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(m => m.Observaciones, new { htmlAttributes = new { @class = "form-control", @id = "idObserv" } })
+        @Html.ValidationMessageFor(m => m.Observaciones, "", new { @class = "text-danger" })
+    </div>
+</div>
