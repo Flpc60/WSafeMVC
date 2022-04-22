@@ -1,5 +1,40 @@
 ﻿// Agregar funcionlidad principal del lado del cliente...
-//mostrar resultados
+function mostrarInterven() {
+    $(".tabMediAplica").css("display", "none");
+    var riesgoID = $("#txtRiesgoID").val();
+    $.ajax({
+        type: "GET",
+        url: '/Riesgos/GetIntervenciones',
+        data: { idRiesgo: riesgoID },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (intervencion) {
+            var html = '';
+            $.each(intervencion, function (key, item) {
+                html += '<tr>';
+                html += '<td>' + item.Nombre + '</td>';
+                html += '<td>' + item.CategoriaAplicacion + '</td>';
+                html += '<td>' + item.Finalidad + '</td>';
+                html += '<td>' + item.Intervencion + '</td>';
+                html += '<td>' + item.Beneficios + '</td>';
+                html += '<td>' + item.Presupuesto + '</td>';
+                html += '<td>' + item.Trabajador + '</td>';
+                html += '<td>' + item.FechaInicial + '</td>';
+                html += '<td>' + item.Fechafinal + '</td>';
+                html += '<td>' + item.Observaciones + '</td>';
+                html += '<td><a href="#" onclick="return getIntervenByID(' + item.ID + ')">Editar</a> | <a href = "#" onclick = "DeleteInterven(' + item.ID + ')"> Borrar</a></td>';
+                html += '</tr>';
+            });
+            $('.tbody').html(html);
+            $('.tabMediAplica').css("display", "block");
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) { // función que va a ejecutar si hubo algún tipo de error en el pedido
+            var error = eval("(" + XMLHttpRequest.responseText + ")");
+            alert(error.Message);
+        }
+    });
+}
 
 function mostrarPlanAcc() {
     $(".tabGesSeguiPlanAcc").css("display", "none");
@@ -138,9 +173,37 @@ validarCostos = function () {
     }
 }
 
+function getIntervenByID(intervenID) {
+    $(".tabPlanAcc").css("display", "block");
+    $("#_EditarPlanAcc").css("display", "block");
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: "/Riesgos/UpdateIntervencion",
+        data: { ID: intervenID },
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        success: function (result) {
+            $("#txtID").val(result.ID);
+            $("#txtRiesgoID").val(result.RiesgoID);
+            $("#idNombre").val(result.Nombre);
+            $("#idCatApli").val(result.CategoriaAplicacion);
+            $("#idFinal").val(Finalidad);
+            $("#idRespons").val(result.TrabajadorID);
+            $("#idInterven").val(result.Intervencion);
+            $("#idBeneficio").val(result.Beneficios);
+            $("#idPresup").val(Presupuesto);
+            $("#idFechaIni").val(FechaInicial);
+            $("#idFechaFin").val(result.FechaFinal);
+            $("#idObserv").val(result.Observaciones);
+        },
+         error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
 function getPlanByID(PlanID) {
-    // Trae la acción a modificar
-    //ClearTextBox();
     $(".tabPlanAcc").css("display", "block");
     $("#_EditarPlanAcc").css("display", "block");
     $.ajax({
@@ -176,7 +239,6 @@ function getPlanByID(PlanID) {
 }
 
 function getSeguiByID(seguiID) {
-    // TODO
     $(".tabSeguimAcc").css("display", "block");
     $("#_EditarSigueAcc").css("display", "block");
     $.ajax({
@@ -201,7 +263,6 @@ function getSeguiByID(seguiID) {
 }
 
 function DeleteSegui(id) {
-    //TODO
     $.ajax({
         url: "/Acciones/DeleteSeguimientoAccion/" + id,
         type: "GET",
@@ -235,6 +296,54 @@ function DeleteSegui(id) {
             }
             ClearTextBox();
             mostrarSeguimAcc();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function DeleteInterven(id) {
+    $.ajax({
+        url: "/Riesgos/DeleteIntervencion/" + id,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        async: true,                                               // si es asincrónico o no
+        success: function (result) {
+            var text = "";
+            text += "Esta seguro de querer borrar este registro ? :\n\n";
+            text += "Descripción : " + result.Nombre + "\n";
+            text += "Categoria : " + result.CategoriaAplicacion + "\n";
+            text += "Finalidad : " + result.Finalidad + "\n";
+            text += "Intervención : " + result.Intervencion + "\n";
+            text += "Presupuesto : " + result.Presupuesto + "\n";
+            text += "Responsable : " + result.Trabajador + "\n";
+            text += "Fecha inicial : " + result.FechaInicial + "\n";
+            text += "Fecha final : " + result.FeachaFinal + "\n";
+            text += "Observaciones : " + result.Observaciones + "\n";
+            var respuesta = confirm(text);
+
+            if (respuesta == true) {
+                $.ajax({
+                    url: "/Riesgos/DeleteIntervencion/" + id,
+                    type: "POST",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    async: true,                                               // si es asincrónico o no
+                    success: function (result) {
+                        mostrarInterven();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                    }
+                });
+                alert("El registro ha sido borrado exitosamente");
+            }
+            ClearTextBox();
+            mostrarInterven();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -646,6 +755,8 @@ function AddInterven() {
         data: { model: aplicacionVM },
         dataType: "json",
         success: function (data, textStatus, jqXHR) {
+            ClearTextBox();
+            mostrarInterven();
             $("#btnAddInterven").hide();
             $(".tabInterven").css("display", "none");
             alert("Medida de Intervención aplicada exitosamente !!")
@@ -679,6 +790,8 @@ function UpdateInterven() {
         data: { model: aplicacionVM },
         dataType: "json",
         success: function (data, textStatus, jqXHR) {
+            ClearTextBox();
+            mostrarInterven();
             $("#btnAddInterven").hide();
             $(".tabInterven").css("display", "none");
             alert("Medida de Intervención aplicada exitosamente !!")

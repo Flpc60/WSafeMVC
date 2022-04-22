@@ -49,59 +49,59 @@
         <div class="col-md-12">
             <button type="button" class="btn btn-primary" id="addIntervencion">Adicionar nueva medida de intervención</button>
         </div>
-
-        <div class="consInterven">
-            <table id="listaInterven" class="table table-bordered table-hover">
-                <thead>
-                    <tr style="background-color:gainsboro">
-                        <th>
-                            descripción
-                        </th>
-                        <th>
-                            Categoria
-                        </th>
-                        <th>
-                            Finalidad
-                        </th>
-                        <th>
-                            Intervención
-                        </th>
-                        <th>
-                            Presupuesto
-                        </th>
-                        <th>
-                            Responsable
-                        </th>
-                        <th>
-                            Responsable
-                        </th>
-                        <th>
-                            Fecha inicial
-                        </th>
-                        <th>
-                            Fecha final
-                        </th>
-                        <th>
-                            Observaciones
-                        </th>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-        <div class="tabIntervencion">
-            <hr />
-            @Html.Partial("_EditarIntervencion")
-            <div class="col-md-offset-2 col-md-4">
-                <button type="button" id="btnAddInterven" class="btn btn-success" onclick="AddInterven()">Agregar</button>
-            </div>
+        <table id="listaInterven" class="table table-bordered table-hover">
+            <thead>
+                <tr style="background-color:gainsboro">
+                    <th>
+                        Descripción
+                    </th>
+                    <th>
+                        Categoria
+                    </th>
+                    <th>
+                        Finalidad
+                    </th>
+                    <th>
+                        Intervención
+                    </th>
+                    <th>
+                        Beneficios
+                    </th>
+                    <th>
+                        Presupuesto
+                    </th>
+                    <th>
+                        Responsable
+                    </th>
+                    <th>
+                        Responsable
+                    </th>
+                    <th>
+                        Fecha inicial
+                    </th>
+                    <th>
+                        Fecha final
+                    </th>
+                    <th>
+                        Observaciones
+                </th>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div class="tabIntervencion">
+        <hr />
+        @Html.Partial("_EditarIntervencion")
+        <div class="col-md-offset-2 col-md-4">
+            <button type="button" id="btnAddInterven" class="btn btn-success" onclick="UpdateInterven()">Agregar</button>
         </div>
     </div>
 
     <div class="tabAddInterven">
         @Html.Partial("_EditarIntervencion")
         <div class="col-md-offset-2 col-md-4">
-            <button type="button" class="btn btn-primary" onclick="AddIntervencion()">Guardar</button>
+            <button type="button" class="btn btn-primary" onclick="AddInterven()">Guardar</button>
         </div>
     </div>
 
@@ -208,6 +208,7 @@
             $(".tabMediAplica").css("display", "block");
             $(".tabEvalRiesgos").css("display", "none");
             $(".tabPeligros").css("display", "none");
+            mostrarInterven;
         });
 
         $("#mediAplica").dblclick(function () {
@@ -221,6 +222,12 @@
         $("#aplicarMedi").dblclick(function () {
             $(".tabInterven").css("display", "none");
         });
+
+        $("#addItervencion").click(function () {
+            $(".tabAddInterven").css("display", "block");
+            $(".tabCerrar").css("display", "none");
+        });
+
     });
 
     $('#zona').change(function () {
