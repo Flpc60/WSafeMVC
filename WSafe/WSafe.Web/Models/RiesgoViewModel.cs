@@ -150,7 +150,6 @@ namespace WSafe.Web.Models
         [Display(Name = "Medida intervención")]
         public JerarquiaControles Intervencion { get; set; }
         public string Beneficios { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public decimal Presupuesto { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Responsable")]

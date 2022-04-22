@@ -48,5 +48,6 @@ namespace WSafe.Domain.Data.Entities
         public bool Estado { get; set; }
         public IEnumerable<PlanAccion> Planes { get; set; }
         public IEnumerable<SeguimientoAccion> Seguimientos { get; set; }
+        public int RiesgoID { get; set; }
     }
 }

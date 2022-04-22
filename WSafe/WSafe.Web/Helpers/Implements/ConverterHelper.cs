@@ -94,16 +94,9 @@ namespace WSafe.Domain.Helpers.Implements
                 Tareas = _comboHelper.GetComboTareas(),
                 CategoriasPeligros = _comboHelper.GetComboCategoriaPeligros(),
                 Peligros = _comboHelper.GetComboPeligros(1),
+                Trabajadores = _comboHelper.GetComboTrabajadores(),
                 Intervenciones = new List<AplicacionVM>()
             };
-
-            model.Intervenciones.Add(
-                new AplicacionVM()
-                {
-                    Trabajadores = _comboHelper.GetComboTrabajadores()
-                }
-                );
-
             return model;
         }
         public AccionViewModel ToAccionViewModelNew()
