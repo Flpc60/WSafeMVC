@@ -174,8 +174,8 @@ validarCostos = function () {
 }
 
 function getIntervenByID(intervenID) {
-    $(".tabPlanAcc").css("display", "block");
-    $("#_EditarPlanAcc").css("display", "block");
+    $(".tabIntervencion").css("display", "block");
+    //$("#_EditarPlanAcc").css("display", "block");
     $.ajax({
         async: true,
         type: 'GET',
@@ -184,7 +184,7 @@ function getIntervenByID(intervenID) {
         dataType: "json",
         contentType: "application/json;charset=UTF-8",
         success: function (result) {
-            $("#txtID").val(result.ID);
+            $("#txtIntervenID").val(result.ID);
             $("#txtRiesgoID").val(result.RiesgoID);
             $("#idNombre").val(result.Nombre);
             $("#idCatApli").val(result.CategoriaAplicacion);
@@ -572,6 +572,7 @@ function AddPlanAccion() {
         data: { model: planAccionVM },
         dataType: "json",
         success: function (result) {
+            $("#txtPlanAccionID").val(result.ID);
             alert("El registro ha sido ingresado exitosamente");
             ClearTextBox();
             mostrarPlanAcc();
@@ -599,7 +600,7 @@ function UpdatePlanAcc() {
     if ($("#txtCausa").val() == 0) { $("#txtCausa").val(1) };
     if ($("#idPrioritaria").val() == null) { $("#idPrioritaria").val(false) };
     var planAccionVM = {
-        ID: $("#planAccionID").val(),
+        ID: $("#txtPlanAccionID").val(),
         AccionID: $("#txtAccionID").val(),
         FechaInicial: $("#idFechaIni").val(),
         FechaFinal: $("#idFechaFin").val(),
@@ -713,7 +714,14 @@ function AddNewRiesgo() {
         NivelConsecuencia: $("#consecuencia").val(),
         AceptabilidadNR: $("#txtAceptabilidad").val(),
         NroExpuestos: $("#txtExpuestos").val(),
-        RequisitoLegal: $("#txtRequisito").val()
+        RequisitoLegal: $("#txtRequisito").val(),
+        Nombre: "Nombre",
+        CategoriaAplicacion: "1",
+        Intervencion: "1",
+        TrabajadorID: "1",
+        FeechaInicial: "2000-01-01",
+        FeechaFinal: "2000-01-01",
+        Observaciones: "Observaciones",
     };
 
     $.ajax({
@@ -741,25 +749,26 @@ function AddInterven() {
         Nombre: $("#idNombre").val(),
         CategoriaAplicacion: $("#idCatApli").val(),
         Finalidad: $("#idFinal").val(),
-        TrabajadorID: $("#idRespons").val(),
         Intervencion: $("#idInterven").val(),
         Beneficios: $("#idBeneficio").val(),
         Presupuesto: $("#idPresup").val(),
+        TrabajadorID: $("#idRespons").val(),
         FechaInicial: $("#idFechaIni").val(),
         FechaFinal: $("#idFechaFin").val(),
-        Observaciones: $("#idObserv").val(),
+        Observaciones: $("#idObserv").val()
     };
     $.ajax({
         type: "POST",
-        url: "AgregarIntervenciones",
+        url: "/Riesgos/AddIntervenciones",
         data: { model: aplicacionVM },
         dataType: "json",
-        success: function (data, textStatus, jqXHR) {
-            ClearTextBox();
-            mostrarInterven();
+        success: function (result) {
+            $("#txtIntervenID").val(result.ID);
             $("#btnAddInterven").hide();
             $(".tabInterven").css("display", "none");
             alert("Medida de Intervención aplicada exitosamente !!")
+            ClearTextBox();
+            mostrarInterven();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -771,7 +780,7 @@ function AddInterven() {
 function UpdateInterven() {
     $(".tabMediAplica").css("display", "none");
     var aplicacionVM = {
-        ID: $("#txtID"),
+        ID: $("#txtIntervenID"),
         RiesgoID: $("#txtRiesgoID").val(),
         Nombre: $("#idNombre").val(),
         CategoriaAplicacion: $("#idCatApli").val(),
@@ -782,11 +791,11 @@ function UpdateInterven() {
         Presupuesto: $("#idPresup").val(),
         FechaInicial: $("#idFechaIni").val(),
         FechaFinal: $("#idFechaFin").val(),
-        Observaciones: $("#idObserv").val(),
+        Observaciones: $("#idObserv").val()
     };
     $.ajax({
         type: "POST",
-        url: "UpdateIntervenciones",
+        url: "/Riesgos/UpdateIntervenciones",
         data: { model: aplicacionVM },
         dataType: "json",
         success: function (data, textStatus, jqXHR) {

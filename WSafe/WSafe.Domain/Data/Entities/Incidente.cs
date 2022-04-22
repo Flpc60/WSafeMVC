@@ -109,5 +109,7 @@ namespace WSafe.Domain.Data.Entities
         [Display(Name = "Consecuencias imagen")]
         public ConsecuenciasImagen ConsecuenciasImagen { get; set; }
         public AccidenteProbabilidad Probabilidad { get; set; }
+        public int RiesgoID { get; set; }
+        public int AccionID { get; set; }
     }
 }

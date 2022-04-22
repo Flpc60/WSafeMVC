@@ -103,5 +103,6 @@ namespace WSafe.Domain.Data.Entities
         public bool RequisitoLegal { get; set; }
         public ICollection<Aplicacion> MedidasIntervencion { get; set; }
         public int IncidenteID { get; set; }
+        public int AccionID { get; set; }
     }
 }

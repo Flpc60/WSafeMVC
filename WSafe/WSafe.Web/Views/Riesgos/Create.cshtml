@@ -111,49 +111,6 @@
 @section Scripts
 {
     <script type="text/javascript">
-    $(document).ready(function () {
-        $("#consultarInte").click(function () {
-            var riesgoID = $("#txtRiesgoID").val();
-            $.ajax({
-                type: "GET",                                              // tipo de request que estamos generando
-                url: '/Riesgos/GetIntervenciones',                                  // URL al que vamos a hacer el pedido
-                data: { idRiesgo: riesgoID  },                                  // data es un arreglo JSON que contiene los parámetros que
-                contentType: "application/json; charset=utf-8",           // tipo de contenido
-                dataType: "json",                                         // formato de transmición de datos
-                async: true,                                              // si es asincrónico o no
-                success: function (intervencion) {                        // función que va a ejecutar si el pedido fue exitoso
-                    if (intervencion != null && !jQuery.isEmptyObject(intervencion)) {
-                        $.each(intervencion, function (i, datos) {
-                            var consulta = "";
-                            consulta += '<tr>';
-                            consulta += '<td>' + datos.Nombre + '</td>';
-                            consulta += '<td>' + datos.CategoriaAplicacion + '</td>';
-                            consulta += '<td>' + datos.Finalidad + '</td>';
-                            consulta += '<td>' + datos.Intervencion + '</td>';
-                            consulta += '<td>' + datos.Beneficios + '</td>';
-                            consulta += '<td>' + datos.Presupuesto + '</td>';
-                            consulta += '<td>' + datos.Trabajador + '</td>';
-                            consulta += '<td>' + datos.FechaInicial + '</td>';
-                            consulta += '<td>' + datos.Fechafinal + '</td>';
-                            consulta += '<td>' + datos.Observaciones + '</td>';
-                            consulta += '</tr>';
-                            $("#listaInterven").append(consulta);
-                        });
-
-                        $(".consInterven").css("display", "block")
-                    }
-                    else
-                    {
-                        alert("No hay medidas de intervención para mostrar")
-                    }
-                },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) { // función que va a ejecutar si hubo algún tipo de error en el pedido
-                        var error = eval("(" + XMLHttpRequest.responseText + ")");
-                        alert(error.Message);
-                    }
-            });
-        });
-    });
 
     $(document).ready(function () {
         $("#aplicarMedi").click(function () {
@@ -223,7 +180,7 @@
             $(".tabInterven").css("display", "none");
         });
 
-        $("#addItervencion").click(function () {
+        $("#addIntervencion").click(function () {
             $(".tabAddInterven").css("display", "block");
             $(".tabCerrar").css("display", "none");
         });
