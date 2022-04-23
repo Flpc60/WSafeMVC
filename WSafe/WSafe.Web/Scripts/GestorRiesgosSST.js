@@ -721,7 +721,7 @@ function AddNewRiesgo() {
         TrabajadorID: "1",
         FeechaInicial: "2000-01-01",
         FeechaFinal: "2000-01-01",
-        Observaciones: "Observaciones",
+        Observaciones: "Observaciones"
     };
 
     $.ajax({
@@ -743,7 +743,7 @@ function AddNewRiesgo() {
 
 function AddInterven() {
     $(".tabMediAplica").css("display", "none");
-    var aplicacionVM = {
+    var intervenVM = {
         ID: "0",
         RiesgoID: $("#txtRiesgoID").val(),
         Nombre: $("#idNombre").val(),
@@ -757,10 +757,11 @@ function AddInterven() {
         FechaFinal: $("#idFechaFin").val(),
         Observaciones: $("#idObserv").val()
     };
+
     $.ajax({
         type: "POST",
         url: "/Riesgos/AddIntervenciones",
-        data: { model: aplicacionVM },
+        data: { model: intervenVM },
         dataType: "json",
         success: function (result) {
             $("#txtIntervenID").val(result.ID);
