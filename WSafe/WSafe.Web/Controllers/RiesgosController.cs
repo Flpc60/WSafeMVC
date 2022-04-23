@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
-using System.Drawing.Printing;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -32,23 +31,24 @@ namespace WSafe.Web.Controllers
         //[AuthorizeUser(1,2)]
         public async Task<ActionResult> Index()
         {
-            var list = await _empresaContext.Riesgos.Include(z => z.Zona)
-                .Include(p => p.Proceso)
-                .Include(a => a.Actividad)
-                .Include(t => t.Tarea)
-                .Include(cp => cp.Peligro)
-                .OrderByDescending(cr => cr.NivelRiesgo)
-                .ToListAsync();
-            var modelo = _converterHelper.ToRiesgoViewModelList(list);
-            return View(modelo);
+            try
+            {
+                var list = await _empresaContext.Riesgos
+                    .Include(cp => cp.Peligro)
+                    .OrderByDescending(cr => cr.NivelRiesgo)
+                    .ToListAsync();
+                var modelo = _converterHelper.ToRiesgoViewModelList(list);
+                return View(modelo);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
+            }
         }
 
         public async Task<ActionResult> GetAll()
         {
-            var list = await _empresaContext.Riesgos.Include(z => z.Zona)
-                .Include(p => p.Proceso)
-                .Include(a => a.Actividad)
-                .Include(t => t.Tarea)
+            var list = await _empresaContext.Riesgos
                 .Include(cp => cp.Peligro)
                 .Include(mi => mi.MedidasIntervencion)
                 .OrderByDescending(cr => cr.NivelRiesgo)
@@ -117,10 +117,7 @@ namespace WSafe.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var result = await _empresaContext.Riesgos.Include(z => z.Zona)
-                .Include(p => p.Proceso)
-                .Include(a => a.Actividad)
-                .Include(t => t.Tarea)
+            var result = await _empresaContext.Riesgos
                 .Include(cp => cp.Peligro)
                 .Include(i => i.MedidasIntervencion)
                 .FirstOrDefaultAsync(i => i.ID == id.Value);
@@ -172,10 +169,7 @@ namespace WSafe.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var result = await _empresaContext.Riesgos.Include(z => z.Zona)
-                .Include(p => p.Proceso)
-                .Include(a => a.Actividad)
-                .Include(t => t.Tarea)
+            var result = await _empresaContext.Riesgos
                 .Include(cp => cp.Peligro)
                 .Include(i => i.MedidasIntervencion)
                 .FirstOrDefaultAsync(i => i.ID == id.Value);
@@ -212,33 +206,6 @@ namespace WSafe.Web.Controllers
             }
 
             return RedirectToAction("Index");
-        }
-
-        // GET: Controles
-        public async Task<ActionResult> GetControles(int id)
-        {
-            // TODO
-            var list = await _empresaContext.Controles
-                .Where(c => c.RiesgoID == id)
-                .ToListAsync();
-
-            var result = await _empresaContext.Riesgos.Include(z => z.Zona)
-                .Include(p => p.Proceso)
-                .Include(a => a.Actividad)
-                .Include(t => t.Tarea)
-                .Include(cp => cp.Peligro)
-                .FirstOrDefaultAsync(r => r.ID == id);
-
-            ViewBag.Zona = result.Zona.Descripcion;
-            ViewBag.Proceso = result.Proceso.Descripcion;
-            ViewBag.Actividad = result.Actividad.Descripcion;
-            ViewBag.Tarea = result.Tarea.Descripcion;
-            ViewBag.Riesgo = result.Peligro.Descripcion;
-            ViewBag.Nivel = result.CategoriaRiesgo;
-            ViewBag.Expuestos = result.NroExpuestos;
-            ViewBag.RiesgoID = result.ID;
-
-            return View(list);
         }
 
         // POST: Riesgos/Delete/5
