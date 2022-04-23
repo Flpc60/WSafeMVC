@@ -195,10 +195,7 @@ namespace WSafe.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var result = await _empresaContext.Riesgos.Include(z => z.Zona)
-                .Include(p => p.Proceso)
-                .Include(a => a.Actividad)
-                .Include(t => t.Tarea)
+            var result = await _empresaContext.Riesgos
                 .Include(cp => cp.Peligro)
                 .FirstOrDefaultAsync(i => i.IncidenteID == id);
 
@@ -245,10 +242,7 @@ namespace WSafe.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var result = await _empresaContext.Riesgos.Include(z => z.Zona)
-                .Include(p => p.Proceso)
-                .Include(a => a.Actividad)
-                .Include(t => t.Tarea)
+            var result = await _empresaContext.Riesgos
                 .Include(cp => cp.Peligro)
                 .FirstOrDefaultAsync(i => i.IncidenteID == id.Value);
 
