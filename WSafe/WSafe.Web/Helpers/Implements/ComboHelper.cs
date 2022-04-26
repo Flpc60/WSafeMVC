@@ -254,7 +254,7 @@ namespace WSafe.Domain.Helpers.Implements
             //TODO
             var list = _empresaContext.Riesgos.Select(t => new SelectListItem
             {
-                Text = t.TareaID + " " + t.Peligro.Descripcion + " " + t.NivelRiesgo,
+                Text = t.TareaID + " " + t.PeligroID + " " + t.NivelRiesgo,
                 Value = t.ID.ToString()
             })
                 .OrderBy(t => t.Text)

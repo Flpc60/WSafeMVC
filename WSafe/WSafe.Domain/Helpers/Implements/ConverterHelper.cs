@@ -33,12 +33,13 @@ namespace WSafe.Domain.Helpers.Implements
             var result = new Riesgo
             {
                 ID = isNew ? 0 : model.ID,
-                Zona = await _empresaContext.Zonas.FindAsync(model.ZonaID),
-                Proceso = await _empresaContext.Procesos.FindAsync(model.ProcesoID),
-                Actividad = await _empresaContext.Actividades.FindAsync(model.ActividadID),
-                Tarea = await _empresaContext.Tareas.FindAsync(model.TareaID),
+                ZonaID = model.ZonaID,
+                ProcesoID = model.ProcesoID,
+                ActividadID = model.ActividadID,
+                TareaID = model.TareaID,
                 Rutinaria = model.Rutinaria,
-                Peligro = await _empresaContext.Peligros.FindAsync(model.PeligroID),
+                CategoriaPeligroID = model.CategoriaPeligroID,
+                PeligroID = model.PeligroID,
                 EfectosPosibles = model.EfectosPosibles,
                 NivelDeficiencia = model.NivelDeficiencia,
                 NivelExposicion = model.NivelExposicion,
@@ -55,19 +56,15 @@ namespace WSafe.Domain.Helpers.Implements
             var model = new RiesgoViewModel
             {
                 ID = riesgo.ID,
-                ZonaID = riesgo.Zona.ID,
-                //Zonas = _comboHelper.GetComboZonas(),
-                ProcesoID = riesgo.Proceso.ID,
-                //Procesos = _comboHelper.GetComboProcesos(),
-                ActividadID = riesgo.Actividad.ID,
-                //Actividades = _comboHelper.GetComboActividades(),
-                TareaID = riesgo.Tarea.ID,
-                //Tareas = _comboHelper.GetComboTareas(),
+                ZonaID = riesgo.ZonaID,
+                ProcesoID = riesgo.ProcesoID,
+                ActividadID = riesgo.ActividadID,
+                TareaID = riesgo.TareaID,
                 Rutinaria = riesgo.Rutinaria,
-                CategoriaPeligroID = riesgo.Peligro.CategoriaPeligroID,
+                CategoriaPeligroID = riesgo.CategoriaPeligroID,
                 CategoriasPeligros = _comboHelper.GetComboCategoriaPeligros(),
-                PeligroID = riesgo.Peligro.ID,
-                Peligros = _comboHelper.GetComboPeligros(riesgo.Peligro.CategoriaPeligroID),
+                PeligroID = riesgo.PeligroID,
+                Peligros = _comboHelper.GetComboPeligros(riesgo.CategoriaPeligroID),
                 EfectosPosibles = riesgo.EfectosPosibles,
                 NivelDeficiencia = riesgo.NivelDeficiencia,
                 NivelesDeficiencia = _gestorHelper.GetNivelDeficiencia(riesgo.NivelDeficiencia),
@@ -79,7 +76,6 @@ namespace WSafe.Domain.Helpers.Implements
                 NroExpuestos = riesgo.NroExpuestos,
                 RequisitoLegal = riesgo.RequisitoLegal,
                 IncidenteID = riesgo.IncidenteID,
-                Intervenciones = new List<AplicacionVM>()
             };
 
             return model;
@@ -94,16 +90,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Tareas = _comboHelper.GetComboTareas(),
                 CategoriasPeligros = _comboHelper.GetComboCategoriaPeligros(),
                 Peligros = _comboHelper.GetComboPeligros(1),
-                Intervenciones = new List<AplicacionVM>()
+                Trabajadores = _comboHelper.GetComboTrabajadores(),
             };
-
-            model.Intervenciones.Add(
-                new AplicacionVM()
-                {
-                    Trabajadores = _comboHelper.GetComboTrabajadores()
-                }
-                );
-
             return model;
         }
         public AccionViewModel ToAccionViewModelNew()
@@ -120,7 +108,7 @@ namespace WSafe.Domain.Helpers.Implements
             };
 
             model.Planes.Add(new PlanAccion());
-            model.Seguimientos.Add( new SeguimientoAccion());
+            model.Seguimientos.Add(new SeguimientoAccion());
             return model;
         }
         public AccionViewModel ToAccionViewModel(Accion accion)
@@ -383,16 +371,18 @@ namespace WSafe.Domain.Helpers.Implements
             var model = new List<ListaRiesgosVM>();
             foreach (var item in riesgo)
             {
-                model.Add(new ListaRiesgosVM
+                var peligro = _empresaContext.Peligros.Find(item.PeligroID);
+
+                    model.Add(new ListaRiesgosVM
                 {
                     ID = item.ID,
-                    Zona = _empresaContext.Zonas.Find(item.Zona.ID).Descripcion,
-                    Proceso = _empresaContext.Procesos.Find(item.Proceso.ID).Descripcion,
-                    Actividad = _empresaContext.Actividades.Find(item.Actividad.ID).Descripcion,
-                    Tarea = _empresaContext.Tareas.Find(item.Tarea.ID).Descripcion,
+                    Zona = _empresaContext.Zonas.Find(item.ZonaID).Descripcion,
+                    Proceso = _empresaContext.Procesos.Find(item.ProcesoID).Descripcion,
+                    Actividad = _empresaContext.Actividades.Find(item.ActividadID).Descripcion,
+                    Tarea = _empresaContext.Tareas.Find(item.TareaID).Descripcion,
                     Rutinaria = item.Rutinaria,
-                    Clasificacion = _empresaContext.CategoriasPeligros.Find(item.Peligro.CategoriaPeligroID).Descripcion,
-                    Peligro = _empresaContext.Peligros.Find(item.Peligro.ID).Descripcion,
+                    Clasificacion = _empresaContext.CategoriasPeligros.Find(peligro.CategoriaPeligroID).Descripcion,
+                    Peligro = peligro.Descripcion,
                     EfectosPosibles = item.EfectosPosibles,
                     NivelDeficiencia = item.NivelDeficiencia,
                     NivelExposicion = item.NivelExposicion,
@@ -428,16 +418,19 @@ namespace WSafe.Domain.Helpers.Implements
             {
                 modelo.Add(new AplicacionVM
                 {
-                    RiesgoID = item.ID,
+                    ID = item.ID,
+                    RiesgoID = item.RiesgoID,
                     Nombre = item.Nombre,
                     CategoriaAplicacion = item.CategoriaAplicacion,
-                    Finalidad = item.Finalidad,
                     Intervencion = item.Intervencion,
                     Beneficios = item.Beneficios,
                     Presupuesto = item.Presupuesto,
-                    Trabajadores = _comboHelper.GetComboTrabajadores(),
+                    TrabajadorID = item.TrabajadorID,
+                    Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpper(),
                     FechaInicial = item.FechaInicial,
                     FechaFinal = item.FechaFinal,
+                    TextFechaInicial = item.FechaInicial.ToString("yyyy-MM-dd"),
+                    TextFechaFinal = item.FechaFinal.ToString("yyyy-MM-dd"),
                     Observaciones = item.Observaciones
                 });
             }
@@ -451,11 +444,10 @@ namespace WSafe.Domain.Helpers.Implements
                 RiesgoID = model.RiesgoID,
                 Nombre = model.Nombre,
                 CategoriaAplicacion = model.CategoriaAplicacion,
-                Finalidad = model.Finalidad,
                 Intervencion = model.Intervencion,
                 Beneficios = model.Beneficios,
                 Presupuesto = model.Presupuesto,
-                Trabajador = await _empresaContext.Trabajadores.FindAsync(model.TrabajadorID),
+                TrabajadorID = model.TrabajadorID,
                 FechaInicial = model.FechaInicial,
                 FechaFinal = model.FechaFinal,
                 Observaciones = model.Observaciones
@@ -487,7 +479,7 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public async Task<PlanAccion> ToPlanAccionAsync(PlanAccion plan)
         {
-            
+
             var result = new PlanAccion
             {
                 ID = plan.ID,
@@ -623,7 +615,7 @@ namespace WSafe.Domain.Helpers.Implements
                 Proceso = _empresaContext.Procesos.Find(accion.ProcesoID).Descripcion,
                 FuenteAccion = _gestorHelper.GetFuenteAccion(accion.FuenteAccion).ToUpper(),
                 Descripcion = accion.Descripcion.ToUpper(),
-                EficaciaAntes =  accion.EficaciaAntes,
+                EficaciaAntes = accion.EficaciaAntes,
                 EficaciaDespues = accion.EficaciaDespues,
                 FechaCierre = accion.FechaCierre.ToString("dd-MM-yyyy"),
                 Efectiva = accion.Efectiva,
@@ -666,7 +658,7 @@ namespace WSafe.Domain.Helpers.Implements
 
             foreach (var item in riesgo)
             {
-                fuente= "";
+                fuente = "";
                 individuo = "";
                 medio = "";
                 eliminacion = "";
@@ -744,12 +736,12 @@ namespace WSafe.Domain.Helpers.Implements
                 model.Add(new MatrizRiesgosVM
                 {
                     ID = item.ID,
-                    Proceso = item.Proceso.Descripcion,
-                    Zona = item.Zona.Descripcion,
-                    Actividad = item.Actividad.Descripcion,
+                    Proceso = _empresaContext.Procesos.Find(item.ProcesoID).Descripcion,
+                    Zona = _empresaContext.Zonas.Find(item.ZonaID).Descripcion,
+                    Actividad = _empresaContext.Actividades.Find(item.ActividadID).Descripcion,
                     Rutinaria = rutinaria,
-                    CategoriaPeligro = _empresaContext.CategoriasPeligros.Find(item.Peligro.CategoriaPeligroID).Descripcion,
-                    Peligro = item.Peligro.Descripcion,
+                    CategoriaPeligro = _empresaContext.CategoriasPeligros.Find(item.CategoriaPeligroID).Descripcion,
+                    Peligro = _empresaContext.Peligros.Find(item.PeligroID).Descripcion,
                     EfectosPosibles = _gestorHelper.GetEfectos(item.EfectosPosibles),
                     Fuente = fuente,
                     Medio = medio,
