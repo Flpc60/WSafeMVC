@@ -7,7 +7,6 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Helpers;
 using WSafe.Domain.Repositories.Implements;
 using WSafe.Domain.Services.Implements;
@@ -34,7 +33,6 @@ namespace WSafe.Web.Controllers
             try
             {
                 var list = await _empresaContext.Riesgos
-                    .Include(cp => cp.Peligro)
                     .OrderByDescending(cr => cr.NivelRiesgo)
                     .ToListAsync();
                 var modelo = _converterHelper.ToRiesgoViewModelList(list);
@@ -49,7 +47,6 @@ namespace WSafe.Web.Controllers
         public async Task<ActionResult> GetAll()
         {
             var list = await _empresaContext.Riesgos
-                .Include(cp => cp.Peligro)
                 .Include(mi => mi.MedidasIntervencion)
                 .OrderByDescending(cr => cr.NivelRiesgo)
                 .ToListAsync();
@@ -79,6 +76,7 @@ namespace WSafe.Web.Controllers
         public ActionResult Create()
         {
             var riesgoView = _converterHelper.ToRiesgoViewModelNew();
+            //ViewBag.aplicaVM = new AplicacionVM();
             return View(riesgoView);
         }
 
@@ -118,7 +116,6 @@ namespace WSafe.Web.Controllers
             }
 
             var result = await _empresaContext.Riesgos
-                .Include(cp => cp.Peligro)
                 .Include(i => i.MedidasIntervencion)
                 .FirstOrDefaultAsync(i => i.ID == id.Value);
 
@@ -170,7 +167,6 @@ namespace WSafe.Web.Controllers
             }
 
             var result = await _empresaContext.Riesgos
-                .Include(cp => cp.Peligro)
                 .Include(i => i.MedidasIntervencion)
                 .FirstOrDefaultAsync(i => i.ID == id.Value);
 
@@ -290,8 +286,7 @@ namespace WSafe.Web.Controllers
             try
             {
                 var result = await _empresaContext.Aplicaciones
-                    .Where(a => a.RiesgoID == idRiesgo)
-                    .Include(t => t.Trabajador).ToListAsync();
+                    .Where(a => a.RiesgoID == idRiesgo).ToListAsync();
 
                 var intervenciones = _converterHelper.ToIntervencionesViewModel(result);
                 return Json(intervenciones, JsonRequestBehavior.AllowGet);
@@ -308,8 +303,7 @@ namespace WSafe.Web.Controllers
             try
             {
                 var result = await _empresaContext.Aplicaciones
-                    .Where(a => a.ID == id)
-                    .Include(t => t.Trabajador).ToListAsync();
+                    .Where(a => a.ID == id).ToListAsync();
 
                 var intervenciones = _converterHelper.ToIntervencionesViewModel(result);
                 return Json(intervenciones, JsonRequestBehavior.AllowGet);
@@ -366,8 +360,7 @@ namespace WSafe.Web.Controllers
             try
             {
                 var result = await _empresaContext.Aplicaciones
-                    .Where(a => a.ID == id)
-                    .Include(t => t.Trabajador).ToListAsync();
+                    .Where(a => a.ID == id).ToListAsync();
                 var model = _converterHelper.ToIntervencionesViewModel(result);
                 return Json(model, JsonRequestBehavior.AllowGet);
             }

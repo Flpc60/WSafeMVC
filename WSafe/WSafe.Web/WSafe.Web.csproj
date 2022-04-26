@@ -351,53 +351,9 @@
     <Compile Include="Helpers\Implements\ConverterHelper.cs" />
     <Compile Include="Helpers\Implements\GestorHelper.cs" />
     <Compile Include="Helpers\Implements\IndicadorHelper.cs" />
-    <Compile Include="Migrations\202202160020306_CreateMedidasInterVencion.cs" />
-    <Compile Include="Migrations\202202160020306_CreateMedidasInterVencion.Designer.cs">
-      <DependentUpon>202202160020306_CreateMedidasInterVencion.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202204051654073_UpdateAccionVM.cs" />
-    <Compile Include="Migrations\202204051654073_UpdateAccionVM.Designer.cs">
-      <DependentUpon>202204051654073_UpdateAccionVM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202204081530551_CreateDocuments.cs" />
-    <Compile Include="Migrations\202204081530551_CreateDocuments.Designer.cs">
-      <DependentUpon>202204081530551_CreateDocuments.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202204082125572_UpdateSeguimiento.cs" />
-    <Compile Include="Migrations\202204082125572_UpdateSeguimiento.Designer.cs">
-      <DependentUpon>202204082125572_UpdateSeguimiento.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202204141650332_CreateIntervencionesVM.cs" />
-    <Compile Include="Migrations\202204141650332_CreateIntervencionesVM.Designer.cs">
-      <DependentUpon>202204141650332_CreateIntervencionesVM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202204151532045_UpdateTableRiesgo.cs" />
-    <Compile Include="Migrations\202204151532045_UpdateTableRiesgo.Designer.cs">
-      <DependentUpon>202204151532045_UpdateTableRiesgo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202204151632362_UpdateRiesgosVM.cs" />
-    <Compile Include="Migrations\202204151632362_UpdateRiesgosVM.Designer.cs">
-      <DependentUpon>202204151632362_UpdateRiesgosVM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202204151838134_UpdateRiesgoVM2.cs" />
-    <Compile Include="Migrations\202204151838134_UpdateRiesgoVM2.Designer.cs">
-      <DependentUpon>202204151838134_UpdateRiesgoVM2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202204192234384_UpdateRiesgoVM3.cs" />
-    <Compile Include="Migrations\202204192234384_UpdateRiesgoVM3.Designer.cs">
-      <DependentUpon>202204192234384_UpdateRiesgoVM3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202204222017084_UpdateRiesgoVM4.cs" />
-    <Compile Include="Migrations\202204222017084_UpdateRiesgoVM4.Designer.cs">
-      <DependentUpon>202204222017084_UpdateRiesgoVM4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202204222027582_UpdateRiesgoVM5.cs" />
-    <Compile Include="Migrations\202204222027582_UpdateRiesgoVM5.Designer.cs">
-      <DependentUpon>202204222027582_UpdateRiesgoVM5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202204231233364_UpdateTableRiesgo2.cs" />
-    <Compile Include="Migrations\202204231233364_UpdateTableRiesgo2.Designer.cs">
-      <DependentUpon>202204231233364_UpdateTableRiesgo2.cs</DependentUpon>
+    <Compile Include="Migrations\202204252308366_UpdateRiesgoVM.cs" />
+    <Compile Include="Migrations\202204252308366_UpdateRiesgoVM.Designer.cs">
+      <DependentUpon>202204252308366_UpdateRiesgoVM.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\IntervencionVM.cs" />
@@ -609,41 +565,8 @@
     <EmbeddedResource Include="Migrations\202112012202348_InitialCreate.resx">
       <DependentUpon>202112012202348_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202202160020306_CreateMedidasInterVencion.resx">
-      <DependentUpon>202202160020306_CreateMedidasInterVencion.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204051654073_UpdateAccionVM.resx">
-      <DependentUpon>202204051654073_UpdateAccionVM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204081530551_CreateDocuments.resx">
-      <DependentUpon>202204081530551_CreateDocuments.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204082125572_UpdateSeguimiento.resx">
-      <DependentUpon>202204082125572_UpdateSeguimiento.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204141650332_CreateIntervencionesVM.resx">
-      <DependentUpon>202204141650332_CreateIntervencionesVM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204151532045_UpdateTableRiesgo.resx">
-      <DependentUpon>202204151532045_UpdateTableRiesgo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204151632362_UpdateRiesgosVM.resx">
-      <DependentUpon>202204151632362_UpdateRiesgosVM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204151838134_UpdateRiesgoVM2.resx">
-      <DependentUpon>202204151838134_UpdateRiesgoVM2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204192234384_UpdateRiesgoVM3.resx">
-      <DependentUpon>202204192234384_UpdateRiesgoVM3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204222017084_UpdateRiesgoVM4.resx">
-      <DependentUpon>202204222017084_UpdateRiesgoVM4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204222027582_UpdateRiesgoVM5.resx">
-      <DependentUpon>202204222027582_UpdateRiesgoVM5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204231233364_UpdateTableRiesgo2.resx">
-      <DependentUpon>202204231233364_UpdateTableRiesgo2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202204252308366_UpdateRiesgoVM.resx">
+      <DependentUpon>202204252308366_UpdateRiesgoVM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -195,7 +195,7 @@ namespace WSafe.Domain.Helpers.Implements
             try
             {
                 var result = from at in _empresaContext.Riesgos
-                             group at by new { at.Peligro.CategoriaPeligroID } into datosAgrupados
+                             group at by new { at.CategoriaPeligroID } into datosAgrupados
                              orderby datosAgrupados.Count() ascending
                              select new { Clave = datosAgrupados.Key, Datos = datosAgrupados };
 

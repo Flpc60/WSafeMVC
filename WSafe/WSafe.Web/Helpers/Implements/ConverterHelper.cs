@@ -38,7 +38,8 @@ namespace WSafe.Domain.Helpers.Implements
                 ActividadID = model.ActividadID,
                 TareaID = model.TareaID,
                 Rutinaria = model.Rutinaria,
-                Peligro = await _empresaContext.Peligros.FindAsync(model.PeligroID),
+                CategoriaPeligroID = model.CategoriaPeligroID,
+                PeligroID = model.PeligroID,
                 EfectosPosibles = model.EfectosPosibles,
                 NivelDeficiencia = model.NivelDeficiencia,
                 NivelExposicion = model.NivelExposicion,
@@ -60,10 +61,10 @@ namespace WSafe.Domain.Helpers.Implements
                 ActividadID = riesgo.ActividadID,
                 TareaID = riesgo.TareaID,
                 Rutinaria = riesgo.Rutinaria,
-                CategoriaPeligroID = riesgo.Peligro.CategoriaPeligroID,
+                CategoriaPeligroID = riesgo.CategoriaPeligroID,
                 CategoriasPeligros = _comboHelper.GetComboCategoriaPeligros(),
-                PeligroID = riesgo.Peligro.ID,
-                Peligros = _comboHelper.GetComboPeligros(riesgo.Peligro.CategoriaPeligroID),
+                PeligroID = riesgo.PeligroID,
+                Peligros = _comboHelper.GetComboPeligros(riesgo.CategoriaPeligroID),
                 EfectosPosibles = riesgo.EfectosPosibles,
                 NivelDeficiencia = riesgo.NivelDeficiencia,
                 NivelesDeficiencia = _gestorHelper.GetNivelDeficiencia(riesgo.NivelDeficiencia),
@@ -75,7 +76,6 @@ namespace WSafe.Domain.Helpers.Implements
                 NroExpuestos = riesgo.NroExpuestos,
                 RequisitoLegal = riesgo.RequisitoLegal,
                 IncidenteID = riesgo.IncidenteID,
-                Intervenciones = new List<AplicacionVM>()
             };
 
             return model;
@@ -91,7 +91,6 @@ namespace WSafe.Domain.Helpers.Implements
                 CategoriasPeligros = _comboHelper.GetComboCategoriaPeligros(),
                 Peligros = _comboHelper.GetComboPeligros(1),
                 Trabajadores = _comboHelper.GetComboTrabajadores(),
-                Intervenciones = new List<AplicacionVM>()
             };
             return model;
         }
@@ -372,7 +371,9 @@ namespace WSafe.Domain.Helpers.Implements
             var model = new List<ListaRiesgosVM>();
             foreach (var item in riesgo)
             {
-                model.Add(new ListaRiesgosVM
+                var peligro = _empresaContext.Peligros.Find(item.PeligroID);
+
+                    model.Add(new ListaRiesgosVM
                 {
                     ID = item.ID,
                     Zona = _empresaContext.Zonas.Find(item.ZonaID).Descripcion,
@@ -380,8 +381,8 @@ namespace WSafe.Domain.Helpers.Implements
                     Actividad = _empresaContext.Actividades.Find(item.ActividadID).Descripcion,
                     Tarea = _empresaContext.Tareas.Find(item.TareaID).Descripcion,
                     Rutinaria = item.Rutinaria,
-                    Clasificacion = _empresaContext.CategoriasPeligros.Find(item.Peligro.CategoriaPeligroID).Descripcion,
-                    Peligro = _empresaContext.Peligros.Find(item.Peligro.ID).Descripcion,
+                    Clasificacion = _empresaContext.CategoriasPeligros.Find(peligro.CategoriaPeligroID).Descripcion,
+                    Peligro = peligro.Descripcion,
                     EfectosPosibles = item.EfectosPosibles,
                     NivelDeficiencia = item.NivelDeficiencia,
                     NivelExposicion = item.NivelExposicion,
@@ -417,16 +418,19 @@ namespace WSafe.Domain.Helpers.Implements
             {
                 modelo.Add(new AplicacionVM
                 {
-                    RiesgoID = item.ID,
-                    Nombre = item.Nombre,
+                    ID = item.ID,
+                    RiesgoID = item.RiesgoID,
+                    Nombre = item.Nombre.ToUpper(),
                     CategoriaAplicacion = item.CategoriaAplicacion,
-                    Finalidad = item.Finalidad,
                     Intervencion = item.Intervencion,
                     Beneficios = item.Beneficios,
                     Presupuesto = item.Presupuesto,
-                    Trabajadores = _comboHelper.GetComboTrabajadores(),
+                    TrabajadorID = item.TrabajadorID,
+                    Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpper(),
                     FechaInicial = item.FechaInicial,
                     FechaFinal = item.FechaFinal,
+                    TextFechaInicial = item.FechaInicial.ToString("yyyy-MM-dd"),
+                    TextFechaFinal = item.FechaFinal.ToString("yyyy-MM-dd"),
                     Observaciones = item.Observaciones
                 });
             }
@@ -440,11 +444,10 @@ namespace WSafe.Domain.Helpers.Implements
                 RiesgoID = model.RiesgoID,
                 Nombre = model.Nombre,
                 CategoriaAplicacion = model.CategoriaAplicacion,
-                Finalidad = model.Finalidad,
                 Intervencion = model.Intervencion,
                 Beneficios = model.Beneficios,
                 Presupuesto = model.Presupuesto,
-                Trabajador = await _empresaContext.Trabajadores.FindAsync(model.TrabajadorID),
+                TrabajadorID = model.TrabajadorID,
                 FechaInicial = model.FechaInicial,
                 FechaFinal = model.FechaFinal,
                 Observaciones = model.Observaciones
@@ -737,8 +740,8 @@ namespace WSafe.Domain.Helpers.Implements
                     Zona = _empresaContext.Zonas.Find(item.ZonaID).Descripcion,
                     Actividad = _empresaContext.Actividades.Find(item.ActividadID).Descripcion,
                     Rutinaria = rutinaria,
-                    CategoriaPeligro = _empresaContext.CategoriasPeligros.Find(item.Peligro.CategoriaPeligroID).Descripcion,
-                    Peligro = item.Peligro.Descripcion,
+                    CategoriaPeligro = _empresaContext.CategoriasPeligros.Find(item.CategoriaPeligroID).Descripcion,
+                    Peligro = _empresaContext.Peligros.Find(item.PeligroID).Descripcion,
                     EfectosPosibles = _gestorHelper.GetEfectos(item.EfectosPosibles),
                     Fuente = fuente,
                     Medio = medio,

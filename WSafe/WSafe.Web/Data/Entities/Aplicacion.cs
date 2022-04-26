@@ -22,7 +22,7 @@ namespace WSafe.Domain.Data.Entities
         public decimal Presupuesto { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Responsable")]
-        public Trabajador Trabajador { get; set; }
+        public int TrabajadorID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Fecha inicial")]
         [DataType(DataType.Date)]

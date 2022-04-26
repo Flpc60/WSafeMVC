@@ -1,6 +1,44 @@
 ﻿// Agregar funcionlidad principal del lado del cliente...
-function mostrarInterven() {
+
+function AddInterven() {
     $(".tabMediAplica").css("display", "none");
+    var aplicaVM = {
+        ID: "0",
+        RiesgoID: $("#txtRiesgoID").val(),
+        Nombre: $("#txtNombre").val(),
+        CategoriaAplicacion: $("#txtCatAplica").val(),
+        Finalidad: $("#txtFinal").val(),
+        Intervencion: $("#idInterven").val(),
+        Beneficios: $("#idBeneficio").val(),
+        Presupuesto: $("#idPresup").val(),
+        TrabajadorID: $("#idRespons").val(),
+        FechaInicial: $("#idFechaIni").val(),
+        Fechafinal: $("#idFechaFin").val(),
+        Observaciones: $("#idObserv").val()
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/Riesgos/AddIntervenciones",
+        data: { model: aplicaVM },
+        dataType: "json",
+        success: function (result) {
+            $("#txtIntervenID").val(result.ID);
+            $("#btnAddInterven").hide();
+            $(".tabAddInterven").css("display", "none");
+            alert("Medida de intervención aplicada exitosamente !!")
+            ClearTextBox();
+            mostrarInterven();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function mostrarInterven() {
+//    $(".tabMediAplica").css("display", "none");
     var riesgoID = $("#txtRiesgoID").val();
     $.ajax({
         type: "GET",
@@ -9,20 +47,16 @@ function mostrarInterven() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         async: true,
-        success: function (intervencion) {
+        success: function (result) {
             var html = '';
-            $.each(intervencion, function (key, item) {
+            $.each(result, function (key, item) {
                 html += '<tr>';
                 html += '<td>' + item.Nombre + '</td>';
                 html += '<td>' + item.CategoriaAplicacion + '</td>';
-                html += '<td>' + item.Finalidad + '</td>';
                 html += '<td>' + item.Intervencion + '</td>';
-                html += '<td>' + item.Beneficios + '</td>';
-                html += '<td>' + item.Presupuesto + '</td>';
-                html += '<td>' + item.Trabajador + '</td>';
-                html += '<td>' + item.FechaInicial + '</td>';
-                html += '<td>' + item.Fechafinal + '</td>';
-                html += '<td>' + item.Observaciones + '</td>';
+                html += '<td>' + item.Responsable + '</td>';
+                html += '<td>' + item.TextFechaInicial + '</td>';
+                html += '<td>' + item.TextFechaFinal + '</td>';
                 html += '<td><a href="#" onclick="return getIntervenByID(' + item.ID + ')">Editar</a> | <a href = "#" onclick = "DeleteInterven(' + item.ID + ')"> Borrar</a></td>';
                 html += '</tr>';
             });
@@ -126,6 +160,16 @@ function ClearTextBox() {
     $('.tabAddPlanAcc').css("display", "none");
     $('.tabPlanAcc').css("display", "none");
     $('.tabSeguimAcc').css("display", "none");
+    $("#txtNombre").val("");
+    $("#txtCatAplica").val("");
+    $("#txtFinal").val("");
+    $("#idInterven").val("");
+    $("#idBeneficio").val("");
+    $("#idPresup").val("");
+    $("#idRespons").val("");
+    $("#idFechaIni").val("");
+    $("#idFechaFin").val("");
+    $("#idObserv").val("");
 }
 
 validarFechaIni = function () {
@@ -187,8 +231,8 @@ function getIntervenByID(intervenID) {
             $("#txtIntervenID").val(result.ID);
             $("#txtRiesgoID").val(result.RiesgoID);
             $("#idNombre").val(result.Nombre);
-            $("#idCatApli").val(result.CategoriaAplicacion);
-            $("#idFinal").val(Finalidad);
+            $("#txtCatAplica").val(result.CategoriaAplicacion);
+            $("#txtFinal").val(Finalidad);
             $("#idRespons").val(result.TrabajadorID);
             $("#idInterven").val(result.Intervencion);
             $("#idBeneficio").val(result.Beneficios);
@@ -740,52 +784,14 @@ function AddNewRiesgo() {
         }
     });
 }
-
-function AddInterven() {
-    $(".tabMediAplica").css("display", "none");
-    var intervenVM = {
-        ID: "0",
-        RiesgoID: $("#txtRiesgoID").val(),
-        Nombre: $("#idNombre").val(),
-        CategoriaAplicacion: $("#idCatApli").val(),
-        Finalidad: $("#idFinal").val(),
-        Intervencion: $("#idInterven").val(),
-        Beneficios: $("#idBeneficio").val(),
-        Presupuesto: $("#idPresup").val(),
-        TrabajadorID: $("#idRespons").val(),
-        FechaInicial: $("#idFechaIni").val(),
-        FechaFinal: $("#idFechaFin").val(),
-        Observaciones: $("#idObserv").val()
-    };
-
-    $.ajax({
-        type: "POST",
-        url: "/Riesgos/AddIntervenciones",
-        data: { model: intervenVM },
-        dataType: "json",
-        success: function (result) {
-            $("#txtIntervenID").val(result.ID);
-            $("#btnAddInterven").hide();
-            $(".tabInterven").css("display", "none");
-            alert("Medida de Intervención aplicada exitosamente !!")
-            ClearTextBox();
-            mostrarInterven();
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            alert(xhr.status);
-            alert(thrownError);
-        }
-    });
-}
-
 function UpdateInterven() {
     $(".tabMediAplica").css("display", "none");
     var aplicacionVM = {
         ID: $("#txtIntervenID"),
         RiesgoID: $("#txtRiesgoID").val(),
         Nombre: $("#idNombre").val(),
-        CategoriaAplicacion: $("#idCatApli").val(),
-        Finalidad: $("#idFinal").val(),
+        CategoriaAplicacion: $("#txtCatAplica").val(),
+        Finalidad: $("#txtFinal").val(),
         TrabajadorID: $("#idRespons").val(),
         Intervencion: $("#idInterven").val(),
         Beneficios: $("#idBeneficio").val(),

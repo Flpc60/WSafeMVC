@@ -144,13 +144,10 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Aplicación del control")]
         public CategoriaAplicacion CategoriaAplicacion { get; set; }
-        [Display(Name = "Tipo de acción")]
-        public CategoriasFinalidad Finalidad { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Medida intervención")]
         public JerarquiaControles Intervencion { get; set; }
         public string Beneficios { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public decimal Presupuesto { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Responsable")]
@@ -169,6 +166,5 @@ namespace WSafe.Web.Models
         public DateTime FechaFinal { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string Observaciones { get; set; }
-        public ICollection<AplicacionVM> Intervenciones { get; set; }
     }
 }

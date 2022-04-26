@@ -18,7 +18,9 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public bool Rutinaria { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public Peligro Peligro { get; set; }
+        public int CategoriaPeligroID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public int PeligroID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Efectos posibles")]
         public EfectosPosibles EfectosPosibles { get; set; }
