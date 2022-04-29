@@ -21,5 +21,7 @@ namespace WSafe.Domain.Helpers
         string GetCausaAccion(CategoriasCausa categoria);
         string GetFuenteAccion(FuentesAccion fuentes);
         string GetEfectos(EfectosPosibles efecto);
+        string GetJerarquiaControl(JerarquiaControles categoria);
+        string GetCategoriaAplicacion(CategoriaAplicacion categoria);
     }
 }

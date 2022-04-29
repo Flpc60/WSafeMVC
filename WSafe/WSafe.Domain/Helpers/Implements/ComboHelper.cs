@@ -57,7 +57,7 @@ namespace WSafe.Domain.Helpers.Implements
                 .Select(p => new SelectListItem
             {
                 Text = p.Descripcion,
-                Value = p.CategoriaPeligroID.ToString()
+                Value = p.ID.ToString()
             })
                 .OrderBy(p => p.Text)
                 .ToList();

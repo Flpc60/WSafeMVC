@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
 using WSafe.Domain.Data.Entities;
 
 namespace WSafe.Web.Models
@@ -43,5 +41,7 @@ namespace WSafe.Web.Models
         public string Observaciones { get; set; }
         public string TextFechaInicial { get; set; }
         public string TextFechaFinal { get; set; }
+        public string TextCategoria { get; set; }
+        public string TextIntervencion { get; set; }
     }
 }

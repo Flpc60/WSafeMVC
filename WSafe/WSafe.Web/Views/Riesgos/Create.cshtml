@@ -1,353 +1,165 @@
 ﻿@model WSafe.Web.Models.RiesgoViewModel
 @{
     ViewBag.Title = "Create";
+    var trabajadores = ViewBag.trabajadores;
 }
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">----->
 
 <style>
     .tabInterven, .capInterven, .tabPeligros, .tabEvalRiesgos, .tabMediAplica, .consInterven, .tabIntervencion, .tabAddInterven {
         display: none;
     }
 </style>
+
 @using (Html.BeginForm(FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-<div class="form-horizontal">
-    <hr />
-    <hr />
-    <h4>GESTIÓN DE RIESGOS</h4>
-    <div class="row">
-        <div class="col-md-4">
-            <button type="button" class="btn btn-warning" id="idPeligros" title="doble click para cerrar la ventana">1. IDENTIFICACIÓN PELIGROS</button>
-        </div>
-        <div class="col-md-4">
-            <button type="button" class="btn btn-warning" id="evalRiesgos" title="doble click para cerrar la ventana">2. EVALUACIÓN RIESGOS</button>
-        </div>
-        <div class="col-md-4">
-            <button type="button" class="btn btn-warning" id="mediAplica" title="doble click para cerrar la ventana">3. MEDIDAS INTERVENCIÓN</button>
-        </div>
-    </div>
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="tabPeligros">
+    <div class="form-horizontal">
         <hr />
-        @Html.Partial("_EditarPeligros")
-    </div>
+        <hr />
+        <h4>GESTIÓN DE RIESGOS</h4>
+        <div class="row">
+            <div class="col-md-4">
+                <button type="button" class="btn btn-warning" id="idPeligros" title="doble click para cerrar la ventana">1. IDENTIFICACIÓN PELIGROS</button>
+            </div>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-warning" id="evalRiesgos" title="doble click para cerrar la ventana">2. EVALUACIÓN RIESGOS</button>
+            </div>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-warning" id="mediAplica" title="doble click para cerrar la ventana">3. MEDIDAS INTERVENCIÓN</button>
+            </div>
+        </div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="tabPeligros">
+            <hr />
+            @Html.Partial("_EditarPeligros")
+        </div>
 
-    <div class="tabEvalRiesgos">
-        <hr />
-        @Html.Partial("_EvalRiesgo")
-        <div class="col-md-offset-2 col-md-4">
-            <button type="button" id="btnAddRiesgo" class="btn btn-success" onclick="AddNewRiesgo()">Agregar</button>
+        <div class="tabEvalRiesgos">
+            <hr />
+            @Html.Partial("_EvalRiesgo")
+            <div class="col-md-offset-2 col-md-4">
+                <button type="button" id="btnAddRiesgo" class="btn btn-success" onclick="AddNewRiesgo()">Agregar</button>
+            </div>
+            <input type="hidden" id="txtRiesgoID" name="txtRiesgoID" />
         </div>
-    </div>
 
-    <div class="tabMediAplica">
-        <hr />
-        <input type="hidden" id="txtRiesgoID" name="txtRiesgoID"/>
-        <input type="hidden" id="txtIntervenID" name="txtIntervenID"/>
-        <div class="col-md-12">
-            <button type="button" class="btn btn-primary" id="addIntervencion">Adicionar nueva medida de intervención</button>
-        </div>
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th>
-                        Descripción
-                    </th>
-                    <th>
-                        Categoria
-                    </th>
-                    <th>
-                        Intervención
-                    </th>
-                    <th>
-                        Beneficios
-                    </th>
-                    <th>
-                        Presupuesto
-                    </th>
-                    <th>
-                        Responsable
-                    </th>
-                    <th>
-                        Fecha inicial
-                    </th>
-                    <th>
-                        Fecha final
-                    </th>
-                    <th>
-                        Observaciones
-                    </th>
-                    <th>
-                        Opciones
-                    </th>
-                </tr>
-            </thead>
-            <tbody class="tbody">
-            </tbody>
-        </table>
-    </div>
-    <div class="tabIntervencion">
-        <hr />
-        <div class="col-md-offset-2 col-md-4">
-            <button type="button" id="btnAddInterven" class="btn btn-success" onclick="UpdateInterven()">Guardar</button>
-        </div>
-    </div>
+        <div class="tabMediAplica">
+            <hr />
 
-    <div class="tabAddInterven">
-        <div class="form-group">
             <div class="col-md-12">
-                <hr />
-                <label for="intervencion">Descripcion</label>
-                <textarea id="txtNombre" style="resize:none;" class="form-control" rows=3 cols=70 required></textarea>
+                <button type="button" class="btn btn-primary" id="addIntervencion">Adicionar nueva medida de intervención</button>
+            </div>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            Descripción
+                        </th>
+                        <th>
+                            Categoria
+                        </th>
+                        <th>
+                            Intervención
+                        </th>
+                        <th>
+                            Responsable
+                        </th>
+                        <th>
+                            Fecha inicial
+                        </th>
+                        <th>
+                            Fecha final
+                        </th>
+                        <th>
+                            Opciones
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="tbody">
+                </tbody>
+            </table>
+        </div>
+        <div class="tabAddInterven">
+            @Html.Partial("_EditarIntervencion")
+            <div class="col-md-offset-2 col-md-4">
+                <div class="col-md-2">
+                    <button type="button" id="btnAddInterven" class="btn btn-primary" onclick="AddInterven()">Adicionar</button>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" id="btnUpdInterven" class="btn btn-primary" onclick="UpdateIntervencion()">Guardar</button>
+                </div>
             </div>
         </div>
-        <div class="form-group">
-            <label class="control-label col-md-2" for="CategoriaAplicacion">Aplicación del control</label>
-            <div class="col-md-4">
-                <select name="CategoriaAplicacion" class="form-control" id="txtCatAplica">
-                    <option selected="selected" value="0">Seleccione aplicación...</option>
-                    <option value="1">Fuente</option>
-                    <option value="2">Medio</option>
-                    <option value="3">Individuo</option>
-                </select>
-                <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="CategoriaAplicacion"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.TrabajadorID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
-                @Html.DropDownListFor(model => model.TrabajadorID, Model.Trabajadores, new { @class = "form-control", @id = "idRespons" })
-                @Html.ValidationMessageFor(model => model.TrabajadorID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-md-2" for="Intervencion">Medida intervención</label>
-            <div class="col-md-4">
-                <select name="Intervencion" class="form-control" id="idInterven">
-                    <option selected="selected" value="0">Seleccione aplicación medida...</option>
-                    <option value="1">Eliminacion</option>
-                    <option value="2">Sustitucion</option>
-                    <option value="3">Controles de ingeniería</option>
-                    <option value="4">Controles de administración</option>
-                    <option value="5">Señalización</option>
-                    <option value="6">Equipos, EPP</option>
-                </select>
-                <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="Intervencion"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-md-2" for="Beneficios">Beneficios</label>
-            <div class="col-md-4">
-                <input name="Beneficios" class="form-control text-box single-line" id="idBeneficio" type="text" value="">
-                <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="Beneficios"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-md-2" for="Presupuesto">Presupuesto</label>
-            <div class="col-md-4">
-                <input name="Presupuesto" class="form-control text-box single-line" id="idPresup" type="text" value="0,00">
-                <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="Presupuesto"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-md-2" for="FechaInicial">Fecha inicial</label>
-            <div class="col-md-4">
-                <input name="FechaInicial" class="form-control text-box single-line" id="idFechaIni" type="date" value="0001-01-01">
-                <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="FechaInicial"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-md-2" for="FechaFinal">Fecha final</label>
-            <div class="col-md-4">
-                <input name="FechaFinal" class="form-control text-box single-line" id="idFechaFin" type="date" value="0001-01-01">
-                <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="FechaFinal"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-md-2" for="Observaciones">Observaciones</label>
-            <div class="col-md-10">
-                <input name="Observaciones" class="form-control text-box single-line" id="idObserv" type="text" value="">
-                <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="Observaciones"></span>
-            </div>
-        </div>
-        <div class="col-md-offset-2 col-md-4">
-            <button type="button" class="btn btn-primary" onclick="AddInterven()">Guardar</button>
-        </div>
-    </div>
 
-</div>
+    </div>
 }
 
 @section Scripts
 {
     <script type="text/javascript">
-
-    $(document).ready(function () {
-        $("#aplicarMedi").click(function () {
-            $.ajax({
-                type: "GET",                                              // tipo de request que estamos generando
-                url: "/Riesgos/GetTrabajadores",                                  // URL al que vamos a hacer el pedido
-                contentType: "application/json; charset=utf-8",           // tipo de contenido
-                dataType: "json",                                         // formato de transmición de datos
-                async: true,                                              // si es asincrónico o no
-                success: function (lista) {                        // función que va a ejecutar si el pedido fue exitoso
-                    if (lista != null && !jQuery.isEmptyObject(lista))
-                    {
-                        var model = @Model
-                        model.Intervenciones.Add(new AplicacionVM(
-                        {
-                            Trabajadores: lista
-                        }));
-                        $(".tabInterven").css("display", "block");
-                        $("#btnAddInterven").show();
-                    }
-                },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) { // función que va a ejecutar si hubo algún tipo de error en el pedido
-                    var error = eval("(" + XMLHttpRequest.responseText + ")");
-                    alert(error.Message);
-                }
+        $(document).ready(function () {
+            ClearTextBox();
+            $("#idPeligros").click(function () {
+                $(".tabPeligros").css("display", "block");
+                $(".tabEvalRiesgos").css("display", "none");
+                $(".tabMediAplica").css("display", "none");
             });
-        });
-    });
 
-    $(document).ready(function () {
-        $("#idPeligros").click(function () {
-            $(".tabPeligros").css("display", "block");
-            $(".tabEvalRiesgos").css("display", "none");
-            $(".tabMediAplica").css("display", "none");
-        });
+            $("#idPeligros").dblclick(function () {
+                $(".tabPeligros").css("display", "none");
+            });
 
-        $("#idPeligros").dblclick(function () {
-            $(".tabPeligros").css("display", "none");
-        });
+            $("#evalRiesgos").click(function () {
+                $(".tabEvalRiesgos").css("display", "block");
+                $(".tabPeligros").css("display", "none");
+                $(".tabMediAplica").css("display", "none");
+            });
 
-        $("#evalRiesgos").click(function () {
-            $(".tabEvalRiesgos").css("display", "block");
-            $(".tabPeligros").css("display", "none");
-            $(".tabMediAplica").css("display", "none");
-        });
+            $("#evalRiesgos").dblclick(function () {
+                $(".tabEvalRiesgos").css("display", "none");
+            });
 
-        $("#evalRiesgos").dblclick(function () {
-            $(".tabEvalRiesgos").css("display", "none");
-        });
+            $("#mediAplica").click(function () {
+                $(".tabMediAplica").css("display", "block");
+                $(".tabEvalRiesgos").css("display", "none");
+                $(".tabPeligros").css("display", "none");
+                mostrarInterven();
+            });
 
-        $("#mediAplica").click(function () {
-            $(".tabMediAplica").css("display", "block");
-            $(".tabEvalRiesgos").css("display", "none");
-            $(".tabPeligros").css("display", "none");
-            mostrarInterven();
-        });
+            $("#mediAplica").dblclick(function () {
+                $(".tabMediAplica").css("display", "none");
+                $(".tabAddInterven").css("display", "none");
+            });
 
-        $("#mediAplica").dblclick(function () {
-            $(".tabMediAplica").css("display", "none");
-        });
+            $("#aplicarMedi").click(function () {
+                $(".tabInterven").css("display", "block");
+            });
 
-        $("#aplicarMedi").click(function () {
-            $(".tabInterven").css("display", "block");
-        });
+            $("#aplicarMedi").dblclick(function () {
+                $(".tabInterven").css("display", "none");
+            });
 
-        $("#aplicarMedi").dblclick(function () {
-            $(".tabInterven").css("display", "none");
-        });
+            $("#addIntervencion").click(function () {
+                $(".tabAddInterven").css("display", "block");
+                $(".tabCerrar").css("display", "none");
+                $("#btnUpdInterven").hide();
+                $("#btnAddInterven").show();
+            });
 
-        $("#addIntervencion").click(function () {
-            $(".tabAddInterven").css("display", "block");
-            $(".tabCerrar").css("display", "none");
         });
 
-    });
-
-    $('#zona').change(function () {
-        var zonasSelect = $('#zona').val();
-        zonasSelect.empty();
-        $.getJSON('@Url.Action("GetZonas")', function (zonas)
-        {
-            if (zonas != null && !jQuery.isEmptyObject(zonas))
+        $('#zona').change(function () {
+            var zonasSelect = $('#zona').val();
+            zonasSelect.empty();
+            $.getJSON('@Url.Action("GetZonas")', function (zonas)
             {
-                $.each(zonas, function (index, item)
+                if (zonas != null && !jQuery.isEmptyObject(zonas))
                 {
-                    zonasSelect.append($('<option />',
+                    $.each(zonas, function (index, item)
                     {
-                        value: item.Value,
-                        text: item.Text
-                    }));
-                });
-            };
-        });
-    });
-
-    $('#proceso').change(function () {
-        var procesosSelect = $('#proceso').val();
-        procesosSelect.empty();
-        $.getJSON('@Url.Action("GetProcesos")', function (procesos)
-        {
-            if (procesos != null && !jQuery.isEmptyObject(procesos))
-            {
-                $.each(procesos, function (index, item)
-                {
-                    procesosSelect.append($('<option />',
-                    {
-                        value: item.Value,
-                        text: item.Text
-                    }));
-                });
-            };
-        });
-    });
-
-    $('#activity').change(function () {
-        var activitySelect = $('#activity').val();
-        activitySelect.empty();
-        $.getJSON('@Url.Action("GetActivities")', function (activities)
-        {
-            if (activities != null && !jQuery.isEmptyObject(activities))
-            {
-                $.each(activities, function (index, item)
-                {
-                    activitySelect.append($('<option />',
-                    {
-                        value: item.Value,
-                        text: item.Text
-                    }));
-                });
-            };
-        });
-    });
-
-    $('#tarea').change(function () {
-        var tareasSelect = $('#tarea').val();
-        tareasSelect.empty();
-        $.getJSON('@Url.Action("GetTareas")', function (tareas)
-        {
-            if (tareas != null && !jQuery.isEmptyObject(tareas))
-            {
-                $.each(tareas, function (index, item)
-                {
-                    tareasSelect.append($('<option />',
-                    {
-                        value: item.Value,
-                        text: item.Text
-                    }));
-                });
-            };
-        });
-    });
-
-    $('#categoria').change(function () {
-        var selectedCategoria = $("#categoria").val();
-        var peligroSelect = $('#peligro');
-        peligroSelect.empty();
-        if (selectedCategoria != null && selectedCategoria != '')
-        {
-            $.getJSON('@Url.Action("GetPeligros")', { ID: selectedCategoria }, function (peligros)
-            {
-                if (peligros != null && !jQuery.isEmptyObject(peligros))
-                {
-                    $.each(peligros, function (index, item)
-                    {
-                        peligroSelect.append($('<option />',
+                        zonasSelect.append($('<option />',
                         {
                             value: item.Value,
                             text: item.Text
@@ -355,143 +167,222 @@
                     });
                 };
             });
+        });
+
+        $('#proceso').change(function () {
+            var procesosSelect = $('#proceso').val();
+            procesosSelect.empty();
+            $.getJSON('@Url.Action("GetProcesos")', function (procesos)
+            {
+                if (procesos != null && !jQuery.isEmptyObject(procesos))
+                {
+                    $.each(procesos, function (index, item)
+                    {
+                        procesosSelect.append($('<option />',
+                        {
+                            value: item.Value,
+                            text: item.Text
+                        }));
+                    });
+                };
+            });
+        });
+
+        $('#activity').change(function () {
+            var activitySelect = $('#activity').val();
+            activitySelect.empty();
+            $.getJSON('@Url.Action("GetActivities")', function (activities)
+            {
+                if (activities != null && !jQuery.isEmptyObject(activities))
+                {
+                    $.each(activities, function (index, item)
+                    {
+                        activitySelect.append($('<option />',
+                        {
+                            value: item.Value,
+                            text: item.Text
+                        }));
+                    });
+                };
+            });
+        });
+
+        $('#tarea').change(function () {
+            var tareasSelect = $('#tarea').val();
+            tareasSelect.empty();
+            $.getJSON('@Url.Action("GetTareas")', function (tareas)
+            {
+                if (tareas != null && !jQuery.isEmptyObject(tareas))
+                {
+                    $.each(tareas, function (index, item)
+                    {
+                        tareasSelect.append($('<option />',
+                        {
+                            value: item.Value,
+                            text: item.Text
+                        }));
+                    });
+                };
+            });
+        });
+
+        $('#categoria').change(function () {
+            var selectedCategoria = $("#categoria").val();
+            var peligroSelect = $('#peligro');
+            peligroSelect.empty();
+            if (selectedCategoria != null && selectedCategoria != '')
+            {
+                $.getJSON('@Url.Action("GetPeligros")', { ID: selectedCategoria }, function (peligros)
+                {
+                    if (peligros != null && !jQuery.isEmptyObject(peligros))
+                    {
+                        $.each(peligros, function (index, item)
+                        {
+                            peligroSelect.append($('<option />',
+                            {
+                                value: item.Value,
+                                text: item.Text
+                            }));
+                        });
+                    };
+                });
+            }
+        });
+
+        $('#deficienciaSelected').click(function () {
+            var selectedCategoria = $('#deficienciaSelected').val();
+            var nd = 0;
+            switch (selectedCategoria)
+            {
+                case "1":
+                    nd = 10;
+                    break;
+
+                case "2":
+                    nd = 6;
+                    break;
+
+                case "3":
+                    nd = 2;
+                    break;
+
+                default:
+                    nd = 0;
+                    break;
+            }
+
+            $('#deficiencia').val(nd);
+            calcularProbabilidad();
+        });
+
+        $('#exposicionSelected').click(function () {
+            var selectedExposicion = $('#exposicionSelected').val();
+            var ne = 0;
+            switch (selectedExposicion)
+            {
+                case "1":
+                    ne = 4;
+                    break;
+
+                case "2":
+                    ne = 3;
+                    break;
+
+                case "3":
+                    ne = 2;
+                    break;
+
+                default:
+                    ne = 1;
+                    break;
+            }
+
+            $('#exposicion').val(ne);
+            calcularProbabilidad();
+        });
+
+        $('#consecuenciaSelected').click(function () {
+            var selectedExposicion = $('#consecuenciaSelected').val();
+            var nc = 0;
+            switch (selectedExposicion)
+            {
+                case "1":
+                    nc = 100;
+                    break;
+
+                case "2":
+                    nc = 60;
+                    break;
+
+                case "3":
+                    nc = 25;
+                    break;
+
+                default:
+                    nc = 10;
+                    break;
+            }
+            $('#consecuencia').val(nc);
+            calcularRiesgo();
+        });
+
+        function calcularProbabilidad() {
+            var nd = $('#deficiencia').val();
+            var ne = $('#exposicion').val();
+            var probabilidad = nd * ne;
+            $('#probabilidad').val(probabilidad);
+            var interpretaNP = " ";
+            switch (true) {
+                case (probabilidad >= 24 && probabilidad <= 40):
+                    interpretaNP = "Muy alto (MA)";
+                    break;
+                case (probabilidad >= 10 && probabilidad < 24):
+                    interpretaNP = "Alto (A)";
+                    break;
+                case (probabilidad >= 8 && probabilidad < 10):
+                    interpretaNP = "Mdio (M)";
+                    break;
+                case (probabilidad >= 2 && probabilidad < 8):
+                    interpretaNP = "Bajo (B)";
+                    break;
+
+                default:
+                    interpretaNP = "Bajo (B)";
+                    break;
+            }
+            $('#interpretaNP').val(interpretaNP);
         }
-    });
 
-    $('#deficienciaSelected').click(function () {
-        var selectedCategoria = $('#deficienciaSelected').val();
-        var nd = 0;
-        switch (selectedCategoria)
-        {
-            case "1":
-                nd = 10;
-                break;
+        function calcularRiesgo() {
+            calcularProbabilidad();
+            var np = $('#probabilidad').val();
+            var nc = $('#consecuencia').val();
+            var riesgo = np * nc;
+            $('#riesgo').val(riesgo);
+            var interpretaNR = " ";
+            var  colorStyle = " ";
+            switch (true) {
+                case (riesgo >= 600):
+                    interpretaNR = "I";
+                    colorStyle = "red";
+                    break;
+                case (riesgo >= 150 && riesgo < 600):
+                    interpretaNR = "II";
+                    colorStyle = "yellow";
+                    break;
+                case (riesgo >= 40 && riesgo < 150):
+                    interpretaNR = "III";
+                    colorStyle = "orange";
+                    break;
 
-            case "2":
-                nd = 6;
-                break;
-
-            case "3":
-                nd = 2;
-                break;
-
-            default:
-                nd = 0;
-                break;
+                default:
+                    interpretaNR = "IV";
+                    colorStyle = "green";
+                    break;
+            }
+            $('#interpretaNR').val(interpretaNR);
+            $('#interpretaNR').css({ "backgroundColor": colorStyle, "font-size": "200%" });
         }
-
-        $('#deficiencia').val(nd);
-        calcularProbabilidad();
-    });
-
-    $('#exposicionSelected').click(function () {
-        var selectedExposicion = $('#exposicionSelected').val();
-        var ne = 0;
-        switch (selectedExposicion)
-        {
-            case "1":
-                ne = 4;
-                break;
-
-            case "2":
-                ne = 3;
-                break;
-
-            case "3":
-                ne = 2;
-                break;
-
-            default:
-                ne = 1;
-                break;
-        }
-
-        $('#exposicion').val(ne);
-        calcularProbabilidad();
-    });
-
-    $('#consecuenciaSelected').click(function () {
-        var selectedExposicion = $('#consecuenciaSelected').val();
-        var nc = 0;
-        switch (selectedExposicion)
-        {
-            case "1":
-                nc = 100;
-                break;
-
-            case "2":
-                nc = 60;
-                break;
-
-            case "3":
-                nc = 25;
-                break;
-
-            default:
-                nc = 10;
-                break;
-        }
-        $('#consecuencia').val(nc);
-        calcularRiesgo();
-    });
-
-    function calcularProbabilidad() {
-        var nd = $('#deficiencia').val();
-        var ne = $('#exposicion').val();
-        var probabilidad = nd * ne;
-        $('#probabilidad').val(probabilidad);
-        var interpretaNP = " ";
-        switch (true) {
-            case (probabilidad >= 24 && probabilidad <= 40):
-                interpretaNP = "Muy alto (MA)";
-                break;
-            case (probabilidad >= 10 && probabilidad < 24):
-                interpretaNP = "Alto (A)";
-                break;
-            case (probabilidad >= 8 && probabilidad < 10):
-                interpretaNP = "Mdio (M)";
-                break;
-            case (probabilidad >= 2 && probabilidad < 8):
-                interpretaNP = "Bajo (B)";
-                break;
-
-            default:
-                interpretaNP = "Bajo (B)";
-                break;
-        }
-        $('#interpretaNP').val(interpretaNP);
-    }
-
-    function calcularRiesgo() {
-        calcularProbabilidad();
-        var np = $('#probabilidad').val();
-        var nc = $('#consecuencia').val();
-        var riesgo = np * nc;
-        $('#riesgo').val(riesgo);
-        var interpretaNR = " ";
-        var  colorStyle = " ";
-        switch (true) {
-            case (riesgo >= 600):
-                interpretaNR = "I";
-                colorStyle = "red";
-                break;
-            case (riesgo >= 150 && riesgo < 600):
-                interpretaNR = "II";
-                colorStyle = "yellow";
-                break;
-            case (riesgo >= 40 && riesgo < 150):
-                interpretaNR = "III";
-                colorStyle = "orange";
-                break;
-
-            default:
-                interpretaNR = "IV";
-                colorStyle = "green";
-                break;
-        }
-        $('#interpretaNR').val(interpretaNR);
-        $('#interpretaNR').css({ "backgroundColor": colorStyle, "font-size": "200%" });
-    }
     </script>
 }
 
