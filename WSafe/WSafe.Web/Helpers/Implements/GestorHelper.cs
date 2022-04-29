@@ -325,5 +325,45 @@ namespace WSafe.Domain.Helpers.Implements
                     return "Nomina";
             }
         }
+
+        public string GetCategoriaAplicacion(CategoriaAplicacion categoria)
+        {
+            switch (categoria)
+            {
+                case CategoriaAplicacion.Fuente:
+                    return "Fuente";
+
+                case CategoriaAplicacion.Medio:
+                    return "Medio";
+
+                case CategoriaAplicacion.Individuo:
+                    return "Individuo";
+
+                default:
+                    return "Fuente";
+            }
+        }
+
+        public string GetJerarquiaControl(JerarquiaControles categoria)
+        {
+            switch (categoria)
+            {
+                case JerarquiaControles.Controles_Admon:
+                    return "Controles administrativos";
+                case JerarquiaControles.Controles_Ingeniería:
+                    return "Controles de ingeniería";
+                case JerarquiaControles.Eliminacion:
+                    return "Eliminación";
+                case JerarquiaControles.Sustitucion:
+                    return "Sustitución";
+                case JerarquiaControles.EPP:
+                    return "EPP";
+                case JerarquiaControles.Señaliza:
+                    return "Señalización";
+
+                default:
+                    return "Controles administrativos";
+            }
+        }
     }
 }

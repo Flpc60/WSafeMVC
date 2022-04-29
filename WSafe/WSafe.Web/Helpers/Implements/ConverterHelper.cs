@@ -90,7 +90,6 @@ namespace WSafe.Domain.Helpers.Implements
                 Tareas = _comboHelper.GetComboTareas(),
                 CategoriasPeligros = _comboHelper.GetComboCategoriaPeligros(),
                 Peligros = _comboHelper.GetComboPeligros(1),
-                Trabajadores = _comboHelper.GetComboTrabajadores(),
             };
             return model;
         }
@@ -368,12 +367,32 @@ namespace WSafe.Domain.Helpers.Implements
 
         public IEnumerable<ListaRiesgosVM> ToRiesgoViewModelList(IEnumerable<Riesgo> riesgo)
         {
+            var rutinaria = "";
+            var requisito = "";
             var model = new List<ListaRiesgosVM>();
             foreach (var item in riesgo)
             {
-                var peligro = _empresaContext.Peligros.Find(item.PeligroID);
 
-                    model.Add(new ListaRiesgosVM
+                if (item.Rutinaria)
+                {
+                    rutinaria = "Si";
+                }
+                else
+                {
+                    rutinaria = "No";
+                }
+
+                if (item.RequisitoLegal)
+                {
+                    requisito = "Si";
+                }
+                else
+                {
+                    requisito = "No";
+                }
+
+
+                model.Add(new ListaRiesgosVM
                 {
                     ID = item.ID,
                     Zona = _empresaContext.Zonas.Find(item.ZonaID).Descripcion,
@@ -381,15 +400,17 @@ namespace WSafe.Domain.Helpers.Implements
                     Actividad = _empresaContext.Actividades.Find(item.ActividadID).Descripcion,
                     Tarea = _empresaContext.Tareas.Find(item.TareaID).Descripcion,
                     Rutinaria = item.Rutinaria,
-                    Clasificacion = _empresaContext.CategoriasPeligros.Find(peligro.CategoriaPeligroID).Descripcion,
-                    Peligro = peligro.Descripcion,
+                    Clasificacion = _empresaContext.CategoriasPeligros.Find(item.CategoriaPeligroID).Descripcion,
+                    Peligro = _empresaContext.Peligros.Find(item.PeligroID).Descripcion,
                     EfectosPosibles = item.EfectosPosibles,
                     NivelDeficiencia = item.NivelDeficiencia,
                     NivelExposicion = item.NivelExposicion,
                     NivelConsecuencia = item.NivelConsecuencia,
                     Aceptabilidad = item.Aceptabilidad,
                     NroExpuestos = item.NroExpuestos,
-                    RequisitoLegal = item.RequisitoLegal
+                    RequisitoLegal = item.RequisitoLegal,
+                    TextRutinaria = rutinaria,
+                    TextRequisito = requisito
                 });
             }
 
@@ -431,7 +452,9 @@ namespace WSafe.Domain.Helpers.Implements
                     FechaFinal = item.FechaFinal,
                     TextFechaInicial = item.FechaInicial.ToString("yyyy-MM-dd"),
                     TextFechaFinal = item.FechaFinal.ToString("yyyy-MM-dd"),
-                    Observaciones = item.Observaciones
+                    Observaciones = item.Observaciones,
+                    TextCategoria = _gestorHelper.GetCategoriaAplicacion(item.CategoriaAplicacion),
+                    TextIntervencion = _gestorHelper.GetJerarquiaControl(item.Intervencion)
                 });
             }
             return modelo;

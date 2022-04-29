@@ -105,11 +105,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Actividad)
             </td>
-            <td>
+            <td style="@strStyle">
                 @Html.DisplayFor(modelItem => item.Tarea)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Rutinaria)
+                @Html.DisplayFor(modelItem => item.TextRutinaria)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Clasificacion)
@@ -135,7 +135,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.NivelRiesgo)
             </td>
-            <td style="@strStyle">
+            <td>
                 @Html.DisplayFor(modelItem => item.CategoriaRiesgo)
             </td>
             <td>

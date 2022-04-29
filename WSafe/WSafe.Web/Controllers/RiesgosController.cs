@@ -76,7 +76,7 @@ namespace WSafe.Web.Controllers
         public ActionResult Create()
         {
             var riesgoView = _converterHelper.ToRiesgoViewModelNew();
-            //ViewBag.aplicaVM = new AplicacionVM();
+            ViewBag.trabajadores = _comboHelper.GetComboTrabajadores();
             return View(riesgoView);
         }
 
@@ -344,7 +344,8 @@ namespace WSafe.Web.Controllers
                     var result = await _converterHelper.ToAplicacionAsync(model, true);
                     _empresaContext.Aplicaciones.Add(result);
                     var saved = await _empresaContext.SaveChangesAsync();
-                    return Json(model, JsonRequestBehavior.AllowGet);
+                    var idAplica = _empresaContext.Aplicaciones.OrderByDescending(x => x.ID).First().ID;
+                    return Json(idAplica, JsonRequestBehavior.AllowGet);
                 }
                 return RedirectToAction("Index");
             }
