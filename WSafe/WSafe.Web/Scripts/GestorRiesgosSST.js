@@ -40,6 +40,8 @@ function AddInterven() {
 function mostrarInterven() {
 //    $(".tabMediAplica").css("display", "none");
     var riesgoID = $("#txtRiesgoID").val();
+    var aplicaID = $("#txtIntervenID").val();
+
     $.ajax({
         type: "GET",
         url: '/Riesgos/GetIntervenciones',
@@ -216,6 +218,7 @@ validarCostos = function () {
 
 function getIntervenByID(intervenID) {
     $(".tabMediAplica").css("display", "none");
+    aplicaID = intervenID;
     $.ajax({
         async: true,
         type: 'GET',
@@ -352,18 +355,17 @@ function DeleteInterven(id) {
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
-        async: true,                                               // si es asincrónico o no
+        async: true,
         success: function (result) {
             var text = "";
             text += "Esta seguro de querer borrar este registro ? :\n\n";
             text += "Descripción : " + result.Nombre + "\n";
-            text += "Categoria : " + result.CategoriaAplicacion + "\n";
-            text += "Finalidad : " + result.Finalidad + "\n";
-            text += "Intervención : " + result.Intervencion + "\n";
+            text += "Categoria : " + result.TextCategoria + "\n";
+            text += "Intervención : " + result.TextIntervencion + "\n";
             text += "Presupuesto : " + result.Presupuesto + "\n";
-            text += "Responsable : " + result.Trabajador + "\n";
-            text += "Fecha inicial : " + result.FechaInicial + "\n";
-            text += "Fecha final : " + result.FeachaFinal + "\n";
+            text += "Responsable : " + result.Responsable + "\n";
+            text += "Fecha inicial : " + result.TextFechaInicial + "\n";
+            text += "Fecha final : " + result.TextFechaFinal + "\n";
             text += "Observaciones : " + result.Observaciones + "\n";
             var respuesta = confirm(text);
 
@@ -373,7 +375,7 @@ function DeleteInterven(id) {
                     type: "POST",
                     contentType: "application/json;charset=UTF-8",
                     dataType: "json",
-                    async: true,                                               // si es asincrónico o no
+                    async: true,
                     success: function (result) {
                         mostrarInterven();
                     },
@@ -777,13 +779,13 @@ function AddNewRiesgo() {
 }
 
 function UpdateIntervencion() {
-    $(".tabMediAplica").css("display", "none");
-    //riesgoID = $("#txtRiesgoID").val();
-    //aplicaID = $("#txtIntervenID").val();
+    //TODO
+    riesgoID = 66; //$("#txtRiesgoID").val();
+    aplicaID = 95; //$("#txtIntervenID").val();
 
     var aplicaVM = {
-        ID: $("#txtIntervenID").val(),
-        RiesgoID: $("#txtRiesgoID").val(),
+        ID: aplicaID,
+        RiesgoID: riesgoID,
         Nombre: $("#txtNombre").val(),
         CategoriaAplicacion: $("#txtCatAplica").val(),
         TrabajadorID: $("#idRespons").val(),
