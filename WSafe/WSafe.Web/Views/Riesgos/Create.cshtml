@@ -39,10 +39,10 @@
         <div class="tabEvalRiesgos">
             <hr />
             @Html.Partial("_EvalRiesgo")
+            <input type="hidden" id="txtRiesgoID" name="txtRiesgoID"/>
             <div class="col-md-offset-2 col-md-4">
                 <button type="button" id="btnAddRiesgo" class="btn btn-success" onclick="AddNewRiesgo()">Agregar</button>
             </div>
-            <input type="hidden" id="txtRiesgoID" name="txtRiesgoID" />
         </div>
 
         <div class="tabMediAplica">
@@ -58,10 +58,10 @@
                             Descripción
                         </th>
                         <th>
-                            Categoria
+                            Controles
                         </th>
                         <th>
-                            Intervención
+                            Medidas Intervención
                         </th>
                         <th>
                             Responsable
@@ -82,6 +82,7 @@
             </table>
         </div>
         <div class="tabAddInterven">
+            <input type="hidden" id="txtIntervenID" name="txtIntervenID" />
             @Html.Partial("_EditarIntervencion")
             <div class="col-md-offset-2 col-md-4">
                 <div class="col-md-2">
@@ -115,6 +116,7 @@
                 $(".tabEvalRiesgos").css("display", "block");
                 $(".tabPeligros").css("display", "none");
                 $(".tabMediAplica").css("display", "none");
+                $("#mediAplica").show();
             });
 
             $("#evalRiesgos").dblclick(function () {
@@ -144,6 +146,7 @@
             $("#addIntervencion").click(function () {
                 $(".tabAddInterven").css("display", "block");
                 $(".tabCerrar").css("display", "none");
+                $(".tabMediAplica").css("display", "none");
                 $("#btnUpdInterven").hide();
                 $("#btnAddInterven").show();
             });
