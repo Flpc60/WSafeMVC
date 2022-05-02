@@ -791,5 +791,30 @@ namespace WSafe.Domain.Helpers.Implements
             }
             return model;
         }
+
+        public MatrizRiesgosVM ToRiesgoVMUnit(Riesgo riesgo)
+        {
+            var model = new MatrizRiesgosVM
+            {
+                ID = riesgo.ID,
+                Proceso = _empresaContext.Procesos.Find(riesgo.ProcesoID).Descripcion,
+                Zona = _empresaContext.Zonas.Find(riesgo.ZonaID).Descripcion,
+                Actividad = _empresaContext.Actividades.Find(riesgo.ActividadID).Descripcion,
+                CategoriaPeligro = _empresaContext.CategoriasPeligros.Find(riesgo.CategoriaPeligroID).Descripcion,
+                Peligro = _empresaContext.Peligros.Find(riesgo.PeligroID).Descripcion,
+                EfectosPosibles = _gestorHelper.GetEfectos(riesgo.EfectosPosibles),
+                NivelDeficiencia = riesgo.NivelDeficiencia,
+                NivelExposicion = riesgo.NivelExposicion,
+                NivelProbabilidad = riesgo.NivelProbabilidad,
+                InterpretaNP = _gestorHelper.GetInterpretaNP(riesgo.NivelProbabilidad),
+                NivelConsecuencia = riesgo.NivelConsecuencia,
+                NivelRiesgo = riesgo.NivelRiesgo,
+                CategoriaRiesgo = _gestorHelper.GetInterpretaNR(riesgo.NivelRiesgo),
+                AceptabilidadNR = _gestorHelper.GetAceptabilidadNR(riesgo.CategoriaRiesgo),
+                SignificadoNR = _gestorHelper.GetSignificadoNR(riesgo.CategoriaRiesgo),
+                NroExpuestos = riesgo.NroExpuestos,
+                PeorConsecuencia = riesgo.PeorConsecuencia
+            };
+            return model;        }
     }
 }

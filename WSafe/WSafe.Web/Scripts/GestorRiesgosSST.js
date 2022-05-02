@@ -359,14 +359,14 @@ function DeleteInterven(id) {
         success: function (result) {
             var text = "";
             text += "Esta seguro de querer borrar este registro ? :\n\n";
-            text += "Descripción : " + result.Nombre + "\n";
-            text += "Categoria : " + result.TextCategoria + "\n";
-            text += "Intervención : " + result.TextIntervencion + "\n";
-            text += "Presupuesto : " + result.Presupuesto + "\n";
-            text += "Responsable : " + result.Responsable + "\n";
-            text += "Fecha inicial : " + result.TextFechaInicial + "\n";
-            text += "Fecha final : " + result.TextFechaFinal + "\n";
-            text += "Observaciones : " + result.Observaciones + "\n";
+            text += "Descripción : " + result.data.Nombre + "\n";
+            text += "Categoria : " + result.data.TextCategoria + "\n";
+            text += "Intervención : " + result.data.TextIntervencion + "\n";
+            text += "Presupuesto : " + result.data.Presupuesto + "\n";
+            text += "Responsable : " + result.data.Responsable + "\n";
+            text += "Fecha inicial : " + result.data.TextFechaInicial + "\n";
+            text += "Fecha final : " + result.data.TextFechaFinal + "\n";
+            text += "Observaciones : " + result.data.Observaciones + "\n";
             var respuesta = confirm(text);
 
             if (respuesta == true) {
@@ -483,6 +483,62 @@ function DeleteAccion(ID) {
                     });
                 }
 
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function DeleteRiesgo(ID) {
+    var id = ID;
+    $.ajax({
+        url: "/Riesgos/DeleteRiesgo/" + id,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        async: true,
+        success: function (result) {
+            if (result.data == false) {
+                alert(result.error);
+            } else {
+                var text = "";
+                text += "Esta seguro de querer borrar este registro ? :\n\n";
+                text += "Zona : " + result.ZonaID + "\n";
+                text += "Proceso : " + result.ProcesoID + "\n";
+                text += "Actividad : " + result.ActividadID +"\n";
+                text += "Tarea : " + result.TareaID + "\n";
+                text += "Rutinaria : " + result.Rutinaria + "\n";
+                text += "Clasificación : " + result.PeligroID +"\n";
+                text += "Efectos posibles : " + result.EfectosPosibles + "\n";
+                text += "Nivel deficiencia : " + result.NivelDeficiencia +"\n";
+                text += "Nivel exposición : " + result.NivelExposicion +"\n";
+                text += "Nivel consecuencia : " + result.NivelConsecuencia + "\n";
+                text += "Aceptabilidad : " + result.AceptabilidadNR +"\n";
+                text += "Nro. expuestos : " + result.NroExpuestos +"\n";
+                text += "Requisito legal : " + result.RequisitoLegal +"\n";
+
+                var respuesta = confirm(text);
+
+                if (respuesta == true) {
+                    $.ajax({
+                        url: "/Riesgos/DeleteRiesgo/" + id,
+                        type: "POST",
+                        contentType: "application/json;charset=UTF-8",
+                        dataType: "json",
+                        async: true,
+                        success: function (response) {
+                            alert(response.message);
+                            location.reload(true);
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            alert(xhr.status);
+                            alert(thrownError);
+                        }
+                    });
+                }
             }
         },
         error: function (xhr, ajaxOptions, thrownError) {
