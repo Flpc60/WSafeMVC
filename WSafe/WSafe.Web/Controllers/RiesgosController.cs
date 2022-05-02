@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Helpers;
 using WSafe.Domain.Repositories.Implements;
 using WSafe.Domain.Services.Implements;
@@ -26,7 +27,6 @@ namespace WSafe.Web.Controllers
             _converterHelper = converterHelper;
         }
 
-        // GET: Riesgos
         //[AuthorizeUser(1,2)]
         public async Task<ActionResult> Index()
         {
@@ -156,70 +156,6 @@ namespace WSafe.Web.Controllers
             }
 
             return View(model);
-        }
-
-        // GET: Riesgos/Delete/5
-        public async Task<ActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            var result = await _empresaContext.Riesgos
-                .Include(i => i.MedidasIntervencion)
-                .FirstOrDefaultAsync(i => i.ID == id.Value);
-
-            try
-            {
-            }
-            catch (Exception ex)
-            {
-                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Create"));
-            }
-
-            if (result == null)
-            {
-                return HttpNotFound();
-            }
-            return View(result);
-        }
-
-
-        // POST: Riesgos/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
-        {
-            var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
-            try
-            {
-                await consulta.Delete(id);
-            }
-            catch (Exception ex)
-            {
-                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Create"));
-            }
-
-            return RedirectToAction("Index");
-        }
-
-        // POST: Riesgos/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteAccionConfirmed(int id)
-        {
-            var consulta = new AccionService(new AccionRepository(_empresaContext));
-            try
-            {
-                await consulta.Delete(id);
-            }
-            catch (Exception ex)
-            {
-                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Create"));
-            }
-
-            return RedirectToAction("GetAllAcciones");
         }
         public IEnumerable<SelectListItem> GetPeligros()
         {
@@ -363,7 +299,7 @@ namespace WSafe.Web.Controllers
                 var result = await _empresaContext.Aplicaciones
                     .Where(a => a.ID == id).ToListAsync();
                 var model = _converterHelper.ToIntervencionesViewModel(result);
-                return Json(model, JsonRequestBehavior.AllowGet);
+                return Json(new { data = model, error = " " }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -389,6 +325,43 @@ namespace WSafe.Web.Controllers
             {
                 return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
             }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> DeleteRiesgo(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Riesgo riesgo = await _empresaContext.Riesgos.FindAsync(id);
+
+            var message = "";
+            var result  = _empresaContext.Aplicaciones.Where(a =>a.RiesgoID == id).Count();
+            if (result != 0)
+            {
+                message = "Este riesgo tiene medidas de intervención pendientes por eliminar!!";
+                return Json(new { data = false, error = message }, JsonRequestBehavior.AllowGet);
+            }
+
+            var model = _converterHelper.ToRiesgoVMUnit(riesgo);
+            return Json(new { data = model, error = message }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteRiesgo(int id)
+        {
+            var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
+            try
+            {
+                await consulta.Delete(id);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Acciones", "Delete"));
+            }
+
+            return Json(new { data = true, message = "El registro ha sido eliminado exitosamente" }, JsonRequestBehavior.AllowGet);
         }
     }
 }

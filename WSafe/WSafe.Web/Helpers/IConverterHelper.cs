@@ -34,5 +34,6 @@ namespace WSafe.Domain.Helpers
         IEnumerable<SeguimientoAccionVM> ToSeguimientoAccionVMList(IEnumerable<SeguimientoAccion> accion);
         IEnumerable<AccionViewModel> ToAccionVMList(IEnumerable<Accion> accion);
         _DetailsAccionVM ToAccionVMFull(Accion accion, int id);
+        MatrizRiesgosVM ToRiesgoVMUnit(Riesgo riesgo);
     }
 }
