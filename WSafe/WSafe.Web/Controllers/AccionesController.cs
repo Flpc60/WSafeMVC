@@ -58,7 +58,6 @@ namespace WSafe.Web.Controllers
             return RedirectToAction("Index", model);
         }
 
-        // GET: Acciones/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)

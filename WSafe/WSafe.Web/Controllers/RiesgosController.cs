@@ -107,7 +107,6 @@ namespace WSafe.Web.Controllers
             return Json(idRiesgo, JsonRequestBehavior.AllowGet);
         }
 
-        // GET: Riesgos/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -115,47 +114,26 @@ namespace WSafe.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var result = await _empresaContext.Riesgos
-                .Include(i => i.MedidasIntervencion)
-                .FirstOrDefaultAsync(i => i.ID == id.Value);
-
-            var riesgoViewModel = _converterHelper.ToRiesgoViewModel(result);
-
-            if (riesgoViewModel == null)
+            var result = await _empresaContext.Riesgos.FirstOrDefaultAsync(i => i.ID == id.Value);
+            var model = _converterHelper.ToRiesgoViewModel(result);
+            if (model == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.RiesgoID = id;
-
-            return View(riesgoViewModel);
+            return View(model);
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(RiesgoViewModel model)
+        public async Task<ActionResult> UpdateRiesgo(RiesgoViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View(model);
+                var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
+                var result = await _converterHelper.ToRiesgoAsync(model, false);
+                await consulta.Update(result);
             }
-
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
-                    var result = await _converterHelper.ToRiesgoAsync(model, false);
-                    await consulta.Update(result);
-                    return RedirectToAction("Index");
-                }
-            }
-            catch (DbEntityValidationException ex)
-            {
-                //return View("Error", new HandleErrorInfo(ex, "Riesgos", "Create"));
-                throw ex;
-            }
-
-            return View(model);
+            var idAccion = model.ID;
+            return Json(idAccion, JsonRequestBehavior.AllowGet);
         }
         public IEnumerable<SelectListItem> GetPeligros()
         {
