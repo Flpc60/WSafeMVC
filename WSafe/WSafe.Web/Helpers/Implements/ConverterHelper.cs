@@ -76,6 +76,10 @@ namespace WSafe.Domain.Helpers.Implements
                 NroExpuestos = riesgo.NroExpuestos,
                 RequisitoLegal = riesgo.RequisitoLegal,
                 IncidenteID = riesgo.IncidenteID,
+                Zonas = _comboHelper.GetComboZonas(),
+                Procesos = _comboHelper.GetComboProcesos(),
+                Actividades = _comboHelper.GetComboActividades(),
+                Tareas = _comboHelper.GetComboTareas()
             };
 
             return model;
