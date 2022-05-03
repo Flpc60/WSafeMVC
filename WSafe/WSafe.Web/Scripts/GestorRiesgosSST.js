@@ -834,6 +834,55 @@ function AddNewRiesgo() {
     });
 }
 
+function UpdateRiesgo() {
+    $(".tabPeligros").css("display", "none");
+    if ($("#txtRequisito").is(':checked')) {
+        $("#txtRequisito").val(true)
+    }
+    else {
+        $("#txtRequisito").val(false)
+    }
+    if ($("#txtRutinaria").is(':checked')) {
+        $("#txtRutinaria").val(true)
+    }
+    else {
+        $("#txtRutinaria").val(false)
+    }
+
+    var riesgoVM = {
+        ID: $("#txtRiesgoID").val(),
+        ZonaID: $("#zona").val(),
+        ProcesoID: $("#proceso").val(),
+        ActividadID: $("#activity").val(),
+        TareaID: $("#tarea").val(),
+        Rutinaria: $("#txtRutinaria").val(),
+        CategoriaPeligroID: $("#categoria").val(),
+        PeligroID: $("#peligro").val(),
+        EfectosPosibles: $("#txtEfectos").val(),
+        NivelDeficiencia: $("#deficiencia").val(),
+        NivelExposicion: $("#exposicion").val(),
+        NivelConsecuencia: $("#consecuencia").val(),
+        AceptabilidadNR: $("#txtAceptabilidad").val(),
+        NroExpuestos: $("#txtExpuestos").val(),
+        RequisitoLegal: $("#txtRequisito").val()
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/Riesgos/UpdateRiesgo",
+        data: { model: riesgoVM },
+        dataType: "json",
+        success: function (idRiesgo) {
+            $("#txtRiesgoID").val(idRiesgo);
+            $(".tabEvalRiesgos").css("display", "none");
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
 function UpdateIntervencion() {
     //TODO
     riesgoID = 66; //$("#txtRiesgoID").val();

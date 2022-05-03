@@ -120,6 +120,7 @@ namespace WSafe.Web.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.trabajadores = _comboHelper.GetComboTrabajadores();
             return View(model);
         }
 
@@ -132,8 +133,8 @@ namespace WSafe.Web.Controllers
                 var result = await _converterHelper.ToRiesgoAsync(model, false);
                 await consulta.Update(result);
             }
-            var idAccion = model.ID;
-            return Json(idAccion, JsonRequestBehavior.AllowGet);
+            var idRiesgo = model.ID;
+            return Json(idRiesgo, JsonRequestBehavior.AllowGet);
         }
         public IEnumerable<SelectListItem> GetPeligros()
         {
