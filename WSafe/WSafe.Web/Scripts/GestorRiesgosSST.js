@@ -350,6 +350,7 @@ function DeleteSegui(id) {
 }
 
 function DeleteInterven(id) {
+//TODO
     $.ajax({
         url: "/Riesgos/DeleteIntervencion/" + id,
         type: "GET",
@@ -874,6 +875,7 @@ function UpdateRiesgo() {
         dataType: "json",
         success: function (idRiesgo) {
             $("#txtRiesgoID").val(idRiesgo);
+            $("#btnUpdRiesgo").hide();
             $(".tabEvalRiesgos").css("display", "none");
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -916,4 +918,16 @@ function UpdateIntervencion() {
             alert(thrownError);
         }
     });
+}
+
+function LoadInforme() {
+    var periodo = [];
+    var valor = "";
+    for (var i = 0; i <= 12; i++) {
+        valor = "peri" + i;
+        if ($("#valor").is(':checked')) {
+            periodo.Add(i);
+        }
+    }
+
 }

@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using WSafe.Web.Data.Entities.Incidentes;
 
 namespace WSafe.Domain.Data.Entities
 {
@@ -22,5 +21,9 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string Periodicidad { get; set; }
         public string TipoChart { get; set; }
+        public decimal Meta { get; set; }
+        public string Fuente { get; set; }
+        public string Tipo { get; set; }
+        public string Responsable { get; set; }
     }
 }

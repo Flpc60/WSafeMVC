@@ -4,6 +4,7 @@
 @{
     ViewBag.Title = "GESTIONAR RIESGOS";
     var trabajadores = @ViewBag.trabajadores;
+    var riesgoID = @ViewBag.riesgoID;
 }
 
 <style>
@@ -46,7 +47,7 @@
             @Html.Partial("_EvalRiesgo")
             <input type="hidden" id="txtRiesgoID" name="txtRiesgoID" />
             <div class="col-md-offset-2 col-md-4">
-                <button type="button" id="btnAddRiesgo" class="btn btn-success" onclick="UpdateRiesgo()">Guardar</button>
+                <button type="button" id="btnUpdRiesgo" class="btn btn-success" onclick="UpdateRiesgo()">Guardar</button>
             </div>
         </div>
 
@@ -107,6 +108,8 @@
     <script type="text/javascript">
         $(document).ready(function () {
             ClearTextBox();
+            $("#txtRiesgoID").val(@riesgoID);
+
             $("#idPeligros").click(function () {
                 $(".tabPeligros").css("display", "block");
                 $(".tabEvalRiesgos").css("display", "none");
