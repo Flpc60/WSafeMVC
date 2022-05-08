@@ -121,6 +121,7 @@ namespace WSafe.Web.Controllers
                 return HttpNotFound();
             }
             ViewBag.trabajadores = _comboHelper.GetComboTrabajadores();
+            ViewBag.riesgoID = id;
             return View(model);
         }
 

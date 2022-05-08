@@ -359,6 +359,10 @@
     <Compile Include="Migrations\202204292137351_UpdateListaVM1.Designer.cs">
       <DependentUpon>202204292137351_UpdateListaVM1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202205041910512_UpdateIndicadoresVM.cs" />
+    <Compile Include="Migrations\202205041910512_UpdateIndicadoresVM.Designer.cs">
+      <DependentUpon>202205041910512_UpdateIndicadoresVM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\IntervencionVM.cs" />
     <Compile Include="Models\MatrizRiesgosVM.cs" />
@@ -548,6 +552,7 @@
     <Content Include="Views\Shared\_EditarPeligros.cshtml" />
     <Content Include="Views\Shared\_EvalRiesgo.cshtml" />
     <Content Include="Views\Shared\_EditarIntervencion.cshtml" />
+    <Content Include="Views\Indicadores\Index - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Documents\" />
@@ -574,6 +579,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202204292137351_UpdateListaVM1.resx">
       <DependentUpon>202204292137351_UpdateListaVM1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205041910512_UpdateIndicadoresVM.resx">
+      <DependentUpon>202205041910512_UpdateIndicadoresVM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
