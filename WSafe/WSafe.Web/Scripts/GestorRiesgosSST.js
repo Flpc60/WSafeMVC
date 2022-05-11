@@ -921,6 +921,7 @@ function UpdateIntervencion() {
 }
 
 function LoadInforme() {
+    var year = $("#txtYear").val();
     var periodo = [];
     var valor = "";
     for (var i = 0; i <= 12; i++) {
@@ -929,5 +930,45 @@ function LoadInforme() {
             periodo.Add(i);
         }
     }
+
+    GetFrecuenciaAccidentes(periodo, year);
+    GetSeveridadAccidentalidad(periodo, year);
+    GetAusentismo(periodo, year);
+    GetAccidentalidad(periodo, year);
+    GetProporcionAcciones(periodo, year);
+
+}
+
+function GetFrecuenciaAccidentes(periodo, year) {
+    $.ajax({
+        type: "POST",
+        url: "/Indicadores/GetFrecuenciaAccidentes",
+        data: { perodo, year },
+        dataType: "json",
+        success: function (result) {
+            $(".tabMediAplica").css("display", "block");
+            mostrarInterven();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+
+}
+
+function GetSeveridadAccidentalidad(periodo, year) {
+
+}
+
+function GetAusentismo(periodo, year) {
+
+}
+
+function GetAccidentalidad(periodo, year) {
+
+}
+
+function GetProporcionAcciones(periodo, year) {
 
 }

@@ -9,13 +9,13 @@ namespace WSafe.Domain.Helpers
         void DrawImagen(string arcchivo, string tipo, string nombre, IEnumerable<IndicadorDetallesViewModel> lista);
         void SaveIndicadores(string nombre, string ejeX, string ejeY, List<IndicadorDetallesViewModel> lista);
         void PrintIndicadores(string nombre, string ejeX, string ejeY, List<IndicadorDetallesViewModel> lista);
-        IEnumerable<IndicadorDetallesViewModel> GetFrecuenciaAccidentes(DateTime fechaInicial, DateTime fechaFinal);
-        IEnumerable<IndicadorDetallesViewModel> GetSeveridadAccidentalidad(DateTime fechaInicial, DateTime fechaFinal);
-        IEnumerable<IndicadorDetallesViewModel> GetAccidentesTrabajoMortales(DateTime fechaInicial, DateTime fechaFinal);
-        IEnumerable<IndicadorDetallesViewModel> GetAccidentesTrabajoInvestigados(DateTime fechaInicial, DateTime fechaFinal);
-        IEnumerable<IndicadorDetallesViewModel> GetAllIncidentes(DateTime fechaInicial, DateTime fechaFinal);
-        IEnumerable<IndicadorDetallesViewModel> GetIncidentesInvestigados(DateTime fechaInicial, DateTime fechaFinal);
-        IEnumerable<IndicadorDetallesViewModel> GetAusentismoCausaMedica(DateTime fechaInicial, DateTime fechaFinal);
+        IEnumerable<IndicadorDetallesViewModel> GetFrecuenciaAccidentes(int[] periodo, int year);
+        IEnumerable<IndicadorDetallesViewModel> GetSeveridadAccidentalidad(int[] periodo, int year);
+        IEnumerable<IndicadorDetallesViewModel> GetAccidentesTrabajoMortales(int[] periodo, int year);
+        IEnumerable<IndicadorDetallesViewModel> GetAccidentesTrabajoInvestigados(int[] periodo, int year);
+        IEnumerable<IndicadorDetallesViewModel> GetAllIncidentes(int[] periodo, int year);
+        IEnumerable<IndicadorDetallesViewModel> GetIncidentesInvestigados(int[] periodo, int year);
+        IEnumerable<IndicadorDetallesViewModel> GetAusentismoCausaMedica(int[] periodo, int year);
         IEnumerable<IndicadorDetallesViewModel> GetFatorRiesgoOcupacional();
     }
 }

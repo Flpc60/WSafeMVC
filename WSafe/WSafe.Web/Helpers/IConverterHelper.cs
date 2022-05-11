@@ -20,7 +20,7 @@ namespace WSafe.Domain.Helpers
         IncidenteViewModel ToIncidenteViewModel(Incidente incidente);
         IncidenteViewModel ToIncidenteViewModelNew();
         IndicadorViewModel ToIndicadorViewModel(Indicador indicador);
-        IndicadorViewModel ToIndicadorViewModelNew(Indicador indicador, DateTime fechaInicial, DateTime fechaFinal);
+        IndicadorViewModel ToIndicadorViewModelNew(Indicador indicador, int[] periodo, int year);
         AccidentadoVM ToLesionadoViewModel(Trabajador lesionado);
         IEnumerable<AplicacionVM> ToIntervencionesViewModel(IEnumerable<Aplicacion> listaAplicacion);
         Task<Aplicacion> ToAplicacionAsync(AplicacionVM model, bool isNew);

@@ -76,6 +76,10 @@ namespace WSafe.Domain.Helpers.Implements
                 NroExpuestos = riesgo.NroExpuestos,
                 RequisitoLegal = riesgo.RequisitoLegal,
                 IncidenteID = riesgo.IncidenteID,
+                Zonas = _comboHelper.GetComboZonas(),
+                Procesos = _comboHelper.GetComboProcesos(),
+                Actividades = _comboHelper.GetComboActividades(),
+                Tareas = _comboHelper.GetComboTareas()
             };
 
             return model;
@@ -289,7 +293,7 @@ namespace WSafe.Domain.Helpers.Implements
 
         public IndicadorViewModel ToIndicadorViewModel(Indicador indicador)
         {
-            var datos = _chartHelper.GetFrecuenciaAccidentes(Convert.ToDateTime("2021/06/01"), Convert.ToDateTime("2021/12/31"));
+            //var datos = _chartHelper.GetFrecuenciaAccidentes(Convert.ToDateTime("2021/06/01"), Convert.ToDateTime("2021/12/31"));
             //_chartHelper.DrawImagen(indicador.TipoChart, indicador.Nombre, datos);
             var model = new IndicadorViewModel
             {
@@ -303,42 +307,42 @@ namespace WSafe.Domain.Helpers.Implements
                 Formula = indicador.Formula,
                 Interpretacion = indicador.Interpretacion,
                 Periodicidad = indicador.Periodicidad,
-                Datos = datos,
+                //Datos = datos,
                 Imagen = "~/Images/chart05.jpg"
             };
             return model;
         }
-        public IndicadorViewModel ToIndicadorViewModelNew(Indicador indicador, DateTime fechaInicial, DateTime fechaFinal)
+        public IndicadorViewModel ToIndicadorViewModelNew(Indicador indicador, int[] periodo, int year) 
         {
             Random random = new Random();
             var filename = "chart" + random.Next(1, 100) + ".jpg";
             var filePathName = "~/Images/" + filename;
 
-            var datos = _chartHelper.GetFrecuenciaAccidentes(fechaInicial, fechaFinal);
+            var datos = _chartHelper.GetFrecuenciaAccidentes(periodo, year);
             switch (indicador.ID)
             {
                 case 1:
-                    datos = _chartHelper.GetFrecuenciaAccidentes(fechaInicial, fechaFinal);
+                    datos = _chartHelper.GetFrecuenciaAccidentes(periodo, year);
                     break;
 
                 case 2:
-                    datos = _chartHelper.GetSeveridadAccidentalidad(fechaInicial, fechaFinal);
+                    datos = _chartHelper.GetSeveridadAccidentalidad(periodo, year);
                     break;
 
                 case 3:
-                    datos = _chartHelper.GetAccidentesTrabajoMortales(fechaInicial, fechaFinal);
+                    datos = _chartHelper.GetAccidentesTrabajoMortales(periodo, year);
                     break;
 
                 case 4:
-                    datos = _chartHelper.GetAccidentesTrabajoMortales(fechaInicial, fechaFinal);
+                    datos = _chartHelper.GetAccidentesTrabajoMortales(periodo, year);
                     break;
 
                 case 5:
-                    datos = _chartHelper.GetAccidentesTrabajoMortales(fechaInicial, fechaFinal);
+                    datos = _chartHelper.GetAccidentesTrabajoMortales(periodo, year);
                     break;
 
                 case 6:
-                    datos = _chartHelper.GetAusentismoCausaMedica(fechaInicial, fechaFinal);
+                    datos = _chartHelper.GetAusentismoCausaMedica(periodo, year);
                     break;
 
                 case 7:
@@ -350,8 +354,8 @@ namespace WSafe.Domain.Helpers.Implements
             var model = new IndicadorViewModel
             {
                 ID = indicador.ID,
-                FechaInicial = fechaInicial,
-                FechaFinal = fechaFinal,
+                //FechaInicial = fechaInicial,
+                //FechaFinal = fechaFinal,
                 Nombre = indicador.Nombre,
                 Definicion = indicador.Definicion,
                 Numerador = indicador.Numerador,
@@ -791,5 +795,30 @@ namespace WSafe.Domain.Helpers.Implements
             }
             return model;
         }
+
+        public MatrizRiesgosVM ToRiesgoVMUnit(Riesgo riesgo)
+        {
+            var model = new MatrizRiesgosVM
+            {
+                ID = riesgo.ID,
+                Proceso = _empresaContext.Procesos.Find(riesgo.ProcesoID).Descripcion,
+                Zona = _empresaContext.Zonas.Find(riesgo.ZonaID).Descripcion,
+                Actividad = _empresaContext.Actividades.Find(riesgo.ActividadID).Descripcion,
+                CategoriaPeligro = _empresaContext.CategoriasPeligros.Find(riesgo.CategoriaPeligroID).Descripcion,
+                Peligro = _empresaContext.Peligros.Find(riesgo.PeligroID).Descripcion,
+                EfectosPosibles = _gestorHelper.GetEfectos(riesgo.EfectosPosibles),
+                NivelDeficiencia = riesgo.NivelDeficiencia,
+                NivelExposicion = riesgo.NivelExposicion,
+                NivelProbabilidad = riesgo.NivelProbabilidad,
+                InterpretaNP = _gestorHelper.GetInterpretaNP(riesgo.NivelProbabilidad),
+                NivelConsecuencia = riesgo.NivelConsecuencia,
+                NivelRiesgo = riesgo.NivelRiesgo,
+                CategoriaRiesgo = _gestorHelper.GetInterpretaNR(riesgo.NivelRiesgo),
+                AceptabilidadNR = _gestorHelper.GetAceptabilidadNR(riesgo.CategoriaRiesgo),
+                SignificadoNR = _gestorHelper.GetSignificadoNR(riesgo.CategoriaRiesgo),
+                NroExpuestos = riesgo.NroExpuestos,
+                PeorConsecuencia = riesgo.PeorConsecuencia
+            };
+            return model;        }
     }
 }
