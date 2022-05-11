@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using Rotativa;
+using System;
+using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using WSafe.Domain.Helpers;
@@ -34,8 +37,6 @@ namespace WSafe.Web.Controllers
             var result = _converterHelper.ToIndicadorViewModel(indicador);
             return View(result);
         }
-
-        // GET: Indicadores/Create
         public ActionResult CreateNuevaConsulta()
         {
             var result = new CreateIndicatorsViewModel();
@@ -43,21 +44,114 @@ namespace WSafe.Web.Controllers
             return View(result);
         }
 
-        // POST: Indicadores/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateNuevaConsulta(CreateIndicatorsViewModel model)
+        public ActionResult GetFrecuenciaAccidentes(int[] periodo, int year) 
         {
-            if (ModelState.IsValid)
+            if (periodo != null)
             {
-                var indicador = _empresaContext.Indicadores.FirstOrDefault(i => i.ID == model.IndicadorID);
-                var result = _converterHelper.ToIndicadorViewModelNew(indicador, model.FechaInicial, model.FechaFinal);
+                var indicador = _empresaContext.Indicadores.FirstOrDefault(i =>i.ID == 1);
+                var result = _converterHelper.ToIndicadorViewModelNew(indicador, periodo, year);
                 return View("Index", result);
             }
-
             return View("Index");
+        }
+        public ActionResult FrecuenciaAccidentes(string periodo, int year)
+        {
+            var result = new CreateIndicatorsViewModel();
+            result.Indicadores = _comboHelper.GetComboIndicadores();
+            ViewBag.Image = "~/Images/chart05.jpg";
+            ViewBag.Titulo = "FICHA TÉCNICA INDICADOR FRECUENCIA DE ACCIDENTALIDAD";
+            ViewBag.Periodo = periodo;
+            ViewBag.Year = year;
+            return View("Details");
+        }
+        public ActionResult SeveridadAccidentes(string periodo, int year)
+        {
+            var result = new CreateIndicatorsViewModel();
+            result.Indicadores = _comboHelper.GetComboIndicadores();
+            ViewBag.Image = "~/Images/chart05.jpg";
+            ViewBag.Titulo = "FICHA TÉCNICA INDICADOR SEVERIDAD ACCIDENTALIDAD";
+            ViewBag.Periodo = periodo;
+            ViewBag.Year = year;
+            return View("Details");
+        }
+        public ActionResult ProrcionAccidentesMortales(string periodo, int year)
+        {
+            var result = new CreateIndicatorsViewModel();
+            result.Indicadores = _comboHelper.GetComboIndicadores();
+            ViewBag.Image = "~/Images/chart05.jpg";
+            ViewBag.Titulo = "FICHA TÉCNICA INDICADOR PROPORCION DE ACCIDENTES MORTALES";
+            ViewBag.Periodo = periodo;
+            ViewBag.Year = year;
+            return View("Details");
+        }
+        public ActionResult Accidentabilidad(string periodo, int year)
+        {
+            var result = new CreateIndicatorsViewModel();
+            result.Indicadores = _comboHelper.GetComboIndicadores();
+            ViewBag.Image = "~/Images/chart05.jpg";
+            ViewBag.Titulo = "FICHA TÉCNICA INDICADOR ACCIDENTABILIDAD";
+            ViewBag.Periodo = periodo;
+            ViewBag.Year = year;
+            return View("Details");
+        }
+        public ActionResult ProporcionAccionesEjecutadas(string periodo, int year)
+        {
+            var result = new CreateIndicatorsViewModel();
+            result.Indicadores = _comboHelper.GetComboIndicadores();
+            ViewBag.Image = "~/Images/chart05.jpg";
+            ViewBag.Titulo = "FICHA TÉCNICA INDICADOR PROPORCION DE ACCIONES EJECUTADAS";
+            ViewBag.Periodo = periodo;
+            ViewBag.Year = year;
+            return View("Details");
+        }
+        public ActionResult ProporcionAccionesEfectivas(string periodo, int year)
+        {
+            var result = new CreateIndicatorsViewModel();
+            result.Indicadores = _comboHelper.GetComboIndicadores();
+            ViewBag.Image = "~/Images/chart05.jpg";
+            ViewBag.Titulo = "FICHA TÉCNICA INDICADOR PROPORCION DE ACCIONES EFECTIVAS";
+            ViewBag.Periodo = periodo;
+            ViewBag.Year = year;
+            return View("Details");
+        }
+        public ActionResult Details(string periodo, int year, string image, string titulo)
+        {
+            var result = new CreateIndicatorsViewModel();
+            result.Indicadores = _comboHelper.GetComboIndicadores();
+            ViewBag.Image = image;
+            ViewBag.Titulo = titulo;
+            ViewBag.Periodo = periodo;
+            ViewBag.Year = year;
+            return View("Details");
+        }
+        public ActionResult DetailsPDF(string periodo, int year, string image, string titulo, int id)
+        {
+            var result = _empresaContext.Incidentes.FirstOrDefault(i => i.ID == id);
+            var modelo = _converterHelper.ToIncidenteViewModel(result);
+            var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == id);
+            ViewBag.formato = document.Formato;
+            ViewBag.estandar = document.Estandar;
+            ViewBag.titulo = document.Titulo;
+            ViewBag.version = document.Version;
+            ViewBag.fecha = DateTime.Now;
+            ViewBag.Image = image;
+            ViewBag.Titulo = titulo;
+            ViewBag.Periodo = periodo;
+            ViewBag.Year = year;
+            return View(modelo);
+        }
+
+        [HttpGet]
+        public ActionResult PrintIndicadorToPdf(string periodo, int year, string image, string titulo, int id, string pdf)
+        {
+            var report = new ActionAsPdf("DetailsPDF", new { Id = id, Periodo = periodo, Year = year, Image = image, Titulo = titulo });
+            report.FileName = pdf;
+            report.PageSize = Rotativa.Options.Size.A4;
+            report.PageOrientation = Rotativa.Options.Orientation.Landscape;
+            report.PageWidth = 199;
+            report.PageHeight = 199;
+            return report;
         }
     }
 }
