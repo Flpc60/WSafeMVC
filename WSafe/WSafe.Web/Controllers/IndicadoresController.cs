@@ -54,32 +54,31 @@ namespace WSafe.Web.Controllers
             }
             return View();
         }
-        public ActionResult CreateNuevaConsulta()
-        {
-            var result = new CreateIndicatorsViewModel();
-            result.Indicadores = _comboHelper.GetComboIndicadores();
-            return View(result);
-        }
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult GetFrecuenciaAccidentes(int[] periodo, int year)
         {
-            if (periodo != null)
+            try
             {
-                var indicador = _empresaContext.Indicadores.FirstOrDefault(i => i.ID == 1);
-                var result = _converterHelper.ToIndicadorViewModelNew(indicador, periodo, year);
-                return View("Index", result);
+                if (periodo != null)
+                {
+                    var indicador = _empresaContext.Indicadores.FirstOrDefault(i => i.ID == 1);
+                    var result = _converterHelper.ToIndicadorViewModelNew(indicador, periodo, year);
+                    ViewBag.Titulo = "FICHA TÉCNICA INDICADOR FRECUENCIA DE ACCIDENTALIDAD";
+                    ViewBag.Periodo = periodo;
+                    ViewBag.Year = year;
+                    return View("Details", result);
+                }
+                return View("Index");
             }
-            return View("Index");
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
         public ActionResult FrecuenciaAccidentalidad(string periodo, int year)
         {
-            var result = new CreateIndicatorsViewModel();
-            result.Indicadores = _comboHelper.GetComboIndicadores();
-            ViewBag.Image = "~/Images/chart05.jpg";
-            ViewBag.Titulo = "FICHA TÉCNICA INDICADOR FRECUENCIA DE ACCIDENTALIDAD";
-            ViewBag.Periodo = periodo;
-            ViewBag.Year = year;
             return View("Details");
         }
         public ActionResult SeveridadAccidentes(string periodo, int year)

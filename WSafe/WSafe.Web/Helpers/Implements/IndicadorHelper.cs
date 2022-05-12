@@ -13,10 +13,10 @@ namespace WSafe.Domain.Helpers.Implements
         {
             _empresaContext = empresaContext;
         }
-        public int AccidentesTrabajo(int[] periodo)
+        public int AccidentesTrabajo(int year)
         {
             return (from at in _empresaContext.Incidentes
-                    where (periodo.Contains(at.FechaIncidente.Month)) && at.CategoriaIncidente == CategoriasIncidente.Accidente
+                    where at.FechaIncidente.Year == year && at.CategoriaIncidente == CategoriasIncidente.Accidente
                     select at).Count();
         }
         public int AccidentesTrabajoInvestigados(int year)
@@ -62,7 +62,7 @@ namespace WSafe.Domain.Helpers.Implements
 
         public decimal FrecuenciaAccidentalidad(int[] periodo, int year)
         {
-            return Convert.ToDecimal(AccidentesTrabajo(periodo))
+            return Convert.ToDecimal(AccidentesTrabajo(year))
                 / Convert.ToDecimal(NumeroTrabajadoresMes(periodo, year)) * 100;
         }
         public decimal IncidenciaEnfermedad(int[] periodo)
@@ -206,12 +206,6 @@ namespace WSafe.Domain.Helpers.Implements
         {
             throw new NotImplementedException();
         }
-
-        public int AccidentesTrabajo(int year)
-        {
-            throw new NotImplementedException();
-        }
-
         public int DíasAusenciaIncapacidadLaboral(int year)
         {
             throw new NotImplementedException();
