@@ -1,9 +1,12 @@
-﻿@model WSafe.Web.Models.IndicadorViewModel
-
-@{
+﻿@{
     ViewBag.Title = "Sistema de Gestión de la Seguridad y Salud en el Trabajo";
     Layout = null;
     var ahora = DateTime.Now.Year;
+    var proporcion = ViewBag.txtProporcion;
+    var incidentes = ViewBag.txtIncidentes;
+    var ausentismo = ViewBag.txtAusentismos;
+    var mortales = ViewBag.txtMortales;
+    var accidentes = ViewBag.txtAccidentes;
 }
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -17,11 +20,14 @@
     <hr />
     <h2 style="background-color:blue;color:white"><i class="fa fa-search" style="width:18px"></i>  Dashboard Indicadores y acciones</h2>
     <hr />
-    <div style="display:inline; background-color:green; color: white; width:11px; padding:11px">
-        <div class="form-control">
-            <label>SELECCIONE PERIODO :</label>
-            <input type="number" id="txtYear" maxlength="4" min="2010" max="@ahora" />
-        </div>
+    <div class="form-control">
+        <label class="form-horizontal">
+            SELECCIONE PERIODO :
+            <input type="number" id="txtYear" maxlength="4" min="2010" max="@ahora" value="@ahora" />
+        </label>
+    </div>
+    <hr />
+    <div style="display:inline; background-color:green; color: white; width:12px; padding:12px">
         <div class="form-check-inline">
             <label class="form-check-label" for="check1">
                 <input type="checkbox" class="form-check-input" id="peri1"> ENERO
@@ -80,29 +86,28 @@
         <div class="form-check-inline">
             <label class="form-check-label">
                 <input type="checkbox" class="form-check-input" id="peri12"> DICIEMBRE
-            </label><br /><br /><br />
+            </label><br /><br />
         </div>
     </div>
-    <button type="button" id="btnLoadInfo" class="btn btn-info" onclick="LoadInforme()">Buscar</button>
 </div>
 
 <div class="container">
     <hr />
     <div class="row" style="background-color:grey; color:white ;font-size:15px; padding:15px">
-        <div class="col-md-3">
-            <p id="txtMortales">ACCIDENTES LABORALES : </p>
-        </div>
         <div class="col-md-2">
-            <p id="txtAccidentes">ACCIDENTES MORTALES : </p>
-        </div>
-        <div class="col-md-2">
-            <p id="txtPromedio">TRABAJADORES : </p>
-        </div>
-        <div class="col-md-2">
-            <p id="txtAusentismo">AUSENTISMO : </p>
+            <p id="txtMortales">ACCIDENTES MORTALES : @mortales</p>
         </div>
         <div class="col-md-3">
-            <p id="txtEnfermedad">AUSENTISMO POR ENFERMEDAD LABORAL : </p>
+            <p id="txtAccidentes">ACCIDENTES LABORALES : @accidentes</p>
+        </div>
+        <div class="col-md-2">
+            <p id="txtProporcion">PROPORCIÓN ACCIDENTES MORTALES : @proporcion</p>
+        </div>
+        <div class="col-md-2">
+            <p id="txtIncidentes">INCIDNENTES : @incidentes</p>
+        </div>
+        <div class="col-md-3">
+            <p id="txtAusentismos">AUSENTISMO LABORAL : @ausentismo</p>
         </div>
     </div>
 </div>
@@ -111,19 +116,13 @@
     <hr />
     <div class="row">
         <div class="col-md-4">
-            <label>FRECUENCIA ACCIDENTALIDAD</label>
-            <img src="~/Images/chart01.jpg" width="400"/>
-            <button type="button" id="btnLoadInfo" class="btn btn-info" onclick="DisplayFrecuencia()"><i class="fa fa-search"></i></button>
+            <button type="button" id="btnLoadFrecuencia" class="btn btn-warning" onclick="ConsultarFrecuencia()"><i class="fa fa-search"></i> FRECUENCIA ACCIDENTALIDAD</button>
         </div>
         <div class="col-md-4">
-            <label>SEVERIDAD ACCIDENTALIDAD</label>
-            <img src="~/Images/chart02.jpg" width="400"/>
-            <button type="button" id="btnLoadInfo" class="btn btn-info" onclick="DisplayImprimirSeveridad()"><i class="fa fa-search"></i></button>
+            <button type="button" id="btnLoadSeveridad" class="btn btn-warning" onclick="ConsultarSeveridad()"><i class="fa fa-search"></i> SEVERIDAD ACCIDENTALIDAD</button>
         </div>
         <div class="col-md-4">
-            <label>PROPORCIÓN ACCIDENTES MORTALES</label>
-            <img src="~/Images/chart03.jpg" width="400"/>
-            <button type="button" id="btnLoadInfo" class="btn btn-info" onclick="DisplayProporcionAccidentes()"><i class="fa fa-search"></i></button>
+            <button type="button" id="btnLoadAccidentabilidad" class="btn btn-warning" onclick="ConsultarAccidentabilidad()"><i class="fa fa-search"></i> ACCIDENTABILIDAD</button>
         </div>
     </div>
 </div>
@@ -132,20 +131,10 @@
     <hr />
     <div class="row">
         <div class="col-md-4">
-            <label>ACCIDENTABILIDAD</label>
-            <img src="~/Images/chart04.jpg" width="400" />
-            <button type="button" id="btnLoadInfo" class="btn btn-info" onclick="DisplayAccidentabilidad()"><i class="fa fa-search"></i></button>
+            <button type="button" id="btnLoadEjecutadas" class="btn btn-info" onclick="ConsultarAccionesEjecutadas()"><i class="fa fa-search"></i> PROPORCIÓN ACCIONES EJECUTADAS</button>
         </div>
         <div class="col-md-4">
-            <label>PROPORCIÓN ACCIONES EJECUTADAS</label>
-            <img src="~/Images/chart05.jpg" width="400" />
-            <button type="button" id="btnLoadInfo" class="btn btn-info" onclick="DisplayAccionesEjecutadas()"><i class="fa fa-search"></i></button>
-        </div>
-        <div class="col-md-4">
-            <label>PROPORCIÓN ACCIONES EFECTIVAS</label>
-            <img src="~/Images/chart05.jpg" width="400" />
-            <button type="button" id="btnLoadInfo" class="btn btn-info" onclick="DisplayAccionesEfectivas()"><i class="fa fa-search"></i></button>
+            <button type="button" id="btnLoadInfo" class="btn btn-success" onclick="ConsultarAccionesEfectivas()"><i class="fa fa-search"></i> PROPORCIÓN ACCIONES EFECTIVAS</button>
         </div>
     </div>
 </div>
-

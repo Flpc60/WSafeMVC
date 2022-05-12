@@ -1,10 +1,9 @@
 ﻿using Rotativa;
 using System;
-using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using WSafe.Domain.Helpers;
+using WSafe.Domain.Helpers.Implements;
 using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
@@ -15,27 +14,45 @@ namespace WSafe.Web.Controllers
         private readonly IComboHelper _comboHelper;
         private readonly IConverterHelper _converterHelper;
         private readonly IChartHelper _chartHelper;
+        private readonly IIndicadorHelper _indicadorHelper;
+
         public IndicadoresController
             (
                 EmpresaContext empresaContext,
                 IComboHelper comboHelper,
                 IConverterHelper converterHelper,
-                IChartHelper chartHelper
+                IChartHelper chartHelper,
+                IIndicadorHelper indicadorHelper
             )
         {
             _empresaContext = empresaContext;
             _comboHelper = comboHelper;
             _converterHelper = converterHelper;
             _chartHelper = chartHelper;
+            _indicadorHelper = indicadorHelper;
 
         }
 
         // GET: Indicadores
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            var indicador = _empresaContext.Indicadores.FirstOrDefault(i => i.ID == 1);
-            var result = _converterHelper.ToIndicadorViewModel(indicador);
-            return View(result);
+            try
+            {
+                var year = DateTime.Now.Year;
+                var mortales = _indicadorHelper.AccidentesTrabajoMortales(year);
+                var accidentes = _indicadorHelper.AccidentesTrabajo(year);
+                ViewBag.txtProporcion = Convert.ToDouble(mortales / accidentes * 100);
+                ViewBag.txtIncidentes = _indicadorHelper.GetIncidentes(year);
+                ViewBag.txtAusentismos = _indicadorHelper.DiasIncapacidadAccidentesTrabajo(year);
+                ViewBag.txtMortales = mortales;
+                ViewBag.txtAccidentes = accidentes;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return View();
         }
         public ActionResult CreateNuevaConsulta()
         {
@@ -45,17 +62,17 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetFrecuenciaAccidentes(int[] periodo, int year) 
+        public ActionResult GetFrecuenciaAccidentes(int[] periodo, int year)
         {
             if (periodo != null)
             {
-                var indicador = _empresaContext.Indicadores.FirstOrDefault(i =>i.ID == 1);
+                var indicador = _empresaContext.Indicadores.FirstOrDefault(i => i.ID == 1);
                 var result = _converterHelper.ToIndicadorViewModelNew(indicador, periodo, year);
                 return View("Index", result);
             }
             return View("Index");
         }
-        public ActionResult FrecuenciaAccidentes(string periodo, int year)
+        public ActionResult FrecuenciaAccidentalidad(string periodo, int year)
         {
             var result = new CreateIndicatorsViewModel();
             result.Indicadores = _comboHelper.GetComboIndicadores();
