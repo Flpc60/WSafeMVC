@@ -920,7 +920,7 @@ function UpdateIntervencion() {
     });
 }
 
-function LoadInforme() {
+function ConsultarFrecuencia() {
     var year = $("#txtYear").val();
     var periodo = [];
     var valor = "";
@@ -931,17 +931,8 @@ function LoadInforme() {
         }
     }
 
-    GetFrecuenciaAccidentes(periodo, year);
-    GetSeveridadAccidentalidad(periodo, year);
-    GetAusentismo(periodo, year);
-    GetAccidentalidad(periodo, year);
-    GetProporcionAcciones(periodo, year);
-
-}
-
-function GetFrecuenciaAccidentes(periodo, year) {
     $.ajax({
-        type: "POST",
+        type: "GET",
         url: "/Indicadores/GetFrecuenciaAccidentes",
         data: { perodo, year },
         dataType: "json",
@@ -954,21 +945,31 @@ function GetFrecuenciaAccidentes(periodo, year) {
             alert(thrownError);
         }
     });
-
 }
 
-function GetSeveridadAccidentalidad(periodo, year) {
+function ConsultarSeveridad() {
+    var year = $("#txtYear").val();
+    var periodo = [];
+    var valor = "";
+    for (var i = 0; i <= 12; i++) {
+        valor = "peri" + i;
+        if ($("#valor").is(':checked')) {
+            periodo.Add(i);
+        }
+    }
 
-}
-
-function GetAusentismo(periodo, year) {
-
-}
-
-function GetAccidentalidad(periodo, year) {
-
-}
-
-function GetProporcionAcciones(periodo, year) {
-
+    $.ajax({
+        type: "POST",
+        url: "/Indicadores/GetSeveridadAccidentes",
+        data: { perodo, year },
+        dataType: "json",
+        success: function (result) {
+            $(".tabMediAplica").css("display", "block");
+            mostrarInterven();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
 }
