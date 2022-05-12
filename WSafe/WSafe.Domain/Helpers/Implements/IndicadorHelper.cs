@@ -19,31 +19,31 @@ namespace WSafe.Domain.Helpers.Implements
                     where (periodo.Contains(at.FechaIncidente.Month)) && at.CategoriaIncidente == CategoriasIncidente.Accidente
                     select at).Count();
         }
-        public int AccidentesTrabajoInvestigados(DateTime fechaInicial, DateTime fechaFinal)
+        public int AccidentesTrabajoInvestigados(int year)
         {
             return _empresaContext.Incidentes
-                .Where(i => i.FechaIncidente >= fechaInicial && i.FechaIncidente <= fechaFinal && i.CategoriaIncidente == Data.Entities.Incidentes.CategoriasIncidente.Accidente && i.RequiereInvestigacion == true)
+                .Where(i => i.FechaIncidente.Year == year && i.CategoriaIncidente == Data.Entities.Incidentes.CategoriasIncidente.Accidente && i.RequiereInvestigacion == true)
                 .Count();
         }
 
-        public int AccidentesTrabajoMortales(int[] periodo)
+        public int AccidentesTrabajoMortales(int year)
         {
             return (from at in _empresaContext.Incidentes
-                    where(periodo.Contains(at.FechaIncidente.Month)) && at.CategoriaIncidente == CategoriasIncidente.Accidente
+                    where at.FechaIncidente.Year == year && at.CategoriaIncidente == CategoriasIncidente.Accidente
                     && at.ConsecuenciasLesion == ConsecuenciasLesion.fatalidadMultiple select at).Count();
         }
-        public decimal AusentismoCausaMedica(DateTime fechaInicial, DateTime fechaFinal)
+        public decimal AusentismoCausaMedica(int year)
         {
-            return Convert.ToDecimal(IncidentesInvestigados(fechaInicial, fechaFinal))
-                / Convert.ToDecimal(TotalIncidentes(fechaInicial, fechaFinal)) * 100;
+            return Convert.ToDecimal(IncidentesInvestigados(year))
+                / Convert.ToDecimal(GetIncidentes(year)) * 100;
         }
 
-        public int DiasIncapacidadAccidentesTrabajo(int[] periodo)
+        public int DiasIncapacidadAccidentesTrabajo(int year)
         {
             return (from at in _empresaContext.Incidentes
-                    where (periodo.Contains(at.FechaIncidente.Month)) && at.IncapacidadMedica == true select at).Sum(i => i.DiasIncapacidad);
+                    where at.FechaIncidente.Year == year && at.IncapacidadMedica == true select at).Sum(i => i.DiasIncapacidad);
         }
-        public int DiasCargadosAccidentesTrabajo(int[] periodo)
+        public int DiasCargadosAccidentesTrabajo(int year)
         {
             return 6000;
         }
@@ -91,15 +91,15 @@ namespace WSafe.Domain.Helpers.Implements
             return (from t in _empresaContext.Trabajadores where (periodo.Contains(t.FechaNomina.Month)) select t).Count();
         }
 
-        public decimal ProporcionAccidentesMortales(int[] periodo)
+        public decimal ProporcionAccidentesMortales(int year)
         {
-            return Convert.ToDecimal(AccidentesTrabajoMortales(periodo))
-                / Convert.ToDecimal(AccidentesTrabajo(periodo)) * 100;
+            return Convert.ToDecimal(AccidentesTrabajoMortales(year))
+                / Convert.ToDecimal(AccidentesTrabajo(year)) * 100;
         }
         public decimal SeveridadAccidentalidad(int[] periodo, int year)
         {
-            return Convert.ToDecimal(DiasIncapacidadAccidentesTrabajo(periodo))
-                + Convert.ToDecimal(DiasCargadosAccidentesTrabajo(periodo))
+            return Convert.ToDecimal(DiasIncapacidadAccidentesTrabajo(year))
+                + Convert.ToDecimal(DiasCargadosAccidentesTrabajo(year))
                  / Convert.ToDecimal(NumeroTrabajadoresMes(periodo, year)) * 100; ;
         }
         public int NumeroACPAccidentes(DateTime fechaInicial, DateTime fechaFinal)
@@ -119,30 +119,29 @@ namespace WSafe.Domain.Helpers.Implements
             return Convert.ToDecimal(NumeroACPAccidentes(fechaInicial, fechaFinal))
                 / Convert.ToDecimal(NumeroACP(fechaInicial, fechaFinal)) * 100;
         }
-        public decimal ProporcionAccidentesInvestigados(DateTime fechaInicial, DateTime fechaFinal)
+        public decimal ProporcionAccidentesInvestigados(int year)
         {
-            return Convert.ToDecimal(AccidentesTrabajoInvestigados(fechaInicial, fechaFinal))
-                / Convert.ToDecimal(AccidentesTrabajo(fechaInicial, fechaFinal)) * 100;
+            return Convert.ToDecimal(AccidentesTrabajoInvestigados(year))
+                / Convert.ToDecimal(AccidentesTrabajo(year)) * 100;
         }
 
-        public int IncidentesInvestigados(DateTime fechaInicial, DateTime fechaFinal)
+        public int IncidentesInvestigados(int year)
         {
             return _empresaContext.Incidentes
-                .Where(i => i.FechaIncidente >= fechaInicial && i.FechaIncidente <= fechaFinal && i.CategoriaIncidente == Data.Entities.Incidentes.CategoriasIncidente.Incidente && i.RequiereInvestigacion == true)
+                .Where(i => i.FechaIncidente.Year == year && i.CategoriaIncidente == Data.Entities.Incidentes.CategoriasIncidente.Incidente && i.RequiereInvestigacion == true)
                 .Count();
         }
 
-        public int TotalIncidentes(DateTime fechaInicial, DateTime fechaFinal)
+        public int GetIncidentes(int year)
         {
-            return _empresaContext.Incidentes
-                .Where(i => i.FechaIncidente >= fechaInicial && i.FechaIncidente <= fechaFinal && i.CategoriaIncidente == Data.Entities.Incidentes.CategoriasIncidente.Incidente)
-                .Count();
+            return (from at in _empresaContext.Incidentes
+                    where at.FechaIncidente.Year == year && at.CategoriaIncidente == CategoriasIncidente.Incidente select at).Count();
         }
 
-        public decimal ProporcionIncidentesInvestigados(DateTime fechaInicial, DateTime fechaFinal)
+        public decimal ProporcionIncidentesInvestigados(int year)
         {
-            return Convert.ToDecimal(IncidentesInvestigados(fechaInicial, fechaFinal))
-                / Convert.ToDecimal(TotalIncidentes(fechaInicial, fechaFinal)) * 100;
+            return Convert.ToDecimal(IncidentesInvestigados(year))
+                / Convert.ToDecimal(GetIncidentes(year)) * 100;
         }
 
         public int NumeroTrabajadoresMes(int[] periodo, int year)
@@ -154,12 +153,6 @@ namespace WSafe.Domain.Helpers.Implements
         {
             return _empresaContext.Trabajadores.Sum(dp => dp.DiasPago);
         }
-
-        public int AccidentesTrabajoMortales(DateTime fechaInicial, DateTime fechaFinal)
-        {
-            throw new NotImplementedException();
-        }
-
         public int NumeroCasosEnfermedadLaboral(DateTime fechaInicial, DateTime fechaFinal)
         {
             throw new NotImplementedException();
@@ -204,18 +197,22 @@ namespace WSafe.Domain.Helpers.Implements
         {
             throw new NotImplementedException();
         }
-
-        public int DiasIncapacidadAccidentesTrabajo(DateTime fechaInicial, DateTime fechaFinal)
+        public decimal ProporcionIncidentesInvestigados(DateTime fechaInicial, DateTime fechaFinal)
         {
             throw new NotImplementedException();
         }
 
-        public int AccidentesTrabajo(DateTime fechaInicial, DateTime fechaFinal)
+        public int IncidentesInvestigados(DateTime fechaInicial, DateTime fechaFinal)
         {
             throw new NotImplementedException();
         }
 
-        public int DiasCargadosAccidentesTrabajo(DateTime fechaInicial, DateTime fechaFinal)
+        public int AccidentesTrabajo(int year)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int DíasAusenciaIncapacidadLaboral(int year)
         {
             throw new NotImplementedException();
         }

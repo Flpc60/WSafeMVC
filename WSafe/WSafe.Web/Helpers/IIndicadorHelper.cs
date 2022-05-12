@@ -4,17 +4,17 @@ namespace WSafe.Domain.Helpers.Implements
 {
     public interface IIndicadorHelper
     {
-        int AccidentesTrabajo(DateTime fechaInicial, DateTime fechaFinal);
-        int AccidentesTrabajoMortales(DateTime fechaInicial, DateTime fechaFinal);
-        decimal ProporcionAccidentesInvestigados(DateTime fechaInicial, DateTime fechaFinal);
-        int IncidentesInvestigados(DateTime fechaInicial, DateTime fechaFinal);
-        int TotalIncidentes(DateTime fechaInicial, DateTime fechaFinal);
-        decimal ProporcionIncidentesInvestigados(DateTime fechaInicial, DateTime fechaFinal);
-        int DiasIncapacidadAccidentesTrabajo(DateTime fechaInicial, DateTime fechaFinal);
-        int DiasCargadosAccidentesTrabajo(DateTime fechaInicial, DateTime fechaFinal);
+        int AccidentesTrabajo(int year);
+        int AccidentesTrabajoMortales(int year);
+        decimal ProporcionAccidentesInvestigados(int year);
+        int IncidentesInvestigados(int year);
+        int GetIncidentes(int year);
+        decimal ProporcionIncidentesInvestigados(int year);
+        int DiasIncapacidadAccidentesTrabajo(int year);
+        int DiasCargadosAccidentesTrabajo(int year);
         int NumeroCasosEnfermedadLaboral(DateTime fechaInicial, DateTime fechaFinal);
         int NumeroCasosNuevosEnfermedadLaboral(DateTime fechaInicial, DateTime fechaFinal);
-        int DíasAusenciaIncapacidadLaboral(DateTime fechaInicial, DateTime fechaFinal);
+        int DíasAusenciaIncapacidadLaboral(int year);
         int EnfermedadesIncidentesAusentismos(DateTime fechaInicial, DateTime fechaFinal);
         int NumeroTrabajadoresMes(DateTime fechaInicial, DateTime fechaFinal);
         decimal PromedioTrabajadores(DateTime fechaInicial, DateTime fechaFinal);

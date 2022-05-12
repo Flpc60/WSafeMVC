@@ -78,7 +78,7 @@ namespace WSafe.Domain.Helpers.Implements
                     viewModel.Add(new IndicadorDetallesViewModel
                     {
                         MesAnn = (grupo.Clave.Month + "-" + grupo.Clave.Year).ToString(),
-                        Numerador = _indicadorHelper.AccidentesTrabajoMortales(periodo),
+                        Numerador = _indicadorHelper.AccidentesTrabajoMortales(year),
                         Denominador = grupo.Datos.Count()
                     });
                 }
