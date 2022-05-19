@@ -45,7 +45,7 @@ namespace WSafe.Web.Models
         public EfectosPosibles EfectosPosibles { get; set; }
         [Display(Name = "ND")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un nivel de deficiencia.")]
+        [Range(0, int.MaxValue, ErrorMessage = "Debes seleccionar un nivel de deficiencia.")]
         public int NivelDeficiencia { get; set; }
         [Display(Name = "Niveles Deficiencia")]
         public NivelesDeficiencia NivelesDeficiencia { get; set; }

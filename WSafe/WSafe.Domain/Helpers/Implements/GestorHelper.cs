@@ -365,5 +365,63 @@ namespace WSafe.Domain.Helpers.Implements
                     return "Controles administrativos";
             }
         }
+        public string GetPeriodo(int[] periodo)
+        {
+            var result = "";
+            for (int i = 0; i < periodo.Length; i++)
+            {
+                switch (periodo[i])
+                {
+                    case 1:
+                        result += "ENERO, ";
+                        break;
+
+                    case 2:
+                        result += "FEBRERO, ";
+                        break;
+
+                    case 3:
+                        result += "MARZO, ";
+                        break;
+
+                    case 4:
+                        result += "ABRIL, ";
+                        break;
+
+                    case 5:
+                        result += "MAYO, ";
+                        break;
+
+                    case 6:
+                        result += "JUNIO, ";
+                        break;
+
+                    case 7:
+                        result += "JULIO, ";
+                        break;
+
+                    case 8:
+                        result += "AGOSTO, ";
+                        break;
+
+                    case 9:
+                        result += "SEPTIEMBRE, ";
+                        break;
+
+                    case 10:
+                        result += "OCTUBRE, ";
+                        break;
+
+                    case 11:
+                        result += "NOVIEMBRE, ";
+                        break;
+
+                    case 12:
+                        result += "DICIEMBRE";
+                        break;
+                }
+            }
+            return result;
+        }
     }
 }

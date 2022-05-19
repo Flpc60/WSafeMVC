@@ -2,22 +2,16 @@
 
 @{
     var titulo = ViewBag.Titulo;
-    var image = ViewBag.Image;
+    var image = Model.Imagen;
     var periodo = ViewBag.Periodo;
     var year = ViewBag.Year;
     var ahora = DateTime.Now;
 }
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-@Styles.Render("~/Content/css")
-@Scripts.Render("~/bundles/modernizr")
-@Scripts.Render("~/bundles/jqueryval")
-@Scripts.Render("~/bundles/jqueryunobtrusive")
-
+<hr />
 <div class="container">
     <hr />
-    <h2 style="background-color:blue;color:white">@titulo</h2>
+    <h4 style="background-color: grey; color: white; text-align:center">@titulo</h4>
     <hr />
     <div class="form-group">
         <label>FECHA REPORTE : @ahora</label>
@@ -111,7 +105,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        @Html.ActionLink("Descargar PDF", "PrintIndicadorToPdf", new { @class = "glyphicon glyphicon-plus" },
+        @Html.ActionLink("Descargar PDF", "PrintIndicadorToPdf", new { @class = "glyphicon glyphicon-plus", Periodo = periodo, year = year },
         new { @class = "btn btn-info btn-lg active" })
     </div>
 </div>

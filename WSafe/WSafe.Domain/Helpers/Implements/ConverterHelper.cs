@@ -298,8 +298,6 @@ namespace WSafe.Domain.Helpers.Implements
             var model = new IndicadorViewModel
             {
                 ID = indicador.ID,
-                FechaInicial = Convert.ToDateTime("2021/06/01"),
-                FechaFinal = Convert.ToDateTime("2021/12/31"),
                 Nombre = indicador.Nombre,
                 Definicion = indicador.Definicion,
                 Numerador = indicador.Numerador,
@@ -354,8 +352,8 @@ namespace WSafe.Domain.Helpers.Implements
             var model = new IndicadorViewModel
             {
                 ID = indicador.ID,
-                //FechaInicial = fechaInicial,
-                //FechaFinal = fechaFinal,
+                Year = year,
+                Periodo = _gestorHelper.GetPeriodo(periodo),
                 Nombre = indicador.Nombre,
                 Definicion = indicador.Definicion,
                 Numerador = indicador.Numerador,
@@ -368,7 +366,6 @@ namespace WSafe.Domain.Helpers.Implements
             };
             return model;
         }
-
         public IEnumerable<ListaRiesgosVM> ToRiesgoViewModelList(IEnumerable<Riesgo> riesgo)
         {
             var rutinaria = "";
