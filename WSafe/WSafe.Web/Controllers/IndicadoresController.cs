@@ -1,5 +1,6 @@
 ﻿using Rotativa;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using WSafe.Domain.Helpers;
@@ -33,7 +34,6 @@ namespace WSafe.Web.Controllers
 
         }
 
-        // GET: Indicadores
         public ActionResult Index()
         {
             try
@@ -41,7 +41,8 @@ namespace WSafe.Web.Controllers
                 var year = DateTime.Now.Year;
                 var mortales = _indicadorHelper.AccidentesTrabajoMortales(year);
                 var accidentes = _indicadorHelper.AccidentesTrabajo(year);
-                ViewBag.txtProporcion = Convert.ToDouble(mortales / accidentes * 100);
+                decimal proporcion = Convert.ToDecimal((double)mortales / (double)accidentes * 100);
+                ViewBag.txtProporcion = Math.Round(proporcion,2);
                 ViewBag.txtIncidentes = _indicadorHelper.GetIncidentes(year);
                 ViewBag.txtAusentismos = _indicadorHelper.DiasIncapacidadAccidentesTrabajo(year);
                 ViewBag.txtMortales = mortales;
@@ -56,26 +57,37 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetFrecuenciaAccidentes(int[] periodo, int year)
+        public ActionResult Details(int[] periodo)
         {
             try
             {
+                if (periodo == null)
+                {
+                    periodo = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+                }
                 if (periodo != null)
                 {
+                    var year = DateTime.Now.Year;
                     var indicador = _empresaContext.Indicadores.FirstOrDefault(i => i.ID == 1);
                     var result = _converterHelper.ToIndicadorViewModelNew(indicador, periodo, year);
                     ViewBag.Titulo = "FICHA TÉCNICA INDICADOR FRECUENCIA DE ACCIDENTALIDAD";
-                    ViewBag.Periodo = periodo;
-                    ViewBag.Year = year;
-                    return View("Details", result);
+                    ViewBag.Periodo = "Enero - Diciembre";
+                    ViewBag.Year = year.ToString();
+                    return View(result);
                 }
-                return View("Index");
+                return Json(new { error = "No hay información" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception)
             {
 
                 throw;
             }
+        }
+
+        [HttpPost]
+        public ActionResult Details(IndicadorViewModel model)
+        {
+            return View(model);
         }
         public ActionResult FrecuenciaAccidentalidad(string periodo, int year)
         {
@@ -159,9 +171,9 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult PrintIndicadorToPdf(string periodo, int year, string image, string titulo, int id, string pdf)
+        public ActionResult PrintIndicadorToPdf(int[] periodo, int year, string pdf)
         {
-            var report = new ActionAsPdf("DetailsPDF", new { Id = id, Periodo = periodo, Year = year, Image = image, Titulo = titulo });
+            var report = new ActionAsPdf("Details", new { Periodo = periodo, Year = year });
             report.FileName = pdf;
             report.PageSize = Rotativa.Options.Size.A4;
             report.PageOrientation = Rotativa.Options.Orientation.Landscape;

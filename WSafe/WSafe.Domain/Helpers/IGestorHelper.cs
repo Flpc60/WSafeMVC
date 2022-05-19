@@ -23,5 +23,6 @@ namespace WSafe.Domain.Helpers
         string GetEfectos(EfectosPosibles efecto);
         string GetJerarquiaControl(JerarquiaControles categoria);
         string GetCategoriaAplicacion(CategoriaAplicacion categoria);
+        string GetPeriodo(int[] periodo);
     }
 }

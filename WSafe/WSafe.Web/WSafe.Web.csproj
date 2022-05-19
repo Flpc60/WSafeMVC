@@ -351,17 +351,9 @@
     <Compile Include="Helpers\Implements\ConverterHelper.cs" />
     <Compile Include="Helpers\Implements\GestorHelper.cs" />
     <Compile Include="Helpers\Implements\IndicadorHelper.cs" />
-    <Compile Include="Migrations\202204292110029_UpdateListaVM.cs" />
-    <Compile Include="Migrations\202204292110029_UpdateListaVM.Designer.cs">
-      <DependentUpon>202204292110029_UpdateListaVM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202204292137351_UpdateListaVM1.cs" />
-    <Compile Include="Migrations\202204292137351_UpdateListaVM1.Designer.cs">
-      <DependentUpon>202204292137351_UpdateListaVM1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202205041910512_UpdateIndicadoresVM.cs" />
-    <Compile Include="Migrations\202205041910512_UpdateIndicadoresVM.Designer.cs">
-      <DependentUpon>202205041910512_UpdateIndicadoresVM.cs</DependentUpon>
+    <Compile Include="Migrations\202205131523025_UpdateIndicadorVM1.cs" />
+    <Compile Include="Migrations\202205131523025_UpdateIndicadorVM1.Designer.cs">
+      <DependentUpon>202205131523025_UpdateIndicadorVM1.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\IntervencionVM.cs" />
@@ -574,14 +566,8 @@
     <EmbeddedResource Include="Migrations\202112012202348_InitialCreate.resx">
       <DependentUpon>202112012202348_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204292110029_UpdateListaVM.resx">
-      <DependentUpon>202204292110029_UpdateListaVM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204292137351_UpdateListaVM1.resx">
-      <DependentUpon>202204292137351_UpdateListaVM1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202205041910512_UpdateIndicadoresVM.resx">
-      <DependentUpon>202205041910512_UpdateIndicadoresVM.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202205131523025_UpdateIndicadorVM1.resx">
+      <DependentUpon>202205131523025_UpdateIndicadorVM1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

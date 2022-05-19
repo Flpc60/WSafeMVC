@@ -887,8 +887,8 @@ function UpdateRiesgo() {
 
 function UpdateIntervencion() {
     //TODO
-    riesgoID = 66; //$("#txtRiesgoID").val();
-    aplicaID = 95; //$("#txtIntervenID").val();
+    riesgoID = $("#txtRiesgoID").val();
+    aplicaID = $("#txtIntervenID").val();
 
     var aplicaVM = {
         ID: aplicaID,
@@ -920,54 +920,35 @@ function UpdateIntervencion() {
     });
 }
 
-function ConsultarFrecuencia() {
-    var year = $("#txtYear").val();
-    var periodo = [];
-    var valor = "";
-    for (var i = 0; i <= 12; i++) {
-        valor = "peri" + i;
-        if ($("#valor").is(':checked')) {
-            periodo.Add(i);
-        }
-    }
-
-    $.ajax({
-        type: "GET",
-        url: "/Indicadores/GetFrecuenciaAccidentes",
-        data: { perodo, year },
-        dataType: "json",
-        success: function (result) {
-            $(".tabMediAplica").css("display", "block");
-            mostrarInterven();
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            alert(xhr.status);
-            alert(thrownError);
-        }
+function SetPeriodo() {
+    var Periodo = [];
+    $("input[name='month']:checked").each(function () {
+        Periodo.push(this.value);
     });
-}
+    $("#txtPeriodo").val(Periodo);
+    return Periodo;
+};
 
-function ConsultarSeveridad() {
-    var year = $("#txtYear").val();
-    var periodo = [];
-    var valor = "";
-    for (var i = 0; i <= 12; i++) {
-        valor = "peri" + i;
-        if ($("#valor").is(':checked')) {
-            periodo.Add(i);
-        }
-    }
-
+function ConsultarFrecuencia() {
+    //TODO
+    var Year = $("#txtYear").val();
+    var Periodo = SetPeriodo();
     $.ajax({
+        url: "/Indicadores/Details",
         type: "POST",
-        url: "/Indicadores/GetSeveridadAccidentes",
-        data: { perodo, year },
-        dataType: "json",
-        success: function (result) {
-            $(".tabMediAplica").css("display", "block");
-            mostrarInterven();
+        data: {
+            periodo: Periodo,
+            year: Year
         },
-        error: function (xhr, ajaxOptions, thrownError) {
+        dataType: "json",
+        traditional: true,
+        success: function (data) {
+            //var url = "/Indicadores/Details";
+            //$.get(url, data, function (data) {
+            //    $("#rData").html(data);
+            //});
+        },
+        error: function (response) {
             alert(xhr.status);
             alert(thrownError);
         }
