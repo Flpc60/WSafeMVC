@@ -2,7 +2,7 @@
 @using System.Web.Mvc.Html;
 
 @{
-    ViewBag.Title = "GESTIONAR ACCIONES CORRECTIVAS, PREVENTIVAS Y/O DE MEJORA";
+    var title = "GESTIONAR ACCIONES CORRECTIVAS, PREVENTIVAS Y/O DE MEJORA";
     var accionID = @ViewBag.AccionID;
     var categorias = ViewBag.Categorias;
 }
@@ -17,12 +17,20 @@
 
 <hr />
 <hr />
-<h4>@ViewBag.Title</h4>
+<h4>@title</h4>
 
 <div class="btn-group btn-group-justified">
-    <button type="button" class="btn btn-warning" id="idCausas"  title="doble click para cerrar la ventana"> 1.IDENTIFICAR NO CONFORMIDAD</button>
-    <button type="button" class="btn btn-warning" id="planAcc"   title="doble click para cerrar la ventana"> 2.PLAN DE ACCIÓN</button>
-    <button type="button" class="btn btn-warning" id="seguimAcc" title="doble click para cerrar la ventana"> 3.SEGUIMIENTO</button>
+    <div class="row">
+        <div class="col-md-4">
+            <button type="button" class="btn btn-warning" id="idCausas" title="doble click para cerrar la ventana"> 1. IDENTIFICAR NO CONFORMIDAD</button>
+        </div>
+        <div class="col-md-4">
+            <button type="button" class="btn btn-warning" id="planAcc" title="doble click para cerrar la ventana"> 2. PLAN DE ACCIÓN</button>
+        </div>
+        <div class="col-md-4">
+            <button type="button" class="btn btn-warning" id="seguimAcc" title="doble click para cerrar la ventana"> 3. SEGUIMIENTO</button>
+        </div>
+    </div>
 </div>
 
 

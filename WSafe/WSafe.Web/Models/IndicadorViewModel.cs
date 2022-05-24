@@ -26,5 +26,6 @@ namespace WSafe.Web.Models
         public string Periodicidad { get; set; }
         public IEnumerable<IndicadorDetallesViewModel> Datos { get; set; }
         public string Imagen { get; set; }
+        public string Titulo { get; set; }
     }
 }

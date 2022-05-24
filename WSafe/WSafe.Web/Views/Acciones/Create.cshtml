@@ -1,57 +1,61 @@
 ﻿@model WSafe.Web.Models.AccionViewModel
 
 @{
-    ViewBag.Title = "Create";
+    var title = "GESTIONAR ACCIONES CORRECTIVAS, PREVENTIVAS Y/O DE MEJORA";
 }
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
 <style>
     .tabIdCausas, .tabPlanAcc, .tabSeguimAcc {
         display: none;
     }
 </style>
+<hr />
+<hr />
+<h4>@title</h4>
+<div class="row">
+    <div class="col-md-4">
+        <button type="button" class="btn btn-warning" id="idCausas" title="doble click para cerrar la ventana"> 1. IDENTIFICAR NO CONFORMIDAD</button>
+    </div>
+    <div class="col-md-4">
+        <button type="button" class="btn btn-warning" id="planAcc" title="doble click para cerrar la ventana"> 2. PLAN DE ACCIÓN</button>
+    </div>
+    <div class="col-md-4">
+        <button type="button" class="btn btn-warning" id="seguimAcc" title="doble click para cerrar la ventana"> 3. SEGUIMIENTO</button>
+    </div>
+</div>
+<hr />
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <hr />
-    <hr />
-    <h4>ACCIONES CORRECTIVAS, PREVENTIVAS Y DE MEJORA</h4>
-    <div class="btn-group btn-group-justified">
-        <button type="button" class="btn btn-warning" id="idCausas" title="doble click para cerrar la ventana"> 1. IDENTIFICAR NO CONFORMIDAD</button>
-        <button type="button" class="btn btn-warning" id="planAcc" title="doble click para cerrar la ventana"> 2. PLAN DE ACCIÓN</button>
-        <button type="button" class="btn btn-warning" id="seguimAcc" title="doble click para cerrar la ventana"> 3. SEGUIMIENTO</button>
-    </div>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <div class="tabIdCausas">
-        <input type="hidden" id="txtAccionID" name="txtAccionID" />
-        @Html.Partial("_EditarNoConformidad")
+        <div class="tabIdCausas">
+            <input type="hidden" id="txtAccionID" name="txtAccionID" />
+            @Html.Partial("_EditarNoConformidad")
 
-        <div class="col-md-offset-2 col-md-4">
-            <button type="button" class="btn btn-success" onclick="AddAccion()">Agregar</button>
+            <div class="col-md-offset-2 col-md-4">
+                <button type="button" class="btn btn-success" onclick="AddAccion()">Agregar</button>
+            </div>
+        </div>
+        <div class="tabPlanAcc">
+            @Html.Partial("_EditarPlanAcc")
+            <input type="hidden" id="txtAccionID" name="txtAccionID" />
+            <div class="col-md-offset-2 col-md-4">
+                <button type="button" class="btn btn-success" onclick="AddPlanAccion()">Agregar</button>
+            </div>
+        </div>
+        <div class="tabSeguimAcc">
+            @Html.Partial("_EditarSigueAcc")
+            <input type="hidden" id="txtAccionID" name="txtAccionID" />
+            <div class="col-md-offset-2 col-md-4">
+                <button type="button" class="btn btn-success" onclick="AddSeguiAcc()">Agregar</button>
+            </div>
+
         </div>
     </div>
-    <div class="tabPlanAcc">
-        @Html.Partial("_EditarPlanAcc")
-        <input type="hidden" id="txtAccionID" name="txtAccionID"/>
-        <div class="col-md-offset-2 col-md-4">
-            <button type="button" class="btn btn-success" onclick="AddPlanAccion()">Agregar</button>
-        </div>
-    </div>
-    <div class="tabSeguimAcc">
-        @Html.Partial("_EditarSigueAcc")
-        <input type="hidden" id="txtAccionID" name="txtAccionID" />
-        <div class="col-md-offset-2 col-md-4">
-            <button type="button" class="btn btn-success" onclick="AddSeguiAcc()">Agregar</button>
-        </div>
-
-    </div>
-</div>
 }
 
 <div>
@@ -63,7 +67,7 @@
 
 @section Scripts
 {
-    <script>
+    <script type="text/javascript">
         $.ajaxSetup({
 
             error: function (jqXHR, textStatus, errorThrown) {

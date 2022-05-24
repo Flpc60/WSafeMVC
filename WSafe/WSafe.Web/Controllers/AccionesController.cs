@@ -162,7 +162,7 @@ namespace WSafe.Web.Controllers
             {
                 _empresaContext.PlanesAccion.Add(result);
                 await _empresaContext.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return Json(result, JsonRequestBehavior.AllowGet);
             }
             return Json(model, JsonRequestBehavior.AllowGet);
         }
@@ -196,7 +196,7 @@ namespace WSafe.Web.Controllers
             {
                 _empresaContext.SeguimientosAccion.Add(seguimientoAccion);
                 await _empresaContext.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return Json(model, JsonRequestBehavior.AllowGet);
             }
             return Json(seguimientoAccion, JsonRequestBehavior.AllowGet);
         }

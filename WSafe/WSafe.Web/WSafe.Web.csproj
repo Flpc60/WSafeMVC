@@ -84,6 +84,9 @@
     <Reference Include="Jint, Version=0.9.2.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\itextsharp.xfaworker.5.5.13.2\lib\net40\Jint.dll</HintPath>
     </Reference>
+    <Reference Include="jQuery.Validation.Unobtrusive.Native, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\jQuery.Validation.Unobtrusive.Native.MVC4.1.1.1.0\lib\net45\jQuery.Validation.Unobtrusive.Native.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
@@ -355,6 +358,18 @@
     <Compile Include="Migrations\202205131523025_UpdateIndicadorVM1.Designer.cs">
       <DependentUpon>202205131523025_UpdateIndicadorVM1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202205211617094_UpdateIndicadorVM2.cs" />
+    <Compile Include="Migrations\202205211617094_UpdateIndicadorVM2.Designer.cs">
+      <DependentUpon>202205211617094_UpdateIndicadorVM2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202205242130381_UpdateAccionVM.cs" />
+    <Compile Include="Migrations\202205242130381_UpdateAccionVM.Designer.cs">
+      <DependentUpon>202205242130381_UpdateAccionVM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202205242210545_UpdateAccionVM1.cs" />
+    <Compile Include="Migrations\202205242210545_UpdateAccionVM1.Designer.cs">
+      <DependentUpon>202205242210545_UpdateAccionVM1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\IntervencionVM.cs" />
     <Compile Include="Models\MatrizRiesgosVM.cs" />
@@ -469,6 +484,8 @@
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -568,6 +585,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202205131523025_UpdateIndicadorVM1.resx">
       <DependentUpon>202205131523025_UpdateIndicadorVM1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205211617094_UpdateIndicadorVM2.resx">
+      <DependentUpon>202205211617094_UpdateIndicadorVM2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205242130381_UpdateAccionVM.resx">
+      <DependentUpon>202205242130381_UpdateAccionVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205242210545_UpdateAccionVM1.resx">
+      <DependentUpon>202205242210545_UpdateAccionVM1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

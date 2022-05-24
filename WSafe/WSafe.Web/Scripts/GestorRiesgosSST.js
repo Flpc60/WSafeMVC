@@ -403,7 +403,7 @@ function DeletePlan(id) {
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
-        async: true,                                               // si es asincrónico o no
+        async: true,                                             // si es asincrónico o no
         success: function (result) {
             var text = "";
             text += "Esta seguro de querer borrar este registro ? :\n\n";
@@ -927,30 +927,4 @@ function SetPeriodo() {
     });
     $("#txtPeriodo").val(Periodo);
     return Periodo;
-};
-
-function ConsultarFrecuencia() {
-    //TODO
-    var Year = $("#txtYear").val();
-    var Periodo = SetPeriodo();
-    $.ajax({
-        url: "/Indicadores/Details",
-        type: "POST",
-        data: {
-            periodo: Periodo,
-            year: Year
-        },
-        dataType: "json",
-        traditional: true,
-        success: function (data) {
-            //var url = "/Indicadores/Details";
-            //$.get(url, data, function (data) {
-            //    $("#rData").html(data);
-            //});
-        },
-        error: function (response) {
-            alert(xhr.status);
-            alert(thrownError);
-        }
-    });
 }
