@@ -3,9 +3,12 @@
 @{
     var titulo = ViewBag.Titulo;
     var image = Model.Imagen;
-    var periodo = ViewBag.Periodo;
+    var periodo = ViewBag.txtPeriodo;
     var year = ViewBag.Year;
     var ahora = DateTime.Now;
+    var nombre = Model.Nombre;
+    var file = nombre.Replace(" ", String.Empty).ToUpper()+ ".PDF";
+    var id = ViewBag.id;
 }
 
 <hr />
@@ -105,7 +108,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        @Html.ActionLink("Descargar PDF", "PrintIndicadorToPdf", new { @class = "glyphicon glyphicon-plus", Periodo = periodo, year = year },
+        @Html.ActionLink("Descargar PDF", "GenerateIndicadorToPdf", new { id = id, year = year, pdf = file},
         new { @class = "btn btn-info btn-lg active" })
     </div>
 </div>

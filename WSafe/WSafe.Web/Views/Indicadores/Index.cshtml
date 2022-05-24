@@ -1,11 +1,11 @@
 ﻿@{
     ViewBag.Title = "Sistema de Gestión de la Seguridad y Salud en el Trabajo";
-    var ahora = DateTime.Now.Year;
     var proporcion = ViewBag.txtProporcion;
     var incidentes = ViewBag.txtIncidentes;
     var ausentismo = ViewBag.txtAusentismos;
     var mortales = ViewBag.txtMortales;
     var accidentes = ViewBag.txtAccidentes;
+    var ahora = ViewBag.txtYear;
 }
 
 <div class="container">
@@ -19,33 +19,6 @@
             SELECCIONE PERIODO :
             <input type="number" id="txtYear" name="year" maxlength="4" min="2010" max="@ahora" value="@ahora"/>
         </label>
-    </div>
-    <br />
-    <div style="display:inline; background-color:green; color: white; width:20px; padding:20px">
-        <input type="checkbox" id="peri1" name="month" value="1">
-        <label for="peri1"> ENERO</label>
-        <input type="checkbox" id="peri2" name="month" value="2">
-        <label for="peri2"> FEBRERO</label>
-        <input type="checkbox" id="peri3" name="month" value="3">
-        <label for="peri3"> MARZO</label>
-        <input type="checkbox" id="peri4" name="month" value="4">
-        <label for="peri4"> ABRIL</label>
-        <input type="checkbox" id="peri5" name="month" value="5">
-        <label for="peri5"> MAYO</label>
-        <input type="checkbox" id="peri6" name="month" value="6">
-        <label for="peri6"> JUNIO</label>
-        <input type="checkbox" id="peri7" name="month" value="7">
-        <label for="peri7"> JULIO</label>
-        <input type="checkbox" id="peri8" name="month" value="8">
-        <label for="peri8"> AGOSTO</label>
-        <input type="checkbox" id="peri9" name="month" value="9">
-        <label for="peri9"> SEPTIEMBRE</label>
-        <input type="checkbox" id="peri10" name="month" value="10">
-        <label for="peri10"> OCTUBRE</label>
-        <input type="checkbox" id="peri11" name="month" value="11">
-        <label for="peri11"> NOVIEMBRE</label>
-        <input type="checkbox" id="peri12" name="month" value="12">
-        <label for="peri12"> DICIEMBRE</label>
     </div>
 </div>
 
@@ -74,15 +47,16 @@
     <hr />
     <div class="row">
         <div class="col-md-4">
-            @Html.ActionLink("FRECUENCIA ACCIDENTALIDAD", "Details", new { @id = "frecuencia"},
-                new { @class = "btn btn-warning" })
-            <!---<button type="button" id="btnLoadFrecuencia" class="btn btn-warning" onclick="ConsultarFrecuencia()"><i class="fa fa-search"></i> FRECUENCIA ACCIDENTALIDAD</button>------>
+            @Html.ActionLink("FRECUENCIA ACCIDENTALIDAD", "Details", "Indicadores", new { id = 1, year = ahora },
+            new { @class = "btn btn-warning btn-lg active" });
         </div>
         <div class="col-md-4">
-            <button type="button" id="btnLoadSeveridad" class="btn btn-warning" onclick="ConsultarSeveridad()"><i class="fa fa-search"></i> SEVERIDAD ACCIDENTALIDAD</button>
+            @Html.ActionLink("SEVERIDAD ACCIDENTALIDAD", "Details", "Indicadores", new { id = 2, year = ahora },
+            new { @class = "btn btn-warning btn-lg active" });
         </div>
         <div class="col-md-4">
-            <button type="button" id="btnLoadAccidentabilidad" class="btn btn-warning" onclick="ConsultarAccidentabilidad()"><i class="fa fa-search"></i> ACCIDENTABILIDAD</button>
+            @Html.ActionLink("SEVERIDAD ACCIDENTALIDAD", "Details", "Indicadores", new { id = 2, year = ahora },
+            new { @class = "btn btn-warning btn-lg active" });
         </div>
     </div>
 </div>
@@ -102,31 +76,32 @@
 @section Scripts
 {
     <script type="text/javascript">
-        $(document).ready(function () {
-            $("#frecuencia").click(function () {
-                var year = $("#txtYear").val();
-                var periodo = SetPeriodo();
-                $.ajax({
-                    url: '@Url.Action("Details","Indicadores")',
-                    data: {
-                        periodo: periodo,
-                        year: year
-                    },
-                    type: 'GET',
-                    contentType: "application/json;charset=UTF-8",
-                    dataType: "json",
-                    async: true,
-                    traditional: true,
-                    success: function (data) {
-                    },
-                    error: function (response) {
-                        alert(xhr.status);
-                        alert(thrownError);
-                    }
-                });
-
+        $(document).on('click', '.frecuencia', function (e) {
+            e.preventDefault();
+            var year = $("#txtYear").val();
+            var periodo = [];
+            $("input[name='month']:checked").each(function () {
+                periodo.push(this.value);
             });
-
+            $("#txtPeriodo").val(Periodo);
         });
+
+        var model = @Model;
+        model.ID = 1;
+        model.Year = year;
+        model.Periodo = periodo;
+
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("Details","Indicadores")' + model,
+            dataType: "text",
+            success: function (data) {
+            },
+            error: function (response) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        });
+
     </script>
 }

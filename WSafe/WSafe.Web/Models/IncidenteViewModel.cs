@@ -33,17 +33,17 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Fecha reporte")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime FechaReporte { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Fecha incidente")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
         private DateTime fechaIncidente { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Fecha incidente")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime FechaIncidente
         {
             get
@@ -75,42 +75,59 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string Informante { get; set; }
         [Display(Name = "Naturaleza lesión")]
+        [MaxLength(100)]
         public string NaturalezaLesion { get; set; }
         [Display(Name = "Partes afectadas")]
+        [MaxLength(100)]
         public string PartesAfectadas { get; set; }
         [Display(Name = "Tipo incidente")]
+        [MaxLength(50)]
         public string TipoIncidente { get; set; }
         [Display(Name = "Agente lesión")]
+        [MaxLength(100)]
         public string AgenteLesion { get; set; }
         [Display(Name = "Actos inseguros")]
+        [MaxLength(100)]
         public string ActosInseguros { get; set; }
         [Display(Name = "Condiciones inseguras")]
+        [MaxLength(100)]
         public string CondicionesInsegura { get; set; }
         [Display(Name = "Tipo daño")]
+        [MaxLength(100)]
         public string TipoDaño { get; set; }
         [Display(Name = "Maquinaria, Proceso")]
+        [MaxLength(100)]
         public string Afectacion { get; set; }
         [Display(Name = "Daños ocasionados")]
+        [MaxLength(100)]
         public string DañosOcasionados { get; set; }
         [Display(Name = "Tipo vehiculo")]
+        [MaxLength(20)]
         public string TipoVehiculo { get; set; }
         [Display(Name = "Marca vehiculo")]
+        [MaxLength(20)]
         public string MarcaVehiculo { get; set; }
         [Display(Name = "Modelo vehiculo")]
+        [MaxLength(20)]
         public string ModeloVehiculo { get; set; }
         [Display(Name = "Kilometraje vehiculo")]
         public int KilometrajeVehiculo { get; set; }
         [Display(Name = "Costos estimados")]
         public decimal CostosEstimados { get; set; }
         [Display(Name = "Descripción incidente")]
+        [MaxLength(100)]
         public string DescripcionIncidente { get; set; }
         [Display(Name = "Cómo evitarse")]
+        [MaxLength(20)]
         public string EvitarIncidente { get; set; }
         [Display(Name = "Acciones inmediatas")]
+        [MaxLength(20)]
         public string AccionesInmediatas { get; set; }
         [Display(Name = "Comentarios Adicionales")]
+        [MaxLength(20)]
         public string ComentariosAdicionales { get; set; }
         [Display(Name = "Atención brindada")]
+        [MaxLength(20)]
         public string AtencionBrindada { get; set; }
         [Display(Name = "Investigadores")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
