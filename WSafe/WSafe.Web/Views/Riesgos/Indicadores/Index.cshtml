@@ -1,0 +1,107 @@
+﻿@{
+    ViewBag.Title = "Sistema de Gestión de la Seguridad y Salud en el Trabajo";
+    var proporcion = ViewBag.txtProporcion;
+    var incidentes = ViewBag.txtIncidentes;
+    var ausentismo = ViewBag.txtAusentismos;
+    var mortales = ViewBag.txtMortales;
+    var accidentes = ViewBag.txtAccidentes;
+    var ahora = ViewBag.txtYear;
+}
+
+<div class="container">
+    <hr />
+    <hr />
+    <h2 style="background-color: blue; color: white">Dashboard Indicadores y acciones</h2>
+    <hr />
+
+    <div class="form-control">
+        <label class="form-horizontal">
+            SELECCIONE PERIODO :
+            <input type="number" id="txtYear" name="year" maxlength="4" min="2010" max="@ahora" value="@ahora"/>
+        </label>
+    </div>
+</div>
+
+<div class="container">
+    <hr />
+    <div class="row" style="background-color:grey; color:white ;font-size:15px; padding:15px">
+        <div class="col-md-2">
+            <p id="txtMortales">ACCIDENTES MORTALES : @mortales</p>
+        </div>
+        <div class="col-md-3">
+            <p id="txtAccidentes">ACCIDENTES LABORALES : @accidentes</p>
+        </div>
+        <div class="col-md-2">
+            <p id="txtProporcion">PROPORCIÓN ACCIDENTES MORTALES : @proporcion</p>
+        </div>
+        <div class="col-md-2">
+            <p id="txtIncidentes">INCIDNENTES : @incidentes</p>
+        </div>
+        <div class="col-md-3">
+            <p id="txtAusentismos">AUSENTISMO LABORAL : @ausentismo DIAS</p>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            @Html.ActionLink("FRECUENCIA ACCIDENTALIDAD", "Details", "Indicadores", new { id = 1, year = ahora },
+            new { @class = "btn btn-warning btn-lg active" });
+        </div>
+        <div class="col-md-4">
+            @Html.ActionLink("SEVERIDAD ACCIDENTALIDAD", "Details", "Indicadores", new { id = 2, year = ahora },
+            new { @class = "btn btn-warning btn-lg active" });
+        </div>
+        <div class="col-md-4">
+            @Html.ActionLink("SEVERIDAD ACCIDENTALIDAD", "Details", "Indicadores", new { id = 2, year = ahora },
+            new { @class = "btn btn-warning btn-lg active" });
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <button type="button" id="btnLoadEjecutadas" class="btn btn-info" onclick="ConsultarAccionesEjecutadas()"><i class="fa fa-search"></i> PROPORCIÓN ACCIONES EJECUTADAS</button>
+        </div>
+        <div class="col-md-4">
+            <button type="button" id="btnLoadInfo" class="btn btn-success" onclick="ConsultarAccionesEfectivas()"><i class="fa fa-search"></i> PROPORCIÓN ACCIONES EFECTIVAS</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).on('click', '.frecuencia', function (e) {
+            e.preventDefault();
+            var year = $("#txtYear").val();
+            var periodo = [];
+            $("input[name='month']:checked").each(function () {
+                periodo.push(this.value);
+            });
+            $("#txtPeriodo").val(Periodo);
+        });
+
+        var model = @Model;
+        model.ID = 1;
+        model.Year = year;
+        model.Periodo = periodo;
+
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("Details","Indicadores")' + model,
+            dataType: "text",
+            success: function (data) {
+            },
+            error: function (response) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        });
+
+    </script>
+}

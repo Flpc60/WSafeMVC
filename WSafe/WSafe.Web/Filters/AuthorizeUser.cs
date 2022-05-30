@@ -26,7 +26,7 @@ namespace WSafe.Web.Filters
             try
             {
                 _usuario = (User)HttpContext.Current.Session["User"];
-                var result = _empresaContext.RoleOperations.Where(ro => ro.RolID == _roleID && ro.OperationID == _operationID).Count();
+                var result = _empresaContext.RoleOperations.Where(ro => ro.RolID == 1 && ro.OperationID == 1).Count();
                 if (result < 1)
                 {
                     operation = _empresaContext.Operations.FirstOrDefault(o => o.ID == _operationID).Name;

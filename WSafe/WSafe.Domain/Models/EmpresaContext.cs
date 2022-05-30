@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Data.Entities.Auditor;
 
