@@ -362,7 +362,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Interpretacion = indicador.Interpretacion,
                 Periodicidad = indicador.Periodicidad,
                 Datos = datos,
-                Imagen = filePathName
+                Imagen = filePathName,
+                Titulo = ("Ficha tecnica indicador " + indicador.Nombre).ToUpper()
             };
             return model;
         }

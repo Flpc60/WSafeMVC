@@ -19,15 +19,15 @@
 <hr />
 <h4>@title</h4>
 
-<div class="btn-group btn-group-justified">
+<div class="container">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-sm-4">
             <button type="button" class="btn btn-warning" id="idCausas" title="doble click para cerrar la ventana"> 1. IDENTIFICAR NO CONFORMIDAD</button>
         </div>
-        <div class="col-md-4">
+        <div class="col-sm-4">
             <button type="button" class="btn btn-warning" id="planAcc" title="doble click para cerrar la ventana"> 2. PLAN DE ACCIÓN</button>
         </div>
-        <div class="col-md-4">
+        <div class="col-sm-4">
             <button type="button" class="btn btn-warning" id="seguimAcc" title="doble click para cerrar la ventana"> 3. SEGUIMIENTO</button>
         </div>
     </div>
@@ -44,8 +44,11 @@
     <input type="hidden" id="txtAccionID" name="txtAccionID" />
     <div class="tabIdCausas">
         @Html.Partial("_EditarNoConformidad")
-        <div class="col-md-offset-2 col-md-4">
-            <button type="button" class="btn btn-success" onclick="UpdateAccion(@ViewBag.AccionID)">Guardar</button>
+        <div class="col-row">
+            <div class="col-sm-6">
+                <button type="button" class="btn btn-success" onclick="UpdateAccion(@ViewBag.AccionID)">Guardar</button>
+                <hr />
+            </div>
         </div>
     </div>
 

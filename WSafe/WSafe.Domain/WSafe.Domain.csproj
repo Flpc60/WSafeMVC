@@ -115,6 +115,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Entities\Action.cs" />
     <Compile Include="Data\Entities\Accidentado.cs" />
     <Compile Include="Data\Entities\Accion.cs" />
     <Compile Include="Data\Entities\Actividad.cs" />
@@ -162,12 +163,14 @@
     <Compile Include="Data\Entities\Operation.cs" />
     <Compile Include="Data\Entities\Peligro.cs" />
     <Compile Include="Data\Entities\PlanAccion.cs" />
+    <Compile Include="Data\Entities\PlanAction.cs" />
     <Compile Include="Data\Entities\Proceso.cs" />
     <Compile Include="Data\Entities\Riesgo.cs" />
     <Compile Include="Data\Entities\Role.cs" />
     <Compile Include="Data\Entities\RoleOperation.cs" />
     <Compile Include="Data\Entities\Seguimiento.cs" />
     <Compile Include="Data\Entities\SeguimientoAccion.cs" />
+    <Compile Include="Data\Entities\SeguimientoAction.cs" />
     <Compile Include="Data\Entities\Tarea.cs" />
     <Compile Include="Data\Entities\TiposIndicador.cs" />
     <Compile Include="Data\Entities\TiposPeriodicidad.cs" />
@@ -232,20 +235,17 @@
     <Compile Include="Services\IRiesgoService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\jquery-1.8.0.intellisense.js" />
-    <Content Include="Scripts\jquery-1.8.0.js" />
-    <Content Include="Scripts\jquery-1.8.0.min.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Images\chart01.jpg" />
+    <Content Include="Images\chart02.jpg" />
+    <Content Include="Images\chart03.jpg" />
+    <Content Include="Images\chart04.jpg" />
+    <Content Include="Images\chart05.jpg" />
+    <Content Include="Images\chart22.jpg" />
+    <Content Include="Images\chart62.jpg" />
+    <Content Include="Images\LogoEntidad.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

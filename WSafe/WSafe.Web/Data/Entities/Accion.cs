@@ -6,7 +6,7 @@ namespace WSafe.Domain.Data.Entities
 {
     public class Accion
     {
-        [Required(ErrorMessage = "El campo {0} es obligatotio")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ZonaID { get; set; }
@@ -19,7 +19,7 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Fecha solicitud")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime FechaSolicitud { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Tipo")]
@@ -32,6 +32,7 @@ namespace WSafe.Domain.Data.Entities
         public FuentesAccion FuenteAccion { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "No conformidad")]
+        [MaxLength(200)]
         public string Descripcion { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Indicador Antes")]
@@ -40,7 +41,7 @@ namespace WSafe.Domain.Data.Entities
         public CategoriasEfectividad EficaciaDespues { get; set; }
         [Display(Name = "Fecha cierre")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime FechaCierre { get; set; }
         [Display(Name = "Efectiva")]
         public bool Efectiva { get; set; }
