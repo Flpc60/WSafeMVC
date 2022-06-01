@@ -23,6 +23,7 @@ namespace WSafe.Domain.Data.Entities
         public CategoriasCausa Causa { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Plan acción")]
+        [MaxLength(100)]
         public string Accion { get; set; }
         [Display(Name = "Trabajador responsable")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
@@ -31,6 +32,7 @@ namespace WSafe.Domain.Data.Entities
         public bool Prioritaria { get; set; }
         [Display(Name = "Costos ejecución")]
         public decimal Costos { get; set; }
+        [MaxLength(100)]
         public string Responsable { get; set; }
 
     }

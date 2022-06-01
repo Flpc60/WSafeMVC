@@ -100,7 +100,7 @@ namespace WSafe.Web.Controllers
             }
             var message = "";
             Accion accion = await _empresaContext.Acciones.FindAsync(id);
-            var planes = _empresaContext.PlanesAccion.Where(p => p.AccionID == id).Count();
+            var planes = _empresaContext.PlanActions.Where(p => p.AccionID == id).Count();
             if (planes != 0)
             {
                 message = "Esta acción tiene planes de acción pendientes por eliminar!!";
@@ -150,18 +150,18 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreatePlanAccion([Bind(Include = "ID, AccionID, FechaInicial, FechaFinal, Causa, Accion, TrabajadorID, Prioritaria, Costos")] PlanAccion model)
+        public async Task<ActionResult> CreatePlanAccion(PlanAction model)
         {
             if (model.AccionID == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            PlanAccion result = await _converterHelper.ToPlanAccionAsync(model);
             if (ModelState.IsValid)
             {
-                _empresaContext.PlanesAccion.Add(result);
-                await _empresaContext.SaveChangesAsync();
+                PlanAction result = await _converterHelper.ToPlanAccionAsync(model);
+                _empresaContext.PlanActions.Add(result);
+                var saved = await _empresaContext.SaveChangesAsync();
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
             return Json(model, JsonRequestBehavior.AllowGet);
@@ -226,7 +226,7 @@ namespace WSafe.Web.Controllers
             var idAccion = _empresaContext.Acciones.OrderByDescending(x => x.ID).First().ID;
             return Json(idAccion, JsonRequestBehavior.AllowGet);
         }
-        // GET: Plan acción/ListarPlanAccion
+        // GET: Plan acción/ListarPlanAction
         [HttpGet]
         public async Task<ActionResult> ListarPlanAccion(int idAccion)
         {
@@ -236,7 +236,7 @@ namespace WSafe.Web.Controllers
             }
 
             //TODO
-            var planes = _empresaContext.PlanesAccion.Where(pa => pa.AccionID == idAccion).ToList();
+            var planes = _empresaContext.PlanActions.Where(pa => pa.AccionID == idAccion).ToList();
             var result = _converterHelper.ToPlanAccionVMList(planes);
 
             return Json(result, JsonRequestBehavior.AllowGet);
@@ -259,13 +259,13 @@ namespace WSafe.Web.Controllers
         [HttpGet]
         public JsonResult UpdatePlanAccion(int ID)
         {
-            var plan = _empresaContext.PlanesAccion.FirstOrDefault(pa => pa.ID == ID);
+            var plan = _empresaContext.PlanActions.FirstOrDefault(pa => pa.ID == ID);
             var model = _converterHelper.ToPlanAccionVM(plan);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public async Task<ActionResult> UpdatePlanAccion([Bind(Include = "ID, AccionID, FechaInicial, FechaFinal, Causa, Accion, TrabajadorID, Prioritaria, Costos")] PlanAccion planAccion)
+        public async Task<ActionResult> UpdatePlanAccion([Bind(Include = "ID, AccionID, FechaInicial, FechaFinal, Causa, Accion, TrabajadorID, Prioritaria, Costos")] PlanAction planAccion)
         {
             if (ModelState.IsValid)
             {
@@ -282,7 +282,7 @@ namespace WSafe.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PlanAccion plan = await _empresaContext.PlanesAccion.FindAsync(id);
+            PlanAction plan = await _empresaContext.PlanActions.FindAsync(id);
             var model = _converterHelper.ToPlanAccionVM(plan);
             if (model == null)
             {
@@ -296,8 +296,8 @@ namespace WSafe.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                PlanAccion accion = await _empresaContext.PlanesAccion.FindAsync(id);
-                _empresaContext.PlanesAccion.Remove(accion);
+                PlanAction accion = await _empresaContext.PlanActions.FindAsync(id);
+                _empresaContext.PlanActions.Remove(accion);
                 await _empresaContext.SaveChangesAsync();
                 return Json(accion, JsonRequestBehavior.AllowGet);
             }

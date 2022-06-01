@@ -7,13 +7,13 @@ namespace WSafe.Web.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddSeguiminetoActionTable : IMigrationMetadata
+    public sealed partial class UpdatePlanAcc3 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddSeguiminetoActionTable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdatePlanAcc3));
         
         string IMigrationMetadata.Id
         {
-            get { return "202205262212499_AddSeguiminetoActionTable"; }
+            get { return "202206011956341_UpdatePlanAcc3"; }
         }
         
         string IMigrationMetadata.Source

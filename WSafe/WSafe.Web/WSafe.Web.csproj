@@ -312,7 +312,6 @@
     <Compile Include="Controllers\IncidentesController.cs" />
     <Compile Include="Controllers\IndicadoresController.cs" />
     <Compile Include="Controllers\RiesgosController.cs" />
-    <Compile Include="Data\Entities\Action.cs" />
     <Compile Include="Data\Entities\Accidentado.cs" />
     <Compile Include="Data\Entities\Auditor\AuditaAccion.cs" />
     <Compile Include="Data\Entities\Auditor\AuditRiesgo.cs" />
@@ -341,7 +340,6 @@
     <Compile Include="Data\Entities\Role.cs" />
     <Compile Include="Data\Entities\RoleOperation.cs" />
     <Compile Include="Data\Entities\SeguimientoAccion.cs" />
-    <Compile Include="Data\Entities\SeguimientoAction.cs" />
     <Compile Include="Data\Entities\TiposIndicador.cs" />
     <Compile Include="Data\Entities\TiposPeriodicidad.cs" />
     <Compile Include="Data\Entities\User.cs" />
@@ -357,25 +355,37 @@
     <Compile Include="Helpers\Implements\ConverterHelper.cs" />
     <Compile Include="Helpers\Implements\GestorHelper.cs" />
     <Compile Include="Helpers\Implements\IndicadorHelper.cs" />
-    <Compile Include="Migrations\202205261757419_AddAccionTable.cs" />
-    <Compile Include="Migrations\202205261757419_AddAccionTable.Designer.cs">
-      <DependentUpon>202205261757419_AddAccionTable.cs</DependentUpon>
+    <Compile Include="Migrations\202205311658504_UpdatePlanAccionTable.cs" />
+    <Compile Include="Migrations\202205311658504_UpdatePlanAccionTable.Designer.cs">
+      <DependentUpon>202205311658504_UpdatePlanAccionTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202205262151199_AddActionTable2.cs" />
-    <Compile Include="Migrations\202205262151199_AddActionTable2.Designer.cs">
-      <DependentUpon>202205262151199_AddActionTable2.cs</DependentUpon>
+    <Compile Include="Migrations\202205311751367_UpdateSeguimientoTable.cs" />
+    <Compile Include="Migrations\202205311751367_UpdateSeguimientoTable.Designer.cs">
+      <DependentUpon>202205311751367_UpdateSeguimientoTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202205262206024_AddPlanActionTable.cs" />
-    <Compile Include="Migrations\202205262206024_AddPlanActionTable.Designer.cs">
-      <DependentUpon>202205262206024_AddPlanActionTable.cs</DependentUpon>
+    <Compile Include="Migrations\202205311802412_UpdateSeguimientoTable2.cs" />
+    <Compile Include="Migrations\202205311802412_UpdateSeguimientoTable2.Designer.cs">
+      <DependentUpon>202205311802412_UpdateSeguimientoTable2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202205262212499_AddSeguiminetoActionTable.cs" />
-    <Compile Include="Migrations\202205262212499_AddSeguiminetoActionTable.Designer.cs">
-      <DependentUpon>202205262212499_AddSeguiminetoActionTable.cs</DependentUpon>
+    <Compile Include="Migrations\202206011550205_UpdatePlanAcc.cs" />
+    <Compile Include="Migrations\202206011550205_UpdatePlanAcc.Designer.cs">
+      <DependentUpon>202206011550205_UpdatePlanAcc.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202205302204225_AddAccionTable3.cs" />
-    <Compile Include="Migrations\202205302204225_AddAccionTable3.Designer.cs">
-      <DependentUpon>202205302204225_AddAccionTable3.cs</DependentUpon>
+    <Compile Include="Migrations\202206011713352_UpdatePlanAcc2.cs" />
+    <Compile Include="Migrations\202206011713352_UpdatePlanAcc2.Designer.cs">
+      <DependentUpon>202206011713352_UpdatePlanAcc2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206011956341_UpdatePlanAcc3.cs" />
+    <Compile Include="Migrations\202206011956341_UpdatePlanAcc3.Designer.cs">
+      <DependentUpon>202206011956341_UpdatePlanAcc3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206012054457_AddPlanAction1.cs" />
+    <Compile Include="Migrations\202206012054457_AddPlanAction1.Designer.cs">
+      <DependentUpon>202206012054457_AddPlanAction1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206012133435_AddPlanAction2.cs" />
+    <Compile Include="Migrations\202206012133435_AddPlanAction2.Designer.cs">
+      <DependentUpon>202206012133435_AddPlanAction2.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\IntervencionVM.cs" />
@@ -592,20 +602,29 @@
     <EmbeddedResource Include="Migrations\202112012202348_InitialCreate.resx">
       <DependentUpon>202112012202348_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202205261757419_AddAccionTable.resx">
-      <DependentUpon>202205261757419_AddAccionTable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202205311658504_UpdatePlanAccionTable.resx">
+      <DependentUpon>202205311658504_UpdatePlanAccionTable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202205262151199_AddActionTable2.resx">
-      <DependentUpon>202205262151199_AddActionTable2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202205311751367_UpdateSeguimientoTable.resx">
+      <DependentUpon>202205311751367_UpdateSeguimientoTable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202205262206024_AddPlanActionTable.resx">
-      <DependentUpon>202205262206024_AddPlanActionTable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202205311802412_UpdateSeguimientoTable2.resx">
+      <DependentUpon>202205311802412_UpdateSeguimientoTable2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202205262212499_AddSeguiminetoActionTable.resx">
-      <DependentUpon>202205262212499_AddSeguiminetoActionTable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202206011550205_UpdatePlanAcc.resx">
+      <DependentUpon>202206011550205_UpdatePlanAcc.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202205302204225_AddAccionTable3.resx">
-      <DependentUpon>202205302204225_AddAccionTable3.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202206011713352_UpdatePlanAcc2.resx">
+      <DependentUpon>202206011713352_UpdatePlanAcc2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206011956341_UpdatePlanAcc3.resx">
+      <DependentUpon>202206011956341_UpdatePlanAcc3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206012054457_AddPlanAction1.resx">
+      <DependentUpon>202206012054457_AddPlanAction1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206012133435_AddPlanAction2.resx">
+      <DependentUpon>202206012133435_AddPlanAction2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
