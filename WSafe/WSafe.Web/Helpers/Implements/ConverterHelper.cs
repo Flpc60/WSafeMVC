@@ -106,11 +106,11 @@ namespace WSafe.Domain.Helpers.Implements
                 Actividades = _comboHelper.GetComboActividades(),
                 Tareas = _comboHelper.GetComboTareas(),
                 Trabajadores = _comboHelper.GetComboTrabajadores(),
-                Planes = new List<PlanAccion>(),
+                Planes = new List<PlanAction>(),
                 Seguimientos = new List<SeguimientoAccion>()
             };
 
-            model.Planes.Add(new PlanAccion());
+            model.Planes.Add(new PlanAction());
             model.Seguimientos.Add(new SeguimientoAccion());
             return model;
         }
@@ -139,12 +139,12 @@ namespace WSafe.Domain.Helpers.Implements
                 FechaCierre = accion.FechaCierre,
                 Efectiva = accion.Efectiva,
                 Estado = accion.Estado,
-                Planes = new List<PlanAccion>(),
+                Planes = new List<PlanAction>(),
                 Seguimientos = new List<SeguimientoAccion>(),
                 FechaSolicitudStr = accion.FechaSolicitud.ToString("yyyy-MM-dd"),
                 FechaCierreStr = accion.FechaCierre.ToString("yyyy-MM-dd")
             };
-            model.Planes.Add(new PlanAccion() { AccionID = accion.ID });
+            model.Planes.Add(new PlanAction() { AccionID = accion.ID });
             model.Seguimientos.Add(new SeguimientoAccion() { AccionID = accion.ID });
             return model;
         }
@@ -480,7 +480,7 @@ namespace WSafe.Domain.Helpers.Implements
 
             return result;
         }
-        public PlanAccionVM ToPlanAccionVM(PlanAccion plan)
+        public PlanAccionVM ToPlanAccionVM(PlanAction plan)
         {
             var result = new PlanAccionVM
             {
@@ -502,10 +502,9 @@ namespace WSafe.Domain.Helpers.Implements
         {
             throw new NotImplementedException();
         }
-        public async Task<PlanAccion> ToPlanAccionAsync(PlanAccion plan)
+        public async Task<PlanAction> ToPlanAccionAsync(PlanAction plan)
         {
-
-            var result = new PlanAccion
+            var result = new PlanAction
             {
                 ID = plan.ID,
                 AccionID = plan.AccionID,
@@ -515,7 +514,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Accion = plan.Accion,
                 TrabajadorID = plan.TrabajadorID,
                 Prioritaria = plan.Prioritaria,
-                Costos = plan.Costos
+                Costos = plan.Costos,
+                Responsable = plan.Responsable
             };
             return result;
         }
@@ -553,7 +553,7 @@ namespace WSafe.Domain.Helpers.Implements
             throw new NotImplementedException();
         }
 
-        public IEnumerable<PlanAccionVM> ToPlanAccionVMList(IEnumerable<PlanAccion> plan)
+        public IEnumerable<PlanAccionVM> ToPlanAccionVMList(IEnumerable<PlanAction> plan)
         {
             var model = new List<PlanAccionVM>();
             foreach (var item in plan)

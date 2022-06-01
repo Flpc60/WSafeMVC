@@ -664,7 +664,8 @@ function AddPlanAccion() {
         Accion: $("#accion").val(),
         TrabajadorID: $("#idRespons").val(),
         Prioritaria: $("#idPrioritaria").val(),
-        Costos: $("#idCostos").val()
+        Costos: $("#idCostos").val(),
+        Responsable: " "
     };
 
     $.ajax({

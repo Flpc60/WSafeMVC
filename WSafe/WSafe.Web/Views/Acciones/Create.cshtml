@@ -17,10 +17,10 @@
         <button type="button" class="btn btn-warning" id="idCausas" title="doble click para cerrar la ventana"> 1. IDENTIFICAR NO CONFORMIDAD</button>
     </div>
     <div class="col-md-4">
-        <button type="button" class="btn btn-warning" id="planAcc" title="doble click para cerrar la ventana"> 2. PLAN DE ACCIÓN</button>
+        <button type="button" class="btn btn-warning" id="planAcc" title="doble click para cerrar la ventana"> 2. PLANES DE ACCIÓN</button>
     </div>
     <div class="col-md-4">
-        <button type="button" class="btn btn-warning" id="seguimAcc" title="doble click para cerrar la ventana"> 3. SEGUIMIENTO</button>
+        <button type="button" class="btn btn-warning" id="seguimAcc" title="doble click para cerrar la ventana"> 3. SEGUIMIENTOS</button>
     </div>
 </div>
 <hr />
@@ -35,11 +35,13 @@
         <div class="tabIdCausas">
             <input type="hidden" id="txtAccionID" name="txtAccionID" />
             @Html.Partial("_EditarNoConformidad")
-
-            <div class="col-md-offset-2 col-md-4">
-                <button type="button" class="btn btn-success" onclick="AddAccion()">Agregar</button>
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-success" onclick="AddAccion()">Agregar</button>
+                </div>
             </div>
         </div>
+
         <div class="tabPlanAcc">
             @Html.Partial("_EditarPlanAcc")
             <input type="hidden" id="txtAccionID" name="txtAccionID" />

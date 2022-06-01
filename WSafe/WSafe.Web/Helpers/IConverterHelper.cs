@@ -24,13 +24,13 @@ namespace WSafe.Domain.Helpers
         AccidentadoVM ToLesionadoViewModel(Trabajador lesionado);
         IEnumerable<AplicacionVM> ToIntervencionesViewModel(IEnumerable<Aplicacion> listaAplicacion);
         Task<Aplicacion> ToAplicacionAsync(AplicacionVM model, bool isNew);
-        PlanAccionVM ToPlanAccionVM(PlanAccion planAccion);
+        PlanAccionVM ToPlanAccionVM(PlanAction planAccion);
         PlanAccionVM ToPlanAccionVMNew();
-        Task<PlanAccion> ToPlanAccionAsync(PlanAccion plan);
+        Task<PlanAction> ToPlanAccionAsync(PlanAction plan);
         SeguimientoAccionVM ToSeguimientoAccionVM(SeguimientoAccion seguimientoAccion);
         SeguimientoAccionVM ToSeguimientoAccionVMNew();
         Task<SeguimientoAccion> ToSeguimientoAccionAsync(SeguimientoAccion model);
-        IEnumerable<PlanAccionVM> ToPlanAccionVMList(IEnumerable<PlanAccion> plan);
+        IEnumerable<PlanAccionVM> ToPlanAccionVMList(IEnumerable<PlanAction> plan);
         IEnumerable<SeguimientoAccionVM> ToSeguimientoAccionVMList(IEnumerable<SeguimientoAccion> accion);
         IEnumerable<AccionViewModel> ToAccionVMList(IEnumerable<Accion> accion);
         _DetailsAccionVM ToAccionVMFull(Accion accion, int id);
