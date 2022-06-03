@@ -35,7 +35,7 @@
         @Html.Partial("_EditarNoConformidad")
         <div class="row">
             <div class="col-md-12">
-                <button type="button" class="btn btn-success" onclick="AddAccion()">Agregar</button>
+                <button type="button" id="btnAddAction" class="btn btn-success" onclick="AddAccion()">Agregar</button>
             </div>
         </div>
     </div>
@@ -47,18 +47,22 @@
     </div>
     <div class="tabAddPlanAcc">
         @Html.Partial("_ModificaPlan")
-        <div class="col-md-offset-2 col-md-4">
-            <button type="button" class="btn btn-primary" onclick="AddPlanAccion()">Agregar</button>
+        <hr />
+        <div class="row">
+            <div class="col-md-12">
+                <button type="button" id="btnAddPlan" class="btn btn-primary" onclick="AddPlanAccion()">Adicionar</button>
+            </div>
         </div>
     </div>
 
 </div>
 }
 
+<hr />
 <div>
     <div class="tabCerrar">
-        @Html.ActionLink("Cerrar", "Index", new { @class = "glyphicon glyphicon-plus" },
-        new { @class = "btn btn-warning btn-lg active" })
+        @Html.ActionLink("Cerrar", "Index", new { @class = "glyphicon glyphicon-arrow-left" },
+        new { @class = "btn btn-success btn-lg active" })
     </div>
 </div>
 
