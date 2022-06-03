@@ -2,6 +2,7 @@
 @using System.Web.Mvc.Html;
 
 @{
+    //TODO
     var title = "GESTIONAR ACCIONES CORRECTIVAS, PREVENTIVAS Y/O DE MEJORA";
     var accionID = ViewBag.AccionID;
     var categorias = ViewBag.Categorias;
@@ -11,11 +12,9 @@
 
 <style>
 
-    .tabIdCausas, .tabGesPlanAcc, .tabGesSeguiPlanAcc, .tabPlanAcc, .tabSeguimAcc, .tabSeguimPlanAcc, .tabAddPlanAcc, .tabAddSeguimAcc
-    {
+    .tabIdCausas, .tabGesPlanAcc, .tabGesSeguiPlanAcc, .tabPlanAcc, .tabSeguimAcc, .tabSeguimPlanAcc, .tabAddPlanAcc, .tabAddSeguimAcc {
         display: none;
     }
-
 </style>
 
 <hr />
@@ -24,14 +23,12 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-md-9">
             <button type="button" class="btn btn-warning" id="idCausas" title="doble click para cerrar la ventana"> 1. IDENTIFICAR NO CONFORMIDAD</button>
-        </div>
-        <div class="col-sm-4">
             <button type="button" class="btn btn-warning" id="planAcc" title="doble click para cerrar la ventana"> 2. PLAN DE ACCIÓN</button>
-        </div>
-        <div class="col-sm-4">
             <button type="button" class="btn btn-warning" id="seguimAcc" title="doble click para cerrar la ventana"> 3. SEGUIMIENTO</button>
+        </div>
+        <div class="col-md-3">
         </div>
     </div>
 </div>
@@ -61,19 +58,17 @@
         @Html.Partial("_BorrarPlanAcc")
     </div>
 
-    <div class="tabPlanAcc">
+    <div class="tabAddPlanAcc">
         <input type="hidden" id="txtPlanAccionID" name="txtPlanAccionID" />
         @Html.Partial("_ModificaPlan")
-        <div class="col-md-offset-2 col-md-4">
-            <hr />
-            <button type="button" class="btn btn-primary" onclick="UpdatePlanAcc()">Guardar</button>
-        </div>
-    </div>
-
-    <div class="tabAddPlanAcc">
-        @Html.Partial("_EditarPlanAcc")
-        <div class="col-md-offset-2 col-md-4">
-            <button type="button" class="btn btn-primary" onclick="AddPlanAccion()">Guardar</button>
+        <hr />
+        <div class="row">
+            <div class="col-md-8">
+                <button type="button" id="btnAddPlan" class="btn btn-primary" onclick="AddPlanAccion()">Adicionar</button>
+                <button type="button" id="btnUpdPlan" class="btn btn-primary" onclick="UpdatePlanAcc()">Guardar</button>
+            </div>
+            <div class="col-md-4">
+            </div>
         </div>
     </div>
 
@@ -145,6 +140,14 @@
 
 </div>
 }
+
+<hr />
+<div>
+    <div class="tabCerrar">
+        @Html.ActionLink("Cerrar", "Index", new { @class = "glyphicon glyphicon-arrow-left" },
+        new { @class = "btn btn-success btn-lg active" })
+    </div>
+</div>
 
 @section Scripts
 {

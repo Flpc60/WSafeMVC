@@ -249,7 +249,9 @@ function getIntervenByID(intervenID) {
 }
 
 function getPlanByID(PlanID) {
-    $(".tabPlanAcc").css("display", "block");
+    $("#btnAddPlan").hide();
+    $("#btnUpdPlan").show();
+    $(".tabAddPlanAcc").css("display", "block");
     $("#_EditarPlanAcc").css("display", "block");
     $.ajax({
         async: true,
@@ -596,6 +598,7 @@ function AddAccion() {
         dataType: "json",
         success: function (idAccion) {
             $("#txtAccionID").val(idAccion);
+            $("#btnAddAction").hide();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -980,6 +983,8 @@ function GestorActions() {
         //$(".tabGesPlanAcc").css("display", "none");
         $(".tabAddPlanAcc").css("display", "block");
         $(".tabCerrar").css("display", "none");
+        $("#btnAddPlan").show();
+        $("#btnUpdPlan").hide();
     });
 
     $("#addSeguiAcc").click(function () {
