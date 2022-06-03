@@ -2,62 +2,57 @@
 
 @{
     var title = "GESTIONAR ACCIONES CORRECTIVAS, PREVENTIVAS Y/O DE MEJORA";
+    var categorias = ViewBag.Categorias;
 }
 
 <style>
-    .tabIdCausas, .tabPlanAcc, .tabSeguimAcc {
+    .tabIdCausas, .tabGesPlanAcc, .tabGesSeguiPlanAcc, .tabPlanAcc, .tabSeguimAcc, .tabSeguimPlanAcc, .tabAddPlanAcc, .tabAddSeguimAcc {
         display: none;
     }
 </style>
+
 <hr />
 <hr />
 <h4>@title</h4>
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-8">
         <button type="button" class="btn btn-warning" id="idCausas" title="doble click para cerrar la ventana"> 1. IDENTIFICAR NO CONFORMIDAD</button>
-    </div>
-    <div class="col-md-4">
         <button type="button" class="btn btn-warning" id="planAcc" title="doble click para cerrar la ventana"> 2. PLANES DE ACCIÓN</button>
     </div>
     <div class="col-md-4">
-        <button type="button" class="btn btn-warning" id="seguimAcc" title="doble click para cerrar la ventana"> 3. SEGUIMIENTOS</button>
     </div>
 </div>
-<hr />
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="tabIdCausas">
-            <input type="hidden" id="txtAccionID" name="txtAccionID" />
-            @Html.Partial("_EditarNoConformidad")
-            <div class="row">
-                <div class="col-md-12">
-                    <button type="button" class="btn btn-success" onclick="AddAccion()">Agregar</button>
-                </div>
+    <input type="hidden" id="txtAccionID" name="txtAccionID" />
+    <div class="tabIdCausas">
+        @Html.Partial("_EditarNoConformidad")
+        <div class="row">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-success" onclick="AddAccion()">Agregar</button>
             </div>
-        </div>
-
-        <div class="tabPlanAcc">
-            @Html.Partial("_EditarPlanAcc")
-            <input type="hidden" id="txtAccionID" name="txtAccionID" />
-            <div class="col-md-offset-2 col-md-4">
-                <button type="button" class="btn btn-success" onclick="AddPlanAccion()">Agregar</button>
-            </div>
-        </div>
-        <div class="tabSeguimAcc">
-            @Html.Partial("_EditarSigueAcc")
-            <input type="hidden" id="txtAccionID" name="txtAccionID" />
-            <div class="col-md-offset-2 col-md-4">
-                <button type="button" class="btn btn-success" onclick="AddSeguiAcc()">Agregar</button>
-            </div>
-
         </div>
     </div>
+
+    <div class="tabGesPlanAcc">
+        <hr />
+        <input type="hidden" id="planAccionID" name="planAccionID" />
+        @Html.Partial("_BorrarPlanAcc")
+    </div>
+    <div class="tabAddPlanAcc">
+        @Html.Partial("_ModificaPlan")
+        <div class="col-md-offset-2 col-md-4">
+            <button type="button" class="btn btn-primary" onclick="AddPlanAccion()">Agregar</button>
+        </div>
+    </div>
+
+</div>
 }
 
 <div>
@@ -108,44 +103,8 @@
 
         $(document).ready(function () {
             ClearTextBox();
-            $("#idCausas").click(function () {
-                $(".tabIdCausas").css("display", "block");
-                $(".tabCerrar").css("display", "none");
-                $(".tabPlanAcc").css("display", "none");
-                $(".tabSeguimAcc").css("display", "none");
-            });
-
-            $("#idCausas").dblclick(function () {
-                $(".tabIdCausas").css("display", "none");
-                $(".tabCerrar").css("display", "block");
-            });
-
-            $("#planAcc").click(function () {
-                $(".tabPlanAcc").css("display", "block");
-                $(".tabCerrar").css("display", "none");
-            });
-
-            $("#planAcc").dblclick(function () {
-                $(".tabPlanAcc").css("display", "none");
-                $(".tabCerrar").css("display", "block");
-            });
-
-            $("#seguimAcc").click(function () {
-                $(".tabSeguimAcc").css("display", "block");
-                $(".tabCerrar").css("display", "none");
-            });
-
-            $("#seguimAcc").dblclick(function () {
-                $(".tabSeguimAcc").css("display", "none");
-                $(".tabCerrar").css("display", "block");
-            });
+            GestorActions();
         });
-
-        function addPlanAcc() {
-            var accionID = $("#txtAccionID").val();
-            AddPlanAccion(accionID, false);
-        }
-
 
     </script>
 }
