@@ -1,0 +1,47 @@
+﻿@model WSafe.Web.Models.AccionViewModel
+@{
+    var categorias = ViewBag.Categorias;
+}
+
+<div id="_EditarPlanAcc">
+    <div class="form-row">
+        <hr />
+        <div class="col-md-4 mb-3">
+            <label for="idFechaIni">Fecha inicial :</label>
+            <input type="date" class="form-control" id="idFechaIni" onchange="validarFechaIni()" required autofocus>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="idFechaFin">Fecha final :</label>
+            <input type="date" class="form-control" id="idFechaFin" onclick="validarFechaFin()" required>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="causa">Causa :</label>
+            @Html.DropDownList("Categorias", categorias as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "txtCausa" })
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-12">
+            <hr />
+            <label for="accion">Acción</label>
+            <textarea id="accion" style="resize:none;" class="form-control" rows=3 cols=70 required></textarea>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-3 mb-4">
+            <hr />
+            <label for="Respons">Trabajador responsable :</label>
+            @Html.DropDownListFor(model => model.TrabajadorID, Model.Trabajadores, new { @class = "form-control", @id = "idRespons" })
+            @Html.ValidationMessageFor(model => model.TrabajadorID, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-3 mb-4">
+            <hr />
+            <label for="prioritaria">Prioritaria :</label>
+            <input class="form-check-input" type="checkbox" id="idPrioritaria" name="idPrioritaria">
+        </div>
+        <div class="col-md-3 mb-4">
+            <hr />
+            <label for="idCostos">Costos :</label>
+            <input type="number" class="form-control" id="idCostos" onchange="validarCostos(')">
+        </div>
+    </div>
+</div>

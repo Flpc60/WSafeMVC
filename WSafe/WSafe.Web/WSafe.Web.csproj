@@ -580,6 +580,8 @@
     <Content Include="Views\Shared\_EvalRiesgo.cshtml" />
     <Content Include="Views\Shared\_EditarIntervencion.cshtml" />
     <Content Include="Views\Indicadores\Index - Copy.cshtml" />
+    <Content Include="Views\Shared\_BorrarPlanAcc.cshtml" />
+    <Content Include="Views\Shared\_ModificaPlan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

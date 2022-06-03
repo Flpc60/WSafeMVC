@@ -48,6 +48,7 @@ namespace WSafe.Web.Controllers
         public ActionResult Create()
         {
             var model = _converterHelper.ToAccionViewModelNew();
+            ViewBag.Categorias = _comboHelper.GetAllCausas();
             return View(model);
         }
 

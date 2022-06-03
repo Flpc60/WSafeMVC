@@ -929,3 +929,63 @@ function SetPeriodo() {
     $("#txtPeriodo").val(Periodo);
     return Periodo;
 }
+
+function GestorActions() {
+//Activa ventanas para gestionar crud de planes de acción y seguimientos
+    $("#idCausas").click(function () {
+        $(".tabIdCausas").css("display", "block");
+        $(".tabAddPlanAcc").css("display", "none");
+        $(".tabAddSeguiAcc").css("display", "none");
+        $(".tabSeguimAcc").css("display", "none");
+        $(".tabGesPlanAcc").css("display", "none");
+        $(".tabGesSeguiPlanAcc").css("display", "none");
+        $(".tabCerrar").css("display", "none");
+    });
+
+    $("#idCausas").dblclick(function () {
+        $(".tabIdCausas").css("display", "none");
+        $(".tabAddPlanAcc").css("display", "none");
+        $(".tabAddSeguiAcc").css("display", "none");
+        $(".tabSeguimAcc").css("display", "none");
+        $(".tabCerrar").css("display", "block");
+    });
+
+    $("#planAcc").click(function () {
+        $(".tabGesPlanAcc").css("display", "block");
+        $(".tabSeguimAcc").css("display", "none");
+        $(".tabCerrar").css("display", "none");
+        mostrarPlanAcc();
+    });
+
+    $("#planAcc").dblclick(function () {
+        $(".tabGesPlanAcc").css("display", "none");
+        $(".tabPlanAcc").css("display", "none");
+        $(".tabSeguimAcc").css("display", "none");
+        $(".tabCerrar").css("display", "block");
+    });
+
+    $("#seguimAcc").click(function () {
+        $(".tabGesSeguiPlanAcc").css("display", "block");
+        $(".tabCerrar").css("display", "none");
+        mostrarSeguimAcc();
+    });
+
+    $("#seguimAcc").dblclick(function () {
+        $(".tabGesSeguiPlanAcc").css("display", "none");
+        $(".tabSeguiPlanAcc").css("display", "none");
+        $(".tabCerrar").css("display", "block");
+    });
+
+    $("#addPlanAcc").click(function () {
+        //$(".tabGesPlanAcc").css("display", "none");
+        $(".tabAddPlanAcc").css("display", "block");
+        $(".tabCerrar").css("display", "none");
+    });
+
+    $("#addSeguiAcc").click(function () {
+        //$(".tabGesPlanAcc").css("display", "none");
+        $(".tabAddSeguimAcc").css("display", "block");
+        $(".tabCerrar").css("display", "none");
+    });
+
+}
