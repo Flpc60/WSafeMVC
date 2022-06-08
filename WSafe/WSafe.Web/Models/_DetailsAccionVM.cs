@@ -6,7 +6,6 @@ namespace WSafe.Web.Models
 {
     public class _DetailsAccionVM
     {
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ID { get; set; }
         public string Formato { get; set; }
         public string Estandar { get; set; }
@@ -25,7 +24,7 @@ namespace WSafe.Web.Models
         public string FechaCierre { get; set; }
         public bool Efectiva { get; set; }
         public bool Estado { get; set; }
-        public ICollection<PlanAccion> Planes { get; set; }
-        public ICollection<SeguimientoAccion> Seguimientos { get; set; }
+        public ICollection<PlanAction> Planes { get; set; }
+        public ICollection<Seguimiento> Seguimientos { get; set; }
     }
 }

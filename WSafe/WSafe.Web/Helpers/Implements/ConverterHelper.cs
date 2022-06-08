@@ -107,11 +107,11 @@ namespace WSafe.Domain.Helpers.Implements
                 Tareas = _comboHelper.GetComboTareas(),
                 Trabajadores = _comboHelper.GetComboTrabajadores(),
                 Planes = new List<PlanAction>(),
-                Seguimientos = new List<SeguimientoAccion>()
+                Seguimientos = new List<Seguimiento>()
             };
 
             model.Planes.Add(new PlanAction());
-            model.Seguimientos.Add(new SeguimientoAccion());
+            model.Seguimientos.Add(new Seguimiento());
             return model;
         }
         public AccionViewModel ToAccionViewModel(Accion accion)
@@ -140,12 +140,12 @@ namespace WSafe.Domain.Helpers.Implements
                 Efectiva = accion.Efectiva,
                 Estado = accion.Estado,
                 Planes = new List<PlanAction>(),
-                Seguimientos = new List<SeguimientoAccion>(),
+                Seguimientos = new List<Seguimiento>(),
                 FechaSolicitudStr = accion.FechaSolicitud.ToString("yyyy-MM-dd"),
                 FechaCierreStr = accion.FechaCierre.ToString("yyyy-MM-dd")
             };
             model.Planes.Add(new PlanAction() { AccionID = accion.ID });
-            model.Seguimientos.Add(new SeguimientoAccion() { AccionID = accion.ID });
+            model.Seguimientos.Add(new Seguimiento() { AccionID = accion.ID });
             return model;
         }
         public async Task<Accion> ToAccionAsync(Accion model, bool isNew)
@@ -519,7 +519,7 @@ namespace WSafe.Domain.Helpers.Implements
             };
             return result;
         }
-        public SeguimientoAccionVM ToSeguimientoAccionVM(SeguimientoAccion seguimientoAccion)
+        public SeguimientoAccionVM ToSeguimientoAccionVM(Seguimiento seguimientoAccion)
         {
             var result = new SeguimientoAccionVM
             {
@@ -532,15 +532,9 @@ namespace WSafe.Domain.Helpers.Implements
             };
             return result;
         }
-
-        public SeguimientoAccionVM ToSeguimientoAccionVMNew()
+        public async Task<Seguimiento> ToSeguimientoAccionAsync(Seguimiento model)
         {
-            throw new NotImplementedException();
-        }
-
-        public async Task<SeguimientoAccion> ToSeguimientoAccionAsync(SeguimientoAccion model)
-        {
-            var result = new SeguimientoAccion
+            var result = new Seguimiento
             {
                 ID = model.ID,
                 AccionID = model.AccionID,
@@ -600,7 +594,7 @@ namespace WSafe.Domain.Helpers.Implements
             }
             return model;
         }
-        public IEnumerable<SeguimientoAccionVM> ToSeguimientoAccionVMList(IEnumerable<SeguimientoAccion> accion)
+        public IEnumerable<SeguimientoAccionVM> ToSeguimientoAccionVMList(IEnumerable<Seguimiento> accion)
         {
             var model = new List<SeguimientoAccionVM>();
             foreach (var item in accion)
@@ -619,8 +613,8 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public _DetailsAccionVM ToAccionVMFull(Accion accion, int id)
         {
-            var planes = _empresaContext.PlanesAccion.Where(pa => pa.AccionID == accion.ID).ToList();
-            var sigue = _empresaContext.SeguimientosAccion.Where(sa => sa.AccionID == accion.ID).ToList();
+            var planes = _empresaContext.PlanActions.Where(pa => pa.AccionID == accion.ID).ToList();
+            var sigue = _empresaContext.Seguimientos.Where(sa => sa.AccionID == accion.ID).ToList();
             var responsable = _empresaContext.Trabajadores
                 .Include(c => c.Cargo)
                 .FirstOrDefault(t => t.ID == accion.TrabajadorID);

@@ -1,0 +1,25 @@
+﻿@model WSafe.Web.Models.AccionViewModel
+<div class="_EditarSigueAcc">
+    <div class="form-row">
+        <hr />
+        <div class="col-md-4 mb-3">
+            <label for="Fecha">Fecha seguimiento :</label>
+            <input type="date" class="form-control" id="txtFechaSeg" onchange="validarSigue()" required autofocus>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-12">
+            <hr />
+            <label for="resultado">Resultado :</label>
+            <textarea id="txtResultado" style="resize:none;" class="form-control" rows=3 cols=70 required></textarea>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-3 mb-4">
+            <hr />
+            <label for="Respons">Trabajador responsable :</label>
+            @Html.DropDownListFor(model => model.TrabajadorID, Model.Trabajadores, new { @class = "form-control", @id = "txtRespons" })
+            @Html.ValidationMessageFor(model => model.TrabajadorID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>

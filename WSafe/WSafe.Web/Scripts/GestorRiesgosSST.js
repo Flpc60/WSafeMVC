@@ -121,7 +121,6 @@ function convertProperty(item, key) {
 
 //mostrar resultados
 function mostrarSeguimAcc() {
-    $(".tabGesSeguiPlanAcc").css("display", "none");
     var accionID = $("#txtAccionID").val();
     $.ajax({
         url: "/Acciones/ListarSeguimientoAccion/",
@@ -286,8 +285,10 @@ function getPlanByID(PlanID) {
 }
 
 function getSeguiByID(seguiID) {
-    $(".tabSeguimAcc").css("display", "block");
-    $("#_EditarSigueAcc").css("display", "block");
+    $("#btnAddSigue").hide();
+    $("#btnUpdSigue").show();
+    $(".tabAddSeguimAcc").css("display", "block");
+//    $("#_EditarSigueAcc").css("display", "block");
     $.ajax({
         async: true,
         type: 'GET',
@@ -298,8 +299,7 @@ function getSeguiByID(seguiID) {
         success: function (result) {
             $("#txtFechaSeg").val(result.FechaSeguimiento);
             $("#txtResultado").val(result.Resultado);
-            $("#idRespons").val(result.TrabajadorID);
-
+            $("#txtRespons").val(result.TrabajadorID);
             $("#txtAccionID").val(result.AccionID);
             $("#sigueAccionID").val(result.ID);
         },
@@ -599,6 +599,7 @@ function AddAccion() {
         success: function (idAccion) {
             $("#txtAccionID").val(idAccion);
             $("#btnAddAction").hide();
+            $("#btnCanAccc").hide();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -663,7 +664,7 @@ function AddPlanAccion() {
         AccionID: accionID,
         FechaInicial: $("#idFechaIni").val(),
         FechaFinal: $("#idFechaFin").val(),
-        Causa: $("#idCausa").val(),
+        Causa: $("#txtCausa").val(),
         Accion: $("#accion").val(),
         TrabajadorID: $("#idRespons").val(),
         Prioritaria: $("#idPrioritaria").val(),
@@ -739,9 +740,9 @@ function AddSeguiAcc() {
     var seguimientoVM = {
         ID: "0",
         AccionID: accionID,
-        FechaSeguimiento: $("#idFechaSegui").val(),
-        Resultado: $("#idResultado").val(),
-        TrabajadorID: $("#trabajadorID").val()
+        FechaSeguimiento: $("#txtFechaSeg").val(),
+        Resultado: $("#txtResultado").val(),
+        TrabajadorID: $("#txtRespons").val()
     };
     $.ajax({
         type: "POST",
@@ -771,7 +772,7 @@ function UpdateSigueAcc() {
         AccionID: $("#txtAccionID").val(),
         FechaSeguimiento: $("#txtFechaSeg").val(),
         Resultado: $("#txtResultado").val(),
-        TrabajadorID: $("#responsID").val(),
+        TrabajadorID: $("#txtRespons").val(),
     };
     $.ajax({
         type: "POST",
@@ -779,7 +780,6 @@ function UpdateSigueAcc() {
         data: { model: sigueAccionVM },
         dataType: "json",
         success: function (result) {
-            $(".tabGesSeguiPlanAcc").css("display", "block");
             mostrarSeguimAcc;
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -991,6 +991,28 @@ function GestorActions() {
         //$(".tabGesPlanAcc").css("display", "none");
         $(".tabAddSeguimAcc").css("display", "block");
         $(".tabCerrar").css("display", "none");
+        $("#btnAddSigue").show();
+        $("#btnUpdSigue").hide();
     });
 
+}
+
+function CancelPlan() {
+    $(".tabAddPlanAcc").css("display", "none");
+    $("#idFechaIni").val("");
+    $("#idFechaFin").val("");
+    $("#txtCausa").val("");
+    $("#accion").val("");
+    $("#idRespons").val("");
+    $("#idPrioritaria").val("");
+    $("#idCostos").val("");
+    mostrarPlanAcc();
+}
+
+function CancelSigue() {
+    $(".tabAddSeguimAcc").css("display", "none");
+    $("#txtFechaSeg").val("");
+    $("#txtResultado").val("");
+    $("#txtRespons").val("");
+    mostrarSeguimAcc();
 }

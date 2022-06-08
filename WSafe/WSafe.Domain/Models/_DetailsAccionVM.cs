@@ -25,7 +25,7 @@ namespace WSafe.Web.Models
         public string FechaCierre { get; set; }
         public bool Efectiva { get; set; }
         public bool Estado { get; set; }
-        public ICollection<PlanAccion> Planes { get; set; }
-        public ICollection<SeguimientoAccion> Seguimientos { get; set; }
+        public ICollection<PlanAction> Planes { get; set; }
+        public ICollection<Seguimiento> Seguimientos { get; set; }
     }
 }

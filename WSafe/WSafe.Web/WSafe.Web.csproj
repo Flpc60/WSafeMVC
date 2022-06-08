@@ -339,6 +339,7 @@
     <Compile Include="Data\Entities\PlanAction.cs" />
     <Compile Include="Data\Entities\Role.cs" />
     <Compile Include="Data\Entities\RoleOperation.cs" />
+    <Compile Include="Data\Entities\Seguimiento.cs" />
     <Compile Include="Data\Entities\SeguimientoAccion.cs" />
     <Compile Include="Data\Entities\TiposIndicador.cs" />
     <Compile Include="Data\Entities\TiposPeriodicidad.cs" />
@@ -386,6 +387,14 @@
     <Compile Include="Migrations\202206012133435_AddPlanAction2.cs" />
     <Compile Include="Migrations\202206012133435_AddPlanAction2.Designer.cs">
       <DependentUpon>202206012133435_AddPlanAction2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206061313315_CreateSeguimiento.cs" />
+    <Compile Include="Migrations\202206061313315_CreateSeguimiento.Designer.cs">
+      <DependentUpon>202206061313315_CreateSeguimiento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206080019352_CreateDetailsVM.cs" />
+    <Compile Include="Migrations\202206080019352_CreateDetailsVM.Designer.cs">
+      <DependentUpon>202206080019352_CreateDetailsVM.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\IntervencionVM.cs" />
@@ -582,6 +591,8 @@
     <Content Include="Views\Indicadores\Index - Copy.cshtml" />
     <Content Include="Views\Shared\_BorrarPlanAcc.cshtml" />
     <Content Include="Views\Shared\_ModificaPlan.cshtml" />
+    <Content Include="Views\Shared\_BorrarSigue.cshtml" />
+    <Content Include="Views\Shared\_ModificaSigue.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -627,6 +638,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202206012133435_AddPlanAction2.resx">
       <DependentUpon>202206012133435_AddPlanAction2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206061313315_CreateSeguimiento.resx">
+      <DependentUpon>202206061313315_CreateSeguimiento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206080019352_CreateDetailsVM.resx">
+      <DependentUpon>202206080019352_CreateDetailsVM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
