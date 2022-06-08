@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using WSafe.Domain.Data.Entities;
 using WSafe.Web.Models;
@@ -27,11 +26,10 @@ namespace WSafe.Domain.Helpers
         PlanAccionVM ToPlanAccionVM(PlanAction planAccion);
         PlanAccionVM ToPlanAccionVMNew();
         Task<PlanAction> ToPlanAccionAsync(PlanAction plan);
-        SeguimientoAccionVM ToSeguimientoAccionVM(SeguimientoAccion seguimientoAccion);
-        SeguimientoAccionVM ToSeguimientoAccionVMNew();
-        Task<SeguimientoAccion> ToSeguimientoAccionAsync(SeguimientoAccion model);
+        SeguimientoAccionVM ToSeguimientoAccionVM(Seguimiento seguimientoAccion);
+        Task<Seguimiento> ToSeguimientoAccionAsync(Seguimiento model);
         IEnumerable<PlanAccionVM> ToPlanAccionVMList(IEnumerable<PlanAction> plan);
-        IEnumerable<SeguimientoAccionVM> ToSeguimientoAccionVMList(IEnumerable<SeguimientoAccion> accion);
+        IEnumerable<SeguimientoAccionVM> ToSeguimientoAccionVMList(IEnumerable<Seguimiento> accion);
         IEnumerable<AccionViewModel> ToAccionVMList(IEnumerable<Accion> accion);
         _DetailsAccionVM ToAccionVMFull(Accion accion, int id);
         MatrizRiesgosVM ToRiesgoVMUnit(Riesgo riesgo);

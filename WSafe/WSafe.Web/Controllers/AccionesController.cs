@@ -108,7 +108,7 @@ namespace WSafe.Web.Controllers
                 message = "Esta acción tiene planes de acción pendientes por eliminar!!";
                 return Json(new { data = false, error = message }, JsonRequestBehavior.AllowGet);
             }
-            var sigue = _empresaContext.SeguimientosAccion.Where(s => s.AccionID == id).Count();
+            var sigue = _empresaContext.Seguimientos.Where(s => s.AccionID == id).Count();
             if (sigue != 0)
             {
                 message = "Esta acción tiene seguimientos pendientes por eliminar!!";
@@ -186,17 +186,17 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateSeguimientoPlan(SeguimientoAccion seguimientoAccion)
+        public async Task<ActionResult> CreateSeguimientoPlan(Seguimiento seguimientoAccion)
         {
             if (seguimientoAccion.AccionID == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SeguimientoAccion model = await _converterHelper.ToSeguimientoAccionAsync(seguimientoAccion);
+            Seguimiento model = await _converterHelper.ToSeguimientoAccionAsync(seguimientoAccion);
 
             if (ModelState.IsValid)
             {
-                _empresaContext.SeguimientosAccion.Add(seguimientoAccion);
+                _empresaContext.Seguimientos.Add(seguimientoAccion);
                 await _empresaContext.SaveChangesAsync();
                 return Json(model, JsonRequestBehavior.AllowGet);
             }
@@ -244,17 +244,16 @@ namespace WSafe.Web.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        // GET: Seguimiento acción/ListarSeguimientoAccion
         [HttpGet]
         public async Task<ActionResult> ListarSeguimientoAccion(int idAccion)
         {
             if (idAccion == null)
             {
-                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
             //TODO
-            var seguimientos = _empresaContext.SeguimientosAccion.Where(sa => sa.AccionID == idAccion).ToList();
+            var seguimientos = _empresaContext.Seguimientos.Where(sa => sa.AccionID == idAccion).ToList();
             var result = _converterHelper.ToSeguimientoAccionVMList(seguimientos);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -309,13 +308,13 @@ namespace WSafe.Web.Controllers
         [HttpGet]
         public JsonResult UpdateSeguimientoAccion(int ID)
         {
-            var seguimiento = _empresaContext.SeguimientosAccion.FirstOrDefault(sa => sa.ID == ID);
+            var seguimiento = _empresaContext.Seguimientos.FirstOrDefault(sa => sa.ID == ID);
             var model = _converterHelper.ToSeguimientoAccionVM(seguimiento);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public async Task<ActionResult> UpdateSeguimientoAccion([Bind(Include = "ID, AccionID, FechaSeguimiento, Resultado, TrabajadorID")] SeguimientoAccion model)
+        public async Task<ActionResult> UpdateSeguimientoAccion([Bind(Include = "ID, AccionID, FechaSeguimiento, Resultado, TrabajadorID")] Seguimiento model)
         {
             if (ModelState.IsValid)
             {
@@ -333,7 +332,7 @@ namespace WSafe.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SeguimientoAccion sigue = await _empresaContext.SeguimientosAccion.FindAsync(id);
+            Seguimiento sigue = await _empresaContext.Seguimientos.FindAsync(id);
             var model = _converterHelper.ToSeguimientoAccionVM(sigue);
             if (model == null)
             {
@@ -347,8 +346,8 @@ namespace WSafe.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                SeguimientoAccion accion = await _empresaContext.SeguimientosAccion.FindAsync(id);
-                _empresaContext.SeguimientosAccion.Remove(accion);
+                Seguimiento accion = await _empresaContext.Seguimientos.FindAsync(id);
+                _empresaContext.Seguimientos.Remove(accion);
                 await _empresaContext.SaveChangesAsync();
                 return Json(accion, JsonRequestBehavior.AllowGet);
             }

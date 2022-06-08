@@ -70,7 +70,7 @@ namespace WSafe.Web.Models
         [Display(Name = "Cerrada")]
         public bool Estado { get; set; }
         public ICollection<PlanAction> Planes { get; set; }
-        public ICollection<SeguimientoAccion> Seguimientos { get; set; }
+        public ICollection<Seguimiento> Seguimientos { get; set; }
         public string FechaSolicitudStr { get; set; }
         public string FechaCierreStr { get; set; }
     }

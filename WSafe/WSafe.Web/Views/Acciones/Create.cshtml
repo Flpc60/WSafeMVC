@@ -34,8 +34,13 @@
     <div class="tabIdCausas">
         @Html.Partial("_EditarNoConformidad")
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-8">
                 <button type="button" id="btnAddAction" class="btn btn-success" onclick="AddAccion()">Agregar</button>
+                <button type="button" id="btnCanAccc" class="btn btn-success" onclick="CancelAccion()">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                </button>
+            </div>
+            <div class="col-md-4">
             </div>
         </div>
     </div>
@@ -45,12 +50,21 @@
         <input type="hidden" id="planAccionID" name="planAccionID" />
         @Html.Partial("_BorrarPlanAcc")
     </div>
+
     <div class="tabAddPlanAcc">
+        <input type="hidden" id="txtPlanAccionID" name="txtPlanAccionID" />
         @Html.Partial("_ModificaPlan")
         <hr />
+        <hr />
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-8">
                 <button type="button" id="btnAddPlan" class="btn btn-primary" onclick="AddPlanAccion()">Adicionar</button>
+                <button type="button" id="btnUpdPlan" class="btn btn-primary" onclick="UpdatePlanAcc()">Actualizar</button>
+                <button type="button" id="btnCanPlan" class="btn btn-primary" onclick="CancelPlan()">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                </button>
+            </div>
+            <div class="col-md-4">
             </div>
         </div>
     </div>
@@ -69,6 +83,25 @@
 @section Scripts
 {
     <script type="text/javascript">
+
+        function CancelAccion() {
+            $(".tabIdCausas").css("display", "none");
+            $("#zona").val("");
+            $("#proceso").val("");
+            $("#activity").val("");
+            $("#tarea").val("");
+            $("#fechaSolicitud").val("");
+            $("#categoriaAcc").val("");
+            $("#idTrabajador").val("");
+            $("#idFuente").val("");
+            $("#idDescrip").val("");
+            $("#idEficaciaAnt").val("");
+            $("#idEficaciaDesp").val("");
+            $("#idFechaCierre").val("");
+            $("#idEfectiva").val("");
+            $("#idEstado").val("");
+        }
+
         $.ajaxSetup({
 
             error: function (jqXHR, textStatus, errorThrown) {

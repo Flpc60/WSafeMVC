@@ -69,8 +69,8 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Cerrada")]
         public bool Estado { get; set; }
-        public ICollection<PlanAccion> Planes { get; set; }
-        public ICollection<SeguimientoAccion> Seguimientos { get; set; }
+        public ICollection<PlanAction> Planes { get; set; }
+        public ICollection<Seguimiento> Seguimientos { get; set; }
         public string FechaSolicitudStr { get; set; }
         public string FechaCierreStr { get; set; }
     }

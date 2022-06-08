@@ -1,5 +1,4 @@
 ﻿@model WSafe.Web.Models.AccionViewModel
-@using System.Web.Mvc.Html;
 
 @{
     //TODO
@@ -62,10 +61,15 @@
         <input type="hidden" id="txtPlanAccionID" name="txtPlanAccionID" />
         @Html.Partial("_ModificaPlan")
         <hr />
+        <hr />
         <div class="row">
             <div class="col-md-8">
+                <hr />
                 <button type="button" id="btnAddPlan" class="btn btn-primary" onclick="AddPlanAccion()">Adicionar</button>
-                <button type="button" id="btnUpdPlan" class="btn btn-primary" onclick="UpdatePlanAcc()">Guardar</button>
+                <button type="button" id="btnUpdPlan" class="btn btn-primary" onclick="UpdatePlanAcc()">Actualizar</button>
+                <button type="button" id="btnCanPlan" class="btn btn-primary" onclick="CancelPlan()">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                </button>
             </div>
             <div class="col-md-4">
             </div>
@@ -75,66 +79,23 @@
     <div class="tabGesSeguiPlanAcc">
         <hr />
         <input type="hidden" id="sigueAccionID" name="sigueAccionID" />
-        <div class="col-md-12">
-            <button type="button" class="btn btn-primary" id="addSeguiAcc">Adicionar nuevo Seguimiento</button>
-        </div>
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th>
-                        Fecha seguimiento
-                    </th>
-                    <th>
-                        Resultado
-                    </th>
-                    <th>
-                        Responsable
-                    </th>
-                    <th>
-                        Opciones
-                    </th>
-                </tr>
-            </thead>
-            <tbody class="tbody">
-            </tbody>
-        </table>
+        @Html.Partial("_BorrarSigue")
     </div>
-    <div class="tabSeguimAcc">
-        <div class="_EditarSigueAcc">
-            <div class="form-row">
-                <hr />
-                <div class="col-md-4 mb-3">
-                    <label for="Fecha">Fecha seguimiento :</label>
-                    <input type="date" class="form-control" id="txtFechaSeg" onchange="validarSigue()" required autofocus>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="col-md-12">
-                    <hr />
-                    <label for="resultado">Resultado :</label>
-                    <textarea id="txtResultado" style="resize:none;" class="form-control" rows=3 cols=70 required></textarea>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="col-md-3 mb-4">
-                    <hr />
-                    <label for="Respons">Trabajador responsable :</label>
-                    @Html.DropDownListFor(model => model.TrabajadorID, Model.Trabajadores, new { @class = "form-control", @id = "responsID" })
-                    @Html.ValidationMessageFor(model => model.TrabajadorID, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col-md-12">
-                <hr />
-                <button type="button" class="btn btn-primary" onclick="UpdateSigueAcc()">Guardar</button>
-            </div>
-        </div>
-    </div>
+
     <div class="tabAddSeguimAcc">
-        @Html.Partial("_EditarSigueAcc")
-        <div class="col-md-offset-2 col-md-4">
-            <button type="button" class="btn btn-primary" onclick="AddSeguiAcc()">Guardar</button>
+        @Html.Partial("_ModificaSigue")
+        <hr />
+        <hr />
+        <div class="row">
+            <div class="col-md-8">
+                <button type="button" id="btnAddSigue" class="btn btn-primary" onclick="AddSeguiAcc()">Adicionar</button>
+                <button type="button" id="btnUpdSigue" class="btn btn-primary" onclick="UpdateSigueAcc()">Actualizar</button>
+                <button type="button" id="btnCanSigue" class="btn btn-primary" onclick="CancelSigue()">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                </button>
+            </div>
+            <div class="col-md-4">
+            </div>
         </div>
     </div>
 
