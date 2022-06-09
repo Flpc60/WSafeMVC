@@ -24,16 +24,12 @@ namespace WSafe.Web.Controllers
             _converterHelper = converterHelper;
             _chartHelper = chartHelper;
         }
-
-        // GET: Incidentes
         public async Task<ActionResult> Index()
         {
             var consulta = new IncidenteService(new IncidenteRepository(_empresaContext));
 
             return View(await consulta.GetALL());
         }
-
-        // GET: Incidentes/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -50,20 +46,14 @@ namespace WSafe.Web.Controllers
 
             return View(result);
         }
-
-        // GET: Riesgos/Create
         public ActionResult Create()
         {
             var incidenteView = _converterHelper.ToIncidenteViewModelNew();
             return View(incidenteView);
         }
 
-        // POST: Riesgos/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(IncidenteViewModel model)
+        public async Task<ActionResult> CreateIncidente(IncidenteViewModel model)
         {
             try
             {
@@ -71,25 +61,19 @@ namespace WSafe.Web.Controllers
                 {
                     var consulta = new IncidenteService(new IncidenteRepository(_empresaContext));
                     var incidente = await _converterHelper.ToIncidenteAsync(model, true);
-                    foreach (var item in model.Lesionados)
-                    {
-                        item.IncidenteID = model.ID;
-                    }
                     var saved = await consulta.Insert(incidente);
                     if (saved != null)
                     {
-                        return RedirectToAction("Index");
+                        return Json(incidente, JsonRequestBehavior.AllowGet);
                     }
                 }
-                return View(model);
+                return Json(new { data = model, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
-                return View(model);
+                return Json(new { data = model, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
             }
         }
-
-        // GET: Riesgos/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)

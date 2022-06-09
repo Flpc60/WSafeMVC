@@ -8,7 +8,6 @@ namespace WSafe.Web.Models
 {
     public class IncidenteViewModel
     {
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Zona")]
@@ -66,7 +65,7 @@ namespace WSafe.Web.Models
         [Display(Name = "Días de incapacidad")]
         public int DiasIncapacidad { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Lesionados")]
+        [Display(Name = "Informante")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un trabajador.")]
         public int TrabajadorID { get; set; }
         public IEnumerable<SelectListItem> Trabajadores { get; set; }
