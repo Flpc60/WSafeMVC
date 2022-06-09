@@ -396,6 +396,10 @@
     <Compile Include="Migrations\202206080019352_CreateDetailsVM.Designer.cs">
       <DependentUpon>202206080019352_CreateDetailsVM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202206090103520_UpdateIncidenteVM.cs" />
+    <Compile Include="Migrations\202206090103520_UpdateIncidenteVM.Designer.cs">
+      <DependentUpon>202206090103520_UpdateIncidenteVM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\IntervencionVM.cs" />
     <Compile Include="Models\MatrizRiesgosVM.cs" />
@@ -593,6 +597,10 @@
     <Content Include="Views\Shared\_ModificaPlan.cshtml" />
     <Content Include="Views\Shared\_BorrarSigue.cshtml" />
     <Content Include="Views\Shared\_ModificaSigue.cshtml" />
+    <Content Include="Views\Shared\_EditarInfoIncidente.cshtml" />
+    <Content Include="Views\Shared\_DetalleIncidente.cshtml" />
+    <Content Include="Views\Shared\_AccionesIncidente.cshtml" />
+    <Content Include="Views\Shared\_MatrizIncidente.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -644,6 +652,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202206080019352_CreateDetailsVM.resx">
       <DependentUpon>202206080019352_CreateDetailsVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206090103520_UpdateIncidenteVM.resx">
+      <DependentUpon>202206090103520_UpdateIncidenteVM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

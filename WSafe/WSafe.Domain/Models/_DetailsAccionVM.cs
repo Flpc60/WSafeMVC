@@ -6,7 +6,6 @@ namespace WSafe.Web.Models
 {
     public class _DetailsAccionVM
     {
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ID { get; set; }
         public string Formato { get; set; }
         public string Estandar { get; set; }

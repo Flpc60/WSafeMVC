@@ -1016,3 +1016,156 @@ function CancelSigue() {
     $("#txtRespons").val("");
     mostrarSeguimAcc();
 }
+
+function CancelIncidente() {
+    $(".tabMatriz").css("display", "none");
+    $("#zona").val("");
+    $("#proceso").val("");
+    $("#activity").val("");
+    $("#tarea").val("");
+    $("#txtFechaReporte").val("");
+    $("#txtFechaIncidente").val("");
+    $("#txtCategoria").val("");
+    $("#txtIncapacidad").val("");
+    $("#txtDiasIncapacidad").val("");
+    $("#txtNaturaleza").val("");
+    $("#txtPartes").val("");
+    $("#txtTipo").val("");
+    $("#txtAgente").val("");
+    $("#txtActos").val("");
+    $("#txtCondicion").val("");
+    $("#txtDaño").val("");
+    $("#txtAfectacion").val("");
+    $("#txtOcacionados").val("");
+    $("#txtCostos").val("");
+    $("#txtVehiculo").val("");
+    $("#txtMarca").val("");
+    $("#txtModelo").val("");
+    $("#txtKilometros").val("");
+    $("#txtDescripcion").val("");
+    $("#txtEvitar").val("");
+    $("#txtAcciones").val("");
+    $("#txtComentarios").val("");
+    $("#txtAtencion").val("");
+    $("#idLesion").val("");
+    $("#idDaño").val("");
+    $("#idMedio").val("");
+    $("#idImagen").val("");
+    $("#interpretaP").val("");
+    $("#equipoInvest").val("");
+    $("#idLesion").val("");
+    $("#idDaño").val("");
+    $("#idMedio").val("");
+    $("#idImagen").val("");
+    $("#txtInvestiga").val("");
+}
+
+// las siguientes funciones crean un nuevo incidente
+function AddIncidente() {
+    // Crea un nuevo incidente
+    $(".tabGeneral").css("display", "none");
+    if ($("#txtIncapacidad").is(':checked')) {
+        $("#txtIncapacidad").val(true)
+    }
+    else {
+        $("#txtIncapacidad").val(false)
+    }
+
+    var incidenteVM = {
+        ID: "0",
+        ZonaID: $("#zona").val(),
+        ProcesoID: $("#proceso").val(),
+        ActividadID: $("#activity").val(),
+        TareaID: $("#tarea").val(),
+        FechaReporte: $("#txtFechaReporte").val(),
+        FechaIncidente: $("#txtFechaIncidente").val(),
+        CategoriasIncidente: $("#txtCategoria").val(),
+        IncapacidadMedica: $("#txtIncapacidad").val(),
+        DiasIncapacidad: $("#txtDiasIncapacidad").val(),
+        NaturalezaLesion: $("#txtNaturaleza").val(),
+        PartesAfectadas: $("#txtPartes").val(),
+        TipoIncidente: $("#txtTipo").val(),
+        AgenteLesion: $("#txtAgente").val(),
+        ActosInseguros: $("#txtActos").val(),
+        CondicionesInsegura: $("#txtCondicion").val(),
+        TipoDaño: $("#txtDaño").val(),
+        Afectacion: $("#txtAfectacion").val(),
+        DañosOcasionados: $("#txtOcacionados").val(),
+        CostosEstimados: $("#txtCostos").val(),
+        TipoVehiculo: $("#txtVehiculo").val(),
+        MarcaVehiculo: $("#txtMarca").val(),
+        ModeloVehiculo: $("#txtModelo").val(),
+        KilometrajeVehiculo: $("#txtKilometros").val(),
+        DescripcionIncidente: $("#txtDescripcion").val(),
+        EvitarIncidente: $("#txtEvitar").val(),
+        AccionesInmediatas: $("#txtAcciones").val(),
+        ComentariosAdicionales: $("#txtComentarios").val(),
+        AtencionBrindada: $("#txtAtencion").val(),
+        ConsecuenciasLesion: $("#idLesion").val(),
+        ConsecuenciasDaño: $("#idDaño").val(),
+        ConsecuenciasMedio: $("#idMedio").val(),
+        ConsecuenciasImagen: $("#idImagen").val(),
+        Probabilidad: $("#interpretaP").val(),
+        EquiposInvestigador: $("#equipoInvest").val(),
+        LesionPersonal: $("#idLesion").val(),
+        DañoMaterial: $("#idDaño").val(),
+        MedioAmbiente: $("#idMedio").val(),
+        Imagen: $("#idImagen").val(),
+        RequiereInvestigacion: $("#txtInvestiga").val(),
+        TrabajadorID: $("#txtInformante").val(),
+        Informante: $("#txtInformante").val()
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/Incidentes/CreateIncidente",
+        data: { model: incidenteVM },
+        dataType: "json",
+        success: function (result) {
+            $("#txtIncidenteID").val(result);
+            $("#btnAddIncidente").hide();
+            $("#btnCanIncidente").hide();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function UpdateIncidente(id) {
+    $(".tabIdCausas").css("display", "none");
+    $("#txtAccionID").val(id);
+    var accionVM = {
+        ID: $("#txtAccionID").val(),
+        ZonaID: $("#zona").val(),
+        ProcesoID: $("#proceso").val(),
+        ActividadID: $("#activity").val(),
+        TareaID: $("#tarea").val(),
+        FechaSolicitud: $("#fechaSolicitud").val(),
+        Categoria: $("#categoriaAcc").val(),
+        TrabajadorID: $("#idTrabajador").val(),
+        FuenteAccion: $("#idFuente").val(),
+        Descripcion: $("#idDescrip").val(),
+        EficaciaAntes: $("#idEficaciaAnt").val(),
+        EficaciaDespues: $("#idEficaciaDesp").val(),
+        FechaCierre: $("#idFechaCierre").val(),
+        Efectiva: $("#idEfectiva").val(),
+        Estado: $("#idEstado").val()
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/Acciones/UpdateAccion",
+        data: { model: accionVM },
+        dataType: "json",
+        success: function (idAccion) {
+            $("#txtAccionID").val(idAccion);
+            alert("Actualzación realizada exitosamente !!")
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
