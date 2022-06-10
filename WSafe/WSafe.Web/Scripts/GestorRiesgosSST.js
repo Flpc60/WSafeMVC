@@ -119,6 +119,7 @@ function convertProperty(item, key) {
     }
 }
 
+
 //mostrar resultados
 function mostrarSeguimAcc() {
     var accionID = $("#txtAccionID").val();
@@ -145,6 +146,38 @@ function mostrarSeguimAcc() {
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
             alert(thrownError);
+        }
+    });
+}
+
+function ConsultarLesionados() {
+    var incidenteID = $("#txtIncidenteID").val();
+    $.ajax({
+        type: "GET",                                            // tipo de request que estamos generando
+        url: '/Incidentes/GetAllLesionados',                                      // URL al que vamos a hacer el pedido
+        data: { idIncidente: incidenteID },                                         // data es un arreglo JSON que contiene los parámetros que
+        contentType: "application/json; charset=utf-8",            // tipo de contenido
+        dataType: "json",                                          // formato de transmición de datos
+        async: true,                                               // si es asincrónico o no
+        success: function (result) {
+            var html = '';
+            $.each(result, function (key, item) {
+                html += '<tr>';
+                html += '<td>' + item.Documento + '</td>';
+                html += '<td>' + item.NombreCompleto + '</td>';
+                html += '<td>' + item.Genero + '</td>';
+                html += '<td>' + item.EstadoCivil + '</td>';
+                html += '<td>' + item.TipoVinculacion + '</td>';
+                html += '<td>' + item.Cargo + '</td>';
+                html += '<td><a href = "#" onclick = "DeleteLesionado(' + item.ID + ')"> Borrar</a></td>';
+                html += '</tr>';
+            });
+            $('.tbody').html(html);
+            $('.tabLesionados').css("display", "block");
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) { // función que va a ejecutar si hubo algún tipo de error en el pedido
+            var error = eval("(" + XMLHttpRequest.responseText + ")");
+            aler(error.Message);
         }
     });
 }
@@ -1014,6 +1047,138 @@ function GestorActions() {
 
 }
 
+function GestorIncidents() {
+
+    $('#general').click(function () {
+        $(".tabGeneral").css("display", "block");
+    });
+    $('#general').dblclick(function () {
+        $(".tabGeneral").css("display", "none");
+    });
+
+    $('#detalles').click(function () {
+        $(".detal").css("display", "block");
+    });
+    $('#detalles').dblclick(function () {
+        $(".detal").css("display", "none");
+    });
+
+    $('#lesionados').click(function () {
+        $(".tabLesionados").css("display", "block");
+    });
+    $('#lesionados').dblclick(function () {
+        $(".tabLesionados").css("display", "none");
+    });
+
+    $('#descripcion').click(function () {
+        $(".tabDescrip").css("display", "block");
+    });
+    $('#descripcion').dblclick(function () {
+        $(".tabDescrip").css("display", "none");
+    });
+
+    $('#acciones').click(function () {
+        $(".tabAcciones").css("display", "block");
+    });
+    $('#acciones').dblclick(function () {
+        $(".tabAcciones").css("display", "none");
+    });
+
+    $('#matriz').click(function () {
+        $(".tabMatriz").css("display", "block");
+    });
+    $('#matriz').dblclick(function () {
+        $(".tabMatriz").css("display", "none");
+    });
+
+    $('#equipoInvest').click(function () {
+        var equipo = $('#equipoInvest').val();
+        var colorAttrib;
+        switch (equipo) {
+            case "1":
+                colorAttrib = "red";
+                break;
+
+            case "2":
+                colorAttrib = "yellow";
+                break;
+
+            default:
+                colorAttrib = "green";
+                break;
+        }
+
+        $("#equipoInvest").css("backgroundColor", colorAttrib, "color", "black");
+    });
+
+    $('#interpretaP').change(function () {
+        var valLesion = $('#idLesion').val();
+        var valDaño = $('#idDaño').val();
+        var valMedio = $('#idMedio').val();
+        var valImagen = $('#idImagen').val();
+        var valInterpretaP = $('#interpretaP').val();
+
+        if ((valLesion == "1" || valLesion == "2") && (valDaño == "1" || valDaño == "2") && (valMedio == "1" || valMedio == "2")
+            && (valImagen == "1" || valImagen == "2")) {
+            $('#interpretaP').css("backgroundColor", "green");
+        };
+
+        if (valLesion == "3" && valDaño == "3" && valMedio == "3" && valImagen == "3" && (valInterpretaP == "1" || valInterpretaP == "2" || valInterpretaP == "3")) {
+            $('#interpretaP').css("backgroundColor", "green");
+        };
+
+        if (valLesion == "3" && valDaño == "3" && valMedio == "3" && valImagen == "3" && (valInterpretaP == "4" || valInterpretaP == "5")) {
+            $('#interpretaP').css("backgroundColor", "yellow");
+        };
+
+        if (valLesion == "4" && valDaño == "4" && valMedio == "4" && valImagen == "4" && (valInterpretaP == "1" || valInterpretaP == "2")) {
+            $('#interpretaP').css("backgroundColor", "green");
+        };
+
+        if (valLesion == "4" && valDaño == "4" && valMedio == "4" && valImagen == "4" && (valInterpretaP == "3" || valInterpretaP == "4" || valInterpretaP == "5")) {
+            $('#interpretaP').css("backgroundColor", "yellow");
+        };
+
+        if (valLesion == "5" && valDaño == "5" && valMedio == "5" && valImagen == "5" && valInterpretaP == "1") {
+            $('#interpretaP').css("backgroundColor", "green");
+        };
+
+        if (valLesion == "5" && valDaño == "5" && valMedio == "5" && valImagen == "5" && (valInterpretaP == "2" || valInterpretaP == "3")) {
+            $('#interpretaP').css("backgroundColor", "yellow");
+        };
+
+        if (valLesion == "5" && valDaño == "5" && valMedio == "5" && valImagen == "5" && (valInterpretaP == "4" || valInterpretaP == "5")) {
+            $('#interpretaP').css("backgroundColor", "red");
+        };
+
+        if (valLesion == "6" && valDaño == "6" && valMedio == "6" && valImagen == "6" && (valInterpretaP == "1" || valInterpretaP == "2")) {
+            $('#interpretaP').css("backgroundColor", "yellow");
+        };
+
+        if (valLesion == "6" && valDaño == "6" && valMedio == "6" && valImagen == "6" && (valInterpretaP == "3" || valInterpretaP == "4" || valInterpretaP == "5")) {
+            $('#interpretaP').css("backgroundColor", "red");
+        };
+    });
+
+    $("#lesionados").click(function () {
+        $(".tabLesionados").css("display", "block");
+        $(".tabCerrar").css("display", "none");
+        ConsultarLesionados();
+    });
+
+    $("#lesionados").dblclick(function () {
+        $(".tabLesionados").css("display", "none");
+        $(".tabCerrar").css("display", "block");
+    });
+
+    $("#addLesionado").click(function () {
+        //$(".tabGesPlanAcc").css("display", "none");
+        $(".tabAddLesionado").css("display", "block");
+        $(".tabCerrar").css("display", "none");
+        $("#btnAddLesion").show();
+    });
+}
+
 function CancelPlan() {
     $(".tabAddPlanAcc").css("display", "none");
     $("#idFechaIni").val("");
@@ -1024,6 +1189,12 @@ function CancelPlan() {
     $("#idPrioritaria").val("");
     $("#idCostos").val("");
     mostrarPlanAcc();
+}
+
+function CancelLesion() {
+    $(".tabAddLesionado").css("display", "none");
+    $("#idLesionado").val("");
+    ConsultarLesionados();
 }
 
 function CancelSigue() {
@@ -1080,7 +1251,7 @@ function CancelIncidente() {
 // las siguientes funciones crean un nuevo incidente
 function AddIncidente() {
     // Crea un nuevo incidente
-    $(".tabGeneral").css("display", "none");
+    $(".tabMatriz").css("display", "none");
     if ($("#txtIncapacidad").is(':checked')) {
         $("#txtIncapacidad").val(true)
     }
@@ -1189,9 +1360,11 @@ function UpdateIncidente(id) {
 
 function AddLesionados() {
     // Crea un nuevo lesionado
+    $(".tabAddLesionado").css("display", "none");
+    var incidenteID = $("#txtIncidenteID").val();
     var accidentadoVM = {
         ID: "0",
-        IncidenteID: $("#txtIncidenteID").val(),
+        IncidenteID: incidenteID,
         TrabajadorID: $("#idLesionado").val()
     };
 
@@ -1201,6 +1374,8 @@ function AddLesionados() {
         data: { model: accidentadoVM },
         dataType: "json",
         success: function (result) {
+            $("#txtIncidenteID").val(result);
+            $("#btnAddLesion").hide();
             ConsultarLesionados();
         },
         error: function (xhr, ajaxOptions, thrownError) {

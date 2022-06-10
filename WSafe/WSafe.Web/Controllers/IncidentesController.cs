@@ -66,7 +66,8 @@ namespace WSafe.Web.Controllers
                     var saved = await consulta.Insert(incidente);
                     if (saved != null)
                     {
-                        return Json(incidente, JsonRequestBehavior.AllowGet);
+                        var incidenteID = _empresaContext.Accidentados.OrderByDescending(x => x.ID).First().ID;
+                        return Json(incidenteID, JsonRequestBehavior.AllowGet);
                     }
                 }
                 return Json(new { data = model, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
@@ -298,10 +299,10 @@ namespace WSafe.Web.Controllers
                         var saved = await _empresaContext.SaveChangesAsync();
                         if (saved != null)
                         {
-                            return Json(result, JsonRequestBehavior.AllowGet);
+                            var incidenteID = _empresaContext.Accidentados.OrderByDescending(x => x.ID).First().ID;
+                            return Json(incidenteID, JsonRequestBehavior.AllowGet);
                         }
                     }
-
                 }
                 return Json(new { data = model, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
             }
@@ -314,14 +315,21 @@ namespace WSafe.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> DeleteLesionado(int id)
         {
-            if (ModelState.IsValid)
+            try
             {
-                Accidentado lesionado = await _empresaContext.Accidentados.FindAsync(id);
-                _empresaContext.Accidentados.Remove(lesionado);
-                await _empresaContext.SaveChangesAsync();
-                return Json(lesionado, JsonRequestBehavior.AllowGet);
+                if (ModelState.IsValid)
+                {
+                    Accidentado lesionado = await _empresaContext.Accidentados.FindAsync(id);
+                    _empresaContext.Accidentados.Remove(lesionado);
+                    await _empresaContext.SaveChangesAsync();
+                    return Json(lesionado, JsonRequestBehavior.AllowGet);
+                }
+                return Json(new { data = id, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
             }
-            return RedirectToAction("Index");
+            catch
+            {
+                return Json(new { data = id, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }
