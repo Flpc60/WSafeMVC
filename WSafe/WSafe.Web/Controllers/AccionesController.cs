@@ -257,6 +257,7 @@ namespace WSafe.Web.Controllers
             var result = _converterHelper.ToSeguimientoAccionVMList(seguimientos);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
         [HttpGet]
         public JsonResult UpdatePlanAccion(int ID)
         {

@@ -182,10 +182,9 @@ namespace WSafe.Domain.Helpers.Implements
                 TareaID = model.TareaID,
                 FechaReporte = model.FechaReporte,
                 FechaIncidente = model.FechaIncidente,
-                CategoriaIncidente = model.CategoriasIncidente,
+                CategoriasIncidente = model.CategoriasIncidente,
                 IncapacidadMedica = model.IncapacidadMedica,
                 DiasIncapacidad = model.DiasIncapacidad,
-                Informante = model.Informante,
                 NaturalezaLesion = model.NaturalezaLesion,
                 PartesAfectadas = model.PartesAfectadas,
                 TipoIncidente = model.TipoIncidente,
@@ -205,7 +204,7 @@ namespace WSafe.Domain.Helpers.Implements
                 AccionesInmediatas = model.AccionesInmediatas,
                 ComentariosAdicionales = model.ComentariosAdicionales,
                 AtencionBrindada = model.AtencionBrindada,
-                EquipoInvestigador = model.EquiposInvestigador,
+                EquiposInvestigador = model.EquiposInvestigador,
                 LesionPersonal = model.LesionPersonal,
                 DañoMaterial = model.DañoMaterial,
                 MedioAmbiente = model.MedioAmbiente,
@@ -216,7 +215,7 @@ namespace WSafe.Domain.Helpers.Implements
                 ConsecuenciasMedio = model.ConsecuenciasMedio,
                 ConsecuenciasImagen = model.ConsecuenciasImagen,
                 Probabilidad = model.Probabilidad,
-                //Lesionados = model.Lesionados
+                TrabajadorID = model.TrabajadorID
             };
             return result;
         }
@@ -250,10 +249,9 @@ namespace WSafe.Domain.Helpers.Implements
                 Tareas = _comboHelper.GetComboTareas(),
                 FechaReporte = incidente.FechaReporte,
                 FechaIncidente = incidente.FechaIncidente,
-                CategoriasIncidente = incidente.CategoriaIncidente,
+                CategoriasIncidente = incidente.CategoriasIncidente,
                 IncapacidadMedica = incidente.IncapacidadMedica,
                 DiasIncapacidad = incidente.DiasIncapacidad,
-                Informante = incidente.Informante,
                 Trabajadores = _comboHelper.GetComboTrabajadores(),
                 NaturalezaLesion = incidente.NaturalezaLesion,
                 PartesAfectadas = incidente.PartesAfectadas,
@@ -274,7 +272,7 @@ namespace WSafe.Domain.Helpers.Implements
                 AccionesInmediatas = incidente.AccionesInmediatas,
                 ComentariosAdicionales = incidente.ComentariosAdicionales,
                 AtencionBrindada = incidente.AtencionBrindada,
-                EquiposInvestigador = incidente.EquipoInvestigador,
+                EquiposInvestigador = incidente.EquiposInvestigador,
                 LesionPersonal = incidente.LesionPersonal,
                 DañoMaterial = incidente.DañoMaterial,
                 MedioAmbiente = incidente.MedioAmbiente,

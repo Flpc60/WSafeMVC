@@ -33,5 +33,7 @@ namespace WSafe.Domain.Helpers
         IEnumerable<AccionViewModel> ToAccionVMList(IEnumerable<Accion> accion);
         _DetailsAccionVM ToAccionVMFull(Accion accion, int id);
         MatrizRiesgosVM ToRiesgoVMUnit(Riesgo riesgo);
+        IEnumerable<AccidentadoVM> ToListLesionadosVM(IEnumerable<Accidentado> lesionados);
+        Task<Accidentado> ToLesionadoAsync(AccidentadoVM model, bool isNew);
     }
 }

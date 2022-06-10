@@ -33,7 +33,7 @@ namespace WSafe.Domain.Helpers.Implements
                 var denominador = _indicadorHelper.NumeroTrabajadoresMes(periodo, year);
 
                 var result = from at in _empresaContext.Incidentes
-                             where (periodo.Contains(at.FechaIncidente.Month) && at.FechaIncidente.Year == year && at.CategoriaIncidente == CategoriasIncidente.Accidente)
+                             where (periodo.Contains(at.FechaIncidente.Month) && at.FechaIncidente.Year == year && at.CategoriasIncidente == CategoriasIncidente.Accidente)
                              group at by new { at.FechaIncidente.Year, at.FechaIncidente.Month } into datosAgrupados
                              orderby datosAgrupados.Key
                              select new { Clave = datosAgrupados.Key, Datos = datosAgrupados };
@@ -66,7 +66,7 @@ namespace WSafe.Domain.Helpers.Implements
             try
             {
                 var result = from at in _empresaContext.Incidentes
-                             where (periodo.Contains(at.FechaIncidente.Month) && at.FechaIncidente.Year == year && at.CategoriaIncidente == CategoriasIncidente.Accidente
+                             where (periodo.Contains(at.FechaIncidente.Month) && at.FechaIncidente.Year == year && at.CategoriasIncidente == CategoriasIncidente.Accidente
                              && at.ConsecuenciasLesion == ConsecuenciasLesion.fatalidadMultiple)
                              group at by new { at.FechaIncidente.Year, at.FechaIncidente.Month } into datosAgrupados
                              orderby datosAgrupados.Key
@@ -124,7 +124,7 @@ namespace WSafe.Domain.Helpers.Implements
                 var denominador = _indicadorHelper.NumeroTrabajadoresMes(periodo, year);
 
                 var result = from at in _empresaContext.Incidentes
-                             where (periodo.Contains(at.FechaIncidente.Month) && at.FechaIncidente.Year == year && at.CategoriaIncidente == CategoriasIncidente.Accidente)
+                             where (periodo.Contains(at.FechaIncidente.Month) && at.FechaIncidente.Year == year && at.CategoriasIncidente == CategoriasIncidente.Accidente)
                              group at by new { at.FechaIncidente.Year, at.FechaIncidente.Month } into datosAgrupados
                              orderby datosAgrupados.Key
                              select new
