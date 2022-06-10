@@ -1,0 +1,15 @@
+﻿@model WSafe.Web.Models.IncidenteViewModel
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="form-group">
+            @Html.LabelFor(model => model.TrabajadorID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DropDownListFor(model => model.TrabajadorID, Model.Trabajadores, new { @class = "form-control", @id = "idLesionado" })
+                @Html.ValidationMessageFor(model => model.TrabajadorID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+    </div>
+</div>
