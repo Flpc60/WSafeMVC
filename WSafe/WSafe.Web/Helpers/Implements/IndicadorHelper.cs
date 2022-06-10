@@ -16,20 +16,20 @@ namespace WSafe.Domain.Helpers.Implements
         public int AccidentesTrabajo(int year)
         {
             return (from at in _empresaContext.Incidentes
-                    where at.FechaIncidente.Year == year && at.CategoriaIncidente == CategoriasIncidente.Accidente
+                    where at.FechaIncidente.Year == year && at.CategoriasIncidente == CategoriasIncidente.Accidente
                     select at).Count();
         }
         public int AccidentesTrabajoInvestigados(int year)
         {
             return _empresaContext.Incidentes
-                .Where(i => i.FechaIncidente.Year == year && i.CategoriaIncidente == Data.Entities.Incidentes.CategoriasIncidente.Accidente && i.RequiereInvestigacion == true)
+                .Where(i => i.FechaIncidente.Year == year && i.CategoriasIncidente == Data.Entities.Incidentes.CategoriasIncidente.Accidente && i.RequiereInvestigacion == true)
                 .Count();
         }
 
         public int AccidentesTrabajoMortales(int year)
         {
             return (from at in _empresaContext.Incidentes
-                    where at.FechaIncidente.Year == year && at.CategoriaIncidente == CategoriasIncidente.Accidente
+                    where at.FechaIncidente.Year == year && at.CategoriasIncidente == CategoriasIncidente.Accidente
                     && at.ConsecuenciasLesion == ConsecuenciasLesion.fatalidadMultiple select at).Count();
         }
         public decimal AusentismoCausaMedica(int year)
@@ -128,14 +128,14 @@ namespace WSafe.Domain.Helpers.Implements
         public int IncidentesInvestigados(int year)
         {
             return _empresaContext.Incidentes
-                .Where(i => i.FechaIncidente.Year == year && i.CategoriaIncidente == Data.Entities.Incidentes.CategoriasIncidente.Incidente && i.RequiereInvestigacion == true)
+                .Where(i => i.FechaIncidente.Year == year && i.CategoriasIncidente == Data.Entities.Incidentes.CategoriasIncidente.Incidente && i.RequiereInvestigacion == true)
                 .Count();
         }
 
         public int GetIncidentes(int year)
         {
             return (from at in _empresaContext.Incidentes
-                    where at.FechaIncidente.Year == year && at.CategoriaIncidente == CategoriasIncidente.Incidente select at).Count();
+                    where at.FechaIncidente.Year == year && at.CategoriasIncidente == CategoriasIncidente.Incidente select at).Count();
         }
 
         public decimal ProporcionIncidentesInvestigados(int year)

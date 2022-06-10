@@ -443,6 +443,23 @@ function DeletePlan(id) {
     });
 }
 
+function DeleteLesionado(id) {
+    $.ajax({
+        url: "/Incidentes/DeleteLesionado/" + id,
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        async: true,
+        success: function (result) {
+            ConsultarLesionados();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
 function DeleteAccion(ID) {
     var id = ID;
     $.ajax({
@@ -1112,8 +1129,7 @@ function AddIncidente() {
         MedioAmbiente: $("#idMedio").val(),
         Imagen: $("#idImagen").val(),
         RequiereInvestigacion: $("#txtInvestiga").val(),
-        TrabajadorID: $("#txtInformante").val(),
-        Informante: $("#txtInformante").val()
+        TrabajadorID: $("#txtInformante").val()
     };
 
     $.ajax({
@@ -1125,6 +1141,7 @@ function AddIncidente() {
             $("#txtIncidenteID").val(result);
             $("#btnAddIncidente").hide();
             $("#btnCanIncidente").hide();
+            alert("El registro ha sido ingresado exitosamente");
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -1162,6 +1179,29 @@ function UpdateIncidente(id) {
         success: function (idAccion) {
             $("#txtAccionID").val(idAccion);
             alert("Actualzación realizada exitosamente !!")
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function AddLesionados() {
+    // Crea un nuevo lesionado
+    var accidentadoVM = {
+        ID: "0",
+        IncidenteID: $("#txtIncidenteID").val(),
+        TrabajadorID: $("#idLesionado").val()
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/Incidentes/CreateLesionado",
+        data: { model: accidentadoVM },
+        dataType: "json",
+        success: function (result) {
+            ConsultarLesionados();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);

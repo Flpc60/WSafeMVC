@@ -20,7 +20,7 @@
                 @Html.DisplayNameFor(model => model.FechaIncidente)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CategoriaIncidente)
+                @Html.DisplayNameFor(model => model.CategoriasIncidente)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.IncapacidadMedica)
@@ -86,7 +86,7 @@
                 @Html.DisplayNameFor(model => model.AtencionBrindada)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EquipoInvestigador)
+                @Html.DisplayNameFor(model => model.EquiposInvestigador)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.LesionPersonal)
@@ -123,7 +123,7 @@
     @foreach (var item in Model)
     {
         string strStyle = String.Empty;
-        switch (Convert.ToInt32(item.CategoriaIncidente))
+        switch (Convert.ToInt32(item.CategoriasIncidente))
         {
             case 2:
                 strStyle = "background-color:red;";
@@ -146,7 +146,7 @@
                 @Html.DisplayFor(modelItem => item.FechaIncidente)
             </td>
             <td style="@strStyle">
-                @Html.DisplayFor(modelItem => item.CategoriaIncidente)
+                @Html.DisplayFor(modelItem => item.CategoriasIncidente)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IncapacidadMedica)
@@ -212,7 +212,7 @@
                 @Html.DisplayFor(modelItem => item.AtencionBrindada)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EquipoInvestigador)
+                @Html.DisplayFor(modelItem => item.EquiposInvestigador)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.LesionPersonal)

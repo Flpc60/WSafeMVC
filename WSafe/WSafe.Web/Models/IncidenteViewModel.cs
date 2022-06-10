@@ -65,31 +65,30 @@ namespace WSafe.Web.Models
         [Display(Name = "Días de incapacidad")]
         public int DiasIncapacidad { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Informante")]
+        [Display(Name = "Reportado por")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un trabajador.")]
         public int TrabajadorID { get; set; }
         public IEnumerable<SelectListItem> Trabajadores { get; set; }
-        public IEnumerable<AccidentadoVM> Lesionados { get; set; }
-        [Display(Name = "Reportado por")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public string Informante { get; set; }
         [Display(Name = "Naturaleza lesión")]
-        [MaxLength(100)]
+        [MaxLength(150)]
         public string NaturalezaLesion { get; set; }
         [Display(Name = "Partes afectadas")]
-        [MaxLength(100)]
+        [MaxLength(150)]
         public string PartesAfectadas { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Tipo incidente")]
-        [MaxLength(50)]
+        [MaxLength(150)]
         public string TipoIncidente { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Agente lesión")]
-        [MaxLength(100)]
+        [MaxLength(150)]
         public string AgenteLesion { get; set; }
         [Display(Name = "Actos inseguros")]
-        [MaxLength(100)]
+        [MaxLength(150)]
         public string ActosInseguros { get; set; }
         [Display(Name = "Condiciones inseguras")]
-        [MaxLength(100)]
+        [MaxLength(150)]
         public string CondicionesInsegura { get; set; }
         [Display(Name = "Tipo daño")]
         [MaxLength(100)]
@@ -114,19 +113,19 @@ namespace WSafe.Web.Models
         [Display(Name = "Costos estimados")]
         public decimal CostosEstimados { get; set; }
         [Display(Name = "Descripción incidente")]
-        [MaxLength(100)]
+        [MaxLength(250)]
         public string DescripcionIncidente { get; set; }
         [Display(Name = "Cómo evitarse")]
-        [MaxLength(20)]
+        [MaxLength(150)]
         public string EvitarIncidente { get; set; }
         [Display(Name = "Acciones inmediatas")]
-        [MaxLength(20)]
+        [MaxLength(150)]
         public string AccionesInmediatas { get; set; }
         [Display(Name = "Comentarios Adicionales")]
-        [MaxLength(20)]
+        [MaxLength(150)]
         public string ComentariosAdicionales { get; set; }
         [Display(Name = "Atención brindada")]
-        [MaxLength(20)]
+        [MaxLength(150)]
         public string AtencionBrindada { get; set; }
         [Display(Name = "Investigadores")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
@@ -171,5 +170,6 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una probabilidad.")]
         public AccidenteProbabilidad Probabilidad { get; set; }
+        public IEnumerable<AccidentadoVM> Lesionados { get; set; }
     }
 }

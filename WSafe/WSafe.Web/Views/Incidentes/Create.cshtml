@@ -78,14 +78,14 @@
                         @Html.ValidationMessageFor(model => model.TrabajadorID, "", new { @class = "text-danger" })
                     </div>
                 </div>
+                <button type="button" id="addLesionado" class="btn btn-success" onclick="AddLesionados()">Agregar</button>
             </div>
             <div class="col-md-4">
-                <button type="button" id="addLesionado" class="btn btn-success" onclick="AddLesionado()">Agregar</button>
             </div>
         </div>
 
         <div class="form-group">
-            <div id="lesionados" style="overflow-x:auto;">
+            <div style="overflow-x:auto;">
                 <table id="personsLesion" class="table">
                     <thead>
                         <tr style="background-color:gainsboro">
@@ -108,7 +108,7 @@
                                 Cargo
                             </th>
                     </thead>
-                    <tbody>
+                    <tbody class="tbody">
                     </tbody>
                 </table>
             </div>
@@ -238,46 +238,30 @@
             };
         });
 
-        function AddLesionado() {
+        function ConsultarLesionados() {
             var idAccidented = $("#idLesionado").val();
             if (idAccidented != null && idAccidented != '') {
                 $.ajax({
                     type: "GET",                                            // tipo de request que estamos generando
-                    url: '/Incidentes/GetLesionado',                                      // URL al que vamos a hacer el pedido
-                    data: { ID: $("#idLesionado").val() },                                         // data es un arreglo JSON que contiene los parámetros que
+                    url: '/Incidentes/GetAllLesionados',                                      // URL al que vamos a hacer el pedido
+                    data: { ID: $("#txtIncidenteID").val() },                                         // data es un arreglo JSON que contiene los parámetros que
                     contentType: "application/json; charset=utf-8",            // tipo de contenido
                     dataType: "json",                                          // formato de transmición de datos
                     async: true,                                               // si es asincrónico o no
-                    success: function (accidented) {                           // función que va a ejecutar si el pedido fue exitoso
-                        if (accidented != null && !jQuery.isEmptyObject(accidented)) {
-                            var modelo = @Html.Raw(Json.Encode(Model));
-                            var idTrabajador = accidented.TrabajadorID;
-                            var result = -1;
-                            modelo.Lesionados.forEach(function (i, item) {
-                                var id = item.TrabajadorID;
-                                if (id == idTrabajador) {
-                                    result = i;
-                                }
-                            });
-
-                            if (result < 0) {
-                                var consulta = "";
-                                consulta += '<tr>';
-                                consulta += '<td>' + accidented.Documento + '</td>';
-                                consulta += '<td>' + accidented.NombreCompleto + '</td>';
-                                consulta += '<td>' + accidented.Genero + '</td>';
-                                consulta += '<td>' + accidented.EstadoCivil + '</td>';
-                                consulta += '<td>' + accidented.TipoVinculacion + '</td>';
-                                consulta += '<td>' + accidented.Cargo + '</td>';
-                                consulta += '</tr>';
-                                $("#personsLesion").append(consulta);
-
-                                modelo.Lesionados.append($({
-                                    IncidenteID: modelo.IncidenteID,
-                                    TrabajadorID: accidented.TrabajadorID
-                                }));
-                            }
-                        };
+                    success: function (result) {
+                        var html = '';
+                        $.each(result, function (key, item) {
+                            html += '<tr>';
+                            html += '<td>' + item.Documento + '</td>';
+                            html += '<td>' + item.NombreCompleto + '</td>';
+                            html += '<td>' + item.Genero + '</td>';
+                            html += '<td>' + item.EstadoCivil + '</td>';
+                            html += '<td>' + item.TipoVinculacion + '</td>';
+                            html += '<td>' + item.Cargo + '</td>';
+                            html += '<td><a href = "#" onclick = "DeleteLesionado(' + item.ID + ')"> Borrar</a></td>';
+                            html += '</tr>';
+                        });
+                        $('.tbody').html(html);
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) { // función que va a ejecutar si hubo algún tipo de error en el pedido
                         var error = eval("(" + XMLHttpRequest.responseText + ")");

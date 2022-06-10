@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Helpers;
 using WSafe.Domain.Repositories.Implements;
 using WSafe.Domain.Services.Implements;
@@ -269,24 +271,57 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> GetLesionado(int id)
+        public async Task<JsonResult> GetAllLesionados(int idIncidente)
         {
-            if (id == null)
+            if (idIncidente == null)
             {
                 //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var result = await _empresaContext.Trabajadores
-                .Include(c => c.Cargo)
-                .FirstOrDefaultAsync(i => i.ID == id);
+            var lesionados = _empresaContext.Accidentados.Where(a => a.IncidenteID == idIncidente).ToList();
+            var result = _converterHelper.ToListLesionadosVM(lesionados);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
 
-            var lesionado = _converterHelper.ToLesionadoViewModel(result);
-
-            if (lesionado == null)
+        [HttpPost]
+        public async Task<ActionResult> CreateLesionado(AccidentadoVM model)
+        {
+            try
             {
-                //return HttpNotFound();
+                if (ModelState.IsValid)
+                {
+                    var lesionado = _empresaContext.Accidentados.FirstOrDefault(a => a.TrabajadorID == model.TrabajadorID);
+                    if(lesionado == null)
+                    {
+                        var result = await _converterHelper.ToLesionadoAsync(model, true);
+                        _empresaContext.Accidentados.Add(result);
+                        var saved = await _empresaContext.SaveChangesAsync();
+                        if (saved != null)
+                        {
+                            return Json(result, JsonRequestBehavior.AllowGet);
+                        }
+                    }
+
+                }
+                return Json(new { data = model, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
             }
-            return Json(lesionado, JsonRequestBehavior.AllowGet);
+            catch
+            {
+                return Json(new { data = model, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteLesionado(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                Accidentado lesionado = await _empresaContext.Accidentados.FindAsync(id);
+                _empresaContext.Accidentados.Remove(lesionado);
+                await _empresaContext.SaveChangesAsync();
+                return Json(lesionado, JsonRequestBehavior.AllowGet);
+            }
+            return RedirectToAction("Index");
         }
     }
 }
