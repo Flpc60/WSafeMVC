@@ -64,11 +64,8 @@ namespace WSafe.Web.Controllers
                     var consulta = new IncidenteService(new IncidenteRepository(_empresaContext));
                     var incidente = await _converterHelper.ToIncidenteAsync(model, true);
                     var saved = await consulta.Insert(incidente);
-                    if (saved != null)
-                    {
-                        var incidenteID = _empresaContext.Accidentados.OrderByDescending(x => x.ID).First().ID;
-                        return Json(incidenteID, JsonRequestBehavior.AllowGet);
-                    }
+                    var idIncidente = _empresaContext.Incidentes.OrderByDescending(x => x.ID).First().ID;
+                    return Json(idIncidente, JsonRequestBehavior.AllowGet);
                 }
                 return Json(new { data = model, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
             }
@@ -77,6 +74,7 @@ namespace WSafe.Web.Controllers
                 return Json(new { data = model, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
             }
         }
+        [HttpGet]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -94,23 +92,14 @@ namespace WSafe.Web.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.IncidenteID = id;
+            ViewBag.incidenteID = id;
 
             return View(incidenteViewModel);
         }
 
-        // POST: Riesgos/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(IncidenteViewModel model)
+        public async Task<ActionResult> UpdateIncidente(IncidenteViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
             try
             {
                 if (ModelState.IsValid)
@@ -118,16 +107,14 @@ namespace WSafe.Web.Controllers
                     var consulta = new IncidenteService(new IncidenteRepository(_empresaContext));
                     var result = await _converterHelper.ToIncidenteAsync(model, false);
                     await consulta.Update(result);
-                    return RedirectToAction("Index");
+                    return Json(model, JsonRequestBehavior.AllowGet);
                 }
+                return Json(new { data = model, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
             }
-            catch (DbEntityValidationException ex)
+            catch
             {
-                //return View("Error", new HandleErrorInfo(ex, "Riesgos", "Create"));
-                throw ex;
+                return Json(new { data = model, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
             }
-
-            return View(model);
         }
 
         // GET: Riesgos/Delete/5
@@ -291,17 +278,14 @@ namespace WSafe.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var lesionado = _empresaContext.Accidentados.FirstOrDefault(a => a.TrabajadorID == model.TrabajadorID);
+                    var lesionado = _empresaContext.Accidentados.FirstOrDefault(a => a.TrabajadorID == model.TrabajadorID && a.IncidenteID == model.IncidenteID);
                     if(lesionado == null)
                     {
                         var result = await _converterHelper.ToLesionadoAsync(model, true);
                         _empresaContext.Accidentados.Add(result);
                         var saved = await _empresaContext.SaveChangesAsync();
-                        if (saved != null)
-                        {
-                            var incidenteID = _empresaContext.Accidentados.OrderByDescending(x => x.ID).First().ID;
-                            return Json(incidenteID, JsonRequestBehavior.AllowGet);
-                        }
+                        var accidenID = _empresaContext.Accidentados.OrderByDescending(x => x.ID).First().ID;
+                        return Json(accidenID, JsonRequestBehavior.AllowGet);
                     }
                 }
                 return Json(new { data = model, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
@@ -330,6 +314,36 @@ namespace WSafe.Web.Controllers
             {
                 return Json(new { data = id, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> DeleteIncident(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var message = "";
+            Incidente incidente = await _empresaContext.Incidentes.FindAsync(id);
+
+            var model = _converterHelper.ToIncidenteViewModel(incidente);
+            return Json(new { data = model, error = message }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteIncident(int id)
+        {
+            var consulta = new IncidenteService(new IncidenteRepository(_empresaContext));
+            try
+            {
+                await consulta.Delete(id);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Acciones", "Delete"));
+            }
+
+            return Json(new { data = true, message = "El registro ha sido eliminado exitosamente" }, JsonRequestBehavior.AllowGet);
         }
     }
 }

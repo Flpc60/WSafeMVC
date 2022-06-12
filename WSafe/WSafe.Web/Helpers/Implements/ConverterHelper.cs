@@ -283,7 +283,9 @@ namespace WSafe.Domain.Helpers.Implements
                 ConsecuenciasMedio = incidente.ConsecuenciasMedio,
                 ConsecuenciasImagen = incidente.ConsecuenciasImagen,
                 Probabilidad = incidente.Probabilidad,
-                Lesionados = new List<AccidentadoVM>()
+                Lesionados = new List<AccidentadoVM>(),
+                FechaIncidentStr = incidente.FechaIncidente.ToString("yyyy-MM-dd"),
+                FechaReportStr = incidente.FechaReporte.ToString("yyyy-MM-dd")
             };
 
             return model;
@@ -418,6 +420,8 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public AccidentadoVM ToLesionadoViewModel(Trabajador lesionado)
         {
+            var cargo = _empresaContext.Cargos.Find(lesionado.CargoID);
+
             var modelo = new AccidentadoVM()
             {
                 TrabajadorID = lesionado.ID,
@@ -427,7 +431,7 @@ namespace WSafe.Domain.Helpers.Implements
                 Genero = _gestorHelper.GetGenero(lesionado.Genero),
                 EstadoCivil = _gestorHelper.GetEstadoCivil(lesionado.EstadoCivil),
                 TipoVinculacion = _gestorHelper.GetTipoVinculacion(lesionado.TipoVinculacion),
-                Cargo = lesionado.Cargo.Descripcion
+                Cargo = cargo.Descripcion
             };
             return modelo;
         }
@@ -437,6 +441,7 @@ namespace WSafe.Domain.Helpers.Implements
             foreach (var item in lesionados)
             {
                 var lesionado = _empresaContext.Trabajadores.Find(item.TrabajadorID);
+                var cargo = _empresaContext.Cargos.Find(lesionado.CargoID);
                 modelo.Add(new AccidentadoVM
                 {
                     ID = item.ID,
@@ -447,7 +452,7 @@ namespace WSafe.Domain.Helpers.Implements
                     Genero = _gestorHelper.GetGenero(lesionado.Genero),
                     EstadoCivil = _gestorHelper.GetEstadoCivil(lesionado.EstadoCivil),
                     TipoVinculacion = _gestorHelper.GetTipoVinculacion(lesionado.TipoVinculacion),
-                    Cargo = lesionado.Cargo.Descripcion
+                    Cargo = cargo.Descripcion
                 });
             }
             return modelo;
@@ -633,9 +638,8 @@ namespace WSafe.Domain.Helpers.Implements
         {
             var planes = _empresaContext.PlanActions.Where(pa => pa.AccionID == accion.ID).ToList();
             var sigue = _empresaContext.Seguimientos.Where(sa => sa.AccionID == accion.ID).ToList();
-            var responsable = _empresaContext.Trabajadores
-                .Include(c => c.Cargo)
-                .FirstOrDefault(t => t.ID == accion.TrabajadorID);
+            var responsable = _empresaContext.Trabajadores.FirstOrDefault(t => t.ID == accion.TrabajadorID);
+            var cargo = _empresaContext.Cargos.FirstOrDefault(t => t.ID == responsable.CargoID);
 
             var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == id);
             var model = new _DetailsAccionVM
@@ -648,7 +652,7 @@ namespace WSafe.Domain.Helpers.Implements
                 FechaSolicitud = accion.FechaSolicitud.ToString("dd-MM-yyyy"),
                 Categoria = accion.Categoria,
                 Responsable = responsable.NombreCompleto.ToUpper(),
-                Cargo = responsable.Cargo.Descripcion.ToUpper(),
+                Cargo = cargo.Descripcion.ToUpper(),
                 Proceso = _empresaContext.Procesos.Find(accion.ProcesoID).Descripcion,
                 FuenteAccion = _gestorHelper.GetFuenteAccion(accion.FuenteAccion).ToUpper(),
                 Descripcion = accion.Descripcion.ToUpper(),

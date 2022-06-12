@@ -49,6 +49,6 @@ namespace WSafe.Domain.Data.Entities
         public string EPS { get; set; }
         public string AFP { get; set; }
         public string ARL { get; set; }
-        public Cargo Cargo { get; set; }
+        public int CargoID { get; set; }
     }
 }
