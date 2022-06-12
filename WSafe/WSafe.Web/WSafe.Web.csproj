@@ -396,17 +396,17 @@
     <Compile Include="Migrations\202206080019352_CreateDetailsVM.Designer.cs">
       <DependentUpon>202206080019352_CreateDetailsVM.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202206090103520_UpdateIncidenteVM.cs" />
-    <Compile Include="Migrations\202206090103520_UpdateIncidenteVM.Designer.cs">
-      <DependentUpon>202206090103520_UpdateIncidenteVM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202206091556326_UpdateIncidenteTable.cs" />
-    <Compile Include="Migrations\202206091556326_UpdateIncidenteTable.Designer.cs">
-      <DependentUpon>202206091556326_UpdateIncidenteTable.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\202206102146304_UpdateAccidentadoVM.cs" />
     <Compile Include="Migrations\202206102146304_UpdateAccidentadoVM.Designer.cs">
       <DependentUpon>202206102146304_UpdateAccidentadoVM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206112338220_UpdateTrabajador.cs" />
+    <Compile Include="Migrations\202206112338220_UpdateTrabajador.Designer.cs">
+      <DependentUpon>202206112338220_UpdateTrabajador.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206120217444_UpdateIncidenteVM.cs" />
+    <Compile Include="Migrations\202206120217444_UpdateIncidenteVM.Designer.cs">
+      <DependentUpon>202206120217444_UpdateIncidenteVM.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\IntervencionVM.cs" />
@@ -663,14 +663,14 @@
     <EmbeddedResource Include="Migrations\202206080019352_CreateDetailsVM.resx">
       <DependentUpon>202206080019352_CreateDetailsVM.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202206090103520_UpdateIncidenteVM.resx">
-      <DependentUpon>202206090103520_UpdateIncidenteVM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202206091556326_UpdateIncidenteTable.resx">
-      <DependentUpon>202206091556326_UpdateIncidenteTable.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202206102146304_UpdateAccidentadoVM.resx">
       <DependentUpon>202206102146304_UpdateAccidentadoVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206112338220_UpdateTrabajador.resx">
+      <DependentUpon>202206112338220_UpdateTrabajador.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206120217444_UpdateIncidenteVM.resx">
+      <DependentUpon>202206120217444_UpdateIncidenteVM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

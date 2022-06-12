@@ -33,11 +33,10 @@
 
 <div class="form-horizontal">
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <input type="hidden" id="txtIncidenteID" name="txtIncidenteID" />
-
     <div class="tabGeneral">
         <hr />
         @Html.Partial("_EditarInfoIncidente")
+        <input type="hidden" id="txtIncidenteID" name="txtIncidenteID" />
     </div>
 
     <div class="detal">
@@ -74,10 +73,7 @@
     </div>
 
     <div class="tabAddLesionado">
-
         @Html.Partial("_ModificaLesion")
-        <input type="hidden" id="txtIncidenteID" name="txtIncidenteID" />
-
         <hr />
         <hr />
         <div class="row">
