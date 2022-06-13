@@ -354,6 +354,7 @@ namespace WSafe.Web.Controllers
             }
             return RedirectToAction("Index");
         }
+
         [HttpGet]
         public async Task<ActionResult> Details(int id)
         {

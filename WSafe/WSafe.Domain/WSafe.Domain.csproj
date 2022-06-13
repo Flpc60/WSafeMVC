@@ -195,6 +195,7 @@
     <Compile Include="Models\AplicationsViewModel.cs" />
     <Compile Include="Models\ControlViewModel.cs" />
     <Compile Include="Models\CreateIndicatorsViewModel.cs" />
+    <Compile Include="Models\DetailsIncidentVM.cs" />
     <Compile Include="Models\EmpresaContext.cs" />
     <Compile Include="Models\EquipoInvestigaVM.cs" />
     <Compile Include="Models\IncidenteViewModel.cs" />

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rotativa;
+using System;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Linq;
@@ -344,6 +345,32 @@ namespace WSafe.Web.Controllers
             }
 
             return Json(new { data = true, message = "El registro ha sido eliminado exitosamente" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Details(int id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var result = await _empresaContext.Incidentes.FirstOrDefaultAsync(i => i.ID == id);
+            var model = _converterHelper.ToIncidentVMFull(result, 6);
+            ViewBag.id = id;
+            ViewBag.cantidad = model.Lesionados.Count();
+            return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult PrintIncidentsToPdf(int id)
+        {
+            var report = new ActionAsPdf("Details", new { id = id });
+            report.FileName = "ReporteIncidents.Pdf";
+            report.PageSize = Rotativa.Options.Size.A4;
+            report.Copies = 1;
+            report.PageOrientation.GetValueOrDefault();
+
+            return report;
         }
     }
 }

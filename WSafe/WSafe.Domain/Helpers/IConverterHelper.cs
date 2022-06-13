@@ -35,5 +35,6 @@ namespace WSafe.Domain.Helpers
         MatrizRiesgosVM ToRiesgoVMUnit(Riesgo riesgo);
         IEnumerable<AccidentadoVM> ToListLesionadosVM(IEnumerable<Accidentado> lesionados);
         Task<Accidentado> ToLesionadoAsync(AccidentadoVM model, bool isNew);
+        DetailsIncidentVM ToIncidentVMFull(Incidente incidente, int id);
     }
 }
