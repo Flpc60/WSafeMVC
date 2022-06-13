@@ -408,7 +408,12 @@
     <Compile Include="Migrations\202206120217444_UpdateIncidenteVM.Designer.cs">
       <DependentUpon>202206120217444_UpdateIncidenteVM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202206122349378_UpdateTrabajadorVM.cs" />
+    <Compile Include="Migrations\202206122349378_UpdateTrabajadorVM.Designer.cs">
+      <DependentUpon>202206122349378_UpdateTrabajadorVM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
+    <Compile Include="Models\DetailsIncidentVM.cs" />
     <Compile Include="Models\IntervencionVM.cs" />
     <Compile Include="Models\MatrizRiesgosVM.cs" />
     <Compile Include="Models\_DetailsAccionVM.cs" />
@@ -671,6 +676,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202206120217444_UpdateIncidenteVM.resx">
       <DependentUpon>202206120217444_UpdateIncidenteVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206122349378_UpdateTrabajadorVM.resx">
+      <DependentUpon>202206122349378_UpdateTrabajadorVM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

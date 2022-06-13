@@ -845,5 +845,86 @@ namespace WSafe.Domain.Helpers.Implements
             };
             return result;
         }
+        public DetailsIncidentVM ToIncidentVMFull(Incidente incidente, int id)
+        {
+            var lesionados = _empresaContext.Accidentados.Where(a => a.IncidenteID == incidente.ID).ToList();
+            var responsable = _empresaContext.Trabajadores.FirstOrDefault(t => t.ID == incidente.TrabajadorID);
+            var zona = _empresaContext.Zonas.FirstOrDefault(z => z.ID == incidente.ZonaID).Descripcion;
+            var proceso = _empresaContext.Procesos.FirstOrDefault(p => p.ID == incidente.ProcesoID).Descripcion;
+            var actividad = _empresaContext.Actividades.FirstOrDefault(a => a.ID == incidente.ActividadID).Descripcion;
+            var tarea = _empresaContext.Tareas.FirstOrDefault(t => t.ID == incidente.TareaID).Descripcion;
+            var lugar = zona.Replace(" ", String.Empty).ToUpper() + " - " + proceso.Replace(" ", String.Empty).ToUpper();
+
+            var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == id);
+            var model = new DetailsIncidentVM
+            {
+                ID = incidente.ID,
+                Formato = document.Formato,
+                Estandar = document.Estandar,
+                Titulo = document.Titulo,
+                Version = document.Version,
+                Lugar = lugar,
+                FechaReporte = incidente.FechaReporte.ToString("dd-MM-yyyy"),
+                FechaIncidente = incidente.FechaIncidente.ToString("dd-MM-yyyy"),
+                CategoriasIncidente = incidente.CategoriasIncidente,
+                IncapacidadMedica = incidente.IncapacidadMedica,
+                DiasIncapacidad = incidente.DiasIncapacidad,
+                Informante = responsable.NombreCompleto,
+                NaturalezaLesion = incidente.NaturalezaLesion,
+                PartesAfectadas = incidente.PartesAfectadas,
+                TipoIncidente = incidente.TipoIncidente,
+                AgenteLesion = incidente.AgenteLesion,
+                ActosInseguros = incidente.ActosInseguros,
+                CondicionesInsegura = incidente.CondicionesInsegura,
+                TipoDaño = incidente.TipoDaño,
+                Afectacion = incidente.Afectacion,
+                DañosOcasionados = incidente.DañosOcasionados,
+                TipoVehiculo = incidente.TipoVehiculo,
+                MarcaVehiculo = incidente.MarcaVehiculo,
+                ModeloVehiculo = incidente.ModeloVehiculo,
+                KilometrajeVehiculo = incidente.KilometrajeVehiculo,
+                CostosEstimados = incidente.CostosEstimados,
+                DescripcionIncidente = incidente.DescripcionIncidente,
+                EvitarIncidente = incidente.EvitarIncidente,
+                AccionesInmediatas = incidente.AccionesInmediatas,
+                ComentariosAdicionales = incidente.ComentariosAdicionales,
+                AtencionBrindada = incidente.AtencionBrindada,
+                EquiposInvestigador = incidente.EquiposInvestigador,
+                LesionPersonal = incidente.LesionPersonal,
+                DañoMaterial = incidente.DañoMaterial,
+                MedioAmbiente = incidente.MedioAmbiente,
+                Imagen = incidente.Imagen,
+                RequiereInvestigacion = incidente.RequiereInvestigacion,
+                ConsecuenciasLesion = incidente.ConsecuenciasLesion,
+                ConsecuenciasDaño = incidente.ConsecuenciasDaño,
+                ConsecuenciasMedio = incidente.ConsecuenciasMedio,
+                ConsecuenciasImagen = incidente.ConsecuenciasImagen,
+                Probabilidad = incidente.Probabilidad,
+                Lesionados = new List<AccidentadoVM>(),
+                Firma = responsable.Firma
+            };
+
+            var modelo = new List<AccidentadoVM>();
+            foreach (var item in lesionados)
+            {
+                var lesionado = _empresaContext.Trabajadores.Find(item.TrabajadorID);
+                var cargo = _empresaContext.Cargos.Find(lesionado.CargoID).Descripcion;
+                modelo.Add(new AccidentadoVM
+                {
+                    ID = item.ID,
+                    TrabajadorID = item.TrabajadorID,
+                    Documento = lesionado.Documento,
+                    NombreCompleto = lesionado.NombreCompleto,
+                    FechaNacimiento = lesionado.FechaNacimiento,
+                    Genero = _gestorHelper.GetGenero(lesionado.Genero),
+                    EstadoCivil = _gestorHelper.GetEstadoCivil(lesionado.EstadoCivil),
+                    TipoVinculacion = _gestorHelper.GetTipoVinculacion(lesionado.TipoVinculacion),
+                    Cargo = cargo
+                });
+            }
+            model.Lesionados = modelo;
+
+            return model;
+        }
     }
 }
