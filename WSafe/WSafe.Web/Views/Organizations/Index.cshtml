@@ -1,147 +1,224 @@
 ﻿@model IEnumerable<WSafe.Domain.Data.Entities.Organization>
 
 @{
-    ViewBag.Title = "Index";
+    var title = "INFORMACIÓN BASICA DE LA EMPRESA";
+}
+<style>
+    .tabBasics, .tabGesCargos, .tabAddCargos, .tabGesZones, .tabAddZones, .tabGesProcess, .tabAddProcess,
+    .tabGesActivitys, .tabAddActivitys, .tabGesTasks, .tabAddTasks {
+        display: none;
+    }
+</style>
+
+<hr />
+<hr />
+<h4>@title</h4>
+<div class="row">
+    <div class="col-md-12">
+        <button type="button" class="btn btn-warning" id="basics" title="doble click para cerrar la ventana">BÁSICOS</button>
+        <button type="button" class="btn btn-warning" id="cargos" title="doble click para cerrar la ventana">CARGOS</button>
+        <button type="button" class="btn btn-warning" id="zones" title="doble click para cerrar la ventana">ZONAS</button>
+        <button type="button" class="btn btn-warning" id="process" title="doble click para cerrar la ventana">PROCESOS</button>
+        <button type="button" class="btn btn-warning" id="activitys" title="doble click para cerrar la ventana">ACTIVIDADES</button>
+        <button type="button" class="btn btn-warning" id="tasks" title="doble click para cerrar la ventana">TAREAS</button>
+    </div>
+    <div class="col-md-offset-0">
+    </div>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="tabBasics">
+            @Html.Partial("_EditarInfoBasic")
+            <div class="col-row">
+                <div class="col-sm-6">
+                    <button type="button" class="btn btn-success" onclick="UpdateOrganization(@ViewBag.id)">Guardar</button>
+                    <hr />
+                </div>
+            </div>
+        </div>
+
+        <div class="tabGesCargos">
+            <hr />
+            @Html.Partial("_ShowCargos")
+        </div>
+
+        <div class="tabAddCargos">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Cargo : </label>
+                        <input type="text" id="txtCodigo" name="txtCodigo" placeholder="Ingrese código del cargo" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Nombre : </label>
+                        <input type="text" id="txtDescrip" name="txtDescrip" placeholder="Ingrese nombre del cargo" />
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-8">
+                    <hr />
+                    <button type="button" id="btnAddCargo" class="btn btn-primary" onclick="AddCargo()">Adicionar</button>
+                    <button type="button" id="btnCargo" class="btn btn-primary" onclick="CancelCargo()">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                    </button>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+        </div>
+
+        <div class="tabGesZones">
+            <hr />
+            @Html.Partial("_ShowZones")
+        </div>
+
+        <div class="tabAddZones">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label>Nombre : </label>
+                        <input type="text" id="txtZone" name="txtZone" placeholder="Ingrese nombre de la zona" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-8">
+                    <hr />
+                    <button type="button" id="btnAddCargo" class="btn btn-primary" onclick="AddZone()">Adicionar</button>
+                    <button type="button" id="btnCargo" class="btn btn-primary" onclick="CancelZone()">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                    </button>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+        </div>
+
+        <div class="tabGesProcess">
+            <hr />
+            @Html.Partial("_ShowProcess")
+        </div>
+
+        <div class="tabAddProcess">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label>Nombre : </label>
+                        <input type="text" id="txtProcess" name="txtProcess" placeholder="Ingrese nombre del proceso" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-8">
+                    <hr />
+                    <button type="button" id="btnAddProcess" class="btn btn-primary" onclick="AddProcess()">Adicionar</button>
+                    <button type="button" id="btnCargo" class="btn btn-primary" onclick="CancelProcess()">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                    </button>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+        </div>
+
+        <div class="tabGesActivitys">
+            <hr />
+            @Html.Partial("_ShowActivitys")
+        </div>
+
+        <div class="tabAddActivitys">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label>Nombre : </label>
+                        <input type="text" id="txtActivity" name="txtActivity" placeholder="Ingrese nombre de la actividad" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-8">
+                    <hr />
+                    <button type="button" id="btnAddActivity" class="btn btn-primary" onclick="AddActivity()">Adicionar</button>
+                    <button type="button" id="btnActivity" class="btn btn-primary" onclick="CancelActivity()">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                    </button>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+        </div>
+
+        <div class="tabGesTasks">
+            <hr />
+            @Html.Partial("_ShowTasks")
+        </div>
+
+        <div class="tabAddTasks">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label>Nombre : </label>
+                        <input type="text" id="txtTask" name="txtTask" placeholder="Ingrese nombre de la tarea" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-8">
+                    <hr />
+                    <button type="button" id="btnAddTask" class="btn btn-primary" onclick="AddTask()">Adicionar</button>
+                    <button type="button" id="btnTask" class="btn btn-primary" onclick="CancelTask()">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                    </button>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+        </div>
+
+    </div>
 }
 
-<h2>Index</h2>
+<hr />
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.NIT)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RazonSocial)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Direccion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Municip)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Department)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Telefono)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ARL)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ClaseRiesgo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DocumentRepresent)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NameRepresent)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EconomicActivity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NumeroTrabajadores)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Products)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Mision)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Vision)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Objetivos)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Procesos)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Organigrama)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TurnosAdministrativo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TurnosOperativo)
-        </th>
-        <th></th>
-    </tr>
+<div>
+    @Html.ActionLink("Cerrar", "Index", new { @class = "glyphicon glyphicon-arrow-left" },
+    new { @class = "btn btn-success btn-lg active" })
+</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.NIT)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RazonSocial)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Direccion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Municip)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Department)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Telefono)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ARL)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ClaseRiesgo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DocumentRepresent)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NameRepresent)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EconomicActivity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NumeroTrabajadores)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Products)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Mision)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Vision)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Objetivos)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Procesos)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Organigrama)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TurnosAdministrativo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TurnosOperativo)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
+@section Scripts
+{
+    <script type="text/javascript">
+
+        function CancelCargo() {
+            $(".tabAddCargos").css("display", "none");
+            $("#txtCodigo").val("");
+            $("#txtDescrip").val("");
+        }
+        $(document).ready(function () {
+            ClearTextBox();
+            GestorOrganization();
+        });
+
+    </script>
 }
-
-</table>
