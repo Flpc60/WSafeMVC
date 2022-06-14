@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -22,7 +23,10 @@ namespace WSafe.Web.Controllers
         }
         public async Task<ActionResult> Index()
         {
-            return View(await _empresaContext.Organizations.ToListAsync());
+            var id = _empresaContext.Organizations.OrderByDescending(x => x.ID).First().ID;
+            ViewBag.id = id;
+            Organization organization = await _empresaContext.Organizations.FindAsync(id);
+            return View(organization);
         }
         public ActionResult GetAllRoles()
         {
@@ -55,9 +59,20 @@ namespace WSafe.Web.Controllers
             try
             {
                 Role role = await _empresaContext.Roles.FindAsync(id);
+
+                // Validar retiro de rol
+                var message = "";
+                var users = _empresaContext.Users.Where(t => t.RoleID == id).Count();
+                if (users != 0)
+                {
+                    message = "Este rol no se puede eliminar por estar asignado  a un usuario!!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+
+                message = "Este rol fué eliminado correctamente!!";
                 _empresaContext.Roles.Remove(role);
                 await _empresaContext.SaveChangesAsync();
-                return Json(role, JsonRequestBehavior.AllowGet);
+                return Json(new {data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
@@ -95,9 +110,20 @@ namespace WSafe.Web.Controllers
             try
             {
                 Cargo cargo = await _empresaContext.Cargos.FindAsync(id);
+
+                // Validar retiro de cargo
+                var message = "";
+                var workers = _empresaContext.Trabajadores.Where(t => t.CargoID == id).Count();
+                if (workers != 0)
+                {
+                    message = "Este cargo no se puede eliminar por estar asignado  a un trabajador!!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+
+                message = "Este cargo fué eliminado correctamente!!";
                 _empresaContext.Cargos.Remove(cargo);
                 await _empresaContext.SaveChangesAsync();
-                return Json(cargo, JsonRequestBehavior.AllowGet);
+                return Json(new { data = true, mensaj = message },JsonRequestBehavior.AllowGet);
             }
             catch
             {
@@ -135,9 +161,32 @@ namespace WSafe.Web.Controllers
             try
             {
                 Zona zona = await _empresaContext.Zonas.FindAsync(id);
+
+                // Validar retiro de zone
+                var risks = _empresaContext.Riesgos.Where(r => r.ZonaID == id).Count();
+                var message = "";
+                if (risks != 0)
+                {
+                    message = "Esta zona no se puede eliminar por estar asignada a un riesgo!!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                var incidents = _empresaContext.Incidentes.Where(i => i.ZonaID == id).Count();
+                if (incidents != 0)
+                {
+                    message = "Esta zona no se puede eliminar por estar asignada a un incidente!!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                var actions = _empresaContext.Acciones.Where(a => a.ZonaID == id).Count();
+                if (actions != 0)
+                {
+                    message = "Esta zona no se puede eliminar por estar asignada a una acción!!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                message = "Esta zona fué eliminada correctamente!!";
+
                 _empresaContext.Zonas.Remove(zona);
                 await _empresaContext.SaveChangesAsync();
-                return Json(zona, JsonRequestBehavior.AllowGet);
+                return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
@@ -175,9 +224,32 @@ namespace WSafe.Web.Controllers
             try
             {
                 Proceso process = await _empresaContext.Procesos.FindAsync(id);
+
+                // Validar retiro de process
+                var risks = _empresaContext.Riesgos.Where(r => r.ProcesoID == id).Count();
+                var message = "";
+                if (risks != 0)
+                {
+                    message = "Este proceso no se puede eliminar por estar asignado a un riesgo!!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                var incidents = _empresaContext.Incidentes.Where(i => i.ProcesoID == id).Count();
+                if (incidents != 0)
+                {
+                    message = "Este proceso no se puede eliminar por estar asignado a un incidente!!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                var actions = _empresaContext.Acciones.Where(a => a.ProcesoID == id).Count();
+                if (actions != 0)
+                {
+                    message = "Este proceso no se puede eliminar por estar asignado a una acción!!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                message = "Este proceso fué eliminado correctamente!!";
+
                 _empresaContext.Procesos.Remove(process);
                 await _empresaContext.SaveChangesAsync();
-                return Json(process, JsonRequestBehavior.AllowGet);
+                return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
@@ -215,16 +287,39 @@ namespace WSafe.Web.Controllers
             try
             {
                 Actividad activity = await _empresaContext.Actividades.FindAsync(id);
+
+                // Validar retiro de activity
+                var risks = _empresaContext.Riesgos.Where(r => r.ActividadID == id).Count();
+                var message = "";
+                if (risks != 0)
+                {
+                    message = "Esta actividad no se puede eliminar por estar asignada a un riesgo!!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                var incidents = _empresaContext.Incidentes.Where(i => i.ActividadID == id).Count();
+                if (incidents != 0)
+                {
+                    message = "Esta actividad no se puede eliminar por estar asignada a un incidente!!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                var actions = _empresaContext.Acciones.Where(a => a.ActividadID == id).Count();
+                if (actions != 0)
+                {
+                    message = "Esta actividad no se puede eliminar por estar asignada a una acción!!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                message = "Esta actividad fué eliminada correctamente!!";
+
                 _empresaContext.Actividades.Remove(activity);
                 await _empresaContext.SaveChangesAsync();
-                return Json(activity, JsonRequestBehavior.AllowGet);
+                return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
                 return Json(new { error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult GetAllTareas()
+        public ActionResult GetAllTasks()
         {
             var tareas = _comboHelper.GetAllTareas();
             return View(tareas);
@@ -250,14 +345,37 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> DeleteTarea(int id)
+        public async Task<ActionResult> DeleteTask(int id)
         {
             try
             {
                 Tarea tarea = await _empresaContext.Tareas.FindAsync(id);
+
+                // Validar retiro de tarea
+                var risks = _empresaContext.Riesgos.Where(r => r.TareaID == id).Count();
+                var message = "";
+                if (risks != 0)
+                {
+                    message = "Esta tarea no se puede eliminar por estar asignada a un riesgo!!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                var incidents = _empresaContext.Incidentes.Where(i => i.TareaID == id).Count();
+                if (incidents != 0)
+                {
+                    message = "Esta tarea no se puede eliminar por estar asignada a un incidente!!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                var actions = _empresaContext.Acciones.Where(a => a.TareaID == id).Count();
+                if (actions != 0)
+                {
+                    message = "Esta tarea no se puede eliminar por estar asignada a una acción!!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                message = "Esta tarea fué eliminada correctamente!!";
+
                 _empresaContext.Tareas.Remove(tarea);
                 await _empresaContext.SaveChangesAsync();
-                return Json(tarea, JsonRequestBehavior.AllowGet);
+                return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
@@ -273,48 +391,48 @@ namespace WSafe.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "ID,NIT,RazonSocial,Direccion,Municip,Department,Telefono,ARL,ClaseRiesgo,DocumentRepresent,NameRepresent,EconomicActivity,NumeroTrabajadores,Products,Mision,Vision,Objetivos,Procesos,Organigrama,TurnosAdministrativo,TurnosOperativo")] Organization organization)
         {
-            if (ModelState.IsValid)
+            var message = "";
+            try
             {
-                _empresaContext.Organizations.Add(organization);
-                await _empresaContext.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    _empresaContext.Organizations.Add(organization);
+                    await _empresaContext.SaveChangesAsync();
+                    message = "La Organización ha sido actualizada correctamente!!";
+                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                message = "La Organización no se ha podido actualizar correctamente!!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
-
-            return View(organization);
+            catch
+            {
+                message = "La Organización no se ha podido actualizar correctamente!!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
         }
 
-        // GET: Organizations/Edit/5
-        public async Task<ActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Organization organization = await _empresaContext.Organizations.FindAsync(id);
-            if (organization == null)
-            {
-                return HttpNotFound();
-            }
-            return View(organization);
-        }
-
-        // POST: Organizations/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,NIT,RazonSocial,Direccion,Municip,Department,Telefono,ARL,ClaseRiesgo,DocumentRepresent,NameRepresent,EconomicActivity,NumeroTrabajadores,Products,Mision,Vision,Objetivos,Procesos,Organigrama,TurnosAdministrativo,TurnosOperativo")] Organization organization)
+        public async Task<ActionResult> UpdateOrganization([Bind(Include = "ID,NIT,RazonSocial,Direccion,Municip,Department,Telefono,ARL,ClaseRiesgo,DocumentRepresent,NameRepresent,EconomicActivity,NumeroTrabajadores,Products,Mision,Vision,Objetivos,TurnosAdministrativo,TurnosOperativo")] Organization organization)
         {
-            if (ModelState.IsValid)
+            var message = "";
+            try
             {
-                _empresaContext.Entry(organization).State = EntityState.Modified;
-                await _empresaContext.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    _empresaContext.Entry(organization).State = EntityState.Modified;
+                    await _empresaContext.SaveChangesAsync();
+                    message = "La Organización ha sido actualizada correctamente!!";
+                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                message = "La Organización no se ha podido actualizar correctamente!!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
-            return View(organization);
+            catch
+            {
+                message = "La Organización no se ha podido actualizar correctamente!!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
         }
-
-        // GET: Organizations/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)

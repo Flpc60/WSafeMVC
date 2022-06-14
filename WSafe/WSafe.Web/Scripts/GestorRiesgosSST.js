@@ -119,8 +119,6 @@ function convertProperty(item, key) {
     }
 }
 
-
-//mostrar resultados
 function mostrarSeguimAcc() {
     var accionID = $("#txtAccionID").val();
     $.ajax({
@@ -178,6 +176,168 @@ function ConsultarLesionados() {
         error: function (XMLHttpRequest, textStatus, errorThrown) { // función que va a ejecutar si hubo algún tipo de error en el pedido
             var error = eval("(" + XMLHttpRequest.responseText + ")");
             aler(error.Message);
+        }
+    });
+}
+
+function ShowRoles() {
+    // Mostrar todos los roles
+    $.ajax({
+        url: "/Organizations/GetAllRoles/",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (result) {
+            var html = '';
+            $.each(result, function (key, item) {
+                html += '<tr>';
+                html += '<td>' + item.ID + '</td>';
+                html += '<td>' + item.Name + '</td>';
+                html += '<td><a href = "#" onclick = "DeleteRole(' + item.ID + ')"> Borrar</a></td>';
+                html += '</tr>';
+            });
+            $('.tbody').html(html);
+            $('.tabGesRoles').css("display", "block");
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function ShowZones() {
+    // Mostrar todas las zonas
+    $.ajax({
+        url: "/Organizations/GetAllZonas/",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (result) {
+            var html = '';
+            $.each(result, function (key, item) {
+                html += '<tr>';
+                html += '<td>' + item.ID + '</td>';
+                html += '<td>' + item.Descripcion + '</td>';
+                html += '<td><a href = "#" onclick = "DeleteZone(' + item.ID + ')"> Borrar</a></td>';
+                html += '</tr>';
+            });
+            $('.tbody').html(html);
+            $('.tabGesZones').css("display", "block");
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function ShowCargos() {
+    // Mostrar todos los cargos
+    $.ajax({
+        url: "/Organizations/GetAllCargos/",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (result) {
+            var html = '';
+            $.each(result, function (key, item) {
+                html += '<tr>';
+                html += '<td>' + item.ID + '</td>';
+                html += '<td>' + item.Descripcion + '</td>';
+                html += '<td><a href = "#" onclick = "DeleteCargo(' + item.ID + ')"> Borrar</a></td>';
+                html += '</tr>';
+            });
+            $('.tbody').html(html);
+            $('.tabGesCargos').css("display", "block");
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function ShowProcess() {
+    // Mostrar todos los procesos
+    $.ajax({
+        url: "/Organizations/GetAllProcess/",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (result) {
+            var html = '';
+            $.each(result, function (key, item) {
+                html += '<tr>';
+                html += '<td>' + item.ID + '</td>';
+                html += '<td>' + item.Descripcion + '</td>';
+                html += '<td><a href = "#" onclick = "DeleteProcess(' + item.ID + ')"> Borrar</a></td>';
+                html += '</tr>';
+            });
+            $('.tbody').html(html);
+            $('.tabGesProcess').css("display", "block");
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function ShowActivitys() {
+    // Mostrar todos los procesos
+    $.ajax({
+        url: "/Organizations/GetAllActivitys/",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (result) {
+            var html = '';
+            $.each(result, function (key, item) {
+                html += '<tr>';
+                html += '<td>' + item.ID + '</td>';
+                html += '<td>' + item.Descripcion + '</td>';
+                html += '<td><a href = "#" onclick = "DeleteProcess(' + item.ID + ')"> Borrar</a></td>';
+                html += '</tr>';
+            });
+            $('.tbody').html(html);
+            $('.tabGesActivitys').css("display", "block");
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function ShowTasks() {
+    // Mostrar todos los procesos
+    $.ajax({
+        url: "/Organizations/GetAllTasks/",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (result) {
+            var html = '';
+            $.each(result, function (key, item) {
+                html += '<tr>';
+                html += '<td>' + item.ID + '</td>';
+                html += '<td>' + item.Descripcion + '</td>';
+                html += '<td><a href = "#" onclick = "DeleteTask(' + item.ID + ')"> Borrar</a></td>';
+                html += '</tr>';
+            });
+            $('.tbody').html(html);
+            $('.tabGesTasks').css("display", "block");
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
         }
     });
 }
@@ -650,6 +810,150 @@ function DeleteRiesgo(ID) {
     });
 }
 
+function DeleteRole(id) {
+// Eliminar rol
+    var text = "";
+    text += "Esta seguro de querer borrar este rol ? :" + id + "\n\n";
+    var respuesta = confirm(text);
+    if (respuesta == true) {
+        $.ajax({
+            url: "/Organizations/DeleteRole/" + id,
+            type: "POST",
+            contentType: "application/json;charset=UTF-8",
+            dataType: "json",
+            async: true,                                               // si es asincrónico o no
+            success: function (result) {
+                alert(result.mensaj);
+                showRoles();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        });
+    }
+}
+
+function DeleteZone(id) {
+    // Eliminar zonas
+    var text = "";
+    text += "Esta seguro de querer borrar esta zona ? :" + id + "\n\n";
+    var respuesta = confirm(text);
+    if (respuesta == true) {
+        $.ajax({
+            url: "/Organizations/DeleteZone/" + id,
+            type: "POST",
+            contentType: "application/json;charset=UTF-8",
+            dataType: "json",
+            async: true,                                               // si es asincrónico o no
+            success: function (result) {
+                alert(result.mensaj);
+                showZones();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        });
+    }
+}
+
+function DeleteCargo(id) {
+    // Eliminar cargo
+    var text = "";
+    text += "Esta seguro de querer borrar este cargo ? :" + id + "\n\n";
+    var respuesta = confirm(text);
+    if (respuesta == true) {
+        $.ajax({
+            url: "/Organizations/DeleteCargo/" + id,
+            type: "POST",
+            contentType: "application/json;charset=UTF-8",
+            dataType: "json",
+            async: true,                                               // si es asincrónico o no
+            success: function (result) {
+                alert(result.mensaj);
+                showCargos();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        });
+    }
+}
+
+function DeleteProcess(id) {
+    // Eliminar procesos
+    var text = "";
+    text += "Esta seguro de querer borrar este proceso ? :" + id + "\n\n";
+    var respuesta = confirm(text);
+    if (respuesta == true) {
+        $.ajax({
+            url: "/Organizations/DeleteProcess/" + id,
+            type: "POST",
+            contentType: "application/json;charset=UTF-8",
+            dataType: "json",
+            async: true,                                               // si es asincrónico o no
+            success: function (result) {
+                alert(result.mensaj);
+                showProcess();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        });
+    }
+}
+
+function DeleteActivity(id) {
+    // Eliminar actividad
+    var text = "";
+    text += "Esta seguro de querer borrar esta actividad ? :" + id + "\n\n";
+    var respuesta = confirm(text);
+    if (respuesta == true) {
+        $.ajax({
+            url: "/Organizations/DeleteActivity/" + id,
+            type: "POST",
+            contentType: "application/json;charset=UTF-8",
+            dataType: "json",
+            async: true,                                               // si es asincrónico o no
+            success: function (result) {
+                alert(result.mensaj);
+                showActivitys();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        });
+    }
+}
+
+function DeleteTask(id) {
+    // Eliminar tarea
+    var text = "";
+    text += "Esta seguro de querer borrar esta tarea ? :" + id + "\n\n";
+    var respuesta = confirm(text);
+    if (respuesta == true) {
+        $.ajax({
+            url: "/Organizations/DeleteTask/" + id,
+            type: "POST",
+            contentType: "application/json;charset=UTF-8",
+            dataType: "json",
+            async: true,                                               // si es asincrónico o no
+            success: function (result) {
+                alert(result.mensaj);
+                showTasks();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        });
+    }
+}
+
 // las siguientes funciones cran una nueva accion, plan acción y nuevo seguimiento
 function AddAccion() {
     // Crea una nueva acción, para una nueva no conformidad
@@ -736,6 +1040,46 @@ function UpdateAccion(id) {
         success: function (idAccion) {
             $("#txtAccionID").val(idAccion);
             alert("Actualzación realizada exitosamente !!")
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function UpdateOrganization(id) {
+// Actualiza datos básicos de la empresa
+    $(".tabBasics").css("display", "none");
+    var organizaVM = {
+        ID: id,
+        NIT: $("#txtNit").val(),
+        RazonSocial: $("#txtRazon").val(),
+        Direccion: $("#txtDireccion").val(),
+        Municip: $("#txtMunicip").val(),
+        Department: $("#txtDepartment").val(),
+        Telefono: $("#txtTelefono").val(),
+        ARL: $("#txtArl").val(),
+        ClaseRiesgo: $("#txtClaseRiesgo").val(),
+        DocumentRepresent: $("#txtDocument").val(),
+        NameRepresent: $("#txtName").val(),
+        EconomicActivity: $("#txtEconomic").val(),
+        NumeroTrabajadores: $("#txtNumero").val(),
+        Products: $("txtProducts").val(),
+        Mision: $("txtMision").val(),
+        Vision: $("txtVision").val(),
+        Objetivos: $("txtObjetivos").val(),
+        TurnosAdministrativo: $("txtAdministrativo").val(),
+        TurnosOperativo: $("txtOperativo").val(),
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/Organizations/UpdateOrganization",
+        data: { model: organizaVM },
+        dataType: "json",
+        success: function (result) {
+            alert(result.mensaj);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -1077,6 +1421,77 @@ function GestorActions() {
         $(".tabSeguiPlanAcc").css("display", "none");
         $(".tabCerrar").css("display", "block");
     });
+
+    $("#addPlanAcc").click(function () {
+        //$(".tabGesPlanAcc").css("display", "none");
+        $(".tabAddPlanAcc").css("display", "block");
+        $(".tabCerrar").css("display", "none");
+        $("#btnAddPlan").show();
+        $("#btnUpdPlan").hide();
+    });
+
+    $("#addSeguiAcc").click(function () {
+        //$(".tabGesPlanAcc").css("display", "none");
+        $(".tabAddSeguimAcc").css("display", "block");
+        $(".tabCerrar").css("display", "none");
+        $("#btnAddSigue").show();
+        $("#btnUpdSigue").hide();
+    });
+
+}
+
+function GestorOrganization() {
+    //Activa ventanas para gestionar crud de organización
+    $("#basics").click(function () {
+        $(".tabBasics").css("display", "block");
+        $(".tabAddCargos").css("display", "none");
+        $(".tabAddZones").css("display", "none");
+        $(".tabProcess").css("display", "none");
+        $(".tabActivitys").css("display", "none");
+        $(".tabTasks").css("display", "none");
+        $(".tabGesCargos").css("display", "none");
+        $(".tabGesZones").css("display", "none");
+        $(".tabGesProcess").css("display", "none");
+        $(".tabGesActivitys").css("display", "none");
+        $(".tabGesTasks").css("display", "none");
+        $(".tabCerrar").css("display", "none");
+    });
+    $("#basics").dblclick(function () {
+        $(".tabBasics").css("display", "none");
+        $(".tabAddCargos").css("display", "none");
+        $(".tabAddZones").css("display", "none");
+        $(".tabProcess").css("display", "none");
+        $(".tabActivitys").css("display", "none");
+        $(".tabTasks").css("display", "none");
+        $(".tabGesCargos").css("display", "none");
+        $(".tabGesZones").css("display", "none");
+        $(".tabGesProcess").css("display", "none");
+        $(".tabGesActivitys").css("display", "none");
+        $(".tabGesTasks").css("display", "none");
+        $(".tabCerrar").css("display", "block");
+    });
+
+    $("#cargos").click(function () {
+        $(".tabGesCargos").css("display", "block");
+        $(".tabCerrar").css("display", "none");
+        ShowCargos();
+    });
+    $("#cargos").dblclick(function () {
+        $(".tabGesCargos").css("display", "none");
+        $(".tabCerrar").css("display", "block");
+    });
+
+    $("#cargos").click(function () {
+        $(".tabGesCargos").css("display", "block");
+        $(".tabCerrar").css("display", "none");
+        ShowCargos();
+    });
+
+    $("#cargos").dblclick(function () {
+        $(".tabGesCargos").css("display", "none");
+        $(".tabCerrar").css("display", "block");
+    });
+
 
     $("#addPlanAcc").click(function () {
         //$(".tabGesPlanAcc").css("display", "none");
@@ -1510,7 +1925,7 @@ function AddCargo() {
         dataType: "json",
         success: function (accidenID) {
             $("#btnAddCargo").hide();
-            ConsultaCargos();
+            ShowCargos();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);

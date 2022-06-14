@@ -32,11 +32,12 @@
             </div>
             <div class="navbar-collapse collapse navbar-menu">
                 <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Organización", "Index", "Organizations")</li>
                     <li>@Html.ActionLink("Riesgos", "Index", "Riesgos")</li>
                     <li>@Html.ActionLink("Incidentes", "Index", "Incidentes")</li>
                     <li>@Html.ActionLink("Indicadores", "Index", "Indicadores")</li>
                     <li>@Html.ActionLink("Acciones", "Index", "Acciones")</li>
-                    <li>@Html.ActionLink("Organización", "Index", "Organizaciones")</li>
+                    <li>@Html.ActionLink("Usuarios", "Index", "Accounts")</li>
                 </ul>
                 @if (User.Identity.IsAuthenticated)
                 {
