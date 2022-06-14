@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using WSafe.Domain.Data.Entities;
 
 namespace WSafe.Domain.Helpers
 {
@@ -18,5 +19,11 @@ namespace WSafe.Domain.Helpers
         IEnumerable<SelectListItem> GetNivelConsecuencias();
         IEnumerable<SelectListItem> GetComboRiesgo();
         IEnumerable<SelectListItem> GetAllCausas();
+        IEnumerable<Role> GetAllRoles();
+        IEnumerable<Cargo> GetAllCargos();
+        IEnumerable<Zona> GetAllZonas();
+        IEnumerable<Proceso> GetAllProcess();
+        IEnumerable<Actividad> GetAllActivitys();
+        IEnumerable<Tarea> GetAllTareas();
     }
 }

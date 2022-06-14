@@ -280,7 +280,7 @@ namespace WSafe.Web.Controllers
                 if (ModelState.IsValid)
                 {
                     var lesionado = _empresaContext.Accidentados.FirstOrDefault(a => a.TrabajadorID == model.TrabajadorID && a.IncidenteID == model.IncidenteID);
-                    if(lesionado == null)
+                    if (lesionado == null)
                     {
                         var result = await _converterHelper.ToLesionadoAsync(model, true);
                         _empresaContext.Accidentados.Add(result);

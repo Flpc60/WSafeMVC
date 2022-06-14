@@ -161,6 +161,7 @@
     <Compile Include="Data\Entities\NivelesProbabilidad.cs" />
     <Compile Include="Data\Entities\NivelesRiesgo.cs" />
     <Compile Include="Data\Entities\Operation.cs" />
+    <Compile Include="Data\Entities\Organization.cs" />
     <Compile Include="Data\Entities\Peligro.cs" />
     <Compile Include="Data\Entities\PlanAccion.cs" />
     <Compile Include="Data\Entities\PlanAction.cs" />
