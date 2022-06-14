@@ -311,6 +311,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IncidentesController.cs" />
     <Compile Include="Controllers\IndicadoresController.cs" />
+    <Compile Include="Controllers\OrganizationsController.cs" />
     <Compile Include="Controllers\RiesgosController.cs" />
     <Compile Include="Data\Entities\Accidentado.cs" />
     <Compile Include="Data\Entities\Auditor\AuditaAccion.cs" />
@@ -335,6 +336,7 @@
     <Compile Include="Data\Entities\NivelesProbabilidad.cs" />
     <Compile Include="Data\Entities\NivelesRiesgo.cs" />
     <Compile Include="Data\Entities\Operation.cs" />
+    <Compile Include="Data\Entities\Organization.cs" />
     <Compile Include="Data\Entities\PlanAccion.cs" />
     <Compile Include="Data\Entities\PlanAction.cs" />
     <Compile Include="Data\Entities\Role.cs" />
@@ -411,6 +413,10 @@
     <Compile Include="Migrations\202206122349378_UpdateTrabajadorVM.cs" />
     <Compile Include="Migrations\202206122349378_UpdateTrabajadorVM.Designer.cs">
       <DependentUpon>202206122349378_UpdateTrabajadorVM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206132248574_CreateOrganization.cs" />
+    <Compile Include="Migrations\202206132248574_CreateOrganization.Designer.cs">
+      <DependentUpon>202206132248574_CreateOrganization.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\DetailsIncidentVM.cs" />
@@ -616,6 +622,11 @@
     <Content Include="Views\Shared\_MatrizIncidente.cshtml" />
     <Content Include="Views\Shared\_ConsultarLesionados.cshtml" />
     <Content Include="Views\Shared\_ModificaLesion.cshtml" />
+    <Content Include="Views\Organizations\Create.cshtml" />
+    <Content Include="Views\Organizations\Delete.cshtml" />
+    <Content Include="Views\Organizations\Details.cshtml" />
+    <Content Include="Views\Organizations\Edit.cshtml" />
+    <Content Include="Views\Organizations\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -679,6 +690,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202206122349378_UpdateTrabajadorVM.resx">
       <DependentUpon>202206122349378_UpdateTrabajadorVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206132248574_CreateOrganization.resx">
+      <DependentUpon>202206132248574_CreateOrganization.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

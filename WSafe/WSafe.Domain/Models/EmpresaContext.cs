@@ -1,5 +1,4 @@
 ﻿using System.Data.Entity;
-using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Data.Entities.Auditor;
 
@@ -11,6 +10,7 @@ namespace WSafe.Web.Models
         {
         }
 
+        public DbSet<Organization> Organizations { get; set; }
         public DbSet<Riesgo> Riesgos { get; set; }
         public DbSet<Proceso> Procesos { get; set; }
         public DbSet<Zona> Zonas { get; set; }
@@ -43,9 +43,5 @@ namespace WSafe.Web.Models
         public DbSet<Operation> Operations { get; set; }
         public DbSet<RoleOperation> RoleOperations { get; set; }
         public DbSet<Document> Documents { get; set; }
-
-        public System.Data.Entity.DbSet<WSafe.Web.Models._DetailsAccionVM> _DetailsAccionVM { get; set; }
-
-        public System.Data.Entity.DbSet<WSafe.Web.Models.MatrizRiesgosVM> MatrizRiesgosVMs { get; set; }
     }
 }

@@ -853,7 +853,7 @@ namespace WSafe.Domain.Helpers.Implements
             var proceso = _empresaContext.Procesos.FirstOrDefault(p => p.ID == incidente.ProcesoID).Descripcion;
             var actividad = _empresaContext.Actividades.FirstOrDefault(a => a.ID == incidente.ActividadID).Descripcion;
             var tarea = _empresaContext.Tareas.FirstOrDefault(t => t.ID == incidente.TareaID).Descripcion;
-            var lugar = zona.Replace(" ", String.Empty).ToUpper() + proceso.Replace(" ", String.Empty).ToUpper();
+            var lugar = zona.Replace(" ", String.Empty).ToUpper() + " - " + proceso.Replace(" ", String.Empty).ToUpper();
 
             var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == id);
             var model = new DetailsIncidentVM

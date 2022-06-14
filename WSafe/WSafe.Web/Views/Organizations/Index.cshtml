@@ -1,0 +1,147 @@
+﻿@model IEnumerable<WSafe.Domain.Data.Entities.Organization>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NIT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RazonSocial)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Direccion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Municip)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Department)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Telefono)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ARL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClaseRiesgo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DocumentRepresent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NameRepresent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EconomicActivity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumeroTrabajadores)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Products)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mision)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Vision)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Objetivos)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Procesos)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Organigrama)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TurnosAdministrativo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TurnosOperativo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NIT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RazonSocial)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Direccion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Municip)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Department)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Telefono)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ARL)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClaseRiesgo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DocumentRepresent)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NameRepresent)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EconomicActivity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumeroTrabajadores)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Products)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Mision)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Vision)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Objetivos)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Procesos)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Organigrama)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TurnosAdministrativo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TurnosOperativo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

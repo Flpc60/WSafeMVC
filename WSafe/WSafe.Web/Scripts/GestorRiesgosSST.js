@@ -1469,3 +1469,149 @@ function AddLesionados() {
         }
     });
 }
+
+function AddRole() {
+    // Crea un nuevo role
+    $(".tabAddRole").css("display", "none");
+    var roleVM = {
+        ID: "0",
+        Name: $("#txtRole").val()
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/Organizations/CreateRole",
+        data: { model: roleVM },
+        dataType: "json",
+        success: function (accidenID) {
+            $("#btnAddRole").hide();
+            ConsultaRoles();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function AddCargo() {
+    // Crea un nuevo role
+    $(".tabAddCargo").css("display", "none");
+    var cargoVM = {
+        ID: "0",
+        Codigo: $("#txtCodigo"),
+        descripcion: $("#txtCargo").val()
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/Organizations/CreateCargo",
+        data: { model: cargoVM },
+        dataType: "json",
+        success: function (accidenID) {
+            $("#btnAddCargo").hide();
+            ConsultaCargos();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function AddZona() {
+    // Crea un nueva zona
+    $(".tabAddZona").css("display", "none");
+    var zonaVM = {
+        ID: "0",
+        Descripcion: $("#txtZona").val()
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/Organizations/CreateZona",
+        data: { model: roleVM },
+        dataType: "json",
+        success: function (result) {
+            $("#btnAddZona").hide();
+            ConsultaZonas();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function AddProcess() {
+    // Crea un nuevo process
+    $(".tabAddProcess").css("display", "none");
+    var processVM = {
+        ID: "0",
+        Descripcion: $("#txtProcess").val()
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/Organizations/CreateProcess",
+        data: { model: processVM },
+        dataType: "json",
+        success: function (result) {
+            $("#btnAddProcess").hide();
+            ConsultaProcess();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function AddActivity() {
+    // Crea una nueva activity
+    $(".tabAddActivity").css("display", "none");
+    var activityVM = {
+        ID: "0",
+        Descripcion: $("#txtActivity").val()
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/Organizations/CreateActivity",
+        data: { model: activityVM },
+        dataType: "json",
+        success: function (result) {
+            $("#btnAddActivity").hide();
+            ConsultaActivitys();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function AddTarea() {
+    // Crea una nueva tarea
+    $(".tabAddTarea").css("display", "none");
+    var tareaVM = {
+        ID: "0",
+        Descripcion: $("#txtTarea").val()
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/Organizations/CreateTarea",
+        data: { model: tareaVM },
+        dataType: "json",
+        success: function (result) {
+            $("#btnAddTarea").hide();
+            ConsultaTareas();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
