@@ -82,21 +82,24 @@ namespace WSafe.Web.Controllers
         public ActionResult GetAllCargos()
         {
             var cargos = _comboHelper.GetAllCargos();
-            return View(cargos);
+            return Json(cargos, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateCargo(Cargo model)
+        public async Task<ActionResult> CreateNewCargo(Cargo model)
         {
             try
             {
+                var message = "";
                 if (ModelState.IsValid)
                 {
+                    message = "El cargo fué ingresado correctamente!!";
                     _empresaContext.Cargos.Add(model);
                     await _empresaContext.SaveChangesAsync();
-                    return Json(model, JsonRequestBehavior.AllowGet);
+                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
-                return Json(new { data = model, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
+                message = "El cargo no fué ingresado correctamente!!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
@@ -120,20 +123,20 @@ namespace WSafe.Web.Controllers
                     return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
 
-                message = "Este cargo fué eliminado correctamente!!";
+                message = "El cargo fué eliminado correctamente!!";
                 _empresaContext.Cargos.Remove(cargo);
                 await _empresaContext.SaveChangesAsync();
                 return Json(new { data = true, mensaj = message },JsonRequestBehavior.AllowGet);
             }
             catch
             {
-                return Json(new { error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
+                return Json(new { error = "El registro no se ha eliminado correctamente" }, JsonRequestBehavior.AllowGet);
             }
         }
         public ActionResult GetAllZonas()
         {
             var zonas = _comboHelper.GetAllZonas();
-            return View(zonas);
+            return Json(zonas, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -154,9 +157,8 @@ namespace WSafe.Web.Controllers
                 return Json(new { data = model, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
             }
         }
-
         [HttpPost]
-        public async Task<ActionResult> DeleteZona(int id)
+        public async Task<ActionResult> DeleteZone(int id)
         {
             try
             {
@@ -196,7 +198,7 @@ namespace WSafe.Web.Controllers
         public ActionResult GetAllProcess()
         {
             var process = _comboHelper.GetAllProcess();
-            return View(process);
+            return Json(process, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -259,7 +261,7 @@ namespace WSafe.Web.Controllers
         public ActionResult GetAllActivitys()
         {
             var activitys = _comboHelper.GetAllActivitys();
-            return View(activitys);
+            return Json(activitys, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -321,8 +323,8 @@ namespace WSafe.Web.Controllers
         }
         public ActionResult GetAllTasks()
         {
-            var tareas = _comboHelper.GetAllTareas();
-            return View(tareas);
+            var tasks = _comboHelper.GetAllTareas();
+            return Json(tasks, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -412,7 +414,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> UpdateOrganization([Bind(Include = "ID,NIT,RazonSocial,Direccion,Municip,Department,Telefono,ARL,ClaseRiesgo,DocumentRepresent,NameRepresent,EconomicActivity,NumeroTrabajadores,Products,Mision,Vision,Objetivos,TurnosAdministrativo,TurnosOperativo")] Organization organization)
+        public async Task<ActionResult> UpdateOrganization(Organization organization)
         {
             var message = "";
             try

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WSafe.Domain.Data.Entities.Organization>
+﻿@model WSafe.Domain.Data.Entities.Organization
 
 @{
     var title = "INFORMACIÓN BASICA DE LA EMPRESA";
@@ -15,12 +15,12 @@
 <h4>@title</h4>
 <div class="row">
     <div class="col-md-12">
-        <button type="button" class="btn btn-warning" id="basics" title="doble click para cerrar la ventana">BÁSICOS</button>
-        <button type="button" class="btn btn-warning" id="cargos" title="doble click para cerrar la ventana">CARGOS</button>
-        <button type="button" class="btn btn-warning" id="zones" title="doble click para cerrar la ventana">ZONAS</button>
-        <button type="button" class="btn btn-warning" id="process" title="doble click para cerrar la ventana">PROCESOS</button>
-        <button type="button" class="btn btn-warning" id="activitys" title="doble click para cerrar la ventana">ACTIVIDADES</button>
-        <button type="button" class="btn btn-warning" id="tasks" title="doble click para cerrar la ventana">TAREAS</button>
+        <button type="button" class="btn btn-info" id="basics" title="doble click para cerrar la ventana">BÁSICOS</button>
+        <button type="button" class="btn btn-info" id="cargos" title="doble click para cerrar la ventana">CARGOS</button>
+        <button type="button" class="btn btn-info" id="zones" title="doble click para cerrar la ventana">ZONAS</button>
+        <button type="button" class="btn btn-info" id="process" title="doble click para cerrar la ventana">PROCESOS</button>
+        <button type="button" class="btn btn-info" id="activitys" title="doble click para cerrar la ventana">ACTIVIDADES</button>
+        <button type="button" class="btn btn-info" id="tasks" title="doble click para cerrar la ventana">TAREAS</button>
     </div>
     <div class="col-md-offset-0">
     </div>
@@ -49,14 +49,14 @@
 
         <div class="tabAddCargos">
             <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
+                <div class="col-md-6">
+                    <div class="form-group" style="font-size:20px">
                         <label>Cargo : </label>
                         <input type="text" id="txtCodigo" name="txtCodigo" placeholder="Ingrese código del cargo" />
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
+                <div class="col-md-6">
+                    <div class="form-group" style="font-size:20px;width:50%">
                         <label>Nombre : </label>
                         <input type="text" id="txtDescrip" name="txtDescrip" placeholder="Ingrese nombre del cargo" />
                     </div>
@@ -66,7 +66,7 @@
             <div class="row">
                 <div class="col-md-8">
                     <hr />
-                    <button type="button" id="btnAddCargo" class="btn btn-primary" onclick="AddCargo()">Adicionar</button>
+                    <button type="button" id="btnAddCargo" class="btn btn-primary" onclick="AddNewCargo()">Adicionar</button>
                     <button type="button" id="btnCargo" class="btn btn-primary" onclick="CancelCargo()">
                         <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
                     </button>
@@ -200,10 +200,11 @@
 }
 
 <hr />
-
 <div>
-    @Html.ActionLink("Cerrar", "Index", new { @class = "glyphicon glyphicon-arrow-left" },
-    new { @class = "btn btn-success btn-lg active" })
+    <div class="tabCerrar">
+        @Html.ActionLink("Cerrar", "Index", "Home",new { @class = "glyphicon glyphicon-arrow-left" },
+        new { @class = "btn btn-success btn-lg active" })
+    </div>
 </div>
 
 @section Scripts
@@ -215,6 +216,23 @@
             $("#txtCodigo").val("");
             $("#txtDescrip").val("");
         }
+        function CancelZone() {
+            $(".tabAddZones").css("display", "none");
+            $("#txtDescrip").val("");
+        }
+        function CancelProcess() {
+            $(".tabAddProcess").css("display", "none");
+            $("#txtDescrip").val("");
+        }
+        function CancelActivity() {
+            $(".tabAddActivitys").css("display", "none");
+            $("#txtDescrip").val("");
+        }
+        function CancelTask() {
+            $(".tabAddTask").css("display", "none");
+            $("#txtDescrip").val("");
+        }
+
         $(document).ready(function () {
             ClearTextBox();
             GestorOrganization();

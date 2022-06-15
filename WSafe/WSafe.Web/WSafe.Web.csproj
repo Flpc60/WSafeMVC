@@ -629,6 +629,10 @@
     <Content Include="Views\Organizations\Index.cshtml" />
     <Content Include="Views\Shared\_EditarInfoBasic.cshtml" />
     <Content Include="Views\Shared\_ShowCargos.cshtml" />
+    <Content Include="Views\Shared\_ShowZones.cshtml" />
+    <Content Include="Views\Shared\_ShowProcess.cshtml" />
+    <Content Include="Views\Shared\_ShowActivitys.cshtml" />
+    <Content Include="Views\Shared\_ShowTasks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

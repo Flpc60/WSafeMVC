@@ -20,7 +20,7 @@ namespace WSafe.Domain.Data.Entities
         [MaxLength(50)]
         public string Municip { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Departmento")]
+        [Display(Name = "Departamento")]
         [MaxLength(50)]
         public string Department { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
