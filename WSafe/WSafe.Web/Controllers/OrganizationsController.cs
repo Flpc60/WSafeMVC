@@ -153,7 +153,7 @@ namespace WSafe.Web.Controllers
             }
             catch
             {
-                return Json(new { data = model, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
+                return Json(new { data = model, error = "El registro NO se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
             }
         }
         [HttpPost]
@@ -327,7 +327,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateTarea(Tarea model)
+        public async Task<ActionResult> CreateTask(Tarea model)
         {
             try
             {
