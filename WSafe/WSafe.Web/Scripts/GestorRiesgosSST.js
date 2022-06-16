@@ -848,7 +848,7 @@ function DeleteZone(id) {
             async: true,                                               // si es asincrónico o no
             success: function (result) {
                 alert(result.mensaj);
-                showZones();
+                ShowZones();
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 alert(xhr.status);
@@ -1069,8 +1069,10 @@ function UpdateOrganization(id) {
         Mision: $("#txtMision").val(),
         Vision: $("#txtVision").val(),
         Objetivos: $("#txtObjetivos").val(),
+        Procesos: "Procesos",
+        Organigrama: "Organigrama",
         TurnosAdministrativo: $("#txtAdministrativo").val(),
-        TurnosOperativo: $("#txtOperativo").val(),
+        TurnosOperativo: $("#txtOperativo").val()
     };
 
     $.ajax({
@@ -1816,12 +1818,14 @@ function AddIncidente() {
         url: "/Incidentes/CreateIncidente",
         data: { model: incidenteVM },
         dataType: "json",
-        success: function (idIncidente) {
-            $("#txtIncidenteID").val(idIncidente);
-            var incidenteID = $("#txtIncidenteID").val();
+        success: function (result) {
+            if (result.data != false) {
+                $("#txtIncidenteID").val(result.data);
+            }
+
             $("#btnAddIncidente").hide();
             $("#btnCanIncidente").hide();
-            alert("El registro ha sido ingresado exitosamente : " + incidenteID);
+            alert(result.mensaj);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -1978,7 +1982,7 @@ function AddNewCargo() {
     });
 }
 
-function AddZona() {
+function AddZone() {
     // Crea un nueva zona
     $(".tabAddZona").css("display", "none");
     var zonaVM = {
@@ -1988,7 +1992,7 @@ function AddZona() {
 
     $.ajax({
         type: "POST",
-        url: "/Organizations/CreateZona",
+        url: "/Organizations/CreateZone",
         data: { model: roleVM },
         dataType: "json",
         success: function (result) {
