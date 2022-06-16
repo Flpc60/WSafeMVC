@@ -896,7 +896,7 @@ function DeleteProcess(id) {
             async: true,                                               // si es asincrónico o no
             success: function (result) {
                 alert(result.mensaj);
-                showProcess();
+                ShowProcess();
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 alert(xhr.status);
@@ -920,7 +920,7 @@ function DeleteActivity(id) {
             async: true,                                               // si es asincrónico o no
             success: function (result) {
                 alert(result.mensaj);
-                showActivitys();
+                ShowActivitys();
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 alert(xhr.status);
@@ -944,7 +944,7 @@ function DeleteTask(id) {
             async: true,                                               // si es asincrónico o no
             success: function (result) {
                 alert(result.mensaj);
-                showTasks();
+                ShowTasks();
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 alert(xhr.status);
@@ -1984,20 +1984,22 @@ function AddNewCargo() {
 
 function AddZone() {
     // Crea un nueva zona
-    $(".tabAddZona").css("display", "none");
-    var zonaVM = {
+    var zoneVM = {
         ID: "0",
-        Descripcion: $("#txtZona").val()
+        Descripcion: $("#txtZone").val()
     };
 
     $.ajax({
         type: "POST",
         url: "/Organizations/CreateZone",
-        data: { model: roleVM },
+        data: { model: zoneVM },
         dataType: "json",
         success: function (result) {
-            $("#btnAddZona").hide();
-            ConsultaZonas();
+            $("#btnAddZone").hide();
+            $("#btnCanZone").hide();
+            $("#txtZone").val("");
+            $(".tabAddZones").css("display", "none");
+            ShowZones();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -2021,7 +2023,10 @@ function AddProcess() {
         dataType: "json",
         success: function (result) {
             $("#btnAddProcess").hide();
-            ConsultaProcess();
+            $("#btnCanProcess").hide();
+            $("#txtProcess").val("");
+            $(".tabAddProcess").css("display", "none");
+            ShowProcess();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -2045,7 +2050,10 @@ function AddActivity() {
         dataType: "json",
         success: function (result) {
             $("#btnAddActivity").hide();
-            ConsultaActivitys();
+            $("#btnCanActivity").hide();
+            $("#txtActivity").val("");
+            $(".tabAddActivitys").css("display", "none");
+            ShowActivitys();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -2054,22 +2062,25 @@ function AddActivity() {
     });
 }
 
-function AddTarea() {
+function AddTask() {
     // Crea una nueva tarea
-    $(".tabAddTarea").css("display", "none");
-    var tareaVM = {
+    $(".tabAddTasks").css("display", "none");
+    var taskVM = {
         ID: "0",
         Descripcion: $("#txtTarea").val()
     };
 
     $.ajax({
         type: "POST",
-        url: "/Organizations/CreateTarea",
-        data: { model: tareaVM },
+        url: "/Organizations/CreateTask",
+        data: { model: taskVM },
         dataType: "json",
         success: function (result) {
-            $("#btnAddTarea").hide();
-            ConsultaTareas();
+            $("#btnAddTask").hide();
+            $("#btnCanTask").hide();
+            $("#txtTask").val("");
+            $("tabAddTasks.").css("display", "none");
+            ShowTasks();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
