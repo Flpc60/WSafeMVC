@@ -58,6 +58,7 @@ namespace WSafe.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateIncidente(IncidenteViewModel model)
         {
+            var message = "";
             try
             {
                 if (ModelState.IsValid)
@@ -66,13 +67,16 @@ namespace WSafe.Web.Controllers
                     var incidente = await _converterHelper.ToIncidenteAsync(model, true);
                     var saved = await consulta.Insert(incidente);
                     var idIncidente = _empresaContext.Incidentes.OrderByDescending(x => x.ID).First().ID;
-                    return Json(idIncidente, JsonRequestBehavior.AllowGet);
+                    message = "El registro se ha ingresado correctamente!!";
+                    return Json(new { data = idIncidente, mensaj = message}, JsonRequestBehavior.AllowGet);
                 }
-                return Json(new { data = model, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
+                message = "El registro NO se ha ingresado correctamente!!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
-                return Json(new { data = model, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
+                message = "El registro NO se ha ingresado correctamente!!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
         [HttpGet]

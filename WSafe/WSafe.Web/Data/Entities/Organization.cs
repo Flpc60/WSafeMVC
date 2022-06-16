@@ -51,13 +51,13 @@ namespace WSafe.Domain.Data.Entities
         public int NumeroTrabajadores { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Productos")]
-        [MaxLength(50)]
+        [MaxLength(150)]
         public string Products { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [MaxLength(50)]
+        [MaxLength(150)]
         public string Mision { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [MaxLength(50)]
+        [MaxLength(150)]
         public string Vision { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [MaxLength(150)]

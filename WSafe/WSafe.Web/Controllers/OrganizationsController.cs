@@ -72,7 +72,7 @@ namespace WSafe.Web.Controllers
                 message = "Este rol fué eliminado correctamente!!";
                 _empresaContext.Roles.Remove(role);
                 await _empresaContext.SaveChangesAsync();
-                return Json(new {data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
@@ -126,7 +126,7 @@ namespace WSafe.Web.Controllers
                 message = "El cargo fué eliminado correctamente!!";
                 _empresaContext.Cargos.Remove(cargo);
                 await _empresaContext.SaveChangesAsync();
-                return Json(new { data = true, mensaj = message },JsonRequestBehavior.AllowGet);
+                return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
@@ -138,9 +138,8 @@ namespace WSafe.Web.Controllers
             var zonas = _comboHelper.GetAllZonas();
             return Json(zonas, JsonRequestBehavior.AllowGet);
         }
-
         [HttpPost]
-        public async Task<ActionResult> CreateZona(Zona model)
+        public async Task<ActionResult> CreateZone(Zona model)
         {
             try
             {
@@ -426,12 +425,12 @@ namespace WSafe.Web.Controllers
                     message = "La Organización ha sido actualizada correctamente!!";
                     return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
-                message = "La Organización no se ha podido actualizar correctamente!!";
+                message = "La Organización NO se ha podido actualizar correctamente!!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
-                message = "La Organización no se ha podido actualizar correctamente!!";
+                message = "La Organización NO se ha podido actualizar correctamente!!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
