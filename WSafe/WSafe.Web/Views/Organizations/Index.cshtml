@@ -1,0 +1,242 @@
+﻿@model WSafe.Domain.Data.Entities.Organization
+
+@{
+    var title = "INFORMACIÓN BASICA DE LA EMPRESA";
+}
+<style>
+    .tabBasics, .tabGesCargos, .tabAddCargos, .tabGesZones, .tabAddZones, .tabGesProcess, .tabAddProcess,
+    .tabGesActivitys, .tabAddActivitys, .tabGesTasks, .tabAddTasks {
+        display: none;
+    }
+</style>
+
+<hr />
+<hr />
+<h4>@title</h4>
+<div class="row">
+    <div class="col-md-12">
+        <button type="button" class="btn btn-info" id="basics" title="doble click para cerrar la ventana">BÁSICOS</button>
+        <button type="button" class="btn btn-info" id="cargos" title="doble click para cerrar la ventana">CARGOS</button>
+        <button type="button" class="btn btn-info" id="zones" title="doble click para cerrar la ventana">ZONAS</button>
+        <button type="button" class="btn btn-info" id="process" title="doble click para cerrar la ventana">PROCESOS</button>
+        <button type="button" class="btn btn-info" id="activitys" title="doble click para cerrar la ventana">ACTIVIDADES</button>
+        <button type="button" class="btn btn-info" id="tasks" title="doble click para cerrar la ventana">TAREAS</button>
+    </div>
+    <div class="col-md-offset-0">
+    </div>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="tabBasics">
+            @Html.Partial("_EditarInfoBasic")
+            <div class="col-row">
+                <div class="col-sm-6">
+                    <button type="button" class="btn btn-success" onclick="UpdateOrganization(@ViewBag.id)">Guardar</button>
+                    <hr />
+                </div>
+            </div>
+        </div>
+
+        <div class="tabGesCargos">
+            <hr />
+            @Html.Partial("_ShowCargos")
+        </div>
+
+        <div class="tabAddCargos">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" style="font-size:20px">
+                        <label>Cargo : </label>
+                        <input type="text" id="txtCodigo" name="txtCodigo" placeholder="Ingrese código del cargo" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" style="font-size:20px;width:40%">
+                        <label>Nombre del cargo : </label>
+                        <input type="text" id="txtDescrip" name="txtDescrip" placeholder="Ingrese nombre del cargo" />
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-8">
+                    <hr />
+                    <button type="button" id="btnAddCargo" class="btn btn-primary" onclick="AddNewCargo()">Adicionar</button>
+                    <button type="button" id="btnCanCargo" class="btn btn-primary" onclick="CancelCargo()">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                    </button>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+        </div>
+
+        <div class="tabGesZones">
+            <hr />
+            @Html.Partial("_ShowZones")
+        </div>
+
+        <div class="tabAddZones">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group" style="font-size:18px;width:auto">
+                        <label>Nombre de la zona : </label>
+                        <input type="text" id="txtZone" name="txtZone" placeholder="Ingrese nombre de la zona"/>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-8">
+                    <hr />
+                    <button type="button" id="btnAddZone" class="btn btn-primary" onclick="AddZone()">Adicionar</button>
+                    <button type="button" id="btnCanZone" class="btn btn-primary" onclick="CancelZone()">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                    </button>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+        </div>
+
+        <div class="tabGesProcess">
+            <hr />
+            @Html.Partial("_ShowProcess")
+        </div>
+
+        <div class="tabAddProcess">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group" style="font-size:18px;width:auto">
+                        <label>Nombre del proceso : </label>
+                        <input type="text" id="txtProcess" name="txtProcess" placeholder="Ingrese nombre del proceso" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-8">
+                    <hr />
+                    <button type="button" id="btnAddProcess" class="btn btn-primary" onclick="AddProcess()">Adicionar</button>
+                    <button type="button" id="btnCanProcess" class="btn btn-primary" onclick="CancelProcess()">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                    </button>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+        </div>
+
+        <div class="tabGesActivitys">
+            <hr />
+            @Html.Partial("_ShowActivitys")
+        </div>
+
+        <div class="tabAddActivitys">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group" style="font-size:18px;width:auto">
+                        <label>Nombre de la actividad : </label>
+                        <input type="text" id="txtActivity" name="txtActivity" placeholder="Ingrese nombre de la actividad" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-8">
+                    <hr />
+                    <button type="button" id="btnAddActivity" class="btn btn-primary" onclick="AddActivity()">Adicionar</button>
+                    <button type="button" id="btnCanActivity" class="btn btn-primary" onclick="CancelActivity()">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                    </button>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+        </div>
+
+        <div class="tabGesTasks">
+            <hr />
+            @Html.Partial("_ShowTasks")
+        </div>
+
+        <div class="tabAddTasks">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group" style="font-size:18px;width:auto">
+                        <label>Nombre de la tarea : </label>
+                        <input type="text" id="txtTask" name="txtTask" placeholder="Ingrese nombre de la tarea" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-8">
+                    <hr />
+                    <button type="button" id="btnAddTask" class="btn btn-primary" onclick="AddTask()">Adicionar</button>
+                    <button type="button" id="btnCanTask" class="btn btn-primary" onclick="CancelTask()">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                    </button>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+
+<hr />
+<div>
+    <div class="tabCerrar">
+        @Html.ActionLink("Cerrar", "Index", "Home",new { @class = "glyphicon glyphicon-arrow-left" },
+        new { @class = "btn btn-success btn-lg active" })
+    </div>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+
+        function CancelCargo() {
+            $(".tabAddCargos").css("display", "none");
+            $("#txtCodigo").val("");
+            $("#txtDescrip").val("");
+        }
+        function CancelZone() {
+            $(".tabAddZones").css("display", "none");
+            $("#txtDescrip").val("");
+        }
+        function CancelProcess() {
+            $(".tabAddProcess").css("display", "none");
+            $("#txtDescrip").val("");
+        }
+        function CancelActivity() {
+            $(".tabAddActivitys").css("display", "none");
+            $("#txtDescrip").val("");
+        }
+        function CancelTask() {
+            $(".tabAddTask").css("display", "none");
+            $("#txtDescrip").val("");
+        }
+
+        $(document).ready(function () {
+            ClearTextBox();
+            GestorOrganization();
+        });
+
+    </script>
+}

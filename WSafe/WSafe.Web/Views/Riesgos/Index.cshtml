@@ -8,20 +8,21 @@
 
 <div class="row">
     <div class="col-md-4">
-        @Html.ActionLink("Nuevo", "Create", new { @class = "glyphicon glyphicon-plus" },
+        @Html.ActionLink("Nuevo riesgo", "Create", new { @class = "glyphicon glyphicon-plus" },
         new { @class = "btn btn-info btn-lg active" })
     </div>
     <div class="col-md-4">
         <input type="search" id="myInput" placeholder="Escriba un nombre de elemento para filtrar" style="width:350px">
     </div>
     <div class="col-md-4">
-        <input type="button" class="btn btn-info" id="reportPdf" value="Descargar PDF">
+        @Html.ActionLink("Descargar matriz PDF", "PrintRiesgosToPdf", new { @class = "glyphicon glyphicon-download-alt" },
+        new { @class = "btn btn-info btn-lg active" })
     </div>
 </div>
 <hr />
 
 <table class="table">
-    <tr style="background-color:gainsboro">
+    <tr style="background-color:green; color:white">
         <th>
             @Html.DisplayNameFor(model => model.Proceso)
         </th>
@@ -68,7 +69,7 @@
             @Html.DisplayNameFor(model => model.Aceptabilidad)
         </th>
         <th>
-            Acciones
+            Opciones
         </th>
     </tr>
     <tbody id="myTable">
@@ -104,11 +105,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Actividad)
             </td>
-            <td>
+            <td style="@strStyle">
                 @Html.DisplayFor(modelItem => item.Tarea)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Rutinaria)
+                @Html.DisplayFor(modelItem => item.TextRutinaria)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Clasificacion)
@@ -134,18 +135,18 @@
             <td>
                 @Html.DisplayFor(modelItem => item.NivelRiesgo)
             </td>
-            <td style="@strStyle">
+            <td>
                 @Html.DisplayFor(modelItem => item.CategoriaRiesgo)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Aceptabilidad)
             </td>
-            <td style="font-size:12px">
-                @Html.ActionLink(" ", "GetControles", new { id = item.ID }, new { @class = "glyphicon glyphicon-search" }) |
+            <td style="font-size:18px">
                 @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) |
-                @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "glyphicon glyphicon-trash" })
+                <a href="#" onclick="DeleteRiesgo('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
             </td>
         </tr>
+
         }
 
     </tbody>
@@ -163,6 +164,62 @@
                 });
             });
         });
+
+        function DeleteRiesgo(ID) {
+            var id = ID;
+            $.ajax({
+                url: "/Riesgos/DeleteRiesgo/" + id,
+                type: "GET",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                async: true,                                               // si es asincrónico o no
+                success: function (result) {
+                    if (result.data == false) {
+                        alert(result.error);
+                    } else {
+                        var text = "";
+                        text += "Esta seguro de querer borrar este registro ? :\n\n";
+                        text += "Proceso : " + result.data.Proceso + "\n";
+                        text += "Zona : " + result.data.Zona + "\n";
+                        text += "Actividad : " + result.data.Actividad + "\n";
+                        text += "Clasificación : " + result.data.CategoriaPeligro + "\n";
+                        text += "Peligro : " + result.data.Peligro + "\n";
+                        text += "Efectos posibles : " + result.data.EfectosPosibles + "\n";
+                        text += "Nivel deficiencia : " + result.data.NivelDeficiencia + "\n";
+                        text += "Nivel exposición : " + result.data.NivelExposicion + "\n";
+                        text += "Nivel consecuencia : " + result.data.NivelConsecuencia + "\n";
+                        text += "Nivel categoria riesgo : " + result.data.CategoriaRiesgo + "\n";
+                        text += "Aceptabilidad : " + result.data.AceptabilidadNR + "\n";
+                        text += "Nro. expuestos : " + result.data.NroExpuestos + "\n";
+                        text += "Peor consecuencia : " + result.data.PeorConsecuencia + "\n";
+
+                        var respuesta = confirm(text);
+
+                        if (respuesta == true) {
+                            $.ajax({
+                                url: "/Riesgos/DeleteRiesgo/" + id,
+                                type: "POST",
+                                contentType: "application/json;charset=UTF-8",
+                                dataType: "json",
+                                async: true,
+                                success: function (response) {
+                                    alert(response.message);
+                                    location.reload(true);
+                                },
+                                error: function (xhr, ajaxOptions, thrownError) {
+                                    alert(xhr.status);
+                                    alert(thrownError);
+                                }
+                            });
+                        }
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+        }
 
     </script>
 }

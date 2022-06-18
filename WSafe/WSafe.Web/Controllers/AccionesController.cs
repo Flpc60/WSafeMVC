@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rotativa;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -47,6 +48,7 @@ namespace WSafe.Web.Controllers
         public ActionResult Create()
         {
             var model = _converterHelper.ToAccionViewModelNew();
+            ViewBag.Categorias = _comboHelper.GetAllCausas();
             return View(model);
         }
 
@@ -57,9 +59,9 @@ namespace WSafe.Web.Controllers
             return RedirectToAction("Index", model);
         }
 
-        // GET: Acciones/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
+            //TODO
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -100,13 +102,13 @@ namespace WSafe.Web.Controllers
             }
             var message = "";
             Accion accion = await _empresaContext.Acciones.FindAsync(id);
-            var planes = _empresaContext.PlanesAccion.Where(p => p.AccionID == id).Count();
+            var planes = _empresaContext.PlanActions.Where(p => p.AccionID == id).Count();
             if (planes != 0)
             {
                 message = "Esta acción tiene planes de acción pendientes por eliminar!!";
-                return Json(new { data = false, error = message }, JsonRequestBehavior.AllowGet );
+                return Json(new { data = false, error = message }, JsonRequestBehavior.AllowGet);
             }
-            var sigue = _empresaContext.SeguimientosAccion.Where(s => s.AccionID == id).Count();
+            var sigue = _empresaContext.Seguimientos.Where(s => s.AccionID == id).Count();
             if (sigue != 0)
             {
                 message = "Esta acción tiene seguimientos pendientes por eliminar!!";
@@ -150,19 +152,19 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreatePlanAccion([Bind(Include = "ID, AccionID, FechaInicial, FechaFinal, Causa, Accion, TrabajadorID, Prioritaria, Costos")] PlanAccion model)
+        public async Task<ActionResult> CreatePlanAccion(PlanAction model)
         {
             if (model.AccionID == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            PlanAccion result = await _converterHelper.ToPlanAccionAsync(model);
             if (ModelState.IsValid)
             {
-                _empresaContext.PlanesAccion.Add(result);
-                await _empresaContext.SaveChangesAsync();
-                return RedirectToAction("Index");
+                PlanAction result = await _converterHelper.ToPlanAccionAsync(model);
+                _empresaContext.PlanActions.Add(result);
+                var saved = await _empresaContext.SaveChangesAsync();
+                return Json(result, JsonRequestBehavior.AllowGet);
             }
             return Json(model, JsonRequestBehavior.AllowGet);
         }
@@ -184,19 +186,19 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateSeguimientoPlan(SeguimientoAccion seguimientoAccion)
+        public async Task<ActionResult> CreateSeguimientoPlan(Seguimiento seguimientoAccion)
         {
             if (seguimientoAccion.AccionID == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SeguimientoAccion model = await _converterHelper.ToSeguimientoAccionAsync(seguimientoAccion);
+            Seguimiento model = await _converterHelper.ToSeguimientoAccionAsync(seguimientoAccion);
 
             if (ModelState.IsValid)
             {
-                _empresaContext.SeguimientosAccion.Add(seguimientoAccion);
+                _empresaContext.Seguimientos.Add(seguimientoAccion);
                 await _empresaContext.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return Json(model, JsonRequestBehavior.AllowGet);
             }
             return Json(seguimientoAccion, JsonRequestBehavior.AllowGet);
         }
@@ -226,7 +228,7 @@ namespace WSafe.Web.Controllers
             var idAccion = _empresaContext.Acciones.OrderByDescending(x => x.ID).First().ID;
             return Json(idAccion, JsonRequestBehavior.AllowGet);
         }
-        // GET: Plan acción/ListarPlanAccion
+        // GET: Plan acción/ListarPlanAction
         [HttpGet]
         public async Task<ActionResult> ListarPlanAccion(int idAccion)
         {
@@ -236,36 +238,36 @@ namespace WSafe.Web.Controllers
             }
 
             //TODO
-            var planes = _empresaContext.PlanesAccion.Where(pa => pa.AccionID == idAccion).ToList();
+            var planes = _empresaContext.PlanActions.Where(pa => pa.AccionID == idAccion).ToList();
             var result = _converterHelper.ToPlanAccionVMList(planes);
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        // GET: Seguimiento acción/ListarSeguimientoAccion
         [HttpGet]
         public async Task<ActionResult> ListarSeguimientoAccion(int idAccion)
         {
             if (idAccion == null)
             {
-                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
             //TODO
-            var seguimientos = _empresaContext.SeguimientosAccion.Where(sa => sa.AccionID == idAccion).ToList();
+            var seguimientos = _empresaContext.Seguimientos.Where(sa => sa.AccionID == idAccion).ToList();
             var result = _converterHelper.ToSeguimientoAccionVMList(seguimientos);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
         [HttpGet]
         public JsonResult UpdatePlanAccion(int ID)
         {
-            var plan = _empresaContext.PlanesAccion.FirstOrDefault(pa => pa.ID == ID);
+            var plan = _empresaContext.PlanActions.FirstOrDefault(pa => pa.ID == ID);
             var model = _converterHelper.ToPlanAccionVM(plan);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public async Task<ActionResult> UpdatePlanAccion([Bind(Include = "ID, AccionID, FechaInicial, FechaFinal, Causa, Accion, TrabajadorID, Prioritaria, Costos")] PlanAccion planAccion)
+        public async Task<ActionResult> UpdatePlanAccion([Bind(Include = "ID, AccionID, FechaInicial, FechaFinal, Causa, Accion, TrabajadorID, Prioritaria, Costos")] PlanAction planAccion)
         {
             if (ModelState.IsValid)
             {
@@ -282,7 +284,7 @@ namespace WSafe.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PlanAccion plan = await _empresaContext.PlanesAccion.FindAsync(id);
+            PlanAction plan = await _empresaContext.PlanActions.FindAsync(id);
             var model = _converterHelper.ToPlanAccionVM(plan);
             if (model == null)
             {
@@ -296,8 +298,8 @@ namespace WSafe.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                PlanAccion accion = await _empresaContext.PlanesAccion.FindAsync(id);
-                _empresaContext.PlanesAccion.Remove(accion);
+                PlanAction accion = await _empresaContext.PlanActions.FindAsync(id);
+                _empresaContext.PlanActions.Remove(accion);
                 await _empresaContext.SaveChangesAsync();
                 return Json(accion, JsonRequestBehavior.AllowGet);
             }
@@ -307,13 +309,13 @@ namespace WSafe.Web.Controllers
         [HttpGet]
         public JsonResult UpdateSeguimientoAccion(int ID)
         {
-            var seguimiento = _empresaContext.SeguimientosAccion.FirstOrDefault(sa => sa.ID == ID);
+            var seguimiento = _empresaContext.Seguimientos.FirstOrDefault(sa => sa.ID == ID);
             var model = _converterHelper.ToSeguimientoAccionVM(seguimiento);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public async Task<ActionResult> UpdateSeguimientoAccion([Bind(Include = "ID, AccionID, FechaSeguimiento, Resultado, TrabajadorID")] SeguimientoAccion model)
+        public async Task<ActionResult> UpdateSeguimientoAccion([Bind(Include = "ID, AccionID, FechaSeguimiento, Resultado, TrabajadorID")] Seguimiento model)
         {
             if (ModelState.IsValid)
             {
@@ -331,7 +333,7 @@ namespace WSafe.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SeguimientoAccion sigue = await _empresaContext.SeguimientosAccion.FindAsync(id);
+            Seguimiento sigue = await _empresaContext.Seguimientos.FindAsync(id);
             var model = _converterHelper.ToSeguimientoAccionVM(sigue);
             if (model == null)
             {
@@ -345,12 +347,40 @@ namespace WSafe.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                SeguimientoAccion accion = await _empresaContext.SeguimientosAccion.FindAsync(id);
-                _empresaContext.SeguimientosAccion.Remove(accion);
+                Seguimiento accion = await _empresaContext.Seguimientos.FindAsync(id);
+                _empresaContext.Seguimientos.Remove(accion);
                 await _empresaContext.SaveChangesAsync();
                 return Json(accion, JsonRequestBehavior.AllowGet);
             }
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Details(int id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var result = await _empresaContext.Acciones.FirstOrDefaultAsync(i => i.ID == id);
+
+            var model = _converterHelper.ToAccionVMFull(result, 1);
+            ViewBag.planes = model.Planes.Count();
+            ViewBag.sigue = model.Seguimientos.Count();
+            return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult PrintAccionesToPdf(int id)
+        {
+            var report = new ActionAsPdf("Details", new { id = id });
+            report.FileName = "ReporteAcciones.Pdf";
+            report.PageSize = Rotativa.Options.Size.A4;
+            report.Copies = 1;
+            report.PageOrientation.GetValueOrDefault();
+
+            return report;
         }
     }
 }

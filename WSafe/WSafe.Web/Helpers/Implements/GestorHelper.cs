@@ -298,5 +298,130 @@ namespace WSafe.Domain.Helpers.Implements
                     return "Auditoria Interna  de Calidad o de Gestión";
             }
         }
+
+        public string GetEfectos(EfectosPosibles efecto)
+        {
+            switch (efecto)
+            {
+                case EfectosPosibles.Daño_Extremo:
+                    return "Daño extremo";
+
+                case EfectosPosibles.Daño_Leve:
+                    return "Daño leve";
+
+                case EfectosPosibles.Daño_Moderado:
+                    return "Daño Moderado";
+
+                case EfectosPosibles.Daño_Propiedad:
+                    return "Daño a la propiedad";
+
+                case EfectosPosibles.Fallas_procesos:
+                    return "Fallas en los procesos";
+
+                case EfectosPosibles.Pérdidas_económicas:
+                    return "Persidas económicas";
+
+                default:
+                    return "Nomina";
+            }
+        }
+
+        public string GetCategoriaAplicacion(CategoriaAplicacion categoria)
+        {
+            switch (categoria)
+            {
+                case CategoriaAplicacion.Fuente:
+                    return "Fuente";
+
+                case CategoriaAplicacion.Medio:
+                    return "Medio";
+
+                case CategoriaAplicacion.Individuo:
+                    return "Individuo";
+
+                default:
+                    return "Fuente";
+            }
+        }
+
+        public string GetJerarquiaControl(JerarquiaControles categoria)
+        {
+            switch (categoria)
+            {
+                case JerarquiaControles.Controles_Admon:
+                    return "Controles administrativos";
+                case JerarquiaControles.Controles_Ingeniería:
+                    return "Controles de ingeniería";
+                case JerarquiaControles.Eliminacion:
+                    return "Eliminación";
+                case JerarquiaControles.Sustitucion:
+                    return "Sustitución";
+                case JerarquiaControles.EPP:
+                    return "EPP";
+                case JerarquiaControles.Señaliza:
+                    return "Señalización";
+
+                default:
+                    return "Controles administrativos";
+            }
+        }
+        public string GetPeriodo(int[] periodo)
+        {
+            var result = "";
+            for (int i = 0; i < periodo.Length; i++)
+            {
+                switch (periodo[i])
+                {
+                    case 1:
+                        result += "ENERO, ";
+                        break;
+
+                    case 2:
+                        result += "FEBRERO, ";
+                        break;
+
+                    case 3:
+                        result += "MARZO, ";
+                        break;
+
+                    case 4:
+                        result += "ABRIL, ";
+                        break;
+
+                    case 5:
+                        result += "MAYO, ";
+                        break;
+
+                    case 6:
+                        result += "JUNIO, ";
+                        break;
+
+                    case 7:
+                        result += "JULIO, ";
+                        break;
+
+                    case 8:
+                        result += "AGOSTO, ";
+                        break;
+
+                    case 9:
+                        result += "SEPTIEMBRE, ";
+                        break;
+
+                    case 10:
+                        result += "OCTUBRE, ";
+                        break;
+
+                    case 11:
+                        result += "NOVIEMBRE, ";
+                        break;
+
+                    case 12:
+                        result += "DICIEMBRE";
+                        break;
+                }
+            }
+            return result;
+        }
     }
 }

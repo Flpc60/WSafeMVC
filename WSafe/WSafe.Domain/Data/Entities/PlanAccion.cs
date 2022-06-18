@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace WSafe.Domain.Data.Entities
@@ -12,18 +11,19 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Fecha inicial")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime FechaInicial { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Fecha final")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime FechaFinal { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "No conformidad")]
         public CategoriasCausa Causa { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Plan acción")]
+        [MaxLength(100)]
         public string Accion { get; set; }
         [Display(Name = "Trabajador responsable")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
@@ -32,5 +32,7 @@ namespace WSafe.Domain.Data.Entities
         public bool Prioritaria { get; set; }
         [Display(Name = "Costos ejecución")]
         public decimal Costos { get; set; }
+        [MaxLength(100)]
+        public string Responsable { get; set; }
     }
 }

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
 using WSafe.Domain.Data.Entities;
 
 namespace WSafe.Web.Models
@@ -13,16 +11,16 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int RiesgoID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Nombre intervención")]
+        [Display(Name = "Descripción")]
+        [MaxLength(100)]
         public string Nombre { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Aplicación del control")]
         public CategoriaAplicacion CategoriaAplicacion { get; set; }
-        [Display(Name = "Tipo de acción")]
-        public CategoriasFinalidad Finalidad { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Medida intervención")]
         public JerarquiaControles Intervencion { get; set; }
+        [MaxLength(100)]
         public string Beneficios { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public decimal Presupuesto { get; set; }
@@ -30,18 +28,23 @@ namespace WSafe.Web.Models
         [Display(Name = "Responsable")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un trabajador.")]
         public int TrabajadorID { get; set; }
-        public IEnumerable<SelectListItem> Trabajadores { get; set; }
+        public string Responsable { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Fecha inicial")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime FechaInicial { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Fecha final")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime FechaFinal { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [MaxLength(100)]
         public string Observaciones { get; set; }
+        public string TextFechaInicial { get; set; }
+        public string TextFechaFinal { get; set; }
+        public string TextCategoria { get; set; }
+        public string TextIntervencion { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using WSafe.Domain.Data.Entities;
@@ -32,12 +33,13 @@ namespace WSafe.Domain.Helpers.Implements
             var result = new Riesgo
             {
                 ID = isNew ? 0 : model.ID,
-                Zona = await _empresaContext.Zonas.FindAsync(model.ZonaID),
-                Proceso = await _empresaContext.Procesos.FindAsync(model.ProcesoID),
-                Actividad = await _empresaContext.Actividades.FindAsync(model.ActividadID),
-                Tarea = await _empresaContext.Tareas.FindAsync(model.TareaID),
+                ZonaID = model.ZonaID,
+                ProcesoID = model.ProcesoID,
+                ActividadID = model.ActividadID,
+                TareaID = model.TareaID,
                 Rutinaria = model.Rutinaria,
-                Peligro = await _empresaContext.Peligros.FindAsync(model.PeligroID),
+                CategoriaPeligroID = model.CategoriaPeligroID,
+                PeligroID = model.PeligroID,
                 EfectosPosibles = model.EfectosPosibles,
                 NivelDeficiencia = model.NivelDeficiencia,
                 NivelExposicion = model.NivelExposicion,
@@ -47,22 +49,6 @@ namespace WSafe.Domain.Helpers.Implements
                 RequisitoLegal = model.RequisitoLegal,
                 IncidenteID = model.IncidenteID
             };
-            foreach (var item in model.Intervenciones)
-            {
-                result.MedidasIntervencion.Add(new Aplicacion
-                {
-                    RiesgoID = item.ID,
-                    Nombre = item.Nombre,
-                    CategoriaAplicacion = item.CategoriaAplicacion,
-                    Finalidad = item.Finalidad,
-                    Intervencion = item.Intervencion,
-                    Beneficios = item.Beneficios,
-                    Presupuesto = item.Presupuesto,
-                    //Trabajador = item.Trabajadores,
-                    Observaciones = item.Observaciones
-                });
-            }
-
             return result;
         }
         public RiesgoViewModel ToRiesgoViewModel(Riesgo riesgo)
@@ -70,19 +56,15 @@ namespace WSafe.Domain.Helpers.Implements
             var model = new RiesgoViewModel
             {
                 ID = riesgo.ID,
-                ZonaID = riesgo.Zona.ID,
-                //Zonas = _comboHelper.GetComboZonas(),
-                ProcesoID = riesgo.Proceso.ID,
-                //Procesos = _comboHelper.GetComboProcesos(),
-                ActividadID = riesgo.Actividad.ID,
-                //Actividades = _comboHelper.GetComboActividades(),
-                TareaID = riesgo.Tarea.ID,
-                //Tareas = _comboHelper.GetComboTareas(),
+                ZonaID = riesgo.ZonaID,
+                ProcesoID = riesgo.ProcesoID,
+                ActividadID = riesgo.ActividadID,
+                TareaID = riesgo.TareaID,
                 Rutinaria = riesgo.Rutinaria,
-                CategoriaPeligroID = riesgo.Peligro.CategoriaPeligroID,
+                CategoriaPeligroID = riesgo.CategoriaPeligroID,
                 CategoriasPeligros = _comboHelper.GetComboCategoriaPeligros(),
-                PeligroID = riesgo.Peligro.ID,
-                Peligros = _comboHelper.GetComboPeligros(riesgo.Peligro.CategoriaPeligroID),
+                PeligroID = riesgo.PeligroID,
+                Peligros = _comboHelper.GetComboPeligros(riesgo.CategoriaPeligroID),
                 EfectosPosibles = riesgo.EfectosPosibles,
                 NivelDeficiencia = riesgo.NivelDeficiencia,
                 NivelesDeficiencia = _gestorHelper.GetNivelDeficiencia(riesgo.NivelDeficiencia),
@@ -94,7 +76,10 @@ namespace WSafe.Domain.Helpers.Implements
                 NroExpuestos = riesgo.NroExpuestos,
                 RequisitoLegal = riesgo.RequisitoLegal,
                 IncidenteID = riesgo.IncidenteID,
-                Intervenciones = new List<AplicacionVM>()
+                Zonas = _comboHelper.GetComboZonas(),
+                Procesos = _comboHelper.GetComboProcesos(),
+                Actividades = _comboHelper.GetComboActividades(),
+                Tareas = _comboHelper.GetComboTareas()
             };
 
             return model;
@@ -109,16 +94,7 @@ namespace WSafe.Domain.Helpers.Implements
                 Tareas = _comboHelper.GetComboTareas(),
                 CategoriasPeligros = _comboHelper.GetComboCategoriaPeligros(),
                 Peligros = _comboHelper.GetComboPeligros(1),
-                Intervenciones = new List<AplicacionVM>()
             };
-
-            model.Intervenciones.Add(
-                new AplicacionVM()
-                {
-                    Trabajadores = _comboHelper.GetComboTrabajadores()
-                }
-                );
-
             return model;
         }
         public AccionViewModel ToAccionViewModelNew()
@@ -130,12 +106,12 @@ namespace WSafe.Domain.Helpers.Implements
                 Actividades = _comboHelper.GetComboActividades(),
                 Tareas = _comboHelper.GetComboTareas(),
                 Trabajadores = _comboHelper.GetComboTrabajadores(),
-                Planes = new List<PlanAccion>(),
-                Seguimientos = new List<SeguimientoAccion>()
+                Planes = new List<PlanAction>(),
+                Seguimientos = new List<Seguimiento>()
             };
 
-            model.Planes.Add(new PlanAccion());
-            model.Seguimientos.Add( new SeguimientoAccion());
+            model.Planes.Add(new PlanAction());
+            model.Seguimientos.Add(new Seguimiento());
             return model;
         }
         public AccionViewModel ToAccionViewModel(Accion accion)
@@ -163,13 +139,13 @@ namespace WSafe.Domain.Helpers.Implements
                 FechaCierre = accion.FechaCierre,
                 Efectiva = accion.Efectiva,
                 Estado = accion.Estado,
-                Planes = new List<PlanAccion>(),
-                Seguimientos = new List<SeguimientoAccion>(),
+                Planes = new List<PlanAction>(),
+                Seguimientos = new List<Seguimiento>(),
                 FechaSolicitudStr = accion.FechaSolicitud.ToString("yyyy-MM-dd"),
                 FechaCierreStr = accion.FechaCierre.ToString("yyyy-MM-dd")
             };
-            model.Planes.Add(new PlanAccion() { AccionID = accion.ID });
-            model.Seguimientos.Add(new SeguimientoAccion() { AccionID = accion.ID });
+            model.Planes.Add(new PlanAction() { AccionID = accion.ID });
+            model.Seguimientos.Add(new Seguimiento() { AccionID = accion.ID });
             return model;
         }
         public async Task<Accion> ToAccionAsync(Accion model, bool isNew)
@@ -206,30 +182,29 @@ namespace WSafe.Domain.Helpers.Implements
                 TareaID = model.TareaID,
                 FechaReporte = model.FechaReporte,
                 FechaIncidente = model.FechaIncidente,
-                CategoriaIncidente = model.CategoriasIncidente,
+                CategoriasIncidente = model.CategoriasIncidente,
                 IncapacidadMedica = model.IncapacidadMedica,
                 DiasIncapacidad = model.DiasIncapacidad,
-                Informante = model.Informante,
-                NaturalezaLesion = model.NaturalezaLesion,
-                PartesAfectadas = model.PartesAfectadas,
-                TipoIncidente = model.TipoIncidente,
-                AgenteLesion = model.AgenteLesion,
-                ActosInseguros = model.ActosInseguros,
-                CondicionesInsegura = model.CondicionesInsegura,
-                TipoDaño = model.TipoDaño,
-                Afectacion = model.Afectacion,
-                DañosOcasionados = model.DañosOcasionados,
-                TipoVehiculo = model.TipoVehiculo,
-                MarcaVehiculo = model.MarcaVehiculo,
-                ModeloVehiculo = model.ModeloVehiculo,
+                NaturalezaLesion = model.NaturalezaLesion.ToUpper(),
+                PartesAfectadas = model.PartesAfectadas.ToUpper(),
+                TipoIncidente = model.TipoIncidente.ToUpper(),
+                AgenteLesion = model.AgenteLesion.ToUpper(),
+                ActosInseguros = model.ActosInseguros.ToUpper(),
+                CondicionesInsegura = model.CondicionesInsegura.ToUpper(),
+                TipoDaño = model.TipoDaño.ToUpper(),
+                Afectacion = model.Afectacion.ToUpper(),
+                DañosOcasionados = model.DañosOcasionados.ToUpper(),
+                TipoVehiculo = model.TipoVehiculo.ToUpper(),
+                MarcaVehiculo = model.MarcaVehiculo.ToUpper(),
+                ModeloVehiculo = model.ModeloVehiculo.ToUpper(),
                 KilometrajeVehiculo = model.KilometrajeVehiculo,
                 CostosEstimados = model.CostosEstimados,
-                DescripcionIncidente = model.DescripcionIncidente,
-                EvitarIncidente = model.EvitarIncidente,
-                AccionesInmediatas = model.AccionesInmediatas,
-                ComentariosAdicionales = model.ComentariosAdicionales,
-                AtencionBrindada = model.AtencionBrindada,
-                EquipoInvestigador = model.EquiposInvestigador,
+                DescripcionIncidente = model.DescripcionIncidente.ToUpper(),
+                EvitarIncidente = model.EvitarIncidente.ToUpper(),
+                AccionesInmediatas = model.AccionesInmediatas.ToUpper(),
+                ComentariosAdicionales = model.ComentariosAdicionales.ToUpper(),
+                AtencionBrindada = model.AtencionBrindada.ToUpper(),
+                EquiposInvestigador = model.EquiposInvestigador,
                 LesionPersonal = model.LesionPersonal,
                 DañoMaterial = model.DañoMaterial,
                 MedioAmbiente = model.MedioAmbiente,
@@ -240,7 +215,7 @@ namespace WSafe.Domain.Helpers.Implements
                 ConsecuenciasMedio = model.ConsecuenciasMedio,
                 ConsecuenciasImagen = model.ConsecuenciasImagen,
                 Probabilidad = model.Probabilidad,
-                //Lesionados = model.Lesionados
+                TrabajadorID = model.TrabajadorID
             };
             return result;
         }
@@ -274,10 +249,9 @@ namespace WSafe.Domain.Helpers.Implements
                 Tareas = _comboHelper.GetComboTareas(),
                 FechaReporte = incidente.FechaReporte,
                 FechaIncidente = incidente.FechaIncidente,
-                CategoriasIncidente = incidente.CategoriaIncidente,
+                CategoriasIncidente = incidente.CategoriasIncidente,
                 IncapacidadMedica = incidente.IncapacidadMedica,
                 DiasIncapacidad = incidente.DiasIncapacidad,
-                Informante = incidente.Informante,
                 Trabajadores = _comboHelper.GetComboTrabajadores(),
                 NaturalezaLesion = incidente.NaturalezaLesion,
                 PartesAfectadas = incidente.PartesAfectadas,
@@ -298,7 +272,7 @@ namespace WSafe.Domain.Helpers.Implements
                 AccionesInmediatas = incidente.AccionesInmediatas,
                 ComentariosAdicionales = incidente.ComentariosAdicionales,
                 AtencionBrindada = incidente.AtencionBrindada,
-                EquiposInvestigador = incidente.EquipoInvestigador,
+                EquiposInvestigador = incidente.EquiposInvestigador,
                 LesionPersonal = incidente.LesionPersonal,
                 DañoMaterial = incidente.DañoMaterial,
                 MedioAmbiente = incidente.MedioAmbiente,
@@ -309,7 +283,9 @@ namespace WSafe.Domain.Helpers.Implements
                 ConsecuenciasMedio = incidente.ConsecuenciasMedio,
                 ConsecuenciasImagen = incidente.ConsecuenciasImagen,
                 Probabilidad = incidente.Probabilidad,
-                Lesionados = new List<AccidentadoVM>()
+                Lesionados = new List<AccidentadoVM>(),
+                FechaIncidentStr = incidente.FechaIncidente.ToString("yyyy-MM-dd"),
+                FechaReportStr = incidente.FechaReporte.ToString("yyyy-MM-dd")
             };
 
             return model;
@@ -317,13 +293,11 @@ namespace WSafe.Domain.Helpers.Implements
 
         public IndicadorViewModel ToIndicadorViewModel(Indicador indicador)
         {
-            var datos = _chartHelper.GetFrecuenciaAccidentes(Convert.ToDateTime("2021/06/01"), Convert.ToDateTime("2021/12/31"));
+            //var datos = _chartHelper.GetFrecuenciaAccidentes(Convert.ToDateTime("2021/06/01"), Convert.ToDateTime("2021/12/31"));
             //_chartHelper.DrawImagen(indicador.TipoChart, indicador.Nombre, datos);
             var model = new IndicadorViewModel
             {
                 ID = indicador.ID,
-                FechaInicial = Convert.ToDateTime("2021/06/01"),
-                FechaFinal = Convert.ToDateTime("2021/12/31"),
                 Nombre = indicador.Nombre,
                 Definicion = indicador.Definicion,
                 Numerador = indicador.Numerador,
@@ -331,42 +305,42 @@ namespace WSafe.Domain.Helpers.Implements
                 Formula = indicador.Formula,
                 Interpretacion = indicador.Interpretacion,
                 Periodicidad = indicador.Periodicidad,
-                Datos = datos,
+                //Datos = datos,
                 Imagen = "~/Images/chart05.jpg"
             };
             return model;
         }
-        public IndicadorViewModel ToIndicadorViewModelNew(Indicador indicador, DateTime fechaInicial, DateTime fechaFinal)
+        public IndicadorViewModel ToIndicadorViewModelNew(Indicador indicador, int[] periodo, int year) 
         {
             Random random = new Random();
             var filename = "chart" + random.Next(1, 100) + ".jpg";
             var filePathName = "~/Images/" + filename;
 
-            var datos = _chartHelper.GetFrecuenciaAccidentes(fechaInicial, fechaFinal);
+            var datos = _chartHelper.GetFrecuenciaAccidentes(periodo, year);
             switch (indicador.ID)
             {
                 case 1:
-                    datos = _chartHelper.GetFrecuenciaAccidentes(fechaInicial, fechaFinal);
+                    datos = _chartHelper.GetFrecuenciaAccidentes(periodo, year);
                     break;
 
                 case 2:
-                    datos = _chartHelper.GetSeveridadAccidentalidad(fechaInicial, fechaFinal);
+                    datos = _chartHelper.GetSeveridadAccidentalidad(periodo, year);
                     break;
 
                 case 3:
-                    datos = _chartHelper.GetAccidentesTrabajoMortales(fechaInicial, fechaFinal);
+                    datos = _chartHelper.GetAccidentesTrabajoMortales(periodo, year);
                     break;
 
                 case 4:
-                    datos = _chartHelper.GetAccidentesTrabajoMortales(fechaInicial, fechaFinal);
+                    datos = _chartHelper.GetAccidentesTrabajoMortales(periodo, year);
                     break;
 
                 case 5:
-                    datos = _chartHelper.GetAccidentesTrabajoMortales(fechaInicial, fechaFinal);
+                    datos = _chartHelper.GetAccidentesTrabajoMortales(periodo, year);
                     break;
 
                 case 6:
-                    datos = _chartHelper.GetAusentismoCausaMedica(fechaInicial, fechaFinal);
+                    datos = _chartHelper.GetAusentismoCausaMedica(periodo, year);
                     break;
 
                 case 7:
@@ -378,8 +352,8 @@ namespace WSafe.Domain.Helpers.Implements
             var model = new IndicadorViewModel
             {
                 ID = indicador.ID,
-                FechaInicial = fechaInicial,
-                FechaFinal = fechaFinal,
+                Year = year,
+                Periodo = _gestorHelper.GetPeriodo(periodo),
                 Nombre = indicador.Nombre,
                 Definicion = indicador.Definicion,
                 Numerador = indicador.Numerador,
@@ -388,33 +362,57 @@ namespace WSafe.Domain.Helpers.Implements
                 Interpretacion = indicador.Interpretacion,
                 Periodicidad = indicador.Periodicidad,
                 Datos = datos,
-                Imagen = filePathName
+                Imagen = filePathName,
+                Titulo = ("Ficha tecnica indicador " + indicador.Nombre).ToUpper()
             };
             return model;
         }
-
         public IEnumerable<ListaRiesgosVM> ToRiesgoViewModelList(IEnumerable<Riesgo> riesgo)
         {
+            var rutinaria = "";
+            var requisito = "";
             var model = new List<ListaRiesgosVM>();
             foreach (var item in riesgo)
             {
+
+                if (item.Rutinaria)
+                {
+                    rutinaria = "Si";
+                }
+                else
+                {
+                    rutinaria = "No";
+                }
+
+                if (item.RequisitoLegal)
+                {
+                    requisito = "Si";
+                }
+                else
+                {
+                    requisito = "No";
+                }
+
+
                 model.Add(new ListaRiesgosVM
                 {
                     ID = item.ID,
-                    Zona = _empresaContext.Zonas.Find(item.Zona.ID).Descripcion,
-                    Proceso = _empresaContext.Procesos.Find(item.Proceso.ID).Descripcion,
-                    Actividad = _empresaContext.Actividades.Find(item.Actividad.ID).Descripcion,
-                    Tarea = _empresaContext.Tareas.Find(item.Tarea.ID).Descripcion,
+                    Zona = _empresaContext.Zonas.Find(item.ZonaID).Descripcion,
+                    Proceso = _empresaContext.Procesos.Find(item.ProcesoID).Descripcion,
+                    Actividad = _empresaContext.Actividades.Find(item.ActividadID).Descripcion,
+                    Tarea = _empresaContext.Tareas.Find(item.TareaID).Descripcion,
                     Rutinaria = item.Rutinaria,
-                    Clasificacion = _empresaContext.CategoriasPeligros.Find(item.Peligro.CategoriaPeligroID).Descripcion,
-                    Peligro = _empresaContext.Peligros.Find(item.Peligro.ID).Descripcion,
+                    Clasificacion = _empresaContext.CategoriasPeligros.Find(item.CategoriaPeligroID).Descripcion,
+                    Peligro = _empresaContext.Peligros.Find(item.PeligroID).Descripcion,
                     EfectosPosibles = item.EfectosPosibles,
                     NivelDeficiencia = item.NivelDeficiencia,
                     NivelExposicion = item.NivelExposicion,
                     NivelConsecuencia = item.NivelConsecuencia,
                     Aceptabilidad = item.Aceptabilidad,
                     NroExpuestos = item.NroExpuestos,
-                    RequisitoLegal = item.RequisitoLegal
+                    RequisitoLegal = item.RequisitoLegal,
+                    TextRutinaria = rutinaria,
+                    TextRequisito = requisito
                 });
             }
 
@@ -422,6 +420,8 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public AccidentadoVM ToLesionadoViewModel(Trabajador lesionado)
         {
+            var cargo = _empresaContext.Cargos.Find(lesionado.CargoID);
+
             var modelo = new AccidentadoVM()
             {
                 TrabajadorID = lesionado.ID,
@@ -431,11 +431,32 @@ namespace WSafe.Domain.Helpers.Implements
                 Genero = _gestorHelper.GetGenero(lesionado.Genero),
                 EstadoCivil = _gestorHelper.GetEstadoCivil(lesionado.EstadoCivil),
                 TipoVinculacion = _gestorHelper.GetTipoVinculacion(lesionado.TipoVinculacion),
-                Cargo = lesionado.Cargo.Descripcion
+                Cargo = cargo.Descripcion
             };
             return modelo;
         }
-
+        public IEnumerable<AccidentadoVM> ToListLesionadosVM(IEnumerable<Accidentado> lesionados)
+        {
+            var modelo = new List<AccidentadoVM>();
+            foreach (var item in lesionados)
+            {
+                var lesionado = _empresaContext.Trabajadores.Find(item.TrabajadorID);
+                var cargo = _empresaContext.Cargos.Find(lesionado.CargoID);
+                modelo.Add(new AccidentadoVM
+                {
+                    ID = item.ID,
+                    TrabajadorID = item.TrabajadorID,
+                    Documento = lesionado.Documento,
+                    NombreCompleto = lesionado.NombreCompleto,
+                    FechaNacimiento = lesionado.FechaNacimiento,
+                    Genero = _gestorHelper.GetGenero(lesionado.Genero),
+                    EstadoCivil = _gestorHelper.GetEstadoCivil(lesionado.EstadoCivil),
+                    TipoVinculacion = _gestorHelper.GetTipoVinculacion(lesionado.TipoVinculacion),
+                    Cargo = cargo.Descripcion
+                });
+            }
+            return modelo;
+        }
         public IEnumerable<AplicacionVM> ToIntervencionesViewModel(IEnumerable<Aplicacion> listaAplicacion)
         {
             var modelo = new List<AplicacionVM>();
@@ -443,17 +464,22 @@ namespace WSafe.Domain.Helpers.Implements
             {
                 modelo.Add(new AplicacionVM
                 {
-                    RiesgoID = item.ID,
-                    Nombre = item.Nombre,
+                    ID = item.ID,
+                    RiesgoID = item.RiesgoID,
+                    Nombre = item.Nombre.ToUpper(),
                     CategoriaAplicacion = item.CategoriaAplicacion,
-                    Finalidad = item.Finalidad,
                     Intervencion = item.Intervencion,
                     Beneficios = item.Beneficios,
                     Presupuesto = item.Presupuesto,
-                    Trabajadores = _comboHelper.GetComboTrabajadores(),
+                    TrabajadorID = item.TrabajadorID,
+                    Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpper(),
                     FechaInicial = item.FechaInicial,
                     FechaFinal = item.FechaFinal,
-                    Observaciones = item.Observaciones
+                    TextFechaInicial = item.FechaInicial.ToString("yyyy-MM-dd"),
+                    TextFechaFinal = item.FechaFinal.ToString("yyyy-MM-dd"),
+                    Observaciones = item.Observaciones,
+                    TextCategoria = _gestorHelper.GetCategoriaAplicacion(item.CategoriaAplicacion),
+                    TextIntervencion = _gestorHelper.GetJerarquiaControl(item.Intervencion)
                 });
             }
             return modelo;
@@ -466,11 +492,10 @@ namespace WSafe.Domain.Helpers.Implements
                 RiesgoID = model.RiesgoID,
                 Nombre = model.Nombre,
                 CategoriaAplicacion = model.CategoriaAplicacion,
-                Finalidad = model.Finalidad,
                 Intervencion = model.Intervencion,
                 Beneficios = model.Beneficios,
                 Presupuesto = model.Presupuesto,
-                Trabajador = await _empresaContext.Trabajadores.FindAsync(model.TrabajadorID),
+                TrabajadorID = model.TrabajadorID,
                 FechaInicial = model.FechaInicial,
                 FechaFinal = model.FechaFinal,
                 Observaciones = model.Observaciones
@@ -478,7 +503,7 @@ namespace WSafe.Domain.Helpers.Implements
 
             return result;
         }
-        public PlanAccionVM ToPlanAccionVM(PlanAccion plan)
+        public PlanAccionVM ToPlanAccionVM(PlanAction plan)
         {
             var result = new PlanAccionVM
             {
@@ -500,10 +525,9 @@ namespace WSafe.Domain.Helpers.Implements
         {
             throw new NotImplementedException();
         }
-        public async Task<PlanAccion> ToPlanAccionAsync(PlanAccion plan)
+        public async Task<PlanAction> ToPlanAccionAsync(PlanAction plan)
         {
-            
-            var result = new PlanAccion
+            var result = new PlanAction
             {
                 ID = plan.ID,
                 AccionID = plan.AccionID,
@@ -513,11 +537,12 @@ namespace WSafe.Domain.Helpers.Implements
                 Accion = plan.Accion,
                 TrabajadorID = plan.TrabajadorID,
                 Prioritaria = plan.Prioritaria,
-                Costos = plan.Costos
+                Costos = plan.Costos,
+                Responsable = plan.Responsable
             };
             return result;
         }
-        public SeguimientoAccionVM ToSeguimientoAccionVM(SeguimientoAccion seguimientoAccion)
+        public SeguimientoAccionVM ToSeguimientoAccionVM(Seguimiento seguimientoAccion)
         {
             var result = new SeguimientoAccionVM
             {
@@ -530,15 +555,9 @@ namespace WSafe.Domain.Helpers.Implements
             };
             return result;
         }
-
-        public SeguimientoAccionVM ToSeguimientoAccionVMNew()
+        public async Task<Seguimiento> ToSeguimientoAccionAsync(Seguimiento model)
         {
-            throw new NotImplementedException();
-        }
-
-        public async Task<SeguimientoAccion> ToSeguimientoAccionAsync(SeguimientoAccion model)
-        {
-            var result = new SeguimientoAccion
+            var result = new Seguimiento
             {
                 ID = model.ID,
                 AccionID = model.AccionID,
@@ -551,7 +570,7 @@ namespace WSafe.Domain.Helpers.Implements
             throw new NotImplementedException();
         }
 
-        public IEnumerable<PlanAccionVM> ToPlanAccionVMList(IEnumerable<PlanAccion> plan)
+        public IEnumerable<PlanAccionVM> ToPlanAccionVMList(IEnumerable<PlanAction> plan)
         {
             var model = new List<PlanAccionVM>();
             foreach (var item in plan)
@@ -598,7 +617,7 @@ namespace WSafe.Domain.Helpers.Implements
             }
             return model;
         }
-        public IEnumerable<SeguimientoAccionVM> ToSeguimientoAccionVMList(IEnumerable<SeguimientoAccion> accion)
+        public IEnumerable<SeguimientoAccionVM> ToSeguimientoAccionVMList(IEnumerable<Seguimiento> accion)
         {
             var model = new List<SeguimientoAccionVM>();
             foreach (var item in accion)
@@ -613,6 +632,298 @@ namespace WSafe.Domain.Helpers.Implements
                     Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpper()
                 }); ;
             }
+            return model;
+        }
+        public _DetailsAccionVM ToAccionVMFull(Accion accion, int id)
+        {
+            var planes = _empresaContext.PlanActions.Where(pa => pa.AccionID == accion.ID).ToList();
+            var sigue = _empresaContext.Seguimientos.Where(sa => sa.AccionID == accion.ID).ToList();
+            var responsable = _empresaContext.Trabajadores.FirstOrDefault(t => t.ID == accion.TrabajadorID);
+            var cargo = _empresaContext.Cargos.FirstOrDefault(t => t.ID == responsable.CargoID);
+
+            var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == id);
+            var model = new _DetailsAccionVM
+            {
+                ID = accion.ID,
+                Formato = document.Formato,
+                Estandar = document.Estandar,
+                Titulo = document.Titulo,
+                Version = document.Version,
+                FechaSolicitud = accion.FechaSolicitud.ToString("dd-MM-yyyy"),
+                Categoria = accion.Categoria,
+                Responsable = responsable.NombreCompleto.ToUpper(),
+                Cargo = cargo.Descripcion.ToUpper(),
+                Proceso = _empresaContext.Procesos.Find(accion.ProcesoID).Descripcion,
+                FuenteAccion = _gestorHelper.GetFuenteAccion(accion.FuenteAccion).ToUpper(),
+                Descripcion = accion.Descripcion.ToUpper(),
+                EficaciaAntes = accion.EficaciaAntes,
+                EficaciaDespues = accion.EficaciaDespues,
+                FechaCierre = accion.FechaCierre.ToString("dd-MM-yyyy"),
+                Efectiva = accion.Efectiva,
+                Estado = accion.Estado,
+                Planes = planes,
+                Seguimientos = sigue
+            };
+
+            foreach (var item in model.Planes)
+            {
+                item.Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpper();
+                item.FechaInicial.ToString("dd-MM-yyyy");
+                item.FechaFinal.ToString("dd-MM-yyyy");
+                item.Accion.ToUpper();
+            }
+
+            foreach (var item in model.Seguimientos)
+            {
+                item.Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpper();
+                item.FechaSeguimiento.ToString("dd-MM-yyyy");
+                item.Resultado.ToUpper();
+            }
+            return model;
+        }
+
+        public IEnumerable<MatrizRiesgosVM> ToRiesgoViewModelFul(IEnumerable<Riesgo> riesgo)
+        {
+            var model = new List<MatrizRiesgosVM>();
+            var fuente = "";
+            var individuo = "";
+            var medio = "";
+            var eliminacion = "";
+            var sustituto = "";
+            var ingenieria = "";
+            var admon = "";
+            var señales = "";
+            var epp = "";
+            var rutinaria = "";
+            var requisito = "";
+
+            foreach (var item in riesgo)
+            {
+                fuente = "";
+                individuo = "";
+                medio = "";
+                eliminacion = "";
+                sustituto = "";
+                ingenieria = "";
+                admon = "";
+                señales = "";
+                epp = "";
+                rutinaria = "";
+                requisito = "";
+
+                if (item.Rutinaria)
+                {
+                    rutinaria = "Si";
+                }
+                else
+                {
+                    rutinaria = "No";
+                }
+
+                if (item.RequisitoLegal)
+                {
+                    requisito = "Si";
+                }
+                else
+                {
+                    requisito = "No";
+                }
+
+                foreach (var apl in item.MedidasIntervencion)
+                {
+                    switch (apl.CategoriaAplicacion)
+                    {
+                        case CategoriaAplicacion.Fuente:
+                            fuente += apl.Nombre + "\n";
+                            break;
+
+                        case CategoriaAplicacion.Medio:
+                            medio += apl.Nombre + "\n";
+                            break;
+
+                        case CategoriaAplicacion.Individuo:
+                            individuo += apl.Nombre + "\n";
+                            break;
+                    }
+
+                    switch (apl.Intervencion)
+                    {
+                        case JerarquiaControles.Eliminacion:
+                            eliminacion += apl.Nombre + "\n";
+                            break;
+
+                        case JerarquiaControles.Sustitucion:
+                            sustituto += apl.Nombre + "\n";
+                            break;
+
+                        case JerarquiaControles.Controles_Ingeniería:
+                            ingenieria += apl.Nombre + "\n";
+                            break;
+
+                        case JerarquiaControles.Controles_Admon:
+                            admon += apl.Nombre + "\n";
+                            break;
+
+                        case JerarquiaControles.Señaliza:
+                            señales += apl.Nombre + "\n";
+                            break;
+
+                        case JerarquiaControles.EPP:
+                            epp += apl.Nombre + "\n";
+                            break;
+
+                    }
+                }
+                model.Add(new MatrizRiesgosVM
+                {
+                    ID = item.ID,
+                    Proceso = _empresaContext.Procesos.Find(item.ProcesoID).Descripcion,
+                    Zona = _empresaContext.Zonas.Find(item.ZonaID).Descripcion,
+                    Actividad = _empresaContext.Actividades.Find(item.ActividadID).Descripcion,
+                    Rutinaria = rutinaria,
+                    CategoriaPeligro = _empresaContext.CategoriasPeligros.Find(item.CategoriaPeligroID).Descripcion,
+                    Peligro = _empresaContext.Peligros.Find(item.PeligroID).Descripcion,
+                    EfectosPosibles = _gestorHelper.GetEfectos(item.EfectosPosibles),
+                    Fuente = fuente,
+                    Medio = medio,
+                    Individuo = individuo,
+                    NivelDeficiencia = item.NivelDeficiencia,
+                    NivelExposicion = item.NivelExposicion,
+                    NivelProbabilidad = item.NivelProbabilidad,
+                    InterpretaNP = _gestorHelper.GetInterpretaNP(item.NivelProbabilidad),
+                    NivelConsecuencia = item.NivelConsecuencia,
+                    NivelRiesgo = item.NivelRiesgo,
+                    CategoriaRiesgo = _gestorHelper.GetInterpretaNR(item.NivelRiesgo),
+                    AceptabilidadNR = _gestorHelper.GetAceptabilidadNR(item.CategoriaRiesgo),
+                    SignificadoNR = _gestorHelper.GetSignificadoNR(item.CategoriaRiesgo),
+                    NroExpuestos = item.NroExpuestos,
+                    PeorConsecuencia = item.PeorConsecuencia,
+                    RequisitoLegal = requisito,
+                    Eliminacion = eliminacion,
+                    Sustitucion = sustituto,
+                    Ingenieria = ingenieria,
+                    Administracion = admon,
+                    Señalizacion = señales,
+                    EPP = epp
+                });
+            }
+            return model;
+        }
+
+        public MatrizRiesgosVM ToRiesgoVMUnit(Riesgo riesgo)
+        {
+            var model = new MatrizRiesgosVM
+            {
+                ID = riesgo.ID,
+                Proceso = _empresaContext.Procesos.Find(riesgo.ProcesoID).Descripcion,
+                Zona = _empresaContext.Zonas.Find(riesgo.ZonaID).Descripcion,
+                Actividad = _empresaContext.Actividades.Find(riesgo.ActividadID).Descripcion,
+                CategoriaPeligro = _empresaContext.CategoriasPeligros.Find(riesgo.CategoriaPeligroID).Descripcion,
+                Peligro = _empresaContext.Peligros.Find(riesgo.PeligroID).Descripcion,
+                EfectosPosibles = _gestorHelper.GetEfectos(riesgo.EfectosPosibles),
+                NivelDeficiencia = riesgo.NivelDeficiencia,
+                NivelExposicion = riesgo.NivelExposicion,
+                NivelProbabilidad = riesgo.NivelProbabilidad,
+                InterpretaNP = _gestorHelper.GetInterpretaNP(riesgo.NivelProbabilidad),
+                NivelConsecuencia = riesgo.NivelConsecuencia,
+                NivelRiesgo = riesgo.NivelRiesgo,
+                CategoriaRiesgo = _gestorHelper.GetInterpretaNR(riesgo.NivelRiesgo),
+                AceptabilidadNR = _gestorHelper.GetAceptabilidadNR(riesgo.CategoriaRiesgo),
+                SignificadoNR = _gestorHelper.GetSignificadoNR(riesgo.CategoriaRiesgo),
+                NroExpuestos = riesgo.NroExpuestos,
+                PeorConsecuencia = riesgo.PeorConsecuencia
+            };
+            return model;
+        }
+        public async Task<Accidentado> ToLesionadoAsync(AccidentadoVM model, bool isNew)
+        {
+            var result = new Accidentado
+            {
+                ID = isNew ? 0 : model.ID,
+                IncidenteID = model.IncidenteID,
+                TrabajadorID = model.TrabajadorID,
+            };
+            return result;
+        }
+        public DetailsIncidentVM ToIncidentVMFull(Incidente incidente, int id)
+        {
+            var lesionados = _empresaContext.Accidentados.Where(a => a.IncidenteID == incidente.ID).ToList();
+            var responsable = _empresaContext.Trabajadores.FirstOrDefault(t => t.ID == incidente.TrabajadorID);
+            var zona = _empresaContext.Zonas.FirstOrDefault(z => z.ID == incidente.ZonaID).Descripcion;
+            var proceso = _empresaContext.Procesos.FirstOrDefault(p => p.ID == incidente.ProcesoID).Descripcion;
+            var actividad = _empresaContext.Actividades.FirstOrDefault(a => a.ID == incidente.ActividadID).Descripcion;
+            var tarea = _empresaContext.Tareas.FirstOrDefault(t => t.ID == incidente.TareaID).Descripcion;
+            var lugar = zona.Replace(" ", String.Empty).ToUpper() + " - " + proceso.Replace(" ", String.Empty).ToUpper();
+
+            var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == id);
+            var model = new DetailsIncidentVM
+            {
+                ID = incidente.ID,
+                Formato = document.Formato,
+                Estandar = document.Estandar,
+                Titulo = document.Titulo,
+                Version = document.Version,
+                Lugar = lugar,
+                FechaReporte = incidente.FechaReporte.ToString("dd-MM-yyyy"),
+                FechaIncidente = incidente.FechaIncidente.ToString("dd-MM-yyyy"),
+                CategoriasIncidente = incidente.CategoriasIncidente,
+                IncapacidadMedica = incidente.IncapacidadMedica,
+                DiasIncapacidad = incidente.DiasIncapacidad,
+                Informante = responsable.NombreCompleto,
+                NaturalezaLesion = incidente.NaturalezaLesion,
+                PartesAfectadas = incidente.PartesAfectadas,
+                TipoIncidente = incidente.TipoIncidente,
+                AgenteLesion = incidente.AgenteLesion,
+                ActosInseguros = incidente.ActosInseguros,
+                CondicionesInsegura = incidente.CondicionesInsegura,
+                TipoDaño = incidente.TipoDaño,
+                Afectacion = incidente.Afectacion,
+                DañosOcasionados = incidente.DañosOcasionados,
+                TipoVehiculo = incidente.TipoVehiculo,
+                MarcaVehiculo = incidente.MarcaVehiculo,
+                ModeloVehiculo = incidente.ModeloVehiculo,
+                KilometrajeVehiculo = incidente.KilometrajeVehiculo,
+                CostosEstimados = incidente.CostosEstimados,
+                DescripcionIncidente = incidente.DescripcionIncidente,
+                EvitarIncidente = incidente.EvitarIncidente,
+                AccionesInmediatas = incidente.AccionesInmediatas,
+                ComentariosAdicionales = incidente.ComentariosAdicionales,
+                AtencionBrindada = incidente.AtencionBrindada,
+                EquiposInvestigador = incidente.EquiposInvestigador,
+                LesionPersonal = incidente.LesionPersonal,
+                DañoMaterial = incidente.DañoMaterial,
+                MedioAmbiente = incidente.MedioAmbiente,
+                Imagen = incidente.Imagen,
+                RequiereInvestigacion = incidente.RequiereInvestigacion,
+                ConsecuenciasLesion = incidente.ConsecuenciasLesion,
+                ConsecuenciasDaño = incidente.ConsecuenciasDaño,
+                ConsecuenciasMedio = incidente.ConsecuenciasMedio,
+                ConsecuenciasImagen = incidente.ConsecuenciasImagen,
+                Probabilidad = incidente.Probabilidad,
+                Lesionados = new List<AccidentadoVM>(),
+                Firma = responsable.Firma
+            };
+
+            var modelo = new List<AccidentadoVM>();
+            foreach (var item in lesionados)
+            {
+                var lesionado = _empresaContext.Trabajadores.Find(item.TrabajadorID);
+                var cargo = _empresaContext.Cargos.Find(lesionado.CargoID).Descripcion;
+                modelo.Add(new AccidentadoVM
+                {
+                    ID = item.ID,
+                    TrabajadorID = item.TrabajadorID,
+                    Documento = lesionado.Documento,
+                    NombreCompleto = lesionado.NombreCompleto,
+                    FechaNacimiento = lesionado.FechaNacimiento,
+                    Genero = _gestorHelper.GetGenero(lesionado.Genero),
+                    EstadoCivil = _gestorHelper.GetEstadoCivil(lesionado.EstadoCivil),
+                    TipoVinculacion = _gestorHelper.GetTipoVinculacion(lesionado.TipoVinculacion),
+                    Cargo = cargo
+                });
+            }
+            model.Lesionados = modelo;
+
             return model;
         }
     }

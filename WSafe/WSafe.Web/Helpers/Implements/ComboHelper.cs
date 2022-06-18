@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using WSafe.Domain.Data.Entities;
 using WSafe.Web.Models;
 
 namespace WSafe.Domain.Helpers.Implements
@@ -55,10 +56,10 @@ namespace WSafe.Domain.Helpers.Implements
             var list = _empresaContext.Peligros
                 .Where(p => p.CategoriaPeligroID == categoriaID)
                 .Select(p => new SelectListItem
-            {
-                Text = p.Descripcion,
-                Value = p.CategoriaPeligroID.ToString()
-            })
+                {
+                    Text = p.Descripcion,
+                    Value = p.ID.ToString()
+                })
                 .OrderBy(p => p.Text)
                 .ToList();
 
@@ -216,7 +217,7 @@ namespace WSafe.Domain.Helpers.Implements
         {
             var list = _empresaContext.Trabajadores.Select(t => new SelectListItem
             {
-                Text = t.Nombres + " " + t.PrimerApellido + " "+ t.Documento,
+                Text = t.Nombres + " " + t.PrimerApellido + " " + t.Documento,
                 Value = t.ID.ToString()
             })
                 .OrderBy(t => t.Text)
@@ -251,9 +252,10 @@ namespace WSafe.Domain.Helpers.Implements
 
         public IEnumerable<SelectListItem> GetComboRiesgo()
         {
+            //TODO
             var list = _empresaContext.Riesgos.Select(t => new SelectListItem
             {
-                Text = t.Tarea.Descripcion + " " + t.Peligro.Descripcion + " " + t.NivelRiesgo,
+                Text = t.TareaID + " " + t.PeligroID + " " + t.NivelRiesgo,
                 Value = t.ID.ToString()
             })
                 .OrderBy(t => t.Text)
@@ -340,6 +342,29 @@ namespace WSafe.Domain.Helpers.Implements
 
             return list;
         }
-
+        public IEnumerable<Role> GetAllRoles()
+        {
+            return _empresaContext.Roles.ToList();
+        }
+        public IEnumerable<Cargo> GetAllCargos()
+        {
+            return _empresaContext.Cargos.OrderBy(c => c.Descripcion).ToList();
+        }
+        public IEnumerable<Zona> GetAllZonas()
+        {
+            return _empresaContext.Zonas.OrderBy(z=> z.Descripcion).ToList();
+        }
+        public IEnumerable<Proceso> GetAllProcess()
+        {
+            return _empresaContext.Procesos.OrderBy(p => p.Descripcion).ToList();
+        }
+        public IEnumerable<Actividad> GetAllActivitys()
+        {
+            return _empresaContext.Actividades.OrderBy(a => a.Descripcion).ToList();
+        }
+        public IEnumerable<Tarea> GetAllTareas()
+        {
+            return _empresaContext.Tareas.OrderBy(t => t.Descripcion).ToList();
+        }
     }
 }

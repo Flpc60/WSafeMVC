@@ -1,15 +1,13 @@
 ﻿@model WSafe.Web.Models.AccionViewModel
-@using System.Web.Mvc.Html;
 
 @{
-    ViewBag.Title = "GESTIONAR ACCIONES CORRECTIVAS, PREVENTIVAS Y DE MEJORA";
-    var accionID = @ViewBag.AccionID;
+    //TODO
+    var title = "GESTIONAR ACCIONES CORRECTIVAS, PREVENTIVAS Y/O DE MEJORA";
+    var accionID = ViewBag.AccionID;
     var categorias = ViewBag.Categorias;
 }
-
-<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">--->
-
 <style>
+
     .tabIdCausas, .tabGesPlanAcc, .tabGesSeguiPlanAcc, .tabPlanAcc, .tabSeguimAcc, .tabSeguimPlanAcc, .tabAddPlanAcc, .tabAddSeguimAcc {
         display: none;
     }
@@ -17,196 +15,96 @@
 
 <hr />
 <hr />
-<h4>@ViewBag.Title</h4>
+<h4>@title</h4>
 
-<div class="btn-group btn-group-justified">
-    <button type="button" class="btn btn-warning" id="idCausas" title="doble click para cerrar la ventana"> 1.IDENTIFICAR NO CONFORMIDAD</button>
-    <button type="button" class="btn btn-warning" id="planAcc" title="doble click para cerrar la ventana"> 2.PLAN DE ACCIÓN</button>
-    <button type="button" class="btn btn-warning" id="seguimAcc" title="doble click para cerrar la ventana"> 3.SEGUIMIENTO</button>
-    <button type="button" class="btn btn-info" id="idPdf" onclick="imprimirPdf(@ViewBag.AccionID, 'Acciones')" title="doble click para cerrar la ventana"> DESCARGAR PDF</button>
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <button type="button" class="btn btn-warning" id="idCausas" title="doble click para cerrar la ventana"> 1. IDENTIFICAR NO CONFORMIDAD</button>
+            <button type="button" class="btn btn-warning" id="planAcc" title="doble click para cerrar la ventana"> 2. PLAN DE ACCIÓN</button>
+            <button type="button" class="btn btn-warning" id="seguimAcc" title="doble click para cerrar la ventana"> 3. SEGUIMIENTO</button>
+        </div>
+        <div class="col-md-3">
+        </div>
+    </div>
 </div>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <input type="hidden" id="txtAccionID" name="txtAccionID" />
-        <div class="tabIdCausas">
-            @Html.Partial("_EditarNoConformidad")
-            <div class="col-md-offset-2 col-md-4">
+    <input type="hidden" id="txtAccionID" name="txtAccionID" />
+    <div class="tabIdCausas">
+        @Html.Partial("_EditarNoConformidad")
+        <div class="col-row">
+            <div class="col-sm-6">
                 <button type="button" class="btn btn-success" onclick="UpdateAccion(@ViewBag.AccionID)">Guardar</button>
+                <hr />
             </div>
         </div>
-
-        <div class="tabGesPlanAcc">
-            <hr />
-            <input type="hidden" id="planAccionID" name="planAccionID" />
-            <div class="col-md-12">
-                <button type="button" class="btn btn-primary" id="addPlanAcc">Adicionar nuevo plan acción</button>
-            </div>
-            <table class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>
-                            Causa
-                        </th>
-                        <th>
-                            Accion
-                        </th>
-                        <th>
-                            Prioritaria
-                        </th>
-                        <th>
-                            Responsable
-                        </th>
-                        <th>
-                            Costos
-                        </th>
-                        <th>
-                            Fecha inicial
-                        </th>
-                        <th>
-                            Fecha final
-                        </th>
-                        <th>
-                            Opciones
-                        </th>
-                    </tr>
-                </thead>
-                <tbody class="tbody">
-                </tbody>
-            </table>
-        </div>
-
-        <div class="tabPlanAcc">
-
-            <div id="_EditarPlanAcc">
-                <div class="form-row">
-                    <hr />
-                    <div class="col-md-4 mb-3">
-                        <label for="idFechaIni">Fecha inicial :</label>
-                        <input type="date" class="form-control" id="idFechaIni" onchange="validarFechaIni()" required autofocus>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="idFechaFin">Fecha final :</label>
-                        <input type="date" class="form-control" id="idFechaFin" onclick="validarFechaFin()" required>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="causa">Causa :</label>
-                        @Html.DropDownList("Categorias", categorias as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "txtCausa" })
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-md-12">
-                        <hr />
-                        <label for="accion">Acción</label>
-                        <textarea id="accion" style="resize:none;" class="form-control" rows=3 cols=70 required></textarea>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-md-3 mb-4">
-                        <hr />
-                        <label for="Respons">Trabajador responsable :</label>
-                        @Html.DropDownListFor(model => model.TrabajadorID, Model.Trabajadores, new { @class = "form-control", @id = "idRespons" })
-                        @Html.ValidationMessageFor(model => model.TrabajadorID, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="col-md-3 mb-4">
-                        <hr />
-                        <label for="prioritaria">Prioritaria :</label>
-                        <input class="form-check-input" type="checkbox" id="idPrioritaria" name="idPrioritaria">
-                    </div>
-                    <div class="col-md-3 mb-4">
-                        <hr />
-                        <label for="idCostos">Costos :</label>
-                        <input type="number" class="form-control" id="idCostos" onchange="validarCostos(')">
-                    </div>
-                </div>
-                <div class="col-md-offset-2 col-md-4">
-                    <hr />
-                    <button type="button" class="btn btn-primary" onclick="UpdatePlanAcc()">Guardar</button>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="tabAddPlanAcc">
-            @Html.Partial("_EditarPlanAcc")
-            <div class="col-md-offset-2 col-md-4">
-                <button type="button" class="btn btn-primary" onclick="AddPlanAccion()">Guardar</button>
-            </div>
-        </div>
-
-        <div class="tabGesSeguiPlanAcc">
-            <hr />
-            <input type="hidden" id="sigueAccionID" name="sigueAccionID" />
-            <div class="col-md-12">
-                <button type="button" class="btn btn-primary" id="addSeguiAcc">Adicionar nuevo Seguimiento</button>
-            </div>
-            <table class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>
-                            Fecha seguimiento
-                        </th>
-                        <th>
-                            Resultado
-                        </th>
-                        <th>
-                            Responsable
-                        </th>
-                        <th>
-                            Opciones
-                        </th>
-                    </tr>
-                </thead>
-                <tbody class="tbody">
-                </tbody>
-            </table>
-        </div>
-        <div class="tabSeguimAcc">
-            <div class="_EditarSigueAcc">
-                <div class="form-row">
-                    <hr />
-                    <div class="col-md-4 mb-3">
-                        <label for="Fecha">Fecha seguimiento :</label>
-                        <input type="date" class="form-control" id="txtFechaSeg" onchange="validarSigue()" required autofocus>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-md-12">
-                        <hr />
-                        <label for="resultado">Resultado :</label>
-                        <textarea id="txtResultado" style="resize:none;" class="form-control" rows=3 cols=70 required></textarea>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-md-3 mb-4">
-                        <hr />
-                        <label for="Respons">Trabajador responsable :</label>
-                        @Html.DropDownListFor(model => model.TrabajadorID, Model.Trabajadores, new { @class = "form-control", @id = "responsID" })
-                        @Html.ValidationMessageFor(model => model.TrabajadorID, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="col-md-12">
-                    <hr />
-                    <button type="button" class="btn btn-primary" onclick="UpdateSigueAcc()">Guardar</button>
-                </div>
-            </div>
-        </div>
-        <div class="tabAddSeguimAcc">
-            @Html.Partial("_EditarSigueAcc")
-            <div class="col-md-offset-2 col-md-4">
-                <button type="button" class="btn btn-primary" onclick="AddSeguiAcc()">Guardar</button>
-            </div>
-        </div>
-
     </div>
+
+    <div class="tabGesPlanAcc">
+        <hr />
+        <input type="hidden" id="planAccionID" name="planAccionID" />
+        @Html.Partial("_BorrarPlanAcc")
+    </div>
+
+    <div class="tabAddPlanAcc">
+        <input type="hidden" id="txtPlanAccionID" name="txtPlanAccionID" />
+        @Html.Partial("_ModificaPlan")
+        <hr />
+        <hr />
+        <div class="row">
+            <div class="col-md-8">
+                <hr />
+                <button type="button" id="btnAddPlan" class="btn btn-primary" onclick="AddPlanAccion()">Adicionar</button>
+                <button type="button" id="btnUpdPlan" class="btn btn-primary" onclick="UpdatePlanAcc()">Actualizar</button>
+                <button type="button" id="btnCanPlan" class="btn btn-primary" onclick="CancelPlan()">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                </button>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+
+    <div class="tabGesSeguiPlanAcc">
+        <hr />
+        <input type="hidden" id="sigueAccionID" name="sigueAccionID" />
+        @Html.Partial("_BorrarSigue")
+    </div>
+
+    <div class="tabAddSeguimAcc">
+        @Html.Partial("_ModificaSigue")
+        <hr />
+        <hr />
+        <div class="row">
+            <div class="col-md-8">
+                <button type="button" id="btnAddSigue" class="btn btn-primary" onclick="AddSeguiAcc()">Adicionar</button>
+                <button type="button" id="btnUpdSigue" class="btn btn-primary" onclick="UpdateSigueAcc()">Actualizar</button>
+                <button type="button" id="btnCanSigue" class="btn btn-primary" onclick="CancelSigue()">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                </button>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+
+</div>
 }
+
+<hr />
+<div>
+    <div class="tabCerrar">
+        @Html.ActionLink("Cerrar", "Index", new { @class = "glyphicon glyphicon-arrow-left" },
+        new { @class = "btn btn-success btn-lg active" })
+    </div>
+</div>
 
 @section Scripts
 {
@@ -215,61 +113,7 @@
         $(document).ready(function () {
             ClearTextBox();
             $("#txtAccionID").val(@accionID);
-            $("#idCausas").click(function () {
-                $(".tabIdCausas").css("display", "block");
-                $(".tabAddPlanAcc").css("display", "none");
-                $(".tabAddSeguiAcc").css("display", "none");
-                $(".tabSeguimAcc").css("display", "none");
-                $(".tabGesPlanAcc").css("display", "none");
-                $(".tabGesSeguiPlanAcc").css("display", "none");
-                $(".tabCerrar").css("display", "none");
-            });
-
-            $("#idCausas").dblclick(function () {
-                $(".tabIdCausas").css("display", "none");
-                $(".tabAddPlanAcc").css("display", "none");
-                $(".tabAddSeguiAcc").css("display", "none");
-                $(".tabSeguimAcc").css("display", "none");
-                $(".tabCerrar").css("display", "block");
-            });
-
-            $("#planAcc").click(function () {
-                $(".tabGesPlanAcc").css("display", "block");
-                $(".tabSeguimAcc").css("display", "none");
-                $(".tabCerrar").css("display", "none");
-                mostrarPlanAcc();
-            });
-
-            $("#planAcc").dblclick(function () {
-                $(".tabGesPlanAcc").css("display", "none");
-                $(".tabPlanAcc").css("display", "none");
-                $(".tabSeguimAcc").css("display", "none");
-                $(".tabCerrar").css("display", "block");
-            });
-
-            $("#seguimAcc").click(function () {
-                $(".tabGesSeguiPlanAcc").css("display", "block");
-                $(".tabCerrar").css("display", "none");
-                mostrarSeguimAcc();
-            });
-
-            $("#seguimAcc").dblclick(function () {
-                $(".tabGesSeguiPlanAcc").css("display", "none");
-                $(".tabSeguiPlanAcc").css("display", "none");
-                $(".tabCerrar").css("display", "block");
-            });
-
-            $("#addPlanAcc").click(function () {
-                //$(".tabGesPlanAcc").css("display", "none");
-                $(".tabAddPlanAcc").css("display", "block");
-                $(".tabCerrar").css("display", "none");
-            });
-
-            $("#addSeguiAcc").click(function () {
-                //$(".tabGesPlanAcc").css("display", "none");
-                $(".tabAddSeguimAcc").css("display", "block");
-                $(".tabCerrar").css("display", "none");
-            });
+            GestorActions();
         });
 
     </script>

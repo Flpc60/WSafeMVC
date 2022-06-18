@@ -1,0 +1,184 @@
+﻿@model WSafe.Domain.Data.Entities.Organization
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Organization</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NIT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NIT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RazonSocial)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RazonSocial)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Direccion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Direccion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Municip)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Municip)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Department)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Department)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Telefono)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telefono)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ARL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ARL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClaseRiesgo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClaseRiesgo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DocumentRepresent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DocumentRepresent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NameRepresent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NameRepresent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EconomicActivity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EconomicActivity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumeroTrabajadores)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumeroTrabajadores)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Products)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Products)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Mision)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mision)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Vision)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Vision)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Objetivos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Objetivos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Procesos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Procesos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Organigrama)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Organigrama)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TurnosAdministrativo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TurnosAdministrativo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TurnosOperativo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TurnosOperativo)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

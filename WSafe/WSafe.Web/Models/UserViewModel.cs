@@ -9,11 +9,13 @@ namespace WSafe.Web.Models
     {
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         public int ID { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Nombre usuario")]
+        [Required(ErrorMessage = "Favor ingresar nombre"), MaxLength(30)]
         public string Name { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Correo electrónico")]
+        [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Email is not valid.")]
+
         public string Email { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Contraseña")]

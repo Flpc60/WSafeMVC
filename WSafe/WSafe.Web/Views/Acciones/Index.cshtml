@@ -16,7 +16,7 @@
 </div>
 
 <table class="table">
-    <tr style="background-color:gainsboro">
+    <tr style="background-color:gainsboro; width:auto" >
         <th>
             @Html.DisplayNameFor(model => model.FechaSolicitud)
         </th>
@@ -77,9 +77,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Estado)
             </td>
-            <td style="font-size:12px">
+            <td style="font-size:15px">
                 @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) |
-                <button onclick="DeleteAccion('@item.ID')"><span class="glyphicon glyphicon-trash"></span></button>
+                @Html.ActionLink(" ", "PrintAccionesToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt" }) |
+                <a href="#" onclick="DeleteAccion('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
             </td>
         </tr>
         }

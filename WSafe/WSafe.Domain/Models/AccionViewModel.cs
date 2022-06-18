@@ -33,7 +33,7 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Fecha solicitud")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime FechaSolicitud { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Tipo acción")]
@@ -51,6 +51,7 @@ namespace WSafe.Web.Models
         public string Origen { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Descripción de la no conformidad")]
+        [MaxLength(100)]
         public string Descripcion { get; set; }
         [Display(Name = "Indicador Antes")]
         public CategoriasEfectividad EficaciaAntes { get; set; }
@@ -60,7 +61,7 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Fecha cierre")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime FechaCierre { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Efectiva")]
@@ -68,8 +69,8 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Cerrada")]
         public bool Estado { get; set; }
-        public ICollection<PlanAccion> Planes { get; set; }
-        public ICollection<SeguimientoAccion> Seguimientos { get; set; }
+        public ICollection<PlanAction> Planes { get; set; }
+        public ICollection<Seguimiento> Seguimientos { get; set; }
         public string FechaSolicitudStr { get; set; }
         public string FechaCierreStr { get; set; }
     }

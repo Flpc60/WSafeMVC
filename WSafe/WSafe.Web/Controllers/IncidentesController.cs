@@ -1,9 +1,12 @@
-﻿using System;
+﻿using Rotativa;
+using System;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Helpers;
 using WSafe.Domain.Repositories.Implements;
 using WSafe.Domain.Services.Implements;
@@ -24,16 +27,12 @@ namespace WSafe.Web.Controllers
             _converterHelper = converterHelper;
             _chartHelper = chartHelper;
         }
-
-        // GET: Incidentes
         public async Task<ActionResult> Index()
         {
             var consulta = new IncidenteService(new IncidenteRepository(_empresaContext));
 
             return View(await consulta.GetALL());
         }
-
-        // GET: Incidentes/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -50,46 +49,37 @@ namespace WSafe.Web.Controllers
 
             return View(result);
         }
-
-        // GET: Riesgos/Create
         public ActionResult Create()
         {
             var incidenteView = _converterHelper.ToIncidenteViewModelNew();
             return View(incidenteView);
         }
 
-        // POST: Riesgos/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(IncidenteViewModel model)
+        public async Task<ActionResult> CreateIncidente(IncidenteViewModel model)
         {
+            var message = "";
             try
             {
                 if (ModelState.IsValid)
                 {
                     var consulta = new IncidenteService(new IncidenteRepository(_empresaContext));
                     var incidente = await _converterHelper.ToIncidenteAsync(model, true);
-                    foreach (var item in model.Lesionados)
-                    {
-                        item.IncidenteID = model.ID;
-                    }
                     var saved = await consulta.Insert(incidente);
-                    if (saved != null)
-                    {
-                        return RedirectToAction("Index");
-                    }
+                    var idIncidente = _empresaContext.Incidentes.OrderByDescending(x => x.ID).First().ID;
+                    message = "El registro se ha ingresado correctamente!!";
+                    return Json(new { data = idIncidente, mensaj = message}, JsonRequestBehavior.AllowGet);
                 }
-                return View(model);
+                message = "El registro NO se ha ingresado correctamente!!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
-                return View(model);
+                message = "El registro NO se ha ingresado correctamente!!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
-
-        // GET: Riesgos/Edit/5
+        [HttpGet]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -107,23 +97,14 @@ namespace WSafe.Web.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.IncidenteID = id;
+            ViewBag.incidenteID = id;
 
             return View(incidenteViewModel);
         }
 
-        // POST: Riesgos/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(IncidenteViewModel model)
+        public async Task<ActionResult> UpdateIncidente(IncidenteViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
             try
             {
                 if (ModelState.IsValid)
@@ -131,16 +112,14 @@ namespace WSafe.Web.Controllers
                     var consulta = new IncidenteService(new IncidenteRepository(_empresaContext));
                     var result = await _converterHelper.ToIncidenteAsync(model, false);
                     await consulta.Update(result);
-                    return RedirectToAction("Index");
+                    return Json(model, JsonRequestBehavior.AllowGet);
                 }
+                return Json(new { data = model, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
             }
-            catch (DbEntityValidationException ex)
+            catch
             {
-                //return View("Error", new HandleErrorInfo(ex, "Riesgos", "Create"));
-                throw ex;
+                return Json(new { data = model, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
             }
-
-            return View(model);
         }
 
         // GET: Riesgos/Delete/5
@@ -195,12 +174,7 @@ namespace WSafe.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var result = await _empresaContext.Riesgos.Include(z => z.Zona)
-                .Include(p => p.Proceso)
-                .Include(a => a.Actividad)
-                .Include(t => t.Tarea)
-                .Include(cp => cp.Peligro)
-                .FirstOrDefaultAsync(i => i.IncidenteID == id);
+            var result = await _empresaContext.Riesgos.FirstOrDefaultAsync(i => i.IncidenteID == id);
 
             if (result != null)
             {
@@ -245,12 +219,7 @@ namespace WSafe.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var result = await _empresaContext.Riesgos.Include(z => z.Zona)
-                .Include(p => p.Proceso)
-                .Include(a => a.Actividad)
-                .Include(t => t.Tarea)
-                .Include(cp => cp.Peligro)
-                .FirstOrDefaultAsync(i => i.IncidenteID == id.Value);
+            var result = await _empresaContext.Riesgos.FirstOrDefaultAsync(i => i.IncidenteID == id.Value);
 
             var riesgoViewModel = _converterHelper.ToRiesgoViewModel(result);
 
@@ -295,24 +264,117 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> GetLesionado(int id)
+        public async Task<JsonResult> GetAllLesionados(int idIncidente)
         {
-            if (id == null)
+            if (idIncidente == null)
             {
                 //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var result = await _empresaContext.Trabajadores
-                .Include(c => c.Cargo)
-                .FirstOrDefaultAsync(i => i.ID == id);
+            var lesionados = _empresaContext.Accidentados.Where(a => a.IncidenteID == idIncidente).ToList();
+            var result = _converterHelper.ToListLesionadosVM(lesionados);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
 
-            var lesionado = _converterHelper.ToLesionadoViewModel(result);
-
-            if (lesionado == null)
+        [HttpPost]
+        public async Task<ActionResult> CreateLesionado(AccidentadoVM model)
+        {
+            try
             {
-                //return HttpNotFound();
+                if (ModelState.IsValid)
+                {
+                    var lesionado = _empresaContext.Accidentados.FirstOrDefault(a => a.TrabajadorID == model.TrabajadorID && a.IncidenteID == model.IncidenteID);
+                    if (lesionado == null)
+                    {
+                        var result = await _converterHelper.ToLesionadoAsync(model, true);
+                        _empresaContext.Accidentados.Add(result);
+                        var saved = await _empresaContext.SaveChangesAsync();
+                        var accidenID = _empresaContext.Accidentados.OrderByDescending(x => x.ID).First().ID;
+                        return Json(accidenID, JsonRequestBehavior.AllowGet);
+                    }
+                }
+                return Json(new { data = model, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
             }
-            return Json(lesionado, JsonRequestBehavior.AllowGet);
+            catch
+            {
+                return Json(new { data = model, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteLesionado(int id)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Accidentado lesionado = await _empresaContext.Accidentados.FindAsync(id);
+                    _empresaContext.Accidentados.Remove(lesionado);
+                    await _empresaContext.SaveChangesAsync();
+                    return Json(lesionado, JsonRequestBehavior.AllowGet);
+                }
+                return Json(new { data = id, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return Json(new { data = id, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> DeleteIncident(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var message = "";
+            Incidente incidente = await _empresaContext.Incidentes.FindAsync(id);
+
+            var model = _converterHelper.ToIncidenteViewModel(incidente);
+            return Json(new { data = model, error = message }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteIncident(int id)
+        {
+            var consulta = new IncidenteService(new IncidenteRepository(_empresaContext));
+            try
+            {
+                await consulta.Delete(id);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Acciones", "Delete"));
+            }
+
+            return Json(new { data = true, message = "El registro ha sido eliminado exitosamente" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Details(int id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var result = await _empresaContext.Incidentes.FirstOrDefaultAsync(i => i.ID == id);
+            var model = _converterHelper.ToIncidentVMFull(result, 6);
+            ViewBag.id = id;
+            ViewBag.cantidad = model.Lesionados.Count();
+            return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult PrintIncidentsToPdf(int id)
+        {
+            var report = new ActionAsPdf("Details", new { id = id });
+            report.FileName = "ReporteIncidents.Pdf";
+            report.PageSize = Rotativa.Options.Size.A4;
+            report.Copies = 1;
+            report.PageOrientation.GetValueOrDefault();
+
+            return report;
         }
     }
 }

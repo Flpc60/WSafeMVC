@@ -20,7 +20,7 @@
                 @Html.DisplayNameFor(model => model.FechaIncidente)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CategoriaIncidente)
+                @Html.DisplayNameFor(model => model.CategoriasIncidente)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.IncapacidadMedica)
@@ -56,21 +56,6 @@
                 @Html.DisplayNameFor(model => model.DañosOcasionados)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TipoVehiculo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MarcaVehiculo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ModeloVehiculo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.KilometrajeVehiculo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CostosEstimados)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.DescripcionIncidente)
             </th>
             <th>
@@ -86,34 +71,7 @@
                 @Html.DisplayNameFor(model => model.AtencionBrindada)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EquipoInvestigador)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LesionPersonal)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DañoMaterial)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MedioAmbiente)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Imagen)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.RequiereInvestigacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ConsecuenciasLesion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ConsecuenciasDaño)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ConsecuenciasMedio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ConsecuenciasImagen)
             </th>
             <th>
                 Acciones
@@ -123,7 +81,7 @@
     @foreach (var item in Model)
     {
         string strStyle = String.Empty;
-        switch (Convert.ToInt32(item.CategoriaIncidente))
+        switch (Convert.ToInt32(item.CategoriasIncidente))
         {
             case 2:
                 strStyle = "background-color:red;";
@@ -146,7 +104,7 @@
                 @Html.DisplayFor(modelItem => item.FechaIncidente)
             </td>
             <td style="@strStyle">
-                @Html.DisplayFor(modelItem => item.CategoriaIncidente)
+                @Html.DisplayFor(modelItem => item.CategoriasIncidente)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IncapacidadMedica)
@@ -182,21 +140,6 @@
                 @Html.DisplayFor(modelItem => item.DañosOcasionados)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TipoVehiculo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MarcaVehiculo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModeloVehiculo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.KilometrajeVehiculo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CostosEstimados)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.DescripcionIncidente)
             </td>
             <td>
@@ -212,39 +155,12 @@
                 @Html.DisplayFor(modelItem => item.AtencionBrindada)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EquipoInvestigador)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LesionPersonal)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DañoMaterial)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MedioAmbiente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Imagen)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.RequiereInvestigacion)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ConsecuenciasLesion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ConsecuenciasDaño)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ConsecuenciasMedio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ConsecuenciasImagen)
-            </td>
-            <td style="font-size:12px">
-                @Html.ActionLink(" ", "CreateRiesgo", new { id = item.ID }, new { @class = "glyphicon glyphicon-search" }) |
+            <td style="font-size:18px">
                 @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) |
-                @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "glyphicon glyphicon-trash" })
+                @Html.ActionLink(" ", "PrintIncidentsToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt" }) |
+                <a href="#" onclick="DeleteIncident('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
             </td>
         </tr>
     }

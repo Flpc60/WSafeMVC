@@ -103,6 +103,7 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Requisito")]
         public bool RequisitoLegal { get; set; }
-        public ICollection<AplicacionVM> Intervenciones { get; set; }
+        public string TextRutinaria { get; set; }
+        public string TextRequisito { get; set; }
     }
 }

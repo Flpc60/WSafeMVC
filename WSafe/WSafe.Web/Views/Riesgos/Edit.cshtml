@@ -1,8 +1,17 @@
 ﻿@model WSafe.Web.Models.RiesgoViewModel
+@using System.Web.Mvc.Html;
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "GESTIONAR RIESGOS";
+    var trabajadores = @ViewBag.trabajadores;
+    var riesgoID = @ViewBag.riesgoID;
 }
+
+<style>
+    .tabInterven, .capInterven, .tabPeligros, .tabEvalRiesgos, .tabMediAplica, .consInterven, .tabIntervencion, .tabAddInterven {
+        display: none;
+    }
+</style>
 
 @using (Html.BeginForm())
 {
@@ -11,198 +20,380 @@
     <div class="form-horizontal">
         <h4>Editar Riesgo</h4>
         <hr />
+        <hr />
+        <h4>GESTIÓN DE RIESGOS</h4>
+        <div class="row">
+            <div class="col-md-3">
+                <button type="button" class="btn btn-warning" id="idPeligros" title="doble click para cerrar la ventana">1. IDENTIFICACIÓN PELIGROS</button>
+            </div>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-warning" id="evalRiesgos" title="doble click para cerrar la ventana">2. EVALUACIÓN RIESGOS</button>
+            </div>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-warning" id="mediAplica" title="doble click para cerrar la ventana">3. MEDIDAS INTERVENCIÓN</button>
+            </div>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-warning" id="acciones" title="doble click para cerrar la ventana"> ACCIONES CPM</button>
+            </div>
+        </div>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ID)
-        <div class="form-group">
-            @Html.LabelFor(model => model.Zonas, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.ZonaID, @Model.Zonas, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ZonaID, "", new { @class = "text-danger" })
+        <div class="tabPeligros">
+            <hr />
+            @Html.Partial("_EditarPeligros")
+        </div>
+
+        <div class="tabEvalRiesgos">
+            <hr />
+            @Html.Partial("_EvalRiesgo")
+            <input type="hidden" id="txtRiesgoID" name="txtRiesgoID" />
+            <div class="col-md-offset-2 col-md-4">
+                <button type="button" id="btnUpdRiesgo" class="btn btn-success" onclick="UpdateRiesgo()">Guardar</button>
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Procesos, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.ProcesoID, Model.Procesos, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ProcesoID, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        <div class="tabMediAplica">
+            <hr />
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Actividades, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.ActividadID, Model.Actividades, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ActividadID, "", new { @class = "text-danger" })
+            <div class="col-md-12">
+                <button type="button" class="btn btn-primary" id="addIntervencion">Adicionar nueva medida de intervención</button>
             </div>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            Descripción
+                        </th>
+                        <th>
+                            Controles
+                        </th>
+                        <th>
+                            Medidas Intervención
+                        </th>
+                        <th>
+                            Responsable
+                        </th>
+                        <th>
+                            Fecha inicial
+                        </th>
+                        <th>
+                            Fecha final
+                        </th>
+                        <th>
+                            Opciones
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="tbody">
+                </tbody>
+            </table>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Tareas, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.TareaID, Model.Tareas, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.TareaID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Rutinaria, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Rutinaria)
-                    @Html.ValidationMessageFor(model => model.Rutinaria, "", new { @class = "text-danger" })
+        <div class="tabAddInterven">
+            <input type="hidden" id="txtIntervenID" name="txtIntervenID" />
+            @Html.Partial("_EditarIntervencion")
+            <div class="col-md-offset-2 col-md-4">
+                <div class="col-md-2">
+                    <button type="button" id="btnAddInterven" class="btn btn-primary" onclick="AddInterven()">Adicionar</button>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" id="btnUpdInterven" class="btn btn-primary" onclick="UpdateIntervencion()">Guardar</button>
                 </div>
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CategoriasPeligros, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.CategoriaPeligroID, Model.CategoriasPeligros, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CategoriaPeligroID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Peligros, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.PeligroID, Model.Peligros, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.PeligroID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.EfectosPosibles, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.EfectosPosibles, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.EfectosPosibles, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NivelesDeficiencia, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.NivelesDeficiencia, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.NivelesDeficiencia, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NivelDeficiencia, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NivelDeficiencia, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NivelDeficiencia, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NivelesExposicion, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.NivelesExposicion, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.NivelesExposicion, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NivelExposicion, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NivelExposicion, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NivelExposicion, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NivelProbabilidad, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NivelProbabilidad, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NivelProbabilidad, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.InterpretacionNP, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.InterpretacionNP, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.InterpretacionNP, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NivelesConsecuencia, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.NivelesConsecuencia, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.NivelesConsecuencia, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NivelConsecuencia, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NivelConsecuencia, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NivelConsecuencia, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NivelRiesgo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NivelRiesgo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NivelRiesgo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CategoriaRiesgo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CategoriaRiesgo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CategoriaRiesgo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.AceptabilidadNR, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.AceptabilidadNR, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.AceptabilidadNR, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NroExpuestos, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NroExpuestos, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NroExpuestos, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.RequisitoLegal, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.RequisitoLegal)
-                    @Html.ValidationMessageFor(model => model.RequisitoLegal, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Aceptar" class="btn btn-success" />
-            </div>
-        </div>
     </div>
 }
 
-<div class=" style=" display:inline-flex"">
-    <div>
-        @Html.ActionLink(" Controles", "GetControles", "Riesgos", new { @class = "glyphicon glyphicon-edit" },
-        new { @class = "btn btn-warning btn-lg active" })
-    </div>
-    <div>
-        @Html.ActionLink(" Intervenciones", "Index", "Aplicaciones", new { id = @Model.ID }, new { @class = "glyphicon glyphicon-edit" })
-    </div>
-</div>
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            ClearTextBox();
+            $("#txtRiesgoID").val(@riesgoID);
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+            $("#idPeligros").click(function () {
+                $(".tabPeligros").css("display", "block");
+                $(".tabEvalRiesgos").css("display", "none");
+                $(".tabMediAplica").css("display", "none");
+            });
+
+            $("#idPeligros").dblclick(function () {
+                $(".tabPeligros").css("display", "none");
+            });
+
+            $("#evalRiesgos").click(function () {
+                $(".tabEvalRiesgos").css("display", "block");
+                $(".tabPeligros").css("display", "none");
+                $(".tabMediAplica").css("display", "none");
+                $("#mediAplica").show();
+            });
+
+            $("#evalRiesgos").dblclick(function () {
+                $(".tabEvalRiesgos").css("display", "none");
+            });
+
+            $("#mediAplica").click(function () {
+                $(".tabMediAplica").css("display", "block");
+                $(".tabEvalRiesgos").css("display", "none");
+                $(".tabPeligros").css("display", "none");
+                mostrarInterven();
+            });
+
+            $("#mediAplica").dblclick(function () {
+                $(".tabMediAplica").css("display", "none");
+                $(".tabAddInterven").css("display", "none");
+            });
+
+            $("#aplicarMedi").click(function () {
+                $(".tabInterven").css("display", "block");
+            });
+
+            $("#aplicarMedi").dblclick(function () {
+                $(".tabInterven").css("display", "none");
+            });
+
+            $("#addIntervencion").click(function () {
+                $(".tabAddInterven").css("display", "block");
+                $(".tabCerrar").css("display", "none");
+                $(".tabMediAplica").css("display", "none");
+                $("#btnUpdInterven").hide();
+                $("#btnAddInterven").show();
+            });
+
+        });
+
+        $('#zona').change(function () {
+            var zonasSelect = $('#zona').val();
+            zonasSelect.empty();
+            $.getJSON('@Url.Action("GetZonas")', function (zonas)
+            {
+                if (zonas != null && !jQuery.isEmptyObject(zonas))
+                {
+                    $.each(zonas, function (index, item)
+                    {
+                        zonasSelect.append($('<option />',
+                        {
+                            value: item.Value,
+                            text: item.Text
+                        }));
+                    });
+                };
+            });
+        });
+
+        $('#proceso').change(function () {
+            var procesosSelect = $('#proceso').val();
+            procesosSelect.empty();
+            $.getJSON('@Url.Action("GetProcesos")', function (procesos)
+            {
+                if (procesos != null && !jQuery.isEmptyObject(procesos))
+                {
+                    $.each(procesos, function (index, item)
+                    {
+                        procesosSelect.append($('<option />',
+                        {
+                            value: item.Value,
+                            text: item.Text
+                        }));
+                    });
+                };
+            });
+        });
+
+        $('#activity').change(function () {
+            var activitySelect = $('#activity').val();
+            activitySelect.empty();
+            $.getJSON('@Url.Action("GetActivities")', function (activities)
+            {
+                if (activities != null && !jQuery.isEmptyObject(activities))
+                {
+                    $.each(activities, function (index, item)
+                    {
+                        activitySelect.append($('<option />',
+                        {
+                            value: item.Value,
+                            text: item.Text
+                        }));
+                    });
+                };
+            });
+        });
+
+        $('#tarea').change(function () {
+            var tareasSelect = $('#tarea').val();
+            tareasSelect.empty();
+            $.getJSON('@Url.Action("GetTareas")', function (tareas)
+            {
+                if (tareas != null && !jQuery.isEmptyObject(tareas))
+                {
+                    $.each(tareas, function (index, item)
+                    {
+                        tareasSelect.append($('<option />',
+                        {
+                            value: item.Value,
+                            text: item.Text
+                        }));
+                    });
+                };
+            });
+        });
+
+        $('#categoria').change(function () {
+            var selectedCategoria = $("#categoria").val();
+            var peligroSelect = $('#peligro');
+            peligroSelect.empty();
+            if (selectedCategoria != null && selectedCategoria != '')
+            {
+                $.getJSON('@Url.Action("GetPeligros")', { ID: selectedCategoria }, function (peligros)
+                {
+                    if (peligros != null && !jQuery.isEmptyObject(peligros))
+                    {
+                        $.each(peligros, function (index, item)
+                        {
+                            peligroSelect.append($('<option />',
+                            {
+                                value: item.Value,
+                                text: item.Text
+                            }));
+                        });
+                    };
+                });
+            }
+        });
+
+        $('#deficienciaSelected').click(function () {
+            var selectedCategoria = $('#deficienciaSelected').val();
+            var nd = 0;
+            switch (selectedCategoria)
+            {
+                case "1":
+                    nd = 10;
+                    break;
+
+                case "2":
+                    nd = 6;
+                    break;
+
+                case "3":
+                    nd = 2;
+                    break;
+
+                default:
+                    nd = 0;
+                    break;
+            }
+
+            $('#deficiencia').val(nd);
+            calcularProbabilidad();
+        });
+
+        $('#exposicionSelected').click(function () {
+            var selectedExposicion = $('#exposicionSelected').val();
+            var ne = 0;
+            switch (selectedExposicion)
+            {
+                case "1":
+                    ne = 4;
+                    break;
+
+                case "2":
+                    ne = 3;
+                    break;
+
+                case "3":
+                    ne = 2;
+                    break;
+
+                default:
+                    ne = 1;
+                    break;
+            }
+
+            $('#exposicion').val(ne);
+            calcularProbabilidad();
+        });
+
+        $('#consecuenciaSelected').click(function () {
+            var selectedExposicion = $('#consecuenciaSelected').val();
+            var nc = 0;
+            switch (selectedExposicion)
+            {
+                case "1":
+                    nc = 100;
+                    break;
+
+                case "2":
+                    nc = 60;
+                    break;
+
+                case "3":
+                    nc = 25;
+                    break;
+
+                default:
+                    nc = 10;
+                    break;
+            }
+            $('#consecuencia').val(nc);
+            calcularRiesgo();
+        });
+
+        function calcularProbabilidad() {
+            var nd = $('#deficiencia').val();
+            var ne = $('#exposicion').val();
+            var probabilidad = nd * ne;
+            $('#probabilidad').val(probabilidad);
+            var interpretaNP = " ";
+            switch (true) {
+                case (probabilidad >= 24 && probabilidad <= 40):
+                    interpretaNP = "Muy alto (MA)";
+                    break;
+                case (probabilidad >= 10 && probabilidad < 24):
+                    interpretaNP = "Alto (A)";
+                    break;
+                case (probabilidad >= 8 && probabilidad < 10):
+                    interpretaNP = "Mdio (M)";
+                    break;
+                case (probabilidad >= 2 && probabilidad < 8):
+                    interpretaNP = "Bajo (B)";
+                    break;
+
+                default:
+                    interpretaNP = "Bajo (B)";
+                    break;
+            }
+            $('#interpretaNP').val(interpretaNP);
+        }
+
+        function calcularRiesgo() {
+            calcularProbabilidad();
+            var np = $('#probabilidad').val();
+            var nc = $('#consecuencia').val();
+            var riesgo = np * nc;
+            $('#riesgo').val(riesgo);
+            var interpretaNR = " ";
+            var  colorStyle = " ";
+            switch (true) {
+                case (riesgo >= 600):
+                    interpretaNR = "I";
+                    colorStyle = "red";
+                    break;
+                case (riesgo >= 150 && riesgo < 600):
+                    interpretaNR = "II";
+                    colorStyle = "yellow";
+                    break;
+                case (riesgo >= 40 && riesgo < 150):
+                    interpretaNR = "III";
+                    colorStyle = "orange";
+                    break;
+
+                default:
+                    interpretaNR = "IV";
+                    colorStyle = "green";
+                    break;
+            }
+            $('#interpretaNR').val(interpretaNR);
+            $('#interpretaNR').css({ "backgroundColor": colorStyle, "font-size": "200%" });
+        }
+
+    </script>
 }

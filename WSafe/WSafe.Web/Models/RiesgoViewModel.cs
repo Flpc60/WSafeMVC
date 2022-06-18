@@ -29,7 +29,6 @@ namespace WSafe.Web.Models
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una tarea.")]
         public int TareaID { get; set; }
         public IEnumerable<SelectListItem> Tareas { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public bool Rutinaria { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Clasificación")]
@@ -46,7 +45,7 @@ namespace WSafe.Web.Models
         public EfectosPosibles EfectosPosibles { get; set; }
         [Display(Name = "ND")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un nivel de deficiencia.")]
+        [Range(0, int.MaxValue, ErrorMessage = "Debes seleccionar un nivel de deficiencia.")]
         public int NivelDeficiencia { get; set; }
         [Display(Name = "Niveles Deficiencia")]
         public NivelesDeficiencia NivelesDeficiencia { get; set; }
@@ -57,8 +56,6 @@ namespace WSafe.Web.Models
         [Display(Name = "Niveles Exposición")]
         public NivelesExposicion NivelesExposicion { get; set; }
         [Display(Name = "NP")]
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un nivel de probabilidad.")]
         public int NivelProbabilidad
         {
             get
@@ -94,9 +91,7 @@ namespace WSafe.Web.Models
         public int NivelConsecuencia { get; set; }
         [Display(Name = "Niveles Consecuencia")]
         public NivelesConsecuencia NivelesConsecuencia { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "NR")]
-        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un nivel de consecuencia.")]
         public int NivelRiesgo
         {
             get
@@ -105,7 +100,6 @@ namespace WSafe.Web.Models
             }
         }
 
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Interpretación NR")]
         public string CategoriaRiesgo
         {
@@ -130,13 +124,10 @@ namespace WSafe.Web.Models
         [Display(Name = "Aceptabilidad NR")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public CategoriasAceptabilidad AceptabilidadNR { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Nro. Expuestos")]
         public int NroExpuestos { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Requisito legal")]
         public bool RequisitoLegal { get; set; }
         public int IncidenteID { get; set; }
-        public ICollection<AplicacionVM> Intervenciones { get; set; }
     }
 }

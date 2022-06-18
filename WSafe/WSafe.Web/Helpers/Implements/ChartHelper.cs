@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web.Helpers;
-using System.Web.Mvc;
 using WSafe.Domain.Data.Entities.Incidentes;
 using WSafe.Web.Models;
 
@@ -27,17 +26,17 @@ namespace WSafe.Domain.Helpers.Implements
                           yValues: lista, yFields: "Resultado");
             chartImage.Save(path: archivo);
         }
-        public IEnumerable<IndicadorDetallesViewModel> GetFrecuenciaAccidentes(DateTime fechaInicial, DateTime fechaFinal)
+        public IEnumerable<IndicadorDetallesViewModel> GetFrecuenciaAccidentes(int[] periodo, int year)
         {
             try
             {
-                var denominador = _indicadorHelper.NumeroTrabajadoresMes(fechaInicial, fechaFinal);
+                var denominador = _indicadorHelper.NumeroTrabajadoresMes(periodo, year);
 
                 var result = from at in _empresaContext.Incidentes
-                                where at.FechaIncidente >= fechaInicial && at.FechaIncidente <= fechaFinal && at.CategoriaIncidente == Data.Entities.Incidentes.CategoriasIncidente.Accidente
-                                group at by new { at.FechaIncidente.Year, at.FechaIncidente.Month } into datosAgrupados
-                                orderby datosAgrupados.Key
-                                select new { Clave = datosAgrupados.Key, Datos = datosAgrupados };
+                             where (periodo.Contains(at.FechaIncidente.Month) && at.FechaIncidente.Year == year && at.CategoriasIncidente == CategoriasIncidente.Accidente)
+                             group at by new { at.FechaIncidente.Year, at.FechaIncidente.Month } into datosAgrupados
+                             orderby datosAgrupados.Key
+                             select new { Clave = datosAgrupados.Key, Datos = datosAgrupados };
 
                 var viewModel = new List<IndicadorDetallesViewModel>();
                 foreach (var grupo in result)
@@ -57,18 +56,18 @@ namespace WSafe.Domain.Helpers.Implements
                 throw ex;
             }
         }
-
         public IEnumerable<IndicadorDetallesViewModel> GetAccidentesTrabajoInvestigados(DateTime fechaInicial, DateTime fechaFinal)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<IndicadorDetallesViewModel> GetAccidentesTrabajoMortales(DateTime fechaInicial, DateTime fechaFinal)
+        public IEnumerable<IndicadorDetallesViewModel> GetAccidentesTrabajoMortales(int[] periodo, int year)
         {
             try
             {
                 var result = from at in _empresaContext.Incidentes
-                             where at.FechaIncidente >= fechaInicial && at.FechaIncidente <= fechaFinal && at.CategoriaIncidente == CategoriasIncidente.Accidente
+                             where (periodo.Contains(at.FechaIncidente.Month) && at.FechaIncidente.Year == year && at.CategoriasIncidente == CategoriasIncidente.Accidente
+                             && at.ConsecuenciasLesion == ConsecuenciasLesion.fatalidadMultiple)
                              group at by new { at.FechaIncidente.Year, at.FechaIncidente.Month } into datosAgrupados
                              orderby datosAgrupados.Key
                              select new { Clave = datosAgrupados.Key, Datos = datosAgrupados };
@@ -79,7 +78,7 @@ namespace WSafe.Domain.Helpers.Implements
                     viewModel.Add(new IndicadorDetallesViewModel
                     {
                         MesAnn = (grupo.Clave.Month + "-" + grupo.Clave.Year).ToString(),
-                        Numerador = _indicadorHelper.AccidentesTrabajoMortales(fechaInicial, fechaFinal),
+                        Numerador = _indicadorHelper.AccidentesTrabajoMortales(year),
                         Denominador = grupo.Datos.Count()
                     });
                 }
@@ -118,19 +117,19 @@ namespace WSafe.Domain.Helpers.Implements
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<IndicadorDetallesViewModel> GetSeveridadAccidentalidad(DateTime fechaInicial, DateTime fechaFinal)
+        public IEnumerable<IndicadorDetallesViewModel> GetSeveridadAccidentalidad(int[] periodo, int year)
         {
             try
             {
-                var denominador = _indicadorHelper.NumeroTrabajadoresMes(fechaInicial, fechaFinal);
+                var denominador = _indicadorHelper.NumeroTrabajadoresMes(periodo, year);
 
                 var result = from at in _empresaContext.Incidentes
-                             where at.FechaIncidente >= fechaInicial && at.FechaIncidente <= fechaFinal && at.CategoriaIncidente == Data.Entities.Incidentes.CategoriasIncidente.Accidente
+                             where (periodo.Contains(at.FechaIncidente.Month) && at.FechaIncidente.Year == year && at.CategoriasIncidente == CategoriasIncidente.Accidente)
                              group at by new { at.FechaIncidente.Year, at.FechaIncidente.Month } into datosAgrupados
                              orderby datosAgrupados.Key
                              select new
-                             { 
-                                 Clave = datosAgrupados.Key, 
+                             {
+                                 Clave = datosAgrupados.Key,
                                  Datos = datosAgrupados,
                                  Dias = datosAgrupados.Sum(di => di.DiasIncapacidad)
                              };
@@ -154,13 +153,13 @@ namespace WSafe.Domain.Helpers.Implements
             }
         }
 
-        public IEnumerable<IndicadorDetallesViewModel> GetAusentismoCausaMedica(DateTime fechaInicial, DateTime fechaFinal)
+        public IEnumerable<IndicadorDetallesViewModel> GetAusentismoCausaMedica(int[] periodo, int year)
         {
             try
             {
-                var trabajadores = _indicadorHelper.NumeroTrabajadoresMes(fechaInicial, fechaFinal);
+                var trabajadores = _indicadorHelper.NumeroTrabajadoresMes(periodo, year);
                 var result = from at in _empresaContext.Incidentes
-                             where at.FechaIncidente >= fechaInicial && at.FechaIncidente <= fechaFinal && at.IncapacidadMedica == true
+                             where (periodo.Contains(at.FechaIncidente.Month)) && at.IncapacidadMedica == true
                              group at by new { at.FechaIncidente.Year, at.FechaIncidente.Month } into datosAgrupados
                              orderby datosAgrupados.Key
                              select new
@@ -177,8 +176,8 @@ namespace WSafe.Domain.Helpers.Implements
                     {
                         MesAnn = (grupo.Clave.Month + "-" + grupo.Clave.Year).ToString(),
                         Numerador = grupo.Dias,
-                        Denominador = _indicadorHelper.NumeroDiasTrabajadosMes()*trabajadores,
-                        Resultado = Convert.ToDecimal((double)grupo.Dias / 
+                        Denominador = _indicadorHelper.NumeroDiasTrabajadosMes() * trabajadores,
+                        Resultado = Convert.ToDecimal((double)grupo.Dias /
                         (double)_indicadorHelper.NumeroDiasTrabajadosMes() * 100)
                     });
                 }
@@ -195,7 +194,7 @@ namespace WSafe.Domain.Helpers.Implements
             try
             {
                 var result = from at in _empresaContext.Riesgos
-                             group at by new { at.Peligro.CategoriaPeligroID } into datosAgrupados
+                             group at by new { at.CategoriaPeligroID } into datosAgrupados
                              orderby datosAgrupados.Count() ascending
                              select new { Clave = datosAgrupados.Key, Datos = datosAgrupados };
 
@@ -221,6 +220,21 @@ namespace WSafe.Domain.Helpers.Implements
             {
                 throw ex;
             }
+        }
+
+        public IEnumerable<IndicadorDetallesViewModel> GetAccidentesTrabajoInvestigados(int[] periodo, int year)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<IndicadorDetallesViewModel> GetAllIncidentes(int[] periodo, int year)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<IndicadorDetallesViewModel> GetIncidentesInvestigados(int[] periodo, int year)
+        {
+            throw new NotImplementedException();
         }
     }
 }

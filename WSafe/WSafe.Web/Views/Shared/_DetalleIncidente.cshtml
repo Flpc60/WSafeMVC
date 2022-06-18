@@ -1,0 +1,151 @@
+﻿@model WSafe.Web.Models.IncidenteViewModel
+<div class="container">
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.NaturalezaLesion, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NaturalezaLesion, new { htmlAttributes = new { @class = "form-control", @id = "txtNaturaleza" } })
+                    @Html.ValidationMessageFor(model => model.NaturalezaLesion, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.PartesAfectadas, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PartesAfectadas, new { htmlAttributes = new { @class = "form-control", @id = "txtPartes" } })
+                    @Html.ValidationMessageFor(model => model.PartesAfectadas, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.TipoIncidente, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TipoIncidente, new { htmlAttributes = new { @class = "form-control", @id = "txtTipo" } })
+                    @Html.ValidationMessageFor(model => model.TipoIncidente, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.AgenteLesion, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.AgenteLesion, new { htmlAttributes = new { @class = "form-control", @id = "txtAgente" } })
+                    @Html.ValidationMessageFor(model => model.AgenteLesion, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ActosInseguros, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ActosInseguros, new { htmlAttributes = new { @class = "form-control", @id = "txtActos" } })
+                    @Html.ValidationMessageFor(model => model.ActosInseguros, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.CondicionesInsegura, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CondicionesInsegura, new { htmlAttributes = new { @class = "form-control", @id = "txtCondicion" } })
+                    @Html.ValidationMessageFor(model => model.CondicionesInsegura, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.TipoDaño, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TipoDaño, new { htmlAttributes = new { @class = "form-control", @id = "txtDaño" } })
+                    @Html.ValidationMessageFor(model => model.TipoDaño, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Afectacion, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Afectacion, new { htmlAttributes = new { @class = "form-control", @id = "txtAfectacion" } })
+                    @Html.ValidationMessageFor(model => model.Afectacion, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.DañosOcasionados, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DañosOcasionados, new { htmlAttributes = new { @class = "form-control", @id = "txtOcacionados" } })
+                    @Html.ValidationMessageFor(model => model.DañosOcasionados, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.CostosEstimados, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.CostosEstimados, new { htmlAttributes = new { @class = "form-control", @id = "txtCostos" } })
+                    @Html.ValidationMessageFor(model => model.CostosEstimados, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.TipoVehiculo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.TipoVehiculo, new { htmlAttributes = new { @class = "form-control", @id = "txtVehiculo" } })
+                    @Html.ValidationMessageFor(model => model.TipoVehiculo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.MarcaVehiculo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.MarcaVehiculo, new { htmlAttributes = new { @class = "form-control", @id = "txtMarca" } })
+                    @Html.ValidationMessageFor(model => model.MarcaVehiculo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ModeloVehiculo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.ModeloVehiculo, new { htmlAttributes = new { @class = "form-control", @id = "txtModelo" } })
+                    @Html.ValidationMessageFor(model => model.ModeloVehiculo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.KilometrajeVehiculo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.KilometrajeVehiculo, new { htmlAttributes = new { @class = "form-control", @id = "txtKilometros" } })
+                    @Html.ValidationMessageFor(model => model.KilometrajeVehiculo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

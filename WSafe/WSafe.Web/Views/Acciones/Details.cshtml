@@ -1,82 +1,211 @@
-﻿@model WSafe.Domain.Data.Entities.Accion
+﻿@model WSafe.Web.Models._DetailsAccionVM
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Sistema de Gestión de la Seguridad y Salud en el Trabajo";
+    var fecha = DateTime.Today;
+    Layout = null;
 }
 
-<h2>Details</h2>
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryunobtrusive")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryui")
+@Scripts.Render("~/bundles/bootstrap")
 
-<div>
-    <h4>Accion</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.RiesgoID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RiesgoID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Categoria)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Categoria)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FechaSolicitud)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FechaSolicitud)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FuenteAccion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FuenteAccion)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Descripcion)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CausaAccion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CausaAccion)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SubCausa)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SubCausa)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UltraCausa)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UltraCausa)
-        </dd>
-
-    </dl>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <img src="~/Images/LogoEntidad.png" class="img-responsive" alt="Cinque Terre" width="80" height="80"><img />
+        </div>
+        <div class="col-md-10">
+            <div style="display:block">
+                <div style="text-align:center">
+                    <h4>@ViewBag.Title</h4>
+                </div>
+                <div style="text-align:center">
+                    <p>
+                        <strong><b>@Html.DisplayFor(model => model.Titulo)</b></strong>
+                    </p>
+                </div>
+                <div style="text-align:center">
+                    <p>
+                        FORMATO N°:  <strong><b>@Html.DisplayFor(model => model.Formato)</b></strong>
+                        ESTANDAR :  <strong><b>@Html.DisplayFor(model => model.Estandar)</b></strong>
+                        FECHA : <strong><b>@fecha</b></strong>
+                        VERSIÓN : <strong><b>@Html.DisplayFor(model => model.Version)</b></strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="container">
+    <div style="display:inline-flex">
+        <p>
+            FECHA SOLICITUD : <strong><b>@Html.DisplayFor(model => model.FechaSolicitud)</b></strong>
+            TIPO ACCIÓN : <strong><b>@Html.DisplayFor(model => model.Categoria)</b></strong>
+            CONSECUTIVO : <strong><b>@Html.DisplayFor(model => model.ID)</b></strong>
+        </p>
+    </div>
+</div>
+<div class="container" style="display:flex">
+    <div>
+        <p style="text-align:center; background-color:grey">
+            <strong><b>NOMBRE Y CARGO DE QUIEN REPORTA</b></strong>
+        </p>
+        <p style="text-align:center">
+            @Html.DisplayFor(model => model.Responsable)  Cargo : @Html.DisplayFor(model => model.Cargo)
+        </p>
+    </div>
+    <div>
+        <p style="text-align:center">
+            PROCESO : <strong><b>@Html.DisplayFor(model => model.Proceso)</b></strong>
+        </p>
+    </div>
+</div>
+<div class="container">
+    <div>
+        <p style="text-align:center; background-color:grey">
+            <strong><b>FUENTE QUE ORIGINÓ LA ACCIÓN CORRECTIVA, PREVENTIVA O DE MEJORA</b></strong>
+        </p>
+        <p>
+            @Html.DisplayFor(model => model.FuenteAccion)
+        </p>
+    </div>
+    <div>
+        <p style="text-align:center; background-color:grey">
+            <strong><b>DESCRIPCIÓN DE LA NO CONFORMIDAD REAL O POTENCIAL U OPORTUNDAD DE MEJORA</b></strong>
+        </p>
+        <p>
+            @Html.DisplayFor(model => model.Descripcion)
+        </p>
+    </div>
+</div>
+
+@{
+    if (@ViewBag.planes > 0)
+    {
+        <div>
+            <p style="text-align:center; background-color:grey">
+                <strong><b>PLAN DE ACCIÓN</b></strong>
+            </p>
+        </div>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        Causa
+                    </th>
+                    <th>
+                        Accion
+                    </th>
+                    <th>
+                        Prioritaria
+                    </th>
+                    <th>
+                        Responsable
+                    </th>
+                    <th>
+                        Fecha inicial
+                    </th>
+                    <th>
+                        Fecha final
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="tbody">
+                @foreach (var item in Model.Planes)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Causa)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Accion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Prioritaria)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Responsable)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FechaInicial)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FechaFinal)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    if (ViewBag.sigue > 0)
+    {
+        <div>
+            <p style="text-align:center; background-color:grey">
+                <strong><b>SEGUIMIENTO A LA EJECUCIÓN DEL PLAN</b></strong>
+            </p>
+        </div>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        Fecha Seguimiento
+                    </th>
+                    <th>
+                        Resultado
+                    </th>
+                    <th>
+                        Realizado por
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="tbody">
+                @foreach (var item in Model.Seguimientos)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FechaSeguimiento)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Resultado)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Responsable)
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    }
+}
+
+
+<div class="container">
+    <div>
+        <p style="text-align:center; background-color:grey">
+            <strong><b>EVIDENCIA DE LA EFICACIA DE LA ACCIÓN TOMADA</b></strong>
+        </p>
+    </div>
+    <div style="display:inline-block">
+        <div>
+            <p style="text-align:center">
+                VARIABLE O INDICADOR DE CONTROL ANTES : <strong><b>@Html.DisplayFor(model => model.EficaciaAntes)</b></strong>
+                VARIABLE O INDICADOR DE CONTROL DESPUES : <strong><b>@Html.DisplayFor(model => model.EficaciaDespues)</b></strong>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="display:inline-flex">
+    <div>
+        <p style="text-align:center">
+            FECHA DE CIERRE DE LA ACCIÓN : <strong><b>@Html.DisplayFor(model => model.FechaCierre)</b></strong>
+            LA ACCIÓN TOMADA FUE EFECTIVA ? : <strong><b>@Html.DisplayFor(model => model.Efectiva)</b></strong>
+        </p>
+    </div>
+</div>
