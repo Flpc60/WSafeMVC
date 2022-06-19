@@ -2,9 +2,10 @@
 
 function AddInterven() {
     $(".tabMediAplica").css("display", "none");
+    var riesgoID = $("#txtRiesgoID").val();
     var aplicaVM = {
         ID: "0",
-        RiesgoID: $("#txtRiesgoID").val(),
+        RiesgoID: riesgoID,
         Nombre: $("#txtNombre").val(),
         CategoriaAplicacion: $("#txtCatAplica").val(),
         Finalidad: $("#txtFinal").val(),
@@ -22,11 +23,13 @@ function AddInterven() {
         url: "/Riesgos/AddIntervenciones",
         data: { model: aplicaVM },
         dataType: "json",
-        success: function (idInterven) {
-            $("#txtIntervenID").val(idInterven);
-            $("#btnAddInterven").hide();
-            $(".tabAddInterven").css("display", "none");
-            alert("Medida de intervención aplicada exitosamente !!")
+        success: function (result) {
+            if (result.data != false) {
+                $("#txtIntervenID").val(result.data);
+                $("#btnAddInterven").hide();
+                $(".tabAddInterven").css("display", "none");
+            }
+            alert(result.mensaj);
             ClearTextBox();
             mostrarInterven();
         },
@@ -1272,10 +1275,13 @@ function AddNewRiesgo() {
         url: "/Riesgos/CreateRiesgo",
         data: { model: riesgoVM },
         dataType: "json",
-        success: function (idRiesgo) {
-            $("#txtRiesgoID").val(idRiesgo);
-            $("#btnAddRiesgo").hide();
-            $(".tabEvalRiesgos").css("display", "none");
+        success: function (result) {
+            if (result.data != false) {
+                $("#txtRiesgoID").val(result.data);
+                $("#btnAddRiesgo").hide();
+                $(".tabEvalRiesgos").css("display", "none");
+            }
+            alert(result.mensaj);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -1359,6 +1365,7 @@ function UpdateIntervencion() {
         data: { model: aplicaVM },
         dataType: "json",
         success: function (result) {
+            alert(result.mensaj);
             $(".tabMediAplica").css("display", "block");
             mostrarInterven();
         },
