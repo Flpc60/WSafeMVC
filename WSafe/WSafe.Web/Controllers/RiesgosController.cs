@@ -83,6 +83,7 @@ namespace WSafe.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateRiesgo(RiesgoViewModel model)
         {
+            var message = "";
             try
             {
                 if (ModelState.IsValid)
@@ -94,17 +95,20 @@ namespace WSafe.Web.Controllers
                         var saved = await consulta.Insert(riesgo);
                         if (saved == null)
                         {
-                            return RedirectToAction("Index");
+                            message = "El registro NO ha sido ingresado correctamente !!";
+                            return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
                         }
                     }
                 }
             }
             catch
             {
-                return View(model);
+                message = "El registro NO ha sido ingresado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
+            message = "El registro ha sido ingresado correctamente !!";
             var idRiesgo = _empresaContext.Riesgos.OrderByDescending(x => x.ID).First().ID;
-            return Json(idRiesgo, JsonRequestBehavior.AllowGet);
+            return Json(new {data = idRiesgo, mensaj = message}, JsonRequestBehavior.AllowGet);
         }
 
         public async Task<ActionResult> Edit(int? id)
@@ -233,6 +237,7 @@ namespace WSafe.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> UpdateIntervencion(AplicacionVM model)
         {
+            var message = "";
             try
             {
                 if (ModelState.IsValid)
@@ -240,19 +245,23 @@ namespace WSafe.Web.Controllers
                     var result = await _converterHelper.ToAplicacionAsync(model, true);
                     _empresaContext.Aplicaciones.Add(result);
                     var saved = await _empresaContext.SaveChangesAsync();
-                    return Json(model, JsonRequestBehavior.AllowGet);
+                    message = "El registro ha sido actualizado correctamente !!";
+                    return Json(new {data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
-                return RedirectToAction("Index");
+                message = "El registro NO ha sido actualizado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
+                message = "El registro NO ha sido actualizado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
 
         [HttpPost]
         public async Task<ActionResult> AddIntervenciones(AplicacionVM model)
         {
+            var message = "";
             try
             {
                 if (ModelState.IsValid)
@@ -261,13 +270,16 @@ namespace WSafe.Web.Controllers
                     _empresaContext.Aplicaciones.Add(result);
                     var saved = await _empresaContext.SaveChangesAsync();
                     var idAplica = _empresaContext.Aplicaciones.OrderByDescending(x => x.ID).First().ID;
-                    return Json(idAplica, JsonRequestBehavior.AllowGet);
+                    message = "El registro ha sido ingresado correctamente !!";
+                    return Json(new {data = idAplica, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
-                return RedirectToAction("Index");
+                message = "El registro NO ha sido ingresado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
+                message = "El registro NO ha sido ingresado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
 
