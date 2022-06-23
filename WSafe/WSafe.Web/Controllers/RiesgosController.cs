@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -108,7 +107,7 @@ namespace WSafe.Web.Controllers
             }
             message = "El registro ha sido ingresado correctamente !!";
             var idRiesgo = _empresaContext.Riesgos.OrderByDescending(x => x.ID).First().ID;
-            return Json(new {data = idRiesgo, mensaj = message}, JsonRequestBehavior.AllowGet);
+            return Json(new { data = idRiesgo, mensaj = message }, JsonRequestBehavior.AllowGet);
         }
 
         public async Task<ActionResult> Edit(int? id)
@@ -246,7 +245,7 @@ namespace WSafe.Web.Controllers
                     _empresaContext.Aplicaciones.Add(result);
                     var saved = await _empresaContext.SaveChangesAsync();
                     message = "El registro ha sido actualizado correctamente !!";
-                    return Json(new {data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
                 message = "El registro NO ha sido actualizado correctamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
@@ -271,7 +270,7 @@ namespace WSafe.Web.Controllers
                     var saved = await _empresaContext.SaveChangesAsync();
                     var idAplica = _empresaContext.Aplicaciones.OrderByDescending(x => x.ID).First().ID;
                     message = "El registro ha sido ingresado correctamente !!";
-                    return Json(new {data = idAplica, mensaj = message }, JsonRequestBehavior.AllowGet);
+                    return Json(new { data = idAplica, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
                 message = "El registro NO ha sido ingresado correctamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
@@ -329,7 +328,7 @@ namespace WSafe.Web.Controllers
             Riesgo riesgo = await _empresaContext.Riesgos.FindAsync(id);
 
             var message = "";
-            var result  = _empresaContext.Aplicaciones.Where(a =>a.RiesgoID == id).Count();
+            var result = _empresaContext.Aplicaciones.Where(a => a.RiesgoID == id).Count();
             if (result != 0)
             {
                 message = "Este riesgo tiene medidas de intervención pendientes por eliminar!!";

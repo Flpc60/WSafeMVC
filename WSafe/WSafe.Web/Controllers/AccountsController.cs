@@ -29,8 +29,6 @@ namespace WSafe.Web.Controllers
             _comboHelper = comboHelper;
             _gestorHelper = gestorHelper;
         }
-
-        [HttpGet]
         public ActionResult Login()
         {
             var model = new LoginViewModel();
@@ -40,26 +38,27 @@ namespace WSafe.Web.Controllers
         [HttpPost]
         public ActionResult Login(LoginViewModel model)
         {
-            if (model.Email == null || model.Password == null)
+            if (model.Name == null || model.Email == null || model.Password == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
             try
             {
-                var result = _empresaContext.Users.Where(u => u.Email == model.Email.Trim() && u.Password == model.Password.Trim()).FirstOrDefault();
+                var message = "";
+                var result = _empresaContext.Users.Where(u => u.Name == model.Name.Trim() && u.Email == model.Email.Trim() && u.Password == model.Password.Trim()).FirstOrDefault();
                 if (result == null)
                 {
-                    ViewBag.Error = "Usuario o contraseña inválidos";
-                    return View("Login");
+                    message = "Usuario o contraseña inválidos";
+                    ViewBag.mensaje = message;
+                    return View(model);
                 }
-
                 Session["User"] = result;
                 return RedirectToAction("Index", "Home");
             }
             catch (Exception ex)
             {
-                ViewBag.Error = ex.Message;
+                ViewBag.mensaje = ex.Message;
                 return View();
             }
         }
@@ -78,28 +77,37 @@ namespace WSafe.Web.Controllers
             }
             return View(user);
         }
-
-        // GET: Accounts/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create([Bind(Include = "ID,Name,Email,Password,RoleID")] User model)
         {
-            return View();
-        }
-
-        // POST: Accounts/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,Name,Email,Password,Fecha,RoleID")] User user)
-        {
-            if (ModelState.IsValid)
+            var message = "";
+            try
             {
-                _empresaContext.Users.Add(user);
-                await _empresaContext.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    var result = _empresaContext.Users.Where(u => u.Name == model.Name.Trim() && u.Email == model.Email.Trim() && u.Password == model.Password.Trim()).FirstOrDefault();
+                    if (result == null)
+                    {
+                        _empresaContext.Users.Add(model);
+                        await _empresaContext.SaveChangesAsync();
+                        message = "Usuario registrado";
+                    }
+                    else
+                    {
+                        message = "El Usuario ya esta registrado";
+                    }
+                }
+                else
+                {
+                    message = "El usuario NO pudo ser registrado";
+                }
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
             }
 
-            return View(user);
+            ViewBag.mensaje = message;
+            return RedirectToAction("Login");
         }
 
         // GET: Accounts/Edit/5
@@ -122,7 +130,7 @@ namespace WSafe.Web.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,Name,Email,Password,Fecha,RoleID")] User user)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,Name,Email,Password,RoleID")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -167,7 +175,6 @@ namespace WSafe.Web.Controllers
             }
             base.Dispose(disposing);
         }
-
         public ActionResult Logout()
         {
             Session["User"] = null;
