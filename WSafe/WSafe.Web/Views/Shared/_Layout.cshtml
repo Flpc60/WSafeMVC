@@ -4,6 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - WSafe</title>
+
+    @{ 
+        var userName = ViewBag.userName;
+    }
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jqueryval")
@@ -33,18 +38,16 @@
                     <li>@Html.ActionLink("Organización", "Index", "Organizations")</li>
                     <li>@Html.ActionLink("Riesgos", "Index", "Riesgos")</li>
                     <li>@Html.ActionLink("Incidentes", "Index", "Incidentes")</li>
-                    <li>@Html.ActionLink("Indicadores", "Index", "Indicadores")</li>
                     <li>@Html.ActionLink("Acciones", "Index", "Acciones")</li>
+                    <li>@Html.ActionLink("Indicadores", "Index", "Indicadores")</li>
                     <li>@Html.ActionLink("Usuarios", "Index", "Accounts")</li>
                 </ul>
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a>Bienvenido @User.Identity.Name</a></li>
-                    </ul>
-                }
                 <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("Cerrar sesion", "Logout", "Accounts", new { @class = "glyphicon glyphicon-log-out" })</li>
+                    @if (Session["userName"] != null)
+                    {
+                        <li><a style="color:white;font-family:Arial"><b>Hola : @Session["userName"].ToString().Trim()</b></a></li>
+                    }
+                    <li>@Html.ActionLink("Cerrar sesión", "Logout", "Accounts", new { @class = "glyphicon glyphicon-log-out" })</li>
                 </ul>
             </div>
         </div>

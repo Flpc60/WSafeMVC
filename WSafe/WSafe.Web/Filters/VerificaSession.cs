@@ -6,7 +6,7 @@ using WSafe.Web.Controllers;
 
 namespace WSafe.Web.Filters
 {
-    public class VerificaSession : System.Web.Mvc.ActionFilterAttribute
+    public class VerificaSession : ActionFilterAttribute
     {
         private User usuario;
         public override void OnActionExecuting(ActionExecutingContext filterContext)
@@ -14,10 +14,10 @@ namespace WSafe.Web.Filters
             try
             {
                 base.OnActionExecuting(filterContext);
-                usuario = (User)HttpContext.Current.Session["User"];
-                if(usuario == null)
+                usuario = (User)HttpContext.Current.Session["User"]; // (User): castea al tipo
+                if (usuario == null)
                 {
-                    if(filterContext.Controller is AccountsController == false)
+                    if (filterContext.Controller is AccountsController == false)
                     {
                         filterContext.HttpContext.Response.Redirect("~/Accounts/Login");
 

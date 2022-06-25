@@ -10,23 +10,28 @@ using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Helpers;
 using WSafe.Domain.Repositories.Implements;
 using WSafe.Domain.Services.Implements;
+using WSafe.Web.Filters;
 using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
 {
     public class RiesgosController : Controller
     {
+        private int _operation;
+        private int _roleID;
         private readonly EmpresaContext _empresaContext;
         private readonly IComboHelper _comboHelper;
         private readonly IConverterHelper _converterHelper;
-        public RiesgosController(EmpresaContext empresaContext, IComboHelper comboHelper, IConverterHelper converterHelper)
+        public RiesgosController(EmpresaContext empresaContext, IComboHelper comboHelper, IConverterHelper converterHelper, User usuario)
         {
             _empresaContext = empresaContext;
             _comboHelper = comboHelper;
             _converterHelper = converterHelper;
+            //_usuario = (User)Session["User"];
+            //_roleID = _usuario.RoleID;
         }
 
-        //[AuthorizeUser(1,2)]
+        [AuthorizeUser(operation: 1, component: 2)]
         public async Task<ActionResult> Index()
         {
             try
@@ -43,6 +48,7 @@ namespace WSafe.Web.Controllers
             }
         }
 
+        [AuthorizeUser(operation: 1, component: 2)]
         public async Task<ActionResult> GetAll()
         {
             var list = await _empresaContext.Riesgos
@@ -71,7 +77,7 @@ namespace WSafe.Web.Controllers
             return report;
         }
 
-        // GET: Riesgos/Create
+        [AuthorizeUser(operation: 2, component: 2)]
         public ActionResult Create()
         {
             var riesgoView = _converterHelper.ToRiesgoViewModelNew();
@@ -110,6 +116,7 @@ namespace WSafe.Web.Controllers
             return Json(new { data = idRiesgo, mensaj = message }, JsonRequestBehavior.AllowGet);
         }
 
+        [AuthorizeUser(operation: 3, component: 2)]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -319,6 +326,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
+        [AuthorizeUser(operation: 4, component: 2)]
         public async Task<ActionResult> DeleteRiesgo(int? id)
         {
             if (id == null)

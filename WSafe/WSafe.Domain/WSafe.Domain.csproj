@@ -128,6 +128,7 @@
     <Compile Include="Data\Entities\CategoriaControl.cs" />
     <Compile Include="Data\Entities\CategoriaIntervencion.cs" />
     <Compile Include="Data\Entities\CategoriasCausa.cs" />
+    <Compile Include="Data\Entities\Components.cs" />
     <Compile Include="Data\Entities\Document.cs" />
     <Compile Include="Data\Entities\FuentesAccion.cs" />
     <Compile Include="Data\Entities\Incidente.cs" />
@@ -161,6 +162,7 @@
     <Compile Include="Data\Entities\NivelesProbabilidad.cs" />
     <Compile Include="Data\Entities\NivelesRiesgo.cs" />
     <Compile Include="Data\Entities\Operation.cs" />
+    <Compile Include="Data\Entities\Operations.cs" />
     <Compile Include="Data\Entities\Organization.cs" />
     <Compile Include="Data\Entities\Peligro.cs" />
     <Compile Include="Data\Entities\PlanAccion.cs" />
