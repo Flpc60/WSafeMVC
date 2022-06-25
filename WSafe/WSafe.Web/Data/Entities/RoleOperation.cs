@@ -4,11 +4,11 @@ namespace WSafe.Domain.Data.Entities
 {
     public class RoleOperation
     {
-        [Required(ErrorMessage = "El campo {0} es obligatotio")]
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        public int RolID { get; set; }
+        public int RoleID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        public int OperationID { get; set; }
+        public int Operation { get; set; }
+        public int Component { get; set; }
     }
 }
