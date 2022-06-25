@@ -12,30 +12,31 @@ namespace WSafe.Web.Filters
     {
         private User _usuario;
         private readonly EmpresaContext _empresaContext = new EmpresaContext();
-        private int _operationID;
+        private int _operation;
+        private int _component;
         private int _roleID;
-        public AuthorizeUser(int roleID, int operationID)
+        public AuthorizeUser(int operation, int component)
         {
-            _roleID = roleID;
-            _operationID = operationID;
+            _operation = operation;
+            _component = component;
         }
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
-            var operation = "";
+            var textOperation = "";
 
             try
             {
-                _usuario = (User)HttpContext.Current.Session["User"];
-                var result = _empresaContext.RoleOperations.Where(ro => ro.RolID == 1 && ro.OperationID == 1).Count();
+                _roleID = (int)HttpContext.Current.Session["roleID"]; // castear _roleID (int)
+                var result = _empresaContext.RoleOperations.Where(ro => ro.RoleID == 1 && ro.Operation == _operation && ro.Component == _component).Count();
                 if (result < 1)
                 {
-                    operation = _empresaContext.Operations.FirstOrDefault(o => o.ID == _operationID).Name;
-                    filterContext.Result = new RedirectResult("~/Error/UnAuthorizedOperation=" + operation);
+                    textOperation = "Usted no tiene autorización para trabajar en esta página";
+                    filterContext.Result = new RedirectResult("~/Error/UnAuthorizedOperation=" + textOperation);
                 }
             }
             catch (Exception ex)
             {
-                filterContext.Result = new RedirectResult("~/Error/UnAuthorizedOperation=" + operation);
+                filterContext.Result = new RedirectResult("~/Error/UnAuthorizedOperation=" + ex.Message);
             }
         }
     }

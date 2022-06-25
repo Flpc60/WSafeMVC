@@ -4,8 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.Security;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Helpers;
+using WSafe.Web.Filters;
 using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
@@ -28,6 +30,12 @@ namespace WSafe.Web.Controllers
             _converterHelper = converterHelper;
             _comboHelper = comboHelper;
             _gestorHelper = gestorHelper;
+        }
+        [AuthorizeUser(operation: 1, component: 9)]
+        public ActionResult Index()
+        {
+            var model = new LoginViewModel();
+            return View();
         }
         public ActionResult Login()
         {
@@ -54,6 +62,9 @@ namespace WSafe.Web.Controllers
                     return View(model);
                 }
                 Session["User"] = result;
+                Session["userName"] = result.Name;
+                Session["roleID"] = result.RoleID;
+                ViewBag.userName = Session["userName"].ToString().Trim();
                 return RedirectToAction("Index", "Home");
             }
             catch (Exception ex)
@@ -77,6 +88,7 @@ namespace WSafe.Web.Controllers
             }
             return View(user);
         }
+        [AuthorizeUser(operation: 2, component: 9)]
         public async Task<ActionResult> Create([Bind(Include = "ID,Name,Email,Password,RoleID")] User model)
         {
             var message = "";
@@ -110,7 +122,7 @@ namespace WSafe.Web.Controllers
             return RedirectToAction("Login");
         }
 
-        // GET: Accounts/Edit/5
+        [AuthorizeUser(operation: 3, component: 9)]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -140,8 +152,7 @@ namespace WSafe.Web.Controllers
             }
             return View(user);
         }
-
-        // GET: Accounts/Delete/5
+        [AuthorizeUser(operation: 4, component: 9)]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -177,7 +188,8 @@ namespace WSafe.Web.Controllers
         }
         public ActionResult Logout()
         {
-            Session["User"] = null;
+            Session.Abandon();
+            FormsAuthentication.SignOut();
             return null;
         }
     }
