@@ -24,5 +24,6 @@ namespace WSafe.Domain.Helpers
         string GetJerarquiaControl(JerarquiaControles categoria);
         string GetCategoriaAplicacion(CategoriaAplicacion categoria);
         string GetPeriodo(int[] periodo);
+        string GetRole(int role);
     }
 }

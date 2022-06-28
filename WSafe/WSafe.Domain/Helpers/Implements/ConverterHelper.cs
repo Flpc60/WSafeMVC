@@ -185,25 +185,25 @@ namespace WSafe.Domain.Helpers.Implements
                 CategoriasIncidente = model.CategoriasIncidente,
                 IncapacidadMedica = model.IncapacidadMedica,
                 DiasIncapacidad = model.DiasIncapacidad,
-                NaturalezaLesion = model.NaturalezaLesion,
-                PartesAfectadas = model.PartesAfectadas,
-                TipoIncidente = model.TipoIncidente,
-                AgenteLesion = model.AgenteLesion,
-                ActosInseguros = model.ActosInseguros,
-                CondicionesInsegura = model.CondicionesInsegura,
-                TipoDaño = model.TipoDaño,
-                Afectacion = model.Afectacion,
-                DañosOcasionados = model.DañosOcasionados,
-                TipoVehiculo = model.TipoVehiculo,
-                MarcaVehiculo = model.MarcaVehiculo,
-                ModeloVehiculo = model.ModeloVehiculo,
+                NaturalezaLesion = model.NaturalezaLesion.ToUpper(),
+                PartesAfectadas = model.PartesAfectadas.ToUpper(),
+                TipoIncidente = model.TipoIncidente.ToUpper(),
+                AgenteLesion = model.AgenteLesion.ToUpper(),
+                ActosInseguros = model.ActosInseguros.ToUpper(),
+                CondicionesInsegura = model.CondicionesInsegura.ToUpper(),
+                TipoDaño = model.TipoDaño.ToUpper(),
+                Afectacion = model.Afectacion.ToUpper(),
+                DañosOcasionados = model.DañosOcasionados.ToUpper(),
+                TipoVehiculo = model.TipoVehiculo.ToUpper(),
+                MarcaVehiculo = model.MarcaVehiculo.ToUpper(),
+                ModeloVehiculo = model.ModeloVehiculo.ToUpper(),
                 KilometrajeVehiculo = model.KilometrajeVehiculo,
                 CostosEstimados = model.CostosEstimados,
-                DescripcionIncidente = model.DescripcionIncidente,
-                EvitarIncidente = model.EvitarIncidente,
-                AccionesInmediatas = model.AccionesInmediatas,
-                ComentariosAdicionales = model.ComentariosAdicionales,
-                AtencionBrindada = model.AtencionBrindada,
+                DescripcionIncidente = model.DescripcionIncidente.ToUpper(),
+                EvitarIncidente = model.EvitarIncidente.ToUpper(),
+                AccionesInmediatas = model.AccionesInmediatas.ToUpper(),
+                ComentariosAdicionales = model.ComentariosAdicionales.ToUpper(),
+                AtencionBrindada = model.AtencionBrindada.ToUpper(),
                 EquiposInvestigador = model.EquiposInvestigador,
                 LesionPersonal = model.LesionPersonal,
                 DañoMaterial = model.DañoMaterial,
@@ -925,6 +925,22 @@ namespace WSafe.Domain.Helpers.Implements
             model.Lesionados = modelo;
 
             return model;
+        }
+
+        public IEnumerable<UserViewModel> ToUsersVM(IEnumerable<User> userList)
+        {
+            var modelo = new List<UserViewModel>();
+            foreach (var item in userList)
+            {
+                modelo.Add(new UserViewModel
+                {
+                    ID = item.ID,
+                    Name = item.Name,
+                    Email = item.Email,
+                    Role = _gestorHelper.GetRole(item.RoleID)
+                });
+            }
+            return modelo;
         }
     }
 }

@@ -34,7 +34,8 @@ namespace WSafe.Web.Controllers
         [AuthorizeUser(operation: 1, component: 9)]
         public ActionResult Index()
         {
-            var model = new LoginViewModel();
+            var userList = _empresaContext.Users.ToList();
+            var model = _converterHelper.ToUsersVM(userList);
             return View();
         }
         public ActionResult Login()
@@ -44,33 +45,33 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(LoginViewModel model)
+        public ActionResult LoginUser([Bind(Include = "ID,Name,Email,Password,RoleID")] LoginViewModel model)
         {
             if (model.Name == null || model.Email == null || model.Password == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
+            var message = "";
             try
             {
-                var message = "";
                 var result = _empresaContext.Users.Where(u => u.Name == model.Name.Trim() && u.Email == model.Email.Trim() && u.Password == model.Password.Trim()).FirstOrDefault();
-                if (result == null)
+                if (result == null || result.RoleID == 0)
                 {
-                    message = "Usuario o contraseña inválidos";
+                    message = "El Usuario o la contraseña son inválidos, o no tiene un rol asignado en el sistema!!";
                     ViewBag.mensaje = message;
-                    return View(model);
+                    return Json(new { result = "", url = Url.Action("Index", "Home"), mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
                 Session["User"] = result;
                 Session["userName"] = result.Name;
                 Session["roleID"] = result.RoleID;
-                ViewBag.userName = Session["userName"].ToString().Trim();
-                return RedirectToAction("Index", "Home");
+                return Json(new { result = "Redirect", url = Url.Action("Index", "Home"), mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
+                message = ex.Message;
                 ViewBag.mensaje = ex.Message;
-                return View();
+                return Json(new { result = "", url = Url.Action("Index", "Home"), mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -88,8 +89,8 @@ namespace WSafe.Web.Controllers
             }
             return View(user);
         }
-        [AuthorizeUser(operation: 2, component: 9)]
-        public async Task<ActionResult> Create([Bind(Include = "ID,Name,Email,Password,RoleID")] User model)
+        [HttpPost]
+        public async Task<ActionResult> CreateUser([Bind(Include = "ID,Name,Email,Password,RoleID")] User model)
         {
             var message = "";
             try
@@ -118,8 +119,7 @@ namespace WSafe.Web.Controllers
                 message = ex.Message;
             }
 
-            ViewBag.mensaje = message;
-            return RedirectToAction("Login");
+            return Json(new { data = model, mensaj = message }, JsonRequestBehavior.AllowGet);
         }
 
         [AuthorizeUser(operation: 3, component: 9)]
