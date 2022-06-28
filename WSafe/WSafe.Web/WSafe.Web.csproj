@@ -411,10 +411,16 @@
     <Compile Include="Migrations\202206251830352_UpdateRoleOperation1.Designer.cs">
       <DependentUpon>202206251830352_UpdateRoleOperation1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202206282002175_UpdateUserVM2.cs" />
+    <Compile Include="Migrations\202206282002175_UpdateUserVM2.Designer.cs">
+      <DependentUpon>202206282002175_UpdateUserVM2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\DetailsIncidentVM.cs" />
     <Compile Include="Models\IntervencionVM.cs" />
     <Compile Include="Models\MatrizRiesgosVM.cs" />
+    <Compile Include="Models\RoleUserVM.cs" />
+    <Compile Include="Models\UserListVM.cs" />
     <Compile Include="Models\_DetailsAccionVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
     <Compile Include="Models\AplicacionVM.cs" />
@@ -686,6 +692,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202206251830352_UpdateRoleOperation1.resx">
       <DependentUpon>202206251830352_UpdateRoleOperation1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206282002175_UpdateUserVM2.resx">
+      <DependentUpon>202206282002175_UpdateUserVM2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

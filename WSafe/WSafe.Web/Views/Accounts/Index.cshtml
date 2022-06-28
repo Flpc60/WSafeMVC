@@ -1,16 +1,20 @@
-﻿@model IEnumerable<WSafe.Domain.Data.Entities.User>
+﻿@model IEnumerable<WSafe.Web.Models.UserViewModel>
 
 @{
     ViewBag.Title = "Index";
 }
+<h2>GESTIÓN DE USUARIOS</h2>
 
-<h2>Index</h2>
+<div class="row">
+    <div class="col-md-4">
+        <button type="button" id="btnAddRole" class="btn btn-info" onclick="AddRole()">Nuevo rol</button>
+    </div>
+    <div class="col-md-8">
+    </div>
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
-    <tr>
+    <tr style="background-color:gainsboro; width:auto" >
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
@@ -18,40 +22,30 @@
             @Html.DisplayNameFor(model => model.Email)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Password)
+            @Html.DisplayNameFor(model => model.Role)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Fecha)
+            Acciones
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RoleID)
-        </th>
-        <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Password)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fecha)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RoleID)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Role)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
 
 </table>

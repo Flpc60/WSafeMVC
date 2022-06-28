@@ -423,5 +423,10 @@ namespace WSafe.Domain.Helpers.Implements
             }
             return result;
         }
+
+        public string GetRole(int role)
+        {
+            return _empresaContext.Roles.FirstOrDefault(r => r.ID == role).Name.ToUpper().Trim();
+        }
     }
 }

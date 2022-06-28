@@ -212,8 +212,10 @@
     <Compile Include="Models\PlanAccionVM.cs" />
     <Compile Include="Models\RiesgoViewModel.cs" />
     <Compile Include="Models\RoleOperationVM.cs" />
+    <Compile Include="Models\RoleUserVM.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Models\SeguimientoAccionVM.cs" />
+    <Compile Include="Models\UserListVM.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\_DetailsAccionVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

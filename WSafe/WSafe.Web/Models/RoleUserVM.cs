@@ -1,8 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace WSafe.Web.Models
 {
-    public class UserViewModel
+    public class RoleUserVM
     {
         public int ID { get; set; }
         [Display(Name = "Nombre usuario")]
@@ -14,5 +16,6 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Perfiles usuario")]
         public int RoleID { get; set; }
+        public IEnumerable<SelectListItem> Roles { get; set; }
     }
 }

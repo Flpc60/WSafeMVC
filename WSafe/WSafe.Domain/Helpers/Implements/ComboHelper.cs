@@ -348,23 +348,23 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public IEnumerable<Cargo> GetAllCargos()
         {
-            return _empresaContext.Cargos.ToList();
+            return _empresaContext.Cargos.OrderBy(c => c.Descripcion).ToList();
         }
         public IEnumerable<Zona> GetAllZonas()
         {
-            return _empresaContext.Zonas.ToList();
+            return _empresaContext.Zonas.OrderBy(z=> z.Descripcion).ToList();
         }
         public IEnumerable<Proceso> GetAllProcess()
         {
-            return _empresaContext.Procesos.ToList();
+            return _empresaContext.Procesos.OrderBy(p => p.Descripcion).ToList();
         }
         public IEnumerable<Actividad> GetAllActivitys()
         {
-            return _empresaContext.Actividades.ToList();
+            return _empresaContext.Actividades.OrderBy(a => a.Descripcion).ToList();
         }
         public IEnumerable<Tarea> GetAllTareas()
         {
-            return _empresaContext.Tareas.ToList();
+            return _empresaContext.Tareas.OrderBy(t => t.Descripcion).ToList();
         }
     }
 }

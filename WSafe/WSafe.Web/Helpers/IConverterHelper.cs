@@ -36,5 +36,6 @@ namespace WSafe.Domain.Helpers
         IEnumerable<AccidentadoVM> ToListLesionadosVM(IEnumerable<Accidentado> lesionados);
         Task<Accidentado> ToLesionadoAsync(AccidentadoVM model, bool isNew);
         DetailsIncidentVM ToIncidentVMFull(Incidente incidente, int id);
+        IEnumerable<UserViewModel> ToUsersVM(IEnumerable<User> userList);
     }
 }
