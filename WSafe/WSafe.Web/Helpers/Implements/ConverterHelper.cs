@@ -926,5 +926,21 @@ namespace WSafe.Domain.Helpers.Implements
 
             return model;
         }
+
+        public IEnumerable<UserViewModel> ToUsersVM(IEnumerable<User> userList)
+        {
+            var modelo = new List<UserViewModel>();
+            foreach (var item in userList)
+            {
+                modelo.Add(new UserViewModel
+                {
+                    ID = item.ID,
+                    Name = item.Name,
+                    Email = item.Email,
+                    Role = _gestorHelper.GetRole(item.RoleID)
+                });
+            }
+            return modelo;
+        }
     }
 }

@@ -3,10 +3,18 @@
 @{
     ViewBag.Title = "Login";
     Layout = null;
+    var message = "";
 }
-@Styles.Render("~/Content/css")
-<script src="~/Scripts/GestorRiesgosSST.js" type="text/javascript"></script>
 
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryunobtrusive")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryui")
+@Scripts.Render("~/bundles/bootstrap")
+
+<script src="~/Scripts/GestorRiesgosSST.js" type="text/javascript"></script>
 
 <style>
     .login {
@@ -25,64 +33,65 @@
 <hr />
 <h2 class="login">Favor ingresa tu cuenta de usuario</h2>
 
-<body>
-    @using (Html.BeginForm(FormMethod.Post))
-    {
-        @Html.AntiForgeryToken()
-        <div class="form-horizontal">
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
-                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ingresa nombre de usuario" } })
-                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <hr />
-            <div class="form-group">
-                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
-                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ingresa correo electrónico" } })
-                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <hr />
-            <div class="form-group">
-                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ingresa contraseña" } })
-                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <hr />
-            <div class="form-group">
-                @if (ViewBag.mensaje != null)
-                {
-                    <div class="alert alert-danger" role="alert">
-                        @ViewBag.mensaje
-                    </div>
-                }
-            </div>
-            <hr />
-
-            <div class="row">
-                <div class="col-md-2">
-                </div>
-                <div class="col-md-10">
-                    <input type="submit" value="Iniciar sesión" class="btn btn-success" />
-                    @Html.ActionLink("Registrase", "Create", new { model = @Model }, new { @class = "btn btn-success" })
-                </div>
+@using (Html.BeginForm(FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @id = "txtName", @placeholder = "Ingresa nombre de usuario" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
             </div>
         </div>
-    }
-    <div class="container body-content">
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - FLPCSoft, WSafe</p>
-        </footer>
-    </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @id = "txtEmail", @placeholder = "Ingresa correo electrónico" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <hr />
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <input type="password" name="txtPassword" id="txtPassword" class="form-control" placeholder = "Ingresa contraseña"/>
+            </div>
+        </div>
+        <hr />
+        <div class="form-group">
+            @if (message != "")
+            {
+                <div class="alert alert-danger" role="alert">
+                    @message
+                </div>
+            }
+        </div>
+        <hr />
 
+        <div class="row">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-10">
+                <button type="button" class="btn btn-success" onclick="LoginUser()">Iniciar nueva sesión</button>
+                <button type="button" class="btn btn-success" onclick="AddUser()">Registrar usuario</button>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="container body-content">
+    <hr />
+    <footer>
+        <p>&copy; @DateTime.Now.Year - FLPCSoft, WSafe</p>
+    </footer>
+</div>
+
+@section Scripts
+{
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-</body>
-
+    @RenderSection("scripts", required: false)
+}

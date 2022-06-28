@@ -2101,3 +2101,57 @@ function AddTask() {
     });
 }
 
+function AddUser() {
+    // Crea un nuevo usuario
+    var user = {
+        ID: "0",
+        Name: $("#txtName").val(),
+        Email: $("#txtEmail").val(),
+        Password: $("#txtPassword").val(),
+        RoleID: "0"
+    };
+    $.ajax({
+        type: "POST",
+        url: "/Accounts/CreateUser",
+        data: { model: user },
+        dataType: "json",
+        success: function (result) {
+            message = result.mensaj;
+            alert(result.mensaj);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function LoginUser() {
+    // Crea un nuevo usuario
+    var loginVM = {
+        ID: "0",
+        Name: $("#txtName").val(),
+        Email: $("#txtEmail").val(),
+        Password: $("#txtPassword").val(),
+        RoleID: "0"
+    };
+    $.ajax({
+        type: "POST",
+        url: "/Accounts/LoginUser",
+        data: { model: loginVM },
+        dataType: "json",
+        success: function (response) {
+            if (response.result == 'Redirect') {
+
+                window.location = response.url;
+            }
+            else {
+                alert(response.mensaj);
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
