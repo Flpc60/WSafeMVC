@@ -948,16 +948,19 @@ namespace WSafe.Domain.Helpers.Implements
             var modelo = new List<AuthorizationVM>();
             foreach (var item in roleOperation)
             {
-                modelo.Add(new AuthorizationVM
+                if (item.RoleID != 0)
                 {
-                    ID = item.ID,
-                    RoleID = item.RoleID,
-                    Role = _gestorHelper.GetRole(item.RoleID),
-                    ComponentID = item.Component,
-                    Component = _gestorHelper.GetComponent(item.Component),
-                    OperationID = item.Operation,
-                    Operation = _gestorHelper.GetOperation(item.Operation),
-                });
+                    modelo.Add(new AuthorizationVM
+                    {
+                        ID = item.ID,
+                        RoleID = item.RoleID,
+                        Role = _gestorHelper.GetRole(item.RoleID),
+                        ComponentID = item.Component,
+                        Component = _gestorHelper.GetComponent(item.Component),
+                        OperationID = item.Operation,
+                        Operation = _gestorHelper.GetOperation(item.Operation),
+                    });
+                }
             }
             return modelo;
         }

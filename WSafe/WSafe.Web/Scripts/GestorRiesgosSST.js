@@ -1518,7 +1518,7 @@ function GestorAuthorization() {
     $("#authorize").click(function () {
         $(".tabGesAuthorize").css("display", "none");
         $(".tabCerrar").css("display", "none");
-        ShowRoles();
+        ShowAuthorizations();
     });
     $("#roles").dblclick(function () {
         $(".tabGesAuthorize").css("display", "none");

@@ -31,12 +31,12 @@ namespace WSafe.Web.Filters
                 if (result < 1)
                 {
                     textOperation = "Usted no tiene autorización para trabajar en esta página";
-                    filterContext.Result = new RedirectResult("~/Error/UnAuthorizedOperation=" + textOperation);
+                    filterContext.Result = new RedirectResult("~/Home/Error/UnAuthorizedOperation=" + textOperation);
                 }
             }
             catch (Exception ex)
             {
-                filterContext.Result = new RedirectResult("~/Error/UnAuthorizedOperation=" + ex.Message);
+                filterContext.Result = new RedirectResult("~/Home/Error/UnAuthorizedOperation=" + ex.Message);
             }
         }
     }

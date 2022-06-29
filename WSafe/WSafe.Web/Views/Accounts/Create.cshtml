@@ -37,8 +37,8 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="form-group" style="font-size:18px;width:auto">
-                    <label>Roles : </label>
-                    @Html.DropDownList("Roles", roles as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "txtRolID" })
+                    <label>Rol : </label>
+                    <input type="text" id="txtName" name="txtName" placeholder="Ingrese nombre del rol"/>
                 </div>
             </div>
             <div class="col-md-4">
@@ -66,9 +66,11 @@
     <div class="tabAddAuthorize">
         <div class="row">
             <div class="col-md-4">
-                <div class="form-group" style="font-size:18px;width:auto">
-                    <label>Rol : </label>
-                    <input type="text" id="txtRoleID" name="txtRoleID" placeholder="Ingrese nombre del rol"/>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label>Roles : </label>
+                        @Html.DropDownList("Roles", roles as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "txtRoleID" })
+                    </div>
                 </div>
             </div>
             <div class="col-md-4">
