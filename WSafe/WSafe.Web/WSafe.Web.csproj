@@ -415,6 +415,10 @@
     <Compile Include="Migrations\202206282002175_UpdateUserVM2.Designer.cs">
       <DependentUpon>202206282002175_UpdateUserVM2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202206291937260_UpdateAuthorization.cs" />
+    <Compile Include="Migrations\202206291937260_UpdateAuthorization.Designer.cs">
+      <DependentUpon>202206291937260_UpdateAuthorization.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AthorizationVM.cs" />
     <Compile Include="Models\AuthorizationVM.cs" />
@@ -635,6 +639,7 @@
     <Content Include="Views\Shared\_ShowActivitys.cshtml" />
     <Content Include="Views\Shared\_ShowTasks.cshtml" />
     <Content Include="Views\Shared\_ShowRoles.cshtml" />
+    <Content Include="Views\Shared\_ShowAuthorize.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -698,6 +703,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202206282002175_UpdateUserVM2.resx">
       <DependentUpon>202206282002175_UpdateUserVM2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206291937260_UpdateAuthorization.resx">
+      <DependentUpon>202206291937260_UpdateAuthorization.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
