@@ -416,6 +416,8 @@
       <DependentUpon>202206282002175_UpdateUserVM2.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
+    <Compile Include="Models\AthorizationVM.cs" />
+    <Compile Include="Models\AuthorizationVM.cs" />
     <Compile Include="Models\DetailsIncidentVM.cs" />
     <Compile Include="Models\IntervencionVM.cs" />
     <Compile Include="Models\MatrizRiesgosVM.cs" />

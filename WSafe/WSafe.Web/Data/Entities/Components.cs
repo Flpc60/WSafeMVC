@@ -5,12 +5,8 @@
         Organización = 1,
         Riesgos = 2,
         Incidentes = 3,
-        Inspecciones = 4,
-        Acciones = 5,
-        Actos_Condiciones = 6,
-        Auditorias = 7,
-        Indicadores = 8,
-        Usuarios = 9,
-        Herramientas = 10
+        Acciones = 4,
+        Indicadores = 5,
+        Usuarios = 6,
     }
 }

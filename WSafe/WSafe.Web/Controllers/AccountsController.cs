@@ -121,36 +121,22 @@ namespace WSafe.Web.Controllers
 
             return Json(new { data = model, mensaj = message }, JsonRequestBehavior.AllowGet);
         }
-
-        [AuthorizeUser(operation: 3, component: 9)]
-        public async Task<ActionResult> Edit(int? id)
+        public async Task<ActionResult> Create()
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = await _empresaContext.Users.FindAsync(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
+            var roleOperation = _empresaContext.RoleOperations.ToList();
+            var model = _converterHelper.ToRolOperationVM(roleOperation);
+            return View(model);
         }
-
-        // POST: Accounts/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,Name,Email,Password,RoleID")] User user)
+        public async Task<ActionResult> Create([Bind(Include = "ID,RoleID,Component, Operation")] RoleOperation model)
         {
             if (ModelState.IsValid)
             {
-                _empresaContext.Entry(user).State = EntityState.Modified;
+                _empresaContext.Entry(model).State = EntityState.Modified;
                 await _empresaContext.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(user);
+            return View(model);
         }
         [AuthorizeUser(operation: 4, component: 9)]
         public async Task<ActionResult> Delete(int? id)

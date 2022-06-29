@@ -428,5 +428,51 @@ namespace WSafe.Domain.Helpers.Implements
         {
             return _empresaContext.Roles.FirstOrDefault(r => r.ID == role).Name.ToUpper().Trim();
         }
+        public string GetComponent(int component)
+        {
+            switch (component)
+            {
+                case (int)Components.Organización:
+                    return "Organización";
+
+                case (int)Components.Riesgos:
+                    return "Riesgos";
+
+                case (int)Components.Incidentes:
+                    return "Incidentes";
+
+                case (int)Components.Acciones:
+                    return "Acciones";
+
+                case (int)Components.Indicadores:
+                    return "Indicadores";
+
+                case (int)Components.Usuarios:
+                    return "Usuarios";
+
+                default:
+                    return "Riesgos";
+            }
+        }
+        public string GetOperation(int operation)
+        {
+            switch (operation)
+            {
+                case (int)Operations.Consultar:
+                    return "Consultar";
+
+                case (int)Operations.Modificar:
+                    return "Modificar";
+
+                case (int)Operations.Adicionar:
+                    return "Adicionar";
+
+                case (int)Operations.Borrar:
+                    return "Borrar";
+
+                default:
+                    return "Consultar";
+            }
+        }
     }
 }
