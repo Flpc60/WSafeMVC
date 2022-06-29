@@ -25,5 +25,7 @@ namespace WSafe.Domain.Helpers
         string GetCategoriaAplicacion(CategoriaAplicacion categoria);
         string GetPeriodo(int[] periodo);
         string GetRole(int role);
+        string GetComponent(int component);
+        string GetOperation(int operation);
     }
 }

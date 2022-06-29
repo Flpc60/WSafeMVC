@@ -196,6 +196,8 @@
     <Compile Include="Models\AccionViewModel.cs" />
     <Compile Include="Models\AplicacionVM.cs" />
     <Compile Include="Models\AplicationsViewModel.cs" />
+    <Compile Include="Models\AthorizationVM.cs" />
+    <Compile Include="Models\AuthorizationVM.cs" />
     <Compile Include="Models\ControlViewModel.cs" />
     <Compile Include="Models\CreateIndicatorsViewModel.cs" />
     <Compile Include="Models\DetailsIncidentVM.cs" />
