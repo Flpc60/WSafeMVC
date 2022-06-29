@@ -42,9 +42,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Role)
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            <td style="font-size:15px">
+                @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) |
+                <a href="#" onclick="DeleteUser('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
             </td>
         </tr>
     }

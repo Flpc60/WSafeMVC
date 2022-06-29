@@ -245,5 +245,33 @@ namespace WSafe.Web.Controllers
                 return Json(new { result = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteUser(int id)
+        {
+
+            var message = "";
+            try
+            {
+                User user = await _empresaContext.Users.FindAsync(id);
+                var role = (int)Session["roleID"];
+
+                // Validar retiro de usuario
+                if (user.RoleID == role)
+                {
+                    message = "Este usuario NO se puede borrar por estar en el sistema!!";
+                    return Json(new { result = "Redirect", url = Url.Action("Index", "Accounts"), mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                message = "El usuario fué borrado correctamente!!";
+                _empresaContext.Users.Remove(user);
+                await _empresaContext.SaveChangesAsync();
+                return Json(new { result = "Redirect", url = Url.Action("Index", "Accounts"), mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+                return Json(new { result = "Redirect", url = Url.Action("Index", "Accounts"), mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

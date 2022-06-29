@@ -2276,3 +2276,29 @@ function LoginUser() {
 function SelectComponent() {
     $("#txtComponent").val(document.getElementById("txtComponent").value);
 }
+
+function DeleteUser(id) {
+    // Eliminar un usuario
+    var text = "";
+    text += "Esta seguro de querer borrar este usuario ? :" + id + "\n\n";
+    var respuesta = confirm(text);
+    if (respuesta == true) {
+        $.ajax({
+            url: "/Accounts/DeleteUser/" + id,
+            type: "POST",
+            contentType: "application/json;charset=UTF-8",
+            dataType: "json",
+            async: true,
+            success: function (response) {
+                alert(response.mensaj);
+                if (response.result == 'Redirect') {
+                    window.location = response.url;
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        });
+    }
+}
