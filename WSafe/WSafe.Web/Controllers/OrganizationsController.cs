@@ -28,57 +28,6 @@ namespace WSafe.Web.Controllers
             Organization organization = await _empresaContext.Organizations.FindAsync(id);
             return View(organization);
         }
-        public ActionResult GetAllRoles()
-        {
-            var roles = _comboHelper.GetAllRoles();
-            return View(roles);
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> CreateRole(Role model)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    _empresaContext.Roles.Add(model);
-                    await _empresaContext.SaveChangesAsync();
-                    return Json(model, JsonRequestBehavior.AllowGet);
-                }
-                return Json(new { data = model, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
-            }
-            catch
-            {
-                return Json(new { data = model, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> DeleteRole(int id)
-        {
-            try
-            {
-                Role role = await _empresaContext.Roles.FindAsync(id);
-
-                // Validar retiro de rol
-                var message = "";
-                var users = _empresaContext.Users.Where(t => t.RoleID == id).Count();
-                if (users != 0)
-                {
-                    message = "Este rol no se puede eliminar por estar asignado  a un usuario!!";
-                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
-                }
-
-                message = "Este rol fué eliminado correctamente!!";
-                _empresaContext.Roles.Remove(role);
-                await _empresaContext.SaveChangesAsync();
-                return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
-            }
-            catch
-            {
-                return Json(new { error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
-            }
-        }
         public ActionResult GetAllCargos()
         {
             var cargos = _comboHelper.GetAllCargos();

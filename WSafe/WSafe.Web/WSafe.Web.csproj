@@ -634,6 +634,7 @@
     <Content Include="Views\Shared\_ShowProcess.cshtml" />
     <Content Include="Views\Shared\_ShowActivitys.cshtml" />
     <Content Include="Views\Shared\_ShowTasks.cshtml" />
+    <Content Include="Views\Shared\_ShowRoles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
