@@ -20,6 +20,7 @@ namespace WSafe.Domain.Helpers
         IEnumerable<SelectListItem> GetComboRiesgo();
         IEnumerable<SelectListItem> GetAllCausas();
         IEnumerable<Role> GetAllRoles();
+        IEnumerable<RoleOperation> GetAllAuthorizations();
         IEnumerable<Cargo> GetAllCargos();
         IEnumerable<Zona> GetAllZonas();
         IEnumerable<Proceso> GetAllProcess();

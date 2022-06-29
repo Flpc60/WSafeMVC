@@ -121,49 +121,57 @@ namespace WSafe.Web.Controllers
 
             return Json(new { data = model, mensaj = message }, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult GetAllAuthorizations()
+        {
+            var authorize = _comboHelper.GetAllAuthorizations();
+            var model = _converterHelper.ToRolOperationVM(authorize);
+            return View(model);
+        }
         public async Task<ActionResult> Create()
         {
-            var roleOperation = _empresaContext.RoleOperations.ToList();
-            var model = _converterHelper.ToRolOperationVM(roleOperation);
-            return View(model);
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CreateRoleOperation([Bind(Include = "ID,RoleID,Operation, Component")] RoleOperation model)
+        {
+            var message = "";
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    message = "El registro ha sido ingresado exotosamente!!";
+                    _empresaContext.RoleOperations.Add(model);
+                    await _empresaContext.SaveChangesAsync();
+                    return Json(new { result = model, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                message = "El registro NO ha sido ingresado exotosamente!!";
+                return Json(new { result = model, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+                return Json(new { result = model, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
         }
         [HttpPost]
-        public async Task<ActionResult> Create([Bind(Include = "ID,RoleID,Component, Operation")] RoleOperation model)
+        public async Task<ActionResult> DeleteAuthorization(int id)
         {
-            if (ModelState.IsValid)
+            var message = "";
+            try
             {
-                _empresaContext.Entry(model).State = EntityState.Modified;
+                message = "El registro ha sido eliminado satisfactoriamente!!";
+                RoleOperation authorization = await _empresaContext.RoleOperations.FindAsync(id);
+                _empresaContext.RoleOperations.Remove(authorization);
                 await _empresaContext.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return Json(new { result = true, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
-            return View(model);
-        }
-        [AuthorizeUser(operation: 4, component: 9)]
-        public async Task<ActionResult> Delete(int? id)
-        {
-            if (id == null)
+            catch (Exception ex)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                message = ex.Message;
+                return Json(new { result = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
-            User user = await _empresaContext.Users.FindAsync(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
         }
-
-        // POST: Accounts/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
-        {
-            User user = await _empresaContext.Users.FindAsync(id);
-            _empresaContext.Users.Remove(user);
-            await _empresaContext.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -177,6 +185,61 @@ namespace WSafe.Web.Controllers
             Session.Abandon();
             FormsAuthentication.SignOut();
             return null;
+        }
+        public ActionResult GetAllRoles()
+        {
+            var roles = _comboHelper.GetAllRoles();
+            return View(roles);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CreateRole(Role model)
+        {
+            var message = "";
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    message = "El registro ha sido ingresado correctamente!!";
+                    _empresaContext.Roles.Add(model);
+                    await _empresaContext.SaveChangesAsync();
+                    return Json(model, JsonRequestBehavior.AllowGet);
+                }
+                return Json(new { result = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+                return Json(new { result = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteRole(int id)
+        {
+            var message = "";
+            try
+            {
+                Role role = await _empresaContext.Roles.FindAsync(id);
+
+                // Validar retiro de rol
+                var users = _empresaContext.Users.Where(t => t.RoleID == id).Count();
+                if (users != 0)
+                {
+                    message = "Este rol NO se puede eliminar por estar asignado  a un usuario!!";
+                    return Json(new { result = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+
+                message = "Este rol fué eliminado correctamente!!";
+                _empresaContext.Roles.Remove(role);
+                await _empresaContext.SaveChangesAsync();
+                return Json(new { result = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+                return Json(new { result = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

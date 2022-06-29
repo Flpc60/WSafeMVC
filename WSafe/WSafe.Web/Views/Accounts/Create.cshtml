@@ -1,67 +1,139 @@
-﻿@model WSafe.Domain.Data.Entities.User
-
-@{
-    ViewBag.Title = "Create";
+﻿@{
+    var title = "GESTIÓN AUTORIZACIONES";
 }
+<style>
+    .tabGesRoles, .tabGesAuthorize, .tabAddRoles, .tabAddAuthorize
+    {
+        display: none;
+    }
+</style>
 
-<h2>Create</h2>
+<hr />
+<hr />
+<h4>@title</h4>
+<div class="row">
+    <div class="col-md-4">
+        <button type="button" class="btn btn-info" id="roles" title="doble click para cerrar la ventana">ROLES</button>
+        <button type="button" class="btn btn-info" id="authorize" title="doble click para cerrar la ventana">AUTORIZACIONES</button>
+    </div>
+    <div class="col-md-8">
+    </div>
+</div>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>User</h4>
+
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="tabGesRoles">
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        @Html.Partial("_ShowRoles")
+    </div>
+
+    <div class="tabAddRoles">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group" style="font-size:18px;width:auto">
+                    <label>Nombre del rol : </label>
+                    <input type="text" id="txtName" name="txtName" placeholder="Ingrese nombre del rol" />
+                </div>
+            </div>
+            <div class="col-md-4">
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        <hr />
+        <div class="row">
+            <div class="col-md-8">
+                <hr />
+                <button type="button" id="btnAddRole" class="btn btn-primary" onclick="AddRole()">Adicionar</button>
+                <button type="button" id="btnCanRole" class="btn btn-primary" onclick="CancelRole()">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                </button>
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Fecha, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Fecha, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.RoleID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.RoleID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RoleID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div class="col-md-4">
             </div>
         </div>
     </div>
+
+    <div class="tabGesAuthorize">
+        <hr />
+        @Html.Partial("_ShowAuthorize")
+    </div>
+
+    <div class="tabAddAuthorize">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group" style="font-size:18px;width:auto">
+                    <label>Rol : </label>
+                    <input type="text" id="txtName" name="txtName" placeholder="Ingrese nombre del rol" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label>Componente : </label>
+                <select id="txtComponent" onchange="SelectComponent()">
+                    <option value="1">Organización</option>
+                    <option value="2">Riesgos</option>
+                    <option value="3">Incidentes</option>
+                    <option value="4">Acciones</option>
+                    <option value="5">Indicadores</option>
+                    <option value="6">Usuarios</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label>Acción : </label>
+                <select id="txtName" onchange="SelectOperation()">
+                    <option value="1">Consultar</option>
+                    <option value="2">Adicionar</option>
+                    <option value="3">Modificar</option>
+                    <option value="4">Borrar</option>
+                </select>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-8">
+                <hr />
+                <button type="button" id="btnAddRole" class="btn btn-primary" onclick="AddRole()">Adicionar</button>
+                <button type="button" id="btnCanRole" class="btn btn-primary" onclick="CancelRole()">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                </button>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+
+</div>
 }
 
+<hr />
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    <div class="tabCerrar">
+        @Html.ActionLink("Cerrar", "Index", "Home", new { @class = "glyphicon glyphicon-arrow-left" },
+        new { @class = "btn btn-success btn-lg active" })
+    </div>
 </div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+
+        function CancelRole() {
+            $(".tabAddRoles").css("display", "none");
+            $("#txtName").val("");
+        }
+
+        function CancelAuthorize() {
+            $(".tabAddRoles").css("display", "none");
+            $("#txtName").val("");
+        }
+
+        $(document).ready(function () {
+            ClearTextBox();
+            GestorAuthorization();
+        });
+
+    </script>
+}
