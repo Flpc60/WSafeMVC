@@ -987,7 +987,7 @@ function DeleteRole(id) {
 }
 
 function DeleteRoleOperation(id) {
-    // Eliminar un rol
+    // Eliminar una autorización
     var text = "";
     text += "Esta seguro de querer borrar esta autorización ? :" + id + "\n\n";
     var respuesta = confirm(text);
@@ -998,8 +998,8 @@ function DeleteRoleOperation(id) {
             contentType: "application/json;charset=UTF-8",
             dataType: "json",
             async: true,                                               // si es asincrónico o no
-            success: function (result) {
-                alert(result.mensaj);
+            success: function (response) {
+                alert(response.mensaj);
                 ShowAuthorizations();
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -1531,6 +1531,11 @@ function GestorAuthorization() {
         $(".tabCerrar").css("display", "none");
         $("#btnAddRole").show();
     });
+    $("#addAuthorize").click(function () {
+        $(".tabAddAuthorize").css("display", "block");
+        $(".tabCerrar").css("display", "none");
+        $("#btnAddAthorize").show();
+    });
 
 }
 
@@ -2052,7 +2057,7 @@ function AddRole() {
 }
 
 function AddAuthorization() {
-    // Crea un nuevo role
+    // Crea una nueva autorización
     $(".tabAddAuthorize").css("display", "none");
     var roleVM = {
         ID: "0",
@@ -2065,7 +2070,8 @@ function AddAuthorization() {
         url: "/Accounts/CreateRoleOperation",
         data: { model: roleVM },
         dataType: "json",
-        success: function (accidenID) {
+        success: function (response) {
+            alert(response.mensaj);
             $("#btnAddAuthorize").hide();
             ShowAuthorizations();
         },
@@ -2268,6 +2274,5 @@ function LoginUser() {
 }
 
 function SelectComponent() {
-    var x = document.getElementById("component").value;
+    $("#txtComponent").val(document.getElementById("txtComponent").value);
 }
-

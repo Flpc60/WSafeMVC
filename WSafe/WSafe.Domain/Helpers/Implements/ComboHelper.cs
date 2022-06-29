@@ -344,7 +344,7 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public IEnumerable<Role> GetAllRoles()
         {
-            return _empresaContext.Roles.ToList();
+            return _empresaContext.Roles.OrderBy(c => c.Name).ToList();
         }
         public IEnumerable<Cargo> GetAllCargos()
         {
@@ -365,6 +365,11 @@ namespace WSafe.Domain.Helpers.Implements
         public IEnumerable<Tarea> GetAllTareas()
         {
             return _empresaContext.Tareas.OrderBy(t => t.Descripcion).ToList();
+        }
+
+        public IEnumerable<RoleOperation> GetAllAuthorizations()
+        {
+            return _empresaContext.RoleOperations.ToList();
         }
     }
 }

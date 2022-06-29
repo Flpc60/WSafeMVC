@@ -1,5 +1,6 @@
 ﻿@{
     var title = "GESTIÓN AUTORIZACIONES";
+    var roles = ViewBag.roles;
 }
 <style>
     .tabGesRoles, .tabGesAuthorize, .tabAddRoles, .tabAddAuthorize
@@ -36,8 +37,8 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="form-group" style="font-size:18px;width:auto">
-                    <label>Nombre del rol : </label>
-                    <input type="text" id="txtName" name="txtName" placeholder="Ingrese nombre del rol" />
+                    <label>Roles : </label>
+                    @Html.DropDownList("Roles", roles as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "txtRolID" })
                 </div>
             </div>
             <div class="col-md-4">
@@ -67,36 +68,40 @@
             <div class="col-md-4">
                 <div class="form-group" style="font-size:18px;width:auto">
                     <label>Rol : </label>
-                    <input type="text" id="txtName" name="txtName" placeholder="Ingrese nombre del rol" />
+                    <input type="text" id="txtRoleID" name="txtRoleID" placeholder="Ingrese nombre del rol"/>
                 </div>
             </div>
             <div class="col-md-4">
-                <label>Componente : </label>
-                <select id="txtComponent" onchange="SelectComponent()">
-                    <option value="1">Organización</option>
-                    <option value="2">Riesgos</option>
-                    <option value="3">Incidentes</option>
-                    <option value="4">Acciones</option>
-                    <option value="5">Indicadores</option>
-                    <option value="6">Usuarios</option>
-                </select>
+                <div class="form-group" style="font-size:18px;width:auto">
+                    <label>Componente : </label>
+                    <select id="txtComponent">
+                        <option value="1">Organización</option>
+                        <option value="2">Riesgos</option>
+                        <option value="3">Incidentes</option>
+                        <option value="4">Acciones</option>
+                        <option value="5">Indicadores</option>
+                        <option value="6">Usuarios</option>
+                    </select>
+                </div>
             </div>
             <div class="col-md-4">
-                <label>Acción : </label>
-                <select id="txtName" onchange="SelectOperation()">
-                    <option value="1">Consultar</option>
-                    <option value="2">Adicionar</option>
-                    <option value="3">Modificar</option>
-                    <option value="4">Borrar</option>
-                </select>
+                <div class="form-group" style="font-size:18px;width:auto">
+                    <label>Acción : </label>
+                    <select id="txtOperation">
+                        <option value="1">Consultar</option>
+                        <option value="2">Adicionar</option>
+                        <option value="3">Modificar</option>
+                        <option value="4">Borrar</option>
+                    </select>
+                </div>
             </div>
         </div>
         <hr />
         <div class="row">
             <div class="col-md-8">
                 <hr />
-                <button type="button" id="btnAddRole" class="btn btn-primary" onclick="AddRole()">Adicionar</button>
-                <button type="button" id="btnCanRole" class="btn btn-primary" onclick="CancelRole()">
+                <button type="button" id="btnAddAthorize" class="btn btn-primary" onclick="AddAuthorization()">Adicionar</button>
+                <button type="button" id="btnCanAuthorize" class="btn btn-primary" onclick="CancelAuthorize()">
                     <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
                 </button>
             </div>

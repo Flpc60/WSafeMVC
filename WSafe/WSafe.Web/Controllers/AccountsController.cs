@@ -127,8 +127,9 @@ namespace WSafe.Web.Controllers
             var model = _converterHelper.ToRolOperationVM(authorize);
             return View(model);
         }
-        public async Task<ActionResult> Create()
+        public ActionResult Create()
         {
+            ViewBag.roles = _comboHelper.GetAllRoles();
             return View();
         }
 
