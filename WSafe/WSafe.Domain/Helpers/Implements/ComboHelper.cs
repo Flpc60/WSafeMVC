@@ -342,9 +342,23 @@ namespace WSafe.Domain.Helpers.Implements
 
             return list;
         }
-        public IEnumerable<Role> GetAllRoles()
+        public IEnumerable<SelectListItem> GetAllRoles()
         {
-            return _empresaContext.Roles.OrderBy(c => c.Name).ToList();
+            var list = _empresaContext.Roles.Select(r => new SelectListItem
+            {
+                Text = r.Name,
+                Value = r.ID.ToString()
+            })
+                .OrderBy(t => t.Text)
+                .ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione un rol...)",
+                Value = "0"
+            });
+
+            return list;
         }
         public IEnumerable<Cargo> GetAllCargos()
         {
@@ -370,6 +384,10 @@ namespace WSafe.Domain.Helpers.Implements
         public IEnumerable<RoleOperation> GetAllAuthorizations()
         {
             return _empresaContext.RoleOperations.ToList();
+        }
+        public IEnumerable<Role> GetNameRoles()
+        {
+            return _empresaContext.Roles.ToList();
         }
     }
 }

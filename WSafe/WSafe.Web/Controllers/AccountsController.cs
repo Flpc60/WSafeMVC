@@ -91,7 +91,6 @@ namespace WSafe.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> Edit(RoleUserVM model)
         {
-            var message = "";
             try
             {
                 if (ModelState.IsValid)
@@ -103,12 +102,10 @@ namespace WSafe.Web.Controllers
                 }
                 return View(model);
             }
-            catch (Exception ex)
+            catch
             {
-                message = ex.Message;
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            return Json(new { data = model, mensaj = message }, JsonRequestBehavior.AllowGet);
         }
         public async Task<ActionResult> Details(int? id)
         {

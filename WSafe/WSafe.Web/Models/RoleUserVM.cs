@@ -7,12 +7,18 @@ namespace WSafe.Web.Models
     public class RoleUserVM
     {
         public int ID { get; set; }
-        [Display(Name = "Nombre usuario")]
+        [Required(ErrorMessage = "El campo {0} es obligatotio")]
+        [Display(Name = "Usuario")]
+        [MaxLength(50)]
         public string Name { get; set; }
-        [Display(Name = "Correo electrónico")]
+        [Required(ErrorMessage = "El campo {0} es obligatotio")]
+        [Display(Name = "Correo")]
+        [MaxLength(50)]
         public string Email { get; set; }
-        [Display(Name = "Rol usuario")]
-        public string Role { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatotio")]
+        [Display(Name = "Contraseña")]
+        [MaxLength(100)]
+        public string Password { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Perfiles usuario")]
         public int RoleID { get; set; }

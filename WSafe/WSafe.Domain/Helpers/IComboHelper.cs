@@ -19,12 +19,13 @@ namespace WSafe.Domain.Helpers
         IEnumerable<SelectListItem> GetNivelConsecuencias();
         IEnumerable<SelectListItem> GetComboRiesgo();
         IEnumerable<SelectListItem> GetAllCausas();
-        IEnumerable<Role> GetAllRoles();
+        IEnumerable<SelectListItem> GetAllRoles();
         IEnumerable<RoleOperation> GetAllAuthorizations();
         IEnumerable<Cargo> GetAllCargos();
         IEnumerable<Zona> GetAllZonas();
         IEnumerable<Proceso> GetAllProcess();
         IEnumerable<Actividad> GetAllActivitys();
         IEnumerable<Tarea> GetAllTareas();
+        IEnumerable<Role> GetNameRoles();
     }
 }

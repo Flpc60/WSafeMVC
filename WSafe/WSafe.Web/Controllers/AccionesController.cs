@@ -9,6 +9,7 @@ using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Helpers;
 using WSafe.Domain.Repositories.Implements;
 using WSafe.Domain.Services.Implements;
+using WSafe.Web.Filters;
 using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
@@ -33,7 +34,7 @@ namespace WSafe.Web.Controllers
             _gestorHelper = gestorHelper;
         }
 
-        // Listar todas las acciones abiertas en orden de fecha de solicitud
+        [AuthorizeUser(operation: 1, component: 4)]
         public async Task<ActionResult> Index()
         {
             var list = await _empresaContext.Acciones
@@ -44,7 +45,7 @@ namespace WSafe.Web.Controllers
             return View(modelo);
         }
 
-        // GET: Acciones/Create
+        [AuthorizeUser(operation: 2, component: 4)]
         public ActionResult Create()
         {
             var model = _converterHelper.ToAccionViewModelNew();
@@ -52,13 +53,13 @@ namespace WSafe.Web.Controllers
             return View(model);
         }
 
-        // POST: Acciones/Create
         [HttpPost]
         public ActionResult Create(AccionViewModel model)
         {
             return RedirectToAction("Index", model);
         }
 
+        [AuthorizeUser(operation: 3, component: 4)]
         public async Task<ActionResult> Edit(int? id)
         {
             //TODO
@@ -94,6 +95,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
+        [AuthorizeUser(operation: 4, component: 4)]
         public async Task<ActionResult> DeleteAccion(int? id)
         {
             if (id == null)
@@ -135,7 +137,6 @@ namespace WSafe.Web.Controllers
             return Json(new { data = true, message = "El registro ha sido eliminado exitosamente" }, JsonRequestBehavior.AllowGet);
         }
 
-        // GET: Plan acción/Create
         [HttpGet]
         public ActionResult CreatePlanAccion(int idAccion)
         {
@@ -169,7 +170,6 @@ namespace WSafe.Web.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
-        // GET: Seguimineto Plan acción/Create
         [HttpGet]
         public ActionResult CreateSeguimientoPlan(int idAccion)
         {
@@ -209,7 +209,7 @@ namespace WSafe.Web.Controllers
         {
             if (model == null)
             {
-                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
             try
@@ -234,7 +234,7 @@ namespace WSafe.Web.Controllers
         {
             if (idAccion == null)
             {
-                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
             //TODO
