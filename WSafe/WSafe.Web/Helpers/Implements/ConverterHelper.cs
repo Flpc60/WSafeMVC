@@ -930,14 +930,24 @@ namespace WSafe.Domain.Helpers.Implements
         public IEnumerable<UserViewModel> ToUsersVM(IEnumerable<User> userList)
         {
             var modelo = new List<UserViewModel>();
+            var role = " ";
             foreach (var item in userList)
             {
+                if (item.RoleID != 0)
+                {
+                    role = _gestorHelper.GetRole(item.RoleID);
+                }
+                else
+                {
+                    role = "No tiene permisos";
+                }
+
                 modelo.Add(new UserViewModel
                 {
                     ID = item.ID,
                     Name = item.Name,
                     Email = item.Email,
-                    Role = _gestorHelper.GetRole(item.RoleID)
+                    Role = role
                 });
             }
             return modelo;
@@ -946,23 +956,53 @@ namespace WSafe.Domain.Helpers.Implements
         public IEnumerable<AuthorizationVM> ToRolOperationVM(IEnumerable<RoleOperation> roleOperation)
         {
             var modelo = new List<AuthorizationVM>();
+            var role = " ";
             foreach (var item in roleOperation)
             {
                 if (item.RoleID != 0)
                 {
-                    modelo.Add(new AuthorizationVM
-                    {
-                        ID = item.ID,
-                        RoleID = item.RoleID,
-                        Role = _gestorHelper.GetRole(item.RoleID),
-                        ComponentID = item.Component,
-                        Component = _gestorHelper.GetComponent(item.Component),
-                        OperationID = item.Operation,
-                        Operation = _gestorHelper.GetOperation(item.Operation),
-                    });
+                    role = _gestorHelper.GetRole(item.RoleID);
                 }
+                else
+                {
+                    role = "No tiene permisos";
+                }
+                modelo.Add(new AuthorizationVM
+                {
+                    ID = item.ID,
+                    RoleID = item.RoleID,
+                    Role = role,
+                    ComponentID = item.Component,
+                    Component = _gestorHelper.GetComponent(item.Component),
+                    OperationID = item.Operation,
+                    Operation = _gestorHelper.GetOperation(item.Operation),
+                });
             }
             return modelo;
+        }
+
+        public RoleUserVM ToAuthorizationVM(User user)
+        {
+            var modelo = new RoleUserVM()
+            {
+                ID = user.ID,
+                Name = user.Name,
+                Email = user.Email,
+                RoleID = user.RoleID,
+                Roles = _comboHelper.GetAllRoles()
+            };
+            return modelo;
+        }
+        public async Task<User> ToUserAsync(RoleUserVM user)
+        {
+            var result = new User
+            {
+                ID = user.ID,
+                Name = user.Name,
+                Email = user.Email,
+                RoleID = user.RoleID
+            };
+            return result;
         }
     }
 }

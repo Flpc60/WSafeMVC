@@ -38,5 +38,7 @@ namespace WSafe.Domain.Helpers
         DetailsIncidentVM ToIncidentVMFull(Incidente incidente, int id);
         IEnumerable<UserViewModel> ToUsersVM(IEnumerable<User> userList);
         IEnumerable<AuthorizationVM> ToRolOperationVM(IEnumerable<RoleOperation> roleOperation);
+        RoleUserVM ToAuthorizationVM(User user);
+        Task<User> ToUserAsync(RoleUserVM user);
     }
 }
