@@ -988,6 +988,7 @@ namespace WSafe.Domain.Helpers.Implements
                 ID = user.ID,
                 Name = user.Name,
                 Email = user.Email,
+                Password = user.Password,
                 RoleID = user.RoleID,
                 Roles = _comboHelper.GetAllRoles()
             };
@@ -1000,6 +1001,7 @@ namespace WSafe.Domain.Helpers.Implements
                 ID = user.ID,
                 Name = user.Name,
                 Email = user.Email,
+                Password = user.Password,
                 RoleID = user.RoleID
             };
             return result;
