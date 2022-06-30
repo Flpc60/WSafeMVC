@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -73,8 +74,42 @@ namespace WSafe.Web.Controllers
                 return Json(new { result = "", url = Url.Action("Index", "Home"), mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
+        public async Task<ActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            User user = await _empresaContext.Users.FindAsync(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            var model = _converterHelper.ToAuthorizationVM(user);
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<ActionResult> Edit(RoleUserVM model)
+        {
+            var message = "";
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    User user = await _converterHelper.ToUserAsync(model);
+                    _empresaContext.Entry(user).State = EntityState.Modified;
+                    await _empresaContext.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
 
-        // GET: Accounts/Details/5
+            return Json(new { data = model, mensaj = message }, JsonRequestBehavior.AllowGet);
+        }
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
