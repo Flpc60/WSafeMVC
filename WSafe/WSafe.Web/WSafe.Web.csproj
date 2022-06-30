@@ -419,6 +419,14 @@
     <Compile Include="Migrations\202206291937260_UpdateAuthorization.Designer.cs">
       <DependentUpon>202206291937260_UpdateAuthorization.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202206301522249_UpdateRoleUserVM.cs" />
+    <Compile Include="Migrations\202206301522249_UpdateRoleUserVM.Designer.cs">
+      <DependentUpon>202206301522249_UpdateRoleUserVM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206301546428_UpdateRoleUserVM2.cs" />
+    <Compile Include="Migrations\202206301546428_UpdateRoleUserVM2.Designer.cs">
+      <DependentUpon>202206301546428_UpdateRoleUserVM2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AuthorizationVM.cs" />
     <Compile Include="Models\DetailsIncidentVM.cs" />
@@ -705,6 +713,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202206291937260_UpdateAuthorization.resx">
       <DependentUpon>202206291937260_UpdateAuthorization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206301522249_UpdateRoleUserVM.resx">
+      <DependentUpon>202206301522249_UpdateRoleUserVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206301546428_UpdateRoleUserVM2.resx">
+      <DependentUpon>202206301546428_UpdateRoleUserVM2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
