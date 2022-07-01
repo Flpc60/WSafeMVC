@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Helpers;
+using WSafe.Web.Filters;
 using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
@@ -21,6 +22,7 @@ namespace WSafe.Web.Controllers
             _comboHelper = comboHelper;
             _converterHelper = converterHelper;
         }
+        [AuthorizeUser(operation: 1, component: 1)]
         public async Task<ActionResult> Index()
         {
             var id = _empresaContext.Organizations.OrderByDescending(x => x.ID).First().ID;
@@ -383,6 +385,7 @@ namespace WSafe.Web.Controllers
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
+        [AuthorizeUser(operation: 4, component: 1)]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)

@@ -10,6 +10,7 @@ using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Helpers;
 using WSafe.Domain.Repositories.Implements;
 using WSafe.Domain.Services.Implements;
+using WSafe.Web.Filters;
 using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
@@ -27,6 +28,8 @@ namespace WSafe.Web.Controllers
             _converterHelper = converterHelper;
             _chartHelper = chartHelper;
         }
+
+        [AuthorizeUser(operation: 1, component: 3)]
         public async Task<ActionResult> Index()
         {
             var consulta = new IncidenteService(new IncidenteRepository(_empresaContext));
@@ -49,6 +52,7 @@ namespace WSafe.Web.Controllers
 
             return View(result);
         }
+        [AuthorizeUser(operation: 2, component: 3)]
         public ActionResult Create()
         {
             var incidenteView = _converterHelper.ToIncidenteViewModelNew();
@@ -80,6 +84,7 @@ namespace WSafe.Web.Controllers
             }
         }
         [HttpGet]
+        [AuthorizeUser(operation: 3, component: 3)]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -122,7 +127,7 @@ namespace WSafe.Web.Controllers
             }
         }
 
-        // GET: Riesgos/Delete/5
+        [AuthorizeUser(operation: 4, component: 3)]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -322,6 +327,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
+        [AuthorizeUser(operation: 4, component: 3)]
         public async Task<ActionResult> DeleteIncident(int? id)
         {
             if (id == null)

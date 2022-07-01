@@ -74,6 +74,7 @@ namespace WSafe.Web.Controllers
                 return Json(new { result = "", url = Url.Action("Index", "Home"), mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
+        [AuthorizeUser(operation: 3, component: 6)]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -160,6 +161,7 @@ namespace WSafe.Web.Controllers
             var model = _converterHelper.ToRolOperationVM(authorize);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
+        [AuthorizeUser(operation: 2, component: 6)]
         public ActionResult Create()
         {
             ViewBag.roles = _comboHelper.GetAllRoles();

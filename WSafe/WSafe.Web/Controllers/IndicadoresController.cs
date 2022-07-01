@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using WSafe.Domain.Helpers;
 using WSafe.Domain.Helpers.Implements;
+using WSafe.Web.Filters;
 using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
@@ -35,7 +36,7 @@ namespace WSafe.Web.Controllers
             _gestorHelper = gestorHelper;
 
         }
-
+        [AuthorizeUser(operation: 1, component: 5)]
         public ActionResult Index()
         {
             try
