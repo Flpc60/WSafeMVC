@@ -27,7 +27,7 @@ namespace WSafe.Web.Filters
             try
             {
                 _roleID = (int)HttpContext.Current.Session["roleID"]; // castear _roleID (int)
-                var result = _empresaContext.RoleOperations.Where(ro => ro.RoleID == 1 && ro.Operation == _operation && ro.Component == _component).Count();
+                var result = _empresaContext.RoleOperations.Where(ro => ro.RoleID == _roleID && ro.Operation == _operation && ro.Component == _component).Count();
                 if (result < 1)
                 {
                     textOperation = "Usted no tiene autorización para trabajar en esta página";
