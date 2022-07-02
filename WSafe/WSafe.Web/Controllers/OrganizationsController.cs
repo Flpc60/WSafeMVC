@@ -49,12 +49,12 @@ namespace WSafe.Web.Controllers
                     await _empresaContext.SaveChangesAsync();
                     return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
-                message = "El cargo no fué ingresado correctamente!!";
+                message = "El cargo NO fué ingresado correctamente!!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
-                return Json(new { data = model, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
+                return Json(new { data = model, error = "El registro NO se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
             }
         }
 

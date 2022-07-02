@@ -65,15 +65,15 @@
 
     <div class="tabAddAuthorize">
         <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <div class="col-md-4">
+            <div class="col-md-6">
+                <div class="form-group" style="font-size:18px;width:auto">
+                    <div class="col-md-8">
                         <label>Roles : </label>
                         @Html.DropDownList("Roles", roles as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "txtRoleID" })
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="form-group" style="font-size:18px;width:auto">
                     <label>Componente : </label>
                     <select id="txtComponent">
@@ -86,7 +86,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="form-group" style="font-size:18px;width:auto">
                     <label>Acción : </label>
                     <select id="txtOperation">

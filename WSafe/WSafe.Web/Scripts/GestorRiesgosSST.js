@@ -278,7 +278,7 @@ function ShowCargos() {
             var html = '';
             $.each(result, function (key, item) {
                 html += '<tr>';
-                html += '<td>' + item.ID + '</td>';
+                html += '<td>' + item.Codigo + '</td>';
                 html += '<td>' + item.Descripcion + '</td>';
                 html += '<td><a href = "#" onclick = "DeleteCargo(' + item.ID + ')"> Borrar</a></td>';
                 html += '</tr>';
@@ -1542,117 +1542,108 @@ function GestorAuthorization() {
 function GestorOrganization() {
     //Activa ventanas para gestionar crud de organización
     $("#basics").click(function () {
+        ResetTab();
         $(".tabBasics").css("display", "block");
-        $(".tabAddCargos").css("display", "none");
-        $(".tabAddZones").css("display", "none");
-        $(".tabProcess").css("display", "none");
-        $(".tabActivitys").css("display", "none");
-        $(".tabTasks").css("display", "none");
-        $(".tabGesCargos").css("display", "none");
-        $(".tabGesZones").css("display", "none");
-        $(".tabGesProcess").css("display", "none");
-        $(".tabGesActivitys").css("display", "none");
-        $(".tabGesTasks").css("display", "none");
-        $(".tabCerrar").css("display", "none");
     });
     $("#basics").dblclick(function () {
-        $(".tabBasics").css("display", "none");
-        $(".tabAddCargos").css("display", "none");
-        $(".tabAddZones").css("display", "none");
-        $(".tabProcess").css("display", "none");
-        $(".tabActivitys").css("display", "none");
-        $(".tabTasks").css("display", "none");
-        $(".tabGesCargos").css("display", "none");
-        $(".tabGesZones").css("display", "none");
-        $(".tabGesProcess").css("display", "none");
-        $(".tabGesActivitys").css("display", "none");
-        $(".tabGesTasks").css("display", "none");
-        $(".tabCerrar").css("display", "block");
+        ResetTab();
     });
 
     $("#cargos").click(function () {
+        ResetTab();
         $(".tabGesCargos").css("display", "block");
         $(".tabCerrar").css("display", "none");
         ShowCargos();
     });
     $("#cargos").dblclick(function () {
-        $(".tabAddCargos").css("display", "none");
-        $(".tabGesCargos").css("display", "none");
-        $(".tabCerrar").css("display", "block");
+        ResetTab();
     });
 
     $("#zones").click(function () {
+        ResetTab();
         $(".tabGeszones").css("display", "block");
         $(".tabCerrar").css("display", "none");
         ShowZones();
     });
     $("#zones").dblclick(function () {
-        $(".tabGesZones").css("display", "none");
-        $(".tabCerrar").css("display", "block");
+        ResetTab();
     });
 
     $("#process").click(function () {
-        $(".tabGesProcess").css("display", "none");
+        ResetTab();
+        $(".tabGesProcess").css("display", "block");
         $(".tabCerrar").css("display", "none");
         ShowProcess();
     });
     $("#process").dblclick(function () {
-        $(".tabGesProcess").css("display", "none");
-        $(".tabCerrar").css("display", "block");
+        ResetTab();
     });
 
     $("#activitys").click(function () {
-        $(".tabGesActivitys").css("display", "none");
+        ResetTab();
+        $(".tabGesActivitys").css("display", "block");
         $(".tabCerrar").css("display", "none");
         ShowActivitys();
     });
     $("#activitys").dblclick(function () {
-        $(".tabGesActivitys").css("display", "none");
-        $(".tabCerrar").css("display", "block");
+        ResetTab();
     });
 
     $("#tasks").click(function () {
-        $(".tabGesTasks").css("display", "none");
+        ResetTab();
+        $(".tabGesTasks").css("display", "block");
         $(".tabCerrar").css("display", "none");
         ShowTasks();
     });
     $("#tasks").dblclick(function () {
-        $(".tabGesTasks").css("display", "none");
-        $(".tabTasks").css("display", "none");
-        $(".tabCerrar").css("display", "block");
+        ResetTab();
     });
 
     $("#addCargo").click(function () {
-        //$(".tabGesPlanAcc").css("display", "none");
         $(".tabAddCargos").css("display", "block");
         $(".tabCerrar").css("display", "none");
         $("#btnAddCargo").show();
+        $("#btnCanCargo").show();
     });
     $("#addZone").click(function () {
-        //$(".tabGesPlanAcc").css("display", "none");
         $(".tabAddZones").css("display", "block");
         $(".tabCerrar").css("display", "none");
         $("#btnAddZone").show();
+        $("#btnCanZone").show();
     });
     $("#addProcess").click(function () {
-        //$(".tabGesPlanAcc").css("display", "none");
         $(".tabAddProcess").css("display", "block");
         $(".tabCerrar").css("display", "none");
         $("#btnAddProcess").show();
+        $("#btnCanProcess").show();
     });
     $("#addActivity").click(function () {
-        //$(".tabGesPlanAcc").css("display", "none");
         $(".tabAddActivitys").css("display", "block");
         $(".tabCerrar").css("display", "none");
         $("#btnAddActivity").show();
+        $("#btnCanActivity").show();
     });
     $("#addTask").click(function () {
-        //$(".tabGesPlanAcc").css("display", "none");
         $(".tabAddTasks").css("display", "block");
         $(".tabCerrar").css("display", "none");
         $("#btnAddTask").show();
+        $("#btnCanTask").show();
     });
+}
 
+function ResetTab() {
+    $(".tabBasics").css("display", "none");
+    $(".tabAddCargos").css("display", "none");
+    $(".tabAddZones").css("display", "none");
+    $(".tabAddProcess").css("display", "none");
+    $(".tabAddActivitys").css("display", "none");
+    $(".tabAddTasks").css("display", "none");
+    $(".tabGesCargos").css("display", "none");
+    $(".tabGesZones").css("display", "none");
+    $(".tabGesProcess").css("display", "none");
+    $(".tabGesActivitys").css("display", "none");
+    $(".tabGesTasks").css("display", "none");
+    $(".tabCerrar").css("display", "block");
 }
 
 function GestorIncidents() {
@@ -2083,26 +2074,25 @@ function AddAuthorization() {
 }
 
 function AddNewCargo() {
-    // TODO
     // Crea un nuevo cargo
-    $(".tabAddCargo").css("display", "none");
+    $(".tabAddCargos").css("display", "none");
     var cargoVM = {
         ID: "0",
-        Codigo: $("#txtCodigo"),
-        descripcion: $("#txtCargo").val()
+        Codigo: $("#txtCodigo").val(),
+        descripcion: $("#txtDescrip").val()
     };
     $.ajax({
         type: "POST",
         url: "/Organizations/CreateNewCargo",
         data: { model: cargoVM },
         dataType: "json",
-        success: function (result) {
+        success: function (response) {
             $("#btnAddCargo").hide();
             $("#btnCanCargo").hide();
             $("#txtCodigo").val("");
             $("#txtDescrip").val("");
             $(".tabAddCargos").css("display", "none");
-            alert(result.mensaj);
+            alert(response.mensaj);
             ShowCargos();
         },
         error: function (xhr, ajaxOptions, thrownError) {
