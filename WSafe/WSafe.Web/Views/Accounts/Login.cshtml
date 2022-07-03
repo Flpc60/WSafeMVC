@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = "Login";
     Layout = null;
-    var message = "";
 }
 
 @Styles.Render("~/Content/css")
@@ -30,51 +29,48 @@
 </style>
 
 <hr />
-<hr />
-<h2 class="login">Favor ingresa tu cuenta de usuario</h2>
-
 @using (Html.BeginForm(FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    <div class="form-horizontal">
+    <div class="container" style="background-color:aquamarine;padding:50px; width:50%;height:50%">
+        <h2 style="text-align:center"> Favor ingresa tu cuenta de usuario</h2>
+        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @id = "txtName", @placeholder = "Ingresa nombre de usuario" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <hr />
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @id = "txtEmail", @placeholder = "Ingresa correo electrónico" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <hr />
-        <div class="form-group">
-            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
-                <input type="password" name="txtPassword" id="txtPassword" class="form-control" placeholder = "Ingresa contraseña"/>
-            </div>
-        </div>
-        <hr />
-        <div class="form-group">
-            @if (message != "")
-            {
-                <div class="alert alert-danger" role="alert">
-                    @message
-                </div>
-            }
-        </div>
-        <hr />
-
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-12">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @id = "txtName", @placeholder = "Ingresa nombre de usuario" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
-            <div class="col-md-10">
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @id = "txtEmail", @placeholder = "Ingresa correo electrónico" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input type="password" name="txtPassword" id="txtPassword" class="form-control" placeholder="Ingresa contraseña" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-9">
+                <hr />
                 <button type="button" class="btn btn-success" onclick="LoginUser()">Iniciar nueva sesión</button>
                 <button type="button" class="btn btn-success" onclick="AddUser()">Registrar nuevo usuario</button>
             </div>

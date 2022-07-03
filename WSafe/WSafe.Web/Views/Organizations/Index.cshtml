@@ -13,16 +13,19 @@
 <hr />
 <hr />
 <h4>@title</h4>
-<div class="row">
-    <div class="col-md-12">
-        <button type="button" class="btn btn-info" id="basics" title="doble click para cerrar la ventana">BÁSICOS</button>
-        <button type="button" class="btn btn-info" id="cargos" title="doble click para cerrar la ventana">CARGOS</button>
-        <button type="button" class="btn btn-info" id="zones" title="doble click para cerrar la ventana">ZONAS</button>
-        <button type="button" class="btn btn-info" id="process" title="doble click para cerrar la ventana">PROCESOS</button>
-        <button type="button" class="btn btn-info" id="activitys" title="doble click para cerrar la ventana">ACTIVIDADES</button>
-        <button type="button" class="btn btn-info" id="tasks" title="doble click para cerrar la ventana">TAREAS</button>
-    </div>
-    <div class="col-md-offset-0">
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-7">
+            <button type="button" class="btn btn-info" id="basics" title="doble click para cerrar la ventana">BÁSICOS</button>
+            <button type="button" class="btn btn-info" id="cargos" title="doble click para cerrar la ventana">CARGOS</button>
+            <button type="button" class="btn btn-info" id="zones" title="doble click para cerrar la ventana">ZONAS</button>
+            <button type="button" class="btn btn-info" id="process" title="doble click para cerrar la ventana">PROCESOS</button>
+            <button type="button" class="btn btn-info" id="activitys" title="doble click para cerrar la ventana">ACTIVIDADES</button>
+            <button type="button" class="btn btn-info" id="tasks" title="doble click para cerrar la ventana">TAREAS</button>
+        </div>
+        <div class="col-sm-5">
+        </div>
     </div>
 </div>
 
@@ -43,26 +46,37 @@
         </div>
 
         <div class="tabGesCargos">
-            <hr />
+            <div class="col-md-12">
+                <button type="button" class="btn btn-primary" id="addCargo">Adicionar un nuevo cargo</button>
+            </div>
             @Html.Partial("_ShowCargos")
         </div>
 
         <div class="tabAddCargos">
+            <hr />
             <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group" style="font-size:15px">
-                        <label>Código : </label>
-                        <input type="text" id="txtCodigo" name="txtCodigo" placeholder="Ingrese código del cargo"/>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <label>Código del cargo: </label>
+                            <input type="text" id="txtCodigo" name="txtCodigo" placeholder="Ingrese código del cargo"
+                                   class="form-control" />
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-8">
-                    <div class="form-group" style="font-size:15px">
-                        <label>Nombre del cargo : </label>
-                        <input type="text" id="txtDescrip" name="txtDescrip" placeholder="Ingrese nombre del cargo...   "/>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <label>Nombre del cargo : </label>
+                            <input type="text" id="txtDescrip" name="txtDescrip" placeholder="Ingrese nombre del cargo"
+                                   class="form-control" />
+                        </div>
                     </div>
+                </div>
+                <div class="col-md-3">
+
                 </div>
             </div>
-            <hr />
             <div class="row">
                 <div class="col-md-8">
                     <hr />
@@ -77,16 +91,22 @@
         </div>
 
         <div class="tabGesZones">
-            <hr />
+            <div class="col-md-12">
+                <button type="button" class="btn btn-primary" id="addZone">Adicionar nueva zona</button>
+            </div>
             @Html.Partial("_ShowZones")
         </div>
 
         <div class="tabAddZones">
+            <hr />
             <div class="row">
                 <div class="col-md-8">
-                    <div class="form-group" style="font-size:18px;width:auto">
-                        <label>Nombre de la zona : </label>
-                        <input type="text" id="txtZone" name="txtZone" placeholder="Ingrese nombre de la zona"/>
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <label>Nombre de la zona : </label>
+                            <input type="text" id="txtZone" name="txtZone" placeholder="Ingrese nombre de la zona"
+                                   class="form-control" />
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -107,16 +127,22 @@
         </div>
 
         <div class="tabGesProcess">
-            <hr />
+            <div class="col-md-12">
+                <button type="button" class="btn btn-primary" id="addProcess">Adicionar un nuevo proceso</button>
+            </div>
             @Html.Partial("_ShowProcess")
         </div>
 
         <div class="tabAddProcess">
+            <hr />
             <div class="row">
                 <div class="col-md-8">
                     <div class="form-group" style="font-size:18px;width:auto">
-                        <label>Nombre del proceso : </label>
-                        <input type="text" id="txtProcess" name="txtProcess" placeholder="Ingrese nombre del proceso" />
+                        <div class="col-md-8">
+                            <label>Nombre del proceso : </label>
+                            <input type="text" id="txtProcess" name="txtProcess" placeholder="Ingrese nombre del proceso"
+                                   class="form-control"/>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -137,16 +163,22 @@
         </div>
 
         <div class="tabGesActivitys">
-            <hr />
+            <div class="col-md-12">
+                <button type="button" class="btn btn-primary" id="addActivity">Adicionar una nueva actividad</button>
+            </div>
             @Html.Partial("_ShowActivitys")
         </div>
 
         <div class="tabAddActivitys">
+            <hr />
             <div class="row">
                 <div class="col-md-8">
                     <div class="form-group" style="font-size:18px;width:auto">
-                        <label>Nombre de la actividad : </label>
-                        <input type="text" id="txtActivity" name="txtActivity" placeholder="Ingrese nombre de la actividad" />
+                        <div class="col-md-8">
+                            <label>Nombre de la actividad : </label>
+                            <input type="text" id="txtActivity" name="txtActivity" placeholder="Ingrese nombre de la actividad"
+                                   class="form-control"/>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -167,16 +199,22 @@
         </div>
 
         <div class="tabGesTasks">
-            <hr />
+            <div class="col-md-12">
+                <button type="button" class="btn btn-primary" id="addTask">Adicionar una nueva tarea</button>
+            </div>
             @Html.Partial("_ShowTasks")
         </div>
 
         <div class="tabAddTasks">
+            <hr />
             <div class="row">
                 <div class="col-md-8">
                     <div class="form-group" style="font-size:18px;width:auto">
-                        <label>Nombre de la tarea : </label>
-                        <input type="text" id="txtTask" name="txtTask" placeholder="Ingrese nombre de la tarea" />
+                        <div class="col-md-8">
+                            <label>Nombre de la tarea : </label>
+                            <input type="text" id="txtDescripcion" name="txtDescripcion" placeholder="Ingrese nombre de la tarea"
+                                   class="form-control"/>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -202,8 +240,15 @@
 <hr />
 <div>
     <div class="tabCerrar">
-        @Html.ActionLink("Cerrar", "Index", "Home",new { @class = "glyphicon glyphicon-arrow-left" },
-        new { @class = "btn btn-success btn-lg active" })
+        <div class="row align-items-start">
+            <div class="col-md-2">
+                @Html.ActionLink("Cerrar Módulo", "Index", "Home",
+                new { @class = "btn btn-success btn-lg" },
+                new { @class = "glyphicon glyphicon-chevron-left" })
+            </div>
+            <div class="col-md-10">
+            </div>
+        </div>
     </div>
 </div>
 
@@ -229,8 +274,8 @@
             $("#txtDescrip").val("");
         }
         function CancelTask() {
-            $(".tabAddTask").css("display", "none");
-            $("#txtDescrip").val("");
+            $(".tabAddTasks").css("display", "none");
+            $("#txtDescripcion").val("");
         }
 
         $(document).ready(function () {
