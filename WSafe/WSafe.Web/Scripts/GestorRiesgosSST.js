@@ -845,7 +845,7 @@ function DeleteRiesgo(ID) {
 function DeleteZone(id) {
     // Eliminar zonas
     var text = "";
-    text += "Esta seguro de querer borrar esta zona ? :" + id + "\n\n";
+    text += "Esta seguro de querer borrar esta zona ? :" + "\n\n";
     var respuesta = confirm(text);
     if (respuesta == true) {
         $.ajax({
@@ -869,7 +869,7 @@ function DeleteZone(id) {
 function DeleteCargo(id) {
     // Eliminar cargo
     var text = "";
-    text += "Esta seguro de querer borrar este cargo ? :" + id + "\n\n";
+    text += "Esta seguro de querer borrar este cargo ? :" + "\n\n";
     var respuesta = confirm(text);
     if (respuesta == true) {
         $.ajax({
@@ -2114,11 +2114,12 @@ function AddZone() {
         url: "/Organizations/CreateZone",
         data: { model: zoneVM },
         dataType: "json",
-        success: function (result) {
+        success: function (response) {
             $("#btnAddZone").hide();
             $("#btnCanZone").hide();
             $("#txtZone").val("");
             $(".tabAddZones").css("display", "none");
+            alert(response.mensaj);
             ShowZones();
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -2141,11 +2142,12 @@ function AddProcess() {
         url: "/Organizations/CreateProcess",
         data: { model: processVM },
         dataType: "json",
-        success: function (result) {
+        success: function (response) {
             $("#btnAddProcess").hide();
             $("#btnCanProcess").hide();
             $("#txtProcess").val("");
             $(".tabAddProcess").css("display", "none");
+            alert(response.mensaj);
             ShowProcess();
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -2168,11 +2170,12 @@ function AddActivity() {
         url: "/Organizations/CreateActivity",
         data: { model: activityVM },
         dataType: "json",
-        success: function (result) {
+        success: function (response) {
             $("#btnAddActivity").hide();
             $("#btnCanActivity").hide();
             $("#txtActivity").val("");
             $(".tabAddActivitys").css("display", "none");
+            alert(response.mensaj);
             ShowActivitys();
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -2187,7 +2190,7 @@ function AddTask() {
     $(".tabAddTasks").css("display", "none");
     var taskVM = {
         ID: "0",
-        Descripcion: $("#txtTask").val()
+        Descripcion: $("#txtDescripcion").val()
     };
 
     $.ajax({
@@ -2195,10 +2198,11 @@ function AddTask() {
         url: "/Organizations/CreateTask",
         data: { model: taskVM },
         dataType: "json",
-        success: function (result) {
+        success: function (response) {
             $("#btnAddTask").hide();
             $("#btnCanTask").hide();
-            $("#txtTask").val("");
+            $("#txtDescripcion").val("");
+            alert(response.mensaj);
             ShowTasks();
         },
         error: function (xhr, ajaxOptions, thrownError) {

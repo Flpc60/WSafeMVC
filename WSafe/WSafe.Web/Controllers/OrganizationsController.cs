@@ -70,7 +70,7 @@ namespace WSafe.Web.Controllers
                 var workers = _empresaContext.Trabajadores.Where(t => t.CargoID == id).Count();
                 if (workers != 0)
                 {
-                    message = "Este cargo no se puede eliminar por estar asignado  a un trabajador!!";
+                    message = "Este cargo NO se puede eliminar por estar asignado  a un trabajador!!";
                     return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
 
@@ -81,7 +81,7 @@ namespace WSafe.Web.Controllers
             }
             catch
             {
-                return Json(new { error = "El registro no se ha eliminado correctamente" }, JsonRequestBehavior.AllowGet);
+                return Json(new { error = "El registro NO se ha eliminado correctamente" }, JsonRequestBehavior.AllowGet);
             }
         }
         public ActionResult GetAllZonas()
@@ -92,19 +92,23 @@ namespace WSafe.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateZone(Zona model)
         {
+            var message = "";
             try
             {
                 if (ModelState.IsValid)
                 {
+                    message = "La zona fue ingresada correctamente !!";
                     _empresaContext.Zonas.Add(model);
                     await _empresaContext.SaveChangesAsync();
-                    return Json(model, JsonRequestBehavior.AllowGet);
+                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
-                return Json(new { data = model, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
+                message = "La zona NO fue ingresada correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
-                return Json(new { data = model, error = "El registro NO se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
+                message = "La zona NO fue ingresada correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
         [HttpPost]
@@ -154,19 +158,23 @@ namespace WSafe.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateProcess(Proceso model)
         {
+            var message = "";
             try
             {
                 if (ModelState.IsValid)
                 {
+                    message = "El proceso fué ingresado correctamente !!";
                     _empresaContext.Procesos.Add(model);
                     await _empresaContext.SaveChangesAsync();
-                    return Json(model, JsonRequestBehavior.AllowGet);
+                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
-                return Json(new { data = model, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
+                message = "El proceso NO fué ingresado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
-                return Json(new { data = model, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
+                message = "El proceso NO fué ingresado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -217,19 +225,23 @@ namespace WSafe.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateActivity(Actividad model)
         {
+            var message = "";
             try
             {
                 if (ModelState.IsValid)
                 {
+                    message = "La actividad fué imgresada correctamente !!";
                     _empresaContext.Actividades.Add(model);
                     await _empresaContext.SaveChangesAsync();
-                    return Json(model, JsonRequestBehavior.AllowGet);
+                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
-                return Json(new { data = model, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
+                message = "La actividad NO fué imgresada correctamente !!";
+                return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
-                return Json(new { data = model, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
+                message = "La actividad NO fué imgresada correctamente !!";
+                return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -280,19 +292,23 @@ namespace WSafe.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateTask(Tarea model)
         {
+            var message = "";
             try
             {
                 if (ModelState.IsValid)
                 {
+                    message = "La tarea fué ingresada correctamente !!";
                     _empresaContext.Tareas.Add(model);
                     await _empresaContext.SaveChangesAsync();
-                    return Json(model, JsonRequestBehavior.AllowGet);
+                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
-                return Json(new { data = model, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
+                message = "La tarea NO fué ingresada correctamente !!";
+                return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
-                return Json(new { data = model, error = "El registro no se ha ingresado correctamente" }, JsonRequestBehavior.AllowGet);
+                message = "La tarea NO fué ingresada correctamente !!";
+                return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
 
