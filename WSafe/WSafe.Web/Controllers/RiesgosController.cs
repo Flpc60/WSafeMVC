@@ -27,8 +27,6 @@ namespace WSafe.Web.Controllers
             _empresaContext = empresaContext;
             _comboHelper = comboHelper;
             _converterHelper = converterHelper;
-            //_usuario = (User)Session["User"];
-            //_roleID = _usuario.RoleID;
         }
 
         [AuthorizeUser(operation: 1, component: 2)]
