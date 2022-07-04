@@ -55,7 +55,7 @@ namespace WSafe.Web.Controllers
             }
             catch (Exception)
             {
-                throw;
+                return View();
             }
         }
 
@@ -156,7 +156,7 @@ namespace WSafe.Web.Controllers
         }
         public ActionResult GenerateIndicadorToPdf(int id, int year, string pdf)
         {
-            var report = new ActionAsPdf("Details", new {id = id, year = year });
+            var report = new ActionAsPdf("Details", new { id = id, year = year });
             report.FileName = pdf;
             report.PageSize = Rotativa.Options.Size.A4;
             report.PageOrientation = Rotativa.Options.Orientation.Landscape;
