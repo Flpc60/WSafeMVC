@@ -289,11 +289,12 @@ namespace WSafe.Web.Controllers
             {
                 User user = await _empresaContext.Users.FindAsync(id);
                 var role = (int)Session["roleID"];
+                var roleName = _gestorHelper.GetRole(user.RoleID);
 
                 // Validar retiro de usuario
-                if (user.RoleID == role)
+                if (user.RoleID == role || roleName == "ADMIN")
                 {
-                    message = "Este usuario NO se puede borrar por estar en el sistema!!";
+                    message = "Este usuario NO se pudo borrar por estar en el sistema, o tener el rol de administrador!!";
                     return Json(new { result = "Redirect", url = Url.Action("Index", "Accounts"), mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
                 message = "El usuario fué borrado correctamente!!";
