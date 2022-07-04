@@ -15,77 +15,79 @@
     </div>
 </div>
 
-<table class="table">
-    <tr style="background-color:gainsboro; width:auto" >
-        <th>
-            @Html.DisplayNameFor(model => model.FechaSolicitud)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Categoria)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Origen)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EficaciaAntes)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EficaciaDespues)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FechaCierre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Efectiva)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Estado)
-        </th>
-        <th>Opciones</th>
-    </tr>
-    <tbody id="myTable">
-        @foreach (var item in Model)
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaSolicitud)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Categoria)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Origen)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EficaciaAntes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EficaciaDespues)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaCierre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Efectiva)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estado)
-            </td>
-            <td style="font-size:15px">
-                @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) |
-                @Html.ActionLink(" ", "PrintAccionesToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt" }) |
-                <a href="#" onclick="DeleteAccion('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
-            </td>
+<div class="container" style="background-color:antiquewhite">
+    <table class="table">
+        <tr style="background-color:gainsboro; width:auto">
+            <th>
+                @Html.DisplayNameFor(model => model.FechaSolicitud)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Categoria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Origen)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EficaciaAntes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EficaciaDespues)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaCierre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Efectiva)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th>Opciones</th>
         </tr>
-        }
-    </tbody>
-</table>
+        <tbody id="myTable">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaSolicitud)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Categoria)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Origen)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descripcion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EficaciaAntes)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EficaciaDespues)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaCierre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Efectiva)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Estado)
+                    </td>
+                    <td style="font-size:15px">
+                        @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) |
+                        @Html.ActionLink(" ", "PrintAccionesToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt" }) |
+                        <a href="#" onclick="DeleteAccion('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 <hr />
 <p>@ViewBag.ErrorMessage</p>
 

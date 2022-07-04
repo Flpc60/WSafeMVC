@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using WSafe.Domain.Data.Entities;
@@ -310,7 +309,7 @@ namespace WSafe.Domain.Helpers.Implements
             };
             return model;
         }
-        public IndicadorViewModel ToIndicadorViewModelNew(Indicador indicador, int[] periodo, int year) 
+        public IndicadorViewModel ToIndicadorViewModelNew(Indicador indicador, int[] periodo, int year)
         {
             Random random = new Random();
             var filename = "chart" + random.Next(1, 100) + ".jpg";

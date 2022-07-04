@@ -2274,7 +2274,7 @@ function SelectComponent() {
 function DeleteUser(id) {
     // Eliminar un usuario
     var text = "";
-    text += "Esta seguro de querer borrar este usuario ? :" + id + "\n\n";
+    text += "Esta seguro de querer borrar este usuario ? :" + "\n\n";
     var respuesta = confirm(text);
     if (respuesta == true) {
         $.ajax({

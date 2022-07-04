@@ -10,159 +10,162 @@
     @Html.ActionLink("Nuevo", "Create", new { @class = "glyphicon glyphicon-plus" },
     new { @class = "btn btn-info btn-lg active" })
 </p>
-<table class="table">
-    <thead class="thead-dark">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaReporte)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaIncidente)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CategoriasIncidente)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IncapacidadMedica)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DiasIncapacidad)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NaturalezaLesion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PartesAfectadas)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TipoIncidente)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AgenteLesion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ActosInseguros)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CondicionesInsegura)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TipoDaño)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Afectacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DañosOcasionados)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DescripcionIncidente)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EvitarIncidente)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AccionesInmediatas)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ComentariosAdicionales)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AtencionBrindada)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RequiereInvestigacion)
-            </th>
-            <th>
-                Acciones
-            </th>
-        </tr>
-    </thead>
-    @foreach (var item in Model)
-    {
-        string strStyle = String.Empty;
-        switch (Convert.ToInt32(item.CategoriasIncidente))
+
+<div class="container" style="background-color:antiquewhite">
+    <table class="table">
+        <thead>
+            <tr style="background-color:gainsboro; width:auto">
+                <th>
+                    @Html.DisplayNameFor(model => model.FechaReporte)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FechaIncidente)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CategoriasIncidente)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IncapacidadMedica)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DiasIncapacidad)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NaturalezaLesion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PartesAfectadas)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TipoIncidente)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AgenteLesion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ActosInseguros)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CondicionesInsegura)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TipoDaño)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Afectacion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DañosOcasionados)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DescripcionIncidente)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EvitarIncidente)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AccionesInmediatas)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ComentariosAdicionales)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AtencionBrindada)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RequiereInvestigacion)
+                </th>
+                <th>
+                    Acciones
+                </th>
+            </tr>
+        </thead>
+        @foreach (var item in Model)
         {
-            case 2:
-                strStyle = "background-color:red;";
-                break;
+            string strStyle = String.Empty;
+            switch (Convert.ToInt32(item.CategoriasIncidente))
+            {
+                case 2:
+                    strStyle = "background-color:red;";
+                    break;
 
-            case 1:
-                strStyle = "background-color:yellow;";
-                break;
+                case 1:
+                    strStyle = "background-color:yellow;";
+                    break;
 
-            default:
-                strStyle = "background-color:green;";
-                break;
+                default:
+                    strStyle = "background-color:green;";
+                    break;
+            }
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaReporte)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaIncidente)
+                </td>
+                <td style="@strStyle">
+                    @Html.DisplayFor(modelItem => item.CategoriasIncidente)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IncapacidadMedica)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiasIncapacidad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NaturalezaLesion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PartesAfectadas)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoIncidente)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AgenteLesion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ActosInseguros)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CondicionesInsegura)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoDaño)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Afectacion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DañosOcasionados)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DescripcionIncidente)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EvitarIncidente)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AccionesInmediatas)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ComentariosAdicionales)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AtencionBrindada)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequiereInvestigacion)
+                </td>
+                <td style="font-size:18px">
+                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) |
+                    @Html.ActionLink(" ", "PrintIncidentsToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt" }) |
+                    <a href="#" onclick="DeleteIncident('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
+                </td>
+            </tr>
         }
 
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaReporte)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaIncidente)
-            </td>
-            <td style="@strStyle">
-                @Html.DisplayFor(modelItem => item.CategoriasIncidente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IncapacidadMedica)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DiasIncapacidad)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NaturalezaLesion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PartesAfectadas)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TipoIncidente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AgenteLesion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ActosInseguros)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CondicionesInsegura)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TipoDaño)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Afectacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DañosOcasionados)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DescripcionIncidente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EvitarIncidente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AccionesInmediatas)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ComentariosAdicionales)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AtencionBrindada)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RequiereInvestigacion)
-            </td>
-            <td style="font-size:18px">
-                @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) |
-                @Html.ActionLink(" ", "PrintIncidentsToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt" }) |
-                <a href="#" onclick="DeleteIncident('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
-            </td>
-        </tr>
-    }
-
-</table>
+    </table>
+</div>
