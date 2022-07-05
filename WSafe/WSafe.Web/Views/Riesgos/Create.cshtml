@@ -36,9 +36,16 @@
         <div class="tabEvalRiesgos">
             <hr />
             @Html.Partial("_EvalRiesgo")
-            <input type="hidden" id="txtRiesgoID" name="txtRiesgoID"/>
-            <div class="col-md-offset-2 col-md-4">
-                <button type="button" id="btnAddRiesgo" class="btn btn-success" onclick="AddNewRiesgo()">Agregar</button>
+            <div class="row">
+                <div class="col-md-8">
+                    <hr />
+                    <button type="button" id="btnAddRiesgo" class="btn btn-primary" onclick="AddNewRiesgo()">Adicionar</button>
+                    <button type="button" id="btnCanRisk" class="btn btn-primary" onclick="CancelRisk()">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                    </button>
+                </div>
+                <div class="col-md-4">
+                </div>
             </div>
         </div>
 
@@ -97,6 +104,10 @@
 @section Scripts
 {
     <script type="text/javascript">
+        function CancelRisk() {
+            $(".tabEvalRiesgos").css("display", "none");
+        }
+
         $(document).ready(function () {
             ClearTextBox();
             $("#idPeligros").click(function () {
