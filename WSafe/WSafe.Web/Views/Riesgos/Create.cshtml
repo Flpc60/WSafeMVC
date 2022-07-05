@@ -51,7 +51,6 @@
 
         <div class="tabMediAplica">
             <hr />
-
             <div class="col-md-12">
                 <button type="button" class="btn btn-primary" id="addIntervencion">Adicionar nueva medida de intervención</button>
             </div>
@@ -86,14 +85,19 @@
             </table>
         </div>
         <div class="tabAddInterven">
+            <hr />
             <input type="hidden" id="txtIntervenID" name="txtIntervenID" />
             @Html.Partial("_EditarIntervencion")
-            <div class="col-md-offset-2 col-md-4">
-                <div class="col-md-2">
+            <div class="row">
+                <div class="col-md-8">
+                    <hr />
                     <button type="button" id="btnAddInterven" class="btn btn-primary" onclick="AddInterven()">Adicionar</button>
-                </div>
-                <div class="col-md-2">
                     <button type="button" id="btnUpdInterven" class="btn btn-primary" onclick="UpdateIntervencion()">Guardar</button>
+                    <button type="button" id="btnCanInterven" class="btn btn-primary" onclick="CancelInterven()">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                    </button>
+                </div>
+                <div class="col-md-4">
                 </div>
             </div>
         </div>
@@ -106,6 +110,10 @@
     <script type="text/javascript">
         function CancelRisk() {
             $(".tabEvalRiesgos").css("display", "none");
+        }
+
+        function CancelInterven() {
+            $(".tabAddInterven").css("display", "none");
         }
 
         $(document).ready(function () {
