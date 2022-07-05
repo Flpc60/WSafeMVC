@@ -2,9 +2,10 @@
     var trabajadores = ViewBag.trabajadores;
 }
 
-<div class="container">
+<div class="container" style="background-color:antiquewhite">
     <div class="row">
         <div class="col-md-10">
+
             <div class="form-group">
                 <div class="col-md-12">
                     <hr />
@@ -18,75 +19,98 @@
     </div>
     <div class="row">
         <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label col-md-2" for="CategoriaAplicacion">Aplicación del control</label>
+                <div class="col-md-6">
+                    <select name="CategoriaAplicacion" class="form-control" id="txtCatAplica">
+                        <option selected="selected" value="0">Seleccione aplicación...</option>
+                        <option value="1">Fuente</option>
+                        <option value="2">Medio</option>
+                        <option value="3">Individuo</option>
+                    </select>
+                    <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="CategoriaAplicacion"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label col-md-2" for="Respons">Trabajador responsable</label>
+                <div class="col-md-10">
+                    @Html.DropDownList("Trabajadores", trabajadores as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "idRespons" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label col-md-2" for="Intervencion">Medida intervención</label>
+                <div class="col-md-10">
+                    <select name="Intervencion" class="form-control" id="idInterven">
+                        <option selected="selected" value="0">Seleccione aplicación medida...</option>
+                        <option value="1">Eliminacion</option>
+                        <option value="2">Sustitucion</option>
+                        <option value="3">Controles de ingeniería</option>
+                        <option value="4">Controles de administración</option>
+                        <option value="5">Señalización</option>
+                        <option value="6">Equipos, EPP</option>
+                    </select>
+                    <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="Intervencion"></span>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-
-<div class="form-group">
-    <label class="control-label col-md-2" for="CategoriaAplicacion">Aplicación del control</label>
-    <div class="col-md-4">
-        <select name="CategoriaAplicacion" class="form-control" id="txtCatAplica">
-            <option selected="selected" value="0">Seleccione aplicación...</option>
-            <option value="1">Fuente</option>
-            <option value="2">Medio</option>
-            <option value="3">Individuo</option>
-        </select>
-        <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="CategoriaAplicacion"></span>
+    <div class="row">
+        <div class="col-md-10">
+            <div class="form-group">
+                <div class="col-md-10">
+                    <hr />
+                    <label for="idBeneficio">Beneficios</label>
+                    <textarea id="idBeneficio" style="resize:none;" class="form-control" rows=3 cols=70 required></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+        </div>
     </div>
-</div>
-<div class="form-group">
-    <label class="control-label col-md-2" for="Respons">Trabajador responsable</label>
-    <div class="col-md-4">
-        @Html.DropDownList("Trabajadores", trabajadores as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "idRespons" })
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label col-md-2" for="Presupuesto">Presupuesto</label>
+                <div class="col-md-6">
+                    <input name="Presupuesto" class="form-control text-box single-line" id="idPresup" type="text" value="0,00">
+                    <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="Presupuesto"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label col-md-2" for="FechaInicial">Fecha inicial</label>
+                <div class="col-md-6">
+                    <input name="FechaInicial" class="form-control text-box single-line" id="idFechaIni" type="date" value="0001-01-01">
+                    <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="FechaInicial"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label col-md-2" for="FechaFinal">Fecha final</label>
+                <div class="col-md-6">
+                    <input name="FechaFinal" class="form-control text-box single-line" id="idFechaFin" type="date" value="0001-01-01">
+                    <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="FechaFinal"></span>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-<div class="form-group">
-    <label class="control-label col-md-2" for="Intervencion">Medida intervención</label>
-    <div class="col-md-4">
-        <select name="Intervencion" class="form-control" id="idInterven">
-            <option selected="selected" value="0">Seleccione aplicación medida...</option>
-            <option value="1">Eliminacion</option>
-            <option value="2">Sustitucion</option>
-            <option value="3">Controles de ingeniería</option>
-            <option value="4">Controles de administración</option>
-            <option value="5">Señalización</option>
-            <option value="6">Equipos, EPP</option>
-        </select>
-        <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="Intervencion"></span>
-    </div>
-</div>
-<div class="form-group">
-    <label class="control-label col-md-2" for="Beneficios">Beneficios</label>
-    <div class="col-md-4">
-        <input name="Beneficios" class="form-control text-box single-line" id="idBeneficio" type="text" value="">
-        <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="Beneficios"></span>
-    </div>
-</div>
-<div class="form-group">
-    <label class="control-label col-md-2" for="Presupuesto">Presupuesto</label>
-    <div class="col-md-4">
-        <input name="Presupuesto" class="form-control text-box single-line" id="idPresup" type="text" value="0,00">
-        <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="Presupuesto"></span>
-    </div>
-</div>
-<div class="form-group">
-    <label class="control-label col-md-2" for="FechaInicial">Fecha inicial</label>
-    <div class="col-md-4">
-        <input name="FechaInicial" class="form-control text-box single-line" id="idFechaIni" type="date" value="0001-01-01">
-        <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="FechaInicial"></span>
-    </div>
-</div>
-<div class="form-group">
-    <label class="control-label col-md-2" for="FechaFinal">Fecha final</label>
-    <div class="col-md-4">
-        <input name="FechaFinal" class="form-control text-box single-line" id="idFechaFin" type="date" value="0001-01-01">
-        <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="FechaFinal"></span>
-    </div>
-</div>
-<div class="form-group">
-    <label class="control-label col-md-2" for="Observaciones">Observaciones</label>
-    <div class="col-md-10">
-        <input name="Observaciones" class="form-control text-box single-line" id="idObserv" type="text" value="">
-        <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="Observaciones"></span>
+    <div class="row">
+        <div class="col-md-10">
+            <div class="form-group">
+                <div class="col-md-10">
+                    <hr />
+                    <label for="idObserv">Observaciones</label>
+                    <textarea id="idObserv" style="resize:none;" class="form-control" rows=3 cols=70 required></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+        </div>
     </div>
 </div>

@@ -226,11 +226,8 @@ namespace WSafe.Web.Controllers
         {
             try
             {
-                var result = await _empresaContext.Aplicaciones
-                    .Where(a => a.ID == id).ToListAsync();
-
-                var intervenciones = _converterHelper.ToIntervencionesViewModel(result);
-                return Json(intervenciones, JsonRequestBehavior.AllowGet);
+                var result =  _empresaContext.Aplicaciones.Find(id);
+                return Json(result, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -239,15 +236,14 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> UpdateIntervencion(AplicacionVM model)
+        public async Task<ActionResult> UpdateIntervencion(Aplicacion model)
         {
             var message = "";
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var result = await _converterHelper.ToAplicacionAsync(model, true);
-                    _empresaContext.Aplicaciones.Add(result);
+                    _empresaContext.Entry(model).State = EntityState.Modified;
                     var saved = await _empresaContext.SaveChangesAsync();
                     message = "El registro ha sido actualizado correctamente !!";
                     return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
@@ -344,7 +340,6 @@ namespace WSafe.Web.Controllers
             var model = _converterHelper.ToRiesgoVMUnit(riesgo);
             return Json(new { data = model, error = message }, JsonRequestBehavior.AllowGet);
         }
-
         [HttpPost]
         public async Task<ActionResult> DeleteRiesgo(int id)
         {
