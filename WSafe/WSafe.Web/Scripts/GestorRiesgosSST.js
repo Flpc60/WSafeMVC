@@ -442,7 +442,7 @@ validarCostos = function () {
 
 function getIntervenByID(intervenID) {
     $(".tabMediAplica").css("display", "none");
-    aplicaID = intervenID;
+    //aplicaID = intervenID;
     $.ajax({
         async: true,
         type: 'GET',
@@ -1420,6 +1420,7 @@ function UpdateIntervencion() {
         success: function (result) {
             alert(result.mensaj);
             $(".tabMediAplica").css("display", "block");
+            $(".tabAddInterven").css("display", "none");
             mostrarInterven();
         },
         error: function (xhr, ajaxOptions, thrownError) {
