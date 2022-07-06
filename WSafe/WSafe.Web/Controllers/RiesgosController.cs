@@ -101,6 +101,9 @@ namespace WSafe.Web.Controllers
                             message = "El registro NO ha sido ingresado correctamente !!";
                             return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
                         }
+                        message = "El registro ha sido ingresado correctamente !!";
+                        var idRiesgo = _empresaContext.Riesgos.OrderByDescending(x => x.ID).First().ID;
+                        return Json(new { data = idRiesgo, mensaj = message }, JsonRequestBehavior.AllowGet);
                     }
                 }
             }
@@ -109,9 +112,8 @@ namespace WSafe.Web.Controllers
                 message = "El registro NO ha sido ingresado correctamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
-            message = "El registro ha sido ingresado correctamente !!";
-            var idRiesgo = _empresaContext.Riesgos.OrderByDescending(x => x.ID).First().ID;
-            return Json(new { data = idRiesgo, mensaj = message }, JsonRequestBehavior.AllowGet);
+            message = "El registro NO ha sido ingresado correctamente !!";
+            return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
         }
 
         [AuthorizeUser(operation: 3, component: 2)]
@@ -213,6 +215,7 @@ namespace WSafe.Web.Controllers
                     .Where(a => a.RiesgoID == idRiesgo).ToListAsync();
 
                 var intervenciones = _converterHelper.ToIntervencionesViewModel(result);
+
                 return Json(intervenciones, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -227,7 +230,8 @@ namespace WSafe.Web.Controllers
             try
             {
                 var result =  _empresaContext.Aplicaciones.Find(id);
-                return Json(result, JsonRequestBehavior.AllowGet);
+                var intervencion = _converterHelper.ToAplicationVM(result);
+                return Json(intervencion, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

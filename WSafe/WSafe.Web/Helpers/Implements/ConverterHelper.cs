@@ -456,6 +456,25 @@ namespace WSafe.Domain.Helpers.Implements
             }
             return modelo;
         }
+        public AplicacionVM ToAplicationVM(Aplicacion aplicacion)
+        {
+            var modelo = new AplicacionVM
+            {
+                ID = aplicacion.ID,
+                RiesgoID = aplicacion.RiesgoID,
+                Nombre = aplicacion.Nombre.ToUpper(),
+                CategoriaAplicacion = aplicacion.CategoriaAplicacion,
+                Intervencion = aplicacion.Intervencion,
+                Beneficios = aplicacion.Beneficios,
+                Presupuesto = aplicacion.Presupuesto,
+                TrabajadorID = aplicacion.TrabajadorID,
+                FechaInicial = aplicacion.FechaInicial,
+                FechaFinal = aplicacion.FechaFinal,
+                Observaciones = aplicacion.Observaciones,
+            };
+
+            return modelo;
+        }
         public IEnumerable<AplicacionVM> ToIntervencionesViewModel(IEnumerable<Aplicacion> listaAplicacion)
         {
             var modelo = new List<AplicacionVM>();
@@ -565,8 +584,6 @@ namespace WSafe.Domain.Helpers.Implements
                 TrabajadorID = model.TrabajadorID
             };
             return result;
-
-            throw new NotImplementedException();
         }
 
         public IEnumerable<PlanAccionVM> ToPlanAccionVMList(IEnumerable<PlanAction> plan)
