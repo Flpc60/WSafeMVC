@@ -47,12 +47,13 @@ namespace WSafe.Web.Controllers
         [HttpPost]
         public ActionResult LoginUser([Bind(Include = "ID,Name,Email,Password,RoleID")] LoginViewModel model)
         {
+            var message = "";
             if (model.Name == null || model.Email == null || model.Password == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                message = "El Usuario, Email, o la contraseña son inválidos !!";
+                return Json(new { result = "", url = Url.Action("Index", "Home"), mensaj = message }, JsonRequestBehavior.AllowGet);
             }
 
-            var message = "";
             try
             {
                 var result = _empresaContext.Users.Where(u => u.Name == model.Name.Trim() && u.Email == model.Email.Trim() && u.Password == model.Password.Trim()).FirstOrDefault();
