@@ -40,5 +40,6 @@ namespace WSafe.Domain.Helpers
         IEnumerable<AuthorizationVM> ToRolOperationVM(IEnumerable<RoleOperation> roleOperation);
         RoleUserVM ToAuthorizationVM(User user);
         Task<User> ToUserAsync(RoleUserVM user);
+        AplicacionVM ToAplicationVM(Aplicacion aplicacion);
     }
 }
