@@ -359,73 +359,13 @@
     <Compile Include="Helpers\Implements\ConverterHelper.cs" />
     <Compile Include="Helpers\Implements\GestorHelper.cs" />
     <Compile Include="Helpers\Implements\IndicadorHelper.cs" />
-    <Compile Include="Migrations\202206080019352_CreateDetailsVM.cs" />
-    <Compile Include="Migrations\202206080019352_CreateDetailsVM.Designer.cs">
-      <DependentUpon>202206080019352_CreateDetailsVM.cs</DependentUpon>
+    <Compile Include="Migrations\202207092147338_InitialCreate.cs" />
+    <Compile Include="Migrations\202207092147338_InitialCreate.Designer.cs">
+      <DependentUpon>202207092147338_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202206102146304_UpdateAccidentadoVM.cs" />
-    <Compile Include="Migrations\202206102146304_UpdateAccidentadoVM.Designer.cs">
-      <DependentUpon>202206102146304_UpdateAccidentadoVM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202206112338220_UpdateTrabajador.cs" />
-    <Compile Include="Migrations\202206112338220_UpdateTrabajador.Designer.cs">
-      <DependentUpon>202206112338220_UpdateTrabajador.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202206120217444_UpdateIncidenteVM.cs" />
-    <Compile Include="Migrations\202206120217444_UpdateIncidenteVM.Designer.cs">
-      <DependentUpon>202206120217444_UpdateIncidenteVM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202206122349378_UpdateTrabajadorVM.cs" />
-    <Compile Include="Migrations\202206122349378_UpdateTrabajadorVM.Designer.cs">
-      <DependentUpon>202206122349378_UpdateTrabajadorVM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202206132248574_CreateOrganization.cs" />
-    <Compile Include="Migrations\202206132248574_CreateOrganization.Designer.cs">
-      <DependentUpon>202206132248574_CreateOrganization.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202206161607188_UpdateIncidenteVM2.cs" />
-    <Compile Include="Migrations\202206161607188_UpdateIncidenteVM2.Designer.cs">
-      <DependentUpon>202206161607188_UpdateIncidenteVM2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202206161813438_UpdateOrganization.cs" />
-    <Compile Include="Migrations\202206161813438_UpdateOrganization.Designer.cs">
-      <DependentUpon>202206161813438_UpdateOrganization.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202206161826360_UpdateCargo.cs" />
-    <Compile Include="Migrations\202206161826360_UpdateCargo.Designer.cs">
-      <DependentUpon>202206161826360_UpdateCargo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202206232119517_UpdateUserVM.cs" />
-    <Compile Include="Migrations\202206232119517_UpdateUserVM.Designer.cs">
-      <DependentUpon>202206232119517_UpdateUserVM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202206251622416_UpdateRoleOperation.cs" />
-    <Compile Include="Migrations\202206251622416_UpdateRoleOperation.Designer.cs">
-      <DependentUpon>202206251622416_UpdateRoleOperation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202206251643486_DeleteOperation.cs" />
-    <Compile Include="Migrations\202206251643486_DeleteOperation.Designer.cs">
-      <DependentUpon>202206251643486_DeleteOperation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202206251830352_UpdateRoleOperation1.cs" />
-    <Compile Include="Migrations\202206251830352_UpdateRoleOperation1.Designer.cs">
-      <DependentUpon>202206251830352_UpdateRoleOperation1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202206282002175_UpdateUserVM2.cs" />
-    <Compile Include="Migrations\202206282002175_UpdateUserVM2.Designer.cs">
-      <DependentUpon>202206282002175_UpdateUserVM2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202206291937260_UpdateAuthorization.cs" />
-    <Compile Include="Migrations\202206291937260_UpdateAuthorization.Designer.cs">
-      <DependentUpon>202206291937260_UpdateAuthorization.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202206301522249_UpdateRoleUserVM.cs" />
-    <Compile Include="Migrations\202206301522249_UpdateRoleUserVM.Designer.cs">
-      <DependentUpon>202206301522249_UpdateRoleUserVM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202206301546428_UpdateRoleUserVM2.cs" />
-    <Compile Include="Migrations\202206301546428_UpdateRoleUserVM2.Designer.cs">
-      <DependentUpon>202206301546428_UpdateRoleUserVM2.cs</DependentUpon>
+    <Compile Include="Migrations\202207092148223_UpdateEmpresaDB.cs" />
+    <Compile Include="Migrations\202207092148223_UpdateEmpresaDB.Designer.cs">
+      <DependentUpon>202207092148223_UpdateEmpresaDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AuthorizationVM.cs" />
@@ -473,10 +413,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202112012202348_InitialCreate.cs" />
-    <Compile Include="Migrations\202112012202348_InitialCreate.Designer.cs">
-      <DependentUpon>202112012202348_InitialCreate.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\IncidenteViewModel.cs" />
     <Compile Include="Models\IndicadorDetallesViewModel.cs" />
@@ -522,8 +458,6 @@
     <Content Include="Images\LogoEntidad.png" />
     <Content Include="Rotativa\help-wkhtmltoimage.txt" />
     <Content Include="Rotativa\help-wkhtmltopdf.txt" />
-    <Content Include="Rotativa\wkhtmltoimage.exe" />
-    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\GestorRiesgosSST.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -540,6 +474,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="App_Browsers\qt.browser" />
     <Content Include="App.config" />
+    <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -603,11 +538,6 @@
     <Content Include="Views\Aplicaciones\Index.cshtml" />
     <Content Include="Views\Riesgos\prueba.cshtml" />
     <Content Include="Views\Shared\_EditarPlanAcc.cshtml" />
-    <Content Include="Views\Users\Create.cshtml" />
-    <Content Include="Views\Users\Delete.cshtml" />
-    <Content Include="Views\Users\Details.cshtml" />
-    <Content Include="Views\Users\Edit.cshtml" />
-    <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Accounts\Create.cshtml" />
     <Content Include="Views\Accounts\Delete.cshtml" />
     <Content Include="Views\Accounts\Details.cshtml" />
@@ -666,59 +596,11 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202112012202348_InitialCreate.resx">
-      <DependentUpon>202112012202348_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202207092147338_InitialCreate.resx">
+      <DependentUpon>202207092147338_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202206080019352_CreateDetailsVM.resx">
-      <DependentUpon>202206080019352_CreateDetailsVM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202206102146304_UpdateAccidentadoVM.resx">
-      <DependentUpon>202206102146304_UpdateAccidentadoVM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202206112338220_UpdateTrabajador.resx">
-      <DependentUpon>202206112338220_UpdateTrabajador.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202206120217444_UpdateIncidenteVM.resx">
-      <DependentUpon>202206120217444_UpdateIncidenteVM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202206122349378_UpdateTrabajadorVM.resx">
-      <DependentUpon>202206122349378_UpdateTrabajadorVM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202206132248574_CreateOrganization.resx">
-      <DependentUpon>202206132248574_CreateOrganization.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202206161607188_UpdateIncidenteVM2.resx">
-      <DependentUpon>202206161607188_UpdateIncidenteVM2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202206161813438_UpdateOrganization.resx">
-      <DependentUpon>202206161813438_UpdateOrganization.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202206161826360_UpdateCargo.resx">
-      <DependentUpon>202206161826360_UpdateCargo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202206232119517_UpdateUserVM.resx">
-      <DependentUpon>202206232119517_UpdateUserVM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202206251622416_UpdateRoleOperation.resx">
-      <DependentUpon>202206251622416_UpdateRoleOperation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202206251643486_DeleteOperation.resx">
-      <DependentUpon>202206251643486_DeleteOperation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202206251830352_UpdateRoleOperation1.resx">
-      <DependentUpon>202206251830352_UpdateRoleOperation1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202206282002175_UpdateUserVM2.resx">
-      <DependentUpon>202206282002175_UpdateUserVM2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202206291937260_UpdateAuthorization.resx">
-      <DependentUpon>202206291937260_UpdateAuthorization.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202206301522249_UpdateRoleUserVM.resx">
-      <DependentUpon>202206301522249_UpdateRoleUserVM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202206301546428_UpdateRoleUserVM2.resx">
-      <DependentUpon>202206301546428_UpdateRoleUserVM2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202207092148223_UpdateEmpresaDB.resx">
+      <DependentUpon>202207092148223_UpdateEmpresaDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using WSafe.Domain.Data.Entities;
@@ -310,7 +309,7 @@ namespace WSafe.Domain.Helpers.Implements
             };
             return model;
         }
-        public IndicadorViewModel ToIndicadorViewModelNew(Indicador indicador, int[] periodo, int year) 
+        public IndicadorViewModel ToIndicadorViewModelNew(Indicador indicador, int[] periodo, int year)
         {
             Random random = new Random();
             var filename = "chart" + random.Next(1, 100) + ".jpg";
@@ -457,6 +456,25 @@ namespace WSafe.Domain.Helpers.Implements
             }
             return modelo;
         }
+        public AplicacionVM ToAplicationVM(Aplicacion aplicacion)
+        {
+            var modelo = new AplicacionVM
+            {
+                ID = aplicacion.ID,
+                RiesgoID = aplicacion.RiesgoID,
+                Nombre = aplicacion.Nombre.ToUpper(),
+                CategoriaAplicacion = aplicacion.CategoriaAplicacion,
+                Intervencion = aplicacion.Intervencion,
+                Beneficios = aplicacion.Beneficios,
+                Presupuesto = aplicacion.Presupuesto,
+                TrabajadorID = aplicacion.TrabajadorID,
+                FechaInicial = aplicacion.FechaInicial,
+                FechaFinal = aplicacion.FechaFinal,
+                Observaciones = aplicacion.Observaciones,
+            };
+
+            return modelo;
+        }
         public IEnumerable<AplicacionVM> ToIntervencionesViewModel(IEnumerable<Aplicacion> listaAplicacion)
         {
             var modelo = new List<AplicacionVM>();
@@ -566,8 +584,6 @@ namespace WSafe.Domain.Helpers.Implements
                 TrabajadorID = model.TrabajadorID
             };
             return result;
-
-            throw new NotImplementedException();
         }
 
         public IEnumerable<PlanAccionVM> ToPlanAccionVMList(IEnumerable<PlanAction> plan)
@@ -1001,6 +1017,7 @@ namespace WSafe.Domain.Helpers.Implements
                 ID = user.ID,
                 Name = user.Name,
                 Email = user.Email,
+                Password = user.Password,
                 RoleID = user.RoleID
             };
             return result;
