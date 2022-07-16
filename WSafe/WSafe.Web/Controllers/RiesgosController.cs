@@ -46,7 +46,7 @@ namespace WSafe.Web.Controllers
             }
         }
 
-        [AuthorizeUser(operation: 1, component: 2)]
+        //[AuthorizeUser(operation: 1, component: 2)]
         public async Task<ActionResult> GetAll()
         {
             var list = await _empresaContext.Riesgos
@@ -67,7 +67,7 @@ namespace WSafe.Web.Controllers
         public ActionResult PrintRiesgosToPdf()
         {
             var report = new ActionAsPdf("GetAll");
-            report.FileName = "MatrizRiesgos.Pdf";
+            report.FileName = "MatrizRiesgos.Pdf" + DateTime.Now;
             report.PageSize = Rotativa.Options.Size.A4;
             report.PageOrientation = Rotativa.Options.Orientation.Landscape;
             report.PageWidth = 399;
