@@ -6,7 +6,6 @@ namespace WSafe.Domain.Data.Entities
 {
     public class Accion
     {
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ZonaID { get; set; }
@@ -34,7 +33,6 @@ namespace WSafe.Domain.Data.Entities
         [Display(Name = "No conformidad")]
         [MaxLength(200)]
         public string Descripcion { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Indicador Antes")]
         public CategoriasEfectividad EficaciaAntes { get; set; }
         [Display(Name = "Indicador Despues")]
@@ -47,8 +45,8 @@ namespace WSafe.Domain.Data.Entities
         public bool Efectiva { get; set; }
         [Display(Name = "Cerrada")]
         public bool Estado { get; set; }
+        public int RiesgoID { get; set; }
         public IEnumerable<PlanAction> Planes { get; set; }
         public IEnumerable<SeguimientoAccion> Seguimientos { get; set; }
-        public int RiesgoID { get; set; }
     }
 }

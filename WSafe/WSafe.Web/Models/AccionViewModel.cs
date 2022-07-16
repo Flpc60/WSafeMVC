@@ -32,9 +32,7 @@ namespace WSafe.Web.Models
         public IEnumerable<SelectListItem> Tareas { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Fecha solicitud")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
-        public DateTime FechaSolicitud { get; set; }
+        public string FechaSolicitud { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Tipo acción")]
         public CategoriasAccion Categoria { get; set; }
@@ -58,7 +56,6 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Indicador Despues")]
         public CategoriasEfectividad EficaciaDespues { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Fecha cierre")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]

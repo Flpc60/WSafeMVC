@@ -126,7 +126,7 @@ namespace WSafe.Domain.Helpers.Implements
                 Actividades = _comboHelper.GetComboActividades(),
                 TareaID = accion.TareaID,
                 Tareas = _comboHelper.GetComboTareas(),
-                FechaSolicitud = accion.FechaSolicitud,
+                FechaSolicitud = accion.FechaSolicitud.ToString("yyyy-MM-dd"),
                 Categoria = accion.Categoria,
                 TrabajadorID = accion.TrabajadorID,
                 Trabajadores = _comboHelper.GetComboTrabajadores(),
@@ -617,7 +617,7 @@ namespace WSafe.Domain.Helpers.Implements
                 model.Add(new AccionViewModel
                 {
                     ID = item.ID,
-                    FechaSolicitud = item.FechaSolicitud,
+                    FechaSolicitud = item.FechaSolicitud.ToString("yyyy-MM-dd"),
                     Categoria = item.Categoria,
                     TrabajadorID = item.TrabajadorID,
                     Trabajadores = _comboHelper.GetComboTrabajadores(),

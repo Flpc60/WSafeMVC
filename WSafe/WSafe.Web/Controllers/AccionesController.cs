@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.Security;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Helpers;
 using WSafe.Domain.Repositories.Implements;
@@ -77,21 +78,35 @@ namespace WSafe.Web.Controllers
             ViewBag.AccionID = id;
 
             ViewBag.Categorias = _comboHelper.GetAllCausas();
+            ViewBag.fechaSolicitud = model.FechaSolicitud;
 
             return View(model);
         }
 
         [HttpPost]
-        public async Task<ActionResult> UpdateAccion(Accion model)
+        public async Task<ActionResult> UpdateAccion([Bind(Include="ID, ZonaID, ProcesoID, ActividadID, TareaID, FechaSolicitud, Categoria, TrabajadorID, " +
+            "FuenteAccion, Descripcion, EficaciaAntes, EficaciaDespues, FechaCierre, Efectiva, Estado")] Accion model)
         {
-            if (ModelState.IsValid)
+            var message = "";
+            try
             {
-                var consulta = new AccionService(new AccionRepository(_empresaContext));
-                var result = await _converterHelper.ToAccionAsync(model, false);
-                await consulta.Update(result);
+                if (ModelState.IsValid)
+                {
+                    var consulta = new AccionService(new AccionRepository(_empresaContext));
+                    var result = await _converterHelper.ToAccionAsync(model, false);
+                    await consulta.Update(result);
+                    message = "El registro ha sido actualizado correctamente !!";
+                    var idAccion = model.ID;
+                    return Json(new {data= idAccion, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                message = "El registro NO ha sido actualizado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
-            var idAccion = model.ID;
-            return Json(idAccion, JsonRequestBehavior.AllowGet);
+            catch
+            {
+                message = "El registro NO ha sido actualizado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [HttpGet]
@@ -204,13 +219,14 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateAccion([Bind(Include="ID, ZonaID, ProcesoID, ActividadID, TareaID, FechaSolicitud, Categoria, TrabajadorID, " +
-            "FuenteAccion, Descripcion, EficaciaAntes, EficaciaDespues, FechaCierre, Efectiva, Estado")] Accion model)
+        public async Task<ActionResult> CreateAccion(Accion model)
         {
             if (model == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            var message = "";
 
             try
             {
@@ -219,15 +235,20 @@ namespace WSafe.Web.Controllers
                     var result = await _converterHelper.ToAccionAsync(model, true);
                     _empresaContext.Acciones.Add(result);
                     var saved = await _empresaContext.SaveChangesAsync();
+                    message = "El registro ha sido ingresado correctamente !!";
+                    var idAccion = _empresaContext.Acciones.OrderByDescending(x => x.ID).First().ID;
+                    return Json(new { data = idAccion, mensaj = message},JsonRequestBehavior.AllowGet);
                 }
+                message = "El registro NO ha sido ingresado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
+                message = "El registro NO ha sido ingresado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
-
-            var idAccion = _empresaContext.Acciones.OrderByDescending(x => x.ID).First().ID;
-            return Json(idAccion, JsonRequestBehavior.AllowGet);
         }
+
         // GET: Plan acción/ListarPlanAction
         [HttpGet]
         public async Task<ActionResult> ListarPlanAccion(int idAccion)
@@ -374,12 +395,15 @@ namespace WSafe.Web.Controllers
         [HttpGet]
         public ActionResult PrintAccionesToPdf(int id)
         {
+            Random random = new Random();
+            var filename = "ReporteAccion" + random.Next(1, 100) + ".Pdf";
+            var filePathName = "~/Documents/" + filename;
             var report = new ActionAsPdf("Details", new { id = id });
-            report.FileName = "ReporteAcciones.Pdf";
+            report.FileName = filePathName;
             report.PageSize = Rotativa.Options.Size.A4;
             report.Copies = 1;
             report.PageOrientation.GetValueOrDefault();
-
+            report.FormsAuthenticationCookieName = FormsAuthentication.FormsCookieName;
             return report;
         }
     }

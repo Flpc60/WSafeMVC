@@ -1014,7 +1014,6 @@ function DeleteRoleOperation(id) {
 function AddAccion() {
     // Crea una nueva acción, para una nueva no conformidad
     // Retorna la accionID, y se la pasa a PlanAccion y SeguimientoAccion
-    var fechaCierre = $("#fechaSolicitud").val();
     $(".tabIdCausas").css("display", "none");
     if ($("#idEfectiva").is(':checked')) {
         $("#idEfectiva").val(true)
@@ -1028,9 +1027,6 @@ function AddAccion() {
     else {
         $("#idEstado").val(false)
     }
-    if ($("#idFechaCierre").is(':empty')) {
-        $("#idFechaCierre").val(fechaCierre)
-    }
 
     var accionVM = {
         ID: "0",
@@ -1038,7 +1034,7 @@ function AddAccion() {
         ProcesoID: $("#proceso").val(),
         ActividadID: $("#activity").val(),
         TareaID: $("#tarea").val(),
-        FechaSolicitud: $("#fechaSolicitud").val(),
+        FechaSolicitud: $("#FechaSolicitud").val(),
         Categoria: $("#categoriaAcc").val(),
         TrabajadorID: $("#idTrabajador").val(),
         FuenteAccion: $("#idFuente").val(),
@@ -1055,10 +1051,13 @@ function AddAccion() {
         url: "/Acciones/CreateAccion",
         data: { model: accionVM },
         dataType: "json",
-        success: function (idAccion) {
-            $("#txtAccionID").val(idAccion);
-            $("#btnAddAction").hide();
-            $("#btnCanAccc").hide();
+        success: function (response) {
+            if (response.data != false) {
+                $("#txtAccionID").val(response.data);
+                $("#btnAddAction").hide();
+                $("#btnCanAccc").hide();
+            }
+            alert(response.mensaj);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -1070,13 +1069,26 @@ function AddAccion() {
 function UpdateAccion(id) {
     $(".tabIdCausas").css("display", "none");
     $("#txtAccionID").val(id);
+    if ($("#idEfectiva").is(':checked')) {
+        $("#idEfectiva").val(true)
+    }
+    else {
+        $("#idEfectiva").val(false)
+    }
+    if ($("#idEstado").is(':checked')) {
+        $("#idEstado").val(true)
+    }
+    else {
+        $("#idEstado").val(false)
+    }
+
     var accionVM = {
         ID: $("#txtAccionID").val(),
         ZonaID: $("#zona").val(),
         ProcesoID: $("#proceso").val(),
         ActividadID: $("#activity").val(),
         TareaID: $("#tarea").val(),
-        FechaSolicitud: $("#fechaSolicitud").val(),
+        FechaSolicitud: $("#FechaSolicitud").val(),
         Categoria: $("#categoriaAcc").val(),
         TrabajadorID: $("#idTrabajador").val(),
         FuenteAccion: $("#idFuente").val(),
@@ -1093,9 +1105,11 @@ function UpdateAccion(id) {
         url: "/Acciones/UpdateAccion",
         data: { model: accionVM },
         dataType: "json",
-        success: function (idAccion) {
-            $("#txtAccionID").val(idAccion);
-            alert("Actualzación realizada exitosamente !!")
+        success: function (response) {
+            if (response.data != false) {
+                $("#txtAccionID").val(response.data);
+            }
+            alert(response.mensaj);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
