@@ -374,6 +374,14 @@
     <Compile Include="Migrations\202207152348086_UpdateAction6.Designer.cs">
       <DependentUpon>202207152348086_UpdateAction6.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202207181317209_UpdateAction7.cs" />
+    <Compile Include="Migrations\202207181317209_UpdateAction7.Designer.cs">
+      <DependentUpon>202207181317209_UpdateAction7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207181806422_UpdateIncident.cs" />
+    <Compile Include="Migrations\202207181806422_UpdateIncident.Designer.cs">
+      <DependentUpon>202207181806422_UpdateIncident.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AuthorizationVM.cs" />
     <Compile Include="Models\DetailsIncidentVM.cs" />
@@ -620,6 +628,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202207152348086_UpdateAction6.resx">
       <DependentUpon>202207152348086_UpdateAction6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207181317209_UpdateAction7.resx">
+      <DependentUpon>202207181317209_UpdateAction7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207181806422_UpdateIncident.resx">
+      <DependentUpon>202207181806422_UpdateIncident.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

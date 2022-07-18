@@ -57,9 +57,7 @@ namespace WSafe.Web.Models
         [Display(Name = "Indicador Despues")]
         public CategoriasEfectividad EficaciaDespues { get; set; }
         [Display(Name = "Fecha cierre")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
-        public DateTime FechaCierre { get; set; }
+        public string FechaCierre { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Efectiva")]
         public bool Efectiva { get; set; }

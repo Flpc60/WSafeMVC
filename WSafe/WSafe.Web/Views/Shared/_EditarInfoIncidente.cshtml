@@ -49,8 +49,8 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.FechaReporte, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-4">
-                    @Html.EditorFor(model => model.FechaReporte, new { htmlAttributes = new { @class = "form-control", @id = "txtFechaReporte" } })
-                    @Html.ValidationMessageFor(model => model.FechaReporte, "", new { @class = "text-danger" })
+                    <input type="date" class="form-control" data-val-required="El campo Fecha reporte es obligatotio" id="FechaReporte" name="FechaReporte"
+                           value='@ViewBag.fechaReporte'>
                 </div>
             </div>
         </div>
@@ -72,8 +72,8 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.FechaIncidente, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-4">
-                    @Html.EditorFor(model => model.FechaIncidente, new { htmlAttributes = new { @class = "form-control", @id = "txtFechaIncidente" } })
-                    @Html.ValidationMessageFor(model => model.FechaIncidente, "", new { @class = "text-danger" })
+                    <input type="date" class="form-control" data-val-required="El campo Fecha incidente es obligatotio" id="FechaIncidente" name="FechaIncidente"
+                           value='@ViewBag.fechaIncidente'>
                 </div>
             </div>
         </div>

@@ -56,6 +56,8 @@ namespace WSafe.Web.Controllers
         public ActionResult Create()
         {
             var incidenteView = _converterHelper.ToIncidenteViewModelNew();
+            ViewBag.fechaReporte = DateTime.Now;
+            ViewBag.fechaIncidente = incidenteView.FechaIncidente;
             return View(incidenteView);
         }
 
@@ -72,7 +74,7 @@ namespace WSafe.Web.Controllers
                     var saved = await consulta.Insert(incidente);
                     var idIncidente = _empresaContext.Incidentes.OrderByDescending(x => x.ID).First().ID;
                     message = "El registro se ha ingresado correctamente!!";
-                    return Json(new { data = idIncidente, mensaj = message}, JsonRequestBehavior.AllowGet);
+                    return Json(new { data = idIncidente, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
                 message = "El registro NO se ha ingresado correctamente!!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
@@ -96,15 +98,16 @@ namespace WSafe.Web.Controllers
                 .Include(l => l.Lesionados)
                 .FirstOrDefaultAsync(i => i.ID == id.Value);
 
-            var incidenteViewModel = _converterHelper.ToIncidenteViewModel(result);
+            var model = _converterHelper.ToIncidenteViewModel(result);
 
-            if (incidenteViewModel == null)
+            if (model == null)
             {
                 return HttpNotFound();
             }
             ViewBag.incidenteID = id;
-
-            return View(incidenteViewModel);
+            ViewBag.fechaReporte = model.FechaReporte;
+            ViewBag.fechaIncidente = model.FechaIncidente;
+            return View(model);
         }
 
         [HttpPost]

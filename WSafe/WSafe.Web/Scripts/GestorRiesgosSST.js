@@ -1041,7 +1041,7 @@ function AddAccion() {
         Descripcion: $("#idDescrip").val(),
         EficaciaAntes: $("#idEficaciaAnt").val(),
         EficaciaDespues: $("#idEficaciaDesp").val(),
-        FechaCierre: $("#idFechaCierre").val(),
+        FechaCierre: $("#FechaCierre").val(),
         Efectiva: $("#idEfectiva").val(),
         Estado: $("#idEstado").val()
     };
@@ -1095,7 +1095,7 @@ function UpdateAccion(id) {
         Descripcion: $("#idDescrip").val(),
         EficaciaAntes: $("#idEficaciaAnt").val(),
         EficaciaDespues: $("#idEficaciaDesp").val(),
-        FechaCierre: $("#idFechaCierre").val(),
+        FechaCierre: $("#FechaCierre").val(),
         Efectiva: $("#idEfectiva").val(),
         Estado: $("#idEstado").val()
     };
@@ -1879,8 +1879,8 @@ function AddIncidente() {
         ProcesoID: $("#proceso").val(),
         ActividadID: $("#activity").val(),
         TareaID: $("#tarea").val(),
-        FechaReporte: $("#txtFechaReporte").val(),
-        FechaIncidente: $("#txtFechaIncidente").val(),
+        FechaReporte: $("#FechaReporte").val(),
+        FechaIncidente: $("#FechaIncidente").val(),
         CategoriasIncidente: $("#txtCategoria").val(),
         IncapacidadMedica: $("#txtIncapacidad").val(),
         DiasIncapacidad: $("#txtDiasIncapacidad").val(),
@@ -1956,8 +1956,8 @@ function UpdateIncidente() {
         ProcesoID: $("#proceso").val(),
         ActividadID: $("#activity").val(),
         TareaID: $("#tarea").val(),
-        FechaReporte: $("#txtFechaReporte").val(),
-        FechaIncidente: $("#txtFechaIncidente").val(),
+        FechaReporte: $("#FechaReporte").val(),
+        FechaIncidente: $("#FechaIncidente").val(),
         CategoriasIncidente: $("#txtCategoria").val(),
         IncapacidadMedica: $("#txtIncapacidad").val(),
         DiasIncapacidad: $("#txtDiasIncapacidad").val(),
