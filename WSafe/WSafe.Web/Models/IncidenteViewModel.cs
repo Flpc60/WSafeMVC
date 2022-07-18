@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using WSafe.Domain.Data.Entities.Incidentes;
@@ -31,31 +30,10 @@ namespace WSafe.Web.Models
         public IEnumerable<SelectListItem> Tareas { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Fecha reporte")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
-        public DateTime FechaReporte { get; set; }
+        public string FechaReporte { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Fecha incidente")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
-        private DateTime fechaIncidente { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Fecha incidente")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
-        public DateTime FechaIncidente
-        {
-            get
-            {
-                if (fechaIncidente <= FechaReporte)
-                { return fechaIncidente; }
-                return DateTime.Now;
-            }
-            set
-            {
-                fechaIncidente = value;
-            }
-        }
+        public string FechaIncidente { get; set; }
         [Display(Name = "Categoria incidente")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una categoria incidente.")]
