@@ -1,5 +1,6 @@
 ﻿@model WSafe.Web.Models.AccionViewModel
-<div class="container">
+<hr />
+<div class="container" style="background-color:antiquewhite">
     <hr />
     <div class="row">
         <div class="col-md-6">
@@ -22,7 +23,7 @@
         </div>
     </div>
 </div>
-<div class="container">
+<div class="container" style="background-color:antiquewhite">
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -44,7 +45,7 @@
         </div>
     </div>
 </div>
-<div class="container">
+<div class="container" style="background-color:antiquewhite">
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -66,7 +67,7 @@
         </div>
     </div>
 </div>
-<div class="container">
+<div class="container" style="background-color:antiquewhite">
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -88,7 +89,7 @@
         </div>
     </div>
 </div>
-<div class="container">
+<div class="container" style="background-color:antiquewhite">
     <div class="row">
         <div class="col-md-12">
             @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -99,7 +100,7 @@
         </div>
     </div>
 </div>
-<div class="container">
+<div class="container" style="background-color:antiquewhite">
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
@@ -123,14 +124,14 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.FechaCierre, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
-                    @Html.EditorFor(model => model.FechaCierre, new { htmlAttributes = new { @class = "form-control", @id = "idFechaCierre" } })
-                    @Html.ValidationMessageFor(model => model.FechaCierre, "", new { @class = "text-danger" })
+                    <input type="date" class="form-control" data-val-required="El campo Fecha cierre es obligatotio" id="FechaCierre" name="FechaCierre"
+                           value='@ViewBag.fechaCierre'>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="container">
+<div class="container" style="background-color:antiquewhite">
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">

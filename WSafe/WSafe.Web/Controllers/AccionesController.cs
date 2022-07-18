@@ -51,6 +51,9 @@ namespace WSafe.Web.Controllers
         {
             var model = _converterHelper.ToAccionViewModelNew();
             ViewBag.Categorias = _comboHelper.GetAllCausas();
+            ViewBag.fechaSolicitud = DateTime.Now;
+            ViewBag.fechaCierre = DateTime.Now;
+
             return View(model);
         }
 
@@ -79,6 +82,7 @@ namespace WSafe.Web.Controllers
 
             ViewBag.Categorias = _comboHelper.GetAllCausas();
             ViewBag.fechaSolicitud = model.FechaSolicitud;
+            ViewBag.fechaCierre = model.FechaCierre;
 
             return View(model);
         }
