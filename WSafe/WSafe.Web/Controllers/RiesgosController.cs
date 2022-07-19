@@ -64,10 +64,26 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult PrintRiesgosToPdf()
+        public async Task<ActionResult> PrintRiesgosToPdf()
         {
-            var report = new ActionAsPdf("GetAll");
-            report.FileName = "MatrizRiesgos.Pdf" + DateTime.Now;
+            Random random = new Random();
+            var filename = "MatrizRiesgos" + random.Next(1, 100) + ".Pdf";
+            var filePathName = "~/Documents/" + filename;
+
+            var list = await _empresaContext.Riesgos
+                .Include(mi => mi.MedidasIntervencion)
+                .OrderByDescending(cr => cr.NivelRiesgo)
+                .ToListAsync();
+            var modelo = _converterHelper.ToRiesgoViewModelFul(list);
+            var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == 8);
+            ViewBag.formato = document.Formato;
+            ViewBag.estandar = document.Estandar;
+            ViewBag.titulo = document.Titulo;
+            ViewBag.version = document.Version;
+            ViewBag.fecha = DateTime.Now;
+            var report = new ViewAsPdf("GetAll");
+            report.Model = modelo;
+            report.FileName = filePathName;
             report.PageSize = Rotativa.Options.Size.A4;
             report.PageOrientation = Rotativa.Options.Orientation.Landscape;
             report.PageWidth = 399;
