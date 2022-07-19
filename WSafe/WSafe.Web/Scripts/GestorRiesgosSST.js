@@ -1909,10 +1909,10 @@ function AddIncidente() {
         ConsecuenciasImagen: $("#idImagen").val(),
         Probabilidad: $("#interpretaP").val(),
         EquiposInvestigador: $("#equipoInvest").val(),
-        LesionPersonal: $("#idLesion").val(),
-        DañoMaterial: $("#idDaño").val(),
-        MedioAmbiente: $("#idMedio").val(),
-        Imagen: $("#idImagen").val(),
+        LesionPersonal: $("#txtLesion").val(),
+        DañoMaterial: $("#txtMaterial").val(),
+        MedioAmbiente: $("#txtAmbiente").val(),
+        Imagen: $("#txtImagen").val(),
         RequiereInvestigacion: $("#txtInvestiga").val(),
         TrabajadorID: $("#txtInformante").val()
     };
@@ -1986,10 +1986,10 @@ function UpdateIncidente() {
         ConsecuenciasImagen: $("#idImagen").val(),
         Probabilidad: $("#interpretaP").val(),
         EquiposInvestigador: $("#equipoInvest").val(),
-        LesionPersonal: $("#idLesion").val(),
-        DañoMaterial: $("#idDaño").val(),
-        MedioAmbiente: $("#idMedio").val(),
-        Imagen: $("#idImagen").val(),
+        LesionPersonal: $("#txtLesion").val(),
+        DañoMaterial: $("#txtMaterial").val(),
+        MedioAmbiente: $("#txtAmbiente").val(),
+        Imagen: $("#txtImagen").val(),
         RequiereInvestigacion: $("#txtInvestiga").val(),
         TrabajadorID: $("#txtInformante").val()
     };

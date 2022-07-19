@@ -375,10 +375,19 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult PrintIncidentsToPdf(int id)
+        public async Task<ActionResult> PrintIncidentsToPdf(int id)
         {
-            var report = new ActionAsPdf("Details", new { id = id });
-            report.FileName = "ReporteIncidents.Pdf";
+            Random random = new Random();
+            var filename = "ReporteIncidentes" + random.Next(1, 100) + ".Pdf";
+            var filePathName = "~/Documents/" + filename;
+
+            var result = await _empresaContext.Incidentes.FirstOrDefaultAsync(i => i.ID == id);
+            var model = _converterHelper.ToIncidentVMFull(result, 6);
+            ViewBag.id = id;
+            ViewBag.cantidad = model.Lesionados.Count();
+            var report = new ViewAsPdf("Details");
+            report.Model = model;
+            report.FileName = filePathName;
             report.PageSize = Rotativa.Options.Size.A4;
             report.Copies = 1;
             report.PageOrientation.GetValueOrDefault();

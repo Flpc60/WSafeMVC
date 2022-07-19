@@ -251,6 +251,7 @@ namespace WSafe.Domain.Helpers.Implements
                 CategoriasIncidente = incidente.CategoriasIncidente,
                 IncapacidadMedica = incidente.IncapacidadMedica,
                 DiasIncapacidad = incidente.DiasIncapacidad,
+                TrabajadorID = incidente.TrabajadorID,
                 Trabajadores = _comboHelper.GetComboTrabajadores(),
                 NaturalezaLesion = incidente.NaturalezaLesion,
                 PartesAfectadas = incidente.PartesAfectadas,
