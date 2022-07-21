@@ -3,7 +3,6 @@
     ViewBag.Title = "Create";
     var trabajadores = ViewBag.trabajadores;
 }
-
 <style>
     .tabInterven, .capInterven, .tabPeligros, .tabEvalRiesgos, .tabMediAplica, .consInterven, .tabIntervencion, .tabAddInterven {
         display: none;
@@ -89,7 +88,7 @@
         </div>
         <div class="tabAddInterven">
             <hr />
-            <input type="hidden" id="txtIntervenID" name="txtIntervenID" />
+            <input type="hidden" id="txtIntervenID" name="txtIntervenID"/>
             @Html.Partial("_EditarIntervencion")
             <div class="row">
                 <div class="col-md-8">

@@ -94,9 +94,9 @@ namespace WSafe.Web.Controllers
         [AuthorizeUser(operation: 2, component: 2)]
         public ActionResult Create()
         {
-            var riesgoView = _converterHelper.ToRiesgoViewModelNew();
+            var model = _converterHelper.ToRiesgoViewModelNew();
             ViewBag.trabajadores = _comboHelper.GetComboTrabajadores();
-            return View(riesgoView);
+            return View(model);
         }
 
         [HttpPost]
@@ -298,7 +298,7 @@ namespace WSafe.Web.Controllers
             }
             catch (Exception ex)
             {
-                message = "El registro NO ha sido ingresado correctamente !!";
+                message = "La transacción NO ha sido realizada correctamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
@@ -306,22 +306,25 @@ namespace WSafe.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> DeleteIntervencion(int? id)
         {
+            var message = "";
             try
             {
                 var result = await _empresaContext.Aplicaciones
                     .Where(a => a.ID == id).ToListAsync();
                 var model = _converterHelper.ToIntervencionesViewModel(result);
-                return Json(new { data = model, error = " " }, JsonRequestBehavior.AllowGet);
+                return Json(new { data = model, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
+                message = "No fué posible borrar este registro !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
 
         [HttpPost]
         public async Task<ActionResult> DeleteIntervencion(int id)
         {
+            var message = "";
             try
             {
                 if (ModelState.IsValid)
@@ -329,13 +332,16 @@ namespace WSafe.Web.Controllers
                     var result = await _empresaContext.Aplicaciones.FindAsync(id);
                     _empresaContext.Aplicaciones.Remove(result);
                     await _empresaContext.SaveChangesAsync();
-                    return Json(result, JsonRequestBehavior.AllowGet);
+                    message = "El registro fué borrado correctamente !!";
+                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
-                return RedirectToAction("Index");
+                message = "El registro NO fué borrado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
+                message = "El registro NO fué borrado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
 
