@@ -362,25 +362,9 @@
     <Compile Include="Migrations\202207092147338_InitialCreate.Designer.cs">
       <DependentUpon>202207092147338_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202207152207223_UpdateAction4.cs" />
-    <Compile Include="Migrations\202207152207223_UpdateAction4.Designer.cs">
-      <DependentUpon>202207152207223_UpdateAction4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202207152248574_UpdateAction5.cs" />
-    <Compile Include="Migrations\202207152248574_UpdateAction5.Designer.cs">
-      <DependentUpon>202207152248574_UpdateAction5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202207152348086_UpdateAction6.cs" />
-    <Compile Include="Migrations\202207152348086_UpdateAction6.Designer.cs">
-      <DependentUpon>202207152348086_UpdateAction6.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202207181317209_UpdateAction7.cs" />
-    <Compile Include="Migrations\202207181317209_UpdateAction7.Designer.cs">
-      <DependentUpon>202207181317209_UpdateAction7.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202207181806422_UpdateIncident.cs" />
-    <Compile Include="Migrations\202207181806422_UpdateIncident.Designer.cs">
-      <DependentUpon>202207181806422_UpdateIncident.cs</DependentUpon>
+    <Compile Include="Migrations\202207221838558_Updatetrabajador.cs" />
+    <Compile Include="Migrations\202207221838558_Updatetrabajador.Designer.cs">
+      <DependentUpon>202207221838558_Updatetrabajador.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AuthorizationVM.cs" />
@@ -473,9 +457,12 @@
     <Content Include="Images\LogoEntidad.png" />
     <Content Include="Rotativa\help-wkhtmltoimage.txt" />
     <Content Include="Rotativa\help-wkhtmltopdf.txt" />
-    <None Include="Rotativa\wkhtmltoimage.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile2.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile3.pubxml" />
+    <None Include="Properties\PublishProfiles\FTPProfile1.pubxml" />
+    <None Include="Properties\PublishProfiles\FTPProfile2.pubxml" />
     <None Include="Rotativa\wkhtmltopdf.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -620,20 +607,8 @@
     <EmbeddedResource Include="Migrations\202207092147338_InitialCreate.resx">
       <DependentUpon>202207092147338_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202207152207223_UpdateAction4.resx">
-      <DependentUpon>202207152207223_UpdateAction4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202207152248574_UpdateAction5.resx">
-      <DependentUpon>202207152248574_UpdateAction5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202207152348086_UpdateAction6.resx">
-      <DependentUpon>202207152348086_UpdateAction6.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202207181317209_UpdateAction7.resx">
-      <DependentUpon>202207181317209_UpdateAction7.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202207181806422_UpdateIncident.resx">
-      <DependentUpon>202207181806422_UpdateIncident.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202207221838558_Updatetrabajador.resx">
+      <DependentUpon>202207221838558_Updatetrabajador.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

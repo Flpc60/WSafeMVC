@@ -13,8 +13,8 @@ function AddInterven() {
         Beneficios: $("#idBeneficio").val(),
         Presupuesto: $("#idPresup").val(),
         TrabajadorID: $("#idRespons").val(),
-        FechaInicial: $("#idFechaIni").val(),
-        Fechafinal: $("#idFechaFin").val(),
+        FechaInicial: $("#FechaInicial").val(),
+        Fechafinal: $("#FechaFinal").val(),
         Observaciones: $("#idObserv").val()
     };
 
@@ -459,8 +459,8 @@ function getIntervenByID(intervenID) {
             $("#idBeneficio").val(result.Beneficios);
             $("#idPresup").val(result.Presupuesto);
             $("#idRespons").val(result.TrabajadorID);
-            $("#idFechaIni").val(result.FechaInicial);
-            $("#idFechaFin").val(result.FechaFinal);
+            $("#FechaInicial").val(result.FechaInicial);
+            $("#FechaFinal").val(result.FechaFinal);
             $("#idObserv").val(result.Observaciones);
         },
          error: function (errormessage) {
@@ -585,34 +585,39 @@ function DeleteInterven(id) {
         dataType: "json",
         async: true,
         success: function (result) {
-            var text = "";
-            text += "Esta seguro de querer borrar este registro ? :\n\n";
-            text += "Descripción : " + result.data.Nombre + "\n";
-            text += "Categoria : " + result.data.TextCategoria + "\n";
-            text += "Intervención : " + result.data.TextIntervencion + "\n";
-            text += "Presupuesto : " + result.data.Presupuesto + "\n";
-            text += "Responsable : " + result.data.Responsable + "\n";
-            text += "Fecha inicial : " + result.data.TextFechaInicial + "\n";
-            text += "Fecha final : " + result.data.TextFechaFinal + "\n";
-            text += "Observaciones : " + result.data.Observaciones + "\n";
-            var respuesta = confirm(text);
+            if (result.data != false) {
+                var text = "";
+                text += "Esta seguro de querer borrar este registro ? :\n\n";
+                text += "Descripción : " + result.data.Nombre + "\n";
+                text += "Categoria : " + result.data.TextCategoria + "\n";
+                text += "Intervención : " + result.data.TextIntervencion + "\n";
+                text += "Presupuesto : " + result.data.Presupuesto + "\n";
+                text += "Responsable : " + result.data.Responsable + "\n";
+                text += "Fecha inicial : " + result.data.TextFechaInicial + "\n";
+                text += "Fecha final : " + result.data.TextFechaFinal + "\n";
+                text += "Observaciones : " + result.data.Observaciones + "\n";
+                var respuesta = confirm(text);
 
-            if (respuesta == true) {
-                $.ajax({
-                    url: "/Riesgos/DeleteIntervencion/" + id,
-                    type: "POST",
-                    contentType: "application/json;charset=UTF-8",
-                    dataType: "json",
-                    async: true,
-                    success: function (result) {
-                        mostrarInterven();
-                    },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        alert(xhr.status);
-                        alert(thrownError);
-                    }
-                });
-                alert("El registro ha sido borrado exitosamente");
+                if (respuesta == true) {
+                    $.ajax({
+                        url: "/Riesgos/DeleteIntervencion/" + id,
+                        type: "POST",
+                        contentType: "application/json;charset=UTF-8",
+                        dataType: "json",
+                        async: true,
+                        success: function (result) {
+                            alert(result.mensaj);
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            alert(xhr.status);
+                            alert(thrownError);
+                        }
+                    });
+                }
+            }
+            else {
+
+                alert(result.mensaj);
             }
             ClearTextBox();
             mostrarInterven();
@@ -1421,8 +1426,8 @@ function UpdateIntervencion() {
         Intervencion: $("#idInterven").val(),
         Beneficios: $("#idBeneficio").val(),
         Presupuesto: $("#idPresup").val(),
-        FechaInicial: $("#idFechaIni").val(),
-        FechaFinal: $("#idFechaFin").val(),
+        FechaInicial: $("#FechaInicial").val(),
+        FechaFinal: $("#FechaFinal").val(),
         Observaciones: $("#idObserv").val()
     };
 

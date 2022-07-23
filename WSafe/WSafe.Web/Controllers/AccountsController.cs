@@ -2,6 +2,8 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -56,7 +58,8 @@ namespace WSafe.Web.Controllers
 
             try
             {
-                var result = _empresaContext.Users.Where(u => u.Name == model.Name.Trim() && u.Email == model.Email.Trim() && u.Password == model.Password.Trim()).FirstOrDefault();
+                string password = GetSHA256(model.Password);
+                var result = _empresaContext.Users.Where(u => u.Name == model.Name.Trim() && u.Email == model.Email.Trim() && u.Password == password.Trim()).FirstOrDefault();
                 if (result == null || result.RoleID == 0)
                 {
                     message = "El Usuario o la contraseña son inválidos, o no tiene un rol asignado en el sistema!!";
@@ -130,9 +133,11 @@ namespace WSafe.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var result = _empresaContext.Users.Where(u => u.Name == model.Name.Trim() && u.Email == model.Email.Trim() && u.Password == model.Password.Trim()).FirstOrDefault();
+                    string password = GetSHA256(model.Password);
+                    var result = _empresaContext.Users.Where(u => u.Name == model.Name.Trim() && u.Email == model.Email.Trim() && u.Password == password.Trim()).FirstOrDefault();
                     if (result == null)
                     {
+                        model.Password = password;
                         _empresaContext.Users.Add(model);
                         await _empresaContext.SaveChangesAsync();
                         message = "Usuario registrado";
@@ -308,6 +313,16 @@ namespace WSafe.Web.Controllers
                 message = ex.Message;
                 return Json(new { result = "Redirect", url = Url.Action("Index", "Accounts"), mensaj = message }, JsonRequestBehavior.AllowGet);
             }
+        }
+        public static string GetSHA256(string str)
+        {
+            SHA256 sha256 = SHA256Managed.Create();
+            ASCIIEncoding encoding = new ASCIIEncoding();
+            byte[] stream = null;
+            StringBuilder sb = new StringBuilder();
+            stream = sha256.ComputeHash(encoding.GetBytes(str));
+            for (int i = 0; i < stream.Length; i++) sb.AppendFormat("{0:x2}", stream[i]);
+            return sb.ToString();
         }
     }
 }
