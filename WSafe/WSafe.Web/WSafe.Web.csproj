@@ -362,9 +362,13 @@
     <Compile Include="Migrations\202207092147338_InitialCreate.Designer.cs">
       <DependentUpon>202207092147338_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202207221838558_Updatetrabajador.cs" />
-    <Compile Include="Migrations\202207221838558_Updatetrabajador.Designer.cs">
-      <DependentUpon>202207221838558_Updatetrabajador.cs</DependentUpon>
+    <Compile Include="Migrations\202207231511598_UpdateTrabajador.cs" />
+    <Compile Include="Migrations\202207231511598_UpdateTrabajador.Designer.cs">
+      <DependentUpon>202207231511598_UpdateTrabajador.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207232310431_UpdateAplicaVM.cs" />
+    <Compile Include="Migrations\202207232310431_UpdateAplicaVM.Designer.cs">
+      <DependentUpon>202207232310431_UpdateAplicaVM.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AuthorizationVM.cs" />
@@ -607,8 +611,11 @@
     <EmbeddedResource Include="Migrations\202207092147338_InitialCreate.resx">
       <DependentUpon>202207092147338_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202207221838558_Updatetrabajador.resx">
-      <DependentUpon>202207221838558_Updatetrabajador.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202207231511598_UpdateTrabajador.resx">
+      <DependentUpon>202207231511598_UpdateTrabajador.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207232310431_UpdateAplicaVM.resx">
+      <DependentUpon>202207232310431_UpdateAplicaVM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -469,8 +469,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Beneficios = aplicacion.Beneficios,
                 Presupuesto = aplicacion.Presupuesto,
                 TrabajadorID = aplicacion.TrabajadorID,
-                FechaInicial = aplicacion.FechaInicial,
-                FechaFinal = aplicacion.FechaFinal,
+                FechaInicial = aplicacion.FechaInicial.ToString("yyyy-MM-dd"),
+                FechaFinal = aplicacion.FechaFinal.ToString("yyyy-MM-dd"),
                 Observaciones = aplicacion.Observaciones,
             };
 
@@ -488,15 +488,15 @@ namespace WSafe.Domain.Helpers.Implements
                     Nombre = item.Nombre.ToUpper(),
                     CategoriaAplicacion = item.CategoriaAplicacion,
                     Intervencion = item.Intervencion,
-                    Beneficios = item.Beneficios,
+                    Beneficios = item.Beneficios.ToUpper(),
                     Presupuesto = item.Presupuesto,
                     TrabajadorID = item.TrabajadorID,
                     Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpper(),
-                    FechaInicial = item.FechaInicial,
-                    FechaFinal = item.FechaFinal,
+                    FechaInicial = item.FechaInicial.ToString("yyyy-MM-dd"),
+                    FechaFinal = item.FechaFinal.ToString("yyyy-MM-dd"),
                     TextFechaInicial = item.FechaInicial.ToString("yyyy-MM-dd"),
                     TextFechaFinal = item.FechaFinal.ToString("yyyy-MM-dd"),
-                    Observaciones = item.Observaciones,
+                    Observaciones = item.Observaciones.ToUpper(),
                     TextCategoria = _gestorHelper.GetCategoriaAplicacion(item.CategoriaAplicacion),
                     TextIntervencion = _gestorHelper.GetJerarquiaControl(item.Intervencion)
                 });
@@ -515,8 +515,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Beneficios = model.Beneficios,
                 Presupuesto = model.Presupuesto,
                 TrabajadorID = model.TrabajadorID,
-                FechaInicial = model.FechaInicial,
-                FechaFinal = model.FechaFinal,
+                FechaInicial = Convert.ToDateTime(model.FechaInicial),
+                FechaFinal = Convert.ToDateTime(model.FechaFinal),
                 Observaciones = model.Observaciones
             };
 

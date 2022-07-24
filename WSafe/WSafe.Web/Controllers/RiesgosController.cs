@@ -309,14 +309,13 @@ namespace WSafe.Web.Controllers
             var message = "";
             try
             {
-                var result = await _empresaContext.Aplicaciones
-                    .Where(a => a.ID == id).ToListAsync();
-                var model = _converterHelper.ToIntervencionesViewModel(result);
+                var result = _empresaContext.Aplicaciones.Find(id);
+                var model = _converterHelper.ToAplicationVM(result);
                 return Json(new { data = model, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                message = "No fué posible borrar este registro !!";
+                message = "No fué posible realizar esta transacción !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
