@@ -31,14 +31,10 @@ namespace WSafe.Web.Models
         public string Responsable { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Fecha inicial")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
-        public DateTime FechaInicial { get; set; }
+        public string FechaInicial { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Fecha final")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
-        public DateTime FechaFinal { get; set; }
+        public string FechaFinal { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [MaxLength(100)]
         public string Observaciones { get; set; }
