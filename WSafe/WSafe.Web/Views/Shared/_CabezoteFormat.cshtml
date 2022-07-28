@@ -1,4 +1,4 @@
-﻿<div class="container">
+﻿<div class="container"style="background-color: lightgray">
     <div class="row">
         <div class="col-md-2">
             <img src="~/Images/LogoEntidad.png" class="img-responsive" alt="Cinque Terre" width="80" height="80"><img />
@@ -7,6 +7,11 @@
             <div style="display:block">
                 <div style="text-align:center">
                     <h4>@ViewBag.Title</h4>
+                </div>
+                <div style="text-align:center">
+                    <p>
+                        <strong><b>@Session["organization"].ToString()</b></strong>
+                    </p>
                 </div>
                 <div style="text-align:center">
                     <p>

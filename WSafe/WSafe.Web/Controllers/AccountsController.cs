@@ -66,9 +66,12 @@ namespace WSafe.Web.Controllers
                     ViewBag.mensaje = message;
                     return Json(new { result = "", url = Url.Action("Index", "Home"), mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
+                var id = _empresaContext.Organizations.OrderByDescending(x => x.ID).First().ID;
+                var empresa = _empresaContext.Organizations.FirstOrDefault(o => o.ID == id);
                 Session["User"] = result;
                 Session["userName"] = result.Name;
                 Session["roleID"] = result.RoleID;
+                Session["organization"] = empresa.RazonSocial.Trim() + " NIT : " + empresa.NIT;
                 return Json(new { result = "Redirect", url = Url.Action("Index", "Home"), mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

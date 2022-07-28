@@ -471,7 +471,12 @@ namespace WSafe.Domain.Helpers.Implements
                 TrabajadorID = aplicacion.TrabajadorID,
                 FechaInicial = aplicacion.FechaInicial.ToString("yyyy-MM-dd"),
                 FechaFinal = aplicacion.FechaFinal.ToString("yyyy-MM-dd"),
-                Observaciones = aplicacion.Observaciones.ToUpper()
+                Observaciones = aplicacion.Observaciones.ToUpper(),
+                Responsable = _empresaContext.Trabajadores.Find(aplicacion.TrabajadorID).NombreCompleto.ToUpper(),
+                TextCategoria = _gestorHelper.GetCategoriaAplicacion(aplicacion.CategoriaAplicacion),
+                TextIntervencion = _gestorHelper.GetJerarquiaControl(aplicacion.Intervencion),
+                TextFechaInicial = aplicacion.FechaInicial.ToString("yyyy-MM-dd"),
+                TextFechaFinal = aplicacion.FechaFinal.ToString("yyyy-MM-dd")
             };
 
             return modelo;
