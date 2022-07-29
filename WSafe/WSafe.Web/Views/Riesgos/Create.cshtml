@@ -41,7 +41,6 @@
             @Html.Partial("_EvalRiesgo")
             <div class="row">
                 <div class="col-md-8">
-                    <hr />
                     <button type="button" id="btnAddRiesgo" class="btn btn-primary" onclick="AddNewRiesgo()">Adicionar</button>
                     <button type="button" id="btnCanRisk" class="btn btn-primary" onclick="CancelRisk()">
                         <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
@@ -58,9 +57,9 @@
                 <button type="button" class="btn btn-primary" id="addIntervencion">Adicionar nueva medida de intervención</button>
             </div>
             <div class="container" style="background-color: mediumaquamarine">
-                <table class="table table-bordered table-hover">
+                <table class="table">
                     <thead>
-                        <tr>
+                        <tr style="background-color:gainsboro; width:auto">
                             <th>
                                 Descripción
                             </th>
@@ -94,7 +93,6 @@
             @Html.Partial("_EditarIntervencion")
             <div class="row">
                 <div class="col-md-8">
-                    <hr />
                     <button type="button" id="btnAddInterven" class="btn btn-primary" onclick="AddInterven()">Adicionar</button>
                     <button type="button" id="btnUpdInterven" class="btn btn-primary" onclick="UpdateIntervencion()">Guardar</button>
                     <button type="button" id="btnCanInterven" class="btn btn-primary" onclick="CancelInterven()">
