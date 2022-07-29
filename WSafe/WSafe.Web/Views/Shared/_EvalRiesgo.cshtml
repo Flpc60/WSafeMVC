@@ -1,6 +1,6 @@
 ﻿@model WSafe.Web.Models.RiesgoViewModel
 <div class="container" style="background-color: mediumaquamarine">
-    <div class="row" style="display:flex">
+    <div class="row">
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(model => model.NivelesDeficiencia, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -36,7 +36,7 @@
             </div>
         </div>
     </div>
-    <div class="row" style="display:flex">
+    <div class="row">
         <div class="col-md-2">
             <div class="form-group">
                 @Html.LabelFor(model => model.NivelProbabilidad, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -73,7 +73,7 @@
             </div>
         </div>
     </div>
-    <div class="row" style="display:flex">
+    <div class="row">
         <div class="col-md-3">
             <div class="form-group">
                 @Html.LabelFor(model => model.NivelRiesgo, htmlAttributes: new { @class = "control-label col-md-2" })

@@ -53,16 +53,32 @@ function mostrarInterven() {
         dataType: "json",
         async: true,
         success: function (result) {
+            var fecha = new Date();
+            var date = new Date();
             var html = '';
+            var year = 0, month = 0, day = 0;
             $.each(result, function (key, item) {
+
                 html += '<tr>';
                 html += '<td>' + item.Nombre + '</td>';
                 html += '<td>' + item.TextCategoria + '</td>';
                 html += '<td>' + item.TextIntervencion + '</td>';
                 html += '<td>' + item.Responsable + '</td>';
                 html += '<td>' + item.TextFechaInicial + '</td>';
-                html += '<td>' + item.TextFechaFinal + '</td>';
-                html += '<td><a href="#" onclick="return getIntervenByID(' + item.ID + ')">Editar</a> | <a href = "#" onclick = "DeleteInterven(' + item.ID + ')"> Borrar</a></td>';
+
+                year = item.TextFechaFinal.substring(0, 4);
+                month = item.TextFechaFinal.substring(5, 7);
+                day = item.TextFechaFinal.substring(8, 10);
+                date = new Date(year, month -1, day);
+
+                if (Number(date) <= Number(fecha)) {
+                    html += '<td style="background-color:red">' + item.TextFechaFinal + '</td>';
+                } else {
+                    html += '<td style="background-color:green">' + item.TextFechaFinal + '</td>';
+                }
+
+                html +=
+                    '<td><a href="#" onclick="return getIntervenByID(' + item.ID + ')">Editar</a> | <a href = "#" onclick = "DeleteInterven(' + item.ID + ')"> Borrar</a></td>';
                 html += '</tr>';
             });
             $('.tbody').html(html);
@@ -375,8 +391,8 @@ function ShowTasks() {
 }
 
 function ClearTextBox() {
-    $("#idFechaIni").val("");
-    $("#idFechaFin").val("");
+    $("#FechaInicial").val("");
+    $("#FechaFinal").val("");
     $("#idCausa").val("");
     $("#accion").val("");
     $("#idRespons").val("");

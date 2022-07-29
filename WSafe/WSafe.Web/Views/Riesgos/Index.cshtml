@@ -3,26 +3,26 @@
 @{
     ViewBag.Title = "WSafe";
 }
-
-<h2>GESTIÓN DE RIESGOS</h2>
+<br />
+<br />
+<br />
+<h4>GESTIÓN DE RIESGOS</h4>
 
 <div class="row">
-    <div class="col-md-4">
-        @Html.ActionLink("Nuevo riesgo", "Create", new { @class = "glyphicon glyphicon-plus" },
+    <div class="col-md-8">
+        @Html.ActionLink("Ingresar Nuevo Riesgo", "Create", new { @class = "glyphicon glyphicon-plus" },
+        new { @class = "btn btn-info btn-lg active" })
+        @Html.ActionLink("Descargar matriz de riesgos", "PrintRiesgosToPdf", new { @class = "glyphicon glyphicon-download-alt" },
         new { @class = "btn btn-info btn-lg active" })
     </div>
     <div class="col-md-4">
         <input type="search" id="myInput" placeholder="Escriba un nombre de elemento para filtrar" style="width:350px">
     </div>
-    <div class="col-md-4">
-        @Html.ActionLink("Descargar matriz PDF", "PrintRiesgosToPdf", new { @class = "glyphicon glyphicon-download-alt" },
-        new { @class = "btn btn-info btn-lg active" })
-    </div>
 </div>
 <br />
-<div class="container" style="background-color: mediumaquamarine">
+<div class="container" style="background-color: mediumaquamarine; width:100%; margin-right:0px">
     <table class="table">
-        <tr style="background-color:gainsboro; width:auto">
+        <tr style="background-color:gainsboro">
             <th>
                 @Html.DisplayNameFor(model => model.Proceso)
             </th>
@@ -67,9 +67,6 @@
             </th>
             <th>
                 Aceptable
-            </th>
-            <th>
-                Opciones
             </th>
         </tr>
         <tbody id="myTable">
@@ -141,9 +138,9 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Aceptabilidad)
                     </td>
-                    <td style="font-size:18px">
-                        @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) |
-                        <a href="#" onclick="DeleteRiesgo('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
+                    <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                        @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" })|
+                        <a href="#" onclick="DeleteRiesgo('@item.ID')" class="glyphicon glyphicon-trash"></a>
                     </td>
                 </tr>
 
