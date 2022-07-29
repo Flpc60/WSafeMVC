@@ -46,14 +46,20 @@
             <hr />
             @Html.Partial("_EvalRiesgo")
             <input type="hidden" id="txtRiesgoID" name="txtRiesgoID" />
-            <div class="col-md-offset-2 col-md-4">
-                <button type="button" id="btnUpdRiesgo" class="btn btn-success" onclick="UpdateRiesgo()">Guardar</button>
+            <div class="row">
+                <div class="col-md-8">
+                    <button type="button" id="btnUpdRiesgo" class="btn btn-primary" onclick="UpdateRiesgo()">Guardar</button>
+                    <button type="button" id="btnCanRisk" class="btn btn-primary" onclick="CancelRisk()">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                    </button>
+                </div>
+                <div class="col-md-4">
+                </div>
             </div>
         </div>
 
         <div class="tabMediAplica">
             <hr />
-
             <div class="col-md-12">
                 <button type="button" class="btn btn-primary" id="addIntervencion">Adicionar nueva medida de intervención</button>
             </div>
