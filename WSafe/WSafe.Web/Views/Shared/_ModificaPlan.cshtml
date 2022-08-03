@@ -3,18 +3,18 @@
     var categorias = ViewBag.Categorias;
 }
 
-<div class="container" style="background-color:antiquewhite">
+<div class="container" style="background-color:mediumaquamarine">
 
     <div id="_EditarPlanAcc">
         <div class="form-row">
             <hr />
             <div class="col-md-4 mb-3">
                 <label for="idFechaIni">Fecha inicial :</label>
-                <input type="date" class="form-control" id="idFechaIni" onchange="validarFechaIni()" required autofocus>
+                <input type="date" class="form-control" id="idFechaIni" required autofocus>
             </div>
             <div class="col-md-4 mb-3">
-                <label for="idFechaFin">Fecha final :</label>
-                <input type="date" class="form-control" id="idFechaFin" onclick="validarFechaFin()" required>
+                <label for="idFechaFin">Fecha cierre :</label>
+                <input type="date" class="form-control" id="idFechaFin" required>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="causa">Causa :</label>
@@ -24,14 +24,14 @@
         <div class="form-row">
             <div class="col-md-12">
                 <hr />
-                <label for="accion">Acción</label>
+                <label for="accion">Actividad</label>
                 <textarea id="accion" style="resize:none;" class="form-control" rows=3 cols=70 required></textarea>
             </div>
         </div>
         <div class="form-row">
             <div class="col-md-3 mb-4">
                 <hr />
-                <label for="Respons">Trabajador responsable :</label>
+                <label for="Respons">Funcionario responsable :</label>
                 @Html.DropDownListFor(model => model.TrabajadorID, Model.Trabajadores, new { @class = "form-control", @id = "idRespons" })
                 @Html.ValidationMessageFor(model => model.TrabajadorID, "", new { @class = "text-danger" })
             </div>

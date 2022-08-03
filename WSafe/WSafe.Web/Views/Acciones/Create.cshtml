@@ -1,5 +1,4 @@
 ﻿@model WSafe.Web.Models.AccionViewModel
-
 @{
     var title = "GESTIONAR ACCIONES CORRECTIVAS, PREVENTIVAS Y/O DE MEJORA";
     var categorias = ViewBag.Categorias;
@@ -16,8 +15,8 @@
 <h4>@title</h4>
 <div class="row">
     <div class="col-md-8">
-        <button type="button" class="btn btn-warning" id="idCausas" title="doble click para cerrar la ventana"> 1. IDENTIFICAR NO CONFORMIDAD</button>
-        <button type="button" class="btn btn-warning" id="planAcc" title="doble click para cerrar la ventana"> 2. PLANES DE ACCIÓN</button>
+        <button type="button" class="btn btn-info" id="idCausas" title="doble click para cerrar la ventana"> 1. IDENTIFICAR NO CONFORMIDAD</button>
+        <button type="button" class="btn btn-info" id="planAcc" title="doble click para cerrar la ventana"> 2. PLANES DE ACCIÓN</button>
     </div>
     <div class="col-md-4">
     </div>
@@ -35,8 +34,8 @@
         @Html.Partial("_EditarNoConformidad")
         <div class="row">
             <div class="col-md-8">
-                <button type="button" id="btnAddAction" class="btn btn-success" onclick="AddAccion()">Agregar</button>
-                <button type="button" id="btnCanAccc" class="btn btn-success" onclick="CancelAccion()">
+                <button type="button" id="btnAddAction" class="btn btn-info" onclick="AddAccion()">Agregar</button>
+                <button type="button" id="btnCanAccc" class="btn btn-info" onclick="CancelAccion()">
                     <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
                 </button>
             </div>
@@ -54,7 +53,6 @@
     <div class="tabAddPlanAcc">
         <input type="hidden" id="txtPlanAccionID" name="txtPlanAccionID" />
         @Html.Partial("_ModificaPlan")
-        <hr />
         <div class="row">
             <div class="col-md-8">
                 <button type="button" id="btnAddPlan" class="btn btn-primary" onclick="AddPlanAccion()">Adicionar</button>
@@ -132,6 +130,28 @@
         $(document).ready(function () {
             ClearTextBox();
             GestorActions();
+        });
+
+        $('#idFechaIni').change(function () {
+            var fecha = $("#idFechaIni").val();
+            validarFechaIni(fecha);
+        });
+
+        $('#idFechaFin').change(function () {
+            var fechaIni = $("#idFechaIni").val();
+            var fechaFin = $("#idFechaFin").val();
+            validarFechaFin(fechaIni, fechaFin);
+        });
+
+        $('#FechaSolicitud').change(function () {
+            var fecha = $("#FechaSolicitud").val();
+            validarFechaIni(fecha);
+        });
+
+        $('#FechaCierre').change(function () {
+            var fechaIni = $("#idFechaIni").val();
+            var fechaFin = $("#FechaCierre").val();
+            validarFechaFin(fechaIni, fechaFin);
         });
 
     </script>

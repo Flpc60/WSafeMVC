@@ -34,7 +34,7 @@
         </div>
         <div class="col-md-4">
             <div class="form-group">
-                <label class="control-label col-md-2" for="Respons">Trabajador responsable</label>
+                <label class="control-label col-md-2" for="Respons">Funcionario responsable</label>
                 <div class="col-md-10">
                     @Html.DropDownList("Trabajadores", trabajadores as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "idRespons" })
                 </div>
@@ -76,7 +76,7 @@
             <div class="form-group">
                 <label class="control-label col-md-2" for="Presupuesto">Presupuesto</label>
                 <div class="col-md-6">
-                    <input name="Presupuesto" class="form-control text-box single-line" id="idPresup" type="text" value="0,00">
+                    <input name="Presupuesto" class="form-control text-box single-line" id="idPresup" type="number" value="0,00">
                     <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="Presupuesto"></span>
                 </div>
             </div>
@@ -85,7 +85,7 @@
             <div class="form-group">
                 <label class="control-label col-md-2" for="FechaInicial">Fecha inicial</label>
                 <div class="col-md-6">
-                    <input type="date" class="form-control" id="FechaInicial" onchange="validarFechaIni()" required autofocus>
+                    <input type="date" class="form-control" id="FechaInicial" required autofocus>
                 </div>
             </div>
         </div>
@@ -93,7 +93,7 @@
             <div class="form-group">
                 <label class="control-label col-md-2" for="FechaFinal">Fecha final</label>
                 <div class="col-md-6">
-                    <input type="date" class="form-control" id="FechaFinal" onclick="validarFechaFin()" required>
+                    <input type="date" class="form-control" id="FechaFinal" required>
                 </div>
             </div>
         </div>

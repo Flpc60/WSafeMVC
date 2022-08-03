@@ -20,9 +20,9 @@
 <div class="container">
     <div class="row">
         <div class="col-md-9">
-            <button type="button" class="btn btn-warning" id="idCausas" title="doble click para cerrar la ventana"> 1. IDENTIFICAR NO CONFORMIDAD</button>
-            <button type="button" class="btn btn-warning" id="planAcc" title="doble click para cerrar la ventana"> 2. PLAN DE ACCIÓN</button>
-            <button type="button" class="btn btn-warning" id="seguimAcc" title="doble click para cerrar la ventana"> 3. SEGUIMIENTO</button>
+            <button type="button" class="btn btn-info" id="idCausas" title="doble click para cerrar la ventana"> 1. IDENTIFICAR NO CONFORMIDAD</button>
+            <button type="button" class="btn btn-info" id="planAcc" title="doble click para cerrar la ventana"> 2. PLAN DE ACCIÓN</button>
+            <button type="button" class="btn btn-info" id="seguimAcc" title="doble click para cerrar la ventana"> 3. SEGUIMIENTO</button>
         </div>
         <div class="col-md-3">
         </div>
@@ -39,10 +39,14 @@
     <input type="hidden" id="txtAccionID" name="txtAccionID" />
     <div class="tabIdCausas">
         @Html.Partial("_EditarNoConformidad")
-        <div class="col-row">
-            <div class="col-sm-6">
-                <button type="button" class="btn btn-success" onclick="UpdateAccion(@ViewBag.AccionID)">Guardar</button>
-                <hr />
+        <div class="row">
+            <div class="col-md-8">
+                <button type="button" class="btn btn-info" onclick="UpdateAccion(@ViewBag.AccionID)">Guardar</button>
+                <button type="button" id="btnCanAccc" class="btn btn-info" onclick="CancelAccion()">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                </button>
+            </div>
+            <div class="col-md-4">
             </div>
         </div>
     </div>
@@ -56,8 +60,6 @@
     <div class="tabAddPlanAcc">
         <input type="hidden" id="txtPlanAccionID" name="txtPlanAccionID" />
         @Html.Partial("_ModificaPlan")
-        <hr />
-        <hr />
         <div class="row">
             <div class="col-md-8">
                 <hr />
@@ -106,6 +108,33 @@
             ClearTextBox();
             $("#txtAccionID").val(@accionID);
             GestorActions();
+        });
+
+        $('#idFechaIni').change(function () {
+            var fecha = $("#idFechaIni").val();
+            validarFechaIni(fecha);
+        });
+
+        $('#idFechaFin').change(function () {
+            var fechaIni = $("#idFechaIni").val();
+            var fechaFin = $("#idFechaFin").val();
+            validarFechaFin(fechaIni, fechaFin);
+        });
+
+        $('#FechaSolicitud').change(function () {
+            var fecha = $("#FechaSolicitud").val();
+            validarFechaIni(fecha);
+        });
+
+        $('#FechaCierre').change(function () {
+            var fechaIni = $("#idFechaIni").val();
+            var fechaFin = $("#FechaCierre").val();
+            validarFechaFin(fechaIni, fechaFin);
+        });
+
+        $('#txtFechaSeg').change(function () {
+            var fechaSeg = $("#txtFechaSeg").val();
+            validarFechaIni(fechaSeg);
         });
 
     </script>

@@ -61,22 +61,22 @@
                     <thead>
                         <tr style="background-color:gainsboro; width:auto">
                             <th>
-                                Descripción
+                                DESCRIPCIÓN
                             </th>
                             <th>
-                                Controles
+                                CONTROL
                             </th>
                             <th>
-                                Medidas Intervención
+                                MEDIDA INTERVENCIÓN
                             </th>
                             <th>
-                                Responsable
+                                RESPONSABLE
                             </th>
                             <th>
-                                Fecha inicial
+                                FECHA INICIAL
                             </th>
                             <th>
-                                Fecha final
+                                FECHA CIERRE
                             </th>
                             <th>
                                 Opciones
@@ -124,6 +124,7 @@
                 $(".tabPeligros").css("display", "block");
                 $(".tabEvalRiesgos").css("display", "none");
                 $(".tabMediAplica").css("display", "none");
+                $("#idPeligros").show();
             });
 
             $("#idPeligros").dblclick(function () {
@@ -134,7 +135,7 @@
                 $(".tabEvalRiesgos").css("display", "block");
                 $(".tabPeligros").css("display", "none");
                 $(".tabMediAplica").css("display", "none");
-                $("#mediAplica").show();
+                $("#evalRiesgos").show();
             });
 
             $("#evalRiesgos").dblclick(function () {
@@ -145,6 +146,7 @@
                 $(".tabMediAplica").css("display", "block");
                 $(".tabEvalRiesgos").css("display", "none");
                 $(".tabPeligros").css("display", "none");
+                $("#mediAplica").show();
                 mostrarInterven();
             });
 
@@ -162,13 +164,24 @@
             });
 
             $("#addIntervencion").click(function () {
+                ClearTextBox();
                 $(".tabAddInterven").css("display", "block");
                 $(".tabCerrar").css("display", "none");
                 $(".tabMediAplica").css("display", "none");
                 $("#btnUpdInterven").hide();
                 $("#btnAddInterven").show();
             });
+        });
 
+        $('#FechaInicial').change(function () {
+            var fecha = $("#FechaInicial").val();
+            validarFechaIni(fecha);
+        });
+
+        $('#FechaFinal').change(function () {
+            var fechaIni = $("#FechaInicial").val();
+            var fechaFin = $("#FechaFinal").val();
+            validarFechaFin(fechaIni,fechaFin);
         });
 
         $('#zona').change(function () {

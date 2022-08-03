@@ -68,22 +68,22 @@
                     <thead>
                         <tr style="background-color:gainsboro; width:auto">
                             <th>
-                                Descripción
+                                DESCRIPCIÓN
                             </th>
                             <th>
-                                Controles
+                                CONTROL
                             </th>
                             <th>
-                                Medidas Intervención
+                                MEDIDA INTERVENCIÓN
                             </th>
                             <th>
-                                Responsable
+                                RESPONSABLE
                             </th>
                             <th>
-                                Fecha inicial
+                                FECHA INICIAL
                             </th>
                             <th>
-                                Fecha final
+                                FECHA CIERRE
                             </th>
                             <th>
                                 Opciones
@@ -178,6 +178,17 @@
                 $("#btnAddInterven").show();
             });
 
+        });
+
+        $('#FechaInicial').change(function () {
+            var fecha = $("#FechaInicial").val();
+            validarFechaIni(fecha);
+        });
+
+        $('#FechaFinal').change(function () {
+            var fechaIni = $("#FechaInicial").val();
+            var fechaFin = $("#FechaFinal").val();
+            validarFechaFin(fechaIni, fechaFin);
         });
 
         $('#zona').change(function () {
