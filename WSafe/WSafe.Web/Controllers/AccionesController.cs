@@ -15,7 +15,7 @@ using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
 {
-    // Getionar todas las acciones correctvas, preventivas y de mejora
+    // Getionar todas las acciones correctvas, preventivas y de mejora de la organización
     public class AccionesController : Controller
     {
         // Inyecciones
@@ -101,7 +101,7 @@ namespace WSafe.Web.Controllers
                     await consulta.Update(result);
                     message = "El registro ha sido actualizado correctamente !!";
                     var idAccion = model.ID;
-                    return Json(new {data= idAccion, mensaj = message }, JsonRequestBehavior.AllowGet);
+                    return Json(new { data = idAccion, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
                 message = "El registro NO ha sido actualizado correctamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
@@ -241,7 +241,7 @@ namespace WSafe.Web.Controllers
                     var saved = await _empresaContext.SaveChangesAsync();
                     message = "El registro ha sido ingresado correctamente !!";
                     var idAccion = _empresaContext.Acciones.OrderByDescending(x => x.ID).First().ID;
-                    return Json(new { data = idAccion, mensaj = message},JsonRequestBehavior.AllowGet);
+                    return Json(new { data = idAccion, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
                 message = "El registro NO ha sido ingresado correctamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);

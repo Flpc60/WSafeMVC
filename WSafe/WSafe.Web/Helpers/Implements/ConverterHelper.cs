@@ -7,6 +7,7 @@ using WSafe.Web.Models;
 
 namespace WSafe.Domain.Helpers.Implements
 {
+    //Conversión de datos async
     public class ConverterHelper : IConverterHelper
     {
         private readonly EmpresaContext _empresaContext;
@@ -601,8 +602,8 @@ namespace WSafe.Domain.Helpers.Implements
                 {
                     ID = item.ID,
                     AccionID = item.AccionID,
-                    FechaInicial = item.FechaInicial.ToString("dd/MM/yyyy"),
-                    FechaFinal = item.FechaFinal.ToString("dd/MM/yyyy"),
+                    FechaInicial = item.FechaInicial.ToString("yyyy-MM-dd"),
+                    FechaFinal = item.FechaFinal.ToString("yyyy-MM-dd"),
                     Causa = item.Causa,
                     Categoria = _gestorHelper.GetCausaAccion(item.Causa).ToUpper(),
                     Accion = item.Accion.ToUpper(),
@@ -648,7 +649,7 @@ namespace WSafe.Domain.Helpers.Implements
                 {
                     ID = item.ID,
                     AccionID = item.AccionID,
-                    FechaSeguimiento = item.FechaSeguimiento.ToString("dd/MM/yyyy"),
+                    FechaSeguimiento = item.FechaSeguimiento.ToString("yyyy-MM-dd"),
                     Resultado = item.Resultado.ToUpper(),
                     TrabajadorID = item.TrabajadorID,
                     Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpper()
