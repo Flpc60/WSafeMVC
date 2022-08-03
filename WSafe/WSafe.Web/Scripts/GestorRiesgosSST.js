@@ -53,8 +53,7 @@ function mostrarInterven() {
         dataType: "json",
         async: true,
         success: function (result) {
-            var fecha = new Date();
-            var date = new Date();
+            var fecha = Date.now();
             var html = '';
             var year = 0, month = 0, day = 0;
             $.each(result, function (key, item) {
@@ -70,8 +69,8 @@ function mostrarInterven() {
                 month = item.TextFechaFinal.substring(5, 7);
                 day = item.TextFechaFinal.substring(8, 10);
                 date = new Date(year, month -1, day);
-
-                if (Number(date) <= Number(fecha)) {
+                date = Date.parse(date);
+                if (fecha > date) {
                     html += '<td style="background-color:red">' + item.TextFechaFinal + '</td>';
                 } else {
                     html += '<td style="background-color:green">' + item.TextFechaFinal + '</td>';
@@ -102,7 +101,9 @@ function mostrarPlanAcc() {
         dataType: "json",
         async: true,                                               // si es asincrónico o no
         success: function (result) {
+            var fecha = Date.now();
             var html = '';
+            var year = 0, month = 0, day = 0;
             $.each(result, function (key, item) {
                 var indicador = "NO"
                 if (item.Prioritaria == true) { indicador = "SI" };
@@ -113,7 +114,17 @@ function mostrarPlanAcc() {
                 html += '<td>' + item.Responsable + '</td>';
                 html += '<td>' + item.Costos + '</td>';
                 html += '<td>' + item.FechaInicial + '</td>';
-                html += '<td>' + item.FechaFinal + '</td>';
+
+                year = item.FechaFinal.substring(0, 4);
+                month = item.FechaFinal.substring(5, 7);
+                day = item.FechaFinal.substring(8, 10);
+                date = new Date(year, month - 1, day);
+                date = Date.parse(item.FechaFinal);
+                if (fecha > date) {
+                    html += '<td style="background-color:red">' + item.FechaFinal + '</td>';
+                } else {
+                    html += '<td style="background-color:green">' + item.FechaFinal + '</td>';
+                }
                 html += '<td><a href="#" onclick="return getPlanByID(' + item.ID + ')">Editar</a> | <a href = "#" onclick = "DeletePlan(' + item.ID + ')"> Borrar</a></td>';
                 html += '</tr>';
             });
@@ -393,6 +404,8 @@ function ShowTasks() {
 function ClearTextBox() {
     $("#FechaInicial").val("");
     $("#FechaFinal").val("");
+    $("#idFechaIni").val("");
+    $("#idFechaFin").val("");
     $("#idCausa").val("");
     $("#accion").val("");
     $("#idRespons").val("");
@@ -409,25 +422,21 @@ function ClearTextBox() {
     $("#idBeneficio").val("");
     $("#idPresup").val("");
     $("#idObserv").val("");
+    $("#txtNombre").val("");
 }
 
-validarFechaIni = function () {
+validarFechaIni = function (item) {
     var fecha = Date.now();
-    var item = $("#idFechaIni").val();
     var date = Date.parse(item);
-
     if (date > fecha) {
         alert("Fecha inicial incorrecta !!");
         return false;
     };
 }
 
-validarFechaFin = function () {
-    var item = $("#idFechaIni").val();
-    var fechaIni = Date.parse(item);
-    var item = $("#idFechaFin").val();
-    var fechaFin = Date.parse(item);
-
+validarFechaFin = function (ini, fin) {
+    var fechaIni = Date.parse(ini);
+    var fechaFin = Date.parse(fin);
     if (fechaIni > fechaFin) {
         alert("Fecha final incorrecta !!");
         return false;
