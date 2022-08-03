@@ -16,12 +16,12 @@
 <h4>@title</h4>
 <div class="row">
     <div class="col-md-12">
-        <button type="button" class="btn btn-warning" id="general" title="doble click para cerrar la ventana">INFORMACIÓN GENERAL</button>
-        <button type="button" class="btn btn-warning" id="detalles" title="doble click para cerrar la ventana">DETALLES</button>
-        <button type="button" class="btn btn-warning" id="descripcion" title="doble click para cerrar la ventana">DESCRIPCIÓN</button>
-        <button type="button" class="btn btn-warning" id="acciones" title="doble click para cerrar la ventana">ACCIONES DE CONTROL</button>
-        <button type="button" class="btn btn-warning" id="matriz" title="doble click para cerrar la ventana">MATRIZ POTENCIAL</button>
-        <button type="button" class="btn btn-warning" id="lesionados" title="doble click para cerrar la ventana">TRABAJADORES LESIONADOS</button>
+        <button type="button" class="btn btn-info" id="general" title="doble click para cerrar la ventana">INFORMACIÓN GENERAL</button>
+        <button type="button" class="btn btn-info" id="detalles" title="doble click para cerrar la ventana">DETALLES</button>
+        <button type="button" class="btn btn-info" id="descripcion" title="doble click para cerrar la ventana">DESCRIPCIÓN</button>
+        <button type="button" class="btn btn-info" id="acciones" title="doble click para cerrar la ventana">ACCIONES DE CONTROL</button>
+        <button type="button" class="btn btn-info" id="matriz" title="doble click para cerrar la ventana">MATRIZ POTENCIAL</button>
+        <button type="button" class="btn btn-info" id="lesionados" title="doble click para cerrar la ventana">TRABAJADORES LESIONADOS</button>
     </div>
     <div class="col-md-offset-0">
     </div>
@@ -61,7 +61,7 @@
             @Html.Partial("_MatrizIncidente")
             <div class="row">
                 <div class="col-md-8">
-                    <button type="button" id="btnAddIncidente" class="btn btn-success" onclick="UpdateIncidente()">Actualizar</button>
+                    <button type="button" id="btnAddIncidente" class="btn btn-info" onclick="UpdateIncidente()">Actualizar</button>
                 </div>
             </div>
         </div>
@@ -73,11 +73,9 @@
 
         <div class="tabAddLesionado">
             @Html.Partial("_ModificaLesion")
-            <hr />
-            <hr />
             <div class="row">
                 <div class="col-md-8">
-                    <button type="button" id="btnAddLesion" class="btn btn-success" onclick="AddLesionados()">Agregar</button>
+                    <button type="button" id="btnAddLesion" class="btn btn-info" onclick="AddLesionados()">Agregar</button>
                     <button type="button" id="btnCanLesion" class="btn btn-primary" onclick="CancelLesion()">
                         <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
                     </button>
@@ -96,6 +94,17 @@
             ClearTextBox();
             $("#txtIncidenteID").val(@incidenteID);
             GestorIncidents();
+        });
+
+        $('#FechaReporte').change(function () {
+            var fecha = $("#FechaReporte").val();
+            validarFechaIni(fecha);
+        });
+
+        $('#FechaIncidente').change(function () {
+            var fechaIni = $("#FechaReporte").val();
+            var fechaFin = $("#FechaIncidente").val();
+            validarFechaIncidente(fechaIni, fechaFin);
         });
 
     </script>

@@ -443,6 +443,16 @@ validarFechaFin = function (ini, fin) {
     };
 }
 
+
+validarFechaIncidente = function (ini, fin) {
+    var fechaIni = Date.parse(ini);
+    var fechaFin = Date.parse(fin);
+    if (fechaIni < fechaFin) {
+        alert("Fecha incidente incorrecta !!");
+        return false;
+    };
+}
+
 validarSigue = function () {
     var item = $("#idFechaIni").val();
     var fechaIni = Date.parse(item);
@@ -1266,7 +1276,8 @@ function UpdatePlanAcc() {
         url: "/Acciones/UpdatePlanAccion",
         data: { planAccion: planAccionVM },
         dataType: "json",
-        success: function (result) {
+        success: function (response) {
+            alert(response.mensaj);
             $(".tabGesPlanAcc").css("display", "block");
             mostrarPlanAcc();
         },
@@ -1324,8 +1335,9 @@ function UpdateSigueAcc() {
         url: "/Acciones/UpdateSeguimientoAccion",
         data: { model: sigueAccionVM },
         dataType: "json",
-        success: function (result) {
-            mostrarSeguimAcc;
+        success: function (response) {
+            alert(response.mensaj);
+            mostrarSeguimAcc();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -2340,4 +2352,22 @@ function DeleteUser(id) {
             }
         });
     }
+}
+
+function CancelAccion() {
+    $(".tabIdCausas").css("display", "none");
+    $("#zona").val("");
+    $("#proceso").val("");
+    $("#activity").val("");
+    $("#tarea").val("");
+    $("#fechaSolicitud").val("");
+    $("#categoriaAcc").val("");
+    $("#idTrabajador").val("");
+    $("#idFuente").val("");
+    $("#idDescrip").val("");
+    $("#idEficaciaAnt").val("");
+    $("#idEficaciaDesp").val("");
+    $("#idFechaCierre").val("");
+    $("#idEfectiva").val("");
+    $("#idEstado").val("");
 }
