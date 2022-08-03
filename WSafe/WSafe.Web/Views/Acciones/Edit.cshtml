@@ -62,7 +62,6 @@
         @Html.Partial("_ModificaPlan")
         <div class="row">
             <div class="col-md-8">
-                <hr />
                 <button type="button" id="btnAddPlan" class="btn btn-primary" onclick="AddPlanAccion()">Adicionar</button>
                 <button type="button" id="btnUpdPlan" class="btn btn-primary" onclick="UpdatePlanAcc()">Actualizar</button>
                 <button type="button" id="btnCanPlan" class="btn btn-primary" onclick="CancelPlan()">
@@ -82,8 +81,6 @@
 
     <div class="tabAddSeguimAcc">
         @Html.Partial("_ModificaSigue")
-        <hr />
-        <hr />
         <div class="row">
             <div class="col-md-8">
                 <button type="button" id="btnAddSigue" class="btn btn-primary" onclick="AddSeguiAcc()">Adicionar</button>
@@ -103,6 +100,10 @@
 @section Scripts
 {
     <script type="text/javascript">
+
+        function CancelAccion() {
+            $(".tabIdCausas").css("display", "none");
+        }
 
         $(document).ready(function () {
             ClearTextBox();
