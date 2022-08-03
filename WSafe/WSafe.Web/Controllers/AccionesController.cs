@@ -178,15 +178,25 @@ namespace WSafe.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            if (ModelState.IsValid)
+            var message = "";
+            try
             {
-                PlanAction result = await _converterHelper.ToPlanAccionAsync(model);
-                _empresaContext.PlanActions.Add(result);
-                var saved = await _empresaContext.SaveChangesAsync();
-                return Json(result, JsonRequestBehavior.AllowGet);
+                if (ModelState.IsValid)
+                {
+                    PlanAction result = await _converterHelper.ToPlanAccionAsync(model);
+                    _empresaContext.PlanActions.Add(result);
+                    var saved = await _empresaContext.SaveChangesAsync();
+                    message = "El registro ha sido ingresado correctamente !!";
+                    return Json( new { data = result, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                message = "El registro NO ha sido ingresado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
-            return Json(model, JsonRequestBehavior.AllowGet);
+            catch
+            {
+                message = "El registro NO ha sido ingresado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [HttpGet]
@@ -194,8 +204,9 @@ namespace WSafe.Web.Controllers
         {
             if (idAccion == null)
             {
-                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
 
             var model = new SeguimientoAccionVM
             {
@@ -211,15 +222,25 @@ namespace WSafe.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Seguimiento model = await _converterHelper.ToSeguimientoAccionAsync(seguimientoAccion);
-
-            if (ModelState.IsValid)
+            var message = "";
+            try
             {
-                _empresaContext.Seguimientos.Add(seguimientoAccion);
-                await _empresaContext.SaveChangesAsync();
-                return Json(model, JsonRequestBehavior.AllowGet);
+                if (ModelState.IsValid)
+                {
+                    Seguimiento model = await _converterHelper.ToSeguimientoAccionAsync(seguimientoAccion);
+                    _empresaContext.Seguimientos.Add(seguimientoAccion);
+                    await _empresaContext.SaveChangesAsync();
+                    message = "El registro ha sido ingresado correctamente !!";
+                    return Json(new { data = model, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                message = "El registro ha sido ingresado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
-            return Json(seguimientoAccion, JsonRequestBehavior.AllowGet);
+            catch
+            {
+                message = "El registro ha sido ingresado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [HttpPost]
@@ -294,13 +315,24 @@ namespace WSafe.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> UpdatePlanAccion([Bind(Include = "ID, AccionID, FechaInicial, FechaFinal, Causa, Accion, TrabajadorID, Prioritaria, Costos")] PlanAction planAccion)
         {
-            if (ModelState.IsValid)
+            var message = "";
+            try
             {
-                _empresaContext.Entry(planAccion).State = EntityState.Modified;
-                await _empresaContext.SaveChangesAsync();
+                if (ModelState.IsValid)
+                {
+                    _empresaContext.Entry(planAccion).State = EntityState.Modified;
+                    await _empresaContext.SaveChangesAsync();
+                    message = "El registro ha sido actualizado correctamente !!";
+                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                message = "El registro NO ha sido actualizado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
-
-            return Json(planAccion, JsonRequestBehavior.AllowGet);
+            catch
+            {
+                message = "El registro NO ha sido actualizado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         public async Task<ActionResult> DeletePlanAccion(int? id)
@@ -342,13 +374,25 @@ namespace WSafe.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> UpdateSeguimientoAccion([Bind(Include = "ID, AccionID, FechaSeguimiento, Resultado, TrabajadorID")] Seguimiento model)
         {
-            if (ModelState.IsValid)
+            var message = "";
+            try
             {
-                _empresaContext.Entry(model).State = EntityState.Modified;
-                await _empresaContext.SaveChangesAsync();
+                if (ModelState.IsValid)
+                {
+                    _empresaContext.Entry(model).State = EntityState.Modified;
+                    await _empresaContext.SaveChangesAsync();
+                    message = "El registro ha sido actualizado correctamente !!";
+                    return Json(new {data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                message = "El registro NO ha sido actualizado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                message = "El registro NO ha sido actualizado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
 
-            return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Acciones/Delete/5
