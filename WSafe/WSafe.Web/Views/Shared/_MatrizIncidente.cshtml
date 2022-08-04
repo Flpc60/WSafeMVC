@@ -1,5 +1,6 @@
 ﻿@model WSafe.Web.Models.IncidenteViewModel
-<div class="container" style="background-color:mediumaquamarine">
+<hr />
+<div class="container" style="background-color:mediumaquamarine; padding:20px">
     <hr />
     <div class="row">
         <div class="col-md-6">
@@ -14,7 +15,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 @Html.LabelFor(model => model.ConsecuenciasDaño, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-8">
+                <div class="col-md-6">
                     @Html.EnumDropDownListFor(model => model.ConsecuenciasDaño, htmlAttributes: new { @class = "form-control", @id = "idDaño" })
                     @Html.ValidationMessageFor(model => model.ConsecuenciasDaño, "", new { @class = "text-danger" })
                 </div>
@@ -45,7 +46,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 @Html.LabelFor(model => model.Probabilidad, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
+                <div class="col-md-4">
                     @Html.EnumDropDownListFor(model => model.Probabilidad, htmlAttributes: new { @class = "form-control", @id = "interpretaP" })
                     @Html.ValidationMessageFor(model => model.Probabilidad, "", new { @class = "text-danger" })
                 </div>
@@ -54,7 +55,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 @Html.LabelFor(model => model.EquiposInvestigador, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
+                <div class="col-md-4">
                     @Html.EnumDropDownListFor(model => model.EquiposInvestigador, htmlAttributes: new { @class = "form-control", @id = "equipoInvest" })
                     @Html.ValidationMessageFor(model => model.EquiposInvestigador, "", new { @class = "text-danger" })
                 </div>

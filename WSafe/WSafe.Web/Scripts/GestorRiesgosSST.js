@@ -443,7 +443,6 @@ validarFechaFin = function (ini, fin) {
     };
 }
 
-
 validarFechaIncidente = function (ini, fin) {
     var fechaIni = Date.parse(ini);
     var fechaFin = Date.parse(fin);
@@ -1967,10 +1966,9 @@ function AddIncidente() {
         success: function (result) {
             if (result.data != false) {
                 $("#txtIncidenteID").val(result.data);
+                $("#btnAddIncidente").hide();
+                $("#btnCanIncidente").hide();
             }
-
-            $("#btnAddIncidente").hide();
-            $("#btnCanIncidente").hide();
             alert(result.mensaj);
         },
         error: function (xhr, ajaxOptions, thrownError) {

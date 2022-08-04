@@ -3,15 +3,17 @@
 @{
     ViewBag.Title = "WSafe";
 }
-
-<h2>GESTIÓN DE INCIDENTES</h2>
+<br />
+<br />
+<br />
+<h4>GESTIÓN DE INCIDENTES y ACCIDENTES DE TRABAJO</h4>
 
 <p>
-    @Html.ActionLink("Nuevo", "Create", new { @class = "glyphicon glyphicon-plus" },
+    @Html.ActionLink("Nuevo incidente", "Create", new { @class = "glyphicon glyphicon-plus" },
     new { @class = "btn btn-info btn-lg active" })
 </p>
 
-<div class="container" style="background-color:mediumaquamarine">
+<div class="container-fluid" style="background-color:mediumaquamarine">
     <table class="table">
         <thead>
             <tr style="background-color:gainsboro; width:auto">

@@ -1,11 +1,11 @@
 ﻿@model WSafe.Web.Models.IncidenteViewModel
-<div class="container" style="background-color:mediumaquamarine">
+<div class="container" style="background-color:mediumaquamarine; padding:20px">
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
                 @Html.LabelFor(model => model.Zonas, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-8">
-                    @Html.DropDownListFor(model => model.ZonaID, Model.Zonas, new { @class = "form-control", @id = "zona" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.ZonaID, Model.Zonas, new { @class = "form-control", @id = "zona", autofocus = "autofocus" })
                     @Html.ValidationMessageFor(model => model.ZonaID, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -13,7 +13,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 @Html.LabelFor(model => model.Procesos, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-8">
+                <div class="col-md-10">
                     @Html.DropDownListFor(model => model.ProcesoID, Model.Procesos, new { @class = "form-control", @id = "proceso" })
                     @Html.ValidationMessageFor(model => model.ProcesoID, "", new { @class = "text-danger" })
                 </div>
@@ -68,7 +68,7 @@
 </div>
 <div class="container" style="background-color:mediumaquamarine">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-5">
             <div class="form-group">
                 @Html.LabelFor(model => model.FechaIncidente, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-4">
@@ -77,10 +77,10 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(model => model.IncapacidadMedica, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="checkbox">
                         @Html.EditorFor(model => model.IncapacidadMedica, new { htmlAttributes = new { @class = "form-control", @id = "txtIncapacidad" } })
                         @Html.ValidationMessageFor(model => model.IncapacidadMedica, "", new { @class = "text-danger" })
@@ -88,14 +88,10 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<div class="container" style="background-color:mediumaquamarine">
-    <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-3">
             <div class="form-group">
                 @Html.LabelFor(model => model.DiasIncapacidad, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
+                <div class="col-md-6">
                     @Html.EditorFor(model => model.DiasIncapacidad, new { htmlAttributes = new { @class = "form-control", @id = "txtDiasIncapacidad" } })
                     @Html.ValidationMessageFor(model => model.DiasIncapacidad, "", new { @class = "text-danger" })
                 </div>

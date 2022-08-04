@@ -1,12 +1,12 @@
 ﻿@model WSafe.Web.Models.IncidenteViewModel
 <hr />
-<div class="container" style="background-color:mediumaquamarine">
+<div class="container" style="background-color:mediumaquamarine; padding:20px">
     <div class="row">
         <div class="col-md-12">
             <div class="form-group" id="detal">
                 @Html.LabelFor(model => model.EvitarIncidente, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.EvitarIncidente, new { htmlAttributes = new { @class = "form-control", @id = "txtEvitar" } })
+                    @Html.TextAreaFor(model => model.EvitarIncidente, new { @class = "form-control", @id = "txtEvitar", cols = "70", rows = "2" })
                     @Html.ValidationMessageFor(model => model.EvitarIncidente, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -17,7 +17,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.AccionesInmediatas, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.AccionesInmediatas, new { htmlAttributes = new { @class = "form-control", @id = "txtAcciones" } })
+                    @Html.TextAreaFor(model => model.AccionesInmediatas, new { @class = "form-control", @id = "txtAcciones", cols = "70", rows = "2" })
                     @Html.ValidationMessageFor(model => model.AccionesInmediatas, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -28,7 +28,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.ComentariosAdicionales, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.ComentariosAdicionales, new { htmlAttributes = new { @class = "form-control", @id = "txtComentarios" } })
+                    @Html.TextAreaFor(model => model.ComentariosAdicionales, new { @class = "form-control", @id = "txtComentarios", cols = "70", rows = "2" })
                     @Html.ValidationMessageFor(model => model.ComentariosAdicionales, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -39,7 +39,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.AtencionBrindada, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.AtencionBrindada, new { htmlAttributes = new { @class = "form-control", @id = "txtAtencion" } })
+                    @Html.TextAreaFor(model => model.AtencionBrindada, new { @class = "form-control", @id = "txtAtencion", cols = "70", rows = "2" })
                     @Html.ValidationMessageFor(model => model.AtencionBrindada, "", new { @class = "text-danger" })
                 </div>
             </div>
