@@ -7,19 +7,22 @@
 <br />
 <br />
 <h4>GESTIÓN DE RIESGOS</h4>
-
 <div class="row">
     <div class="col-md-8">
         @Html.ActionLink("Ingresar Nuevo Riesgo", "Create", new { @class = "glyphicon glyphicon-plus" },
         new { @class = "btn btn-info btn-lg active" })
         @Html.ActionLink("Descargar matriz de riesgos", "PrintRiesgosToPdf", new { @class = "glyphicon glyphicon-download-alt" },
         new { @class = "btn btn-info btn-lg active" })
+        <div class="row" style="display:inline-flex; margin: 1%">
+            <div style="background-color: red; padding: 1%">RIESGO RESIDUAL</div>
+            <div style="background-color: orange; padding: 1%">RIESGO TRATADO</div>
+            <div style="background-color: green; padding: 1%">RIESGO CONTROLADO</div>
+        </div>
     </div>
     <div class="col-md-4">
         <input type="search" id="myInput" placeholder="Escriba un nombre de elemento para filtrar" style="width:350px">
     </div>
 </div>
-<br />
 <div class="container" style="background-color: mediumaquamarine; width:100%; margin-right:0px">
     <table class="table">
         <tr style="background-color:gainsboro">
@@ -81,7 +84,7 @@
                         break;
 
                     case "II":
-                        strStyle = "background-color:yellow;";
+                        strStyle = "background-color:orange;";
                         break;
 
                     case "III":
