@@ -143,7 +143,7 @@ namespace WSafe.Web.Controllers
                         model.Password = password;
                         _empresaContext.Users.Add(model);
                         await _empresaContext.SaveChangesAsync();
-                        message = "Usuario registrado";
+                        message = "El Usuario ha sido registrado";
                     }
                     else
                     {

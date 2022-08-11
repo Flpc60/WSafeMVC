@@ -10,6 +10,7 @@ using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
 {
+    // Datos de la organización
     public class OrganizationsController : Controller
     {
         private readonly EmpresaContext _empresaContext;

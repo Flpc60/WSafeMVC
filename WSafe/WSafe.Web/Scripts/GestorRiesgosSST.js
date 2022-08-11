@@ -1,5 +1,4 @@
 ﻿// Agregar funcionlidad principal del lado del cliente...
-
 function AddInterven() {
     $(".tabMediAplica").css("display", "none");
     var riesgoID = $("#txtRiesgoID").val();
@@ -1158,7 +1157,12 @@ function UpdateAccion(id) {
 }
 
 function UpdateOrganization(id) {
-// Actualiza datos básicos de la empresa
+    // Actualiza datos básicos de la empresa
+    
+    if (!validateOrganization()) {
+        return false;
+    }
+
     $(".tabBasics").css("display", "none");
     var organizaVM = {
         ID: id,
@@ -1197,6 +1201,135 @@ function UpdateOrganization(id) {
             alert(thrownError);
         }
     });
+}
+
+function validateOrganization() {
+    if ($('#txtNit').val() == "") {
+        document.getElementById("txtInfoBasic").innerHTML = "Falta NIT de la organización";
+        $("#txtNit").focus();
+        return false;
+    }
+    else {
+        if ($('#txtRazon').val() == "") {
+            document.getElementById("txtInfoBasic").innerHTML = "Falta Razón social de la organización";
+            $("#txtRazon").focus();
+            return false;
+        }
+        else {
+            if ($('#txtDireccion').val() == "") {
+                document.getElementById("txtInfoBasic").innerHTML = "Falta Dirección de la organización";
+                $("#txtDireccion").focus();
+                return false;
+            }
+            else {
+                if ($('#txtMunicip').val() == "") {
+                    document.getElementById("txtInfoBasic").innerHTML = "Falta Municipio de la organización";
+                    $("#txtMunicip").focus();
+                    return false;
+                }
+                else {
+                    if ($('#txtDepartment').val() == "") {
+                        document.getElementById("txtInfoBasic").innerHTML = "Falta Departamento de la organización";
+                        $("#txtDepartment").focus();
+                        return false;
+                    }
+                    else {
+                        if ($('#txtTelefono').val() == "") {
+                            document.getElementById("txtInfoBasic").innerHTML = "Falta teléfonos de la organización";
+                            $("#txtTelefono").focus();
+                            return false;
+                        }
+                        else {
+                            if ($('#txtArl').val() == "") {
+                                document.getElementById("txtInfoBasic").innerHTML = "Falta ARL de la organización";
+                                $("#txtArl").focus();
+                                return false;
+                            }
+                            else {
+                                if ($('#txtClaseRiesgo').val() == "") {
+                                    document.getElementById("txtInfoBasic").innerHTML = "Falta Clase riesgo de la organización";
+                                    $("#txtClaseRiesgo").focus();
+                                    return false;
+                                }
+                                else {
+                                    if ($('#txtDocument').val() == "") {
+                                        document.getElementById("txtInfoBasic").innerHTML = "Falta documento del representante legal de la organización";
+                                        $("#txtDocument").focus();
+                                        return false;
+                                    }
+                                    else {
+                                        if ($('#txtName').val() == "") {
+                                            document.getElementById("txtInfoBasic").innerHTML = "Falta nombre del representante legal de la organización";
+                                            $("#txtName").focus();
+                                            return false;
+                                        }
+                                        else {
+                                            if ($('#txtEconomic').val() == "") {
+                                                document.getElementById("txtInfoBasic").innerHTML = "Falta actvidad económica de la organización";
+                                                $("#txtEconomic").focus();
+                                                return false;
+                                            }
+                                            else {
+                                                if ($('#txtNumero').val() == "") {
+                                                    document.getElementById("txtInfoBasic").innerHTML = "Falta número de trabajadores de la organización";
+                                                    $("#txtNumero").focus();
+                                                    return false;
+                                                }
+                                                else {
+                                                    if ($('#txtProducts').val() == "") {
+                                                        document.getElementById("txtInfoBasic").innerHTML = "Falta clase productos de la organización";
+                                                        $("#txtProducts").focus();
+                                                        return false;
+                                                    }
+                                                    else {
+                                                        if ($('#txtMision').val() == "") {
+                                                            document.getElementById("txtInfoBasic").innerHTML = "Falta Misión de la organización";
+                                                            $("#txtMision").focus();
+                                                            return false;
+                                                        }
+                                                        else {
+                                                            if ($('#txtVision').val() == "") {
+                                                                document.getElementById("txtInfoBasic").innerHTML = "Falta Visión de la organización";
+                                                                $("#txtVision").focus();
+                                                                return false;
+                                                            }
+                                                            else {
+                                                                if ($('#txtObjetivos').val() == "") {
+                                                                    document.getElementById("txtInfoBasic").innerHTML = "Falta Objetivos de la organización";
+                                                                    $("#txtObjetivos").focus();
+                                                                    return false;
+                                                                }
+                                                                else {
+                                                                    if ($('#txtAdministrativo').val() == "") {
+                                                                        document.getElementById("txtInfoBasic").innerHTML = "Falta definir turnos administrativos de la organización";
+                                                                        $("#txtAdministrativo").focus();
+                                                                        return false;
+                                                                    }
+                                                                    else {
+                                                                        if ($('#txtOperativo').val() == "") {
+                                                                            document.getElementById("txtInfoBasic").innerHTML = "Falta definir turnos operativos de la organización";
+                                                                            $("#txtOperativo").focus();
+                                                                            return false;
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    document.getElementById("txtInfoBasic").innerHTML = "";
+    return true;
 }
 
 function AddPlanAccion() {
@@ -2281,9 +2414,8 @@ function AddUser() {
         url: "/Accounts/CreateUser",
         data: { model: user },
         dataType: "json",
-        success: function (result) {
-            message = result.mensaj;
-            alert(result.mensaj);
+        success: function (response) {
+            document.getElementById("txtLogin").innerHTML = response.mensaj;
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -2312,7 +2444,7 @@ function LoginUser() {
                 window.location = response.url;
             }
             else {
-                alert(response.mensaj);
+                document.getElementById("txtLogin").innerHTML = response.mensaj;
             }
         },
         error: function (xhr, ajaxOptions, thrownError) {
