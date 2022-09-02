@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "WSafe";
 }
+
 <br />
 <br />
 <br />
@@ -23,8 +24,8 @@
         <input type="search" id="myInput" placeholder="Escriba un nombre de elemento para filtrar" style="width:350px">
     </div>
 </div>
-<div class="container" style="background-color: mediumaquamarine; width:100%; margin-right:0px">
-    <table class="table">
+<div class="table-responsive-xl" style="background-color: mediumaquamarine; width:100%; margin-right:0px">
+    <table class="table table-bordered">
         <tr style="background-color:gainsboro">
             <th>
                 @Html.DisplayNameFor(model => model.Proceso)
@@ -70,6 +71,8 @@
             </th>
             <th>
                 Aceptable
+            </th>
+            <th>
             </th>
         </tr>
         <tbody id="myTable">
@@ -142,7 +145,7 @@
                         @Html.DisplayFor(modelItem => item.Aceptabilidad)
                     </td>
                     <td style="margin:initial; background-color:deepskyblue; text-align:left">
-                        @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" })|
+                        @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" })
                         <a href="#" onclick="DeleteRiesgo('@item.ID')" class="glyphicon glyphicon-trash"></a>
                     </td>
                 </tr>

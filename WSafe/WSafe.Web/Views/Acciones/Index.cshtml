@@ -3,7 +3,11 @@
 @{
     ViewBag.Title = "Index";
 }
-<h2>GESTIÓN DE ACCIONES</h2>
+
+<br />
+<br />
+<br />
+<h4>GESTIÓN DE ACCIONES CPM</h4>
 
 <div class="row">
     <div class="col-md-4">
@@ -14,9 +18,10 @@
         Buscar : <input type="search" id="myInput" placeholder="Escriba un nombre de elemento para filtrar" style="width:350px">
     </div>
 </div>
+<br />
 
-<div class="container" style="background-color:mediumaquamarine">
-    <table class="table">
+<div class="table-responsive-xl" style="background-color:mediumaquamarine">
+    <table class="table table-bordered">
         <tr style="background-color:gainsboro; width:auto">
             <th>
                 @Html.DisplayNameFor(model => model.FechaSolicitud)
@@ -45,7 +50,8 @@
             <th>
                 @Html.DisplayNameFor(model => model.Estado)
             </th>
-            <th>Opciones</th>
+            <th>
+            </th>
         </tr>
         <tbody id="myTable">
             @foreach (var item in Model)
@@ -78,9 +84,9 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Estado)
                     </td>
-                    <td style="font-size:15px">
-                        @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) |
-                        @Html.ActionLink(" ", "PrintAccionesToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt" }) |
+                    <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                        @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" })
+                        @Html.ActionLink(" ", "PrintAccionesToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt"})
                         <a href="#" onclick="DeleteAccion('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
                     </td>
                 </tr>
@@ -88,8 +94,6 @@
         </tbody>
     </table>
 </div>
-<hr />
-<p>@ViewBag.ErrorMessage</p>
 
 @section Scripts
 {
