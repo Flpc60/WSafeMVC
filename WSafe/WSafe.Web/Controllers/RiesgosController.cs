@@ -46,7 +46,6 @@ namespace WSafe.Web.Controllers
             }
         }
 
-        //[AuthorizeUser(operation: 1, component: 2)]
         public async Task<ActionResult> GetAll()
         {
             var list = await _empresaContext.Riesgos
@@ -245,7 +244,7 @@ namespace WSafe.Web.Controllers
         {
             try
             {
-                var result =  _empresaContext.Aplicaciones.Find(id);
+                var result = _empresaContext.Aplicaciones.Find(id);
                 var intervencion = _converterHelper.ToAplicationVM(result);
                 return Json(intervencion, JsonRequestBehavior.AllowGet);
             }
