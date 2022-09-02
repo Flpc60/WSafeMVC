@@ -6,15 +6,15 @@
 <br />
 <br />
 <br />
-<h4>GESTIÓN DE INCIDENTES y ACCIDENTES DE TRABAJO</h4>
+<h4>GESTIÓN DE INCIDENTES Y ACCIDENTES DE TRABAJO</h4>
 
 <p>
     @Html.ActionLink("Nuevo incidente", "Create", new { @class = "glyphicon glyphicon-plus" },
     new { @class = "btn btn-info btn-lg active" })
 </p>
 
-<div class="container-fluid" style="background-color:mediumaquamarine">
-    <table class="table">
+<div class="table-responsive-xl" style="background-color:mediumaquamarine">
+    <table class="table table-bordered">
         <thead>
             <tr style="background-color:gainsboro; width:auto">
                 <th>
@@ -51,34 +51,9 @@
                     @Html.DisplayNameFor(model => model.CondicionesInsegura)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.TipoDaño)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Afectacion)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DañosOcasionados)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DescripcionIncidente)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EvitarIncidente)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.AccionesInmediatas)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ComentariosAdicionales)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.AtencionBrindada)
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.RequiereInvestigacion)
                 </th>
                 <th>
-                    Acciones
                 </th>
             </tr>
         </thead>
@@ -135,35 +110,11 @@
                     @Html.DisplayFor(modelItem => item.CondicionesInsegura)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TipoDaño)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Afectacion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DañosOcasionados)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DescripcionIncidente)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EvitarIncidente)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AccionesInmediatas)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ComentariosAdicionales)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AtencionBrindada)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.RequiereInvestigacion)
                 </td>
-                <td style="font-size:18px">
-                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) |
-                    @Html.ActionLink(" ", "PrintIncidentsToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt" }) |
+                <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" })
+                    @Html.ActionLink(" ", "PrintIncidentsToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt" })
                     <a href="#" onclick="DeleteIncident('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
                 </td>
             </tr>
