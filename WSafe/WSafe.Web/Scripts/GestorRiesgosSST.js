@@ -1,4 +1,5 @@
 ﻿// Agregar funcionlidad principal del lado del cliente...
+
 function AddInterven() {
     $(".tabMediAplica").css("display", "none");
     var riesgoID = $("#txtRiesgoID").val();
@@ -1730,9 +1731,11 @@ function GestorAuthorization() {
 
 function GestorOrganization() {
     //Activa ventanas para gestionar crud de organización
+
     $("#basics").click(function () {
         ResetTab();
         $(".tabBasics").css("display", "block");
+        $("#txtNit").focus();
     });
     $("#basics").dblclick(function () {
         ResetTab();
@@ -1791,6 +1794,7 @@ function GestorOrganization() {
     $("#addCargo").click(function () {
         $(".tabAddCargos").css("display", "block");
         $(".tabCerrar").css("display", "none");
+        $("#txtCodigo").focus();
         $("#btnAddCargo").show();
         $("#btnCanCargo").show();
     });
@@ -2280,6 +2284,7 @@ function AddNewCargo() {
             $("#txtCodigo").val("");
             $("#txtDescrip").val("");
             $(".tabAddCargos").css("display", "none");
+            $("#addCargo").focus();
             alert(response.mensaj);
             ShowCargos();
         },
