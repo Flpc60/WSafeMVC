@@ -15,7 +15,7 @@ using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
 {
-    // Controlador de incidentes
+    // Controlador de incidentes / accidentes
     public class IncidentesController : Controller
     {
         private readonly EmpresaContext _empresaContext;

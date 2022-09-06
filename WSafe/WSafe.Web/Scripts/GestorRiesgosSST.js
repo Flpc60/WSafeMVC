@@ -2040,9 +2040,184 @@ function CancelIncidente() {
     $("#txtInvestiga").val("");
 }
 
+function validateIncidents() {
+    if ($('#zona').val() == "0") {
+        document.getElementById("txtMessage").innerHTML = "Falta zona de ocurrencia del incidente";
+        $("#zona").focus();
+        return false;
+    }
+    else {
+        if ($('#proceso').val() == "0") {
+            document.getElementById("txtMessage").innerHTML = "Falta proceso de ocurrencia del incidente";
+            $("#proceso").focus();
+            return false;
+        }
+        else {
+            if ($('#activity').val() == "0") {
+                document.getElementById("txtMessage").innerHTML = "Falta actividad de ocurrencia del incidente";
+                $("#activity").focus();
+                return false;
+            }
+            else {
+                if ($('#tarea').val() == "0") {
+                    document.getElementById("txtMessage").innerHTML = "Falta tarea de ocurrencia del incidente";
+                    $("#tarea").focus();
+                    return false;
+                }
+                else {
+                    if ($('#txtFechaReporte').val() == "") {
+                        document.getElementById("txtMessage").innerHTML = "Falta fecha reprte del incidente";
+                        $("#txtFechaReporte").focus();
+                        return false;
+                    }
+                    else {
+                        if ($('#txtFechaIncidente').val() == "") {
+                            document.getElementById("txtMessage").innerHTML = "Falta fecha del incidente";
+                            $("#txtFechaIncidente").focus();
+                            return false;
+                        }
+                        else {
+                            if ($('#txtCategoria').val() == "") {
+                                document.getElementById("txtMessage").innerHTML = "Falta categoría del incidente";
+                                $("#txtCategoria").focus();
+                                return false;
+                            }
+                            else {
+                                if ($('#txtIncapacidad').val() == "") {
+                                    document.getElementById("txtMessage").innerHTML = "Falta incapacidad del incidente";
+                                    $("#txtIncapacidad").focus();
+                                    return false;
+                                }
+                                else {
+                                    if ($('#txtDiasIncapacidad').val() == "") {
+                                        document.getElementById("txtMessage").innerHTML = "Falta días incapacidad del incidente";
+                                        $("#txtDiasIncapacidad").focus();
+                                        return false;
+                                    }
+                                    else {
+                                        if ($('#txtNaturaleza').val() == "") {
+                                            document.getElementById("txtMessage").innerHTML = "Falta naturaleza del incidente";
+                                            $("#txtNaturaleza").focus();
+                                            return false;
+                                        }
+                                        else {
+                                            if ($('#txtPartes').val() == "") {
+                                                document.getElementById("txtMessage").innerHTML = "Falta partes afectadas del incidente";
+                                                $("#txtPartes").focus();
+                                                return false;
+                                            }
+                                            else {
+                                                if ($('#txtTipo').val() == "") {
+                                                    document.getElementById("txtMessage").innerHTML = "Falta tipo incidente";
+                                                    $("#txtTipo").focus();
+                                                    return false;
+                                                }
+                                                else {
+                                                    if ($('#txtActos').val() == "") {
+                                                        document.getElementById("txtMessage").innerHTML = "Falta actos inseguros";
+                                                        $("#txtActos").focus();
+                                                        return false;
+                                                    }
+                                                    else {
+                                                        if ($('#txtAgente').val() == "") {
+                                                            document.getElementById("txtMessage").innerHTML = "Falta agente de la lesión";
+                                                            $("#txtAgente").focus();
+                                                            return false;
+                                                        }
+                                                        else {
+                                                            if ($('#txtCondicion').val() == "") {
+                                                                document.getElementById("txtMessage").innerHTML = "Falta condiciones inseguras";
+                                                                $("#txtCondicion").focus();
+                                                                return false;
+                                                            }
+                                                            else {
+                                                                if ($('#txtDaño').val() == "") {
+                                                                    document.getElementById("txtMessage").innerHTML = "Falta tipo daño";
+                                                                    $("#txtDaño").focus();
+                                                                    return false;
+                                                                }
+                                                                else {
+                                                                    if ($('#txtAfectacion').val() == "") {
+                                                                        document.getElementById("txtMessage").innerHTML = "Falta maquinaria, equipo, procesos afectados";
+                                                                        $("#txtAfectacion").focus();
+                                                                        return false;
+                                                                    }
+                                                                    else {
+                                                                        if ($('#txtOcacionados').val() == "") {
+                                                                            document.getElementById("txtMessage").innerHTML = "Falta definir daños ocasionados";
+                                                                            $("#txtOcacionados").focus();
+                                                                            return false;
+                                                                        }
+                                                                        else {
+                                                                            if ($('#txtCostos').val() == "") {
+                                                                                document.getElementById("txtMessage").innerHTML = "Falta definir costos ocasionados";
+                                                                                $("#txtCostos").focus();
+                                                                                return false;
+                                                                            }
+                                                                            else {
+                                                                                if ($('#txtDescripcion').val() == "") {
+                                                                                    document.getElementById("txtMessage").innerHTML = "Falta definir descripción del incidente";
+                                                                                    $("#txtDescripcion").focus();
+                                                                                    return false;
+                                                                                }
+                                                                                else {
+                                                                                    if ($('#txtEvitar').val() == "") {
+                                                                                        document.getElementById("txtMessage").innerHTML = "Falta definir como se pudo evitar el incidente";
+                                                                                        $("#txtEvitar").focus();
+                                                                                        return false;
+                                                                                    }
+                                                                                    else {
+                                                                                        if ($('#txtAcciones').val() == "") {
+                                                                                            document.getElementById("txtMessage").innerHTML = "Falta definir acciones inmediatas";
+                                                                                            $("#txtAcciones").focus();
+                                                                                            return false;
+                                                                                        }
+                                                                                        else {
+                                                                                            if ($('#txtAtencion').val() == "") {
+                                                                                                document.getElementById("txtMessage").innerHTML = "Falta definir atención brindada";
+                                                                                                $("#txtAtencion").focus();
+                                                                                                return false;
+                                                                                            }
+                                                                                            else {
+                                                                                                if ($('#txtOcacionados').val() == "") {
+                                                                                                    document.getElementById("txtMessage").innerHTML = "Falta definir daños ocasionados";
+                                                                                                    $("#txtOcacionados").focus();
+                                                                                                    return false;
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    document.getElementById("txtMessage").innerHTML = "";
+    return true;
+}
+
 // las siguientes funciones crean un nuevo incidente
 function AddIncidente() {
     // Crea un nuevo incidente
+    if (!validateIncidents()) {
+        return false;
+    }
+
     $(".tabMatriz").css("display", "none");
     if ($("#txtIncapacidad").is(':checked')) {
         $("#txtIncapacidad").val(true)
