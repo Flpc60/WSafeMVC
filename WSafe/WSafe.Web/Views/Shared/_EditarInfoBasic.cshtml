@@ -129,6 +129,17 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
+                @Html.LabelFor(model => model.Politica, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Politica, new { @class = "form-control", @id = "txtPolitica", cols = "70", rows = "2"})
+                    @Html.ValidationMessageFor(model => model.Politica, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
                 @Html.LabelFor(model => model.Products, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.TextAreaFor(model => model.Products, new { @class = "form-control", @id = "txtProducts", cols = "70", rows = "2" })
