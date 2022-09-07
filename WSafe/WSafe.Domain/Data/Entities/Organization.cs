@@ -50,6 +50,10 @@ namespace WSafe.Domain.Data.Entities
         [Range(1, int.MaxValue, ErrorMessage = "Debes ingresar número trabajadores")]
         public int NumeroTrabajadores { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Política")]
+        [MaxLength(150)]
+        public string Politica { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Productos")]
         [MaxLength(150)]
         public string Products { get; set; }
