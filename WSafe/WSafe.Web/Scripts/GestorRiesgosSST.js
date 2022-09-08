@@ -107,7 +107,7 @@ function showIncidents() {
         dataType: "json",
         async: true,                                               // si es asincrónico o no
         success: function (result) {
-
+            var html = '';
             $.each(result, function (key, item) {
                 html += '<tr>';
                 html += '<td>' + item.FechaIncidente + '</td>';
