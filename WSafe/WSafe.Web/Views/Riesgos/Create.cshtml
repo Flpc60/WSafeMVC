@@ -52,7 +52,7 @@
         <div class="pull-right">
             <div class="btn-group">
                 <button type="button" id="btnHistory" class="btn btn-primary" onclick="viewHistory()">Historia</button>
-                <button type="button" id="btnIncidents" class="btn btn-primary" onclick="showIncidents">Incidentes</button>
+                <button type="button" id="btnIncidents" class="btn btn-primary" onclick="showIncidents()">Incidentes</button>
             </div>
         </div>
     </div>
@@ -123,7 +123,7 @@
                             TIPO INCIDENTE
                         </th>
                         <th>
-                            AGENTE LESIÓN)
+                            AGENTE LESIÓN
                         </th>
                         <th>
                             ACTOS INSEGUROS
@@ -161,6 +161,8 @@
 @section Scripts
 {
     <script type="text/javascript">
+        gestorRiesgos();
+
         function CancelRisk() {
             $(".tabEvalRiesgos").css("display", "none");
         }
@@ -169,8 +171,9 @@
             $(".tabAddInterven").css("display", "none");
         }
 
-        $(document).ready(function () {
+        function gestorRiesgos() {
             ClearTextBox();
+
             $("#idPeligros").click(function () {
                 $(".tabPeligros").css("display", "block");
                 $(".tabEvalRiesgos").css("display", "none");
@@ -222,194 +225,111 @@
                 $("#btnUpdInterven").hide();
                 $("#btnAddInterven").show();
             });
-        });
 
-        $('#FechaInicial').change(function () {
-            var fecha = $("#FechaInicial").val();
-            validarFechaIni(fecha);
-        });
-
-        $('#FechaFinal').change(function () {
-            var fechaIni = $("#FechaInicial").val();
-            var fechaFin = $("#FechaFinal").val();
-            validarFechaFin(fechaIni,fechaFin);
-        });
-
-        $('#zona').change(function () {
-            var zonasSelect = $('#zona');
-            zonasSelect.empty();
-            $.getJSON('@Url.Action("GetZonas")', function (zonas)
-            {
-                if (zonas != null && !jQuery.isEmptyObject(zonas))
-                {
-                    $.each(zonas, function (index, item)
-                    {
-                        zonasSelect.append($('<option />',
-                        {
-                            value: item.Value,
-                            text: item.Text
-                        }));
-                    });
-                };
+            $('#FechaInicial').change(function () {
+                var fecha = $("#FechaInicial").val();
+                validarFechaIni(fecha);
             });
-        });
 
-        $('#proceso').change(function () {
-            var procesosSelect = $('#proceso');
-            procesosSelect.empty();
-            $.getJSON('@Url.Action("GetProcesos")', function (procesos)
-            {
-                if (procesos != null && !jQuery.isEmptyObject(procesos))
-                {
-                    $.each(procesos, function (index, item)
-                    {
-                        procesosSelect.append($('<option />',
-                        {
-                            value: item.Value,
-                            text: item.Text
-                        }));
-                    });
-                };
+            $('#FechaFinal').change(function () {
+                var fechaIni = $("#FechaInicial").val();
+                var fechaFin = $("#FechaFinal").val();
+                validarFechaFin(fechaIni, fechaFin);
             });
-        });
 
-        $('#activity').change(function () {
-            var activitySelect = $('#activity');
-            activitySelect.empty();
-            $.getJSON('@Url.Action("GetActivities")', function (activities)
-            {
-                if (activities != null && !jQuery.isEmptyObject(activities))
-                {
-                    $.each(activities, function (index, item)
-                    {
-                        activitySelect.append($('<option />',
-                        {
-                            value: item.Value,
-                            text: item.Text
-                        }));
+            $('#categoria').change(function () {
+                var selectedCategoria = $("#categoria").val();
+                var peligroSelect = $('#peligro');
+                peligroSelect.empty();
+                if (selectedCategoria != null && selectedCategoria != '') {
+                    $.getJSON('@Url.Action("GetPeligros")', { ID: selectedCategoria }, function (peligros) {
+                        if (peligros != null && !jQuery.isEmptyObject(peligros)) {
+                            $.each(peligros, function (index, item) {
+                                peligroSelect.append($('<option />',
+                                    {
+                                        value: item.Value,
+                                        text: item.Text
+                                    }));
+                            });
+                        };
                     });
-                };
+                }
             });
-        });
 
-        $('#tarea').change(function () {
-            var tareasSelect = $('#tarea');
-            tareasSelect.empty();
-            $.getJSON('@Url.Action("GetTareas")', function (tareas)
-            {
-                if (tareas != null && !jQuery.isEmptyObject(tareas))
-                {
-                    $.each(tareas, function (index, item)
-                    {
-                        tareasSelect.append($('<option />',
-                        {
-                            value: item.Value,
-                            text: item.Text
-                        }));
-                    });
-                };
+            $('#deficienciaSelected').click(function () {
+                var selectedCategoria = $('#deficienciaSelected').val();
+                var nd = 0;
+                switch (selectedCategoria) {
+                    case "1":
+                        nd = 10;
+                        break;
+
+                    case "2":
+                        nd = 6;
+                        break;
+
+                    case "3":
+                        nd = 2;
+                        break;
+
+                    default:
+                        nd = 0;
+                        break;
+                }
+
+                $('#deficiencia').val(nd);
+                calcularProbabilidad();
             });
-        });
 
-        $('#categoria').change(function () {
-            var selectedCategoria = $("#categoria").val();
-            var peligroSelect = $('#peligro');
-            peligroSelect.empty();
-            if (selectedCategoria != null && selectedCategoria != '')
-            {
-                $.getJSON('@Url.Action("GetPeligros")', { ID: selectedCategoria }, function (peligros)
-                {
-                    if (peligros != null && !jQuery.isEmptyObject(peligros))
-                    {
-                        $.each(peligros, function (index, item)
-                        {
-                            peligroSelect.append($('<option />',
-                            {
-                                value: item.Value,
-                                text: item.Text
-                            }));
-                        });
-                    };
-                });
-            }
-        });
+            $('#exposicionSelected').click(function () {
+                var selectedExposicion = $('#exposicionSelected').val();
+                var ne = 0;
+                switch (selectedExposicion) {
+                    case "1":
+                        ne = 4;
+                        break;
 
-        $('#deficienciaSelected').click(function () {
-            var selectedCategoria = $('#deficienciaSelected').val();
-            var nd = 0;
-            switch (selectedCategoria)
-            {
-                case "1":
-                    nd = 10;
-                    break;
+                    case "2":
+                        ne = 3;
+                        break;
 
-                case "2":
-                    nd = 6;
-                    break;
+                    case "3":
+                        ne = 2;
+                        break;
 
-                case "3":
-                    nd = 2;
-                    break;
+                    default:
+                        ne = 1;
+                        break;
+                }
 
-                default:
-                    nd = 0;
-                    break;
-            }
+                $('#exposicion').val(ne);
+                calcularProbabilidad();
+            });
 
-            $('#deficiencia').val(nd);
-            calcularProbabilidad();
-        });
+            $('#consecuenciaSelected').click(function () {
+                var selectedExposicion = $('#consecuenciaSelected').val();
+                var nc = 0;
+                switch (selectedExposicion) {
+                    case "1":
+                        nc = 100;
+                        break;
 
-        $('#exposicionSelected').click(function () {
-            var selectedExposicion = $('#exposicionSelected').val();
-            var ne = 0;
-            switch (selectedExposicion)
-            {
-                case "1":
-                    ne = 4;
-                    break;
+                    case "2":
+                        nc = 60;
+                        break;
 
-                case "2":
-                    ne = 3;
-                    break;
+                    case "3":
+                        nc = 25;
+                        break;
 
-                case "3":
-                    ne = 2;
-                    break;
-
-                default:
-                    ne = 1;
-                    break;
-            }
-
-            $('#exposicion').val(ne);
-            calcularProbabilidad();
-        });
-
-        $('#consecuenciaSelected').click(function () {
-            var selectedExposicion = $('#consecuenciaSelected').val();
-            var nc = 0;
-            switch (selectedExposicion)
-            {
-                case "1":
-                    nc = 100;
-                    break;
-
-                case "2":
-                    nc = 60;
-                    break;
-
-                case "3":
-                    nc = 25;
-                    break;
-
-                default:
-                    nc = 10;
-                    break;
-            }
-            $('#consecuencia').val(nc);
-            calcularRiesgo();
-        });
+                    default:
+                        nc = 10;
+                        break;
+                }
+                $('#consecuencia').val(nc);
+                calcularRiesgo();
+            });
+        }
 
         function calcularProbabilidad() {
             var nd = $('#deficiencia').val();
