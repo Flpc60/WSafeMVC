@@ -90,6 +90,47 @@ function mostrarInterven() {
     });
 }
 
+function showIncidents() {
+    //$(".tabGesSeguiPlanAcc").css("display", "none");
+    var zona = $("#zona").val();
+    var proceso = $("#proceso").val();
+    var activity = $("#activity").val();
+    $.ajax({
+        url: "/Riesgos/GetAllIncidents/",
+        data: {
+            idZona: zona,
+            idProceso: proceso,
+            idActivity: activity
+        },
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,                                               // si es asincrónico o no
+        success: function (result) {
+
+            $.each(result, function (key, item) {
+                html += '<tr>';
+                html += '<td>' + item.FechaIncidente + '</td>';
+                html += '<td>' + item.CategoriasIncidente + '</td>';
+                html += '<td>' + item.IncapacidadMedica + '</td>';
+                html += '<td>' + item.DiasIncapacidad + '</td>';
+                html += '<td>' + item.NaturalezaLesion + '</td>';
+                html += '<td>' + item.PartesAfectadas + '</td>';
+                html += '<td>' + item.TipoIncidente + '</td>';
+                html += '<td>' + item.AgenteLesion + '</td>';
+                html += '<td>' + item.ActosInseguros + '</td>';
+                html += '<td>' + item.CondicionesInsegura + '</td>';
+            });
+            $('.tbody').html(html);
+            $('.tabIncidents').css("display", "block");
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
 function mostrarPlanAcc() {
     $(".tabGesSeguiPlanAcc").css("display", "none");
     var accionID = $("#txtAccionID").val();
