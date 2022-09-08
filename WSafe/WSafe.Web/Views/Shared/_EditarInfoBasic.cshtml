@@ -1,17 +1,16 @@
 ﻿@model WSafe.Domain.Data.Entities.Organization
-<hr />
 <div class="container" style="background-color:mediumaquamarine">
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-3">
             <div class="form-group">
                 @Html.LabelFor(model => model.NIT, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.NIT, new { htmlAttributes = new { @class = "form-control", @id = "txtNit", autofocus = ""} })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.NIT, new { htmlAttributes = new { @class = "form-control", @id = "txtNit" } })
                     @Html.ValidationMessageFor(model => model.NIT, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(model => model.RazonSocial, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -123,6 +122,17 @@
                 <div class="col-md-10">
                     @Html.TextAreaFor(model => model.EconomicActivity, new { @class = "form-control", @id = "txtEconomic", cols = "70", rows = "2" })
                     @Html.ValidationMessageFor(model => model.EconomicActivity, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Politica, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Politica, new { @class = "form-control", @id = "txtPolitica", cols = "70", rows = "2"})
+                    @Html.ValidationMessageFor(model => model.Politica, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>

@@ -370,6 +370,10 @@
     <Compile Include="Migrations\202207232310431_UpdateAplicaVM.Designer.cs">
       <DependentUpon>202207232310431_UpdateAplicaVM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202209071757525_UpdateOrganization.cs" />
+    <Compile Include="Migrations\202209071757525_UpdateOrganization.Designer.cs">
+      <DependentUpon>202209071757525_UpdateOrganization.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AuthorizationVM.cs" />
     <Compile Include="Models\DetailsIncidentVM.cs" />
@@ -607,7 +611,6 @@
     <Content Include="Views\Shared\_EditarPeligros.cshtml" />
     <Content Include="Views\Shared\_EvalRiesgo.cshtml" />
     <Content Include="Views\Shared\_EditarIntervencion.cshtml" />
-    <Content Include="Views\Indicadores\Index - Copy.cshtml" />
     <Content Include="Views\Shared\_BorrarPlanAcc.cshtml" />
     <Content Include="Views\Shared\_ModificaPlan.cshtml" />
     <Content Include="Views\Shared\_BorrarSigue.cshtml" />
@@ -658,6 +661,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202207232310431_UpdateAplicaVM.resx">
       <DependentUpon>202207232310431_UpdateAplicaVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202209071757525_UpdateOrganization.resx">
+      <DependentUpon>202209071757525_UpdateOrganization.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,4 +1,5 @@
 ﻿// Agregar funcionlidad principal del lado del cliente...
+
 function AddInterven() {
     $(".tabMediAplica").css("display", "none");
     var riesgoID = $("#txtRiesgoID").val();
@@ -85,6 +86,47 @@ function mostrarInterven() {
         error: function (XMLHttpRequest, textStatus, errorThrown) { // función que va a ejecutar si hubo algún tipo de error en el pedido
             var error = eval("(" + XMLHttpRequest.responseText + ")");
             alert(error.Message);
+        }
+    });
+}
+
+function showIncidents() {
+    //$(".tabGesSeguiPlanAcc").css("display", "none");
+    var zona = $("#zona").val();
+    var proceso = $("#proceso").val();
+    var activity = $("#activity").val();
+    $.ajax({
+        url: "/Riesgos/GetAllIncidents/",
+        data: {
+            idZona: zona,
+            idProceso: proceso,
+            idActivity: activity
+        },
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,                                               // si es asincrónico o no
+        success: function (result) {
+
+            $.each(result, function (key, item) {
+                html += '<tr>';
+                html += '<td>' + item.FechaIncidente + '</td>';
+                html += '<td>' + item.CategoriasIncidente + '</td>';
+                html += '<td>' + item.IncapacidadMedica + '</td>';
+                html += '<td>' + item.DiasIncapacidad + '</td>';
+                html += '<td>' + item.NaturalezaLesion + '</td>';
+                html += '<td>' + item.PartesAfectadas + '</td>';
+                html += '<td>' + item.TipoIncidente + '</td>';
+                html += '<td>' + item.AgenteLesion + '</td>';
+                html += '<td>' + item.ActosInseguros + '</td>';
+                html += '<td>' + item.CondicionesInsegura + '</td>';
+            });
+            $('.tbody').html(html);
+            $('.tabIncidents').css("display", "block");
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
         }
     });
 }
@@ -1178,6 +1220,7 @@ function UpdateOrganization(id) {
         NameRepresent: $("#txtName").val(),
         EconomicActivity: $("#txtEconomic").val(),
         NumeroTrabajadores: $("#txtNumero").val(),
+        Politica: $("#txtPolitica").val(),
         Products: $("#txtProducts").val(),
         Mision: $("#txtMision").val(),
         Vision: $("#txtVision").val(),
@@ -1276,40 +1319,47 @@ function validateOrganization() {
                                                     return false;
                                                 }
                                                 else {
-                                                    if ($('#txtProducts').val() == "") {
-                                                        document.getElementById("txtInfoBasic").innerHTML = "Falta clase productos de la organización";
-                                                        $("#txtProducts").focus();
+                                                    if ($('#txtPolitica').val() == "") {
+                                                        document.getElementById("txtInfoBasic").innerHTML = "Falta política de la organización";
+                                                        $("#txtPolitica").focus();
                                                         return false;
                                                     }
                                                     else {
-                                                        if ($('#txtMision').val() == "") {
-                                                            document.getElementById("txtInfoBasic").innerHTML = "Falta Misión de la organización";
-                                                            $("#txtMision").focus();
+                                                        if ($('#txtProducts').val() == "") {
+                                                            document.getElementById("txtInfoBasic").innerHTML = "Falta clase productos de la organización";
+                                                            $("#txtProducts").focus();
                                                             return false;
                                                         }
                                                         else {
-                                                            if ($('#txtVision').val() == "") {
-                                                                document.getElementById("txtInfoBasic").innerHTML = "Falta Visión de la organización";
-                                                                $("#txtVision").focus();
+                                                            if ($('#txtMision').val() == "") {
+                                                                document.getElementById("txtInfoBasic").innerHTML = "Falta Misión de la organización";
+                                                                $("#txtMision").focus();
                                                                 return false;
                                                             }
                                                             else {
-                                                                if ($('#txtObjetivos').val() == "") {
-                                                                    document.getElementById("txtInfoBasic").innerHTML = "Falta Objetivos de la organización";
-                                                                    $("#txtObjetivos").focus();
+                                                                if ($('#txtVision').val() == "") {
+                                                                    document.getElementById("txtInfoBasic").innerHTML = "Falta Visión de la organización";
+                                                                    $("#txtVision").focus();
                                                                     return false;
                                                                 }
                                                                 else {
-                                                                    if ($('#txtAdministrativo').val() == "") {
-                                                                        document.getElementById("txtInfoBasic").innerHTML = "Falta definir turnos administrativos de la organización";
-                                                                        $("#txtAdministrativo").focus();
+                                                                    if ($('#txtObjetivos').val() == "") {
+                                                                        document.getElementById("txtInfoBasic").innerHTML = "Falta Objetivos de la organización";
+                                                                        $("#txtObjetivos").focus();
                                                                         return false;
                                                                     }
                                                                     else {
-                                                                        if ($('#txtOperativo').val() == "") {
-                                                                            document.getElementById("txtInfoBasic").innerHTML = "Falta definir turnos operativos de la organización";
-                                                                            $("#txtOperativo").focus();
+                                                                        if ($('#txtAdministrativo').val() == "") {
+                                                                            document.getElementById("txtInfoBasic").innerHTML = "Falta definir turnos administrativos de la organización";
+                                                                            $("#txtAdministrativo").focus();
                                                                             return false;
+                                                                        }
+                                                                        else {
+                                                                            if ($('#txtOperativo').val() == "") {
+                                                                                document.getElementById("txtInfoBasic").innerHTML = "Falta definir turnos operativos de la organización";
+                                                                                $("#txtOperativo").focus();
+                                                                                return false;
+                                                                            }
                                                                         }
                                                                     }
                                                                 }
@@ -1730,9 +1780,11 @@ function GestorAuthorization() {
 
 function GestorOrganization() {
     //Activa ventanas para gestionar crud de organización
+
     $("#basics").click(function () {
         ResetTab();
         $(".tabBasics").css("display", "block");
+        $("#txtNit").focus();
     });
     $("#basics").dblclick(function () {
         ResetTab();
@@ -1791,6 +1843,7 @@ function GestorOrganization() {
     $("#addCargo").click(function () {
         $(".tabAddCargos").css("display", "block");
         $(".tabCerrar").css("display", "none");
+        $("#txtCodigo").focus();
         $("#btnAddCargo").show();
         $("#btnCanCargo").show();
     });
@@ -2036,9 +2089,184 @@ function CancelIncidente() {
     $("#txtInvestiga").val("");
 }
 
+function validateIncidents() {
+    if ($('#zona').val() == "0") {
+        document.getElementById("txtMessage").innerHTML = "Falta zona de ocurrencia del incidente";
+        $("#zona").focus();
+        return false;
+    }
+    else {
+        if ($('#proceso').val() == "0") {
+            document.getElementById("txtMessage").innerHTML = "Falta proceso de ocurrencia del incidente";
+            $("#proceso").focus();
+            return false;
+        }
+        else {
+            if ($('#activity').val() == "0") {
+                document.getElementById("txtMessage").innerHTML = "Falta actividad de ocurrencia del incidente";
+                $("#activity").focus();
+                return false;
+            }
+            else {
+                if ($('#tarea').val() == "0") {
+                    document.getElementById("txtMessage").innerHTML = "Falta tarea de ocurrencia del incidente";
+                    $("#tarea").focus();
+                    return false;
+                }
+                else {
+                    if ($('#txtFechaReporte').val() == "") {
+                        document.getElementById("txtMessage").innerHTML = "Falta fecha reprte del incidente";
+                        $("#txtFechaReporte").focus();
+                        return false;
+                    }
+                    else {
+                        if ($('#txtFechaIncidente').val() == "") {
+                            document.getElementById("txtMessage").innerHTML = "Falta fecha del incidente";
+                            $("#txtFechaIncidente").focus();
+                            return false;
+                        }
+                        else {
+                            if ($('#txtCategoria').val() == "") {
+                                document.getElementById("txtMessage").innerHTML = "Falta categoría del incidente";
+                                $("#txtCategoria").focus();
+                                return false;
+                            }
+                            else {
+                                if ($('#txtIncapacidad').val() == "") {
+                                    document.getElementById("txtMessage").innerHTML = "Falta incapacidad del incidente";
+                                    $("#txtIncapacidad").focus();
+                                    return false;
+                                }
+                                else {
+                                    if ($('#txtDiasIncapacidad').val() == "") {
+                                        document.getElementById("txtMessage").innerHTML = "Falta días incapacidad del incidente";
+                                        $("#txtDiasIncapacidad").focus();
+                                        return false;
+                                    }
+                                    else {
+                                        if ($('#txtNaturaleza').val() == "") {
+                                            document.getElementById("txtMessage").innerHTML = "Falta naturaleza del incidente";
+                                            $("#txtNaturaleza").focus();
+                                            return false;
+                                        }
+                                        else {
+                                            if ($('#txtPartes').val() == "") {
+                                                document.getElementById("txtMessage").innerHTML = "Falta partes afectadas del incidente";
+                                                $("#txtPartes").focus();
+                                                return false;
+                                            }
+                                            else {
+                                                if ($('#txtTipo').val() == "") {
+                                                    document.getElementById("txtMessage").innerHTML = "Falta tipo incidente";
+                                                    $("#txtTipo").focus();
+                                                    return false;
+                                                }
+                                                else {
+                                                    if ($('#txtActos').val() == "") {
+                                                        document.getElementById("txtMessage").innerHTML = "Falta actos inseguros";
+                                                        $("#txtActos").focus();
+                                                        return false;
+                                                    }
+                                                    else {
+                                                        if ($('#txtAgente').val() == "") {
+                                                            document.getElementById("txtMessage").innerHTML = "Falta agente de la lesión";
+                                                            $("#txtAgente").focus();
+                                                            return false;
+                                                        }
+                                                        else {
+                                                            if ($('#txtCondicion').val() == "") {
+                                                                document.getElementById("txtMessage").innerHTML = "Falta condiciones inseguras";
+                                                                $("#txtCondicion").focus();
+                                                                return false;
+                                                            }
+                                                            else {
+                                                                if ($('#txtDaño').val() == "") {
+                                                                    document.getElementById("txtMessage").innerHTML = "Falta tipo daño";
+                                                                    $("#txtDaño").focus();
+                                                                    return false;
+                                                                }
+                                                                else {
+                                                                    if ($('#txtAfectacion').val() == "") {
+                                                                        document.getElementById("txtMessage").innerHTML = "Falta maquinaria, equipo, procesos afectados";
+                                                                        $("#txtAfectacion").focus();
+                                                                        return false;
+                                                                    }
+                                                                    else {
+                                                                        if ($('#txtOcacionados').val() == "") {
+                                                                            document.getElementById("txtMessage").innerHTML = "Falta definir daños ocasionados";
+                                                                            $("#txtOcacionados").focus();
+                                                                            return false;
+                                                                        }
+                                                                        else {
+                                                                            if ($('#txtCostos').val() == "") {
+                                                                                document.getElementById("txtMessage").innerHTML = "Falta definir costos ocasionados";
+                                                                                $("#txtCostos").focus();
+                                                                                return false;
+                                                                            }
+                                                                            else {
+                                                                                if ($('#txtDescripcion').val() == "") {
+                                                                                    document.getElementById("txtMessage").innerHTML = "Falta definir descripción del incidente";
+                                                                                    $("#txtDescripcion").focus();
+                                                                                    return false;
+                                                                                }
+                                                                                else {
+                                                                                    if ($('#txtEvitar').val() == "") {
+                                                                                        document.getElementById("txtMessage").innerHTML = "Falta definir como se pudo evitar el incidente";
+                                                                                        $("#txtEvitar").focus();
+                                                                                        return false;
+                                                                                    }
+                                                                                    else {
+                                                                                        if ($('#txtAcciones').val() == "") {
+                                                                                            document.getElementById("txtMessage").innerHTML = "Falta definir acciones inmediatas";
+                                                                                            $("#txtAcciones").focus();
+                                                                                            return false;
+                                                                                        }
+                                                                                        else {
+                                                                                            if ($('#txtAtencion').val() == "") {
+                                                                                                document.getElementById("txtMessage").innerHTML = "Falta definir atención brindada";
+                                                                                                $("#txtAtencion").focus();
+                                                                                                return false;
+                                                                                            }
+                                                                                            else {
+                                                                                                if ($('#txtOcacionados').val() == "") {
+                                                                                                    document.getElementById("txtMessage").innerHTML = "Falta definir daños ocasionados";
+                                                                                                    $("#txtOcacionados").focus();
+                                                                                                    return false;
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    document.getElementById("txtMessage").innerHTML = "";
+    return true;
+}
+
 // las siguientes funciones crean un nuevo incidente
 function AddIncidente() {
     // Crea un nuevo incidente
+    if (!validateIncidents()) {
+        return false;
+    }
+
     $(".tabMatriz").css("display", "none");
     if ($("#txtIncapacidad").is(':checked')) {
         $("#txtIncapacidad").val(true)
@@ -2280,6 +2508,7 @@ function AddNewCargo() {
             $("#txtCodigo").val("");
             $("#txtDescrip").val("");
             $(".tabAddCargos").css("display", "none");
+            $("#addCargo").focus();
             alert(response.mensaj);
             ShowCargos();
         },

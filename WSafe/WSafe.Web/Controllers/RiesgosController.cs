@@ -15,6 +15,7 @@ using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
 {
+    // Gestión de riesgos
     public class RiesgosController : Controller
     {
         private int _operation;
@@ -378,6 +379,21 @@ namespace WSafe.Web.Controllers
             }
 
             return Json(new { data = true, message = "El registro ha sido eliminado exitosamente" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> GetAllIncidents(int idZona, int idProceso, int idActivity)
+        {
+            try
+            {
+                var result = await _empresaContext.Incidentes
+                    .Where(i => i.ZonaID == idZona && i.ProcesoID == idProceso && i.ActividadID == idActivity).ToListAsync();
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
+            }
         }
     }
 }
