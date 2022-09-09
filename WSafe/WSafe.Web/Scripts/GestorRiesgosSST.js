@@ -108,11 +108,25 @@ function showIncidents() {
         async: true,                                               // si es asincrónico o no
         success: function (result) {
             var html = '';
+            var categoria = '';
+            var incapacidad = '';
             $.each(result, function (key, item) {
+                if (item.CategoriasIncidente == 1) {
+                    categoria = 'Incidente';
+                } else {
+                    categoria = 'Accidente';
+                }
+
+                if (item.IncapacidadMedica == true) {
+                    incapacidad = 'SI';
+                } else {
+                    incapacidad = 'Accidente';
+                }
+
                 html += '<tr>';
-                html += '<td>' + item.FechaIncidente + '</td>';
-                html += '<td>' + item.CategoriasIncidente + '</td>';
-                html += '<td>' + item.IncapacidadMedica + '</td>';
+                html += '<td>' + item.TxtFechaIncident + '</td>';
+                html += '<td>' + categoria + '</td>';
+                html += '<td>' + incapacidad + '</td>';
                 html += '<td>' + item.DiasIncapacidad + '</td>';
                 html += '<td>' + item.NaturalezaLesion + '</td>';
                 html += '<td>' + item.PartesAfectadas + '</td>';
