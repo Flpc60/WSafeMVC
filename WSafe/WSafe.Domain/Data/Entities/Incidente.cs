@@ -116,5 +116,6 @@ namespace WSafe.Domain.Data.Entities
         public int RiesgoID { get; set; }
         public int AccionID { get; set; }
         public ICollection<Accidentado> Lesionados { get; set; }
+        public string TxtFechaIncident { get; set; }
     }
 }

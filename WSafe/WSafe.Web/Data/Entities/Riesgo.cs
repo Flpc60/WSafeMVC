@@ -30,7 +30,7 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "NE")]
         public int NivelExposicion { get; set; }
-        private int _nivelProbabilidad {get; set;}
+        private int _nivelProbabilidad { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "NP")]
         public int NivelProbabilidad
