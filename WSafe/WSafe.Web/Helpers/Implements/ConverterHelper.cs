@@ -7,7 +7,7 @@ using WSafe.Web.Models;
 
 namespace WSafe.Domain.Helpers.Implements
 {
-    //Conversión de datos async
+    //Conversión de datos async / sync
     public class ConverterHelper : IConverterHelper
     {
         private readonly EmpresaContext _empresaContext;

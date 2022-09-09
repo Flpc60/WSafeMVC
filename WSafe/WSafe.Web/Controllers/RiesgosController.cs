@@ -388,6 +388,12 @@ namespace WSafe.Web.Controllers
             {
                 var result = await _empresaContext.Incidentes
                     .Where(i => i.ZonaID == idZona && i.ProcesoID == idProceso && i.ActividadID == idActivity).ToListAsync();
+
+                foreach (var item in result)
+                {
+                    item.TxtFechaIncident = item.FechaIncidente.ToString("yyyy-MM-dd");
+                }
+
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

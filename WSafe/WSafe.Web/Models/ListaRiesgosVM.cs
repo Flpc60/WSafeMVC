@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using WSafe.Domain.Data.Entities;
 
 namespace WSafe.Web.Models
@@ -9,22 +8,28 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "ZONA")]
         public string Zona { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "PROCESO")]
         public string Proceso { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "ACTIVIDAD")]
         public string Actividad { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "TAREA")]
         public string Tarea { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "RUTINARIA")]
         public bool Rutinaria { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Clasificación")]
+        [Display(Name = "CLASIFICACIÓN")]
         public string Clasificacion { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "PELIGRO")]
         public string Peligro { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Efectos posibles")]
+        [Display(Name = "EFECTOS POSIBLES")]
         public EfectosPosibles EfectosPosibles { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "ND")]
@@ -96,12 +101,13 @@ namespace WSafe.Web.Models
             }
         }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "ACEPTABILIDAD")]
         public CategoriasAceptabilidad Aceptabilidad { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Expuestos")]
+        [Display(Name = "EXPUESTOS")]
         public int NroExpuestos { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Requisito")]
+        [Display(Name = "REQUISITO")]
         public bool RequisitoLegal { get; set; }
         public string TextRutinaria { get; set; }
         public string TextRequisito { get; set; }

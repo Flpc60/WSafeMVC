@@ -16,6 +16,7 @@ namespace WSafe.Web.Controllers
 {
     public class AccountsController : Controller
     {
+        // Gestión de cuentas
         private readonly EmpresaContext _empresaContext;
         private readonly IConverterHelper _converterHelper;
         private readonly IComboHelper _comboHelper;
@@ -72,6 +73,8 @@ namespace WSafe.Web.Controllers
                 Session["userName"] = result.Name;
                 Session["roleID"] = result.RoleID;
                 Session["organization"] = empresa.RazonSocial.Trim() + " NIT : " + empresa.NIT;
+                Session["numeroTrabajadores"] = empresa.NumeroTrabajadores;
+                
                 return Json(new { result = "Redirect", url = Url.Action("Index", "Home"), mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
