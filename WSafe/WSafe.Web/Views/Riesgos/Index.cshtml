@@ -8,27 +8,37 @@
 <br />
 <br />
 <h4>GESTIÓN DE RIESGOS : @Session["organization"].ToString().Trim()</h4>
-<div class="row">
-    <div class="col-md-8">
+
+<div class="pull-left">
+    <div class="btn-group">
         @Html.ActionLink("Ingresar Nuevo Riesgo", "Create", new { @class = "glyphicon glyphicon-plus" },
         new { @class = "btn btn-info btn-lg active" })
         @Html.ActionLink("Descargar matriz de riesgos", "PrintRiesgosToPdf", new { @class = "glyphicon glyphicon-download-alt" },
         new { @class = "btn btn-info btn-lg active" })
-        <div class="pull-left" style="display:inline-flex; margin: 1%">
-            <div class="btn-group">
-                <div style="background-color: red; padding: 1%">RIESGO RESIDUAL</div>
-                <div style="background-color: orange; padding: 1%">RIESGO TRATADO</div>
-                <div style="background-color: green; padding: 1%">RIESGO CONTROLADO</div>
-                <div style="background-color: grey; padding: 1%">
-                    NÚMERO TRABAJADORES : @Session["numeroTrabajadores"].ToString().Trim()
-                </div>
-            </div>
-        </div>
+    </div>
+</div>
+
+<div class="pull-left" style="display:inline-flex">
+    <div class="btn-group">
+        <div style="background-color: red">RIESGO RESIDUAL</div>
+        <div style="background-color: orange">RIESGO TRATADO</div>
+        <div style="background-color: green">RIESGO CONTROLADO</div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4" >
+        NÚMERO TRABAJADORES : @Session["numeroTrabajadores"].ToString().Trim()
+    </div>
+    <div class="col-md-4">
+        HORARIO DE TRABAJO : @Session["turnoOperativo"].ToString().Trim()
     </div>
     <div class="col-md-4">
         <input type="search" id="myInput" placeholder="Escriba un nombre de elemento para filtrar" style="width:350px">
     </div>
 </div>
+
+<br />
 <div class="table-responsive-xl" style="background-color: mediumaquamarine; width:100%; margin-right:0px">
     <table class="table table-bordered">
         <tr style="background-color:gainsboro">
