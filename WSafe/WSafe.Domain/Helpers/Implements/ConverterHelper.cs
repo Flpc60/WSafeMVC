@@ -7,6 +7,7 @@ using WSafe.Web.Models;
 
 namespace WSafe.Domain.Helpers.Implements
 {
+    //Conversión de datos async / sync
     public class ConverterHelper : IConverterHelper
     {
         private readonly EmpresaContext _empresaContext;
@@ -466,12 +467,17 @@ namespace WSafe.Domain.Helpers.Implements
                 Nombre = aplicacion.Nombre.ToUpper(),
                 CategoriaAplicacion = aplicacion.CategoriaAplicacion,
                 Intervencion = aplicacion.Intervencion,
-                Beneficios = aplicacion.Beneficios,
+                Beneficios = aplicacion.Beneficios.ToUpper(),
                 Presupuesto = aplicacion.Presupuesto,
                 TrabajadorID = aplicacion.TrabajadorID,
                 FechaInicial = aplicacion.FechaInicial.ToString("yyyy-MM-dd"),
                 FechaFinal = aplicacion.FechaFinal.ToString("yyyy-MM-dd"),
-                Observaciones = aplicacion.Observaciones,
+                Observaciones = aplicacion.Observaciones.ToUpper(),
+                Responsable = _empresaContext.Trabajadores.Find(aplicacion.TrabajadorID).NombreCompleto.ToUpper(),
+                TextCategoria = _gestorHelper.GetCategoriaAplicacion(aplicacion.CategoriaAplicacion),
+                TextIntervencion = _gestorHelper.GetJerarquiaControl(aplicacion.Intervencion),
+                TextFechaInicial = aplicacion.FechaInicial.ToString("yyyy-MM-dd"),
+                TextFechaFinal = aplicacion.FechaFinal.ToString("yyyy-MM-dd")
             };
 
             return modelo;
@@ -517,7 +523,11 @@ namespace WSafe.Domain.Helpers.Implements
                 TrabajadorID = model.TrabajadorID,
                 FechaInicial = Convert.ToDateTime(model.FechaInicial),
                 FechaFinal = Convert.ToDateTime(model.FechaFinal),
-                Observaciones = model.Observaciones
+                Observaciones = model.Observaciones,
+                NivelDeficiencia = model.NivelDeficiencia,
+                NivelExposicion = model.NivelExposicion,
+                NivelConsecuencia = model.NivelConsecuencia,
+                Aceptabilidad = model.Aceptabilidad
             };
 
             return result;
@@ -596,8 +606,8 @@ namespace WSafe.Domain.Helpers.Implements
                 {
                     ID = item.ID,
                     AccionID = item.AccionID,
-                    FechaInicial = item.FechaInicial.ToString("dd/MM/yyyy"),
-                    FechaFinal = item.FechaFinal.ToString("dd/MM/yyyy"),
+                    FechaInicial = item.FechaInicial.ToString("yyyy-MM-dd"),
+                    FechaFinal = item.FechaFinal.ToString("yyyy-MM-dd"),
                     Causa = item.Causa,
                     Categoria = _gestorHelper.GetCausaAccion(item.Causa).ToUpper(),
                     Accion = item.Accion.ToUpper(),
@@ -643,7 +653,7 @@ namespace WSafe.Domain.Helpers.Implements
                 {
                     ID = item.ID,
                     AccionID = item.AccionID,
-                    FechaSeguimiento = item.FechaSeguimiento.ToString("dd/MM/yyyy"),
+                    FechaSeguimiento = item.FechaSeguimiento.ToString("yyyy-MM-dd"),
                     Resultado = item.Resultado.ToUpper(),
                     TrabajadorID = item.TrabajadorID,
                     Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpper()
