@@ -7,9 +7,12 @@
 }
 
 <style>
-    .tabInterven, .capInterven, .tabPeligros, .tabEvalRiesgos, .tabMediAplica, .consInterven, .tabIntervencion, .tabAddInterven {
+    .tabInterven, .capInterven, .tabPeligros, .tabEvalRiesgos, .tabMediAplica, .consInterven, .tabIntervencion,
+    .tabHistory, .tabAddInterven
+    {
         display: none;
     }
+
 </style>
 
 <hr />
@@ -34,83 +37,142 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="tabPeligros">
-            <hr />
-            @Html.Partial("_EditarPeligros")
-        </div>
-
-        <div class="tabEvalRiesgos">
-            <hr />
-            @Html.Partial("_EvalRiesgo")
-            <input type="hidden" id="txtRiesgoID" name="txtRiesgoID" />
-            <div class="row">
-                <div class="col-md-8">
-                    <button type="button" id="btnUpdRiesgo" class="btn btn-primary" onclick="UpdateRiesgo()">Guardar</button>
-                    <button type="button" id="btnCanRisk" class="btn btn-primary" onclick="CancelRisk()">
-                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
-                    </button>
-                </div>
-                <div class="col-md-4">
-                </div>
-            </div>
-        </div>
-
-        <div class="tabMediAplica">
-            <hr />
-            <div class="col-md-12">
-                <button type="button" class="btn btn-primary" id="addIntervencion">Adicionar nueva medida de intervención</button>
-            </div>
-            <div class="table-responsive-xl" style="background-color: mediumaquamarine">
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr style="background-color:gainsboro; width:auto">
-                            <th>
-                                DESCRIPCIÓN
-                            </th>
-                            <th>
-                                CONTROL
-                            </th>
-                            <th>
-                                MEDIDA INTERVENCIÓN
-                            </th>
-                            <th>
-                                RESPONSABLE
-                            </th>
-                            <th>
-                                FECHA INICIAL
-                            </th>
-                            <th>
-                                FECHA CIERRE
-                            </th>
-                            <th>
-                                Opciones
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody class="tbody">
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="tabAddInterven">
-            <input type="hidden" id="txtIntervenID" name="txtIntervenID" />
-            @Html.Partial("_EditarIntervencion")
-            <div class="row">
-                <div class="col-md-8">
-                    <button type="button" id="btnAddInterven" class="btn btn-info" onclick="AddInterven()">Adicionar</button>
-                    <button type="button" id="btnUpdInterven" class="btn btn-info" onclick="UpdateIntervencion()">Guardar</button>
-                    <button type="button" id="btnCanInterven" class="btn btn-primary" onclick="CancelInterven()">
-                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
-                    </button>
-                </div>
-                <div class="col-md-4">
-                </div>
-            </div>
-        </div>
-
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="tabPeligros">
+        <hr />
+        @Html.Partial("_EditarPeligros")
     </div>
+
+    <div class="tabEvalRiesgos">
+        <hr />
+        @Html.Partial("_EvalRiesgo")
+        <input type="hidden" id="txtRiesgoID" name="txtRiesgoID" />
+        <div class="pull-left">
+            <div class="btn-group">
+                <button type="button" id="btnUpdRiesgo" class="btn btn-primary" onclick="UpdateRiesgo()">Guardar</button>
+                <button type="button" id="btnCanRisk" class="btn btn-primary" onclick="CancelRisk()">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                </button>
+            </div>
+        </div>
+        <div class="pull-right">
+            <div class="btn-group">
+                <button type="button" id="btnHistory" class="btn btn-primary" onclick="viewHistory()">Historia</button>
+                <button type="button" id="btnIncidents" class="btn btn-primary" onclick="showIncidents()">Incidentes</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="tabMediAplica">
+        <hr />
+        <div class="col-md-12">
+            <button type="button" class="btn btn-primary" id="addIntervencion">Adicionar nueva medida de intervención</button>
+        </div>
+        <div class="table-responsive-xl" style="background-color: mediumaquamarine">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr style="background-color:gainsboro; width:auto">
+                        <th>
+                            DESCRIPCIÓN
+                        </th>
+                        <th>
+                            CONTROL
+                        </th>
+                        <th>
+                            MEDIDA INTERVENCIÓN
+                        </th>
+                        <th>
+                            RESPONSABLE
+                        </th>
+                        <th>
+                            FECHA INICIAL
+                        </th>
+                        <th>
+                            FECHA CIERRE
+                        </th>
+                        <th>
+                            Opciones
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="tbody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="tabAddInterven">
+        <input type="hidden" id="txtIntervenID" name="txtIntervenID" />
+        @Html.Partial("_EditarIntervencion")
+        <div class="row">
+            <div class="col-md-8">
+                <button type="button" id="btnAddInterven" class="btn btn-info" onclick="AddInterven()">Adicionar</button>
+                <button type="button" id="btnUpdInterven" class="btn btn-info" onclick="UpdateIntervencion()">Guardar</button>
+                <button type="button" id="btnCanInterven" class="btn btn-primary" onclick="CancelInterven()">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                </button>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+
+    <div class="tabHistory">
+        <hr />
+        <div class="table-responsive-xl" style="background-color: antiquewhite">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr style="background-color: gainsboro; width: auto">
+                        <th>
+                            ND
+                        </th>
+                        <th>
+                            NE
+                        </th>
+                        <th>
+                            NP
+                        </th>
+                        <th>
+                            INTP
+                        </th>
+                        <th>
+                            NC
+                        </th>
+                        <th>
+                            NR
+                        </th>
+                        <th>
+                            INTNR
+                        </th>
+                        <th>
+                            ACEPTABILIDAD
+                        </th>
+                        <th>
+                            DESCRIPCIÓN
+                        </th>
+                        <th>
+                            CONTROL
+                        </th>
+                        <th>
+                            MEDIDA INTERVENCIÓN
+                        </th>
+                        <th>
+                            RESPONSABLE
+                        </th>
+                        <th>
+                            FECHA INICIAL
+                        </th>
+                        <th>
+                            FECHA CIERRE
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="tbody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 }
 
 @section Scripts

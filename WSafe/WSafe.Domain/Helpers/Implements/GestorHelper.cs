@@ -48,6 +48,7 @@ namespace WSafe.Domain.Helpers.Implements
                     return "IV";
             }
         }
+
         public string GetAceptabilidadNR(string nivelRiesgo)
         {
             switch (nivelRiesgo)
