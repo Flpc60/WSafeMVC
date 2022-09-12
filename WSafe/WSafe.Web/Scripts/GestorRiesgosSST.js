@@ -1,41 +1,86 @@
 ﻿// Agregar funcionlidad principal del lado del cliente...
 
-function AddInterven() {
-    $(".tabMediAplica").css("display", "none");
+function viewHistory() {
+    //    $(".tabMediAplica").css("display", "none");
     var riesgoID = $("#txtRiesgoID").val();
-    var aplicaVM = {
-        ID: "0",
-        RiesgoID: riesgoID,
-        Nombre: $("#txtNombre").val(),
-        CategoriaAplicacion: $("#txtCatAplica").val(),
-        Finalidad: $("#txtFinal").val(),
-        Intervencion: $("#idInterven").val(),
-        Beneficios: $("#idBeneficio").val(),
-        Presupuesto: $("#idPresup").val(),
-        TrabajadorID: $("#idRespons").val(),
-        FechaInicial: $("#FechaInicial").val(),
-        Fechafinal: $("#FechaFinal").val(),
-        Observaciones: $("#idObserv").val()
-    };
+    var aplicaID = $("#txtIntervenID").val();
 
     $.ajax({
-        type: "POST",
-        url: "/Riesgos/AddIntervenciones",
-        data: { model: aplicaVM },
+        type: "GET",
+        url: '/Riesgos/GetIntervenciones',
+        data: { idRiesgo: riesgoID },
+        contentType: "application/json; charset=utf-8",
         dataType: "json",
+        async: true,
         success: function (result) {
-            if (result.data != false) {
-                $("#txtIntervenID").val(result.data);
-                $("#btnAddInterven").hide();
-                $(".tabAddInterven").css("display", "none");
-            }
-            alert(result.mensaj);
-            ClearTextBox();
-            mostrarInterven();
+            var fecha = Date.now();
+            var html = '', interpretaP, interpretaNR;
+            var year = 0, month = 0, day = 0, np = 0, nr = 0;
+            $.each(result, function (key, item) {
+                np = item.NivelDeficiencia * item.NivelExposicion;
+                nr = np * item.NivelConsecuencia;
+
+                switch (true) {
+                    case (np >= 24):
+                        interpretaP = "Muy alto (MA)";
+
+                    case (np >= 10 && np < 24):
+                        interpretaP = "Alto (A)";
+
+                    case (np >= 8 && np < 10):
+                        interpretaP = "Mdio (M)";
+
+                    default:
+                        interpretaP = "Bajo (B)";
+                }
+
+                switch (true) {
+                    case (nr >= 600):
+                        interpretaNR = "I";
+
+                    case (nr >= 150 && nr < 600):
+                        interpretaNR = "II";
+
+                    case (nr >= 40 && nr < 150):
+                        interpretaNR = "III";
+
+                    default:
+                        interpretaNR = "IV";
+                }
+
+                html += '<tr>';
+                html += '<td>' + item.NivelDeficiencia + '</td>';
+                html += '<td>' + item.NivelExposicion + '</td>';
+                html += '<td>' + np + '</td>';
+                html += '<td>' + interpretaP + '</td>';
+                html += '<td>' + item.NivelConsecuencia + '</td>';
+                html += '<td>' + nr + '</td>';
+                html += '<td>' + interpretaNR + '</td>';
+                html += '<td>' + item.AceptabilidadNR + '</td>';
+                html += '<td>' + item.Nombre + '</td>';
+                html += '<td>' + item.TextCategoria + '</td>';
+                html += '<td>' + item.TextIntervencion + '</td>';
+                html += '<td>' + item.Responsable + '</td>';
+                html += '<td>' + item.TextFechaInicial + '</td>';
+
+                year = item.TextFechaFinal.substring(0, 4);
+                month = item.TextFechaFinal.substring(5, 7);
+                day = item.TextFechaFinal.substring(8, 10);
+                date = new Date(year, month - 1, day);
+                date = Date.parse(date);
+                if (fecha > date) {
+                    html += '<td style="background-color:red">' + item.TextFechaFinal + '</td>';
+                } else {
+                    html += '<td style="background-color:green">' + item.TextFechaFinal + '</td>';
+                }
+                html += '</tr>';
+            });
+            $('.tbody').html(html);
+            $('.tabHistory').css("display", "block");
         },
-        error: function (xhr, ajaxOptions, thrownError) {
-            alert(xhr.status);
-            alert(thrownError);
+        error: function (XMLHttpRequest, textStatus, errorThrown) { // función que va a ejecutar si hubo algún tipo de error en el pedido
+            var error = eval("(" + XMLHttpRequest.responseText + ")");
+            alert(error.Message);
         }
     });
 }
@@ -1585,6 +1630,8 @@ function AddNewRiesgo() {
                 $("#txtRiesgoID").val(result.data);
                 $("#btnAddRiesgo").hide();
                 $(".tabEvalRiesgos").css("display", "none");
+                $(".tabIncidents").css("display", "none");
+                $("..tabHistory").css("display", "none");
             }
             alert(result.mensaj);
         },
@@ -1645,6 +1692,50 @@ function UpdateRiesgo() {
     });
 }
 
+function AddInterven() {
+    $(".tabMediAplica").css("display", "none");
+    var riesgoID = $("#txtRiesgoID").val();
+    var aplicaVM = {
+        ID: "0",
+        RiesgoID: riesgoID,
+        Nombre: $("#txtNombre").val(),
+        CategoriaAplicacion: $("#txtCatAplica").val(),
+        Finalidad: $("#txtFinal").val(),
+        Intervencion: $("#idInterven").val(),
+        Beneficios: $("#idBeneficio").val(),
+        Presupuesto: $("#idPresup").val(),
+        TrabajadorID: $("#idRespons").val(),
+        FechaInicial: $("#FechaInicial").val(),
+        Fechafinal: $("#FechaFinal").val(),
+        Observaciones: $("#idObserv").val(),
+        NivelDeficiencia: $("#deficiencia").val(),
+        NivelExposicion: $("#exposicion").val(),
+        NivelConsecuencia: $("#consecuencia").val(),
+        AceptabilidadNR: $("#txtAceptabilidad").val()
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/Riesgos/AddIntervenciones",
+        data: { model: aplicaVM },
+        dataType: "json",
+        success: function (result) {
+            if (result.data != false) {
+                $("#txtIntervenID").val(result.data);
+                $("#btnAddInterven").hide();
+                $(".tabAddInterven").css("display", "none");
+            }
+            alert(result.mensaj);
+            ClearTextBox();
+            mostrarInterven();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
 function UpdateIntervencion() {
     //TODO
     riesgoID = $("#txtRiesgoID").val();
@@ -1661,7 +1752,11 @@ function UpdateIntervencion() {
         Presupuesto: $("#idPresup").val(),
         FechaInicial: $("#FechaInicial").val(),
         FechaFinal: $("#FechaFinal").val(),
-        Observaciones: $("#idObserv").val()
+        Observaciones: $("#idObserv").val(),
+        NivelDeficiencia: $("#deficiencia").val(),
+        NivelExposicion: $("#exposicion").val(),
+        NivelConsecuencia: $("#consecuencia").val(),
+        AceptabilidadNR: $("#txtAceptabilidad").val()
     };
 
     $.ajax({

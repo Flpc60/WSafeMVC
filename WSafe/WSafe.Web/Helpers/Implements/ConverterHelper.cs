@@ -523,7 +523,11 @@ namespace WSafe.Domain.Helpers.Implements
                 TrabajadorID = model.TrabajadorID,
                 FechaInicial = Convert.ToDateTime(model.FechaInicial),
                 FechaFinal = Convert.ToDateTime(model.FechaFinal),
-                Observaciones = model.Observaciones
+                Observaciones = model.Observaciones,
+                NivelDeficiencia = model.NivelDeficiencia,
+                NivelExposicion = model.NivelExposicion,
+                NivelConsecuencia = model.NivelConsecuencia,
+                Aceptabilidad = model.Aceptabilidad
             };
 
             return result;
