@@ -382,6 +382,10 @@
     <Compile Include="Migrations\202209121932075_UpdateAplication.Designer.cs">
       <DependentUpon>202209121932075_UpdateAplication.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202209131548486_UpdateAplication2.cs" />
+    <Compile Include="Migrations\202209131548486_UpdateAplication2.Designer.cs">
+      <DependentUpon>202209131548486_UpdateAplication2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AuthorizationVM.cs" />
     <Compile Include="Models\DetailsIncidentVM.cs" />
@@ -678,6 +682,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202209121932075_UpdateAplication.resx">
       <DependentUpon>202209121932075_UpdateAplication.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202209131548486_UpdateAplication2.resx">
+      <DependentUpon>202209131548486_UpdateAplication2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

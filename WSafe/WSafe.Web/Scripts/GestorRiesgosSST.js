@@ -14,7 +14,7 @@ function viewHistory() {
         async: true,
         success: function (result) {
             var fecha = Date.now();
-            var html = '', interpretaP, interpretaNR;
+            var html = '', interpretaP = '', interpretaNR = '';
             var year = 0, month = 0, day = 0, np = 0, nr = 0;
             $.each(result, function (key, item) {
                 np = item.NivelDeficiencia * item.NivelExposicion;
@@ -23,15 +23,19 @@ function viewHistory() {
                 switch (true) {
                     case (np >= 24):
                         interpretaP = "Muy alto (MA)";
+                        break;
 
                     case (np >= 10 && np < 24):
                         interpretaP = "Alto (A)";
+                        break;
 
                     case (np >= 8 && np < 10):
                         interpretaP = "Mdio (M)";
+                        break;
 
-                    default:
+                    case (np < 8):
                         interpretaP = "Bajo (B)";
+                        break;
                 }
 
                 switch (true) {
@@ -40,12 +44,15 @@ function viewHistory() {
 
                     case (nr >= 150 && nr < 600):
                         interpretaNR = "II";
+                        break;
 
                     case (nr >= 40 && nr < 150):
                         interpretaNR = "III";
+                        break;
 
-                    default:
+                    case (nr < 40):
                         interpretaNR = "IV";
+                        break;
                 }
 
                 html += '<tr>';
@@ -56,7 +63,7 @@ function viewHistory() {
                 html += '<td>' + item.NivelConsecuencia + '</td>';
                 html += '<td>' + nr + '</td>';
                 html += '<td>' + interpretaNR + '</td>';
-                html += '<td>' + item.AceptabilidadNR + '</td>';
+                html += '<td>' + item.Aceptabilidad + '</td>';
                 html += '<td>' + item.Nombre + '</td>';
                 html += '<td>' + item.TextCategoria + '</td>';
                 html += '<td>' + item.TextIntervencion + '</td>';
