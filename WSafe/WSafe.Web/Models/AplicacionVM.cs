@@ -51,8 +51,6 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "NC")]
         public int NivelConsecuencia { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Aceptabilidad")]
         public CategoriasAceptabilidad Aceptabilidad { get; set; }
     }
 }

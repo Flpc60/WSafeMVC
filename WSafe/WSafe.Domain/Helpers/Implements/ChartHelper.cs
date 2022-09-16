@@ -10,6 +10,7 @@ namespace WSafe.Domain.Helpers.Implements
 {
     public class ChartHelper : IChartHelper
     {
+        // Construir gráficas
         private readonly EmpresaContext _empresaContext;
         private readonly IndicadorHelper _indicadorHelper;
         public ChartHelper(EmpresaContext empresaContext, IndicadorHelper indicadorHelper)
@@ -235,6 +236,78 @@ namespace WSafe.Domain.Helpers.Implements
         public IEnumerable<IndicadorDetallesViewModel> GetIncidentesInvestigados(int[] periodo, int year)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<IndicadorDetallesViewModel> GetAllValueRisks()
+        {
+            try
+            {
+                var result = _empresaContext.Riesgos.ToList();
+                var muyAlto = 0;
+                var alto = 0;
+                var medio = 0; 
+                var bajo = 0;
+                var np = 0;
+                var nr = 0;
+                foreach (var item in result)
+                {
+                    np = item.NivelDeficiencia * item.NivelExposicion;
+                    nr = np * item.NivelConsecuencia;
+                    switch (nr)
+                    {
+                        case int r when (r >= 600):
+                            muyAlto++;
+                            break;
+
+                        case int r when (r >= 150 && r < 600):
+                            alto++;
+                            break;
+
+                        case int r when (r >= 40 && r < 150):
+                            medio++;
+                            break;
+
+                        case int r when (r < 40):
+                            bajo++;
+                            break;
+                    }
+                }
+
+                var viewModel = new List<IndicadorDetallesViewModel>();
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 1,
+                    MesAnn = "Muy Alto",
+                    Resultado = muyAlto
+                });
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 2,
+                    MesAnn = "Alto",
+                    Resultado = alto
+                });
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 3,
+                    MesAnn = "Medio",
+                    Resultado = medio
+                });
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 4,
+                    MesAnn = "Bajo",
+                    Resultado = bajo
+                });
+
+                return viewModel;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
         }
     }
 }
