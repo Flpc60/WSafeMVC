@@ -23,11 +23,13 @@ namespace WSafe.Web.Controllers
         private readonly EmpresaContext _empresaContext;
         private readonly IComboHelper _comboHelper;
         private readonly IConverterHelper _converterHelper;
-        public RiesgosController(EmpresaContext empresaContext, IComboHelper comboHelper, IConverterHelper converterHelper, User usuario)
+        private readonly IChartHelper _chartHelper;
+        public RiesgosController(EmpresaContext empresaContext, IComboHelper comboHelper, IConverterHelper converterHelper, IChartHelper chartHelper)
         {
             _empresaContext = empresaContext;
             _comboHelper = comboHelper;
             _converterHelper = converterHelper;
+            _chartHelper = chartHelper;
         }
 
         [AuthorizeUser(operation: 1, component: 2)]
@@ -395,6 +397,25 @@ namespace WSafe.Web.Controllers
                 }
 
                 return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> GetAllRisks()
+        {
+            try
+            {
+                Random random = new Random();
+                var filename = "chart" + random.Next(1, 100) + ".jpg";
+                var filePathName = "~/Images/" + filename;
+                var datos = _chartHelper.GetAllValueRisks();
+                _chartHelper.DrawImagen(filePathName, "Pie", "VALORACIÓN ACTUAL", datos);
+                var image = filePathName;
+                return Json(image, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

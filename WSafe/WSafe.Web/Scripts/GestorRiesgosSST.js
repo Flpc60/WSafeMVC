@@ -14,7 +14,7 @@ function viewHistory() {
         async: true,
         success: function (result) {
             var fecha = Date.now();
-            var html = '', interpretaP = '', interpretaNR = '';
+            var html = '', interpretaP = '', interpretaNR = '', aceptabilidad = '';
             var year = 0, month = 0, day = 0, np = 0, nr = 0;
             $.each(result, function (key, item) {
                 np = item.NivelDeficiencia * item.NivelExposicion;
@@ -55,6 +55,24 @@ function viewHistory() {
                         break;
                 }
 
+                switch (item.Aceptabilidad) {
+                    case 1:
+                        aceptabilidad = "No Aceptable";
+                        break;
+
+                    case 2:
+                        aceptabilidad = "No Aceptable o Aceptable con control Específico";
+                        break;
+
+                    case 3:
+                        aceptabilidad = "Mejorable";
+                        break;
+
+                    case 3:
+                        aceptabilidad = "Aceptable";
+                        break;
+                }
+
                 html += '<tr>';
                 html += '<td>' + item.NivelDeficiencia + '</td>';
                 html += '<td>' + item.NivelExposicion + '</td>';
@@ -63,26 +81,17 @@ function viewHistory() {
                 html += '<td>' + item.NivelConsecuencia + '</td>';
                 html += '<td>' + nr + '</td>';
                 html += '<td>' + interpretaNR + '</td>';
-                html += '<td>' + item.Aceptabilidad + '</td>';
+                html += '<td>' + aceptabilidad + '</td>';
                 html += '<td>' + item.Nombre + '</td>';
                 html += '<td>' + item.TextCategoria + '</td>';
                 html += '<td>' + item.TextIntervencion + '</td>';
                 html += '<td>' + item.Responsable + '</td>';
                 html += '<td>' + item.TextFechaInicial + '</td>';
-
-                year = item.TextFechaFinal.substring(0, 4);
-                month = item.TextFechaFinal.substring(5, 7);
-                day = item.TextFechaFinal.substring(8, 10);
-                date = new Date(year, month - 1, day);
-                date = Date.parse(date);
-                if (fecha > date) {
-                    html += '<td style="background-color:red">' + item.TextFechaFinal + '</td>';
-                } else {
-                    html += '<td style="background-color:green">' + item.TextFechaFinal + '</td>';
-                }
+                html += '<td>' + item.TextFechaFinal + '</td>';
                 html += '</tr>';
             });
             $('.tbody').html(html);
+            $('.tabIncidents').css("display", "none");
             $('.tabHistory').css("display", "block");
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) { // función que va a ejecutar si hubo algún tipo de error en el pedido
@@ -188,6 +197,7 @@ function showIncidents() {
                 html += '<td>' + item.CondicionesInsegura + '</td>';
             });
             $('.tbody').html(html);
+            $(".tabHistory").css("display", "none");
             $('.tabIncidents').css("display", "block");
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -1638,7 +1648,7 @@ function AddNewRiesgo() {
                 $("#btnAddRiesgo").hide();
                 $(".tabEvalRiesgos").css("display", "none");
                 $(".tabIncidents").css("display", "none");
-                $("..tabHistory").css("display", "none");
+                $(".tabHistory").css("display", "none");
             }
             alert(result.mensaj);
         },
@@ -1691,6 +1701,7 @@ function UpdateRiesgo() {
             $("#txtRiesgoID").val(idRiesgo);
             $("#btnUpdRiesgo").hide();
             $(".tabEvalRiesgos").css("display", "none");
+            $(".tabHistory").css("display", "none");
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -2846,3 +2857,37 @@ function CancelAccion() {
     $("#idEfectiva").val("");
     $("#idEstado").val("");
 }
+
+// Gráficas
+
+function chartValueDangers() {
+    // Gráficar valoración peligros
+    $.ajax({
+        url: "/Riesgos/GetAllRisks",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (response) {
+            var html = '<img src=' + response + ' width="42" height="42" style="border:5px solid black">';
+            $('.ValueDangers').html(html);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function chartClassDangers() {
+
+}
+
+function chartCommonActivitys() {
+
+}
+
+function chartEfectosPosibles() {
+
+}
+

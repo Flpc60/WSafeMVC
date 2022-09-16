@@ -27,7 +27,7 @@
 </div>
 
 <div class="row">
-    <div class="col-md-4" >
+    <div class="col-md-4">
         NÚMERO TRABAJADORES : @Session["numeroTrabajadores"].ToString().Trim()
     </div>
     <div class="col-md-4">
@@ -169,6 +169,33 @@
 
         </tbody>
     </table>
+</div>
+
+<div class="pull-left">
+    <div class="btn-group">
+        <button type="button" id="btnValueDangers" class="btn btn-warning" onclick="chartValueDangers()">VALORACIÓN PELIGROS</button>
+        <button type="button" id="btnClassDangers" class="btn btn-warning" onclick="chartClassDangers()">CLAISFICACIÓN PELIGROS</button>
+        <button type="button" id="btnCommonActivitys" class="btn btn-warning" onclick="chartCommonActivitys()">ACTIVIDADES RUTINARIAS</button>
+        <button type="button" id="btnEfectosPosibles" class="btn btn-warning" onclick="chartEfectosPosibles()">EFECTOS POSIBLES</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <div class="ValueDangers">
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="ClassDangers">
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="CommonActivitys">
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="EfectosPosibles">
+        </div>
+    </div>
 </div>
 
 @section Scripts
