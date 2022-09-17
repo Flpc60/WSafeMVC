@@ -23,8 +23,9 @@ namespace WSafe.Domain.Helpers.Implements
             var chartImage = new Chart(width: 500, height: 300, theme: ChartTheme.Green);
             chartImage.AddTitle(nombre);
             chartImage.AddSeries("Default", chartType: tipo,
-                        xValue: lista, xField: "MesAnn",
-                          yValues: lista, yFields: "Resultado");
+                axisLabel: "Valores",
+                xValue: lista, xField: "MesAnn",
+                yValues: lista, yFields: "Resultado");
             chartImage.Save(path: archivo);
         }
         public IEnumerable<IndicadorDetallesViewModel> GetFrecuenciaAccidentes(int[] periodo, int year)
@@ -249,10 +250,12 @@ namespace WSafe.Domain.Helpers.Implements
                 var bajo = 0;
                 var np = 0;
                 var nr = 0;
+                var total = 0;
                 foreach (var item in result)
                 {
                     np = item.NivelDeficiencia * item.NivelExposicion;
                     nr = np * item.NivelConsecuencia;
+                    total++;
                     switch (nr)
                     {
                         case int r when (r >= 600):
@@ -273,33 +276,38 @@ namespace WSafe.Domain.Helpers.Implements
                     }
                 }
 
+                decimal pMuyAlto = Math.Round(Convert.ToDecimal((double)muyAlto / (double)total * 100), 2);
+                decimal pAlto = Math.Round(Convert.ToDecimal((double)alto / (double)total * 100), 2);
+                decimal pMedio = Math.Round(Convert.ToDecimal((double)medio / (double)total * 100), 2);
+                decimal pBajo = Math.Round(Convert.ToDecimal((double)bajo / (double)total * 100), 2);
                 var viewModel = new List<IndicadorDetallesViewModel>();
+
                 viewModel.Add(new IndicadorDetallesViewModel
                 {
                     ID = 1,
                     MesAnn = "Muy Alto",
-                    Resultado = muyAlto
+                    Resultado = pMuyAlto
                 });
 
                 viewModel.Add(new IndicadorDetallesViewModel
                 {
                     ID = 2,
                     MesAnn = "Alto",
-                    Resultado = alto
+                    Resultado = pAlto
                 });
 
                 viewModel.Add(new IndicadorDetallesViewModel
                 {
                     ID = 3,
                     MesAnn = "Medio",
-                    Resultado = medio
+                    Resultado = pMedio
                 });
 
                 viewModel.Add(new IndicadorDetallesViewModel
                 {
                     ID = 4,
                     MesAnn = "Bajo",
-                    Resultado = bajo
+                    Resultado = pBajo
                 });
 
                 return viewModel;

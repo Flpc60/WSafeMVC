@@ -515,7 +515,11 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
-    <Content Include="Images\LogoEntidad.png" />
+    <Content Include="Images\chart01.jpg" />
+    <Content Include="Images\chart36.jpg" />
+    <Content Include="Images\chart38.jpg" />
+    <Content Include="Images\chart85.jpg" />
+    <Content Include="Images\chart92.jpg" />
     <Content Include="Rotativa\help-wkhtmltoimage.txt" />
     <Content Include="Rotativa\help-wkhtmltopdf.txt" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
