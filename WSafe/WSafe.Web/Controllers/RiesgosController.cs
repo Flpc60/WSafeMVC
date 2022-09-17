@@ -414,7 +414,7 @@ namespace WSafe.Web.Controllers
                 var filePathName = "~/Images/" + filename;
                 var datos = _chartHelper.GetAllValueRisks();
                 _chartHelper.DrawImagen(filePathName, "Pie", "VALORACIÓN ACTUAL", datos);
-                var image = filePathName;
+                var image = "~/Images/chart36.jpg";
                 return Json(image, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
