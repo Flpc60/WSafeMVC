@@ -319,7 +319,7 @@ namespace WSafe.Domain.Helpers.Implements
                     return "Fallas en los procesos";
 
                 case EfectosPosibles.Pérdidas_económicas:
-                    return "Persidas económicas";
+                    return "Perdidas económicas";
 
                 default:
                     return "Nomina";
