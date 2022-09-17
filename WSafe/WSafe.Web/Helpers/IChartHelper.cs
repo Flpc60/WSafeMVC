@@ -18,5 +18,8 @@ namespace WSafe.Domain.Helpers
         IEnumerable<IndicadorDetallesViewModel> GetAusentismoCausaMedica(int[] periodo, int year);
         IEnumerable<IndicadorDetallesViewModel> GetFatorRiesgoOcupacional();
         IEnumerable<IndicadorDetallesViewModel> GetAllValueRisks();
+        IEnumerable<IndicadorDetallesViewModel> GetAllValueActivitys();
+        IEnumerable<IndicadorDetallesViewModel> GetAllValueDangers();
+        IEnumerable<IndicadorDetallesViewModel> GetAllValueEfects();
     }
 }

@@ -405,7 +405,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetAllRisks()
+        public ActionResult GetAllRisks()
         {
             try
             {
@@ -414,7 +414,64 @@ namespace WSafe.Web.Controllers
                 var filePathName = "~/Images/" + filename;
                 var datos = _chartHelper.GetAllValueRisks();
                 _chartHelper.DrawImagen(filePathName, "Pie", "VALORACIÓN ACTUAL", datos);
-                var image = "~/Images/chart36.jpg";
+                var image = "/Images/" + filename;
+                return Json(image, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetAllActivitys()
+        {
+            try
+            {
+                Random random = new Random();
+                var filename = "chart" + random.Next(1, 100) + ".jpg";
+                var filePathName = "~/Images/" + filename;
+                var datos = _chartHelper.GetAllValueActivitys();
+                _chartHelper.DrawImagen(filePathName, "Pie", "ACTIVIDADES RUTINARIAS", datos);
+                var image = "/Images/" + filename;
+                return Json(image, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetAllDangers()
+        {
+            try
+            {
+                Random random = new Random();
+                var filename = "chart" + random.Next(1, 100) + ".jpg";
+                var filePathName = "~/Images/" + filename;
+                var datos = _chartHelper.GetFatorRiesgoOcupacional();
+                _chartHelper.DrawImagen(filePathName, "Bar", "CLASIFICACIÓN PELIGROS", datos);
+                var image = "/Images/" + filename;
+                return Json(image, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetAllEfects()
+        {
+            try
+            {
+                Random random = new Random();
+                var filename = "chart" + random.Next(1, 100) + ".jpg";
+                var filePathName = "~/Images/" + filename;
+                var datos = _chartHelper.GetAllValueEfects();
+                _chartHelper.DrawImagen(filePathName, "Bar", "CLASIFICACIÓN PELIGROS", datos);
+                var image = "/Images/" + filename;
                 return Json(image, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

@@ -2869,7 +2869,6 @@ function chartValueDangers() {
         dataType: "json",
         async: true,
         success: function (response) {
-            var img = '@Url.Content(@response)';
             $("#ValueDangers").attr("src", response);
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -2880,17 +2879,55 @@ function chartValueDangers() {
 }
 
 function chartClassDangers() {
-
-    $('.ClassDangers').css("display", "block");
+    // Gráficar clasificación peligros
+    $.ajax({
+        url: "/Riesgos/GetAllDangers",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (response) {
+            $("#ClassDangers").attr("src", response);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
 }
 
 function chartCommonActivitys() {
-
-    $('.CommonActivitys').css("display", "block");
+    // Gráficar actividades rutinarias
+    $.ajax({
+        url: "/Riesgos/GetAllActivitys",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (response) {
+            $("#CommonActivitys").attr("src", response);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
 }
 
 function chartEfectosPosibles() {
-
-    $('.EfectosPosibles').css("display", "block");
+    // Gráficar efectos posibles
+    $.ajax({
+        url: "/Riesgos/GetAllEfects",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (response) {
+            $("#EfectosPosibles").attr("src", response);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
 }
-

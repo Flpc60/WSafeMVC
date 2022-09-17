@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web.Helpers;
+using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Data.Entities.Incidentes;
 using WSafe.Web.Models;
 
@@ -23,9 +24,9 @@ namespace WSafe.Domain.Helpers.Implements
             var chartImage = new Chart(width: 500, height: 300, theme: ChartTheme.Green);
             chartImage.AddTitle(nombre);
             chartImage.AddSeries("Default", chartType: tipo,
-                        xValue: lista, xField: "MesAnn",
-                          yValues: lista, yFields: "Resultado");
-            chartImage.Write(archivo);
+                axisLabel: "Valores",
+                xValue: lista, xField: "MesAnn",
+                yValues: lista, yFields: "Resultado");
             chartImage.Save(path: archivo);
         }
         public IEnumerable<IndicadorDetallesViewModel> GetFrecuenciaAccidentes(int[] periodo, int year)
@@ -308,6 +309,201 @@ namespace WSafe.Domain.Helpers.Implements
                     ID = 4,
                     MesAnn = "Bajo",
                     Resultado = pBajo
+                });
+
+                return viewModel;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<IndicadorDetallesViewModel> GetAllValueActivitys()
+        {
+            try
+            {
+                var result = _empresaContext.Riesgos.ToList();
+                var rutinaria = 0;
+                var noRutinaria = 0;
+                var total = 0;
+                foreach (var item in result)
+                {
+                    total++;
+                    if (item.Rutinaria == true)
+                    {
+                        rutinaria++;
+                    }
+                    else
+                    {
+                        noRutinaria++;
+                    }
+                }
+
+                decimal pRutinaria = Math.Round(Convert.ToDecimal((double)rutinaria / (double)total * 100), 2);
+                decimal pnoRutinaria = Math.Round(Convert.ToDecimal((double)noRutinaria / (double)total * 100), 2);
+
+                var viewModel = new List<IndicadorDetallesViewModel>();
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 1,
+                    MesAnn = "Rutinaria",
+                    Resultado = pRutinaria
+                });
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 2,
+                    MesAnn = "No Rutinaria",
+                    Resultado = pnoRutinaria
+                });
+
+                return viewModel;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<IndicadorDetallesViewModel> GetAllValueDangers()
+        {
+            try
+            {
+                var result = _empresaContext.Riesgos.ToList();
+                var rutinaria = 0;
+                var noRutinaria = 0;
+                var total = 0;
+                foreach (var item in result)
+                {
+                    total++;
+                    if (item.Rutinaria == true)
+                    {
+                        rutinaria++;
+                    }
+                    else
+                    {
+                        noRutinaria++;
+                    }
+                }
+
+                decimal pRutinaria = Math.Round(Convert.ToDecimal((double)rutinaria / (double)total * 100), 2);
+                decimal pnoRutinaria = Math.Round(Convert.ToDecimal((double)noRutinaria / (double)total * 100), 2);
+
+                var viewModel = new List<IndicadorDetallesViewModel>();
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 1,
+                    MesAnn = "Rutinaria",
+                    Resultado = pRutinaria
+                });
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 2,
+                    MesAnn = "No Rutinaria",
+                    Resultado = pnoRutinaria
+                });
+
+                return viewModel;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<IndicadorDetallesViewModel> GetAllValueEfects()
+        {
+            try
+            {
+                var result = _empresaContext.Riesgos.ToList();
+                var extremo = 0;
+                var leve = 0;
+                var moderado = 0;
+                var propiedad = 0;
+                var procesos = 0;
+                var economicas = 0;
+                var total = 0;
+                foreach (var item in result)
+                {
+                    total++;
+                    switch (item.EfectosPosibles)
+                    {
+                        case EfectosPosibles.Daño_Extremo:
+                            extremo++;
+                            break;
+
+                        case EfectosPosibles.Daño_Leve:
+                            leve++;
+                            break;
+
+                        case EfectosPosibles.Daño_Moderado:
+                            moderado++;
+                            break;
+
+                        case EfectosPosibles.Daño_Propiedad:
+                            propiedad++;
+                            break;
+
+                        case EfectosPosibles.Fallas_procesos:
+                            procesos++;
+                            break;
+
+                        case EfectosPosibles.Pérdidas_económicas:
+                            economicas++;
+                            break;
+                    }
+                }
+
+                decimal pExtremo = Math.Round(Convert.ToDecimal((double)extremo / (double)total * 100), 2);
+                decimal pLeve = Math.Round(Convert.ToDecimal((double)leve / (double)total * 100), 2);
+                decimal pModerado = Math.Round(Convert.ToDecimal((double)moderado / (double)total * 100), 2);
+                decimal pPropiedad = Math.Round(Convert.ToDecimal((double)propiedad / (double)total * 100), 2);
+                decimal pProcesos = Math.Round(Convert.ToDecimal((double)procesos / (double)total * 100), 2);
+                decimal pEconomicas = Math.Round(Convert.ToDecimal((double)economicas / (double)total * 100), 2);
+                var viewModel = new List<IndicadorDetallesViewModel>();
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 1,
+                    MesAnn = "Daño Extremo",
+                    Resultado = pExtremo
+                });
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 2,
+                    MesAnn = "Daño Leve",
+                    Resultado = pLeve
+                });
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 3,
+                    MesAnn = "Daño Moderado",
+                    Resultado = pModerado
+                });
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 4,
+                    MesAnn = "Daño a propiedad",
+                    Resultado = pPropiedad
+                });
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 5,
+                    MesAnn = "Fallas en procesos",
+                    Resultado = pProcesos
+                });
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 6,
+                    MesAnn = "Perdidas económicas",
+                    Resultado = pEconomicas
                 });
 
                 return viewModel;
