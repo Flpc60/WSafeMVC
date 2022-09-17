@@ -2869,8 +2869,8 @@ function chartValueDangers() {
         dataType: "json",
         async: true,
         success: function (response) {
-            var html = '<img src=' + response + ' width="42" height="42" style="border:5px solid black">';
-            $('.ValueDangers').html(html);
+            var img = '@Url.Content(@response)';
+            $("#ValueDangers").attr("src", response);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -2881,13 +2881,16 @@ function chartValueDangers() {
 
 function chartClassDangers() {
 
+    $('.ClassDangers').css("display", "block");
 }
 
 function chartCommonActivitys() {
 
+    $('.CommonActivitys').css("display", "block");
 }
 
 function chartEfectosPosibles() {
 
+    $('.EfectosPosibles').css("display", "block");
 }
 

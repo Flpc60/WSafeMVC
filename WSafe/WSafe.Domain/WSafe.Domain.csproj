@@ -246,13 +246,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Images\chart01.jpg" />
-    <Content Include="Images\chart02.jpg" />
-    <Content Include="Images\chart03.jpg" />
-    <Content Include="Images\chart04.jpg" />
-    <Content Include="Images\chart05.jpg" />
-    <Content Include="Images\chart22.jpg" />
-    <Content Include="Images\chart62.jpg" />
     <Content Include="Images\LogoEntidad.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
