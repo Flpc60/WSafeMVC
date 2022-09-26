@@ -111,5 +111,7 @@ namespace WSafe.Web.Models
         public bool RequisitoLegal { get; set; }
         public string TextRutinaria { get; set; }
         public string TextRequisito { get; set; }
+        [Display(Name = "ACEPTABILIDAD")]
+        public string Aceptability { get; set; }
     }
 }
