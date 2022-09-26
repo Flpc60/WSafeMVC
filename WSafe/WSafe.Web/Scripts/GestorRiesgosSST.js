@@ -1632,7 +1632,6 @@ function AddNewRiesgo() {
         NivelDeficiencia: $("#deficiencia").val(),
         NivelExposicion: $("#exposicion").val(),
         NivelConsecuencia: $("#consecuencia").val(),
-        AceptabilidadNR: $("#txtAceptabilidad").val(),
         NroExpuestos: $("#txtExpuestos").val(),
         RequisitoLegal: $("#txtRequisito").val()
     };

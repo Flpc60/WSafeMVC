@@ -413,7 +413,8 @@ namespace WSafe.Domain.Helpers.Implements
                     NroExpuestos = item.NroExpuestos,
                     RequisitoLegal = item.RequisitoLegal,
                     TextRutinaria = rutinaria,
-                    TextRequisito = requisito
+                    TextRequisito = requisito,
+                    Aceptability = _gestorHelper.GetAceptabilidadNR(item.CategoriaRiesgo)
                 });
             }
 

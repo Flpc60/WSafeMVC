@@ -30,6 +30,33 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public async Task<Riesgo> ToRiesgoAsync(RiesgoViewModel model, bool isNew)
         {
+            var nr = model.NivelDeficiencia * model.NivelExposicion * model.NivelConsecuencia;
+            var cat = _gestorHelper.GetInterpretaNR(nr);
+            var acepta = _gestorHelper.GetAceptabilidadNR(cat);
+            var aceptaNR = 0;
+            switch (acepta)
+            {
+                case "I":
+                    aceptaNR = (int)CategoriasAceptabilidad.NoAceptable;
+                    break;
+
+                case "II":
+                    aceptaNR = (int)CategoriasAceptabilidad.AceptableControlEspecifico;
+                    break;
+
+                case "III":
+                    aceptaNR = (int)CategoriasAceptabilidad.Mejorable;
+                    break;
+
+                case "IV":
+                    aceptaNR = (int)CategoriasAceptabilidad.Aceptable;
+                    break;
+
+                default:
+                    aceptaNR = (int)CategoriasAceptabilidad.Aceptable;
+                    break;
+            }
+
             var result = new Riesgo
             {
                 ID = isNew ? 0 : model.ID,
@@ -44,7 +71,7 @@ namespace WSafe.Domain.Helpers.Implements
                 NivelDeficiencia = model.NivelDeficiencia,
                 NivelExposicion = model.NivelExposicion,
                 NivelConsecuencia = model.NivelConsecuencia,
-                Aceptabilidad = model.AceptabilidadNR,
+                Aceptabilidad = (CategoriasAceptabilidad)aceptaNR,
                 NroExpuestos = model.NroExpuestos,
                 RequisitoLegal = model.RequisitoLegal,
                 IncidenteID = model.IncidenteID
@@ -413,7 +440,8 @@ namespace WSafe.Domain.Helpers.Implements
                     NroExpuestos = item.NroExpuestos,
                     RequisitoLegal = item.RequisitoLegal,
                     TextRutinaria = rutinaria,
-                    TextRequisito = requisito
+                    TextRequisito = requisito,
+                    Aceptability = _gestorHelper.GetAceptabilidadNR(item.CategoriaRiesgo)
                 });
             }
 

@@ -93,7 +93,6 @@ namespace WSafe.Domain.Data.Entities
                 _categoriaRiesgo = value;
             }
         }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Aceptabilidad")]
         public CategoriasAceptabilidad Aceptabilidad { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
@@ -106,5 +105,8 @@ namespace WSafe.Domain.Data.Entities
         public ICollection<Aplicacion> MedidasIntervencion { get; set; }
         public int IncidenteID { get; set; }
         public int AccionID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Categoria daño")]
+        public DangerCategories DangerCategory { get; set; }
     }
 }

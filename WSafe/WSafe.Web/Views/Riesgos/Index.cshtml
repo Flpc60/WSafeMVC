@@ -90,7 +90,7 @@
                 @Html.DisplayNameFor(model => model.CategoriaRiesgo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Aceptabilidad)
+                @Html.DisplayNameFor(model => model.Aceptability)
             </th>
             <th>
             </th>
@@ -128,7 +128,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Actividad)
                     </td>
-                    <td style="@strStyle">
+                    <td>
                         @Html.DisplayFor(modelItem => item.Tarea)
                     </td>
                     <td>
@@ -161,8 +161,8 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.CategoriaRiesgo)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Aceptabilidad)
+                    <td style="@strStyle">
+                        @Html.DisplayFor(modelItem => item.Aceptability)
                     </td>
                     <td style="margin:initial; background-color:deepskyblue; text-align:left">
                         @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" })
