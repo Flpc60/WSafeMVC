@@ -313,6 +313,7 @@
     <Compile Include="Controllers\OrganizationsController.cs" />
     <Compile Include="Controllers\RiesgosController.cs" />
     <Compile Include="Data\Entities\Accidentado.cs" />
+    <Compile Include="Data\Entities\ActionCategories.cs" />
     <Compile Include="Data\Entities\Auditor\AuditaAccion.cs" />
     <Compile Include="Data\Entities\Auditor\AuditRiesgo.cs" />
     <Compile Include="Data\Entities\Auditor\TiposOperacion.cs" />
@@ -394,6 +395,10 @@
     <Compile Include="Migrations\202209262131153_UpdateRisk2.cs" />
     <Compile Include="Migrations\202209262131153_UpdateRisk2.Designer.cs">
       <DependentUpon>202209262131153_UpdateRisk2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202209272109261_Updaterisk3.cs" />
+    <Compile Include="Migrations\202209272109261_Updaterisk3.Designer.cs">
+      <DependentUpon>202209272109261_Updaterisk3.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AuthorizationVM.cs" />
@@ -697,6 +702,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202209262131153_UpdateRisk2.resx">
       <DependentUpon>202209262131153_UpdateRisk2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202209272109261_Updaterisk3.resx">
+      <DependentUpon>202209272109261_Updaterisk3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

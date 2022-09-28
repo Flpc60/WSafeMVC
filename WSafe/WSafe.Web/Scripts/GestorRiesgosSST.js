@@ -1633,7 +1633,8 @@ function AddNewRiesgo() {
         NivelExposicion: $("#exposicion").val(),
         NivelConsecuencia: $("#consecuencia").val(),
         NroExpuestos: $("#txtExpuestos").val(),
-        RequisitoLegal: $("#txtRequisito").val()
+        RequisitoLegal: $("#txtRequisito").val(),
+        DangerCategory: $("#txtDanger").val()
     };
 
     $.ajax({
@@ -1688,7 +1689,8 @@ function UpdateRiesgo() {
         NivelConsecuencia: $("#consecuencia").val(),
         AceptabilidadNR: $("#txtAceptabilidad").val(),
         NroExpuestos: $("#txtExpuestos").val(),
-        RequisitoLegal: $("#txtRequisito").val()
+        RequisitoLegal: $("#txtRequisito").val(),
+        DangerCategory: $("#txtDanger").val()
     };
 
     $.ajax({
@@ -1696,11 +1698,15 @@ function UpdateRiesgo() {
         url: "/Riesgos/UpdateRiesgo",
         data: { model: riesgoVM },
         dataType: "json",
-        success: function (idRiesgo) {
-            $("#txtRiesgoID").val(idRiesgo);
-            $("#btnUpdRiesgo").hide();
-            $(".tabEvalRiesgos").css("display", "none");
-            $(".tabHistory").css("display", "none");
+        success: function (response) {
+            if (response.data != false) {
+                $("#txtRiesgoID").val(response.data);
+                $("#btnUpdRiesgo").hide();
+                $(".tabEvalRiesgos").css("display", "none");
+                $(".tabIncidents").css("display", "none");
+                $(".tabHistory").css("display", "none");
+            }
+            alert(response.mensaj);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -2929,4 +2935,227 @@ function chartEfectosPosibles() {
             alert(thrownError);
         }
     });
+}
+
+function gestorRiesgos() {
+// implementa funcionalidad de riesgos
+    ClearTextBox();
+
+    $("#idPeligros").click(function () {
+        $(".tabPeligros").css("display", "block");
+        $(".tabEvalRiesgos").css("display", "none");
+        $(".tabMediAplica").css("display", "none");
+        $("#idPeligros").show();
+    });
+
+    $("#idPeligros").dblclick(function () {
+        $(".tabPeligros").css("display", "none");
+    });
+
+    $("#evalRiesgos").click(function () {
+        $(".tabEvalRiesgos").css("display", "block");
+        $(".tabPeligros").css("display", "none");
+        $(".tabMediAplica").css("display", "none");
+        $("#evalRiesgos").show();
+    });
+
+    $("#evalRiesgos").dblclick(function () {
+        $(".tabEvalRiesgos").css("display", "none");
+    });
+
+    $("#mediAplica").click(function () {
+        $(".tabMediAplica").css("display", "block");
+        $(".tabEvalRiesgos").css("display", "none");
+        $(".tabPeligros").css("display", "none");
+        $("#mediAplica").show();
+        mostrarInterven();
+    });
+
+    $("#mediAplica").dblclick(function () {
+        $(".tabMediAplica").css("display", "none");
+        $(".tabAddInterven").css("display", "none");
+    });
+
+    $("#aplicarMedi").click(function () {
+        $(".tabInterven").css("display", "block");
+    });
+
+    $("#aplicarMedi").dblclick(function () {
+        $(".tabInterven").css("display", "none");
+    });
+
+    $("#addIntervencion").click(function () {
+        ClearTextBox();
+        $(".tabAddInterven").css("display", "block");
+        $(".tabCerrar").css("display", "none");
+        $(".tabMediAplica").css("display", "none");
+        $("#btnUpdInterven").hide();
+        $("#btnAddInterven").show();
+    });
+
+    $('#FechaInicial').change(function () {
+        var fecha = $("#FechaInicial").val();
+        validarFechaIni(fecha);
+    });
+
+    $('#FechaFinal').change(function () {
+        var fechaIni = $("#FechaInicial").val();
+        var fechaFin = $("#FechaFinal").val();
+        validarFechaFin(fechaIni, fechaFin);
+    });
+
+    $('#deficienciaSelected').click(function () {
+        var selectedCategoria = $('#deficienciaSelected').val();
+        var nd = 0;
+        switch (selectedCategoria) {
+            case "1":
+                nd = 10;
+                break;
+
+            case "2":
+                nd = 6;
+                break;
+
+            case "3":
+                nd = 2;
+                break;
+
+            default:
+                nd = 0;
+                break;
+        }
+
+        $('#deficiencia').val(nd);
+        calcularProbabilidad();
+    });
+
+    $('#exposicionSelected').click(function () {
+        var selectedExposicion = $('#exposicionSelected').val();
+        var ne = 0;
+        switch (selectedExposicion) {
+            case "1":
+                ne = 4;
+                break;
+
+            case "2":
+                ne = 3;
+                break;
+
+            case "3":
+                ne = 2;
+                break;
+
+            default:
+                ne = 1;
+                break;
+        }
+
+        $('#exposicion').val(ne);
+        calcularProbabilidad();
+    });
+
+    $('#consecuenciaSelected').click(function () {
+        var selectedExposicion = $('#consecuenciaSelected').val();
+        var nc = 0;
+        switch (selectedExposicion) {
+            case "1":
+                nc = 100;
+                break;
+
+            case "2":
+                nc = 60;
+                break;
+
+            case "3":
+                nc = 25;
+                break;
+
+            default:
+                nc = 10;
+                break;
+        }
+        $('#consecuencia').val(nc);
+        calcularRiesgo();
+    });
+}
+
+function calcularProbabilidad() {
+    var nd = $('#deficiencia').val();
+    var ne = $('#exposicion').val();
+    var probabilidad = nd * ne;
+    $('#probabilidad').val(probabilidad);
+    var interpretaNP = " ";
+    var colorStyle = " ";
+    switch (true) {
+        case (probabilidad >= 24 && probabilidad <= 40):
+            interpretaNP = "Muy alto (MA)";
+            colorStyle = "red";
+            break;
+        case (probabilidad >= 10 && probabilidad < 24):
+            interpretaNP = "Alto (A)";
+            colorStyle = "orange";
+            break;
+        case (probabilidad >= 8 && probabilidad < 10):
+            interpretaNP = "Mdio (M)";
+            colorStyle = "yellow";
+            break;
+        case (probabilidad >= 2 && probabilidad < 8):
+            interpretaNP = "Bajo (B)";
+            colorStyle = "green";
+            break;
+
+        default:
+            interpretaNP = "Bajo (B)";
+            colorStyle = "green";
+            break;
+    }
+    $('#interpretaNP').val(interpretaNP);
+    $('#interpretaNP').css({ "backgroundColor": colorStyle, "font-size": "100%"});
+}
+
+function calcularRiesgo() {
+    calcularProbabilidad();
+    var np = $('#probabilidad').val();
+    var nc = $('#consecuencia').val();
+    var riesgo = np * nc;
+    $('#riesgo').val(riesgo);
+    var interpretaNR = " ";
+    var colorStyle = " ";
+    var aceptability = "";
+    switch (true) {
+        case (riesgo >= 600):
+            interpretaNR = "I";
+            colorStyle = "red";
+            aceptability = "No Aceptable";
+            break;
+
+        case (riesgo >= 150 && riesgo < 600):
+            interpretaNR = "II";
+            colorStyle = "orange";
+            aceptability = "No Aceptable o Aceptable con control Específico";
+            break;
+
+        case (riesgo >= 40 && riesgo < 150):
+            interpretaNR = "III";
+            colorStyle = "yellow";
+            aceptability = "Mejorable";
+            break;
+
+        case (riesgo < 40):
+            interpretaNR = "IV";
+            colorStyle = "green";
+            aceptability = "Aceptable";
+            break;
+
+        default:
+            interpretaNR = "IV";
+            colorStyle = "green";
+            aceptability = "Aceptable";
+            break;
+    }
+
+    $('#txtAceptabilidad').val(aceptability);
+    $('#interpretaNR').val(interpretaNR);
+    $('#interpretaNR').css({ "backgroundColor": colorStyle, "font-size": "100%" });
+    $('#txtAceptabilidad').css({ "backgroundColor": colorStyle, "font-size": "100%"});
 }
