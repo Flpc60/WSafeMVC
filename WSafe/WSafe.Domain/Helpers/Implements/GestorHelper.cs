@@ -61,6 +61,9 @@ namespace WSafe.Domain.Helpers.Implements
                 case "III":
                     return "Mejorable";
 
+                case "IV":
+                    return "Aceptable";
+
                 default:
                     return "Aceptable";
             }

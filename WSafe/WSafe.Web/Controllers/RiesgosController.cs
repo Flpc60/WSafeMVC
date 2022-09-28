@@ -156,14 +156,30 @@ namespace WSafe.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> UpdateRiesgo(RiesgoViewModel model)
         {
-            if (ModelState.IsValid)
+            var message = "";
+            try
             {
-                var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
-                var result = await _converterHelper.ToRiesgoAsync(model, false);
-                await consulta.Update(result);
+
+                if (ModelState.IsValid)
+                {
+                    var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
+                    var result = await _converterHelper.ToRiesgoAsync(model, false);
+                    await consulta.Update(result);
+                    var idRiesgo = model.ID;
+                    message = "La actualización se ha realizado exitosamente !!";
+                    return Json(new { data = idRiesgo, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    message = "La actualización NO se ha realizado exitosamente !!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
             }
-            var idRiesgo = model.ID;
-            return Json(idRiesgo, JsonRequestBehavior.AllowGet);
+            catch
+            {
+                message = "La actualización NO se ha realizado exitosamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
         }
         public IEnumerable<SelectListItem> GetPeligros()
         {

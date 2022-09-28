@@ -74,7 +74,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Aceptabilidad = (CategoriasAceptabilidad)aceptaNR,
                 NroExpuestos = model.NroExpuestos,
                 RequisitoLegal = model.RequisitoLegal,
-                IncidenteID = model.IncidenteID
+                IncidenteID = model.IncidenteID,
+                DangerCategory = model.DangerCategory
             };
             return result;
         }
@@ -106,7 +107,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Zonas = _comboHelper.GetComboZonas(),
                 Procesos = _comboHelper.GetComboProcesos(),
                 Actividades = _comboHelper.GetComboActividades(),
-                Tareas = _comboHelper.GetComboTareas()
+                Tareas = _comboHelper.GetComboTareas(),
+                DangerCategory = riesgo.DangerCategory
             };
 
             return model;
