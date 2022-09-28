@@ -7,7 +7,7 @@ using WSafe.Web.Models;
 
 namespace WSafe.Domain.Helpers.Implements
 {
-    //Conversión de datos async / sync
+    //Conversión de async / sync
     public class ConverterHelper : IConverterHelper
     {
         private readonly EmpresaContext _empresaContext;
@@ -167,7 +167,7 @@ namespace WSafe.Domain.Helpers.Implements
                 EficaciaDespues = accion.EficaciaDespues,
                 FechaCierre = accion.FechaCierre.ToString("yyyy-MM-dd"),
                 Efectiva = accion.Efectiva,
-                Estado = accion.Estado,
+                ActionCategory = accion.ActionCategory,
                 Planes = new List<PlanAction>(),
                 Seguimientos = new List<Seguimiento>(),
                 FechaSolicitudStr = accion.FechaSolicitud.ToString("yyyy-MM-dd"),
@@ -195,7 +195,7 @@ namespace WSafe.Domain.Helpers.Implements
                 EficaciaDespues = model.EficaciaDespues,
                 FechaCierre = model.FechaCierre,
                 Efectiva = model.Efectiva,
-                Estado = model.Estado
+                ActionCategory = model.ActionCategory
             };
             return result;
         }
@@ -601,7 +601,8 @@ namespace WSafe.Domain.Helpers.Implements
                 TrabajadorID = plan.TrabajadorID,
                 Prioritaria = plan.Prioritaria,
                 Costos = plan.Costos,
-                Responsable = plan.Responsable
+                Responsable = plan.Responsable,
+                ActionCategory = plan.ActionCategory
             };
             return result;
         }
@@ -648,7 +649,8 @@ namespace WSafe.Domain.Helpers.Implements
                     Prioritaria = item.Prioritaria,
                     Costos = item.Costos,
                     TrabajadorID = item.TrabajadorID,
-                    Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpper()
+                    Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpper(),
+                    ActionCategory = item.ActionCategory
                 }); ;
             }
             return model;
@@ -673,7 +675,8 @@ namespace WSafe.Domain.Helpers.Implements
                     EficaciaDespues = item.EficaciaDespues,
                     FechaCierre = item.FechaCierre.ToString("yyyy-MM-dd"),
                     Efectiva = item.Efectiva,
-                    Estado = item.Estado
+                    ActionCategory = item.ActionCategory,
+                    ActionState = _gestorHelper.GetActionCategory((int)item.ActionCategory)
                 });
             }
             return model;
@@ -721,7 +724,7 @@ namespace WSafe.Domain.Helpers.Implements
                 EficaciaDespues = accion.EficaciaDespues,
                 FechaCierre = accion.FechaCierre.ToString("dd-MM-yyyy"),
                 Efectiva = accion.Efectiva,
-                Estado = accion.Estado,
+                ActionCategory = accion.ActionCategory,
                 Planes = planes,
                 Seguimientos = sigue
             };

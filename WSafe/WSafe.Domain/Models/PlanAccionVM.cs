@@ -34,5 +34,6 @@ namespace WSafe.Web.Models
         public bool Prioritaria { get; set; }
         [Display(Name = "Costos ejecución")]
         public decimal Costos { get; set; }
+        public ActionCategories ActionCategory { get; set; }
     }
 }

@@ -477,5 +477,22 @@ namespace WSafe.Domain.Helpers.Implements
                     return "Consultar";
             }
         }
+        public string GetActionCategory(int estado)
+        {
+            switch (estado)
+            {
+                case 1:
+                    return "Sín iniciar";
+
+                case 2:
+                    return "En proceso";
+
+                case 3:
+                    return "Finalizada";
+
+                default:
+                    return "Sín iniciar";
+            }
+        }
     }
 }
