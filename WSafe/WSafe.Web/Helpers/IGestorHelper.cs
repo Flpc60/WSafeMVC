@@ -27,5 +27,6 @@ namespace WSafe.Domain.Helpers
         string GetRole(int role);
         string GetComponent(int component);
         string GetOperation(int operation);
+        string GetActionCategory(int estado);
     }
 }

@@ -15,7 +15,7 @@ using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
 {
-    // Getionar todas las acciones correctvas, preventivas y de mejora de la organización
+    // Getionar las acciones correctvas, preventivas y de mejora de la organización
     public class AccionesController : Controller
     {
         // Inyecciones
@@ -39,7 +39,6 @@ namespace WSafe.Web.Controllers
         public async Task<ActionResult> Index()
         {
             var list = await _empresaContext.Acciones
-                .Where(a => a.Estado == false)
                 .OrderByDescending(a => a.FechaSolicitud)
                 .ToListAsync();
             var modelo = _converterHelper.ToAccionVMList(list);
@@ -89,7 +88,7 @@ namespace WSafe.Web.Controllers
 
         [HttpPost]
         public async Task<ActionResult> UpdateAccion([Bind(Include="ID, ZonaID, ProcesoID, ActividadID, TareaID, FechaSolicitud, Categoria, TrabajadorID, " +
-            "FuenteAccion, Descripcion, EficaciaAntes, EficaciaDespues, FechaCierre, Efectiva, Estado")] Accion model)
+            "FuenteAccion, Descripcion, EficaciaAntes, EficaciaDespues, FechaCierre, Efectiva, ActionCategory")] Accion model)
         {
             var message = "";
             try
@@ -99,16 +98,16 @@ namespace WSafe.Web.Controllers
                     var consulta = new AccionService(new AccionRepository(_empresaContext));
                     var result = await _converterHelper.ToAccionAsync(model, false);
                     await consulta.Update(result);
-                    message = "El registro ha sido actualizado correctamente !!";
+                    message = "La actualización se ha realizado exitosamente !!";
                     var idAccion = model.ID;
                     return Json(new { data = idAccion, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
-                message = "El registro NO ha sido actualizado correctamente !!";
+                message = "La actualización NO se ha realizado exitosamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
-                message = "El registro NO ha sido actualizado correctamente !!";
+                message = "La actualización NO se ha realizado exitosamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
@@ -187,7 +186,7 @@ namespace WSafe.Web.Controllers
                     _empresaContext.PlanActions.Add(result);
                     var saved = await _empresaContext.SaveChangesAsync();
                     message = "El registro ha sido ingresado correctamente !!";
-                    return Json( new { data = result, mensaj = message }, JsonRequestBehavior.AllowGet);
+                    return Json(new { data = result, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
                 message = "El registro NO ha sido ingresado correctamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
@@ -382,7 +381,7 @@ namespace WSafe.Web.Controllers
                     _empresaContext.Entry(model).State = EntityState.Modified;
                     await _empresaContext.SaveChangesAsync();
                     message = "El registro ha sido actualizado correctamente !!";
-                    return Json(new {data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
                 message = "El registro NO ha sido actualizado correctamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);

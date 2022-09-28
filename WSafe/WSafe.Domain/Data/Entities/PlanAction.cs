@@ -34,6 +34,6 @@ namespace WSafe.Domain.Data.Entities
         public decimal Costos { get; set; }
         [MaxLength(100)]
         public string Responsable { get; set; }
-
+        public ActionCategories ActionCategory { get; set; }
     }
 }

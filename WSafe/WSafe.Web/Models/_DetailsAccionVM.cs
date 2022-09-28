@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using WSafe.Domain.Data.Entities;
 
 namespace WSafe.Web.Models
@@ -23,8 +22,8 @@ namespace WSafe.Web.Models
         public CategoriasEfectividad EficaciaDespues { get; set; }
         public string FechaCierre { get; set; }
         public bool Efectiva { get; set; }
-        public bool Estado { get; set; }
         public ICollection<PlanAction> Planes { get; set; }
         public ICollection<Seguimiento> Seguimientos { get; set; }
+        public ActionCategories ActionCategory { get; set; }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using WSafe.Domain.Data.Entities;
@@ -61,12 +60,12 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Efectiva")]
         public bool Efectiva { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "Cerrada")]
-        public bool Estado { get; set; }
         public ICollection<PlanAction> Planes { get; set; }
         public ICollection<Seguimiento> Seguimientos { get; set; }
         public string FechaSolicitudStr { get; set; }
         public string FechaCierreStr { get; set; }
+        [Display(Name = "ESTADO")]
+        public ActionCategories ActionCategory { get; set; }
+        public string ActionState { get; set; }
     }
 }

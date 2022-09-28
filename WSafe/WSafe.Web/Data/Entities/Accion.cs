@@ -43,10 +43,9 @@ namespace WSafe.Domain.Data.Entities
         public DateTime FechaCierre { get; set; }
         [Display(Name = "Efectiva")]
         public bool Efectiva { get; set; }
-        [Display(Name = "Cerrada")]
-        public bool Estado { get; set; }
         public int RiesgoID { get; set; }
         public IEnumerable<PlanAction> Planes { get; set; }
         public IEnumerable<SeguimientoAccion> Seguimientos { get; set; }
+        public ActionCategories ActionCategory { get; set; }
     }
 }

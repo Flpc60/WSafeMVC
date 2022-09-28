@@ -400,6 +400,18 @@
     <Compile Include="Migrations\202209272109261_Updaterisk3.Designer.cs">
       <DependentUpon>202209272109261_Updaterisk3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202209281608405_UpdatePlanAction.cs" />
+    <Compile Include="Migrations\202209281608405_UpdatePlanAction.Designer.cs">
+      <DependentUpon>202209281608405_UpdatePlanAction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202209282046565_UpdateAccion.cs" />
+    <Compile Include="Migrations\202209282046565_UpdateAccion.Designer.cs">
+      <DependentUpon>202209282046565_UpdateAccion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202209282157088_UpdateAction3.cs" />
+    <Compile Include="Migrations\202209282157088_UpdateAction3.Designer.cs">
+      <DependentUpon>202209282157088_UpdateAction3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AuthorizationVM.cs" />
     <Compile Include="Models\DetailsIncidentVM.cs" />
@@ -705,6 +717,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202209272109261_Updaterisk3.resx">
       <DependentUpon>202209272109261_Updaterisk3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202209281608405_UpdatePlanAction.resx">
+      <DependentUpon>202209281608405_UpdatePlanAction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202209282046565_UpdateAccion.resx">
+      <DependentUpon>202209282046565_UpdateAccion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202209282157088_UpdateAction3.resx">
+      <DependentUpon>202209282157088_UpdateAction3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

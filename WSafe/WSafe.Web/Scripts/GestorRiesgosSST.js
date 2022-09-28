@@ -68,7 +68,7 @@ function viewHistory() {
                         aceptabilidad = "Mejorable";
                         break;
 
-                    case 3:
+                    case 4:
                         aceptabilidad = "Aceptable";
                         break;
                 }
@@ -222,6 +222,26 @@ function mostrarPlanAcc() {
             var html = '';
             var year = 0, month = 0, day = 0;
             $.each(result, function (key, item) {
+                var estado = "";
+                var txtColor = "";
+                switch (item.ActionCategory)
+                {
+                    case 1:
+                        estado = "Sín iniciar";
+                        txtColor = "background-color:red";
+                        break;
+
+                    case 2:
+                        estado = "En proceso";
+                        txtColor = "background-color:yellow";
+                        break;
+
+                    case 3:
+                        estado = "Finalizada";
+                        txtColor = "background-color:green";
+                        break;
+                }
+
                 var indicador = "NO"
                 if (item.Prioritaria == true) { indicador = "SI" };
                 html += '<tr>';
@@ -231,6 +251,7 @@ function mostrarPlanAcc() {
                 html += '<td>' + item.Responsable + '</td>';
                 html += '<td>' + item.Costos + '</td>';
                 html += '<td>' + item.FechaInicial + '</td>';
+                html += '<td>' + item.FechaFinal + '</td>';
 
                 year = item.FechaFinal.substring(0, 4);
                 month = item.FechaFinal.substring(5, 7);
@@ -238,9 +259,9 @@ function mostrarPlanAcc() {
                 date = new Date(year, month - 1, day);
                 date = Date.parse(item.FechaFinal);
                 if (fecha > date) {
-                    html += '<td style="background-color:red">' + item.FechaFinal + '</td>';
+                    html += '<td style="background-color:red">' + estado + '</td>';
                 } else {
-                    html += '<td style="background-color:green">' + item.FechaFinal + '</td>';
+                    html += '<td style='+ txtColor + '>' + estado + '</td>';
                 }
                 html += '<td><a href="#" onclick="return getPlanByID(' + item.ID + ')">Editar</a> | <a href = "#" onclick = "DeletePlan(' + item.ID + ')"> Borrar</a></td>';
                 html += '</tr>';
@@ -1177,12 +1198,6 @@ function AddAccion() {
     else {
         $("#idEfectiva").val(false)
     }
-    if ($("#idEstado").is(':checked')) {
-        $("#idEstado").val(true)
-    }
-    else {
-        $("#idEstado").val(false)
-    }
 
     var accionVM = {
         ID: "0",
@@ -1199,7 +1214,7 @@ function AddAccion() {
         EficaciaDespues: $("#idEficaciaDesp").val(),
         FechaCierre: $("#FechaCierre").val(),
         Efectiva: $("#idEfectiva").val(),
-        Estado: $("#idEstado").val()
+        ActionCategory: $("#txtActionCategory").val()
     };
 
     $.ajax({
@@ -1231,12 +1246,6 @@ function UpdateAccion(id) {
     else {
         $("#idEfectiva").val(false)
     }
-    if ($("#idEstado").is(':checked')) {
-        $("#idEstado").val(true)
-    }
-    else {
-        $("#idEstado").val(false)
-    }
 
     var accionVM = {
         ID: $("#txtAccionID").val(),
@@ -1253,7 +1262,7 @@ function UpdateAccion(id) {
         EficaciaDespues: $("#idEficaciaDesp").val(),
         FechaCierre: $("#FechaCierre").val(),
         Efectiva: $("#idEfectiva").val(),
-        Estado: $("#idEstado").val()
+        ActionCategory: $("#txtActionCategory").val()
     };
 
     $.ajax({
@@ -1482,7 +1491,8 @@ function AddPlanAccion() {
         TrabajadorID: $("#idRespons").val(),
         Prioritaria: $("#idPrioritaria").val(),
         Costos: $("#idCostos").val(),
-        Responsable: " "
+        Responsable: " ",
+        ActionCategory: $("#txtActionCategory").val()
     };
 
     $.ajax({
@@ -1527,7 +1537,8 @@ function UpdatePlanAcc() {
         Accion: $("#accion").val(),
         TrabajadorID: $("#idRespons").val(),
         Prioritaria: $("#idPrioritaria").val(),
-        Costos: $("#idCostos").val()
+        Costos: $("#idCostos").val(),
+        ActionCategory: $("#txtActionCategory").val()
     };
     $.ajax({
         type: "POST",
