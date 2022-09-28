@@ -83,6 +83,13 @@
             </div>
         </div>
         <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.DangerCategory, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EnumDropDownListFor(model => model.DangerCategory, htmlAttributes: new { @class = "form-control", @id = "txtDanger"})
+                    @Html.ValidationMessageFor(model => model.DangerCategory, "", new { @class = "text-danger" })
+                </div>
+            </div>
         </div>
     </div>
 </div>
