@@ -24,31 +24,31 @@
     <table class="table table-bordered">
         <tr style="background-color:gainsboro; width:auto">
             <th>
-                @Html.DisplayNameFor(model => model.FechaSolicitud)
+                FECHA SOLICITUD
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Categoria)
+                TIPO
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Origen)
+                ORIGEN
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Descripcion)
+                NO CONFORMIDAD
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EficaciaAntes)
+                ANTES
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EficaciaDespues)
+                DESPUES
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FechaCierre)
+                FECHA CIERRE
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Efectiva)
+                EFECTIVA
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Estado)
+                ESTADO
             </th>
             <th>
             </th>
@@ -56,6 +56,22 @@
         <tbody id="myTable">
             @foreach (var item in Model)
             {
+                string txtColor = String.Empty;
+                switch ((int)item.ActionCategory)
+                {
+                    case 1:
+                        txtColor = "background-color:red";
+                        break;
+
+                    case 2:
+                        txtColor = "background-color:yellow";
+                        break;
+
+                    case 3:
+                        txtColor = "background-color:green";
+                        break;
+                }
+
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.FechaSolicitud)
@@ -81,8 +97,8 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Efectiva)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Estado)
+                    <td style="@txtColor">
+                        @Html.DisplayFor(modelItem => item.ActionState)
                     </td>
                     <td style="margin:initial; background-color:deepskyblue; text-align:left">
                         @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" })
