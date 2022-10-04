@@ -21,5 +21,7 @@ namespace WSafe.Domain.Helpers
         IEnumerable<IndicadorDetallesViewModel> GetAllValueActivitys();
         IEnumerable<IndicadorDetallesViewModel> GetAllValueDangers();
         IEnumerable<IndicadorDetallesViewModel> GetAllValueEfects();
+        IEnumerable<IndicadorDetallesViewModel> GetAllNoConformance();
+        IEnumerable<IndicadorDetallesViewModel> GetAllValueActions();
     }
 }
