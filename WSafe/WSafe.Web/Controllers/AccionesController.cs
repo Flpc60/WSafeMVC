@@ -15,7 +15,7 @@ using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
 {
-    // Getionar las acciones correctvas, preventivas y de mejora de la organización
+    // Getionar todas las acciones correctvas, preventivas y de mejora de la organización
     public class AccionesController : Controller
     {
         // Inyecciones
@@ -312,7 +312,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> UpdatePlanAccion([Bind(Include = "ID, AccionID, FechaInicial, FechaFinal, Causa, Accion, TrabajadorID, Prioritaria, Costos")] PlanAction planAccion)
+        public async Task<ActionResult> UpdatePlanAccion([Bind(Include = "ID, AccionID, FechaInicial, FechaFinal, Causa, Accion, TrabajadorID, Prioritaria, Costos, ActionCategory")] PlanAction planAccion)
         {
             var message = "";
             try
@@ -321,19 +321,18 @@ namespace WSafe.Web.Controllers
                 {
                     _empresaContext.Entry(planAccion).State = EntityState.Modified;
                     await _empresaContext.SaveChangesAsync();
-                    message = "El registro ha sido actualizado correctamente !!";
+                    message = "La actualización se ha realizado exitosamente !!";
                     return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
-                message = "El registro NO ha sido actualizado correctamente !!";
+                message = "La actualización NO se ha realizado exitosamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
-                message = "El registro NO ha sido actualizado correctamente !!";
+                message = "La actualización NO se ha realizado exitosamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
-
         public async Task<ActionResult> DeletePlanAccion(int? id)
         {
             if (id == null)
@@ -458,6 +457,16 @@ namespace WSafe.Web.Controllers
             report.PageOrientation.GetValueOrDefault();
             report.FormsAuthenticationCookieName = FormsAuthentication.FormsCookieName;
             return report;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> GetAllPlans()
+        {
+
+            var noConformance = _empresaContext.Acciones.Count();
+            var numPlans = _empresaContext.PlanActions.Count();
+
+            return Json(new { noConformance = noConformance, numPlans = numPlans },JsonRequestBehavior.AllowGet);
         }
     }
 }

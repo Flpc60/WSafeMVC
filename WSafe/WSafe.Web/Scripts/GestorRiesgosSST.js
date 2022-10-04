@@ -666,9 +666,9 @@ function getPlanByID(PlanID) {
             $("#idCostos").val(result.Costos);
             $("#txtPlanAccionID").val(result.ID);
             $("#txtAccionID").val(result.AccionID);
-
             $("#txtAccionID").val(result.AccionID);
             $("#planAccionID").val(result.ID);
+            $("#txtActionCategory").val(result.ActionCategory);
             if (result.Prioritaria == true) {
                 $("#idPrioritaria").prop('checked', true);
             } else {
@@ -884,7 +884,7 @@ function DeleteAccion(ID) {
                 text += "Eficacia despues : " + result.data.EficaciaDespues + "\n";
                 text += "Fecha cierre : " + result.data.FechaCierreStr + "\n";
                 text += "Efectiva : " + result.data.Efectiva + "\n";
-                text += "Estado : " + result.data.Estado + "\n";
+                text += "Estado : " + result.data.ActionState + "\n";
                 var respuesta = confirm(text);
 
                 if (respuesta == true) {
@@ -1492,7 +1492,7 @@ function AddPlanAccion() {
         Prioritaria: $("#idPrioritaria").val(),
         Costos: $("#idCostos").val(),
         Responsable: " ",
-        ActionCategory: $("#txtActionCategory").val()
+        ActionCategory: $("#txtPlanCategory").val()
     };
 
     $.ajax({
@@ -1538,7 +1538,7 @@ function UpdatePlanAcc() {
         TrabajadorID: $("#idRespons").val(),
         Prioritaria: $("#idPrioritaria").val(),
         Costos: $("#idCostos").val(),
-        ActionCategory: $("#txtActionCategory").val()
+        ActionCategory: $("#txtPlanCategory").val()
     };
     $.ajax({
         type: "POST",
@@ -3169,4 +3169,64 @@ function calcularRiesgo() {
     $('#interpretaNR').val(interpretaNR);
     $('#interpretaNR').css({ "backgroundColor": colorStyle, "font-size": "100%" });
     $('#txtAceptabilidad').css({ "backgroundColor": colorStyle, "font-size": "100%"});
+}
+
+function FindActions() {
+
+    // Gráficar acciones
+    $.ajax({
+        url: "/Acciones/GetAllPlans",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (response) {
+            document.getElementById("noConformance").innerHTML = "No conformidades : " + response.noConformance;
+            document.getElementById("numActions").innerHTML = "Acciones : " + response.numPlans;
+            $("#numActions").focus();
+            $(".tabConsActions").css("display", "block");
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function chartNoConformance() {
+
+    // Gráficar efectos posibles
+    $.ajax({
+        url: "/Riesgos/GetAllEfects",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (response) {
+            $("#EfectosPosibles").attr("src", response);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function chartActions() {
+
+    // Gráficar efectos posibles
+    $.ajax({
+        url: "/Riesgos/GetAllEfects",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (response) {
+            $("#EfectosPosibles").attr("src", response);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
 }

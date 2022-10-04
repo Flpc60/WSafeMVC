@@ -171,7 +171,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Planes = new List<PlanAction>(),
                 Seguimientos = new List<Seguimiento>(),
                 FechaSolicitudStr = accion.FechaSolicitud.ToString("yyyy-MM-dd"),
-                FechaCierreStr = accion.FechaCierre.ToString("yyyy-MM-dd")
+                FechaCierreStr = accion.FechaCierre.ToString("yyyy-MM-dd"),
+                ActionState = _gestorHelper.GetActionCategory((int)accion.ActionCategory)
             };
             model.Planes.Add(new PlanAction() { AccionID = accion.ID });
             model.Seguimientos.Add(new Seguimiento() { AccionID = accion.ID });
@@ -580,7 +581,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Prioritaria = plan.Prioritaria,
                 Costos = plan.Costos,
                 TrabajadorID = plan.TrabajadorID,
-                Responsable = _empresaContext.Trabajadores.Find(plan.TrabajadorID).NombreCompleto.ToUpper()
+                Responsable = _empresaContext.Trabajadores.Find(plan.TrabajadorID).NombreCompleto.ToUpper(),
+                ActionCategory = plan.ActionCategory
             };
             return result;
         }
