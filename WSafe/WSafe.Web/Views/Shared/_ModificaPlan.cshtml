@@ -21,21 +21,22 @@
                 @Html.DropDownList("Categorias", categorias as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "txtCausa" })
             </div>
         </div>
+        <hr />
         <div class="form-row">
             <div class="col-md-8">
-                <hr />
                 <label for="accion">Actividad</label>
                 <textarea id="accion" style="resize:none;" class="form-control" rows=3 cols=70 required></textarea>
             </div>
+            <hr />
+            <hr />
             <div class="col-md-4">
-                <hr />
-                <hr />
-                <label for="txtActionCategory">Estado actividad</label><br />
-                <select id="txtActionCategory" class="selectpicker" data-style="btn-info">
-                    <option value="1">Sín iniciar ...</option>
-                    <option value="2">En proceso ...</option>
-                    <option value="3">Finalizada ...</option>
-                </select>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ActionCategory, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EnumDropDownListFor(model => model.ActionCategory, htmlAttributes: new { @class = "form-control", @id = "txtPlanCategory" })
+                        @Html.ValidationMessageFor(model => model.ActionCategory, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
         </div>
         <div class="form-row">
