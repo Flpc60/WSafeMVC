@@ -24,10 +24,10 @@ namespace WSafe.Domain.Helpers.Implements
             var chartImage = new Chart(width: 500, height: 300, theme: ChartTheme.Green);
             chartImage.AddTitle(nombre);
             chartImage.AddSeries("Default", chartType: tipo,
-                axisLabel: "Valores",
                 xValue: lista, xField: "MesAnn",
                 yValues: lista, yFields: "Resultado");
             chartImage.Save(path: archivo);
+            chartImage.AddLegend();
         }
         public IEnumerable<IndicadorDetallesViewModel> GetFrecuenciaAccidentes(int[] periodo, int year)
         {
@@ -247,7 +247,7 @@ namespace WSafe.Domain.Helpers.Implements
                 var result = _empresaContext.Riesgos.ToList();
                 var muyAlto = 0;
                 var alto = 0;
-                var medio = 0; 
+                var medio = 0;
                 var bajo = 0;
                 var np = 0;
                 var nr = 0;
@@ -504,6 +504,94 @@ namespace WSafe.Domain.Helpers.Implements
                     ID = 6,
                     MesAnn = "Perdidas económicas",
                     Resultado = pEconomicas
+                });
+
+                return viewModel;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
+        }
+        public IEnumerable<IndicadorDetallesViewModel> GetAllNoConformance()
+        {
+            try
+            {
+                var result = from a in _empresaContext.Acciones
+                             group a by new { a.FechaSolicitud.Year, a.FechaSolicitud.Month } into datosAgrupados
+                             orderby datosAgrupados.Key
+                             select new { Clave = datosAgrupados.Key, Datos = datosAgrupados };
+
+                var viewModel = new List<IndicadorDetallesViewModel>();
+                foreach (var grupo in result)
+                {
+                    viewModel.Add(new IndicadorDetallesViewModel
+                    {
+                        MesAnn = (grupo.Clave.Month + "-" + grupo.Clave.Year).ToString(),
+                        Numerador = grupo.Datos.Count(),
+                        Resultado = grupo.Datos.Count()
+                    });
+                }
+                return viewModel;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<IndicadorDetallesViewModel> GetAllValueActions()
+        {
+            try
+            {
+                var result = _empresaContext.Acciones.ToList();
+                var sinIniciar = 0;
+                var proceso = 0;
+                var finalizada = 0;
+                var total = 0;
+                foreach (var item in result)
+                {
+                    total++;
+                    switch (item.ActionCategory)
+                    {
+                        case ActionCategories.Sin_Iniciar:
+                            sinIniciar++;
+                            break;
+
+                        case ActionCategories.En_Proceso:
+                            proceso++;
+                            break;
+
+                        case ActionCategories.Finalizada:
+                            finalizada++;
+                            break;
+                    }
+                }
+
+                decimal pIniciar = Math.Round(Convert.ToDecimal((double)sinIniciar / (double)total * 100), 2);
+                decimal pProceso = Math.Round(Convert.ToDecimal((double)proceso / (double)total * 100), 2);
+                decimal pFinalizada = Math.Round(Convert.ToDecimal((double)finalizada / (double)total * 100), 2);
+                var viewModel = new List<IndicadorDetallesViewModel>();
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 1,
+                    MesAnn = "Sín Iniciar",
+                    Resultado = pIniciar
+                });
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 2,
+                    MesAnn = "En Proceso",
+                    Resultado = pProceso
+                });
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 3,
+                    MesAnn = "Finalizada",
+                    Resultado = pFinalizada
                 });
 
                 return viewModel;

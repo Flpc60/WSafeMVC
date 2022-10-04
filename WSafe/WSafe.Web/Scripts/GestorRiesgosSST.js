@@ -3183,6 +3183,8 @@ function FindActions() {
         success: function (response) {
             document.getElementById("noConformance").innerHTML = "No conformidades : " + response.noConformance;
             document.getElementById("numActions").innerHTML = "Acciones : " + response.numPlans;
+            document.getElementById("noConformance").style.backgroundColor = "gray";
+            document.getElementById("numActions").style.backgroundColor = "gray";
             $("#numActions").focus();
             $(".tabConsActions").css("display", "block");
         },
@@ -3195,15 +3197,15 @@ function FindActions() {
 
 function chartNoConformance() {
 
-    // Gráficar efectos posibles
+    // Gráficar no conformidades
     $.ajax({
-        url: "/Riesgos/GetAllEfects",
+        url: "/Acciones/GetNoConformance",
         type: "GET",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         async: true,
         success: function (response) {
-            $("#EfectosPosibles").attr("src", response);
+            $("#NoConformance").attr("src", response);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -3214,15 +3216,15 @@ function chartNoConformance() {
 
 function chartActions() {
 
-    // Gráficar efectos posibles
+    // Gráficar acciones correctivas / preventivas / mejora
     $.ajax({
-        url: "/Riesgos/GetAllEfects",
+        url: "/Acciones/GetAllActions",
         type: "GET",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         async: true,
         success: function (response) {
-            $("#EfectosPosibles").attr("src", response);
+            $("#NumActions").attr("src", response);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);

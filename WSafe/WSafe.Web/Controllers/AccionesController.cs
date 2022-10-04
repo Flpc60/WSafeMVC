@@ -23,16 +23,18 @@ namespace WSafe.Web.Controllers
         private readonly IComboHelper _comboHelper;
         private readonly IConverterHelper _converterHelper;
         private readonly IGestorHelper _gestorHelper;
+        private readonly IChartHelper _chartHelper;
         public AccionesController
             (EmpresaContext empresaContext,
             IComboHelper comboHelper,
             IConverterHelper converterHelper,
-            IGestorHelper gestorHelper)
+            IGestorHelper gestorHelper, IChartHelper chartHelper)
         {
             _empresaContext = empresaContext;
             _comboHelper = comboHelper;
             _converterHelper = converterHelper;
             _gestorHelper = gestorHelper;
+            _chartHelper = chartHelper;
         }
 
         [AuthorizeUser(operation: 1, component: 4)]
@@ -467,6 +469,44 @@ namespace WSafe.Web.Controllers
             var numPlans = _empresaContext.PlanActions.Count();
 
             return Json(new { noConformance = noConformance, numPlans = numPlans },JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult GetNoConformance()
+        {
+            try
+            {
+                Random random = new Random();
+                var filename = "chart" + random.Next(1, 100) + ".jpg";
+                var filePathName = "~/Images/" + filename;
+                var datos = _chartHelper.GetAllNoConformance();
+                _chartHelper.DrawImagen(filePathName, "Bar", "NO CONFORMIDADES", datos);
+                var image = "/Images/" + filename;
+                return Json(image, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetAllActions()
+        {
+            try
+            {
+                Random random = new Random();
+                var filename = "chart" + random.Next(1, 100) + ".jpg";
+                var filePathName = "~/Images/" + filename;
+                var datos = _chartHelper.GetAllValueActions();
+                _chartHelper.DrawImagen(filePathName, "Pie", "ESTADO ACCIONES", datos);
+                var image = "/Images/" + filename;
+                return Json(image, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
+            }
         }
     }
 }
