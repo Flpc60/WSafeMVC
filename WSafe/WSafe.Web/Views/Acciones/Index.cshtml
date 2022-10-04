@@ -4,18 +4,22 @@
     ViewBag.Title = "Index";
 }
 
+<style>
+    .tabConsActions {
+        display: none
+    }
+</style>
+
 <br />
 <br />
 <br />
 <h4>GESTIÓN DE ACCIONES CPM</h4>
 
-<div class="row">
-    <div class="col-md-4">
+<div class="pull-left">
+    <div class="btn-group">
         @Html.ActionLink("Nueva Acción", "Create", new { @class = "glyphicon glyphicon-plus" },
         new { @class = "btn btn-info btn-lg active" })
-    </div>
-    <div class="col-md-4">
-        Buscar : <input type="search" id="myInput" placeholder="Escriba un nombre de elemento para filtrar" style="width:350px">
+        <button class="btn btn-info btn-lg active" onclick="FindActions()">Consultar Acciones</button><br>
     </div>
 </div>
 <br />
@@ -102,13 +106,34 @@
                     </td>
                     <td style="margin:initial; background-color:deepskyblue; text-align:left">
                         @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" })
-                        @Html.ActionLink(" ", "PrintAccionesToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt"})
+                        @Html.ActionLink(" ", "PrintAccionesToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt" })
                         <a href="#" onclick="DeleteAccion('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
+</div>
+
+<div class="tabConsActions">
+
+    <div class="pull-left">
+        <div class="btn-group">
+            <button type="button" id="noConformance" class="btn btn-secondary btn-lg" onclick="chartNoConformance()"></button>
+            <button type="button" id="numActions" class="btn btn-secondary btn-lg" onclick="chartActions()"></button>
+        </div>
+    </div>
+
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <img src="" id="NoConformance" class="rounded float-left" alt="..." />
+        </div>
+        <div class="col-md-6">
+            <img src="" id="NumActions" class="rounded float-left" alt="..." />
+        </div>
+    </div>
+
 </div>
 
 @section Scripts
