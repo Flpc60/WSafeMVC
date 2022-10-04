@@ -15,7 +15,7 @@ using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
 {
-    // Gestión de riesgos
+    // Gestión de riesgos en SST
     public class RiesgosController : Controller
     {
         private int _operation;
