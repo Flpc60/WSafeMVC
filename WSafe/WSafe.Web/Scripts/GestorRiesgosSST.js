@@ -3182,9 +3182,11 @@ function FindActions() {
         async: true,
         success: function (response) {
             document.getElementById("noConformance").innerHTML = "No conformidades : " + response.noConformance;
-            document.getElementById("numActions").innerHTML = "Acciones : " + response.numPlans;
+            document.getElementById("numActions").innerHTML = "Estado Acciones : " + response.numPlans;
+            document.getElementById("numCorrective").innerHTML = "Acciones Correctivas : " + response.numCorrective;
             document.getElementById("noConformance").style.backgroundColor = "gray";
             document.getElementById("numActions").style.backgroundColor = "gray";
+            document.getElementById("numCorrective").style.backgroundColor = "gray";
             $("#numActions").focus();
             $(".tabConsActions").css("display", "block");
         },
@@ -3216,7 +3218,7 @@ function chartNoConformance() {
 
 function chartActions() {
 
-    // Gráficar acciones correctivas / preventivas / mejora
+    // Gráficar acciones
     $.ajax({
         url: "/Acciones/GetAllActions",
         type: "GET",
@@ -3225,6 +3227,25 @@ function chartActions() {
         async: true,
         success: function (response) {
             $("#NumActions").attr("src", response);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function chartCorrectiveActions() {
+
+    // Gráficar acciones correctivas / preventivas / mejora
+    $.ajax({
+        url: "/Acciones/GetAllCorrectiveActions",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (response) {
+            $("#NumCorrective").attr("src", response);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);

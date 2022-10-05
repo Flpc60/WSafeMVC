@@ -601,5 +601,67 @@ namespace WSafe.Domain.Helpers.Implements
                 throw ex;
             }
         }
+
+        public IEnumerable<IndicadorDetallesViewModel> GetAllValueCorrectiveActions()
+        {
+            try
+            {
+                var result = _empresaContext.Acciones.ToList();
+                var correctivas = 0;
+                var preventivas = 0;
+                var mejoras = 0;
+                var total = 0;
+                foreach (var item in result)
+                {
+                    total++;
+                    switch (item.Categoria)
+                    {
+                        case CategoriasAccion.Correctiva:
+                            correctivas++;
+                            break;
+
+                        case CategoriasAccion.Preventiva:
+                            preventivas++;
+                            break;
+
+                        case CategoriasAccion.Mejora:
+                            mejoras++;
+                            break;
+                    }
+                }
+
+                decimal pCorrectiva = Math.Round(Convert.ToDecimal((double)correctivas / (double)total * 100), 2);
+                decimal pPreventiva = Math.Round(Convert.ToDecimal((double)preventivas / (double)total * 100), 2);
+                decimal pMejora = Math.Round(Convert.ToDecimal((double)mejoras / (double)total * 100), 2);
+                var viewModel = new List<IndicadorDetallesViewModel>();
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 1,
+                    MesAnn = "Preventivas",
+                    Resultado = pPreventiva
+                });
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 2,
+                    MesAnn = "Correctivas",
+                    Resultado = pCorrectiva
+                });
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 3,
+                    MesAnn = "Mejoras",
+                    Resultado = pMejora
+                });
+
+                return viewModel;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
