@@ -467,8 +467,10 @@ namespace WSafe.Web.Controllers
 
             var noConformance = _empresaContext.Acciones.Count();
             var numPlans = _empresaContext.PlanActions.Count();
+            var numCorrective = _empresaContext.Acciones
+                .Where(ac =>ac.Categoria == CategoriasAccion.Correctiva).Count();
 
-            return Json(new { noConformance = noConformance, numPlans = numPlans },JsonRequestBehavior.AllowGet);
+            return Json(new { noConformance = noConformance, numPlans = numPlans, numCorrective = numCorrective },JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -500,6 +502,25 @@ namespace WSafe.Web.Controllers
                 var filePathName = "~/Images/" + filename;
                 var datos = _chartHelper.GetAllValueActions();
                 _chartHelper.DrawImagen(filePathName, "Pie", "ESTADO ACCIONES", datos);
+                var image = "/Images/" + filename;
+                return Json(image, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetAllCorrectiveActions()
+        {
+            try
+            {
+                Random random = new Random();
+                var filename = "chart" + random.Next(1, 100) + ".jpg";
+                var filePathName = "~/Images/" + filename;
+                var datos = _chartHelper.GetAllValueCorrectiveActions();
+                _chartHelper.DrawImagen(filePathName, "Pie", "TIPO ACCIONES", datos);
                 var image = "/Images/" + filename;
                 return Json(image, JsonRequestBehavior.AllowGet);
             }
