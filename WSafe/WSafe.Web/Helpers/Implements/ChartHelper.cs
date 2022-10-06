@@ -21,13 +21,15 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public void DrawImagen(string archivo, string tipo, string nombre, IEnumerable<IndicadorDetallesViewModel> lista)
         {
-            var chartImage = new Chart(width: 500, height: 300, theme: ChartTheme.Green);
+            var chartImage = new Chart(width: 600, height: 300, theme: ChartTheme.Green);
             chartImage.AddTitle(nombre);
-            chartImage.AddSeries("Default", chartType: tipo,
+            chartImage.SetXAxis("PERIODO");
+            chartImage.SetYAxis("VALORES");
+            chartImage.AddLegend();
+            chartImage.AddSeries("RESULTADOS", chartType: tipo,
                 xValue: lista, xField: "MesAnn",
                 yValues: lista, yFields: "Resultado");
             chartImage.Save(path: archivo);
-            chartImage.AddLegend();
         }
         public IEnumerable<IndicadorDetallesViewModel> GetFrecuenciaAccidentes(int[] periodo, int year)
         {
