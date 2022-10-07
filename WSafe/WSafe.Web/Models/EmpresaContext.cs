@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Data.Entities.Auditor;
+using WSafe.Domain.Data.Entities.ICAM;
 
 namespace WSafe.Web.Models
 {
@@ -42,9 +43,13 @@ namespace WSafe.Web.Models
         public DbSet<Role> Roles { get; set; }
         public DbSet<RoleOperation> RoleOperations { get; set; }
         public DbSet<Document> Documents { get; set; }
-
+        public DbSet<Recomendation> Recomendations { get; set; }
+        public DbSet<RootCause> RootCauses { get; set; }
+        public DbSet<BarrierAnalice> BarrierAnalysis { get; set; }
+        public DbSet<CausalAnalice> CausalAnalysis { get; set; }
+        public DbSet<Event> Events { get; set; }
+        public DbSet<Reason> Reasons { get; set; }
         public System.Data.Entity.DbSet<WSafe.Web.Models.UserViewModel> UserViewModels { get; set; }
-
         public System.Data.Entity.DbSet<WSafe.Web.Models.RoleUserVM> RoleUserVMs { get; set; }
     }
 }

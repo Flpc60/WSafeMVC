@@ -323,6 +323,15 @@
     <Compile Include="Data\Entities\DangerCategories.cs" />
     <Compile Include="Data\Entities\Document.cs" />
     <Compile Include="Data\Entities\FuentesAccion.cs" />
+    <Compile Include="Data\Entities\ICAM\BarrierAnalice.cs" />
+    <Compile Include="Data\Entities\ICAM\BarrierCategories.cs" />
+    <Compile Include="Data\Entities\ICAM\CausalAnalice.cs" />
+    <Compile Include="Data\Entities\ICAM\CausalFactors.cs" />
+    <Compile Include="Data\Entities\ICAM\Event.cs" />
+    <Compile Include="Data\Entities\ICAM\PotencialCausalFactors.cs" />
+    <Compile Include="Data\Entities\ICAM\Reason.cs" />
+    <Compile Include="Data\Entities\ICAM\Recomendation.cs" />
+    <Compile Include="Data\Entities\ICAM\RootCause.cs" />
     <Compile Include="Data\Entities\Incidentes\AccidenteProbabilidad.cs" />
     <Compile Include="Data\Entities\Incidentes\CalificacionesEquipo.cs" />
     <Compile Include="Data\Entities\Incidentes\CategoriasIncidente.cs" />
@@ -674,7 +683,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Data\Entities\ICAM\" />
     <Folder Include="Documents\" />
   </ItemGroup>
   <ItemGroup>
