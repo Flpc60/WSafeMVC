@@ -674,6 +674,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Data\Entities\ICAM\" />
     <Folder Include="Documents\" />
   </ItemGroup>
   <ItemGroup>
