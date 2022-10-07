@@ -3,7 +3,7 @@
     public class BarrierAnalice
     {
         public int ID { get; set; }
-        public string Name { get; set; }
+        public int EventID { get; set; }
         public BarrierCategories BarrierCategory { get; set; }
     }
 }
