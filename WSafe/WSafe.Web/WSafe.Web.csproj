@@ -327,9 +327,8 @@
     <Compile Include="Data\Entities\ICAM\BarrierCategories.cs" />
     <Compile Include="Data\Entities\ICAM\CausalAnalice.cs" />
     <Compile Include="Data\Entities\ICAM\CausalFactors.cs" />
-    <Compile Include="Data\Entities\ICAM\ChangeAnalice.cs" />
-    <Compile Include="Data\Entities\ICAM\ChangeCategories.cs" />
     <Compile Include="Data\Entities\ICAM\Event.cs" />
+    <Compile Include="Data\Entities\ICAM\EventsOrder.cs" />
     <Compile Include="Data\Entities\ICAM\PotencialCausalFactors.cs" />
     <Compile Include="Data\Entities\ICAM\Reason.cs" />
     <Compile Include="Data\Entities\ICAM\Recomendation.cs" />
@@ -422,6 +421,10 @@
     <Compile Include="Migrations\202209282157088_UpdateAction3.cs" />
     <Compile Include="Migrations\202209282157088_UpdateAction3.Designer.cs">
       <DependentUpon>202209282157088_UpdateAction3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202210081844369_CreateEvent.cs" />
+    <Compile Include="Migrations\202210081844369_CreateEvent.Designer.cs">
+      <DependentUpon>202210081844369_CreateEvent.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AuthorizationVM.cs" />
@@ -682,6 +685,8 @@
     <Content Include="Views\Shared\_ShowTasks.cshtml" />
     <Content Include="Views\Shared\_ShowRoles.cshtml" />
     <Content Include="Views\Shared\_ShowAuthorize.cshtml" />
+    <Content Include="Views\Shared\_EdiEvent.cshtml" />
+    <Content Include="Views\Shared\_EdiCauseAnalice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -739,6 +744,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202209282157088_UpdateAction3.resx">
       <DependentUpon>202209282157088_UpdateAction3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202210081844369_CreateEvent.resx">
+      <DependentUpon>202210081844369_CreateEvent.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

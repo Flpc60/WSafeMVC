@@ -49,6 +49,7 @@ namespace WSafe.Web.Models
         public DbSet<CausalAnalice> CausalAnalysis { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<Reason> Reasons { get; set; }
+        public DbSet<EventsOrder> EventsOrders { get; set; }
         public System.Data.Entity.DbSet<WSafe.Web.Models.UserViewModel> UserViewModels { get; set; }
         public System.Data.Entity.DbSet<WSafe.Web.Models.RoleUserVM> RoleUserVMs { get; set; }
     }
