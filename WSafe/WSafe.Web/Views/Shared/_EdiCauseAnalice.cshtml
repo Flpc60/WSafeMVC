@@ -1,0 +1,44 @@
+﻿<div class="container" style="background-color:mediumaquamarine">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <div class="col-md-10">
+                    <label for="txtCauseAnalice">Descripción Factor Causa :</label>
+                    <textarea id="txtCauseAnalice" style="resize:none;" class="form-control" rows=2 cols=70 required></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="txtCausal">Factor Causal</label>
+                <div class="col-md-6">
+                    <select name="txtCausal" class="form-control" id="txtCausal">
+                        <option selected="selected" value="0">Seleccione un factor causal...</option>
+                        <option value="1">Causa Directa</option>
+                        <option value="2">Causa Contribuyente</option>
+                        <option value="3">Causa Principal</option>
+                    </select>
+                    <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="txtCausal"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="txtPotencial">Factor Causal Potencial </label>
+                <div class="col-md-6">
+                    <select name="txtPotencial" class="form-control" id="txtPotencial">
+                        <option selected="selected" value="0">Seleccione un factor causal potencial...</option>
+                        <option value="1">Falta de conciencia</option>
+                        <option value="2">Falta de prácticas seguras de trabajo</option>
+                        <option value="3">Falta de aplicación de prácticas laborales seguras</option>
+                        <option value="4">Equipo/materiales inadecuados</option>
+                        <option value="5">Diseños inadecuados</option>
+                    </select>
+                    <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="txtPotencial"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
