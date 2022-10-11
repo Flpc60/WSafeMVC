@@ -105,11 +105,13 @@
         @Html.Partial("_ShowEvents")
     </div>
     <div class="tabAddEvents">
+        <input type="hidden" id="txtEventID" name="txtEventID" />
         @Html.Partial("_EditEvent")
         <div class="row">
             <div class="col-md-8">
                 <hr />
                 <button type="button" id="btnAddEvent" class="btn btn-primary" onclick="AddEvent()">Adicionar</button>
+                <button type="button" id="btnUpdEvent" class="btn btn-primary" onclick="UpdateEvent()">Actualizar</button>
                 <button type="button" id="btnCanEvent" class="btn btn-primary" onclick="CancelEvent()">
                     <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
                 </button>
