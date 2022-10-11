@@ -7,6 +7,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using WSafe.Domain.Data.Entities;
+using WSafe.Domain.Data.Entities.ICAM;
 using WSafe.Domain.Helpers;
 using WSafe.Domain.Repositories.Implements;
 using WSafe.Domain.Services.Implements;
@@ -394,6 +395,206 @@ namespace WSafe.Web.Controllers
             report.PageOrientation.GetValueOrDefault();
 
             return report;
+        }
+
+        [HttpGet]
+        public ActionResult GetEvents(int id)
+        {
+            if (id != null)
+            {
+                var events = from e in _empresaContext.Events
+                             where e.ID == id
+                             orderby e.Order
+                             select e;
+                return Json(events, JsonRequestBehavior.AllowGet);
+            }
+            return null;
+        }
+
+        [HttpGet]
+        public ActionResult GetCausesAnalisys(int id)
+        {
+            if (id != null)
+            {
+                var result = from e in _empresaContext.CausalAnalysis
+                             where e.ID == id
+                             select e;
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            return null;
+        }
+
+        [HttpGet]
+        public ActionResult GetBarriersAnalisys(int id)
+        {
+            if (id != null)
+            {
+                var result = from e in _empresaContext.BarrierAnalysis
+                             where e.ID == id
+                             select e;
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            return null;
+        }
+
+        [HttpGet]
+        public ActionResult GetRootCausesAnalisys(int id)
+        {
+            if (id != null)
+            {
+                var result = from e in _empresaContext.RootCauses
+                             where e.ID == id
+                             select e;
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            return null;
+        }
+
+        [HttpGet]
+        public ActionResult GetAllRecomenations(int id)
+        {
+            if (id != null)
+            {
+                var result = from e in _empresaContext.Recomendations
+                             where e.ID == id
+                             select e;
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            return null;
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CreateEvent(Event model)
+        {
+            var message = "";
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    message = "El evento fué ingresado exitosamente !!";
+                    _empresaContext.Events.Add(model);
+                    await _empresaContext.SaveChangesAsync();
+                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    message = "El evento NO fué ingresado correctamente !!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                message = "El evento NO fué ingresado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CreateCausalAnalice(CausalAnalice model)
+        {
+            var message = "";
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    message = "El factor causal fué ingresado exitosamente !!";
+                    _empresaContext.CausalAnalysis.Add(model);
+                    await _empresaContext.SaveChangesAsync();
+                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+
+                    message = "El factor causal NO fué ingresado correctamente !!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                message = "El factor causal NO fué ingresado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CreateBarrierAnalice(BarrierAnalice model)
+        {
+            var message = "";
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    message = "La defensa fué ingresada exitosamente !!";
+                    _empresaContext.BarrierAnalysis.Add(model);
+                    await _empresaContext.SaveChangesAsync();
+                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+
+                    message = "La defensa NO fué ingresada correctamente !!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                message = "La defensa NO fué ingresada correctamente !!";
+                return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CreateRootCause(RootCause model)
+        {
+            var message = "";
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    message = "La causa principal fué ingresada exitosamente !!";
+                    _empresaContext.RootCauses.Add(model);
+                    await _empresaContext.SaveChangesAsync();
+                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+
+                    message = "La causa principal NO fué ingresada correctamente !!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                message = "La causa principal NO fué ingresada correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CreateRecomendation(Recomendation model)
+        {
+            var message = "";
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    message = "La recomendación fué ingresada exitosamente !!";
+                    _empresaContext.Recomendations.Add(model);
+                    await _empresaContext.SaveChangesAsync();
+                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+
+                    message = "La recomendación NO fué ingresada correctamente !!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                message = "La recomendación NO fué ingresada correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }
