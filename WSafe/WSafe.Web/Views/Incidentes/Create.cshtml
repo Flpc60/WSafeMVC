@@ -3,10 +3,13 @@
     var title = "GESTIONAR INCIDENTES Y ACCIDENTES DE TRABAJO";
 }
 <style>
-    .detal, .tabGeneral, .tabLesionados, .tabDescrip, .tabAcciones, .tabMatriz, .tabAddLesionado {
+    .detal, .tabGeneral, .tabLesionados, .tabDescrip, .tabAcciones, .tabMatriz, .tabAddLesionado,
+    .tabInvestigation, .tabAddEvents, .tabGesEvents
+    {
         display: none;
     }
 </style>
+
 <hr />
 <hr />
 <h4>@title</h4>
@@ -26,64 +29,97 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="tabGeneral">
-            <hr />
-            @Html.Partial("_EditarInfoIncidente")
-            <input type="hidden" id="txtIncidenteID" name="txtIncidenteID" />
-        </div>
-
-        <div class="detal">
-            @Html.Partial("_DetalleIncidente")
-        </div>
-
-        <div class="tabDescrip">
-            <hr />
-            <div class="container" style="background-color:mediumaquamarine; padding:20px">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.DescripcionIncidente, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.DescripcionIncidente, new { @class = "form-control", @id = "txtDescripcion", cols = "70", rows = "3" })
-                        @Html.ValidationMessageFor(model => model.DescripcionIncidente, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="tabAcciones">
-            @Html.Partial("_AccionesIncidente")
-        </div>
-
-        <div class="tabMatriz">
-            @Html.Partial("_MatrizIncidente")
-            <div class="row">
-                <div class="col-md-8">
-                    <button type="button" id="btnAddIncidente" class="btn btn-info" onclick="AddIncidente()">Agregar</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="tabLesionados">
-            <hr />
-            @Html.Partial("_ConsultarLesionados")
-        </div>
-
-        <div class="tabAddLesionado">
-            @Html.Partial("_ModificaLesion")
-            <div class="row">
-                <div class="col-md-8">
-                    <button type="button" id="btnAddLesion" class="btn btn-info" onclick="AddLesionados()">Agregar</button>
-                    <button type="button" id="btnCanLesion" class="btn btn-primary" onclick="CancelLesion()">
-                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
-                    </button>
-                </div>
-                <div class="col-md-4">
-                </div>
-            </div>
-        </div>
-
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="tabGeneral">
+        <hr />
+        @Html.Partial("_EditarInfoIncidente")
+        <input type="hidden" id="txtIncidenteID" name="txtIncidenteID" />
     </div>
+
+    <div class="detal">
+        @Html.Partial("_DetalleIncidente")
+    </div>
+
+    <div class="tabDescrip">
+        <hr />
+        <div class="container" style="background-color:mediumaquamarine; padding:20px">
+            <div class="form-group">
+                @Html.LabelFor(model => model.DescripcionIncidente, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.DescripcionIncidente, new { @class = "form-control", @id = "txtDescripcion", cols = "70", rows = "3" })
+                    @Html.ValidationMessageFor(model => model.DescripcionIncidente, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tabAcciones">
+        @Html.Partial("_AccionesIncidente")
+    </div>
+
+    <div class="tabMatriz">
+        @Html.Partial("_MatrizIncidente")
+        <div class="row">
+            <div class="col-md-8">
+                <button type="button" id="btnAddIncidente" class="btn btn-info" onclick="AddIncidente()">Agregar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="tabLesionados">
+        <hr />
+        @Html.Partial("_ConsultarLesionados")
+    </div>
+
+    <div class="tabAddLesionado">
+        @Html.Partial("_ModificaLesion")
+        <div class="row">
+            <div class="col-md-8">
+                <button type="button" id="btnAddLesion" class="btn btn-info" onclick="AddLesionados()">Agregar</button>
+                <button type="button" id="btnCanLesion" class="btn btn-primary" onclick="CancelLesion()">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                </button>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+
+    <div class="tabInvestigation">
+        <div class="pull-left">
+            <div class="btn-group">
+                <button type="button" class="btn btn-info" id="events" title="doble click para cerrar la ventana">EVENTOS</button>
+                <button type="button" class="btn btn-info" id="causales" title="doble click para cerrar la ventana">ANÁLISIS FACTORES CAUSALES</button>
+                <button type="button" class="btn btn-info" id="barriers" title="doble click para cerrar la ventana">ANÁLISIS BARRERAS</button>
+                <button type="button" class="btn btn-info" id="rootCauses" title="doble click para cerrar la ventana">ANÁLISIS CAUSAS PRINCIPALES</button>
+                <button type="button" class="btn btn-info" id="recomendation" title="doble click para cerrar la ventana">RECOMENDACIONES</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="tabGesEvents">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-success" id="addEvent">Adicionar un nuevo evento</button>
+        </div>
+        @Html.Partial("_ShowEvents")
+    </div>
+    <div class="tabAddEvents">
+        @Html.Partial("_EditEvent")
+        <div class="row">
+            <div class="col-md-8">
+                <hr />
+                <button type="button" id="btnAddEvent" class="btn btn-primary" onclick="AddEvent()">Adicionar</button>
+                <button type="button" id="btnCanEvent" class="btn btn-primary" onclick="CancelEvent()">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                </button>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+
+</div>
 }
 
 @section Scripts
@@ -91,10 +127,7 @@
     <script>
         // tabs de formato incidentes
 
-        $(document).ready(function () {
-            //ClearTextBox();
-            GestorIncidents();
-        });
+        GestorIncidents();
 
         $('#FechaReporte').change(function () {
             var fecha = $("#FechaReporte").val();
@@ -105,6 +138,25 @@
             var fechaIni = $("#FechaReporte").val();
             var fechaFin = $("#FechaIncidente").val();
             validarFechaIncidente(fechaIni, fechaFin);
+        });
+
+        $('#txtCauseAnalice').click(function () {
+            var selectedIncident = $("#txtIncidenteID").val();
+            var eventSelect = $('#txtCauseAnalice');
+            eventSelect.empty();
+            if (selectedIncident != null && selectedIncident != '') {
+                $.getJSON('@Url.Action("GetEvents")', { ID: selectedIncident }, function (eventos) {
+                    if (eventos != null && !jQuery.isEmptyObject(eventos)) {
+                        $.each(eventos, function (index, item) {
+                            eventSelected.append($('<option />',
+                                {
+                                    value: item.ID,
+                                    text: item.Name
+                                }));
+                        });
+                    };
+                });
+            }
         });
 
     </script>

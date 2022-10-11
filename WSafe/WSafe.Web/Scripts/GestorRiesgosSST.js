@@ -2071,8 +2071,17 @@ function GestorIncidents() {
     $('#matriz').click(function () {
         $(".tabMatriz").css("display", "block");
     });
+
     $('#matriz').dblclick(function () {
         $(".tabMatriz").css("display", "none");
+    });
+
+    $('#investigate').click(function () {
+        $(".tabInvestigation").css("display", "block");
+    });
+
+    $('#investigate').dblclick(function () {
+        $(".tabInvestigation").css("display", "none");
     });
 
     $('#equipoInvest').click(function () {
@@ -2161,6 +2170,88 @@ function GestorIncidents() {
         $(".tabCerrar").css("display", "none");
         $("#btnAddLesion").show();
     });
+
+    $("#events").click(function () {
+        ResetTab();
+        $(".tabGesEvents").css("display", "block");
+        $(".tabCerrar").css("display", "none");
+        ShowEvents();
+    });
+    $("#events").dblclick(function () {
+        ResetTab();
+    });
+
+    $("#causales").click(function () {
+        ResetTab();
+        $(".tabGesCausales").css("display", "block");
+        $(".tabCerrar").css("display", "none");
+        ShowZones();
+    });
+    $("#causales").dblclick(function () {
+        ResetTab();
+    });
+
+    $("#barriers").click(function () {
+        ResetTab();
+        $(".tabGesBarriers").css("display", "block");
+        $(".tabCerrar").css("display", "none");
+        ShowBarriers();
+    });
+    $("#rootCauses").dblclick(function () {
+        ResetTab();
+    });
+
+    $("#rootCauses").click(function () {
+        ResetTab();
+        $(".tabGesRootCauses").css("display", "block");
+        $(".tabCerrar").css("display", "none");
+        ShowRootCauses();
+    });
+    $("#rootCauses").dblclick(function () {
+        ResetTab();
+    });
+
+    $("#recomendation").click(function () {
+        ResetTab();
+        $(".tabGesRecomendations").css("display", "block");
+        $(".tabCerrar").css("display", "none");
+        ShowRecomendations();
+    });
+    $("#recomendation").dblclick(function () {
+        ResetTab();
+    });
+
+    $("#addEvent").click(function () {
+        $(".tabAddEvents").css("display", "block");
+        $(".tabCerrar").css("display", "none");
+        $("#btnAddEvent").show();
+        $("#btnCanEvent").show();
+    });
+    $("#addCausal").click(function () {
+        $(".tabAddCausales").css("display", "block");
+        $(".tabCerrar").css("display", "none");
+        $("#btnAddCausal").show();
+        $("#btnCanCausal").show();
+    });
+    $("#addBarriers").click(function () {
+        $(".tabAddBarriers").css("display", "block");
+        $(".tabCerrar").css("display", "none");
+        $("#btnAddBarrier").show();
+        $("#btnCanBarrier").show();
+    });
+    $("#addRootCauses").click(function () {
+        $(".tabAddRootCauses").css("display", "block");
+        $(".tabCerrar").css("display", "none");
+        $("#btnAddRootCause").show();
+        $("#btnCanRootCause").show();
+    });
+    $("#addRecomendation").click(function () {
+        $(".tabAddRecomendations").css("display", "block");
+        $(".tabCerrar").css("display", "none");
+        $("#btnAddRecomendation").show();
+        $("#btnCanRecomendation").show();
+    });
+
 }
 
 function CancelPlan() {
@@ -2173,6 +2264,13 @@ function CancelPlan() {
     $("#idPrioritaria").val("");
     $("#idCostos").val("");
     mostrarPlanAcc();
+}
+
+function CancelEvent() {
+    $(".tabAddEvent").css("display", "none");
+    $("#txtEvent").val("");
+    $("#txtOrder").val("");
+    ShowEvents();
 }
 
 function CancelLesion() {
@@ -3246,6 +3344,126 @@ function chartCorrectiveActions() {
         async: true,
         success: function (response) {
             $("#NumCorrective").attr("src", response);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function AddEvent() {
+
+    // Crea un nuevo evento
+    $('.tabAddEvents').css("display", "none");
+    var incidentID = $("#txtIncidenteID").val();
+    var event = {
+        ID: "0",
+        IncidentID: $("#txtIncidenteID").val(),
+        Name: $("#txtEvent").val(),
+        Order: $("#txtOrder").val(),
+    };
+    $.ajax({
+        type: "POST",
+        url: "/Incidentes/CreateEvent",
+        data: { model: event },
+        dataType: "json",
+        success: function (response) {
+            $("#btnAddEvent").hide();
+            $("#btnCanEvent").hide();
+            alert(response.mensaj);
+            ShowEvents();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function ShowEvents(){
+    // Mostrar todos los eventos
+    var incidentID = $("#txtIncidenteID").val();
+    $.ajax({
+        url: "/Incidentes/GetEvents",
+        data: { id: incidentID },
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (result) {
+            var html = '';
+            $.each(result, function (key, item) {
+                html += '<tr>';
+                html += '<td>' + item.Order + '</td>';
+                html += '<td>' + item.Name + '</td>';
+                html += '<td><a href="#" onclick="return getEventByID(' + item.ID + ')">Editar</a> | <a href = "#" onclick = "DeleteEvent(' + item.ID + ')"> Borrar</a></td>';
+                html += '</tr>';
+            });
+            $('.tbody').html(html);
+            $('.tabGesEvents').css("display", "block");
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function getEventByID(eventID) {
+    $("#btnAddEvent").hide();
+    $("#btnUpdEvent").show();
+    $(".tabAddEvent").css("display", "block");
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: "/Incidentes/GetEvents",
+        data: { id: eventID },
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        success: function (result) {
+            $("#txtEvent").val(result.Name);
+            $("#txtOrder").val(result.Order);
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function DeleteEvent(id) {
+    $.ajax({
+        url: "/Incidentes/DeleteEvent/" + id,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        async: true,                                             // si es asincrónico o no
+        success: function (result) {
+            var text = "";
+            text += "Esta seguro de querer borrar este evento ? :\n\n";
+            text += "Evento : " + result.Name + "\n";
+            text += "Orden : " + result.Order + "\n";
+            var respuesta = confirm(text);
+
+            if (respuesta == true) {
+                $.ajax({
+                    url: "/Incidentes/DeleteEvent/" + id,
+                    type: "POST",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    async: true,                                               // si es asincrónico o no
+                    success: function (result) {
+                        ShowEvents();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                    }
+                });
+                alert("El evento ha sido borrado exitosamente !!");
+            }
+            ClearTextBox();
+            ShowEvents();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
