@@ -403,12 +403,18 @@ namespace WSafe.Web.Controllers
             if (id != null)
             {
                 var events = from e in _empresaContext.Events
-                             where e.ID == id
+                             where e.IncidentID == id
                              orderby e.Order
-                             select e;
+                             select new
+                             {
+                                 ID = e.ID,
+                                 Name = e.Name,
+                                 Order = e.Order
+                             };
+
                 return Json(events, JsonRequestBehavior.AllowGet);
             }
-            return null;
+            return Json(null, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -593,6 +599,81 @@ namespace WSafe.Web.Controllers
             catch
             {
                 message = "La recomendación NO fué ingresada correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> DeleteEvent(int? id)
+        {
+            var message = "";
+            try
+            {
+                var result = _empresaContext.Events.Find(id);
+                return Json(new { data = result, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                message = "No fué posible realizar esta transacción !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteEvent(int id)
+        {
+            var message = "";
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var result = await _empresaContext.Events.FindAsync(id);
+                    _empresaContext.Events.Remove(result);
+                    await _empresaContext.SaveChangesAsync();
+                    message = "El registro fué borrado correctamente !!";
+                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    message = "El registro NO fué borrado correctamente !!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch            {
+                message = "El registro NO fué borrado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public JsonResult UpdateEvent(int ID)
+        {
+            var evento = _empresaContext.Events.FirstOrDefault(e => e.ID == ID);
+            return Json(evento, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UpdateEvent([Bind(Include = "ID, IncidentID, Name, Order")] Event model)
+        {
+            var message = "";
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _empresaContext.Entry(model).State = EntityState.Modified;
+                    await _empresaContext.SaveChangesAsync();
+                    message = "La actualización se ha realizado exitosamente !!";
+                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    message = "La actualización NO se ha realizado exitosamente !!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                message = "La actualización NO se ha realizado exitosamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }

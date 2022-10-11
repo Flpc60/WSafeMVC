@@ -2224,32 +2224,38 @@ function GestorIncidents() {
     $("#addEvent").click(function () {
         $(".tabAddEvents").css("display", "block");
         $(".tabCerrar").css("display", "none");
+        $("#txtEvent").focus();
         $("#btnAddEvent").show();
         $("#btnCanEvent").show();
+        $("#btnUpdEvent").hide();
     });
     $("#addCausal").click(function () {
         $(".tabAddCausales").css("display", "block");
         $(".tabCerrar").css("display", "none");
         $("#btnAddCausal").show();
         $("#btnCanCausal").show();
+        $("#btnUpdCausal").hide();
     });
     $("#addBarriers").click(function () {
         $(".tabAddBarriers").css("display", "block");
         $(".tabCerrar").css("display", "none");
         $("#btnAddBarrier").show();
         $("#btnCanBarrier").show();
+        $("#btnUpdBarrier").hide();
     });
     $("#addRootCauses").click(function () {
         $(".tabAddRootCauses").css("display", "block");
         $(".tabCerrar").css("display", "none");
         $("#btnAddRootCause").show();
         $("#btnCanRootCause").show();
+        $("#btnUpdRootCause").hide();
     });
     $("#addRecomendation").click(function () {
         $(".tabAddRecomendations").css("display", "block");
         $(".tabCerrar").css("display", "none");
         $("#btnAddRecomendation").show();
         $("#btnCanRecomendation").show();
+        $("#btnUpdRecomendation").hide();
     });
 
 }
@@ -3353,10 +3359,8 @@ function chartCorrectiveActions() {
 }
 
 function AddEvent() {
-
     // Crea un nuevo evento
     $('.tabAddEvents').css("display", "none");
-    var incidentID = $("#txtIncidenteID").val();
     var event = {
         ID: "0",
         IncidentID: $("#txtIncidenteID").val(),
@@ -3369,9 +3373,12 @@ function AddEvent() {
         data: { model: event },
         dataType: "json",
         success: function (response) {
+            var num = +($("#txtOrder").val()) + 1;
+            $("#txtEvent").val("");
+            $("#txtOrder").val(num);
             $("#btnAddEvent").hide();
             $("#btnCanEvent").hide();
-            alert(response.mensaj);
+           alert(response.mensaj);
             ShowEvents();
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -3393,10 +3400,14 @@ function ShowEvents(){
         async: true,
         success: function (result) {
             var html = '';
+            var name = '';
+            var num = 0;
             $.each(result, function (key, item) {
+                num++;
+                name = item.Name.toUpperCase();
                 html += '<tr>';
-                html += '<td>' + item.Order + '</td>';
-                html += '<td>' + item.Name + '</td>';
+                html += '<td>' + num + '</td>';
+                html += '<td>' + name + '</td>';
                 html += '<td><a href="#" onclick="return getEventByID(' + item.ID + ')">Editar</a> | <a href = "#" onclick = "DeleteEvent(' + item.ID + ')"> Borrar</a></td>';
                 html += '</tr>';
             });
@@ -3411,19 +3422,20 @@ function ShowEvents(){
 }
 
 function getEventByID(eventID) {
-    $("#btnAddEvent").hide();
-    $("#btnUpdEvent").show();
-    $(".tabAddEvent").css("display", "block");
     $.ajax({
         async: true,
         type: 'GET',
-        url: "/Incidentes/GetEvents",
+        url: "/Incidentes/UpdateEvent",
         data: { id: eventID },
         dataType: "json",
         contentType: "application/json;charset=UTF-8",
         success: function (result) {
+            $("#txtEventID").val(result.ID);
             $("#txtEvent").val(result.Name);
             $("#txtOrder").val(result.Order);
+            $("#btnAddEvent").hide();
+            $("#btnUpdEvent").show();
+            $(".tabAddEvents").css("display", "block");
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -3441,10 +3453,9 @@ function DeleteEvent(id) {
         success: function (result) {
             var text = "";
             text += "Esta seguro de querer borrar este evento ? :\n\n";
-            text += "Evento : " + result.Name + "\n";
-            text += "Orden : " + result.Order + "\n";
+            text += "Evento : " + result.data.Name + "\n";
+            text += "Orden : " + result.data.Order + "\n";
             var respuesta = confirm(text);
-
             if (respuesta == true) {
                 $.ajax({
                     url: "/Incidentes/DeleteEvent/" + id,
@@ -3453,16 +3464,42 @@ function DeleteEvent(id) {
                     dataType: "json",
                     async: true,                                               // si es asincrónico o no
                     success: function (result) {
-                        ShowEvents();
+                        alert(result.mensaj);
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         alert(xhr.status);
                         alert(thrownError);
                     }
                 });
-                alert("El evento ha sido borrado exitosamente !!");
             }
             ClearTextBox();
+            ShowEvents();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function UpdateEvent() {
+    // Actualiza un evento creado, captura la incidenteID de id = txtIncidenteID
+    $(".tabGesEvents").css("display", "none");
+    $(".tabAddEvents").css("display", "none");
+    var eventVM = {
+        ID: $("#txtEventID").val(),
+        IncidentID: $("#txtIncidenteID").val(),
+        Name: $("#txtEvent").val(),
+        Order: $("#txtOrder").val()
+    };
+    $.ajax({
+        type: "POST",
+        url: "/Incidentes/UpdateEvent",
+        data: { model: eventVM },
+        dataType: "json",
+        success: function (response) {
+            alert(response.mensaj);
+            $(".tabGesEvents").css("display", "block");
             ShowEvents();
         },
         error: function (xhr, ajaxOptions, thrownError) {
