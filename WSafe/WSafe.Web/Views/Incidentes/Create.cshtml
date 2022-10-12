@@ -4,7 +4,7 @@
 }
 <style>
     .detal, .tabGeneral, .tabLesionados, .tabDescrip, .tabAcciones, .tabMatriz, .tabAddLesionado,
-    .tabInvestigation, .tabAddEvents, .tabGesEvents
+    .tabInvestigation, .tabAddEvents, .tabGesEvents, .tabAddCauses, .tabGesCauses
     {
         display: none;
     }
@@ -90,7 +90,7 @@
         <div class="pull-left">
             <div class="btn-group">
                 <button type="button" class="btn btn-info" id="events" title="doble click para cerrar la ventana">EVENTOS</button>
-                <button type="button" class="btn btn-info" id="causales" title="doble click para cerrar la ventana">ANÁLISIS FACTORES CAUSALES</button>
+                <button type="button" class="btn btn-info" id="causes" title="doble click para cerrar la ventana">ANÁLISIS FACTORES CAUSALES</button>
                 <button type="button" class="btn btn-info" id="barriers" title="doble click para cerrar la ventana">ANÁLISIS BARRERAS</button>
                 <button type="button" class="btn btn-info" id="rootCauses" title="doble click para cerrar la ventana">ANÁLISIS CAUSAS PRINCIPALES</button>
                 <button type="button" class="btn btn-info" id="recomendation" title="doble click para cerrar la ventana">RECOMENDACIONES</button>
@@ -113,6 +113,30 @@
                 <button type="button" id="btnAddEvent" class="btn btn-primary" onclick="AddEvent()">Adicionar</button>
                 <button type="button" id="btnUpdEvent" class="btn btn-primary" onclick="UpdateEvent()">Actualizar</button>
                 <button type="button" id="btnCanEvent" class="btn btn-primary" onclick="CancelEvent()">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                </button>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+
+    <div class="tabGesCauses">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-success" id="addCauses">Adicionar un nuevo factor causal</button>
+        </div>
+        @Html.Partial("_ShowCauseAnalysis")
+    </div>
+    <div class="tabAddCauses">
+        <input type="hidden" id="txtEventID" name="txtEventID" />
+        <input type="hidden" id="txtCausalID" name="txtCauseID" />
+        @Html.Partial("_EditCauseAnalice")
+        <div class="row">
+            <div class="col-md-8">
+                <hr />
+                <button type="button" id="btnAddCause" class="btn btn-primary" onclick="AddCause()">Adicionar</button>
+                <button type="button" id="btnUpdCause" class="btn btn-primary" onclick="UpdateCause()">Actualizar</button>
+                <button type="button" id="btnCanCause" class="btn btn-primary" onclick="CancelCause()">
                     <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
                 </button>
             </div>

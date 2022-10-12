@@ -418,16 +418,23 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetCausesAnalisys(int id)
+        public ActionResult GetCauses(int id)
         {
             if (id != null)
             {
-                var result = from e in _empresaContext.CausalAnalysis
-                             where e.ID == id
-                             select e;
+                var result =
+                    from c in _empresaContext.CausalAnalysis
+                    join e in _empresaContext.Events on c.EventID equals e.ID
+                    select new
+                    {
+                        Name = e.Name,
+                        CausalFactor = c.CausalFactor,
+                        PotencialFactor = c.PotencialFactor
+                    };
+
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
-            return null;
+            return Json(null, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
