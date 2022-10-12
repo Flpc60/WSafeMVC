@@ -503,7 +503,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateCausalAnalice(CausalAnalice model)
+        public async Task<ActionResult> CreateCause(CausalAnalice model)
         {
             var message = "";
             try
@@ -646,7 +646,8 @@ namespace WSafe.Web.Controllers
                     return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
             }
-            catch            {
+            catch
+            {
                 message = "El registro NO fué borrado correctamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
@@ -681,6 +682,91 @@ namespace WSafe.Web.Controllers
             catch
             {
                 message = "La actualización NO se ha realizado exitosamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public JsonResult UpdateCause(int ID)
+        {
+            var cause = _empresaContext.CausalAnalysis.FirstOrDefault(c => c.ID == ID);
+            return Json(cause, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UpdateCause([Bind(Include = "ID, IncidentID, EventID, CausalFactor, PotencialFactor")] CausalAnalice model)
+        {
+            var message = "";
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _empresaContext.Entry(model).State = EntityState.Modified;
+                    await _empresaContext.SaveChangesAsync();
+                    message = "La actualización se ha realizado exitosamente !!";
+                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    message = "La actualización NO se ha realizado exitosamente !!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                message = "La actualización NO se ha realizado exitosamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> DeleteCause(int? id)
+        {
+            var message = "";
+            try
+            {
+                var result =
+                    from c in _empresaContext.CausalAnalysis
+                    join e in _empresaContext.Events on c.EventID equals e.ID
+                    select new
+                    {
+                        Name = e.Name,
+                        CausalFactor = c.CausalFactor,
+                        PotencialFactor = c.PotencialFactor
+                    };
+
+                return Json(new { data = result, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                message = "No fué posible realizar esta transacción !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteCause(int id)
+        {
+            var message = "";
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var result = await _empresaContext.CausalAnalysis.FindAsync(id);
+                    _empresaContext.CausalAnalysis.Remove(result);
+                    await _empresaContext.SaveChangesAsync();
+                    message = "El registro fué borrado correctamente !!";
+                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    message = "El registro NO fué borrado correctamente !!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                message = "El registro NO fué borrado correctamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }

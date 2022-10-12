@@ -694,10 +694,10 @@
     <Content Include="Views\Shared\_ShowRoles.cshtml" />
     <Content Include="Views\Shared\_ShowAuthorize.cshtml" />
     <Content Include="Views\Shared\_EditEvent.cshtml" />
-    <Content Include="Views\Shared\_EdiCauseAnalice.cshtml" />
-    <Content Include="Views\Shared\_EdiBarrierAnalice.cshtml" />
-    <Content Include="Views\Shared\_EdiRootCause.cshtml" />
-    <Content Include="Views\Shared\_EdiRecomendation.cshtml" />
+    <Content Include="Views\Shared\_EditCauseAnalice.cshtml" />
+    <Content Include="Views\Shared\_EditBarrierAnalice.cshtml" />
+    <Content Include="Views\Shared\_EditRootCause.cshtml" />
+    <Content Include="Views\Shared\_EditRecomendation.cshtml" />
     <Content Include="Views\Shared\_ShowEvents.cshtml" />
     <Content Include="Views\Shared\_ShowCausesAnalysis.cshtml" />
     <Content Include="Views\Shared\_ShowBarriersAnalysis.cshtml" />
