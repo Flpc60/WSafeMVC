@@ -3378,7 +3378,7 @@ function AddEvent() {
             $("#txtOrder").val(num);
             $("#btnAddEvent").hide();
             $("#btnCanEvent").hide();
-           alert(response.mensaj);
+            alert(response.mensaj);
             ShowEvents();
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -3387,8 +3387,7 @@ function AddEvent() {
         }
     });
 }
-
-function ShowEvents(){
+function ShowEvents() {
     // Mostrar todos los eventos
     var incidentID = $("#txtIncidenteID").val();
     $.ajax({
@@ -3427,6 +3426,195 @@ function getEventByID(eventID) {
         type: 'GET',
         url: "/Incidentes/UpdateEvent",
         data: { id: eventID },
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        success: function (result) {
+            $("#txtEventID").val(result.ID);
+            $("#txtEvent").val(result.Name);
+            $("#txtOrder").val(result.Order);
+            $("#btnAddEvent").hide();
+            $("#btnUpdEvent").show();
+            $(".tabAddEvents").css("display", "block");
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function DeleteEvent(id) {
+    $.ajax({
+        url: "/Incidentes/DeleteEvent/" + id,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        async: true,                                             // si es asincrónico o no
+        success: function (result) {
+            var text = "";
+            text += "Esta seguro de querer borrar este evento ? :\n\n";
+            text += "Evento : " + result.data.Name + "\n";
+            text += "Orden : " + result.data.Order + "\n";
+            var respuesta = confirm(text);
+            if (respuesta == true) {
+                $.ajax({
+                    url: "/Incidentes/DeleteEvent/" + id,
+                    type: "POST",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    async: true,                                               // si es asincrónico o no
+                    success: function (result) {
+                        alert(result.mensaj);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                    }
+                });
+            }
+            ClearTextBox();
+            ShowEvents();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function UpdateEvent() {
+    // Actualiza un evento creado, captura la incidenteID de id = txtIncidenteID
+    $(".tabGesEvents").css("display", "none");
+    $(".tabAddEvents").css("display", "none");
+    var eventVM = {
+        ID: $("#txtEventID").val(),
+        IncidentID: $("#txtIncidenteID").val(),
+        Name: $("#txtEvent").val(),
+        Order: $("#txtOrder").val()
+    };
+    $.ajax({
+        type: "POST",
+        url: "/Incidentes/UpdateEvent",
+        data: { model: eventVM },
+        dataType: "json",
+        success: function (response) {
+            alert(response.mensaj);
+            $(".tabGesEvents").css("display", "block");
+            ShowEvents();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function AddCause() {
+    // Crea un nuevo factor causal
+    $('.tabAddCauses').css("display", "none");
+    var cause = {
+        ID: "0",
+        IncidentID: $("#txtIncidenteID").val(),
+        EventID: $("#txtCauseAnalice").val(),
+        CausalFactor: $("#txtCauseFactor").val(),
+        Potencial: $("#txtPotencial").val()
+    };
+    $.ajax({
+        type: "POST",
+        url: "/Incidentes/CreateCause",
+        data: { model: cause },
+        dataType: "json",
+        success: function (response) {
+            $("#txtEventID").val("");
+            $("#txtCauseAnalice").val("");
+            $("#txtCauseFactor").val("");
+            $("#txtPotencial").val("");
+            $("#btnAddCause").hide();
+            $("#btnCanCause").hide();
+            alert(response.mensaj);
+            ShowCauses();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function ShowCauses() {
+    // Mostrar todos los factores causales
+    var incidentID = $("#txtIncidenteID").val();
+    $.ajax({
+        url: "/Incidentes/GetCauses",
+        data: { id: incidentID },
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (result) {
+            var html = '';
+            var cause = '';
+            var potencial = '';
+            $.each(result, function (key, item) {
+                name = item.Name.toUpperCase();
+                switch (item.CausalFactor) {
+                    case 1:
+                        cause = "Causa Directa";
+                        break;
+
+                    case 2:
+                        cause = "Causa Contribuyente";
+                        break;
+
+                    case 3:
+                        cause = "Causa Principal";
+                        break;
+                }
+
+                switch (item.PotencialFactor) {
+                    case 1:
+                        potencial = "Falta de conciencia";
+                        break;
+
+                    case 2:
+                        potencial = "Falta de prácticas seguras de trabajo";
+                        break;
+
+                    case 3:
+                        potencial = "Falta de aplicación de prácticas laborales seguras";
+                        break;
+
+                    case 4:
+                        potencial = "Equipo/materiales inadecuados";
+                        break;
+
+                    case 5:
+                        potencial = "Diseños inadecuados";
+                        break;
+                }
+
+                html += '<tr>';
+                html += '<td>' + name + '</td>';
+                html += '<td>' + cause + '</td>';
+                html += '<td>' + potencial + '</td>';
+                html += '<td><a href="#" onclick="return getCauseByID(' + item.ID + ')">Editar</a> | <a href = "#" onclick = "DeleteCause(' + item.ID + ')"> Borrar</a></td>';
+                html += '</tr>';
+            });
+            $('.tbody').html(html);
+            $('.tabGesCauses').css("display", "block");
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function getCauseByID(causeID) {
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: "/Incidentes/UpdateCause",
+        data: { id: causeID },
         dataType: "json",
         contentType: "application/json;charset=UTF-8",
         success: function (result) {
