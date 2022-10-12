@@ -2023,11 +2023,15 @@ function ResetTab() {
     $(".tabAddProcess").css("display", "none");
     $(".tabAddActivitys").css("display", "none");
     $(".tabAddTasks").css("display", "none");
+    $(".tabAddEvents").css("display", "none");
+    $(".tabAddCauses").css("display", "none");
     $(".tabGesCargos").css("display", "none");
     $(".tabGesZones").css("display", "none");
     $(".tabGesProcess").css("display", "none");
     $(".tabGesActivitys").css("display", "none");
     $(".tabGesTasks").css("display", "none");
+    $(".tabGesEvents").css("display", "none");
+    $(".tabGesCauses").css("display", "none");
     $(".tabCerrar").css("display", "block");
 }
 
@@ -2181,13 +2185,13 @@ function GestorIncidents() {
         ResetTab();
     });
 
-    $("#causales").click(function () {
+    $("#causes").click(function () {
         ResetTab();
-        $(".tabGesCausales").css("display", "block");
+        $(".tabGesCauses").css("display", "block");
         $(".tabCerrar").css("display", "none");
-        ShowZones();
+        ShowCauses();
     });
-    $("#causales").dblclick(function () {
+    $("#causes").dblclick(function () {
         ResetTab();
     });
 
@@ -2229,12 +2233,12 @@ function GestorIncidents() {
         $("#btnCanEvent").show();
         $("#btnUpdEvent").hide();
     });
-    $("#addCausal").click(function () {
-        $(".tabAddCausales").css("display", "block");
+    $("#addCauses").click(function () {
+        $(".tabAddCauses").css("display", "block");
         $(".tabCerrar").css("display", "none");
-        $("#btnAddCausal").show();
-        $("#btnCanCausal").show();
-        $("#btnUpdCausal").hide();
+        $("#btnAddCause").show();
+        $("#btnCanCause").show();
+        $("#btnUpdCause").hide();
     });
     $("#addBarriers").click(function () {
         $(".tabAddBarriers").css("display", "block");
@@ -3524,7 +3528,6 @@ function AddCause() {
         data: { model: cause },
         dataType: "json",
         success: function (response) {
-            $("#txtEventID").val("");
             $("#txtCauseAnalice").val("");
             $("#txtCauseFactor").val("");
             $("#txtPotencial").val("");
@@ -3631,9 +3634,9 @@ function getCauseByID(causeID) {
     });
 }
 
-function DeleteEvent(id) {
+function DeleteCause(id) {
     $.ajax({
-        url: "/Incidentes/DeleteEvent/" + id,
+        url: "/Incidentes/DeleteCause/" + id,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
@@ -3642,7 +3645,8 @@ function DeleteEvent(id) {
             var text = "";
             text += "Esta seguro de querer borrar este evento ? :\n\n";
             text += "Evento : " + result.data.Name + "\n";
-            text += "Orden : " + result.data.Order + "\n";
+            text += "Causal Factor : " + result.data.CausalFactor + "\n";
+            text += "Potencial Factor : " + result.data.PotencialFactor + "\n";
             var respuesta = confirm(text);
             if (respuesta == true) {
                 $.ajax({
@@ -3670,19 +3674,20 @@ function DeleteEvent(id) {
     });
 }
 
-function UpdateEvent() {
+function UpdateCause() {
     // Actualiza un evento creado, captura la incidenteID de id = txtIncidenteID
     $(".tabGesEvents").css("display", "none");
     $(".tabAddEvents").css("display", "none");
     var eventVM = {
-        ID: $("#txtEventID").val(),
+        ID: $("#txtCauseID").val(),
         IncidentID: $("#txtIncidenteID").val(),
-        Name: $("#txtEvent").val(),
-        Order: $("#txtOrder").val()
+        EventID: $("#txtCauseAnalice").val(),
+        CausalFactor: $("#txtCauseFactor").val(),
+        PotencialFactor: $("#txtPotencial").val()
     };
     $.ajax({
         type: "POST",
-        url: "/Incidentes/UpdateEvent",
+        url: "/Incidentes/UpdateCause",
         data: { model: eventVM },
         dataType: "json",
         success: function (response) {
