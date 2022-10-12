@@ -408,7 +408,7 @@ namespace WSafe.Web.Controllers
                              select new
                              {
                                  ID = e.ID,
-                                 Name = e.Name,
+                                 Name = e.Name.ToUpper(),
                                  Order = e.Order
                              };
 
