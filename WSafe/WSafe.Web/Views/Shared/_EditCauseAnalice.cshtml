@@ -1,11 +1,12 @@
-﻿<div class="container" style="background-color:mediumaquamarine">
+﻿<hr />
+<div class="container" style="background-color:mediumaquamarine">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="form-group">
                 <div class="col-md-10">
-                    <label for="txtCauseAnalice">Descripción Factor Causal :</label>
-                    <select name="txtCauseAnalice" id="txtCauseAnalice">
-                        <option>Seleccione factor causal</option>
+                    <label for="txtCauseAnalice" class = "control-label col-md-2">Descripción Factor Causal :</label>
+                    <select name="txtCauseAnalice" id="txtCauseAnalice" class="form-control">
+                        <option selected="selected" value="0">Seleccione un evento...</option>
                     </select>
                 </div>
             </div>
@@ -14,9 +15,9 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label for="txtCauseFactor">Factor Causal</label>
+                <label for="txtCauseFactor"class = "control-label col-md-2">Factor Causal</label>
                 <div class="col-md-6">
-                    <select name="txtCausal" class="form-control" id="txtCausal">
+                    <select name="txtCause" class="form-control" id="txtCause">
                         <option selected="selected" value="0">Seleccione un factor causal...</option>
                         <option value="1">Causa Directa</option>
                         <option value="2">Causa Contribuyente</option>
@@ -28,7 +29,7 @@
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <label for="txtPotencial">Factor Causal Potencial </label>
+                <label for="txtPotencial"class = "control-label col-md-2">Factor Potencial </label>
                 <div class="col-md-6">
                     <select name="txtPotencial" class="form-control" id="txtPotencial">
                         <option selected="selected" value="0">Seleccione un factor causal potencial...</option>

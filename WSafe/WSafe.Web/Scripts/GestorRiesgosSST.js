@@ -2199,7 +2199,7 @@ function GestorIncidents() {
         ResetTab();
         $(".tabGesBarriers").css("display", "block");
         $(".tabCerrar").css("display", "none");
-        ShowBarriers();
+        //ShowBarriers();
     });
     $("#rootCauses").dblclick(function () {
         ResetTab();
@@ -2209,7 +2209,7 @@ function GestorIncidents() {
         ResetTab();
         $(".tabGesRootCauses").css("display", "block");
         $(".tabCerrar").css("display", "none");
-        ShowRootCauses();
+        //ShowRootCauses();
     });
     $("#rootCauses").dblclick(function () {
         ResetTab();
@@ -2219,7 +2219,7 @@ function GestorIncidents() {
         ResetTab();
         $(".tabGesRecomendations").css("display", "block");
         $(".tabCerrar").css("display", "none");
-        ShowRecomendations();
+        //ShowRecomendations();
     });
     $("#recomendation").dblclick(function () {
         ResetTab();
@@ -3519,8 +3519,8 @@ function AddCause() {
         ID: "0",
         IncidentID: $("#txtIncidenteID").val(),
         EventID: $("#txtCauseAnalice").val(),
-        CausalFactor: $("#txtCauseFactor").val(),
-        Potencial: $("#txtPotencial").val()
+        CausalFactor: $("#txtCause").val(),
+        PotencialFactor: $("#txtPotencial").val()
     };
     $.ajax({
         type: "POST",
@@ -3529,7 +3529,7 @@ function AddCause() {
         dataType: "json",
         success: function (response) {
             $("#txtCauseAnalice").val("");
-            $("#txtCauseFactor").val("");
+            $("#txtCause").val("");
             $("#txtPotencial").val("");
             $("#btnAddCause").hide();
             $("#btnCanCause").hide();
@@ -3621,12 +3621,13 @@ function getCauseByID(causeID) {
         dataType: "json",
         contentType: "application/json;charset=UTF-8",
         success: function (result) {
-            $("#txtEventID").val(result.ID);
-            $("#txtEvent").val(result.Name);
-            $("#txtOrder").val(result.Order);
-            $("#btnAddEvent").hide();
-            $("#btnUpdEvent").show();
-            $(".tabAddEvents").css("display", "block");
+            $("#txtCauseID").val(result.ID);
+            $("#txtCauseAnalice").val(result.Name);
+            $("#txtCause").val(result.CausalFactor);
+            $("#txtPotencial").val(result.PotencialFactor);
+            $("#btnAddCause").hide();
+            $("#btnUpdCause").show();
+            $(".tabAddCauses").css("display", "block");
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -3665,7 +3666,7 @@ function DeleteCause(id) {
                 });
             }
             ClearTextBox();
-            ShowEvents();
+            ShowCauses();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -3693,11 +3694,19 @@ function UpdateCause() {
         success: function (response) {
             alert(response.mensaj);
             $(".tabGesEvents").css("display", "block");
-            ShowEvents();
+            ShowCauses();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
             alert(thrownError);
         }
     });
+}
+
+function CancelCause() {
+    $(".tabGesCauses").css("display", "none");
+    $(".tabAddCauses").css("display", "none");
+    $("#txtCauseAnalice").val("");
+    $("#txtCause").val("");
+    $("#txtPotencial").val("");
 }
