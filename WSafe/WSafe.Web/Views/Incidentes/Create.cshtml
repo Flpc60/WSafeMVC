@@ -4,7 +4,7 @@
 }
 <style>
     .detal, .tabGeneral, .tabLesionados, .tabDescrip, .tabAcciones, .tabMatriz, .tabAddLesionado,
-    .tabInvestigation, .tabAddEvents, .tabGesEvents, .tabAddCauses, .tabGesCauses
+    .tabInvestigation, .tabAddEvents, .tabGesEvents, .tabAddCauses, .tabGesCauses, .tabAddBarriers, .tabGesBarriers
     {
         display: none;
     }
@@ -129,7 +129,7 @@
     </div>
     <div class="tabAddCauses">
         <input type="hidden" id="txtEventID" name="txtEventID" />
-        <input type="hidden" id="txtCausalID" name="txtCauseID" />
+        <input type="hidden" id="txtCauseID" name="txtCauseID" />
         @Html.Partial("_EditCauseAnalice")
         <div class="row">
             <div class="col-md-8">
@@ -137,6 +137,30 @@
                 <button type="button" id="btnAddCause" class="btn btn-primary" onclick="AddCause()">Adicionar</button>
                 <button type="button" id="btnUpdCause" class="btn btn-primary" onclick="UpdateCause()">Actualizar</button>
                 <button type="button" id="btnCanCause" class="btn btn-primary" onclick="CancelCause()">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                </button>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+
+    <div class="tabGesBarriers">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-success" id="addBarriers">Adicionar una nueva defensa</button>
+        </div>
+        @Html.Partial("_ShowBarriersAnalysis")
+    </div>
+    <div class="tabAddBarriers">
+        <input type="hidden" id="txtEventID" name="txtEventID" />
+        <input type="hidden" id="txtBarrierID" name="txtBarrierID" />
+        @Html.Partial("_EditBarrierAnalice")
+        <div class="row">
+            <div class="col-md-8">
+                <hr />
+                <button type="button" id="btnAddBarrier" class="btn btn-primary" onclick="AddBarrier()">Adicionar</button>
+                <button type="button" id="btnUpdBarrier" class="btn btn-primary" onclick="UpdateBarrier()">Actualizar</button>
+                <button type="button" id="btnCanBarrier" class="btn btn-primary" onclick="CancelBarrier()">
                     <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
                 </button>
             </div>
@@ -171,10 +195,29 @@
             var eventSelect = $('#txtCauseAnalice');
             eventSelect.empty();
             if (selectedIncident != null && selectedIncident != '') {
-                $.getJSON('@Url.Action("GetEvents")', { ID: selectedIncident }, function (eventos) {
+                $.getJSON('@Url.Action("GetEvents")', { id: selectedIncident }, function (eventos) {
                     if (eventos != null && !jQuery.isEmptyObject(eventos)) {
                         $.each(eventos, function (index, item) {
                             eventSelect.append($('<option />',
+                                {
+                                    value: item.ID,
+                                    text: item.Name
+                                }));
+                        });
+                    };
+                });
+            }
+        });
+
+        $('#txtBarrier').click(function () {
+            var selectedIncident = $("#txtIncidenteID").val();
+            var barrierSelect = $('#txtBarrier');
+            barrierSelect.empty();
+            if (selectedIncident != null && selectedIncident != '') {
+                $.getJSON('@Url.Action("GetEvents")', { id: selectedIncident }, function (eventos) {
+                    if (eventos != null && !jQuery.isEmptyObject(eventos)) {
+                        $.each(eventos, function (index, item) {
+                            barrierSelect.append($('<option />',
                                 {
                                     value: item.ID,
                                     text: item.Name
