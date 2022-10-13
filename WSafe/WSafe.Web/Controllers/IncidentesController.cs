@@ -425,8 +425,10 @@ namespace WSafe.Web.Controllers
                 var result =
                     from c in _empresaContext.CausalAnalysis
                     join e in _empresaContext.Events on c.EventID equals e.ID
+                    where c.IncidentID == id
                     select new
                     {
+                        ID = c.ID,
                         Name = e.Name,
                         CausalFactor = c.CausalFactor,
                         PotencialFactor = c.PotencialFactor
@@ -438,16 +440,24 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetBarriersAnalisys(int id)
+        public ActionResult GetBarriers(int id)
         {
             if (id != null)
             {
-                var result = from e in _empresaContext.BarrierAnalysis
-                             where e.ID == id
-                             select e;
+                var result =
+                    from b in _empresaContext.BarrierAnalysis
+                    join e in _empresaContext.Events on b.EventID equals e.ID
+                    where b.IncidentID == id
+                    select new
+                    {
+                        ID = b.ID,
+                        Name = e.Name,
+                        BarrierCategory = b.BarrierCategory
+                    };
+
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
-            return null;
+            return Json(null, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -530,7 +540,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateBarrierAnalice(BarrierAnalice model)
+        public async Task<ActionResult> CreateBarrier(BarrierAnalice model)
         {
             var message = "";
             try
@@ -545,13 +555,13 @@ namespace WSafe.Web.Controllers
                 else
                 {
 
-                    message = "La defensa NO fué ingresada correctamente !!";
+                    message = "La defensa NO fué ingresada exitosamente !!";
                     return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch
             {
-                message = "La defensa NO fué ingresada correctamente !!";
+                message = "La defensa NO fué ingresada exitosamente !!";
                 return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
@@ -725,19 +735,10 @@ namespace WSafe.Web.Controllers
             var message = "";
             try
             {
-                var result =
-                    from c in _empresaContext.CausalAnalysis
-                    join e in _empresaContext.Events on c.EventID equals e.ID
-                    select new
-                    {
-                        Name = e.Name,
-                        CausalFactor = c.CausalFactor,
-                        PotencialFactor = c.PotencialFactor
-                    };
-
+                var result = _empresaContext.CausalAnalysis.Find(id);
                 return Json(new { data = result, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception ex)
+            catch
             {
                 message = "No fué posible realizar esta transacción !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);

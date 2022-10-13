@@ -2199,7 +2199,7 @@ function GestorIncidents() {
         ResetTab();
         $(".tabGesBarriers").css("display", "block");
         $(".tabCerrar").css("display", "none");
-        //ShowBarriers();
+        ShowBarriers();
     });
     $("#rootCauses").dblclick(function () {
         ResetTab();
@@ -3644,14 +3644,14 @@ function DeleteCause(id) {
         async: true,                                             // si es asincrónico o no
         success: function (result) {
             var text = "";
-            text += "Esta seguro de querer borrar este evento ? :\n\n";
-            text += "Evento : " + result.data.Name + "\n";
+            text += "Esta seguro de querer borrar esta causa ? :\n\n";
+            text += "Evento : " + result.data.EventID + "\n";
             text += "Causal Factor : " + result.data.CausalFactor + "\n";
             text += "Potencial Factor : " + result.data.PotencialFactor + "\n";
             var respuesta = confirm(text);
             if (respuesta == true) {
                 $.ajax({
-                    url: "/Incidentes/DeleteEvent/" + id,
+                    url: "/Incidentes/DeleteCause/" + id,
                     type: "POST",
                     contentType: "application/json;charset=UTF-8",
                     dataType: "json",
@@ -3677,13 +3677,13 @@ function DeleteCause(id) {
 
 function UpdateCause() {
     // Actualiza un evento creado, captura la incidenteID de id = txtIncidenteID
-    $(".tabGesEvents").css("display", "none");
-    $(".tabAddEvents").css("display", "none");
+    $(".tabGesCauses").css("display", "none");
+    $(".tabAddCauses").css("display", "none");
     var eventVM = {
         ID: $("#txtCauseID").val(),
         IncidentID: $("#txtIncidenteID").val(),
         EventID: $("#txtCauseAnalice").val(),
-        CausalFactor: $("#txtCauseFactor").val(),
+        CausalFactor: $("#txtCause").val(),
         PotencialFactor: $("#txtPotencial").val()
     };
     $.ajax({
@@ -3693,7 +3693,7 @@ function UpdateCause() {
         dataType: "json",
         success: function (response) {
             alert(response.mensaj);
-            $(".tabGesEvents").css("display", "block");
+            $(".tabGesCauses").css("display", "block");
             ShowCauses();
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -3709,4 +3709,186 @@ function CancelCause() {
     $("#txtCauseAnalice").val("");
     $("#txtCause").val("");
     $("#txtPotencial").val("");
+}
+
+function AddBarrier() {
+    // Crea una nueva defensa
+    $('.tabAddBarriers').css("display", "none");
+    var barrier = {
+        ID: "0",
+        IncidentID: $("#txtIncidenteID").val(),
+        EventID: $("#txtBarrier").val(),
+        BarrierCategory: $("#txtBarrierCat").val()
+    };
+    $.ajax({
+        type: "POST",
+        url: "/Incidentes/CreateBarrier",
+        data: { model: barrier },
+        dataType: "json",
+        success: function (response) {
+            $("#txtBarrier").val("");
+            $("#txtBarrierCat").val("");
+            $("#btnAddBarrier").hide();
+            $("#btnCanBarrier").hide();
+            alert(response.mensaj);
+            ShowBarriers();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function ShowBarriers() {
+    // Mostrar todos las defenas
+    var incidentID = $("#txtIncidenteID").val();
+    $.ajax({
+        url: "/Incidentes/GetBarriers",
+        data: { id: incidentID },
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (result) {
+            var html = '';
+            var barrier = '';
+            $.each(result, function (key, item) {
+                name = item.Name.toUpperCase();
+                switch (item.BarrierCategory) {
+                    case 1:
+                        barrier = "Equipo";
+                        break;
+
+                    case 2:
+                        barrier = "Diseño";
+                        break;
+
+                    case 3:
+                        barrier = "Administración";
+                        break;
+
+                    case 4:
+                        barrier = "Supervisión";
+                        break;
+
+                    case 5:
+                        barrier = "Dispositivos";
+                        break;
+
+                    case 6:
+                        barrier = "Habilidades";
+                        break;
+
+                }
+
+                html += '<tr>';
+                html += '<td>' + name + '</td>';
+                html += '<td>' + barrier + '</td>';
+                html += '<td><a href="#" onclick="return getBarrierByID(' + item.ID + ')">Editar</a> | <a href = "#" onclick = "DeleteBarrier(' + item.ID + ')"> Borrar</a></td>';
+                html += '</tr>';
+            });
+            $('.tbody').html(html);
+            $('.tabGesBarriers').css("display", "block");
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function getBarrierByID(barrierID) {
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: "/Incidentes/UpdateBarrier",
+        data: { id: barrierID },
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        success: function (result) {
+            $("#txtBarrierID").val(result.ID);
+            $("#txtBarrier").val(result.CausalFactor);
+            $("#btnAddBarrier").hide();
+            $("#btnUpdBarrier").show();
+            $(".tabAddBarriers").css("display", "block");
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function DeleteBarrier(id) {
+    $.ajax({
+        url: "/Incidentes/DeleteBarrier/" + id,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        async: true,                                             // si es asincrónico o no
+        success: function (result) {
+            var text = "";
+            text += "Esta seguro de querer borrar esta causa ? :\n\n";
+            text += "Evento : " + result.data.EventID + "\n";
+            text += "Causal Factor : " + result.data.BarrierCategory + "\n";
+            var respuesta = confirm(text);
+            if (respuesta == true) {
+                $.ajax({
+                    url: "/Incidentes/DeleteBarrier/" + id,
+                    type: "POST",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    async: true,                                               // si es asincrónico o no
+                    success: function (result) {
+                        alert(result.mensaj);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                    }
+                });
+            }
+            ClearTextBox();
+            ShowBarriers();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function UpdateBarrier() {
+    // Actualiza una defensa, captura la incidenteID de id = txtIncidenteID
+    $(".tabGesBarriers").css("display", "none");
+    $(".tabAddBarriers").css("display", "none");
+    var barrierVM = {
+        ID: $("#txtBarrierID").val(),
+        IncidentID: $("#txtIncidenteID").val(),
+        EventID: $("#txtBarrier").val(),
+        BarrierCategory: $("#txtBarrierCat").val(),
+        PotencialFactor: $("#txtPotencial").val()
+    };
+    $.ajax({
+        type: "POST",
+        url: "/Incidentes/UpdateCause",
+        data: { model: eventVM },
+        dataType: "json",
+        success: function (response) {
+            alert(response.mensaj);
+            $(".tabGesCauses").css("display", "block");
+            ShowCauses();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function CancelBarrier() {
+    $(".tabGesBarrier").css("display", "none");
+    $(".tabAddBarriers").css("display", "none");
+    $("#txtBarrier").val("");
+    $("#txtBarrierCat").val("");
 }
