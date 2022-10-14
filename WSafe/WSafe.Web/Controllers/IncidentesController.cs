@@ -466,14 +466,15 @@ namespace WSafe.Web.Controllers
             if (id != null)
             {
                 var result =
-                    from b in _empresaContext.BarrierAnalysis
-                    join e in _empresaContext.Events on b.EventID equals e.ID
+                    from b in _empresaContext.Reasons
+                    join e in _empresaContext.RootCauses on b.RootCauseID equals e.ID
                     where b.IncidentID == id
                     select new
                     {
-                        ID = b.ID,
+                        ID = e.ID,
                         Name = e.Name,
-                        BarrierCategory = b.BarrierCategory
+                        RootCauseID = b.ID,
+                        Reasons = b.Name
                     };
 
                 return Json(result, JsonRequestBehavior.AllowGet);
