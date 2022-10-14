@@ -169,6 +169,30 @@
         </div>
     </div>
 
+    <div class="tabGesRootCauses">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-success" id="addRootCauses">Adicionar una nueva causa principal</button>
+        </div>
+        @Html.Partial("_ShowRootCauses")
+    </div>
+    <div class="tabAddRootCauses">
+        <input type="hidden" id="txtEventID" name="txtEventID" />
+        <input type="hidden" id="txtRootCauseID" name="txtRootCauseID" />
+        @Html.Partial("_EditRootCause")
+        <div class="row">
+            <div class="col-md-8">
+                <hr />
+                <button type="button" id="btnAddRootCause" class="btn btn-primary" onclick="AddRootCause()">Adicionar</button>
+                <button type="button" id="btnUpdRootCause" class="btn btn-primary" onclick="UpdateRootCause()">Actualizar</button>
+                <button type="button" id="btnCanRootCause" class="btn btn-primary" onclick="CancelRootCause()">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                </button>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+
 </div>
 }
 
@@ -209,15 +233,15 @@
             }
         });
 
-        $('#txtBarrier').click(function () {
+        function selectEvent(id) {
             var selectedIncident = $("#txtIncidenteID").val();
-            var barrierSelect = $('#txtBarrier');
-            barrierSelect.empty();
+            var eventSelect = $(id);
+            eventSelect.empty();
             if (selectedIncident != null && selectedIncident != '') {
                 $.getJSON('@Url.Action("GetEvents")', { id: selectedIncident }, function (eventos) {
                     if (eventos != null && !jQuery.isEmptyObject(eventos)) {
                         $.each(eventos, function (index, item) {
-                            barrierSelect.append($('<option />',
+                            eventSelect.append($('<option />',
                                 {
                                     value: item.ID,
                                     text: item.Name
@@ -226,7 +250,7 @@
                     };
                 });
             }
-        });
+        }
 
     </script>
 }
