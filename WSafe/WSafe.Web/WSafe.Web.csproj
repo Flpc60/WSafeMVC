@@ -701,6 +701,7 @@
     <Content Include="Views\Shared\_ShowEvents.cshtml" />
     <Content Include="Views\Shared\_ShowCausesAnalysis.cshtml" />
     <Content Include="Views\Shared\_ShowBarriersAnalysis.cshtml" />
+    <Content Include="Views\Shared\_ShowRootCauses.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

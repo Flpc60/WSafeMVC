@@ -408,7 +408,7 @@ namespace WSafe.Web.Controllers
                              select new
                              {
                                  ID = e.ID,
-                                 Name = e.Name.ToUpper(),
+                                 Name = e.Name,
                                  Order = e.Order
                              };
 
@@ -461,13 +461,21 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetRootCausesAnalisys(int id)
+        public ActionResult GetRootCauses(int id)
         {
             if (id != null)
             {
-                var result = from e in _empresaContext.RootCauses
-                             where e.ID == id
-                             select e;
+                var result =
+                    from b in _empresaContext.BarrierAnalysis
+                    join e in _empresaContext.Events on b.EventID equals e.ID
+                    where b.IncidentID == id
+                    select new
+                    {
+                        ID = b.ID,
+                        Name = e.Name,
+                        BarrierCategory = b.BarrierCategory
+                    };
+
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
             return null;
@@ -567,7 +575,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateRootCause(RootCause model)
+        public async Task<ActionResult> CreateRootCause(RootCause model, string reason)
         {
             var message = "";
             try
@@ -577,6 +585,17 @@ namespace WSafe.Web.Controllers
                     message = "La causa principal fué ingresada exitosamente !!";
                     _empresaContext.RootCauses.Add(model);
                     await _empresaContext.SaveChangesAsync();
+                    var id = _empresaContext.RootCauses.OrderByDescending(x => x.ID).First().ID;
+                    Reason result = new Reason
+                    {
+                        ID = 0,
+                        IncidentID = model.IncidentID,
+                        RootCauseID = id,
+                        Name = reason
+                    };
+                    _empresaContext.Reasons.Add(result);
+                    await _empresaContext.SaveChangesAsync();
+
                     return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
                 else
@@ -755,6 +774,82 @@ namespace WSafe.Web.Controllers
                 {
                     var result = await _empresaContext.CausalAnalysis.FindAsync(id);
                     _empresaContext.CausalAnalysis.Remove(result);
+                    await _empresaContext.SaveChangesAsync();
+                    message = "El registro fué borrado correctamente !!";
+                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    message = "El registro NO fué borrado correctamente !!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                message = "El registro NO fué borrado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public JsonResult UpdateBarrier(int ID)
+        {
+            var barrier = _empresaContext.BarrierAnalysis.FirstOrDefault(c => c.ID == ID);
+            return Json(barrier, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UpdateBarrier([Bind(Include = "ID, IncidentID, EventID, BarrierCategory")] BarrierAnalice model)
+        {
+            var message = "";
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _empresaContext.Entry(model).State = EntityState.Modified;
+                    await _empresaContext.SaveChangesAsync();
+                    message = "La actualización se ha realizado exitosamente !!";
+                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    message = "La actualización NO se ha realizado exitosamente !!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                message = "La actualización NO se ha realizado exitosamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> DeleteBarrier(int? id)
+        {
+            var message = "";
+            try
+            {
+                var result = _empresaContext.BarrierAnalysis.Find(id);
+                return Json(new { data = result, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                message = "No fué posible realizar esta transacción !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteBarrier(int id)
+        {
+            var message = "";
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var result = await _empresaContext.BarrierAnalysis.FindAsync(id);
+                    _empresaContext.BarrierAnalysis.Remove(result);
                     await _empresaContext.SaveChangesAsync();
                     message = "El registro fué borrado correctamente !!";
                     return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);

@@ -3808,8 +3808,8 @@ function getBarrierByID(barrierID) {
         contentType: "application/json;charset=UTF-8",
         success: function (result) {
             $("#txtBarrierID").val(result.ID);
-            $("#txtBarrier").val(result.CausalFactor);
-            $("#btnAddBarrier").hide();
+            $("#txtBarrier").val(result.EventID);
+            $("#txtBarrierCat").val(result.BarrierCategory);
             $("#btnUpdBarrier").show();
             $(".tabAddBarriers").css("display", "block");
         },
@@ -3830,7 +3830,7 @@ function DeleteBarrier(id) {
             var text = "";
             text += "Esta seguro de querer borrar esta causa ? :\n\n";
             text += "Evento : " + result.data.EventID + "\n";
-            text += "Causal Factor : " + result.data.BarrierCategory + "\n";
+            text += "Categoría defensa : " + result.data.BarrierCategory + "\n";
             var respuesta = confirm(text);
             if (respuesta == true) {
                 $.ajax({
@@ -3866,18 +3866,174 @@ function UpdateBarrier() {
         ID: $("#txtBarrierID").val(),
         IncidentID: $("#txtIncidenteID").val(),
         EventID: $("#txtBarrier").val(),
-        BarrierCategory: $("#txtBarrierCat").val(),
-        PotencialFactor: $("#txtPotencial").val()
+        BarrierCategory: $("#txtBarrierCat").val()
     };
     $.ajax({
         type: "POST",
-        url: "/Incidentes/UpdateCause",
-        data: { model: eventVM },
+        url: "/Incidentes/UpdateBarrier",
+        data: { model: barrierVM },
         dataType: "json",
         success: function (response) {
             alert(response.mensaj);
-            $(".tabGesCauses").css("display", "block");
-            ShowCauses();
+            $(".tabGesBarriers").css("display", "block");
+            ShowBarriers();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function CancelBarrier() {
+    $(".tabGesBarrier").css("display", "none");
+    $(".tabAddBarriers").css("display", "none");
+    $("#txtBarrier").val("");
+    $("#txtBarrierCat").val("");
+}
+
+function AddRootCause() {
+    // Crea una nueva Causa principal
+    $('.tabAddRootCauses').css("display", "none");
+    var reason = $("#txtReason").val();
+    var rootCause = {
+        ID: "0",
+        IncidentID: $("#txtIncidenteID").val(),
+        Name: $("#txtRootCause").val()
+    };
+    $.ajax({
+        type: "POST",
+        url: "/Incidentes/CreateRootCause",
+        data: {
+            model: rootCause,
+            reason: reason
+        },
+        dataType: "json",
+        success: function (response) {
+            $("#txtRootCause").val("");
+            $("#txtReason").val("");
+            $("#btnAddRootCause").hide();
+            $("#btnCanRootCause").hide();
+            alert(response.mensaj);
+            ShowRootCauses();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function ShowRootCauses() {
+    // Mostrar todos las defenas
+    var incidentID = $("#txtIncidenteID").val();
+    $.ajax({
+        url: "/Incidentes/GetRootCauses",
+        data: { id: incidentID },
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (result) {
+            var html = '';
+            $.each(result, function (key, item) {
+                name = item.Name.toUpperCase();
+                reason = item.Reason.toUpperCase();
+                html += '<tr>';
+                html += '<td>' + name + '</td>';
+                html += '<td>' + reason + '</td>';
+                html += '<td><a href="#" onclick="return getRootCauseByID(' + item.ID + ')">Editar</a> | <a href = "#" onclick = "DeleteRootCause(' + item.ID + ')"> Borrar</a></td>';
+                html += '</tr>';
+            });
+            $('.tbody').html(html);
+            $('.tabGesRootCauses').css("display", "block");
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function getBarrierByID(barrierID) {
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: "/Incidentes/UpdateBarrier",
+        data: { id: barrierID },
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        success: function (result) {
+            $("#txtBarrierID").val(result.ID);
+            $("#txtBarrier").val(result.EventID);
+            $("#txtBarrierCat").val(result.BarrierCategory);
+            $("#btnUpdBarrier").show();
+            $(".tabAddBarriers").css("display", "block");
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function DeleteBarrier(id) {
+    $.ajax({
+        url: "/Incidentes/DeleteBarrier/" + id,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        async: true,                                             // si es asincrónico o no
+        success: function (result) {
+            var text = "";
+            text += "Esta seguro de querer borrar esta causa ? :\n\n";
+            text += "Evento : " + result.data.EventID + "\n";
+            text += "Categoría defensa : " + result.data.BarrierCategory + "\n";
+            var respuesta = confirm(text);
+            if (respuesta == true) {
+                $.ajax({
+                    url: "/Incidentes/DeleteBarrier/" + id,
+                    type: "POST",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    async: true,                                               // si es asincrónico o no
+                    success: function (result) {
+                        alert(result.mensaj);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                    }
+                });
+            }
+            ClearTextBox();
+            ShowBarriers();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function UpdateBarrier() {
+    // Actualiza una defensa, captura la incidenteID de id = txtIncidenteID
+    $(".tabGesBarriers").css("display", "none");
+    $(".tabAddBarriers").css("display", "none");
+    var barrierVM = {
+        ID: $("#txtBarrierID").val(),
+        IncidentID: $("#txtIncidenteID").val(),
+        EventID: $("#txtBarrier").val(),
+        BarrierCategory: $("#txtBarrierCat").val()
+    };
+    $.ajax({
+        type: "POST",
+        url: "/Incidentes/UpdateBarrier",
+        data: { model: barrierVM },
+        dataType: "json",
+        success: function (response) {
+            alert(response.mensaj);
+            $(".tabGesBarriers").css("display", "block");
+            ShowBarriers();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
