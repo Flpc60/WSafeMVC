@@ -474,7 +474,7 @@ namespace WSafe.Web.Controllers
                         ID = e.ID,
                         Name = e.Name,
                         RootCauseID = b.ID,
-                        Reasons = b.Name
+                        Reason = b.Name
                     };
 
                 return Json(result, JsonRequestBehavior.AllowGet);
@@ -864,6 +864,42 @@ namespace WSafe.Web.Controllers
             catch
             {
                 message = "El registro NO fué borrado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public JsonResult UpdateRootCause(int ID)
+        {
+            var rootCause = _empresaContext.RootCauses
+                                   .Where(rc => rc.ID == ID)
+                                   .Include(r => r.Reasons);
+
+            return Json(rootCause, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UpdateRootCause([Bind(Include = "ID, IncidentID, EventID, BarrierCategory")] BarrierAnalice model)
+        {
+            var message = "";
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _empresaContext.Entry(model).State = EntityState.Modified;
+                    await _empresaContext.SaveChangesAsync();
+                    message = "La actualización se ha realizado exitosamente !!";
+                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    message = "La actualización NO se ha realizado exitosamente !!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                message = "La actualización NO se ha realizado exitosamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }

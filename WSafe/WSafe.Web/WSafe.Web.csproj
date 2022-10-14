@@ -463,6 +463,10 @@
     <Compile Include="Migrations\202210102147269_UpdateRootCause.Designer.cs">
       <DependentUpon>202210102147269_UpdateRootCause.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202210141933103_UpdateRootCause1.cs" />
+    <Compile Include="Migrations\202210141933103_UpdateRootCause1.Designer.cs">
+      <DependentUpon>202210141933103_UpdateRootCause1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AuthorizationVM.cs" />
     <Compile Include="Models\DetailsIncidentVM.cs" />
@@ -765,6 +769,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202210102147269_UpdateRootCause.resx">
       <DependentUpon>202210102147269_UpdateRootCause.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202210141933103_UpdateRootCause1.resx">
+      <DependentUpon>202210141933103_UpdateRootCause1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
