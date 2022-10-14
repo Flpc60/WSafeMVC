@@ -4,7 +4,8 @@
 }
 <style>
     .detal, .tabGeneral, .tabLesionados, .tabDescrip, .tabAcciones, .tabMatriz, .tabAddLesionado,
-    .tabInvestigation, .tabAddEvents, .tabGesEvents, .tabAddCauses, .tabGesCauses, .tabAddBarriers, .tabGesBarriers
+    .tabInvestigation, .tabAddEvents, .tabGesEvents, .tabAddCauses, .tabGesCauses,
+    .tabAddBarriers, .tabGesBarriers, .tabAddRootCauses, .tabGesRootCauses
     {
         display: none;
     }
@@ -176,7 +177,6 @@
         @Html.Partial("_ShowRootCauses")
     </div>
     <div class="tabAddRootCauses">
-        <input type="hidden" id="txtEventID" name="txtEventID" />
         <input type="hidden" id="txtRootCauseID" name="txtRootCauseID" />
         @Html.Partial("_EditRootCause")
         <div class="row">
