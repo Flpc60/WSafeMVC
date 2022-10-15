@@ -16,7 +16,7 @@ using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
 {
-    // Controlador de incidentes / accidentes
+    // Controlador de incidentes / accidentes laborales
     public class IncidentesController : Controller
     {
         private readonly EmpresaContext _empresaContext;
@@ -408,7 +408,7 @@ namespace WSafe.Web.Controllers
                              select new
                              {
                                  ID = e.ID,
-                                 Name = e.Name,
+                                 Name = e.Name.ToUpper(),
                                  Order = e.Order
                              };
 
@@ -466,15 +466,15 @@ namespace WSafe.Web.Controllers
             if (id != null)
             {
                 var result =
-                    from b in _empresaContext.Reasons
-                    join e in _empresaContext.RootCauses on b.RootCauseID equals e.ID
-                    where b.IncidentID == id
+                    from r in _empresaContext.Reasons
+                    join rc in _empresaContext.RootCauses on r.RootCauseID equals rc.ID
+                    where rc.IncidentID == id
                     select new
                     {
-                        ID = e.ID,
-                        Name = e.Name,
-                        ReasonID = b.ID,
-                        Reason = b.Name
+                        ID = rc.ID,
+                        Name = rc.Name,
+                        ReasonID = r.ID,
+                        Reason = r.Name
                     };
 
                 return Json(result, JsonRequestBehavior.AllowGet);
@@ -869,17 +869,17 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public JsonResult UpdateRootCause(int id, int reasonID)
+        public JsonResult UpdateRootCause(int id)
         {
             var rootCause =
                 from r in _empresaContext.Reasons
-                join e in _empresaContext.RootCauses on r.RootCauseID equals e.ID
-                where e.ID == id && r.ID == reasonID
+                join rc in _empresaContext.RootCauses on r.RootCauseID equals rc.ID
+                where rc.ID == id
                 select new
                 {
-                    ID = e.ID,
-                    Name = e.Name,
-                    RootCauseID = r.ID,
+                    ID = rc.ID,
+                    Name = rc.Name,
+                    ReasonID = r.ID,
                     Reason = r.Name
                 };
 
@@ -887,7 +887,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> UpdateRootCause([Bind(Include = "ID, IncidentID, Name")] BarrierAnalice model, string reason)
+        public async Task<ActionResult> UpdateRootCause([Bind(Include = "ID, IncidentID, Name")] RootCause model, int reasonID, string reason)
         {
             var message = "";
             try
@@ -895,7 +895,7 @@ namespace WSafe.Web.Controllers
                 if (ModelState.IsValid)
                 {
                     _empresaContext.Entry(model).State = EntityState.Modified;
-                    Reason result = _empresaContext.Reasons.Find(model.ID);
+                    Reason result = _empresaContext.Reasons.Find(reasonID);
                     result.Name = reason;
                     _empresaContext.Entry(result).State = EntityState.Modified;
                     await _empresaContext.SaveChangesAsync();
@@ -911,6 +911,51 @@ namespace WSafe.Web.Controllers
             catch
             {
                 message = "La actualización NO se ha realizado exitosamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> DeleteRootCause(int? id)
+        {
+            var message = "";
+            try
+            {
+                var result = _empresaContext.RootCauses.Find(id);
+                return Json(new { data = result, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                message = "No fué posible realizar esta transacción !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteRootCause(int id)
+        {
+            var message = "";
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var result = await _empresaContext.RootCauses.FindAsync(id);
+                    _empresaContext.RootCauses.Remove(result);
+                    var reason = await _empresaContext.Reasons.FindAsync(id);
+                    _empresaContext.Reasons.Remove(reason);
+                    await _empresaContext.SaveChangesAsync();
+                    message = "El registro fué borrado correctamente !!";
+                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    message = "El registro NO fué borrado correctamente !!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                message = "El registro NO fué borrado correctamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
