@@ -3943,7 +3943,7 @@ function ShowRootCauses() {
                 html += '<tr>';
                 html += '<td>' + name + '</td>';
                 html += '<td>' + reason + '</td>';
-                html += '<td><a href="#" onclick="return getRootCauseByID(' + item.ID + ',' + Reason.ID + ')">Editar</a> | <a href = "#" onclick = "DeleteRootCause(' + item.ID + ')"> Borrar</a></td>';
+                html += '<td><a href="#" onclick="return getRootCauseByID(' + item.ID + ')">Editar</a> | <a href = "#" onclick = "DeleteRootCause(' + item.ID + ')"> Borrar</a></td>';
                 html += '</tr>';
             });
             $('.tbody').html(html);
@@ -3956,21 +3956,23 @@ function ShowRootCauses() {
     });
 }
 
-function getRootCauseByID(rootCauseID, reasonID) {
+function getRootCauseByID(rootCauseID) {
     $.ajax({
         async: true,
         type: 'GET',
         url: "/Incidentes/UpdateRootCause",
         data: {
-            id: rootCauseID,
-            reasonID: reasonID
+            id: rootCauseID
         },
         dataType: "json",
         contentType: "application/json;charset=UTF-8",
         success: function (result) {
-            $("#txtRootCauseID").val(result.ID);
-            $("#txtRootCause").val(result.Name);
-            $("#txtReason").val(result.Reason);
+            $.each(result, function (key, item) {
+                $("#txtRootCauseID").val(item.ID);
+                $("#txtRootCause").val(item.Name);
+                $("#txtReasonID").val(item.ReasonID);
+                $("#txtReason").val(item.Reason);
+            });
             $("#btnUpdRootCause").show();
             $(".tabAddRootCauses").css("display", "block");
         },
@@ -3980,9 +3982,9 @@ function getRootCauseByID(rootCauseID, reasonID) {
     });
 }
 
-function DeleteBarrier(id) {
+function DeleteRootCause(id) {
     $.ajax({
-        url: "/Incidentes/DeleteBarrier/" + id,
+        url: "/Incidentes/DeleteRootCause/" + id,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
@@ -3990,12 +3992,11 @@ function DeleteBarrier(id) {
         success: function (result) {
             var text = "";
             text += "Esta seguro de querer borrar esta causa ? :\n\n";
-            text += "Evento : " + result.data.EventID + "\n";
-            text += "Categoría defensa : " + result.data.BarrierCategory + "\n";
+            text += "Causa principal : " + result.data.Name + "\n";
             var respuesta = confirm(text);
             if (respuesta == true) {
                 $.ajax({
-                    url: "/Incidentes/DeleteBarrier/" + id,
+                    url: "/Incidentes/DeleteRootCause/" + id,
                     type: "POST",
                     contentType: "application/json;charset=UTF-8",
                     dataType: "json",
@@ -4010,7 +4011,7 @@ function DeleteBarrier(id) {
                 });
             }
             ClearTextBox();
-            ShowBarriers();
+            ShowRootCauses();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -4024,6 +4025,7 @@ function UpdateRootCause() {
     $(".tabGesBRootCauses").css("display", "none");
     $(".tabAddRootCauses").css("display", "none");
     var reason = $("#txtReason").val();
+    var reasonID = $("#txtReasonID").val();
     var rootCauseVM = {
         ID: $("#txtRootCauseID").val(),
         IncidentID: $("#txtIncidenteID").val(),
@@ -4034,6 +4036,7 @@ function UpdateRootCause() {
         url: "/Incidentes/UpdateRootCause",
         data: {
             model: rootCauseVM,
+            reasonID: reasonID,
             reason: reason
         },
         dataType: "json",
