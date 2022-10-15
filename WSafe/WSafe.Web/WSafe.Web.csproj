@@ -467,6 +467,22 @@
     <Compile Include="Migrations\202210141933103_UpdateRootCause1.Designer.cs">
       <DependentUpon>202210141933103_UpdateRootCause1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202210150007048_UpdateReason.cs" />
+    <Compile Include="Migrations\202210150007048_UpdateReason.Designer.cs">
+      <DependentUpon>202210150007048_UpdateReason.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202210150032042_UpdateReason1.cs" />
+    <Compile Include="Migrations\202210150032042_UpdateReason1.Designer.cs">
+      <DependentUpon>202210150032042_UpdateReason1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202210150051168_UpdateReason11.cs" />
+    <Compile Include="Migrations\202210150051168_UpdateReason11.Designer.cs">
+      <DependentUpon>202210150051168_UpdateReason11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202210150256033_UpdateReason3.cs" />
+    <Compile Include="Migrations\202210150256033_UpdateReason3.Designer.cs">
+      <DependentUpon>202210150256033_UpdateReason3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AuthorizationVM.cs" />
     <Compile Include="Models\DetailsIncidentVM.cs" />
@@ -772,6 +788,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202210141933103_UpdateRootCause1.resx">
       <DependentUpon>202210141933103_UpdateRootCause1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202210150007048_UpdateReason.resx">
+      <DependentUpon>202210150007048_UpdateReason.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202210150032042_UpdateReason1.resx">
+      <DependentUpon>202210150032042_UpdateReason1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202210150051168_UpdateReason11.resx">
+      <DependentUpon>202210150051168_UpdateReason11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202210150256033_UpdateReason3.resx">
+      <DependentUpon>202210150256033_UpdateReason3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
