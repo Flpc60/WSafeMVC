@@ -483,6 +483,10 @@
     <Compile Include="Migrations\202210150256033_UpdateReason3.Designer.cs">
       <DependentUpon>202210150256033_UpdateReason3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202210152009197_Update-Recomendation.cs" />
+    <Compile Include="Migrations\202210152009197_Update-Recomendation.Designer.cs">
+      <DependentUpon>202210152009197_Update-Recomendation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AuthorizationVM.cs" />
     <Compile Include="Models\DetailsIncidentVM.cs" />
@@ -722,6 +726,7 @@
     <Content Include="Views\Shared\_ShowCausesAnalysis.cshtml" />
     <Content Include="Views\Shared\_ShowBarriersAnalysis.cshtml" />
     <Content Include="Views\Shared\_ShowRootCauses.cshtml" />
+    <Content Include="Views\Shared\_ShowRecomendations.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -800,6 +805,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202210150256033_UpdateReason3.resx">
       <DependentUpon>202210150256033_UpdateReason3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202210152009197_Update-Recomendation.resx">
+      <DependentUpon>202210152009197_Update-Recomendation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -2026,6 +2026,7 @@ function ResetTab() {
     $(".tabAddEvents").css("display", "none");
     $(".tabAddCauses").css("display", "none");
     $(".tabAddRootCauses").css("display", "none");
+    $(".tabAddRecomendations").css("display", "none");
     $(".tabGesCargos").css("display", "none");
     $(".tabGesZones").css("display", "none");
     $(".tabGesProcess").css("display", "none");
@@ -2034,6 +2035,7 @@ function ResetTab() {
     $(".tabGesEvents").css("display", "none");
     $(".tabGesCauses").css("display", "none");
     $(".tabGesRootCauses").css("display", "none");
+    $(".tabGesRecomendations").css("display", "none");
     $(".tabCerrar").css("display", "block");
 }
 
@@ -2217,13 +2219,13 @@ function GestorIncidents() {
         ResetTab();
     });
 
-    $("#recomendation").click(function () {
+    $("#recomendations").click(function () {
         ResetTab();
         $(".tabGesRecomendations").css("display", "block");
         $(".tabCerrar").css("display", "none");
-        //ShowRecomendations();
+        ShowRecomendations();
     });
-    $("#recomendation").dblclick(function () {
+    $("#recomendations").dblclick(function () {
         ResetTab();
     });
 
@@ -2256,7 +2258,7 @@ function GestorIncidents() {
         $("#btnCanRootCause").show();
         $("#btnUpdRootCause").hide();
     });
-    $("#addRecomendation").click(function () {
+    $("#addRecomendations").click(function () {
         $(".tabAddRecomendations").css("display", "block");
         $(".tabCerrar").css("display", "none");
         $("#btnAddRecomendation").show();
@@ -4057,4 +4059,167 @@ function CancelRootCause() {
     $(".tabAddRootCauses").css("display", "none");
     $("#txtRootCause").val("");
     $("#txtReason").val("");
+}
+
+function AddRecomendation() {
+    // Crea una nueva recomendación
+    $('.tabAddRecomendations').css("display", "none");
+    var recomendationVM = {
+        ID: "0",
+        IncidentID: $("#txtIncidenteID").val(),
+        RootCauseID: $("#txtMainCause").val(),
+        Name: $("#txtRecomendation").val()
+    };
+    $.ajax({
+        type: "POST",
+        url: "/Incidentes/CreateRecomendation",
+        data: {model: recomendationVM},
+        dataType: "json",
+        success: function (response) {
+            $("#txtRecomendation").val("");
+            $("#btnAddRecomendation").hide();
+            $("#btnCanRecomendation").hide();
+            alert(response.mensaj);
+            ShowRecomendations();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function ShowRecomendations() {
+    // Mostrar todos las recomendaciones
+    var incidentID = $("#txtIncidenteID").val();
+    $.ajax({
+        url: "/Incidentes/GetRecomendations",
+        data: { id: incidentID },
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (result) {
+            var html = '';
+            var name = "";
+            var recomendation = "";
+            $.each(result, function (key, item) {
+                name = item.Name.toUpperCase();
+                recomendation = item.Recomendation.toUpperCase();
+                html += '<tr>';
+                html += '<td>' + name + '</td>';
+                html += '<td>' + recomendation + '</td>';
+                html += '<td><a href="#" onclick="return getRecomendationByID(' + item.ID + ')">Editar</a> | <a href = "#" onclick = "DeleteRecomendation(' + item.ID + ')"> Borrar</a></td>';
+                html += '</tr>';
+            });
+            $('.tbody').html(html);
+            $('.tabGesRemomendations').css("display", "block");
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function getRootCauseByID(rootCauseID) {
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: "/Incidentes/UpdateRootCause",
+        data: {
+            id: rootCauseID
+        },
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        success: function (result) {
+            $.each(result, function (key, item) {
+                $("#txtRootCauseID").val(item.ID);
+                $("#txtRootCause").val(item.Name);
+                $("#txtReasonID").val(item.ReasonID);
+                $("#txtReason").val(item.Reason);
+            });
+            $("#btnUpdRootCause").show();
+            $(".tabAddRootCauses").css("display", "block");
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function DeleteRootCause(id) {
+    $.ajax({
+        url: "/Incidentes/DeleteRootCause/" + id,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        async: true,                                             // si es asincrónico o no
+        success: function (result) {
+            var text = "";
+            text += "Esta seguro de querer borrar esta causa ? :\n\n";
+            text += "Causa principal : " + result.data.Name + "\n";
+            var respuesta = confirm(text);
+            if (respuesta == true) {
+                $.ajax({
+                    url: "/Incidentes/DeleteRootCause/" + id,
+                    type: "POST",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    async: true,                                               // si es asincrónico o no
+                    success: function (result) {
+                        alert(result.mensaj);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                    }
+                });
+            }
+            ClearTextBox();
+            ShowRootCauses();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function UpdateRootCause() {
+    // Actualiza una defensa, captura la incidenteID de id = txtIncidenteID
+    $(".tabGesBRootCauses").css("display", "none");
+    $(".tabAddRootCauses").css("display", "none");
+    var reason = $("#txtReason").val();
+    var reasonID = $("#txtReasonID").val();
+    var rootCauseVM = {
+        ID: $("#txtRootCauseID").val(),
+        IncidentID: $("#txtIncidenteID").val(),
+        Name: $("#txtRootCause").val()
+    };
+    $.ajax({
+        type: "POST",
+        url: "/Incidentes/UpdateRootCause",
+        data: {
+            model: rootCauseVM,
+            reasonID: reasonID,
+            reason: reason
+        },
+        dataType: "json",
+        success: function (response) {
+            alert(response.mensaj);
+            $(".tabGesRootCause").css("display", "block");
+            ShowRootCauses();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function CancelRecomendation() {
+    $(".tabGesRecomendations").css("display", "none");
+    $(".tabAddRecomendations").css("display", "none");
+    $("#txtRecomendation").val("");
 }

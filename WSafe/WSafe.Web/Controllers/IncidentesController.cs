@@ -418,6 +418,24 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
+        public ActionResult GetMainCauses(int id)
+        {
+            if (id != null)
+            {
+                var result = from rc in _empresaContext.RootCauses
+                             where rc.IncidentID == id
+                             select new
+                             {
+                                 Value = rc.ID.ToString(),
+                                 Text = rc.Name.ToUpper()
+                             };
+
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            return Json(null, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
         public ActionResult GetCauses(int id)
         {
             if (id != null)
@@ -479,20 +497,29 @@ namespace WSafe.Web.Controllers
 
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
-            return null;
+            return Json(null, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
-        public ActionResult GetAllRecomenations(int id)
+        public ActionResult GetRecomendations(int id)
         {
             if (id != null)
             {
-                var result = from e in _empresaContext.Recomendations
-                             where e.ID == id
-                             select e;
+                var result =
+                    from r in _empresaContext.Recomendations
+                    join rc in _empresaContext.RootCauses on r.RootCauseID equals rc.ID
+                    where rc.IncidentID == id
+                    select new
+                    {
+                        ID = rc.ID,
+                        Name = rc.Name,
+                        RecomendationID = r.ID,
+                        Recomendation = r.Name
+                    };
+
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
-            return null;
+            return Json(null, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
