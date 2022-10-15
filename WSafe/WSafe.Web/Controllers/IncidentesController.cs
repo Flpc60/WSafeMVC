@@ -473,7 +473,7 @@ namespace WSafe.Web.Controllers
                     {
                         ID = e.ID,
                         Name = e.Name,
-                        RootCauseID = b.ID,
+                        ReasonID = b.ID,
                         Reason = b.Name
                     };
 
@@ -869,17 +869,25 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public JsonResult UpdateRootCause(int ID)
+        public JsonResult UpdateRootCause(int id, int reasonID)
         {
-            var rootCause = _empresaContext.RootCauses
-                                   .Where(rc => rc.ID == ID)
-                                   .Include(r => r.Reasons);
+            var rootCause =
+                from r in _empresaContext.Reasons
+                join e in _empresaContext.RootCauses on r.RootCauseID equals e.ID
+                where e.ID == id && r.ID == reasonID
+                select new
+                {
+                    ID = e.ID,
+                    Name = e.Name,
+                    RootCauseID = r.ID,
+                    Reason = r.Name
+                };
 
             return Json(rootCause, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public async Task<ActionResult> UpdateRootCause([Bind(Include = "ID, IncidentID, EventID, BarrierCategory")] BarrierAnalice model)
+        public async Task<ActionResult> UpdateRootCause([Bind(Include = "ID, IncidentID, Name")] BarrierAnalice model, string reason)
         {
             var message = "";
             try
@@ -887,6 +895,9 @@ namespace WSafe.Web.Controllers
                 if (ModelState.IsValid)
                 {
                     _empresaContext.Entry(model).State = EntityState.Modified;
+                    Reason result = _empresaContext.Reasons.Find(model.ID);
+                    result.Name = reason;
+                    _empresaContext.Entry(result).State = EntityState.Modified;
                     await _empresaContext.SaveChangesAsync();
                     message = "La actualización se ha realizado exitosamente !!";
                     return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
