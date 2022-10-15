@@ -5,7 +5,7 @@
 <style>
     .detal, .tabGeneral, .tabLesionados, .tabDescrip, .tabAcciones, .tabMatriz, .tabAddLesionado,
     .tabInvestigation, .tabAddEvents, .tabGesEvents, .tabAddCauses, .tabGesCauses,
-    .tabAddBarriers, .tabGesBarriers, .tabAddRootCauses, .tabGesRootCauses
+    .tabAddBarriers, .tabGesBarriers, .tabAddRootCauses, .tabGesRootCauses, .tabAddRecomendations, .tabGesRecomendations
     {
         display: none;
     }
@@ -94,7 +94,7 @@
                 <button type="button" class="btn btn-info" id="causes" title="doble click para cerrar la ventana">ANÁLISIS FACTORES CAUSALES</button>
                 <button type="button" class="btn btn-info" id="barriers" title="doble click para cerrar la ventana">ANÁLISIS BARRERAS</button>
                 <button type="button" class="btn btn-info" id="rootCauses" title="doble click para cerrar la ventana">ANÁLISIS CAUSAS PRINCIPALES</button>
-                <button type="button" class="btn btn-info" id="recomendation" title="doble click para cerrar la ventana">RECOMENDACIONES</button>
+                <button type="button" class="btn btn-info" id="recomendations" title="doble click para cerrar la ventana">RECOMENDACIONES</button>
             </div>
         </div>
     </div>
@@ -194,6 +194,30 @@
         </div>
     </div>
 
+    <div class="tabGesRecomendations">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-success" id="addRecomendations">Adicionar una nueva recomendación</button>
+        </div>
+        @Html.Partial("_ShowRecomendations")
+    </div>
+    <div class="tabAddRecomendations">
+        <input type="hidden" id="txtRootCauseID" name="txtRootCauseID" />
+        <input type="hidden" id="txtRecomendationID" name="txtRecomendationID" />
+        @Html.Partial("_EditRecomendation")
+        <div class="row">
+            <div class="col-md-8">
+                <hr />
+                <button type="button" id="btnAddtxtRecomendation" class="btn btn-primary" onclick="AddRecomendation()">Adicionar</button>
+                <button type="button" id="btnUpdRecomendation" class="btn btn-primary" onclick="UpdateRecomendation()">Actualizar</button>
+                <button type="button" id="btnCanRecomendation" class="btn btn-primary" onclick="CancelRecomendation()">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                </button>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+
 </div>
 }
 
@@ -225,8 +249,8 @@
                         $.each(eventos, function (index, item) {
                             eventSelect.append($('<option />',
                                 {
-                                    value: item.ID,
-                                    text: item.Name
+                                    Value: item.ID,
+                                    Text: item.Name
                                 }));
                         });
                     };
@@ -246,6 +270,25 @@
                                 {
                                     Value: item.ID,
                                     Text: item.Name
+                                }));
+                        });
+                    };
+                });
+            }
+        }
+
+        function selectRootCauses(id) {
+            var selectedIncident = $("#txtIncidenteID").val();
+            var eventSelect = $(id);
+            eventSelect.empty();
+            if (selectedIncident != null && selectedIncident != '') {
+                $.getJSON('@Url.Action("GetMainCauses")', { id: selectedIncident }, function (eventos) {
+                    if (eventos != null && !jQuery.isEmptyObject(eventos)) {
+                        $.each(eventos, function (index, item) {
+                            eventSelect.append($('<option />',
+                                {
+                                    Value: item.Value,
+                                    Text: item.Text
                                 }));
                         });
                     };
