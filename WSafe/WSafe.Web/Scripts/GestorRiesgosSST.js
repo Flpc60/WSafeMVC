@@ -3943,7 +3943,7 @@ function ShowRootCauses() {
                 html += '<tr>';
                 html += '<td>' + name + '</td>';
                 html += '<td>' + reason + '</td>';
-                html += '<td><a href="#" onclick="return getRootCauseByID(' + item.ID + ')">Editar</a> | <a href = "#" onclick = "DeleteRootCause(' + item.ID + ')"> Borrar</a></td>';
+                html += '<td><a href="#" onclick="return getRootCauseByID(' + item.ID + ',' + Reason.ID + ')">Editar</a> | <a href = "#" onclick = "DeleteRootCause(' + item.ID + ')"> Borrar</a></td>';
                 html += '</tr>';
             });
             $('.tbody').html(html);
@@ -3956,18 +3956,21 @@ function ShowRootCauses() {
     });
 }
 
-function getRootCauseByID(rootCauseID) {
+function getRootCauseByID(rootCauseID, reasonID) {
     $.ajax({
         async: true,
         type: 'GET',
         url: "/Incidentes/UpdateRootCause",
-        data: { id: rootCauseID },
+        data: {
+            id: rootCauseID,
+            reasonID: reasonID
+        },
         dataType: "json",
         contentType: "application/json;charset=UTF-8",
         success: function (result) {
             $("#txtRootCauseID").val(result.ID);
             $("#txtRootCause").val(result.Name);
-            $("#txtReason").val(result.Reason.Name);
+            $("#txtReason").val(result.Reason);
             $("#btnUpdRootCause").show();
             $(".tabAddRootCauses").css("display", "block");
         },
@@ -4020,16 +4023,19 @@ function UpdateRootCause() {
     // Actualiza una defensa, captura la incidenteID de id = txtIncidenteID
     $(".tabGesBRootCauses").css("display", "none");
     $(".tabAddRootCauses").css("display", "none");
+    var reason = $("#txtReason").val();
     var rootCauseVM = {
-        ID: $("#txtBarrierID").val(),
+        ID: $("#txtRootCauseID").val(),
         IncidentID: $("#txtIncidenteID").val(),
-        EventID: $("#txtBarrier").val(),
-        BarrierCategory: $("#txtBarrierCat").val()
+        Name: $("#txtRootCause").val()
     };
     $.ajax({
         type: "POST",
         url: "/Incidentes/UpdateRootCause",
-        data: { model: rootCauseVM },
+        data: {
+            model: rootCauseVM,
+            reason: reason
+        },
         dataType: "json",
         success: function (response) {
             alert(response.mensaj);
