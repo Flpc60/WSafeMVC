@@ -178,6 +178,7 @@
     </div>
     <div class="tabAddRootCauses">
         <input type="hidden" id="txtRootCauseID" name="txtRootCauseID" />
+        <input type="hidden" id="txtReasonID" name="txtReasonID" />
         @Html.Partial("_EditRootCause")
         <div class="row">
             <div class="col-md-8">
@@ -243,8 +244,8 @@
                         $.each(eventos, function (index, item) {
                             eventSelect.append($('<option />',
                                 {
-                                    value: item.ID,
-                                    text: item.Name
+                                    Value: item.ID,
+                                    Text: item.Name
                                 }));
                         });
                     };
