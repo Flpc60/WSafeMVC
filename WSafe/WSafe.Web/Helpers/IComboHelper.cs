@@ -27,5 +27,6 @@ namespace WSafe.Domain.Helpers
         IEnumerable<Actividad> GetAllActivitys();
         IEnumerable<Tarea> GetAllTareas();
         IEnumerable<Role> GetNameRoles();
+        IEnumerable<SelectListItem> GetRootCauses(int incidentID);
     }
 }

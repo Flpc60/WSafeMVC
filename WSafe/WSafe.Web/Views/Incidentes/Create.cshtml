@@ -223,8 +223,37 @@
 
 @section Scripts
 {
-    <script>
-        // tabs de formato incidentes
+    <script type="text/javascript">
+        $(document).ready(function () {
+        });
+
+        $('#txtMainCause').click(function () {
+            loadData();
+            var mainCause = $(this).val();
+            //document.getElementById("txtMainCause").innerHTML = mainCause;
+            $("#txtMainCause").val(mainCause);
+        });
+
+        function loadData() {
+            var selectedIncident = $("#txtIncidenteID").val();
+            if (selectedIncident != null && selectedIncident != '') {
+                $.getJSON('@Url.Action("GetMainCauses")', { id: selectedIncident }, function (eventos) {
+                    if (eventos != null && !jQuery.isEmptyObject(eventos)) {
+                        var html = '';
+                        $.each(eventos, function (index, item) {
+                            html += '<option value = "' + item.Value + '">' + item.Text + '</option>';
+                        });
+                        $("#txtMainCause").html(html);
+                    };
+                });
+            }
+        }
+
+        $(document).on('change', "#txtMainCause", function () {
+            var mainCause = $(this).val();
+            alert("Causa principal : " + mainCause);
+            $("#txtMainCause").val(mainCause);
+        });
 
         GestorIncidents();
 
@@ -246,12 +275,13 @@
             if (selectedIncident != null && selectedIncident != '') {
                 $.getJSON('@Url.Action("GetEvents")', { id: selectedIncident }, function (eventos) {
                     if (eventos != null && !jQuery.isEmptyObject(eventos)) {
+                        var html = '';
                         $.each(eventos, function (index, item) {
                             eventSelect.append($('<option />',
                                 {
                                     Value: item.ID,
                                     Text: item.Name
-                                }));
+                            }));
                         });
                     };
                 });
@@ -277,24 +307,6 @@
             }
         }
 
-        function selectRootCauses(id) {
-            var selectedIncident = $("#txtIncidenteID").val();
-            var eventSelect = $(id);
-            eventSelect.empty();
-            if (selectedIncident != null && selectedIncident != '') {
-                $.getJSON('@Url.Action("GetMainCauses")', { id: selectedIncident }, function (eventos) {
-                    if (eventos != null && !jQuery.isEmptyObject(eventos)) {
-                        $.each(eventos, function (index, item) {
-                            eventSelect.append($('<option />',
-                                {
-                                    Value: item.Value,
-                                    Text: item.Text
-                                }));
-                        });
-                    };
-                });
-            }
-        }
 
     </script>
 }

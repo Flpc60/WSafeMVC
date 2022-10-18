@@ -389,5 +389,25 @@ namespace WSafe.Domain.Helpers.Implements
         {
             return _empresaContext.Roles.ToList();
         }
+        public IEnumerable<SelectListItem> GetRootCauses(int incidentID)
+        {
+            var list = _empresaContext.RootCauses
+                .Where(rc => rc.IncidentID == incidentID)
+                .Select(rc => new SelectListItem
+                {
+                    Text = rc.Name,
+                    Value = rc.ID.ToString()
+                })
+                .OrderBy(rc => rc.Text)
+                .ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione una casusa básica ...)",
+                Value = "0"
+            });
+
+            return list;
+        }
     }
 }
