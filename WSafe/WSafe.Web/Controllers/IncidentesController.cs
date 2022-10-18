@@ -422,14 +422,7 @@ namespace WSafe.Web.Controllers
         {
             if (id != null)
             {
-                var result = from rc in _empresaContext.RootCauses
-                             where rc.IncidentID == id
-                             select new
-                             {
-                                 Value = rc.ID.ToString(),
-                                 Text = rc.Name.ToUpper()
-                             };
-
+                var result = _comboHelper.GetRootCauses(id);
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
             return Json(null, JsonRequestBehavior.AllowGet);
@@ -508,7 +501,7 @@ namespace WSafe.Web.Controllers
                 var result =
                     from r in _empresaContext.Recomendations
                     join rc in _empresaContext.RootCauses on r.RootCauseID equals rc.ID
-                    where rc.IncidentID == id
+                    where r.IncidentID == id
                     select new
                     {
                         ID = rc.ID,
