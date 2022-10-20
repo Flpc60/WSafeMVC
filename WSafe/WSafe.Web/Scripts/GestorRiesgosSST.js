@@ -2243,6 +2243,7 @@ function GestorIncidents() {
         $("#btnAddCause").show();
         $("#btnCanCause").show();
         $("#btnUpdCause").hide();
+        loadCauses("txtCauseAnalice");
     });
     $("#addBarriers").click(function () {
         $(".tabAddBarriers").css("display", "block");
@@ -2250,6 +2251,7 @@ function GestorIncidents() {
         $("#btnAddBarrier").show();
         $("#btnCanBarrier").show();
         $("#btnUpdBarrier").hide();
+        loadCauses("txtBarrier");
     });
     $("#addRootCauses").click(function () {
         $(".tabAddRootCauses").css("display", "block");
@@ -2264,6 +2266,7 @@ function GestorIncidents() {
         $("#btnAddRecomendation").show();
         $("#btnCanRecomendation").show();
         $("#btnUpdRecomendation").hide();
+        loadData();
     });
 
 }
@@ -3442,6 +3445,7 @@ function getEventByID(eventID) {
             $("#txtOrder").val(result.Order);
             $("#btnAddEvent").hide();
             $("#btnUpdEvent").show();
+            $("#btnCanEvent").show();
             $(".tabAddEvents").css("display", "block");
         },
         error: function (errormessage) {
@@ -3631,6 +3635,7 @@ function getCauseByID(causeID) {
             $("#txtPotencial").val(result.PotencialFactor);
             $("#btnAddCause").hide();
             $("#btnUpdCause").show();
+            $("#btnCanCause").show();
             $(".tabAddCauses").css("display", "block");
         },
         error: function (errormessage) {
@@ -3815,6 +3820,8 @@ function getBarrierByID(barrierID) {
             $("#txtBarrier").val(result.EventID);
             $("#txtBarrierCat").val(result.BarrierCategory);
             $("#btnUpdBarrier").show();
+            $("#btnCanBarrier").show();
+            $("#btnAddBarrier").hide();
             $(".tabAddBarriers").css("display", "block");
         },
         error: function (errormessage) {
@@ -3976,6 +3983,8 @@ function getRootCauseByID(rootCauseID) {
                 $("#txtReason").val(item.Reason);
             });
             $("#btnUpdRootCause").show();
+            $("#btnCanRootCause").show();
+            $("#btnAddRootCause").hide();
             $(".tabAddRootCauses").css("display", "block");
         },
         error: function (errormessage) {
@@ -4109,7 +4118,7 @@ function ShowRecomendations() {
                 html += '<tr>';
                 html += '<td>' + name + '</td>';
                 html += '<td>' + recomendation + '</td>';
-                html += '<td><a href="#" onclick="return getRecomendationByID(' + item.ID + ')">Editar</a> | <a href = "#" onclick = "DeleteRecomendation(' + item.ID + ')"> Borrar</a></td>';
+                html += '<td><a href="#" onclick="return getRecomendationByID(' + item.RecomendationID + ')">Editar</a> | <a href = "#" onclick = "DeleteRecomendation(' + item.RecomendationID + ')"> Borrar</a></td>';
                 html += '</tr>';
             });
             $('.tbody').html(html);
@@ -4122,13 +4131,13 @@ function ShowRecomendations() {
     });
 }
 
-function getRootCauseByID(rootCauseID) {
+function getRecomendationByID(recomendationID) {
     $.ajax({
         async: true,
         type: 'GET',
-        url: "/Incidentes/UpdateRootCause",
+        url: "/Incidentes/UpdateRecomendation",
         data: {
-            id: rootCauseID
+            id: recomendationID
         },
         dataType: "json",
         contentType: "application/json;charset=UTF-8",
@@ -4136,11 +4145,13 @@ function getRootCauseByID(rootCauseID) {
             $.each(result, function (key, item) {
                 $("#txtRootCauseID").val(item.ID);
                 $("#txtRootCause").val(item.Name);
-                $("#txtReasonID").val(item.ReasonID);
-                $("#txtReason").val(item.Reason);
+                $("#txtRecomendationID").val(item.RecomendationID);
+                $("#txtRecomendation").val(item.Recomendation);
             });
-            $("#btnUpdRootCause").show();
-            $(".tabAddRootCauses").css("display", "block");
+            $("#btnUpdRecomendation").show();
+            $("#btnCanRecomendation").show();
+            $("#btnAddRecomendation").hide();
+            $(".tabAddRecomendations").css("display", "block");
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -4148,21 +4159,21 @@ function getRootCauseByID(rootCauseID) {
     });
 }
 
-function DeleteRootCause(id) {
+function DeleteRecomendation(id) {
     $.ajax({
-        url: "/Incidentes/DeleteRootCause/" + id,
+        url: "/Incidentes/DeleteRecomendation/" + id,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         async: true,                                             // si es asincrónico o no
         success: function (result) {
             var text = "";
-            text += "Esta seguro de querer borrar esta causa ? :\n\n";
-            text += "Causa principal : " + result.data.Name + "\n";
+            text += "Esta seguro de querer borrar esta recomendación ? :\n\n";
+            text += "Recomendación : " + result.data.Name + "\n";
             var respuesta = confirm(text);
             if (respuesta == true) {
                 $.ajax({
-                    url: "/Incidentes/DeleteRootCause/" + id,
+                    url: "/Incidentes/DeleteRecomendation/" + id,
                     type: "POST",
                     contentType: "application/json;charset=UTF-8",
                     dataType: "json",
@@ -4177,7 +4188,7 @@ function DeleteRootCause(id) {
                 });
             }
             ClearTextBox();
-            ShowRootCauses();
+            ShowRecomendations();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -4186,30 +4197,25 @@ function DeleteRootCause(id) {
     });
 }
 
-function UpdateRootCause() {
-    // Actualiza una defensa, captura la incidenteID de id = txtIncidenteID
-    $(".tabGesBRootCauses").css("display", "none");
-    $(".tabAddRootCauses").css("display", "none");
-    var reason = $("#txtReason").val();
-    var reasonID = $("#txtReasonID").val();
-    var rootCauseVM = {
-        ID: $("#txtRootCauseID").val(),
+function UpdateRecomendation() {
+    // Actualiza una recomendación, captura la incidenteID de id = txtIncidenteID
+    $(".tabGesRecomendations").css("display", "none");
+    $(".tabAddRecomendations").css("display", "none");
+    var recomendationVM = {
+        ID: $("#txtRecomendationID").val(),
         IncidentID: $("#txtIncidenteID").val(),
-        Name: $("#txtRootCause").val()
+        RootCauseID: $("#txtRootCauseID").val(),
+        Name: $("#txtRecomendation").val()
     };
     $.ajax({
         type: "POST",
-        url: "/Incidentes/UpdateRootCause",
-        data: {
-            model: rootCauseVM,
-            reasonID: reasonID,
-            reason: reason
-        },
+        url: "/Incidentes/UpdateRecomendation",
+        data: { model: recomendationVM },
         dataType: "json",
         success: function (response) {
             alert(response.mensaj);
-            $(".tabGesRootCause").css("display", "block");
-            ShowRootCauses();
+            $(".tabGesRecomendations").css("display", "block");
+            ShowRecomendations();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);

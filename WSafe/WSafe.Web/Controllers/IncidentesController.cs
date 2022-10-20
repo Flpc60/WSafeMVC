@@ -408,7 +408,7 @@ namespace WSafe.Web.Controllers
                              select new
                              {
                                  ID = e.ID,
-                                 Name = e.Name.ToUpper(),
+                                 Name = e.Name,
                                  Order = e.Order
                              };
 
@@ -963,6 +963,93 @@ namespace WSafe.Web.Controllers
                     _empresaContext.RootCauses.Remove(result);
                     var reason = await _empresaContext.Reasons.FindAsync(id);
                     _empresaContext.Reasons.Remove(reason);
+                    await _empresaContext.SaveChangesAsync();
+                    message = "El registro fué borrado correctamente !!";
+                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    message = "El registro NO fué borrado correctamente !!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                message = "El registro NO fué borrado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public JsonResult UpdateRecomendation(int id)
+        {
+            var recomendation =
+                from r in _empresaContext.Recomendations
+                join rc in _empresaContext.RootCauses on r.RootCauseID equals rc.ID
+                where r.ID == id
+                select new
+                {
+                    ID = rc.ID,
+                    Name = rc.Name,
+                    ReacomendationID = r.ID,
+                    Recomendation = r.Name
+                };
+
+            return Json(recomendation, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UpdateRecomendation([Bind(Include = "ID, IncidentID, RootCaseID, Name")] Recomendation model)
+        {
+            var message = "";
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _empresaContext.Entry(model).State = EntityState.Modified;
+                    await _empresaContext.SaveChangesAsync();
+                    message = "La actualización se ha realizado exitosamente !!";
+                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    message = "La actualización NO se ha realizado exitosamente !!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                message = "La actualización NO se ha realizado exitosamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> DeleteRecomendation(int? id)
+        {
+            var message = "";
+            try
+            {
+                var result = _empresaContext.Recomendations.Find(id);
+                return Json(new { data = result, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                message = "No fué posible realizar esta transacción !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteRecomendation(int id)
+        {
+            var message = "";
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var result = await _empresaContext.Recomendations.FindAsync(id);
+                    _empresaContext.Recomendations.Remove(result);
                     await _empresaContext.SaveChangesAsync();
                     message = "El registro fué borrado correctamente !!";
                     return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);

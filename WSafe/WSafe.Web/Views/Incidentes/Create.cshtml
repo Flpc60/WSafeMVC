@@ -5,11 +5,13 @@
 <style>
     .detal, .tabGeneral, .tabLesionados, .tabDescrip, .tabAcciones, .tabMatriz, .tabAddLesionado,
     .tabInvestigation, .tabAddEvents, .tabGesEvents, .tabAddCauses, .tabGesCauses,
-    .tabAddBarriers, .tabGesBarriers, .tabAddRootCauses, .tabGesRootCauses, .tabAddRecomendations, .tabGesRecomendations
-    {
+    .tabAddBarriers, .tabGesBarriers, .tabAddRootCauses, .tabGesRootCauses, .tabAddRecomendations, .tabGesRecomendations {
         display: none;
     }
 </style>
+
+<script src="jquery-3.4.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <hr />
 <hr />
@@ -30,208 +32,214 @@
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="tabGeneral">
-        <hr />
-        @Html.Partial("_EditarInfoIncidente")
-        <input type="hidden" id="txtIncidenteID" name="txtIncidenteID" />
-    </div>
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="tabGeneral">
+            <hr />
+            @Html.Partial("_EditarInfoIncidente")
+            <input type="hidden" id="txtIncidenteID" name="txtIncidenteID" />
+        </div>
 
-    <div class="detal">
-        @Html.Partial("_DetalleIncidente")
-    </div>
+        <div class="detal">
+            @Html.Partial("_DetalleIncidente")
+        </div>
 
-    <div class="tabDescrip">
-        <hr />
-        <div class="container" style="background-color:mediumaquamarine; padding:20px">
-            <div class="form-group">
-                @Html.LabelFor(model => model.DescripcionIncidente, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.TextAreaFor(model => model.DescripcionIncidente, new { @class = "form-control", @id = "txtDescripcion", cols = "70", rows = "3" })
-                    @Html.ValidationMessageFor(model => model.DescripcionIncidente, "", new { @class = "text-danger" })
+        <div class="tabDescrip">
+            <hr />
+            <div class="container" style="background-color:mediumaquamarine; padding:20px">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DescripcionIncidente, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.DescripcionIncidente, new { @class = "form-control", @id = "txtDescripcion", cols = "70", rows = "3" })
+                        @Html.ValidationMessageFor(model => model.DescripcionIncidente, "", new { @class = "text-danger" })
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="tabAcciones">
-        @Html.Partial("_AccionesIncidente")
-    </div>
+        <div class="tabAcciones">
+            @Html.Partial("_AccionesIncidente")
+        </div>
 
-    <div class="tabMatriz">
-        @Html.Partial("_MatrizIncidente")
-        <div class="row">
-            <div class="col-md-8">
-                <button type="button" id="btnAddIncidente" class="btn btn-info" onclick="AddIncidente()">Agregar</button>
+        <div class="tabMatriz">
+            @Html.Partial("_MatrizIncidente")
+            <div class="row">
+                <div class="col-md-8">
+                    <button type="button" id="btnAddIncidente" class="btn btn-info" onclick="AddIncidente()">Agregar</button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="tabLesionados">
-        <hr />
-        @Html.Partial("_ConsultarLesionados")
-    </div>
+        <div class="tabLesionados">
+            <hr />
+            @Html.Partial("_ConsultarLesionados")
+        </div>
 
-    <div class="tabAddLesionado">
-        @Html.Partial("_ModificaLesion")
-        <div class="row">
-            <div class="col-md-8">
-                <button type="button" id="btnAddLesion" class="btn btn-info" onclick="AddLesionados()">Agregar</button>
-                <button type="button" id="btnCanLesion" class="btn btn-primary" onclick="CancelLesion()">
-                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
-                </button>
-            </div>
-            <div class="col-md-4">
+        <div class="tabAddLesionado">
+            @Html.Partial("_ModificaLesion")
+            <div class="row">
+                <div class="col-md-8">
+                    <button type="button" id="btnAddLesion" class="btn btn-info" onclick="AddLesionados()">Agregar</button>
+                    <button type="button" id="btnCanLesion" class="btn btn-primary" onclick="CancelLesion()">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                    </button>
+                </div>
+                <div class="col-md-4">
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="tabInvestigation">
-        <div class="pull-left">
-            <div class="btn-group">
-                <button type="button" class="btn btn-info" id="events" title="doble click para cerrar la ventana">EVENTOS</button>
-                <button type="button" class="btn btn-info" id="causes" title="doble click para cerrar la ventana">ANÁLISIS FACTORES CAUSALES</button>
-                <button type="button" class="btn btn-info" id="barriers" title="doble click para cerrar la ventana">ANÁLISIS BARRERAS</button>
-                <button type="button" class="btn btn-info" id="rootCauses" title="doble click para cerrar la ventana">ANÁLISIS CAUSAS PRINCIPALES</button>
-                <button type="button" class="btn btn-info" id="recomendations" title="doble click para cerrar la ventana">RECOMENDACIONES</button>
+        <div class="tabInvestigation">
+            <div class="pull-left">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-info" id="events" title="doble click para cerrar la ventana">EVENTOS</button>
+                    <button type="button" class="btn btn-info" id="causes" title="doble click para cerrar la ventana">ANÁLISIS FACTORES CAUSALES</button>
+                    <button type="button" class="btn btn-info" id="barriers" title="doble click para cerrar la ventana">ANÁLISIS BARRERAS</button>
+                    <button type="button" class="btn btn-info" id="rootCauses" title="doble click para cerrar la ventana">ANÁLISIS CAUSAS PRINCIPALES</button>
+                    <button type="button" class="btn btn-info" id="recomendations" title="doble click para cerrar la ventana">RECOMENDACIONES</button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="tabGesEvents">
-        <div class="col-md-12">
-            <button type="button" class="btn btn-success" id="addEvent">Adicionar un nuevo evento</button>
-        </div>
-        @Html.Partial("_ShowEvents")
-    </div>
-    <div class="tabAddEvents">
-        <input type="hidden" id="txtEventID" name="txtEventID" />
-        @Html.Partial("_EditEvent")
-        <div class="row">
-            <div class="col-md-8">
-                <hr />
-                <button type="button" id="btnAddEvent" class="btn btn-primary" onclick="AddEvent()">Adicionar</button>
-                <button type="button" id="btnUpdEvent" class="btn btn-primary" onclick="UpdateEvent()">Actualizar</button>
-                <button type="button" id="btnCanEvent" class="btn btn-primary" onclick="CancelEvent()">
-                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
-                </button>
+        <div class="tabGesEvents">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-success" id="addEvent">Adicionar un nuevo evento</button>
             </div>
-            <div class="col-md-4">
+            @Html.Partial("_ShowEvents")
+        </div>
+        <div class="tabAddEvents">
+            <input type="hidden" id="txtEventID" name="txtEventID" />
+            @Html.Partial("_EditEvent")
+            <div class="row">
+                <div class="col-md-8">
+                    <hr />
+                    <button type="button" id="btnAddEvent" class="btn btn-primary" onclick="AddEvent()">Adicionar</button>
+                    <button type="button" id="btnUpdEvent" class="btn btn-primary" onclick="UpdateEvent()">Actualizar</button>
+                    <button type="button" id="btnCanEvent" class="btn btn-primary" onclick="CancelEvent()">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                    </button>
+                </div>
+                <div class="col-md-4">
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="tabGesCauses">
-        <div class="col-md-12">
-            <button type="button" class="btn btn-success" id="addCauses">Adicionar un nuevo factor causal</button>
-        </div>
-        @Html.Partial("_ShowCausesAnalysis")
-    </div>
-    <div class="tabAddCauses">
-        <input type="hidden" id="txtEventID" name="txtEventID" />
-        <input type="hidden" id="txtCauseID" name="txtCauseID" />
-        @Html.Partial("_EditCauseAnalice")
-        <div class="row">
-            <div class="col-md-8">
-                <hr />
-                <button type="button" id="btnAddCause" class="btn btn-primary" onclick="AddCause()">Adicionar</button>
-                <button type="button" id="btnUpdCause" class="btn btn-primary" onclick="UpdateCause()">Actualizar</button>
-                <button type="button" id="btnCanCause" class="btn btn-primary" onclick="CancelCause()">
-                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
-                </button>
+        <div class="tabGesCauses">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-success" id="addCauses">Adicionar un nuevo factor causal</button>
             </div>
-            <div class="col-md-4">
+            @Html.Partial("_ShowCausesAnalysis")
+        </div>
+        <div class="tabAddCauses">
+            <input type="hidden" id="txtEventID" name="txtEventID" />
+            <input type="hidden" id="txtCauseID" name="txtCauseID" />
+            @Html.Partial("_EditCauseAnalice")
+            <div class="row">
+                <div class="col-md-8">
+                    <hr />
+                    <button type="button" id="btnAddCause" class="btn btn-primary" onclick="AddCause()">Adicionar</button>
+                    <button type="button" id="btnUpdCause" class="btn btn-primary" onclick="UpdateCause()">Actualizar</button>
+                    <button type="button" id="btnCanCause" class="btn btn-primary" onclick="CancelCause()">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                    </button>
+                </div>
+                <div class="col-md-4">
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="tabGesBarriers">
-        <div class="col-md-12">
-            <button type="button" class="btn btn-success" id="addBarriers">Adicionar una nueva defensa</button>
-        </div>
-        @Html.Partial("_ShowBarriersAnalysis")
-    </div>
-    <div class="tabAddBarriers">
-        <input type="hidden" id="txtEventID" name="txtEventID" />
-        <input type="hidden" id="txtBarrierID" name="txtBarrierID" />
-        @Html.Partial("_EditBarrierAnalice")
-        <div class="row">
-            <div class="col-md-8">
-                <hr />
-                <button type="button" id="btnAddBarrier" class="btn btn-primary" onclick="AddBarrier()">Adicionar</button>
-                <button type="button" id="btnUpdBarrier" class="btn btn-primary" onclick="UpdateBarrier()">Actualizar</button>
-                <button type="button" id="btnCanBarrier" class="btn btn-primary" onclick="CancelBarrier()">
-                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
-                </button>
+        <div class="tabGesBarriers">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-success" id="addBarriers">Adicionar una nueva defensa</button>
             </div>
-            <div class="col-md-4">
+            @Html.Partial("_ShowBarriersAnalysis")
+        </div>
+        <div class="tabAddBarriers">
+            <input type="hidden" id="txtEventID" name="txtEventID" />
+            <input type="hidden" id="txtBarrierID" name="txtBarrierID" />
+            @Html.Partial("_EditBarrierAnalice")
+            <div class="row">
+                <div class="col-md-8">
+                    <hr />
+                    <button type="button" id="btnAddBarrier" class="btn btn-primary" onclick="AddBarrier()">Adicionar</button>
+                    <button type="button" id="btnUpdBarrier" class="btn btn-primary" onclick="UpdateBarrier()">Actualizar</button>
+                    <button type="button" id="btnCanBarrier" class="btn btn-primary" onclick="CancelBarrier()">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                    </button>
+                </div>
+                <div class="col-md-4">
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="tabGesRootCauses">
-        <div class="col-md-12">
-            <button type="button" class="btn btn-success" id="addRootCauses">Adicionar una nueva causa principal</button>
-        </div>
-        @Html.Partial("_ShowRootCauses")
-    </div>
-    <div class="tabAddRootCauses">
-        <input type="hidden" id="txtRootCauseID" name="txtRootCauseID" />
-        <input type="hidden" id="txtReasonID" name="txtReasonID" />
-        @Html.Partial("_EditRootCause")
-        <div class="row">
-            <div class="col-md-8">
-                <hr />
-                <button type="button" id="btnAddRootCause" class="btn btn-primary" onclick="AddRootCause()">Adicionar</button>
-                <button type="button" id="btnUpdRootCause" class="btn btn-primary" onclick="UpdateRootCause()">Actualizar</button>
-                <button type="button" id="btnCanRootCause" class="btn btn-primary" onclick="CancelRootCause()">
-                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
-                </button>
+        <div class="tabGesRootCauses">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-success" id="addRootCauses">Adicionar una nueva causa principal</button>
             </div>
-            <div class="col-md-4">
+            @Html.Partial("_ShowRootCauses")
+        </div>
+        <div class="tabAddRootCauses">
+            <input type="hidden" id="txtRootCauseID" name="txtRootCauseID" />
+            <input type="hidden" id="txtReasonID" name="txtReasonID" />
+            @Html.Partial("_EditRootCause")
+            <div class="row">
+                <div class="col-md-8">
+                    <hr />
+                    <button type="button" id="btnAddRootCause" class="btn btn-primary" onclick="AddRootCause()">Adicionar</button>
+                    <button type="button" id="btnUpdRootCause" class="btn btn-primary" onclick="UpdateRootCause()">Actualizar</button>
+                    <button type="button" id="btnCanRootCause" class="btn btn-primary" onclick="CancelRootCause()">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                    </button>
+                </div>
+                <div class="col-md-4">
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="tabGesRecomendations">
-        <div class="col-md-12">
-            <button type="button" class="btn btn-success" id="addRecomendations">Adicionar una nueva recomendación</button>
-        </div>
-        @Html.Partial("_ShowRecomendations")
-    </div>
-    <div class="tabAddRecomendations">
-        <input type="hidden" id="txtRootCauseID" name="txtRootCauseID" />
-        <input type="hidden" id="txtRecomendationID" name="txtRecomendationID" />
-        @Html.Partial("_EditRecomendation")
-        <div class="row">
-            <div class="col-md-8">
-                <hr />
-                <button type="button" id="btnAddtxtRecomendation" class="btn btn-primary" onclick="AddRecomendation()">Adicionar</button>
-                <button type="button" id="btnUpdRecomendation" class="btn btn-primary" onclick="UpdateRecomendation()">Actualizar</button>
-                <button type="button" id="btnCanRecomendation" class="btn btn-primary" onclick="CancelRecomendation()">
-                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
-                </button>
+        <div class="tabGesRecomendations">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-success" id="addRecomendations">Adicionar una nueva recomendación</button>
             </div>
-            <div class="col-md-4">
+            @Html.Partial("_ShowRecomendations")
+        </div>
+        <div class="tabAddRecomendations">
+            <input type="hidden" id="txtRootCauseID" name="txtRootCauseID" />
+            <input type="hidden" id="txtRecomendationID" name="txtRecomendationID" />
+            @Html.Partial("_EditRecomendation")
+            <div class="row">
+                <div class="col-md-8">
+                    <hr />
+                    <button type="button" id="btnAddRecomendation" class="btn btn-primary" onclick="AddRecomendation()">Adicionar</button>
+                    <button type="button" id="btnUpdRecomendation" class="btn btn-primary" onclick="UpdateRecomendation()">Actualizar</button>
+                    <button type="button" id="btnCanRecomendation" class="btn btn-primary" onclick="CancelRecomendation()">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                    </button>
+                </div>
+                <div class="col-md-4">
+                </div>
             </div>
         </div>
-    </div>
 
-</div>
+    </div>
 }
 
 @section Scripts
 {
     <script type="text/javascript">
         $(document).ready(function () {
-        });
 
-        $('#txtMainCause').click(function () {
-            loadData();
-            var mainCause = $(this).val();
-            //document.getElementById("txtMainCause").innerHTML = mainCause;
-            $("#txtMainCause").val(mainCause);
+            GestorIncidents();
+            $('#FechaReporte').change(function () {
+                var fecha = $("#FechaReporte").val();
+                validarFechaIni(fecha);
+            });
+
+            $('#FechaIncidente').change(function () {
+                var fechaIni = $("#FechaReporte").val();
+                var fechaFin = $("#FechaIncidente").val();
+                validarFechaIncidente(fechaIni, fechaFin);
+            });
+
         });
 
         function loadData() {
@@ -249,44 +257,20 @@
             }
         }
 
-        $(document).on('change', "#txtMainCause", function () {
-            var mainCause = $(this).val();
-            alert("Causa principal : " + mainCause);
-            $("#txtMainCause").val(mainCause);
-        });
-
-        GestorIncidents();
-
-        $('#FechaReporte').change(function () {
-            var fecha = $("#FechaReporte").val();
-            validarFechaIni(fecha);
-        });
-
-        $('#FechaIncidente').change(function () {
-            var fechaIni = $("#FechaReporte").val();
-            var fechaFin = $("#FechaIncidente").val();
-            validarFechaIncidente(fechaIni, fechaFin);
-        });
-
-        $('#txtCauseAnalice').click(function () {
+        function loadCauses(id) {
             var selectedIncident = $("#txtIncidenteID").val();
-            var eventSelect = $('#txtCauseAnalice');
-            eventSelect.empty();
             if (selectedIncident != null && selectedIncident != '') {
                 $.getJSON('@Url.Action("GetEvents")', { id: selectedIncident }, function (eventos) {
                     if (eventos != null && !jQuery.isEmptyObject(eventos)) {
                         var html = '';
                         $.each(eventos, function (index, item) {
-                            eventSelect.append($('<option />',
-                                {
-                                    Value: item.ID,
-                                    Text: item.Name
-                            }));
+                            html += '<option value = "' + item.ID + '">' + item.Name + '</option>';
                         });
+                        $("#"+id).html(html);
                     };
                 });
             }
-        });
+        }
 
         function selectEvent(id) {
             var selectedIncident = $("#txtIncidenteID").val();
@@ -306,7 +290,6 @@
                 });
             }
         }
-
 
     </script>
 }
