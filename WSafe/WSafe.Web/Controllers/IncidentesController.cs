@@ -991,7 +991,7 @@ namespace WSafe.Web.Controllers
                 {
                     ID = rc.ID,
                     Name = rc.Name,
-                    ReacomendationID = r.ID,
+                    RecomendationID = r.ID,
                     Recomendation = r.Name
                 };
 
