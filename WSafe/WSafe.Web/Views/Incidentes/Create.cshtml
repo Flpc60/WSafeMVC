@@ -92,11 +92,12 @@
         <div class="tabInvestigation">
             <div class="pull-left">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-info" id="events" title="doble click para cerrar la ventana">EVENTOS</button>
-                    <button type="button" class="btn btn-info" id="causes" title="doble click para cerrar la ventana">ANÁLISIS FACTORES CAUSALES</button>
-                    <button type="button" class="btn btn-info" id="barriers" title="doble click para cerrar la ventana">ANÁLISIS BARRERAS</button>
-                    <button type="button" class="btn btn-info" id="rootCauses" title="doble click para cerrar la ventana">ANÁLISIS CAUSAS PRINCIPALES</button>
-                    <button type="button" class="btn btn-info" id="recomendations" title="doble click para cerrar la ventana">RECOMENDACIONES</button>
+                    <button type="button" class="btn btn-warning" id="events" title="doble click para cerrar la ventana">EVENTOS</button>
+                    <button type="button" class="btn btn-warning" id="causes" title="doble click para cerrar la ventana">ANÁLISIS FACTORES CAUSALES</button>
+                    <button type="button" class="btn btn-warning" id="barriers" title="doble click para cerrar la ventana">ANÁLISIS BARRERAS</button>
+                    <button type="button" class="btn btn-warning" id="rootCauses" title="doble click para cerrar la ventana">ANÁLISIS CAUSAS PRINCIPALES</button>
+                    <button type="button" class="btn btn-warning" id="recomendations" title="doble click para cerrar la ventana">RECOMENDACIONES</button>
+                    <button type="button" class="btn btn-warning" id="plans" title="doble click para cerrar la ventana">ACCIONES</button>
                 </div>
             </div>
         </div>
@@ -203,7 +204,6 @@
             @Html.Partial("_ShowRecomendations")
         </div>
         <div class="tabAddRecomendations">
-            <input type="hidden" id="txtRootCauseID" name="txtRootCauseID" />
             <input type="hidden" id="txtRecomendationID" name="txtRecomendationID" />
             @Html.Partial("_EditRecomendation")
             <div class="row">
