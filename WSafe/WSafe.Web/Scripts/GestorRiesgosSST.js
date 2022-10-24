@@ -2027,6 +2027,7 @@ function ResetTab() {
     $(".tabAddCauses").css("display", "none");
     $(".tabAddRootCauses").css("display", "none");
     $(".tabAddRecomendations").css("display", "none");
+    $(".tabAddBarriers").css("display", "none");
     $(".tabGesCargos").css("display", "none");
     $(".tabGesZones").css("display", "none");
     $(".tabGesProcess").css("display", "none");
@@ -2036,6 +2037,7 @@ function ResetTab() {
     $(".tabGesCauses").css("display", "none");
     $(".tabGesRootCauses").css("display", "none");
     $(".tabGesRecomendations").css("display", "none");
+    $(".tabGesBarriers").css("display", "none");
     $(".tabCerrar").css("display", "block");
 }
 
@@ -3409,19 +3411,21 @@ function ShowEvents() {
         dataType: "json",
         async: true,
         success: function (result) {
-            var html = '';
-            var name = '';
-            var num = 0;
-            $.each(result, function (key, item) {
-                num++;
-                name = item.Name.toUpperCase();
-                html += '<tr>';
-                html += '<td>' + num + '</td>';
-                html += '<td>' + name + '</td>';
-                html += '<td><a href="#" onclick="return getEventByID(' + item.ID + ')">Editar</a> | <a href = "#" onclick = "DeleteEvent(' + item.ID + ')"> Borrar</a></td>';
-                html += '</tr>';
-            });
-            $('.tbody').html(html);
+            if (result != null) {
+                var html = '';
+                var name = '';
+                var num = 0;
+                $.each(result, function (key, item) {
+                    num++;
+                    name = item.Name.toUpperCase();
+                    html += '<tr>';
+                    html += '<td>' + num + '</td>';
+                    html += '<td>' + name + '</td>';
+                    html += '<td><a href="#" onclick="return getEventByID(' + item.ID + ')">Editar</a> | <a href = "#" onclick = "DeleteEvent(' + item.ID + ')"> Borrar</a></td>';
+                    html += '</tr>';
+                });
+                $('.tbody').html(html);
+            }
             $('.tabGesEvents').css("display", "block");
         },
         error: function (xhr, ajaxOptions, thrownError) {
