@@ -1,5 +1,7 @@
 ﻿// Agregar funcionlidad principal del lado del cliente...
 
+const { each } = require("jquery");
+
 function viewHistory() {
     //    $(".tabMediAplica").css("display", "none");
     var riesgoID = $("#txtRiesgoID").val();
@@ -3447,6 +3449,7 @@ function getEventByID(eventID) {
             $("#txtEventID").val(result.ID);
             $("#txtEvent").val(result.Name);
             $("#txtOrder").val(result.Order);
+            $("#txtEvent").focus();
             $("#btnAddEvent").hide();
             $("#btnUpdEvent").show();
             $("#btnCanEvent").show();
@@ -3633,10 +3636,12 @@ function getCauseByID(causeID) {
         dataType: "json",
         contentType: "application/json;charset=UTF-8",
         success: function (result) {
-            $("#txtCauseID").val(result.ID);
-            $("#txtCauseAnalice").val(result.Name);
-            $("#txtCause").val(result.CausalFactor);
-            $("#txtPotencial").val(result.PotencialFactor);
+            $.each(result, function (key, item) {
+                $("#txtCauseID").val(item.ID);
+                $("#txtCauseAnalice").val(item.Event);
+                $("#txtCause").val(item.CausalFactor);
+                $("#txtPotencial").val(item.PotencialFactor);
+            });
             $("#btnAddCause").hide();
             $("#btnUpdCause").show();
             $("#btnCanCause").show();
@@ -3820,9 +3825,12 @@ function getBarrierByID(barrierID) {
         dataType: "json",
         contentType: "application/json;charset=UTF-8",
         success: function (result) {
-            $("#txtBarrierID").val(result.ID);
-            $("#txtBarrier").val(result.EventID);
-            $("#txtBarrierCat").val(result.BarrierCategory);
+            $.each(result, function (key, item) {
+                $("#txtBarrierID").val(item.ID);
+                $("#txtBarrier").val(item.Event);
+                $("#txtBarrierCat").val(item.BarrierCategory);
+            });
+
             $("#btnUpdBarrier").show();
             $("#btnCanBarrier").show();
             $("#btnAddBarrier").hide();
@@ -4148,7 +4156,7 @@ function getRecomendationByID(recomendationID) {
         success: function (result) {
             $.each(result, function (key, item) {
                 $("#txtRootCauseID").val(item.ID);
-                $("#txtRootCause").val(item.Name);
+                $("#txtRootCause").val(item.ID);
                 $("#txtRecomendationID").val(item.RecomendationID);
                 $("#txtRecomendation").val(item.Recomendation);
             });
