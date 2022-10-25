@@ -737,10 +737,22 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public JsonResult UpdateCause(int ID)
+        public JsonResult UpdateCause(int id)
         {
-            var cause = _empresaContext.CausalAnalysis.FirstOrDefault(c => c.ID == ID);
-            return Json(cause, JsonRequestBehavior.AllowGet);
+            var result =
+                from c in _empresaContext.CausalAnalysis
+                join e in _empresaContext.Events on c.EventID equals e.ID
+                where c.ID == id
+                select new
+                {
+                    ID = c.ID,
+                    Event = e.ID,
+                    Name = e.Name,
+                    CausalFactor = c.CausalFactor,
+                    PotencialFactor = c.PotencialFactor
+                };
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -813,10 +825,21 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public JsonResult UpdateBarrier(int ID)
+        public JsonResult UpdateBarrier(int id)
         {
-            var barrier = _empresaContext.BarrierAnalysis.FirstOrDefault(c => c.ID == ID);
-            return Json(barrier, JsonRequestBehavior.AllowGet);
+            var result =
+                from b in _empresaContext.BarrierAnalysis
+                join e in _empresaContext.Events on b.EventID equals e.ID
+                where b.ID == id
+                select new
+                {
+                    ID = b.ID,
+                    Event = e.ID,
+                    Name = e.Name,
+                    BarrierCategory = b.BarrierCategory
+                };
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
