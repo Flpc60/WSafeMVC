@@ -1022,7 +1022,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> UpdateRecomendation([Bind(Include = "ID, IncidentID, RootCaseID, Name")] Recomendation model)
+        public async Task<ActionResult> UpdateRecomendation([Bind(Include = "ID, IncidentID, RootCauseID, Name")] Recomendation model)
         {
             var message = "";
             try
