@@ -3448,6 +3448,7 @@ function getEventByID(eventID) {
         success: function (result) {
             $("#txtEventID").val(result.ID);
             $("#txtEvent").val(result.Name);
+            $("#txtEvent").focus();
             $("#txtOrder").val(result.Order);
             $("#txtEvent").focus();
             $("#btnAddEvent").hide();
@@ -3639,6 +3640,7 @@ function getCauseByID(causeID) {
             $.each(result, function (key, item) {
                 $("#txtCauseID").val(item.ID);
                 $("#txtCauseAnalice").val(item.Event);
+                $("#txtCauseAnalice").focus();
                 $("#txtCause").val(item.CausalFactor);
                 $("#txtPotencial").val(item.PotencialFactor);
             });
@@ -3828,6 +3830,7 @@ function getBarrierByID(barrierID) {
             $.each(result, function (key, item) {
                 $("#txtBarrierID").val(item.ID);
                 $("#txtBarrier").val(item.Event);
+                $("#txtBarrier").focus();
                 $("#txtBarrierCat").val(item.BarrierCategory);
             });
 
@@ -3990,7 +3993,7 @@ function getRootCauseByID(rootCauseID) {
         success: function (result) {
             $.each(result, function (key, item) {
                 $("#txtRootCauseID").val(item.ID);
-                $("#txtRootCause").val(item.Name);
+                $("#txtRootCause").val(item.ID);
                 $("#txtReasonID").val(item.ReasonID);
                 $("#txtReason").val(item.Reason);
             });
@@ -4156,7 +4159,8 @@ function getRecomendationByID(recomendationID) {
         success: function (result) {
             $.each(result, function (key, item) {
                 $("#txtRootCauseID").val(item.ID);
-                $("#txtRootCause").val(item.ID);
+                $("#txtMainCause").val(item.ID);
+                $("#txtMainCause").focus();
                 $("#txtRecomendationID").val(item.RecomendationID);
                 $("#txtRecomendation").val(item.Recomendation);
             });
