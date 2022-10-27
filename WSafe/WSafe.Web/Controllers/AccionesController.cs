@@ -175,10 +175,6 @@ namespace WSafe.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> CreatePlanAccion(PlanAction model)
         {
-            if (model.AccionID == 0)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             var message = "";
             try
             {
@@ -247,13 +243,7 @@ namespace WSafe.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateAccion(Accion model)
         {
-            if (model == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
             var message = "";
-
             try
             {
                 if (ModelState.IsValid)

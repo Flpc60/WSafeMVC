@@ -727,6 +727,8 @@
     <Content Include="Views\Shared\_ShowBarriersAnalysis.cshtml" />
     <Content Include="Views\Shared\_ShowRootCauses.cshtml" />
     <Content Include="Views\Shared\_ShowRecomendations.cshtml" />
+    <Content Include="Views\Shared\_ShowPlans.cshtml" />
+    <Content Include="Views\Shared\_EditPlans.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

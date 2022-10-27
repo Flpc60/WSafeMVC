@@ -1,0 +1,83 @@
+﻿@model WSafe.Web.Models.IncidenteViewModel
+<hr />
+<div class="container" style="background-color:mediumaquamarine">
+
+    <div class="form-row">
+        <hr />
+        <div class="col-md-4 mb-3">
+            <label for="idFechaIni">Fecha inicial :</label>
+            <input type="date" class="form-control" id="idFechaIni" required autofocus>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="idFechaFin">Fecha cierre :</label>
+            <input type="date" class="form-control" id="idFechaFin" required>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                <label for="txtCausa" class="control-label col-md-2">Causa</label>
+                <div class="col-md-6">
+                    <select name="txtCausa" class="form-control" id="txtCausa">
+                        <option selected="selected" value="0">Seleccione una causa...</option>
+                        <option value="1">Falta medición o control</option>
+                        <option value="2">Incumplimiento de un  método o procedimiento</option>
+                        <option value="3">Método inexistente</option>
+                        <option value="4">Planeación inadecuada</option>
+                        <option value="5">Falta de recursos económicos</option>
+                        <option value="6">Falta de recursos técnicos</option>
+                        <option value="7">Falta de recursos físicos</option>
+                        <option value="8">Falta de insumos o suministros</option>
+                        <option value="9">Falta de talento humano</option>
+                        <option value="10">Falta de entrenamiento</option>
+                        <option value="11">Dificultades en el clima Organización</option>
+                        <option value="12">Dificultades en la gobernabilidad</option>
+                    </select>
+                    <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="txtCausa"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="form-row">
+        <div class="col-md-8">
+            <label for="accion">Actividad</label>
+            <textarea id="accion" style="resize:none;" class="form-control" rows=3 cols=70 required></textarea>
+        </div>
+        <hr />
+        <hr />
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="txtPlanCategory" class="control-label col-md-2">Causa</label>
+                <div class="col-md-6">
+                    <select name="txtPlanCategory" class="form-control" id="txtPlanCategory">
+                        <option selected="selected" value="0">Seleccione una categoria...</option>
+                        <option value="1">Sín iniciar</option>
+                        <option value="2">En proceso</option>
+                        <option value="3">Finalizada</option>
+                    </select>
+                    <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="txtPlanCategory"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <hr />
+        <div class="col-md-3 mb-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.TrabajadorID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.DropDownListFor(model => model.TrabajadorID, Model.Trabajadores, new { @class = "form-control", @id = "txtInformante" })
+                    @Html.ValidationMessageFor(model => model.TrabajadorID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <label for="prioritaria">Prioritaria :</label>
+                <input class="form-check-input" type="checkbox" id="idPrioritaria" name="idPrioritaria">
+            </div>
+            <div class="col-md-3 mb-4">
+                <label for="idCostos">Costos :</label>
+                <input type="number" class="form-control" id="idCostos" onchange="validarCostos()">
+            </div>
+            <hr />
+        </div>
+    </div>
+</div>
