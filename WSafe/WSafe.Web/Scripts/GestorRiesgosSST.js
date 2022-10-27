@@ -212,6 +212,10 @@ function showIncidents() {
 function mostrarPlanAcc() {
     $(".tabGesSeguiPlanAcc").css("display", "none");
     var accionID = $("#txtAccionID").val();
+    if (accionID == "") {
+        return;
+    }
+
     $.ajax({
         url: "/Acciones/ListarPlanAccion/",
         data: { idAccion: accionID },
@@ -2029,6 +2033,7 @@ function ResetTab() {
     $(".tabAddCauses").css("display", "none");
     $(".tabAddRootCauses").css("display", "none");
     $(".tabAddRecomendations").css("display", "none");
+    $(".tabAddPlanAcc").css("display", "none");
     $(".tabAddBarriers").css("display", "none");
     $(".tabGesCargos").css("display", "none");
     $(".tabGesZones").css("display", "none");
@@ -2039,6 +2044,7 @@ function ResetTab() {
     $(".tabGesCauses").css("display", "none");
     $(".tabGesRootCauses").css("display", "none");
     $(".tabGesRecomendations").css("display", "none");
+    $(".tabGesPlanAcc").css("display", "none");
     $(".tabGesBarriers").css("display", "none");
     $(".tabCerrar").css("display", "block");
 }
@@ -2233,6 +2239,16 @@ function GestorIncidents() {
         ResetTab();
     });
 
+    $("#plans").click(function () {
+        ResetTab();
+        $(".tabGesPlanAcc").css("display", "block");
+        $(".tabCerrar").css("display", "none");
+        mostrarPlanAcc();
+    });
+    $("#plans").dblclick(function () {
+        ResetTab();
+    });
+
     $("#addEvent").click(function () {
         $(".tabAddEvents").css("display", "block");
         $(".tabCerrar").css("display", "none");
@@ -2272,7 +2288,13 @@ function GestorIncidents() {
         $("#btnUpdRecomendation").hide();
         loadData();
     });
-
+    $("#addPlans").click(function () {
+        $(".tabAddPlanAcc").css("display", "block");
+        $(".tabCerrar").css("display", "none");
+        $("#btnAddPlan").show();
+        $("#btnCanPlan").show();
+        $("#btnUpdPlan").hide();
+    });
 }
 
 function CancelPlan() {
@@ -4111,6 +4133,7 @@ function AddRecomendation() {
             alert(thrownError);
         }
     });
+    AddPlan(); // adicionar recomendación
 }
 
 function ShowRecomendations() {
@@ -4138,6 +4161,181 @@ function ShowRecomendations() {
             });
             $('.tbody').html(html);
             $('.tabGesRemomendations').css("display", "block");
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function getRecomendationByID(recomendationID) {
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: "/Incidentes/UpdateRecomendation",
+        data: {
+            id: recomendationID
+        },
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        success: function (result) {
+            $.each(result, function (key, item) {
+                $("#txtRootCauseID").val(item.ID);
+                $("#txtMainCause").val(item.ID);
+                $("#txtMainCause").focus();
+                $("#txtRecomendationID").val(item.RecomendationID);
+                $("#txtRecomendation").val(item.Recomendation);
+            });
+            $("#btnUpdRecomendation").show();
+            $("#btnCanRecomendation").show();
+            $("#btnAddRecomendation").hide();
+            $(".tabAddRecomendations").css("display", "block");
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function DeleteRecomendation(id) {
+    $.ajax({
+        url: "/Incidentes/DeleteRecomendation/" + id,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        async: true,                                             // si es asincrónico o no
+        success: function (result) {
+            var text = "";
+            text += "Esta seguro de querer borrar esta recomendación ? :\n\n";
+            text += "Recomendación : " + result.data.Name + "\n";
+            var respuesta = confirm(text);
+            if (respuesta == true) {
+                $.ajax({
+                    url: "/Incidentes/DeleteRecomendation/" + id,
+                    type: "POST",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    async: true,                                               // si es asincrónico o no
+                    success: function (result) {
+                        alert(result.mensaj);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                    }
+                });
+            }
+            ClearTextBox();
+            ShowRecomendations();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function UpdateRecomendation() {
+    // Actualiza una recomendación, captura la incidenteID de id = txtIncidenteID
+    $(".tabGesRecomendations").css("display", "none");
+    $(".tabAddRecomendations").css("display", "none");
+    var recomendationVM = {
+        ID: $("#txtRecomendationID").val(),
+        IncidentID: $("#txtIncidenteID").val(),
+        RootCauseID: $("#txtRootCauseID").val(),
+        Name: $("#txtRecomendation").val()
+    };
+    $.ajax({
+        type: "POST",
+        url: "/Incidentes/UpdateRecomendation",
+        data: { model: recomendationVM },
+        dataType: "json",
+        success: function (response) {
+            alert(response.mensaj);
+            $(".tabGesRecomendations").css("display", "block");
+            ShowRecomendations();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function CancelRecomendation() {
+    $(".tabGesRecomendations").css("display", "none");
+    $(".tabAddRecomendations").css("display", "none");
+    $("#txtRecomendation").val("");
+}
+
+function AddPlan() {
+
+    if ($("#txtAccionID").val() == "") {
+        var fecha = $("#FechaReporte").val();
+        var [day, month, year] = fecha.split('/');
+        var date = new Date(+year, month - 1, +day);
+
+        var accionVM = {
+            ID: "0",
+            ZonaID: $("#zona").val(),
+            ProcesoID: $("#proceso").val(),
+            ActividadID: $("#activity").val(),
+            TareaID: $("#tarea").val(),
+            FechaSolicitud: date,
+            Categoria: "2",
+            TrabajadorID: $("#txtInformante").val(),
+            FuenteAccion: "11",
+            Descripcion: "Investigación incidente / accidente",
+            EficaciaAntes: false,
+            EficaciaDespues: false,
+            FechaCierre: date,
+            Efectiva: false,
+            ActionCategory: "1"
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "/Acciones/CreateAccion",
+            data: { model: accionVM },
+            dataType: "json",
+            success: function (response) {
+                if (response.data != false) {
+                    $("#txtAccionID").val(response.data);
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        });
+    }
+
+    // Crea un nuevo plan
+    $('.tabAddPlans').css("display", "none");
+    var planAccionVM = {
+        ID: 0,
+        AccionID: $("#txtAccionID").val(),
+        FechaInicial: date,
+        FechaFinal: date,
+        Causa: "1",
+        Accion: $("#txtRecomendation").val(),
+        TrabajadorID: $("#xtInformante").val(),
+        Prioritaria: true,
+        Costos: "0",
+        Responsable: $("#xtInformante").val(),
+        ActionCategory: "1"
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/Acciones/CreatePlanAccion",
+        data: { model: planAccionVM },
+        dataType: "json",
+        success: function (response) {
+            $("#txtPlanAccionID").val(response.ID);
+            $("#btnAddPlan").hide();
+            $("#btnCanPlan").hide();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
