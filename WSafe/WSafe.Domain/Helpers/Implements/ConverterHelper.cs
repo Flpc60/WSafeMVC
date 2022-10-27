@@ -653,7 +653,7 @@ namespace WSafe.Domain.Helpers.Implements
                     TrabajadorID = item.TrabajadorID,
                     Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpper(),
                     ActionCategory = item.ActionCategory
-                }); ;
+                });
             }
             return model;
         }
