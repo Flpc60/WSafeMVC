@@ -4270,26 +4270,23 @@ function CancelRecomendation() {
 }
 
 function AddPlan() {
-
+    // Adicionar nueva acción
+    var fecha = $("#FechaReporte").val();
     if ($("#txtAccionID").val() == "") {
-        var fecha = $("#FechaReporte").val();
-        var [day, month, year] = fecha.split('/');
-        var date = new Date(+year, month - 1, +day);
-
         var accionVM = {
             ID: "0",
             ZonaID: $("#zona").val(),
             ProcesoID: $("#proceso").val(),
             ActividadID: $("#activity").val(),
             TareaID: $("#tarea").val(),
-            FechaSolicitud: date,
+            FechaSolicitud: fecha,
             Categoria: "2",
             TrabajadorID: $("#txtInformante").val(),
             FuenteAccion: "11",
             Descripcion: "Investigación incidente / accidente",
-            EficaciaAntes: false,
-            EficaciaDespues: false,
-            FechaCierre: date,
+            EficaciaAntes: "3",
+            EficaciaDespues: "3",
+            FechaCierre: fecha,
             Efectiva: false,
             ActionCategory: "1"
         };
@@ -4313,17 +4310,18 @@ function AddPlan() {
 
     // Crea un nuevo plan
     $('.tabAddPlans').css("display", "none");
+    var accionID = $("#txtAccionID").val();
     var planAccionVM = {
         ID: 0,
-        AccionID: $("#txtAccionID").val(),
-        FechaInicial: date,
-        FechaFinal: date,
+        AccionID: accionID,
+        FechaInicial: fecha,
+        FechaFinal: fecha,
         Causa: "1",
         Accion: $("#txtRecomendation").val(),
-        TrabajadorID: $("#xtInformante").val(),
+        TrabajadorID: $("#txtInformante").val(),
         Prioritaria: true,
         Costos: "0",
-        Responsable: $("#xtInformante").val(),
+        Responsable: $("#txtInformante").val(),
         ActionCategory: "1"
     };
 
@@ -4333,7 +4331,6 @@ function AddPlan() {
         data: { model: planAccionVM },
         dataType: "json",
         success: function (response) {
-            $("#txtPlanAccionID").val(response.ID);
             $("#btnAddPlan").hide();
             $("#btnCanPlan").hide();
         },
