@@ -1774,6 +1774,7 @@ function AddInterven() {
             alert(thrownError);
         }
     });
+    AddPlan(); // adicionar recomendación
 }
 
 function UpdateIntervencion() {
@@ -4269,9 +4270,26 @@ function CancelRecomendation() {
     $("#txtRecomendation").val("");
 }
 
-function AddPlan() {
+function AddPlan(id) {
+
     // Adicionar nueva acción
-    var fecha = $("#FechaReporte").val();
+    var tiempo = Date.now();
+    var hoy = new Date(tiempo);
+    var fecha = hoy.toLocaleDateString();
+    var descrip = "";
+    var trabajador = "";
+    var fechaIni = "";
+    var fechaFin = "";
+    if (id == 1) {
+        fechaIni = $("#FechaInicial").val();
+        fechaFin = $("#FechaFinal").val();
+        trabajador = $("#idRespons").val();
+        decrip = "Matriz de Riesgos";
+    } else {
+        trabajador = $("#txtInformante").val();
+        descrip = "Investigación incidente / accidente";
+    }
+
     if ($("#txtAccionID").val() == "") {
         var accionVM = {
             ID: "0",
@@ -4281,9 +4299,9 @@ function AddPlan() {
             TareaID: $("#tarea").val(),
             FechaSolicitud: fecha,
             Categoria: "2",
-            TrabajadorID: $("#txtInformante").val(),
+            TrabajadorID: trabajador,
             FuenteAccion: "11",
-            Descripcion: "Investigación incidente / accidente",
+            Descripcion: descrip,
             EficaciaAntes: "3",
             EficaciaDespues: "3",
             FechaCierre: fecha,
