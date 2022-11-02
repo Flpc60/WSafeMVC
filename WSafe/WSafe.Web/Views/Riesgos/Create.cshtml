@@ -6,8 +6,7 @@
 
 <style>
     .tabInterven, .capInterven, .tabPeligros, .tabEvalRiesgos, .tabMediAplica, .consInterven, .tabIntervencion,
-    .tabAddInterven, .tabIncidents
-    {
+    .tabAddInterven, .tabIncidents, .tabAddPlanAcc, .tabGesPlanAcc {
         display: none;
     }
 
@@ -19,12 +18,10 @@
 
 <div class="pull-left">
     <div class="btn-group">
-        <button type="button" class="btn btn-info" id="idPeligros" title="doble click para cerrar la ventana">
-            1. IDENTIFICACIÓN PELIGROS</button>
-        <button type="button" class="btn btn-info" id="evalRiesgos" title="doble click para cerrar la ventana">
-            2. EVALUACIÓN RIESGOS</button>
-        <button type="button" class="btn btn-info" id="mediAplica" title="doble click para cerrar la ventana">
-            3. MEDIDAS INTERVENCIÓN</button>
+        <button type="button" class="btn btn-info" id="idPeligros" title="doble click para cerrar la ventana">1. IDENTIFICACIÓN PELIGROS</button>
+        <button type="button" class="btn btn-info" id="evalRiesgos" title="doble click para cerrar la ventana">2. EVALUACIÓN RIESGOS</button>
+        <button type="button" class="btn btn-info" id="mediAplica" title="doble click para cerrar la ventana">3. MEDIDAS INTERVENCIÓN</button>
+        <button type="button" class="btn btn-info" id="plans" title="doble click para cerrar la ventana">4. PLAN ACCIONES</button>
     </div>
 </div>
 
@@ -139,13 +136,37 @@
     </div>
 
     <div class="tabAddInterven">
-        <input type="hidden" id="txtIntervenID" name="txtIntervenID" />
+        <input type="hidden" id="txtIntervenID" name="txtIntervenID"/>
+        <input type="hidden" id="txtAccionID" name="txtAccionID"/>
         @Html.Partial("_EditarIntervencion")
         <div class="row">
             <div class="col-md-8">
                 <button type="button" id="btnAddInterven" class="btn btn-primary" onclick="AddInterven()">Adicionar</button>
                 <button type="button" id="btnUpdInterven" class="btn btn-primary" onclick="UpdateIntervencion()">Guardar</button>
                 <button type="button" id="btnCanInterven" class="btn btn-primary" onclick="CancelInterven()">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                </button>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+
+    <div class="tabGesPlanAcc">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-success" id="addPlans">Adicionar un nuevo plan</button>
+        </div>
+        @Html.Partial("_ShowPlans")
+    </div>
+    <div class="tabAddPlanAcc">
+        <input type="hidden" id="txtPlanAccionID" name="txtPlanAccionID" />
+        @Html.Partial("_EditPlans")
+        <div class="row">
+            <div class="col-md-8">
+                <hr />
+                <button type="button" id="btnAddPlan" class="btn btn-primary" onclick="AddPlanAccion()">Adicionar</button>
+                <button type="button" id="btnUpdPlan" class="btn btn-primary" onclick="UpdatePlanAcc()">Actualizar</button>
+                <button type="button" id="btnCanPlan" class="btn btn-primary" onclick="CancelPlan()">
                     <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
                 </button>
             </div>
@@ -178,6 +199,24 @@
                     };
                 });
             }
+        });
+
+        $("#plans").click(function () {
+            ResetTab();
+            $(".tabGesPlanAcc").css("display", "block");
+            $(".tabCerrar").css("display", "none");
+            mostrarPlanAcc();
+        });
+        $("#plans").dblclick(function () {
+            ResetTab();
+        });
+
+        $("#addPlans").click(function () {
+            $(".tabAddPlanAcc").css("display", "block");
+            $(".tabCerrar").css("display", "none");
+            $("#btnAddPlan").show();
+            $("#btnCanPlan").show();
+            $("#btnUpdPlan").hide();
         });
 
         gestorRiesgos();
