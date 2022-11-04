@@ -21,7 +21,7 @@
         <button type="button" class="btn btn-info" id="idPeligros" title="doble click para cerrar la ventana">1. IDENTIFICACIÓN PELIGROS</button>
         <button type="button" class="btn btn-info" id="evalRiesgos" title="doble click para cerrar la ventana">2. EVALUACIÓN RIESGOS</button>
         <button type="button" class="btn btn-info" id="mediAplica" title="doble click para cerrar la ventana">3. MEDIDAS INTERVENCIÓN</button>
-        <button type="button" class="btn btn-info" id="plans" title="doble click para cerrar la ventana">4. PLAN ACCIONES</button>
+        <button type="button" class="btn btn-info" id="plans" title="doble click para cerrar la ventana">4. PLAN DE ACCIONES</button>
     </div>
 </div>
 
@@ -153,14 +153,11 @@
     </div>
 
     <div class="tabGesPlanAcc">
-        <div class="col-md-12">
-            <button type="button" class="btn btn-success" id="addPlans">Adicionar un nuevo plan</button>
-        </div>
-        @Html.Partial("_ShowPlans")
+        @Html.Partial("_BorrarPlanAcc")
     </div>
     <div class="tabAddPlanAcc">
         <input type="hidden" id="txtPlanAccionID" name="txtPlanAccionID" />
-        @Html.Partial("_EditPlans")
+        @Html.Partial("_EditarIntervencion")
         <div class="row">
             <div class="col-md-8">
                 <hr />
@@ -200,25 +197,6 @@
                 });
             }
         });
-
-        $("#plans").click(function () {
-            ResetTab();
-            $(".tabGesPlanAcc").css("display", "block");
-            $(".tabCerrar").css("display", "none");
-            mostrarPlanAcc();
-        });
-        $("#plans").dblclick(function () {
-            ResetTab();
-        });
-
-        $("#addPlans").click(function () {
-            $(".tabAddPlanAcc").css("display", "block");
-            $(".tabCerrar").css("display", "none");
-            $("#btnAddPlan").show();
-            $("#btnCanPlan").show();
-            $("#btnUpdPlan").hide();
-        });
-
         gestorRiesgos();
 
         function CancelRisk() {
