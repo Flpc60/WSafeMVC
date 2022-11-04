@@ -1774,7 +1774,7 @@ function AddInterven() {
             alert(thrownError);
         }
     });
-    AddPlan(); // adicionar recomendación
+    AddPlan(1); // adicionar plan acción
 }
 
 function UpdateIntervencion() {
@@ -2035,6 +2035,7 @@ function ResetTab() {
     $(".tabAddRootCauses").css("display", "none");
     $(".tabAddRecomendations").css("display", "none");
     $(".tabAddPlanAcc").css("display", "none");
+    $(".tabAddInterven").css("display", "none");
     $(".tabAddBarriers").css("display", "none");
     $(".tabGesCargos").css("display", "none");
     $(".tabGesZones").css("display", "none");
@@ -2045,7 +2046,10 @@ function ResetTab() {
     $(".tabGesCauses").css("display", "none");
     $(".tabGesRootCauses").css("display", "none");
     $(".tabGesRecomendations").css("display", "none");
+    $(".tabPeligros").css("display", "none");
+    $(".tabEvalRiesgos").css("display", "none");
     $(".tabGesPlanAcc").css("display", "none");
+    $(".tabMediAplica").css("display", "none");
     $(".tabGesBarriers").css("display", "none");
     $(".tabCerrar").css("display", "block");
 }
@@ -3230,6 +3234,25 @@ function gestorRiesgos() {
         $('#consecuencia').val(nc);
         calcularRiesgo();
     });
+
+    $("#plans").click(function () {
+        ResetTab();
+        $(".tabGesPlanAcc").css("display", "block");
+        $(".tabCerrar").css("display", "none");
+        mostrarPlanAcc();
+    });
+
+    $("#plans").dblclick(function () {
+        ResetTab();
+    });
+
+    $("#addPlans").click(function () {
+        $(".tabAddPlanAcc").css("display", "block");
+        $(".tabCerrar").css("display", "none");
+        $("#btnAddPlan").show();
+        $("#btnCanPlan").show();
+        $("#btnUpdPlan").hide();
+    });
 }
 
 function calcularProbabilidad() {
@@ -4134,7 +4157,7 @@ function AddRecomendation() {
             alert(thrownError);
         }
     });
-    AddPlan(); // adicionar recomendación
+    AddPlan(2); // adicionar recomendación
 }
 
 function ShowRecomendations() {
@@ -4273,21 +4296,24 @@ function CancelRecomendation() {
 function AddPlan(id) {
 
     // Adicionar nueva acción
-    var tiempo = Date.now();
-    var hoy = new Date(tiempo);
-    var fecha = hoy.toLocaleDateString();
     var descrip = "";
     var trabajador = "";
     var fechaIni = "";
     var fechaFin = "";
+    var accion = "";
+
     if (id == 1) {
         fechaIni = $("#FechaInicial").val();
         fechaFin = $("#FechaFinal").val();
         trabajador = $("#idRespons").val();
-        decrip = "Matriz de Riesgos";
+        descrip = "Matriz de Riesgos";
+        accion = $("#txtNombre").val();
     } else {
+        fechaIni = $("#FechaReporte").val();
+        fechaFin = $("#FechaReporte").val();
         trabajador = $("#txtInformante").val();
         descrip = "Investigación incidente / accidente";
+        accion = $("#txtRecomendation").val();
     }
 
     if ($("#txtAccionID").val() == "") {
@@ -4297,14 +4323,14 @@ function AddPlan(id) {
             ProcesoID: $("#proceso").val(),
             ActividadID: $("#activity").val(),
             TareaID: $("#tarea").val(),
-            FechaSolicitud: fecha,
+            FechaSolicitud: fechaIni,
             Categoria: "2",
             TrabajadorID: trabajador,
             FuenteAccion: "11",
             Descripcion: descrip,
             EficaciaAntes: "3",
             EficaciaDespues: "3",
-            FechaCierre: fecha,
+            FechaCierre: fechaFin,
             Efectiva: false,
             ActionCategory: "1"
         };
@@ -4332,14 +4358,14 @@ function AddPlan(id) {
     var planAccionVM = {
         ID: 0,
         AccionID: accionID,
-        FechaInicial: fecha,
-        FechaFinal: fecha,
+        FechaInicial: fechaIni,
+        FechaFinal: fechaFin,
         Causa: "1",
-        Accion: $("#txtRecomendation").val(),
-        TrabajadorID: $("#txtInformante").val(),
+        Accion: accion,
+        TrabajadorID: trabajador,
         Prioritaria: true,
         Costos: "0",
-        Responsable: $("#txtInformante").val(),
+        Responsable: trabajador,
         ActionCategory: "1"
     };
 
