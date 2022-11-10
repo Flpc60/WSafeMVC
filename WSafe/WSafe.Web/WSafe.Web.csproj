@@ -321,6 +321,7 @@
     <Compile Include="Data\Entities\Auditor\AuditaAccion.cs" />
     <Compile Include="Data\Entities\Auditor\AuditRiesgo.cs" />
     <Compile Include="Data\Entities\Auditor\TiposOperacion.cs" />
+    <Compile Include="Data\Entities\Calification.cs" />
     <Compile Include="Data\Entities\Cargo.cs" />
     <Compile Include="Data\Entities\CategoriaAplicacion.cs" />
     <Compile Include="Data\Entities\CategoriaControl.cs" />
@@ -339,6 +340,7 @@
     <Compile Include="Data\Entities\Document.cs" />
     <Compile Include="Data\Entities\EfectosPosibles.cs" />
     <Compile Include="Data\Entities\EstadosCivil.cs" />
+    <Compile Include="Data\Entities\Evaluation.cs" />
     <Compile Include="Data\Entities\FuentesAccion.cs" />
     <Compile Include="Data\Entities\ICAM\BarrierAnalice.cs" />
     <Compile Include="Data\Entities\ICAM\BarrierCategories.cs" />
@@ -370,6 +372,7 @@
     <Compile Include="Data\Entities\NivelesExposicion.cs" />
     <Compile Include="Data\Entities\NivelesProbabilidad.cs" />
     <Compile Include="Data\Entities\NivelesRiesgo.cs" />
+    <Compile Include="Data\Entities\Norma.cs" />
     <Compile Include="Data\Entities\Operation.cs" />
     <Compile Include="Data\Entities\Operations.cs" />
     <Compile Include="Data\Entities\Organization.cs" />
