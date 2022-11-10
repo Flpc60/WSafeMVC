@@ -8,7 +8,7 @@ namespace WSafe.Domain.Data.Entities
         AuditoriaInt = 1,
         [Display(Name = "Auditoria Externa")]
         AuditoriaExt = 2,
-        [Display(Name = "Mapa de Riesgos")]
+        [Display(Name = "Matriz de Riesgos")]
         Mapa = 3,
         [Display(Name = "Producto y/o servicio no conforme")]
         NoConformidad = 4,
