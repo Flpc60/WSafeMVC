@@ -367,6 +367,7 @@
     <Compile Include="Data\Entities\Indicador.cs" />
     <Compile Include="Data\Entities\JerarquiaControles.cs" />
     <Compile Include="Data\Entities\MedidasControl.cs" />
+    <Compile Include="Data\Entities\Movimient.cs" />
     <Compile Include="Data\Entities\NivelesConsecuencia.cs" />
     <Compile Include="Data\Entities\NivelesDeficiencia.cs" />
     <Compile Include="Data\Entities\NivelesExposicion.cs" />
