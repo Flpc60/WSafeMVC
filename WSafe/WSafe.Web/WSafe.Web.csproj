@@ -491,6 +491,18 @@
     <Compile Include="Migrations\202210152009197_Update-Recomendation.Designer.cs">
       <DependentUpon>202210152009197_Update-Recomendation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202211101619244_CreateMovimient.cs" />
+    <Compile Include="Migrations\202211101619244_CreateMovimient.Designer.cs">
+      <DependentUpon>202211101619244_CreateMovimient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202211101632075_UpdateNorma.cs" />
+    <Compile Include="Migrations\202211101632075_UpdateNorma.Designer.cs">
+      <DependentUpon>202211101632075_UpdateNorma.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202211101733158_UpdateNorma1.cs" />
+    <Compile Include="Migrations\202211101733158_UpdateNorma1.Designer.cs">
+      <DependentUpon>202211101733158_UpdateNorma1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AuthorizationVM.cs" />
     <Compile Include="Models\DetailsIncidentVM.cs" />
@@ -934,6 +946,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202210152009197_Update-Recomendation.resx">
       <DependentUpon>202210152009197_Update-Recomendation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211101619244_CreateMovimient.resx">
+      <DependentUpon>202211101619244_CreateMovimient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211101632075_UpdateNorma.resx">
+      <DependentUpon>202211101632075_UpdateNorma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211101733158_UpdateNorma1.resx">
+      <DependentUpon>202211101733158_UpdateNorma1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
