@@ -1,0 +1,41 @@
+﻿<br />
+<div class="container" style="background-color:mediumaquamarine">
+    <div class="row">
+        <div class="col-md-10">
+            <div class="form-group">
+                <label class="control-label col-md-2">SUBIR ARCHIVOS :</label>
+                <label class="control-label col-md-2" for="txtStandard">ESTÁNDAR :</label>
+                <div class="col-md-10">
+                    <select name="txtStandardID" class="form-control" id="txtStandardID">
+                        <option selected="selected" value="0">Seleccione un estándar ...</option>
+                    </select>
+                    <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="txtStandardID"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-10">
+            <div class="form-group">
+                <label class="control-label col-md-2" for="txtDescripcion">DESCRIPCIÓN ARCHIVO :</label>
+                <div class="col-md-10">
+                    <input type="text" name="txtDescripcion" class="form-control text-box single-line" id="txtDescripcion" value="0,00">
+                    <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="txtDescripcion"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-10">
+            <div class="form-group">
+                <label class="control-label col-md-2" for="txtDocument">SELECCIONE UN ARCHIVO :</label>
+                <div class="col-md-6">
+                    <input type="file" class="form-control" id="txtDocument" required autofocus>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
