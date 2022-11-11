@@ -76,5 +76,9 @@ namespace WSafe.Domain.Data.Entities
         [Display(Name = "Turnos Operativo")]
         [MaxLength(150)]
         public string TurnosOperativo { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Año")]
+        [MaxLength(4)]
+        public string Year { get; set; }
     }
 }

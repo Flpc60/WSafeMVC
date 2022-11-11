@@ -310,6 +310,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IncidentesController.cs" />
     <Compile Include="Controllers\IndicadoresController.cs" />
+    <Compile Include="Controllers\MovimientosController.cs" />
     <Compile Include="Controllers\OrganizationsController.cs" />
     <Compile Include="Controllers\RiesgosController.cs" />
     <Compile Include="Data\Entities\Accidentado.cs" />
@@ -503,11 +504,20 @@
     <Compile Include="Migrations\202211101733158_UpdateNorma1.Designer.cs">
       <DependentUpon>202211101733158_UpdateNorma1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202211111758266_UpdateMovimient2.cs" />
+    <Compile Include="Migrations\202211111758266_UpdateMovimient2.Designer.cs">
+      <DependentUpon>202211111758266_UpdateMovimient2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202211112020430_UpdateMovimient3.cs" />
+    <Compile Include="Migrations\202211112020430_UpdateMovimient3.Designer.cs">
+      <DependentUpon>202211112020430_UpdateMovimient3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AuthorizationVM.cs" />
     <Compile Include="Models\DetailsIncidentVM.cs" />
     <Compile Include="Models\IntervencionVM.cs" />
     <Compile Include="Models\MatrizRiesgosVM.cs" />
+    <Compile Include="Models\MovimientVM.cs" />
     <Compile Include="Models\RoleUserVM.cs" />
     <Compile Include="Models\UserListVM.cs" />
     <Compile Include="Models\_DetailsAccionVM.cs" />
@@ -745,6 +755,13 @@
     <Content Include="Views\Shared\_ShowRecomendations.cshtml" />
     <Content Include="Views\Shared\_ShowPlans.cshtml" />
     <Content Include="Views\Shared\_EditPlans.cshtml" />
+    <Content Include="Views\Shared\_EditMovimient.cshtml" />
+    <Content Include="Views\Movimientos\Create.cshtml" />
+    <Content Include="Views\Movimientos\Delete.cshtml" />
+    <Content Include="Views\Movimientos\Details.cshtml" />
+    <Content Include="Views\Movimientos\Edit.cshtml" />
+    <Content Include="Views\Movimientos\Index.cshtml" />
+    <Content Include="Views\Shared\_ShowMovimientos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -955,6 +972,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202211101733158_UpdateNorma1.resx">
       <DependentUpon>202211101733158_UpdateNorma1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211111758266_UpdateMovimient2.resx">
+      <DependentUpon>202211111758266_UpdateMovimient2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211112020430_UpdateMovimient3.resx">
+      <DependentUpon>202211112020430_UpdateMovimient3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
