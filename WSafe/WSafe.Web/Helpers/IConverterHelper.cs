@@ -41,5 +41,6 @@ namespace WSafe.Domain.Helpers
         RoleUserVM ToAuthorizationVM(User user);
         Task<User> ToUserAsync(RoleUserVM user);
         AplicacionVM ToAplicationVM(Aplicacion aplicacion);
+        IEnumerable<MovimientVM> ToListMovimientos(IEnumerable<Movimient> movimientos);
     }
 }
