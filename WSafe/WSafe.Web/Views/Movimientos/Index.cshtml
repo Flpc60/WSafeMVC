@@ -68,7 +68,7 @@
             $("#txtDescrip").val("");
         }
 
-        function loadData(phva) {
+        function loadNormas(phva) {
             var selectedStandard = $("#txtStandardID").val();
             if (selectedStandard != null && selectedStandard != '') {
                 $.getJSON('@Url.Action("GetNormas")', { id: phva }, function (standards) {

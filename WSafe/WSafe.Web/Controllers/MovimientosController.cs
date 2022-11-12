@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -128,14 +130,35 @@ namespace WSafe.Web.Controllers
             await _empresaContext.SaveChangesAsync();
             return RedirectToAction("Index");
         }
-
-        protected override void Dispose(bool disposing)
+        [HttpGet]
+        public ActionResult GetNormas(string ciclo)
         {
-            if (disposing)
+            if (ciclo != null)
             {
-                _empresaContext.Dispose();
+                var result =
+                    from n in _empresaContext.Normas
+                    where n.Ciclo == ciclo
+                    select new
+                    {
+                        ID = n.ID,
+                        Name = n.Item + " " + n.Name
+                    };
+
+                return Json(result, JsonRequestBehavior.AllowGet);
             }
-            base.Dispose(disposing);
+            return Json(null, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetMovimientos(string ciclo)
+        {
+            if (ciclo != null)
+            {
+                var data = _empresaContext.Movimientos.Where(m => m.Ciclo == ciclo).ToList();
+                var result = _converterHelper.ToListMovimientos(data);
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            return Json(null, JsonRequestBehavior.AllowGet);
         }
     }
 }

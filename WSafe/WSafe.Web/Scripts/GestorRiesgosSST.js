@@ -437,6 +437,40 @@ function ShowZones() {
     });
 }
 
+function ShowMovimientos(phva) {
+    // Mostrar todos los movimientos
+    $.ajax({
+        url: "/Movimientos/GetMovimientos",
+        data: { ciclo: phva },
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (result) {
+            var html = '';
+            $.each(result, function (key, item) {
+                html += '<tr>';
+                html += '<td>' + item.Ciclo + '</td>';
+                html += '<td>' + item.Item + '</td>';
+                html += '<td>' + item.Name + '</td>';
+                html += '<td>' + item.Descripcion + '</td>';
+                html += '<td><a href = "#" onclick = "EditMovimient(' + item.ID + ')" class="btn btn-info">Editar</a></td>';
+                html += '<td><a href = "#" onclick = "DetailMovimient(' + item.ID + ')" class="btn btn-warning">Detalles</a></td>';
+                html += '<td><a href = "#" onclick = "ConvertMovimient(' + item.ID + ')" class="btn btn-secondary">Convertr</a></td>';
+                html += '<td><a href = "#" onclick = "DownMovimient(' + item.ID + ')" class="btn btn-info">Descargar</a></td>';
+                html += '<td><a href = "#" onclick = "DeleteMovimient(' + item.ID + ')" class="btn btn-danger"">Borrar</a></td>';
+                html += '</tr>';
+            });
+            $('.tbody').html(html);
+            $('.tabGesMovimientos').css("display", "block");
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
 function ShowCargos() {
     // Mostrar todos los cargos
     $.ajax({
@@ -1928,6 +1962,62 @@ function GestorAuthorization() {
 
 }
 
+function GestorMovimient() {
+    //Activa ventanas para gestionar crud de movimientos
+
+    $("#planear").click(function () {
+        ResetTab();
+        $(".tabGesMovimientos").css("display", "block");
+        $(".tabCerrar").css("display", "none");
+        loadNormas("P");
+        ShowMovimientos("P");
+    });
+    $("#planear").dblclick(function () {
+        ResetTab();
+    });
+
+    $("#hacer").click(function () {
+        ResetTab();
+        $(".tabGesMovimientos").css("display", "block");
+        $(".tabCerrar").css("display", "none");
+        loadNormas("H");
+        ShowMovimientos("H");
+    });
+    $("#hacer").dblclick(function () {
+        ResetTab();
+    });
+
+    $("#verificar").click(function () {
+        ResetTab();
+        $(".tabGesMovimientos").css("display", "block");
+        $(".tabCerrar").css("display", "none");
+        loadNormas("V");
+        ShowMovimientos("V");
+    });
+    $("#verificar").dblclick(function () {
+        ResetTab();
+    });
+
+    $("#actuar").click(function () {
+        ResetTab();
+        $(".tabGesMovimientos").css("display", "block");
+        $(".tabCerrar").css("display", "none");
+        loadNormas("A");
+        ShowMovimientos("P");
+    });
+    $("#actuar").dblclick(function () {
+        ResetTab();
+    });
+
+    $("#addMovimient").click(function () {
+        $(".tabAddMovimientos").css("display", "block");
+        $(".tabCerrar").css("display", "none");
+        $("#txtStandardID").focus();
+        $("#btnAddMovimient").show();
+        $("#btnCanMovimient").show();
+    });
+}
+
 function GestorOrganization() {
     //Activa ventanas para gestionar crud de organización
 
@@ -2037,6 +2127,8 @@ function ResetTab() {
     $(".tabAddPlanAcc").css("display", "none");
     $(".tabAddInterven").css("display", "none");
     $(".tabAddBarriers").css("display", "none");
+    $(".tabAddRecomendations").css("display", "none");
+    $(".tabAddMovimientos").css("display", "none");
     $(".tabGesCargos").css("display", "none");
     $(".tabGesZones").css("display", "none");
     $(".tabGesProcess").css("display", "none");
@@ -2046,6 +2138,7 @@ function ResetTab() {
     $(".tabGesCauses").css("display", "none");
     $(".tabGesRootCauses").css("display", "none");
     $(".tabGesRecomendations").css("display", "none");
+    $(".tabGesMovimientos").css("display", "none");
     $(".tabPeligros").css("display", "none");
     $(".tabEvalRiesgos").css("display", "none");
     $(".tabGesPlanAcc").css("display", "none");
@@ -2790,6 +2883,49 @@ function AddNewCargo() {
         type: "POST",
         url: "/Organizations/CreateNewCargo",
         data: { model: cargoVM },
+        dataType: "json",
+        success: function (response) {
+            $("#btnAddCargo").hide();
+            $("#btnCanCargo").hide();
+            $("#txtCodigo").val("");
+            $("#txtDescrip").val("");
+            $(".tabAddCargos").css("display", "none");
+            $("#addCargo").focus();
+            alert(response.mensaj);
+            ShowCargos();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function AddNewMovimient(ciclo) {
+    // Crea un nuevo movimiento
+    $(".tabAddMovimientos").css("display", "none");
+    var selectedFile = ($("#txtDocument"))[0].files[0];
+    if (!selectedFile) {
+        alert("No se ha seleccionado ningún archivo para subir !!");
+        return;
+    }
+    var document = new FormData();
+    document.append("fileLoad", selectedFile);
+
+    var movimient = {
+        ID: "0",
+        OrganizationID: organizationID,
+        NormaId: $("#txtStandardID"),
+        Descripcion: $("#txtDescripcion").val(),
+        Document = document,
+        Year = year,
+        Item = item,
+        Ciclo = ciclo
+    };
+    $.ajax({
+        type: "POST",
+        url: "/Organizations/CreateNewCargo",
+        data: { model: movimient },
         dataType: "json",
         success: function (response) {
             $("#btnAddCargo").hide();
