@@ -456,9 +456,9 @@ function ShowMovimientos(phva) {
                 html += '<td>' + item.Descripcion + '</td>';
                 html += '<td><a href = "#" onclick = "EditMovimient(' + item.ID + ')" class="btn btn-info">Editar</a></td>';
                 html += '<td><a href = "#" onclick = "DetailMovimient(' + item.ID + ')" class="btn btn-warning">Detalles</a></td>';
-                html += '<td><a href = "#" onclick = "ConvertMovimient(' + item.ID + ')" class="btn btn-secondary">Convertr</a></td>';
+                html += '<td><a href = "#" onclick = "ConvertMovimient(' + item.ID + ')" class="btn btn-secondary">Convertir</a></td>';
                 html += '<td><a href = "#" onclick = "DownMovimient(' + item.ID + ')" class="btn btn-info">Descargar</a></td>';
-                html += '<td><a href = "#" onclick = "DeleteMovimient(' + item.ID + ')" class="btn btn-danger"">Borrar</a></td>';
+                html += '<td><a href = "#" onclick = "DeleteMovimient(' + item.ID + ')" class="btn btn-danger">Borrar</a></td>';
                 html += '</tr>';
             });
             $('.tbody').html(html);
@@ -1969,8 +1969,9 @@ function GestorMovimient() {
         ResetTab();
         $(".tabGesMovimientos").css("display", "block");
         $(".tabCerrar").css("display", "none");
-        loadNormas("P");
-        ShowMovimientos("P");
+        ciclo = "P";
+        loadNormas(ciclo);
+        ShowMovimientos(ciclo);
     });
     $("#planear").dblclick(function () {
         ResetTab();
@@ -1980,8 +1981,9 @@ function GestorMovimient() {
         ResetTab();
         $(".tabGesMovimientos").css("display", "block");
         $(".tabCerrar").css("display", "none");
-        loadNormas("H");
-        ShowMovimientos("H");
+        ciclo = "H";
+        loadNormas(ciclo);
+        ShowMovimientos(ciclo);
     });
     $("#hacer").dblclick(function () {
         ResetTab();
@@ -1991,8 +1993,9 @@ function GestorMovimient() {
         ResetTab();
         $(".tabGesMovimientos").css("display", "block");
         $(".tabCerrar").css("display", "none");
-        loadNormas("V");
-        ShowMovimientos("V");
+        ciclo = "V";
+        loadNormas(ciclo);
+        ShowMovimientos(ciclo);
     });
     $("#verificar").dblclick(function () {
         ResetTab();
@@ -2002,8 +2005,9 @@ function GestorMovimient() {
         ResetTab();
         $(".tabGesMovimientos").css("display", "block");
         $(".tabCerrar").css("display", "none");
-        loadNormas("A");
-        ShowMovimientos("P");
+        ciclo = "A";
+        loadNormas(ciclo);
+        ShowMovimientos(ciclo);
     });
     $("#actuar").dblclick(function () {
         ResetTab();
@@ -2127,7 +2131,6 @@ function ResetTab() {
     $(".tabAddPlanAcc").css("display", "none");
     $(".tabAddInterven").css("display", "none");
     $(".tabAddBarriers").css("display", "none");
-    $(".tabAddRecomendations").css("display", "none");
     $(".tabAddMovimientos").css("display", "none");
     $(".tabGesCargos").css("display", "none");
     $(".tabGesZones").css("display", "none");
@@ -2901,13 +2904,13 @@ function AddNewCargo() {
     });
 }
 
-function AddNewMovimient(ciclo) {
+function AddNewMovimient() {
     // Crea un nuevo movimiento
     $(".tabAddMovimientos").css("display", "none");
     var selectedFile = ($("#txtDocument"))[0].files[0];
     if (!selectedFile) {
         alert("No se ha seleccionado ningún archivo para subir !!");
-        return;
+        return false;
     }
     var document = new FormData();
     document.append("fileLoad", selectedFile);
@@ -2918,24 +2921,24 @@ function AddNewMovimient(ciclo) {
         NormaId: $("#txtStandardID"),
         Descripcion: $("#txtDescripcion").val(),
         Document = document,
-        Year = year,
-        Item = item,
+        Year = "",
+        Item = "",
         Ciclo = ciclo
     };
     $.ajax({
         type: "POST",
-        url: "/Organizations/CreateNewCargo",
+        url: "/Movimientos/CreateMovimient",
         data: { model: movimient },
         dataType: "json",
         success: function (response) {
-            $("#btnAddCargo").hide();
-            $("#btnCanCargo").hide();
-            $("#txtCodigo").val("");
-            $("#txtDescrip").val("");
-            $(".tabAddCargos").css("display", "none");
-            $("#addCargo").focus();
+            $("#btnAddMovimient").hide();
+            $("#btnCanMovimient").hide();
+            $("#txtStandardID").val("");
+            $("#txtDescripcion").val("");
+            $(".tabAddMovimientos").css("display", "none");
+            $("#addMovimient").focus();
             alert(response.mensaj);
-            ShowCargos();
+            ShowMovimientos("P");
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
