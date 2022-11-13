@@ -633,7 +633,6 @@ namespace WSafe.Domain.Helpers.Implements
             };
             return result;
         }
-
         public IEnumerable<PlanAccionVM> ToPlanAccionVMList(IEnumerable<PlanAction> plan)
         {
             var model = new List<PlanAccionVM>();
@@ -1071,6 +1070,26 @@ namespace WSafe.Domain.Helpers.Implements
                 RoleID = user.RoleID
             };
             return result;
+        }
+        public IEnumerable<MovimientVM> ToListMovimientos(IEnumerable<Movimient> movimientos)
+        {
+            var model = new List<MovimientVM>();
+            foreach (var item in movimientos)
+            {
+                model.Add(new MovimientVM
+                {
+                    ID = item.ID,
+                    OrganizationID = item.OrganizationID,
+                    Ciclo = item.Ciclo,
+                    Item = item.Item,
+                    Name = _empresaContext.Normas.Find(item.NormaID).Name.ToUpper(),
+                    NormaID = item.NormaID,
+                    Descripcion = item.Descripcion,
+                    Document = item.Document,
+                    Year = item.Year
+                }); ;
+            }
+            return model;
         }
     }
 }
