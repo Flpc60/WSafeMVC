@@ -57,21 +57,33 @@ namespace WSafe.Web.Controllers
             return View();
         }
 
-        // POST: Movimientos/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,OrganizationID,Ciclo,Item,Name,NormaID,Descripcion,Document,Year")] MovimientVM movimientVM)
+        public async Task<ActionResult> CreateMovimient([Bind(Include = "ID,OrganizationID,NormaID,Descripcion,Document,Year, Item,Ciclo")] Movimient model)
         {
-            if (ModelState.IsValid)
+            var message = "";
+            try
             {
-                _empresaContext.MovimientVMs.Add(movimientVM);
-                await _empresaContext.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
+                var organizatión = _empresaContext.Organizations.OrderByDescending(x => x.ID).First();
+                model.OrganizationID = organizatión.ID;
+                model.Year = organizatión.Year;
+                var norma = _empresaContext.Normas.Find(model.NormaID);
+                model.Item = norma.Item;
+                if (ModelState.IsValid)
+                {
 
-            return View(movimientVM);
+                    _empresaContext.Movimientos.Add(model);
+                    await _empresaContext.SaveChangesAsync();
+                    message = "El registro ha sido ingresado correctamente !!";
+                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                message = "El registro NO ha sido ingresado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                message = "La transacción NO ha sido realizada correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         // GET: Movimientos/Edit/5
