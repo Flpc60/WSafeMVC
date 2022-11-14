@@ -6,7 +6,7 @@
                 <label class="control-label col-md-2">SUBIR ARCHIVOS :</label>
                 <label class="control-label col-md-2" for="txtStandard">ESTÁNDAR :</label>
                 <div class="col-md-10">
-                    <select name="txtStandardID" class="form-control" id="txtStandardID">
+                    <select name="txtStandardID" class="form-control col-md-2" id="txtStandardID">
                         <option selected="selected" value="0">Seleccione un estándar ...</option>
                     </select>
                     <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="txtStandardID"></span>
@@ -20,7 +20,7 @@
             <div class="form-group">
                 <label class="control-label col-md-2" for="txtDescripcion">DESCRIPCIÓN ARCHIVO :</label>
                 <div class="col-md-10">
-                    <input type="text" name="txtDescripcion" class="form-control text-box single-line" id="txtDescripcion" value="0,00">
+                    <input type="text" name="txtDescripcion" class="form-control" id="txtDescripcion" placeholder="Escriba una descripción del contenido del archivo">
                     <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="txtDescripcion"></span>
                 </div>
             </div>
@@ -32,7 +32,7 @@
             <div class="form-group">
                 <label class="control-label col-md-2" for="txtDocument">SELECCIONE UN ARCHIVO :</label>
                 <div class="col-md-6">
-                    <input type="file" class="form-control" id="txtDocument" required autofocus>
+                    <input type="file" class="form-control" id="fileLoad" name="fileLoad" required autofocus>
                 </div>
             </div>
         </div>
