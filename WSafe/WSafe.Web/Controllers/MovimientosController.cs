@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -59,30 +60,25 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateMovimient([Bind(Include = "ID,OrganizationID,NormaID,Descripcion,Document,Year, Item,Ciclo")] Movimient model)
+        public ActionResult CreateMovimient(HttpPostedFileBase fileLoad)
         {
             var message = "";
             try
             {
                 var organizatión = _empresaContext.Organizations.OrderByDescending(x => x.ID).First();
-                model.OrganizationID = organizatión.ID;
-                model.Year = organizatión.Year;
-                var norma = _empresaContext.Normas.Find(model.NormaID);
-                model.Item = norma.Item;
-                if (ModelState.IsValid)
+                var fullPath = "~/SG-SST/1. PLANEAR/2022/1.1.1";
+                var path = Server.MapPath(fullPath);
+                if (!Directory.Exists(path))
                 {
-
-                    _empresaContext.Movimientos.Add(model);
-                    await _empresaContext.SaveChangesAsync();
-                    message = "El registro ha sido ingresado correctamente !!";
-                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                    Directory.CreateDirectory(path);
                 }
-                message = "El registro NO ha sido ingresado correctamente !!";
-                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                fileLoad.SaveAs(path + Path.GetFileName(fileLoad.FileName));
+                message = "El archivo ha sido creado correctamente !!";
+                return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                message = "La transacción NO ha sido realizada correctamente !!";
+                message = "El archivo NO ha sido creado correctamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
