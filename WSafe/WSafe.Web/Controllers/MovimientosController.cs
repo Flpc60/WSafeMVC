@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Helpers;
@@ -152,8 +153,8 @@ namespace WSafe.Web.Controllers
                     where n.Ciclo == ciclo
                     select new
                     {
-                        ID = n.ID,
-                        Name = n.Item + " " + n.Name
+                        Value = n.ID,
+                        Text = n.Item + " " + n.Name
                     };
 
                 return Json(result, JsonRequestBehavior.AllowGet);
