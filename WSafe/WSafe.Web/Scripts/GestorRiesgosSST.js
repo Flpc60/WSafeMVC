@@ -2907,20 +2907,20 @@ function AddNewCargo() {
 function AddNewMovimient() {
     // Crea un nuevo movimiento
     $(".tabAddMovimientos").css("display", "none");
-    var selectedFile = $("#txtDocument")[0].files[0];
+    var selectedFile = $("#fileLoad")[0].files[0];
     if (!selectedFile) {
         alert("No se ha seleccionado ningún archivo para subir !!");
         return false;
     }
-    var document = new FormData();
-    document.append("txtDocument", selectedFile);
+    var formData = new FormData();
+    formData.append("fileLoad", selectedFile);
 
     var movimient = {
         ID: "0",
         OrganizationID: "",
-        NormaId: $("#txtStandardID"),
+        NormaId: $("#txtStandardID").val(),
         Descripcion: $("#txtDescripcion").val(),
-        Document: document,
+        Document: "",
         Year: "",
         Item: "",
         Ciclo: ciclo
@@ -2929,7 +2929,7 @@ function AddNewMovimient() {
     $.ajax({
         type: "POST",
         url: "/Movimientos/CreateMovimient",
-        data: { model: movimient },
+        data: { fileLoad: formData },
         dataType: "json",
         success: function (response) {
             $("#btnAddMovimient").hide();
