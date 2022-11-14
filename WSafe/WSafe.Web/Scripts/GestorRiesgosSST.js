@@ -2907,24 +2907,25 @@ function AddNewCargo() {
 function AddNewMovimient() {
     // Crea un nuevo movimiento
     $(".tabAddMovimientos").css("display", "none");
-    var selectedFile = ($("#txtDocument"))[0].files[0];
+    var selectedFile = $("#txtDocument")[0].files[0];
     if (!selectedFile) {
         alert("No se ha seleccionado ningún archivo para subir !!");
         return false;
     }
     var document = new FormData();
-    document.append("fileLoad", selectedFile);
+    document.append("txtDocument", selectedFile);
 
     var movimient = {
         ID: "0",
-        OrganizationID: organizationID,
+        OrganizationID: "",
         NormaId: $("#txtStandardID"),
         Descripcion: $("#txtDescripcion").val(),
-        Document = document,
-        Year = "",
-        Item = "",
-        Ciclo = ciclo
+        Document: document,
+        Year: "",
+        Item: "",
+        Ciclo: ciclo
     };
+
     $.ajax({
         type: "POST",
         url: "/Movimientos/CreateMovimient",
@@ -2938,7 +2939,7 @@ function AddNewMovimient() {
             $(".tabAddMovimientos").css("display", "none");
             $("#addMovimient").focus();
             alert(response.mensaj);
-            ShowMovimientos("P");
+            ShowMovimientos(ciclo);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
