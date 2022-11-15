@@ -84,6 +84,44 @@
             }
         }
 
+        function AddNewMovimient() {
+            // Crea un nuevo movimiento
+            $(".tabAddMovimientos").css("display", "none");
+            var selectedFile = ($("#fileLoad"))[0].files[0];
+            if (!selectedFile) {
+                alert("No se ha seleccionado ningún archivo para subir !!" + selectedFile);
+                return false;
+            }
+            var dataFile = new FormData();
+            dataFile.append("fileLoad", selectedFile);
+            dataFile.append("NormaID", $("#txtStandardID").val());
+            dataFile.append("Descripcion", $("#txtDescripcion").val());
+            dataFile.append("Ciclo", ciclo);
+
+            $.ajax({
+                url: '@Url.Action("CreateMovimient","Movimientos")',
+                type: "POST",
+                data: dataFile,
+                contentType: false,
+                processData: false,
+                async: false,
+                success: function (response) {
+                    $("#btnAddMovimient").hide();
+                    $("#btnCanMovimient").hide();
+                    $("#txtStandardID").val("");
+                    $("#txtDescripcion").val("");
+                    $(".tabAddMovimientos").css("display", "none");
+                    $("#addMovimient").focus();
+                    alert(response.mensaj);
+                    ShowMovimientos(ciclo);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+        }
+
         $(document).ready(function () {
             ClearTextBox();
             $("#txtStandardID").focus();

@@ -66,7 +66,7 @@ namespace WSafe.Web.Controllers
             try
             {
                 var organizatión = _empresaContext.Organizations.OrderByDescending(x => x.ID).First();
-                var fullPath = "~/SG-SST/1. PLANEAR/2022/1.1.1";
+                var fullPath = "~/SG-SST/1. PLANEAR/2022/1.1.6/";
                 var path = Server.MapPath(fullPath);
                 if (!Directory.Exists(path))
                 {
