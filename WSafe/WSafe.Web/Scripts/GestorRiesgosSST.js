@@ -2904,50 +2904,6 @@ function AddNewCargo() {
     });
 }
 
-function AddNewMovimient() {
-    // Crea un nuevo movimiento
-    $(".tabAddMovimientos").css("display", "none");
-    var selectedFile = $("#fileLoad")[0].files[0];
-    if (!selectedFile) {
-        alert("No se ha seleccionado ningún archivo para subir !!");
-        return false;
-    }
-    var formData = new FormData();
-    formData.append("fileLoad", selectedFile);
-
-    var movimient = {
-        ID: "0",
-        OrganizationID: "",
-        NormaId: $("#txtStandardID").val(),
-        Descripcion: $("#txtDescripcion").val(),
-        Document: "",
-        Year: "",
-        Item: "",
-        Ciclo: ciclo
-    };
-
-    $.ajax({
-        type: "POST",
-        url: "/Movimientos/CreateMovimient",
-        data: { fileLoad: formData },
-        dataType: "json",
-        success: function (response) {
-            $("#btnAddMovimient").hide();
-            $("#btnCanMovimient").hide();
-            $("#txtStandardID").val("");
-            $("#txtDescripcion").val("");
-            $(".tabAddMovimientos").css("display", "none");
-            $("#addMovimient").focus();
-            alert(response.mensaj);
-            ShowMovimientos(ciclo);
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            alert(xhr.status);
-            alert(thrownError);
-        }
-    });
-}
-
 function AddZone() {
     // Crea un nueva zona
     var zoneVM = {
