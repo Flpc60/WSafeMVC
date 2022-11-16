@@ -516,6 +516,10 @@
     <Compile Include="Migrations\202211122310009_UpdateMovimient7.Designer.cs">
       <DependentUpon>202211122310009_UpdateMovimient7.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202211160018314_UpdateMovimient11.cs" />
+    <Compile Include="Migrations\202211160018314_UpdateMovimient11.Designer.cs">
+      <DependentUpon>202211160018314_UpdateMovimient11.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AuthorizationVM.cs" />
     <Compile Include="Models\DetailsIncidentVM.cs" />
@@ -985,6 +989,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202211122310009_UpdateMovimient7.resx">
       <DependentUpon>202211122310009_UpdateMovimient7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211160018314_UpdateMovimient11.resx">
+      <DependentUpon>202211160018314_UpdateMovimient11.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

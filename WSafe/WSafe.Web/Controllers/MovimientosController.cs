@@ -60,19 +60,61 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateMovimient(HttpPostedFileBase fileLoad)
+        public ActionResult CreateMovimient(string Descripcion, int NormaID, HttpPostedFileBase fileLoad)
         {
             var message = "";
             try
             {
                 var organizatión = _empresaContext.Organizations.OrderByDescending(x => x.ID).First();
-                var fullPath = "~/SG-SST/1. PLANEAR/2022/1.1.6/";
+                var year = organizatión.Year.ToString();
+                var normaID = NormaID.ToString();
+                var descript = Descripcion.ToString();
+                var norma = _empresaContext.Normas.Find(NormaID);
+                var cycle = norma.Ciclo.ToString();
+                var ruta = norma.Ciclo.ToString();
+
+                switch (cycle)
+                {
+                    case "P":
+                        ruta = "1. PLANEAR/";
+                        break;
+
+                    case "H":
+                        ruta = "2. HACER/";
+                        break;
+                    case "V":
+                        ruta = "3. VERIFICAR/";
+                        break;
+                    case "A":
+                        ruta = "4. ACTUAR/";
+                        break;
+                }
+
+                var item = norma.Item.ToString();
+                var fullPath = "~/SG-SST/" + ruta + year + "/" + item + "/";
                 var path = Server.MapPath(fullPath);
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
                 }
                 fileLoad.SaveAs(path + Path.GetFileName(fileLoad.FileName));
+                var fullName = "~/SG-SST/" + ruta + year + "/" + item + "/" + fileLoad.FileName;
+
+                // Crear movimiento de documentos
+                Movimient model = new Movimient()
+                {
+                    ID = 0,
+                    OrganizationID = organizatión.ID,
+                    NormaID = NormaID,
+                    Descripcion = descript,
+                    Document = fullName,
+                    Year = year,
+                    Item = item,
+                    Ciclo = cycle
+                };
+
+                _empresaContext.Movimientos.Add(model);
+                _empresaContext.SaveChangesAsync();
                 message = "El archivo ha sido creado correctamente !!";
                 return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
@@ -163,7 +205,10 @@ namespace WSafe.Web.Controllers
         {
             if (ciclo != null)
             {
-                var data = _empresaContext.Movimientos.Where(m => m.Ciclo == ciclo).ToList();
+                var data = _empresaContext.Movimientos
+                    .Where(m => m.Ciclo == ciclo)
+                    .OrderBy(i => i.Item)
+                    .ToList();
                 var result = _converterHelper.ToListMovimientos(data);
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
