@@ -13,7 +13,9 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [MaxLength(200)]
         public string Descripcion { get; set; }
-        public byte[]  Document { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatotio")]
+        [MaxLength(200)]
+        public string Document { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [MaxLength(4)]
         public string Year { get; set; }

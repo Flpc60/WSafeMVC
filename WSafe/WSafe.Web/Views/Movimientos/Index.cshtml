@@ -96,7 +96,6 @@
             dataFile.append("fileLoad", selectedFile);
             dataFile.append("NormaID", $("#txtStandardID").val());
             dataFile.append("Descripcion", $("#txtDescripcion").val());
-            dataFile.append("Ciclo", ciclo);
 
             $.ajax({
                 url: '@Url.Action("CreateMovimient","Movimientos")',
