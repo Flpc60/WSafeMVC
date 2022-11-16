@@ -25,8 +25,9 @@ namespace WSafe.Web.Models
         [Display(Name = "DESCRIPCIÓN ARCHIVO")]
         [MaxLength(200)]
         public string Descripcion { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "ARCHIVO")]
-        public byte[] Document { get; set; }
+        public string Document { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [MaxLength(4)]
         public string Year { get; set; }
