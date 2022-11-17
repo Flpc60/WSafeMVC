@@ -100,7 +100,7 @@ namespace WSafe.Web.Controllers
                     Directory.CreateDirectory(path);
                 }
                 fileLoad.SaveAs(path + Path.GetFileName(fileLoad.FileName));
-                var fullName = "~/SG-SST/" + ruta + year + "/" + item + "/" + fileLoad.FileName;
+                var fullName = fileLoad.FileName;
 
                 // Crear movimiento de documentos
                 Movimient model = new Movimient()
@@ -122,7 +122,7 @@ namespace WSafe.Web.Controllers
             }
             catch (Exception ex)
             {
-                message = "El archivo NO ha sido creado correctamente !!";
+                message+= ex.Message;
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
@@ -141,21 +141,39 @@ namespace WSafe.Web.Controllers
                 message = "El archivo NO ha sido abierto correctamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
-            string fullFilePath = model.Document.ToString().Trim();
-            //string app = "winword";
-            if (fullFilePath == null)
+            var cycle = model.Ciclo.ToString();
+            var ruta = model.Ciclo.ToString();
+
+            switch (cycle)
             {
-                message = "El archivo NO ha sido abierto correctamente !!";
-                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                case "P":
+                    ruta = "1. PLANEAR/";
+                    break;
+
+                case "H":
+                    ruta = "2. HACER/";
+                    break;
+                case "V":
+                    ruta = "3. VERIFICAR/";
+                    break;
+                case "A":
+                    ruta = "4. ACTUAR/";
+                    break;
             }
+
+            var year = model.Year.ToString();
+            var item = model.Item.ToString();
+            var fullFilePath = "~/SG-SST/" + ruta + year + "/" + item + "/" + model.Document;
+            var path = Server.MapPath(fullFilePath);
             try
             {
                 using (Process myProcess = new Process())
                 {
-                    myProcess.StartInfo.UseShellExecute = false;
-                    myProcess.StartInfo.FileName = fullFilePath;
+
+                    myProcess.StartInfo.UseShellExecute = true;
+                    myProcess.StartInfo.FileName = path;
                     myProcess.StartInfo.CreateNoWindow = false;
-                    myProcess.Start();
+                    Process.Start(path);
                 }
             }
             catch (Win32Exception w)
