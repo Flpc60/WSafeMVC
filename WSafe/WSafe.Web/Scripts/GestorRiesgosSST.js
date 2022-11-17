@@ -454,7 +454,7 @@ function ShowMovimientos(phva) {
                 html += '<td>' + item.Item + '</td>';
                 html += '<td>' + item.Name + '</td>';
                 html += '<td>' + item.Descripcion + '</td>';
-                html += '<td><a href = "#" onclick = "EditMovimient(' + item.ID + ')" class="btn btn-info">Editar</a></td>';
+                html += '<td><a href = "#" onclick = "EditMovimient(' + item.ID + ')" class="btn btn-info">Abrir</a></td>';
                 html += '<td><a href = "#" onclick = "DetailMovimient(' + item.ID + ')" class="btn btn-warning">Detalles</a></td>';
                 html += '<td><a href = "#" onclick = "ConvertMovimient(' + item.ID + ')" class="btn btn-secondary">Convertir</a></td>';
                 html += '<td><a href = "#" onclick = "DownMovimient(' + item.ID + ')" class="btn btn-info">Descargar</a></td>';
@@ -652,6 +652,27 @@ validarCostos = function () {
     }
 }
 
+function EditMovimient(movimientID) {
+    $(".tabGesMovimientos").css("display", "none");
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: "/Movimientos/OpenFile",
+        data: { id: movimientID },
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        success: function (result) {
+            alert(result.mensaj);
+        },
+         error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    $(".tabAddMovimientos").css("display", "none");
+    $("#btnAddMovimient").hide();
+    $("#btnCanMovimient").show();
+}
+
 function getIntervenByID(intervenID) {
     $(".tabMediAplica").css("display", "none");
     //aplicaID = intervenID;
@@ -675,7 +696,7 @@ function getIntervenByID(intervenID) {
             $("#FechaFinal").val(result.FechaFinal);
             $("#idObserv").val(result.Observaciones);
         },
-         error: function (errormessage) {
+        error: function (errormessage) {
             alert(errormessage.responseText);
         }
     });

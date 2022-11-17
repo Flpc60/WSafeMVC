@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -125,19 +126,43 @@ namespace WSafe.Web.Controllers
             }
         }
 
-        // GET: Movimientos/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        [HttpGet]
+        public async Task<ActionResult> OpenFile(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MovimientVM movimientVM = await _empresaContext.MovimientVMs.FindAsync(id);
-            if (movimientVM == null)
+            Movimient model = await _empresaContext.Movimientos.FindAsync(id);
+            var message = "";
+            if (model == null)
             {
-                return HttpNotFound();
+                message = "El archivo NO ha sido abierto correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
-            return View(movimientVM);
+            string fullFilePath = model.Document.Trim();
+            if (fullFilePath == null)
+            {
+                message = "El archivo NO ha sido abierto correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+            try
+            {
+                using (Process myProcess = new Process())
+                {
+                    myProcess.StartInfo.UseShellExecute = false;
+                    myProcess.StartInfo.FileName = fullFilePath;
+                    myProcess.StartInfo.CreateNoWindow = true;
+                    myProcess.Start();
+                }
+            }
+            catch
+            {
+                message = "El archivo NO ha sido encontrado en la ruta especificada !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+            message = "El archivo ha sido abierto correctamente !!";
+            return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
         }
 
         // POST: Movimientos/Edit/5
