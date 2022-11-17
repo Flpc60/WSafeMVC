@@ -28,32 +28,32 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="tabGesMovimientos">
-            <div class="col-md-12">
-                <button type="button" class="btn btn-primary" id="addMovimient">Subir un nuevo archivo</button>
-            </div>
-            @Html.Partial("_ShowMovimientos")
-        </div>
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="tabAddMovimientos">
-            @Html.Partial("_EditMovimient")
-            <div class="row">
-                <div class="col-md-8">
-                    <hr />
-                    <button type="button" id="btnAddMovimient" class="btn btn-primary" onclick="AddNewMovimient()">Adicionar</button>
-                    <button type="button" id="btnCanMovimient" class="btn btn-primary" onclick="CancelMovimient()">
-                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
-                    </button>
-                </div>
-                <div class="col-md-4">
-                </div>
+    <div class="tabAddMovimientos">
+        @Html.Partial("_EditMovimient")
+        <div class="row">
+            <div class="col-md-8">
+                <hr />
+                <button type="button" id="btnAddMovimient" class="btn btn-primary" onclick="AddNewMovimient()">Adicionar</button>
+                <button type="button" id="btnCanMovimient" class="btn btn-primary" onclick="CancelMovimient()">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                </button>
+            </div>
+            <div class="col-md-4">
             </div>
         </div>
-
-
     </div>
+
+    <div class="tabGesMovimientos">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-primary" id="addMovimient">Subir un nuevo archivo</button>
+        </div>
+        @Html.Partial("_ShowMovimientos")
+    </div>
+
+</div>
 }
 
 @section Scripts
