@@ -25,5 +25,8 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [MaxLength(2)]
         public string Ciclo { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatotio")]
+        [MaxLength(6)]
+        public string Type { get; set; }
     }
 }
