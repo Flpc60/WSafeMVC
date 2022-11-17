@@ -668,6 +668,7 @@ function EditMovimient(movimientID) {
             alert(errormessage.responseText);
         }
     });
+    $(".tabGesMovimientos").css("display", "block");
     $(".tabAddMovimientos").css("display", "none");
     $("#btnAddMovimient").hide();
     $("#btnCanMovimient").show();
