@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Data.Entity;
 using System.Diagnostics;
 using System.IO;
@@ -140,7 +141,8 @@ namespace WSafe.Web.Controllers
                 message = "El archivo NO ha sido abierto correctamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
-            string fullFilePath = model.Document.Trim();
+            string fullFilePath = model.Document.ToString().Trim();
+            //string app = "winword";
             if (fullFilePath == null)
             {
                 message = "El archivo NO ha sido abierto correctamente !!";
@@ -152,14 +154,21 @@ namespace WSafe.Web.Controllers
                 {
                     myProcess.StartInfo.UseShellExecute = false;
                     myProcess.StartInfo.FileName = fullFilePath;
-                    myProcess.StartInfo.CreateNoWindow = true;
+                    myProcess.StartInfo.CreateNoWindow = false;
                     myProcess.Start();
                 }
             }
-            catch
+            catch (Win32Exception w)
             {
-                message = "El archivo NO ha sido encontrado en la ruta especificada !!";
-                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                return Json(new { data = false, mensaj = w.Message }, JsonRequestBehavior.AllowGet);
+
+                //Console.WriteLine(w.Message);
+                //Console.WriteLine(w.ErrorCode.ToString());
+                //Console.WriteLine(w.NativeErrorCode.ToString());
+                //Console.WriteLine(w.StackTrace);
+                //Console.WriteLine(w.Source);
+                //Exception e = w.GetBaseException();
+                //Console.WriteLine(e.Message);
             }
             message = "El archivo ha sido abierto correctamente !!";
             return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
