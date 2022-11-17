@@ -454,6 +454,7 @@ function ShowMovimientos(phva) {
                 html += '<td>' + item.Item + '</td>';
                 html += '<td>' + item.Name + '</td>';
                 html += '<td>' + item.Descripcion + '</td>';
+                html += '<td>' + item.Type + '</td>';
                 html += '<td><a href = "#" onclick = "EditMovimient(' + item.ID + ')" class="btn btn-info">Abrir</a></td>';
                 html += '<td><a href = "#" onclick = "DetailMovimient(' + item.ID + ')" class="btn btn-warning">Detalles</a></td>';
                 html += '<td><a href = "#" onclick = "ConvertMovimient(' + item.ID + ')" class="btn btn-secondary">Convertir</a></td>';

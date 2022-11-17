@@ -1086,7 +1086,8 @@ namespace WSafe.Domain.Helpers.Implements
                     NormaID = item.NormaID,
                     Descripcion = item.Descripcion,
                     Document = item.Document,
-                    Year = item.Year
+                    Year = item.Year,
+                    Type = item.Type
                 }); ;
             }
             return model;

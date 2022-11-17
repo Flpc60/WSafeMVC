@@ -520,38 +520,42 @@
     <Compile Include="Migrations\202211160018314_UpdateMovimient11.Designer.cs">
       <DependentUpon>202211160018314_UpdateMovimient11.cs</DependentUpon>
     </Compile>
-    <Compile Include="obj\Models\AccidentadoVM.cs" />
-    <Compile Include="obj\Models\AuthorizationVM.cs" />
-    <Compile Include="obj\Models\DetailsIncidentVM.cs" />
-    <Compile Include="obj\Models\IntervencionVM.cs" />
-    <Compile Include="obj\Models\MatrizRiesgosVM.cs" />
-    <Compile Include="obj\Models\MovimientVM.cs" />
-    <Compile Include="obj\Models\RoleUserVM.cs" />
-    <Compile Include="obj\Models\UserListVM.cs" />
-    <Compile Include="obj\Models\_DetailsAccionVM.cs" />
-    <Compile Include="obj\Models\AccionViewModel.cs" />
-    <Compile Include="obj\Models\AplicacionVM.cs" />
-    <Compile Include="obj\Models\AplicationsViewModel.cs" />
-    <Compile Include="obj\Models\ControlViewModel.cs" />
-    <Compile Include="obj\Models\CreateIndicatorsViewModel.cs" />
-    <Compile Include="obj\Models\EmpresaContext.cs" />
+    <Compile Include="Migrations\202211172155092_UpdateMovimient22.cs" />
+    <Compile Include="Migrations\202211172155092_UpdateMovimient22.Designer.cs">
+      <DependentUpon>202211172155092_UpdateMovimient22.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccidentadoVM.cs" />
+    <Compile Include="Models\AccionViewModel.cs" />
+    <Compile Include="Models\AplicacionVM.cs" />
+    <Compile Include="Models\AplicationsViewModel.cs" />
+    <Compile Include="Models\AuthorizationVM.cs" />
+    <Compile Include="Models\ControlViewModel.cs" />
+    <Compile Include="Models\CreateIndicatorsViewModel.cs" />
+    <Compile Include="Models\DetailsIncidentVM.cs" />
+    <Compile Include="Models\EmpresaContext.cs" />
+    <Compile Include="Models\EquipoInvestigaVM.cs" />
+    <Compile Include="Models\IncidenteViewModel.cs" />
+    <Compile Include="Models\IndicadorDetallesViewModel.cs" />
+    <Compile Include="Models\IndicadorViewModel.cs" />
+    <Compile Include="Models\IntervencionViewModel.cs" />
+    <Compile Include="Models\IntervencionVM.cs" />
+    <Compile Include="Models\ListaRiesgosVM.cs" />
+    <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\MatrizRiesgosVM.cs" />
+    <Compile Include="Models\MovimientVM.cs" />
+    <Compile Include="Models\PlanAccionVM.cs" />
+    <Compile Include="Models\RiesgoViewModel.cs" />
+    <Compile Include="Models\RoleOperationVM.cs" />
+    <Compile Include="Models\RoleUserVM.cs" />
+    <Compile Include="Models\RoleViewModel.cs" />
+    <Compile Include="Models\SeguimientoAccionVM.cs" />
+    <Compile Include="Models\UserListVM.cs" />
+    <Compile Include="Models\UserViewModel.cs" />
+    <Compile Include="Models\_DetailsAccionVM.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="obj\Models\IncidenteViewModel.cs" />
-    <Compile Include="obj\Models\IndicadorDetallesViewModel.cs" />
-    <Compile Include="obj\Models\IndicadorViewModel.cs" />
-    <Compile Include="obj\Models\IntervencionViewModel.cs" />
-    <Compile Include="obj\Models\ListaRiesgosVM.cs" />
-    <Compile Include="obj\Models\EquipoInvestigaVM.cs" />
-    <Compile Include="obj\Models\LoginViewModel.cs" />
-    <Compile Include="obj\Models\PlanAccionVM.cs" />
-    <Compile Include="obj\Models\RiesgoViewModel.cs" />
-    <Compile Include="obj\Models\RoleOperationVM.cs" />
-    <Compile Include="obj\Models\RoleViewModel.cs" />
-    <Compile Include="obj\Models\SeguimientoAccionVM.cs" />
-    <Compile Include="obj\Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IAccionRepository.cs" />
     <Compile Include="Repositories\IAplicationRepository.cs" />
@@ -774,6 +778,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Documents\" />
+    <Folder Include="obj\" />
     <Folder Include="SG-SST\1. PLANEAR\2022\1.1.1\" />
     <Folder Include="SG-SST\1. PLANEAR\2022\1.1.2\" />
     <Folder Include="SG-SST\1. PLANEAR\2022\1.1.3\" />
@@ -992,6 +997,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202211160018314_UpdateMovimient11.resx">
       <DependentUpon>202211160018314_UpdateMovimient11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211172155092_UpdateMovimient22.resx">
+      <DependentUpon>202211172155092_UpdateMovimient22.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
