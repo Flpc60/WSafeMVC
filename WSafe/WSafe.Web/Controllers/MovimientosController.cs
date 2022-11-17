@@ -101,6 +101,7 @@ namespace WSafe.Web.Controllers
                 }
                 fileLoad.SaveAs(path + Path.GetFileName(fileLoad.FileName));
                 var fullName = fileLoad.FileName;
+                var type = Path.GetExtension(fileLoad.FileName).ToUpper();
 
                 // Crear movimiento de documentos
                 Movimient model = new Movimient()
@@ -112,7 +113,8 @@ namespace WSafe.Web.Controllers
                     Document = fullName,
                     Year = year,
                     Item = item,
-                    Ciclo = cycle
+                    Ciclo = cycle,
+                    Type = type
                 };
 
                 _empresaContext.Movimientos.Add(model);
