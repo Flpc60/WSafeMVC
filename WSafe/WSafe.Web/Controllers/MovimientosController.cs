@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SautinSoft.Document;
+using System;
 using System.ComponentModel;
 using System.Data.Entity;
 using System.Diagnostics;
@@ -267,6 +268,81 @@ namespace WSafe.Web.Controllers
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
             return Json(null, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CreatePDF(int id)
+        {
+            var message = "";
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            try
+            {
+                Movimient model = await _empresaContext.Movimientos.FindAsync(id);
+                if (model == null)
+                {
+                    message = "El archivo NO ha sido abierto correctamente !!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                var cycle = model.Ciclo.ToString();
+                var ruta = model.Ciclo.ToString();
+
+                switch (cycle)
+                {
+                    case "P":
+                        ruta = "1. PLANEAR/";
+                        break;
+
+                    case "H":
+                        ruta = "2. HACER/";
+                        break;
+                    case "V":
+                        ruta = "3. VERIFICAR/";
+                        break;
+                    case "A":
+                        ruta = "4. ACTUAR/";
+                        break;
+                }
+
+                var year = model.Year.ToString();
+                var item = model.Item.ToString();
+                var fullFilePath = "~/SG-SST/" + ruta + year + "/" + item + "/" + model.Document;
+                var path = Server.MapPath(fullFilePath);
+                var type = model.Type.ToLower();
+                var pathPdf = path.Replace(type, ".pdf");
+                // Crear PDF
+                DocumentCore docFile = DocumentCore.Load(path);
+                docFile.Save(pathPdf);
+
+                // Crear movimiento de documentos
+                var docum = model.Document;
+                var filePdf = docum.Replace(type, ".pdf");
+                type = ".PDF";
+
+                Movimient data = new Movimient()
+                {
+                    ID = 0,
+                    OrganizationID = model.OrganizationID,
+                    NormaID = model.NormaID,
+                    Descripcion = model.Descripcion,
+                    Document = filePdf,
+                    Year = model.Year,
+                    Item = model.Item,
+                    Ciclo = model.Ciclo,
+                    Type = type
+                };
+
+                _empresaContext.Movimientos.Add(data);
+                await _empresaContext.SaveChangesAsync();
+            }
+            catch (Win32Exception w)
+            {
+                return Json(new { data = false, mensaj = w.Message }, JsonRequestBehavior.AllowGet);
+            }
+            message = "El archivo ha sido convertido correctamente !!";
+            return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
         }
     }
 }

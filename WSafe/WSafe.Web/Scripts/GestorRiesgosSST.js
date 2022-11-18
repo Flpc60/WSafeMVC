@@ -455,11 +455,16 @@ function ShowMovimientos(phva) {
                 html += '<td>' + item.Name + '</td>';
                 html += '<td>' + item.Descripcion + '</td>';
                 html += '<td>' + item.Type + '</td>';
-                html += '<td><a href = "#" onclick = "EditMovimient(' + item.ID + ')" class="btn btn-info">Abrir</a></td>';
-                html += '<td><a href = "#" onclick = "DetailMovimient(' + item.ID + ')" class="btn btn-warning">Detalles</a></td>';
-                html += '<td><a href = "#" onclick = "ConvertMovimient(' + item.ID + ')" class="btn btn-secondary">Convertir</a></td>';
-                html += '<td><a href = "#" onclick = "DownMovimient(' + item.ID + ')" class="btn btn-info">Descargar</a></td>';
-                html += '<td><a href = "#" onclick = "DeleteMovimient(' + item.ID + ')" class="btn btn-danger">Borrar</a></td>';
+                html += '<td><a href = "#" onclick = "EditMovimient(' + item.ID + ')" class="btn btn-primary">Abrir</a></td>';
+
+                if (item.Type == ".PDF") {
+                    html += '<td><a href = "#" onclick = "GeneratePDF(' + item.ID + ')" class="btn btn-warning">Generar PDF</a></td>';
+                } else {
+
+                    html += '<td><a href = "#" onclick = "GeneratePDF(' + item.ID + ')" class="btn btn-warning">Generar PDF</a></td>';
+                }
+                html += '<td><a href = "#" onclick = "DownMovimient(' + item.ID + ')" class="btn btn-success">Descargar</a></td>';
+                html += '<td><a href = "#" onclick = "DeleteMovimient(' + item.ID + ')" class="btn btn-danger">Eliminar</a></td>';
                 html += '</tr>';
             });
             $('.tbody').html(html);
@@ -651,6 +656,27 @@ validarCostos = function () {
         alert("El consto no puede ser inferior a cero");
         return false;
     }
+}
+
+function GeneratePDF(movimientID) {
+    $(".tabGesMovimientos").css("display", "none");
+    $.ajax({
+        async: true,
+        type: 'POST',
+        url: "/Movimientos/CreatePDF",
+        data: { id: movimientID },
+        dataType: "json",
+        success: function (result) {
+            alert(result.mensaj);
+            ShowMovimientos(ciclo);
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    $(".tabAddMovimientos").css("display", "none");
+    $("#btnAddMovimient").hide();
+    $("#btnCanMovimient").show();
 }
 
 function EditMovimient(movimientID) {
