@@ -717,6 +717,29 @@ function EditMovimient(movimientID) {
         contentType: "application/json;charset=UTF-8",
         success: function (result) {
             alert(result.mensaj);
+            ShowMovimientos(ciclo);
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    $(".tabGesMovimientos").css("display", "block");
+    $(".tabAddMovimientos").css("display", "none");
+    $("#btnAddMovimient").hide();
+    $("#btnCanMovimient").show();
+}
+
+function DeleteMovimient(movimientID) {
+    $(".tabGesMovimientos").css("display", "none");
+    $.ajax({
+        async: true,
+        type: 'POST',
+        url: "/Movimientos/DeleteFile",
+        data: { id: movimientID },
+        dataType: "json",
+        success: function (result) {
+            alert(result.mensaj);
+            ShowMovimientos(ciclo);
         },
          error: function (errormessage) {
             alert(errormessage.responseText);
@@ -2092,6 +2115,9 @@ function GestorMovimient() {
     $("#addMovimient").click(function () {
         $(".tabAddMovimientos").css("display", "block");
         $(".tabCerrar").css("display", "none");
+        $("#txtStandardID").val("");
+        $("#txtDescripcion").val("");
+        $("#fileLoad").val("");
         $("#txtStandardID").focus();
         $("#btnAddMovimient").show();
         $("#btnCanMovimient").show();
