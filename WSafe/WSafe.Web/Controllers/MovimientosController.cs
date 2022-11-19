@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -343,6 +344,59 @@ namespace WSafe.Web.Controllers
             }
             message = "El archivo ha sido convertido correctamente !!";
             return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public HttpResponseMessage GetFile(int id)
+        {
+            try
+            {
+                Movimient model = _empresaContext.Movimientos.Find(id);
+                var cycle = model.Ciclo.ToString();
+                var ruta = model.Ciclo.ToString();
+
+                switch (cycle)
+                {
+                    case "P":
+                        ruta = "1. PLANEAR/";
+                        break;
+
+                    case "H":
+                        ruta = "2. HACER/";
+                        break;
+                    case "V":
+                        ruta = "3. VERIFICAR/";
+                        break;
+                    case "A":
+                        ruta = "4. ACTUAR/";
+                        break;
+                }
+
+                var year = model.Year.ToString();
+                var item = model.Item.ToString();
+                var fullFilePath = "~/SG-SST/" + ruta + year + "/" + item + "/" + model.Document;
+
+                // Descargar Pdf
+                HttpResponseMessage result = new HttpResponseMessage(System.Net.HttpStatusCode.OK);
+                string pdfLocation = Server.MapPath(fullFilePath);
+                var stream = new MemoryStream(System.IO.File.ReadAllBytes(pdfLocation));
+                stream.Position = 0;
+                if (stream == null)
+                {
+                    return null;
+                }
+
+                result.Content = new StreamContent(stream);
+                result.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
+                result.Content.Headers.ContentDisposition.FileName = model.Document;
+                result.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/pdf");
+                result.Content.Headers.ContentLength = stream.Length;
+                return result;
+            }
+            catch (Win32Exception w)
+            {
+                return null;
+            }
         }
     }
 }
