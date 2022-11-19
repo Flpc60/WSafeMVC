@@ -398,5 +398,56 @@ namespace WSafe.Web.Controllers
                 return null;
             }
         }
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteFile(int id)
+        {
+            var message = "";
+            try
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Movimient model = await _empresaContext.Movimientos.FindAsync(id);
+                if (model == null)
+                {
+                    message = "El archivo NO ha sido abierto correctamente !!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                var cycle = model.Ciclo.ToString();
+                var ruta = model.Ciclo.ToString();
+
+                switch (cycle)
+                {
+                    case "P":
+                        ruta = "1. PLANEAR/";
+                        break;
+
+                    case "H":
+                        ruta = "2. HACER/";
+                        break;
+                    case "V":
+                        ruta = "3. VERIFICAR/";
+                        break;
+                    case "A":
+                        ruta = "4. ACTUAR/";
+                        break;
+                }
+
+                var year = model.Year.ToString();
+                var item = model.Item.ToString();
+                var fullFilePath = "~/SG-SST/" + ruta + year + "/" + item + "/" + model.Document;
+                var path = Server.MapPath(fullFilePath);
+                _empresaContext.Movimientos.Remove(model);
+                await _empresaContext.SaveChangesAsync();
+                message = "El archivo se ha eliminado correctamente !!";
+                return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Win32Exception w)
+            {
+                return Json(new { data = false, mensaj = w.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
