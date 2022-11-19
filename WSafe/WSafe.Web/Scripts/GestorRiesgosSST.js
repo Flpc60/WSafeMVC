@@ -458,12 +458,18 @@ function ShowMovimientos(phva) {
                 html += '<td><a href = "#" onclick = "EditMovimient(' + item.ID + ')" class="btn btn-primary">Abrir</a></td>';
 
                 if (item.Type == ".PDF") {
-                    html += '<td><a href = "#" onclick = "GeneratePDF(' + item.ID + ')" class="btn btn-warning">Generar PDF</a></td>';
+                    html += '<td><a href = "#" onclick = "GeneratePDF(' + item.ID + ')" class="btn btn-warning" style ="pointer-events: none;">Generar PDF</a></td>';
                 } else {
 
                     html += '<td><a href = "#" onclick = "GeneratePDF(' + item.ID + ')" class="btn btn-warning">Generar PDF</a></td>';
                 }
-                html += '<td><a href = "#" onclick = "DownMovimient(' + item.ID + ')" class="btn btn-success">Descargar</a></td>';
+
+                if (item.Type != ".PDF") {
+                    html += '<td><a href = "#" onclick = "DownLoadPDF(' + item.ID + ')" class="btn btn-success" style ="pointer-events: none;">Descargar PDF</a></td>';
+                } else {
+                    html += '<td><a href = "#" onclick = "DownLoadPDF(' + item.ID + ')" class="btn btn-success">Descargar PDF</a></td>';
+                }
+
                 html += '<td><a href = "#" onclick = "DeleteMovimient(' + item.ID + ')" class="btn btn-danger">Eliminar</a></td>';
                 html += '</tr>';
             });
@@ -656,6 +662,27 @@ validarCostos = function () {
         alert("El consto no puede ser inferior a cero");
         return false;
     }
+}
+
+function DownLoadPDF(movimientID) {
+    $(".tabGesMovimientos").css("display", "none");
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: "/Movimientos/GetFile",
+        data: { id: movimientID },
+        dataType: "json",
+        success: function (result) {
+            //alert(result.mensaj);
+            ShowMovimientos(ciclo);
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    $(".tabAddMovimientos").css("display", "none");
+    $("#btnAddMovimient").hide();
+    $("#btnCanMovimient").show();
 }
 
 function GeneratePDF(movimientID) {
