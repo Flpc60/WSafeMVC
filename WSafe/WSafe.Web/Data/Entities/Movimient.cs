@@ -9,6 +9,8 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         public int OrganizationID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
+        public int UserID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatotio")]
         public int NormaID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [MaxLength(200)]

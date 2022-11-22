@@ -527,6 +527,14 @@
     <Compile Include="Migrations\202211172155092_UpdateMovimient22.Designer.cs">
       <DependentUpon>202211172155092_UpdateMovimient22.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202211212238481_UpdateMovimient33.cs" />
+    <Compile Include="Migrations\202211212238481_UpdateMovimient33.Designer.cs">
+      <DependentUpon>202211212238481_UpdateMovimient33.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202211212310218_UpdateMovimient44.cs" />
+    <Compile Include="Migrations\202211212310218_UpdateMovimient44.Designer.cs">
+      <DependentUpon>202211212310218_UpdateMovimient44.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
     <Compile Include="Models\AplicacionVM.cs" />
@@ -1003,6 +1011,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202211172155092_UpdateMovimient22.resx">
       <DependentUpon>202211172155092_UpdateMovimient22.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211212238481_UpdateMovimient33.resx">
+      <DependentUpon>202211212238481_UpdateMovimient33.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211212310218_UpdateMovimient44.resx">
+      <DependentUpon>202211212310218_UpdateMovimient44.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
