@@ -72,6 +72,7 @@ namespace WSafe.Web.Controllers
                 Session["User"] = result;
                 Session["userName"] = result.Name;
                 Session["roleID"] = result.RoleID;
+                Session["userID"] = result.ID;
                 Session["organization"] = empresa.RazonSocial.Trim() + " NIT : " + empresa.NIT;
                 Session["numeroTrabajadores"] = empresa.NumeroTrabajadores;
                 Session["turnoOperativo"] = empresa.TurnosOperativo;

@@ -7,6 +7,7 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         public int ID { get; set; }
         public int OrganizationID { get; set; }
+        public int UserID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "PHVA")]
         [MaxLength(2)]

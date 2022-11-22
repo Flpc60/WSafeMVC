@@ -72,6 +72,7 @@ namespace WSafe.Web.Controllers
                 var organizatión = _empresaContext.Organizations.OrderByDescending(x => x.ID).First();
                 var year = organizatión.Year.ToString();
                 var normaID = NormaID.ToString();
+                var userID = (int)Session["userID"];
                 var descript = Descripcion.ToString();
                 var norma = _empresaContext.Normas.Find(NormaID);
                 var cycle = norma.Ciclo.ToString();
@@ -111,6 +112,7 @@ namespace WSafe.Web.Controllers
                     ID = 0,
                     OrganizationID = organizatión.ID,
                     NormaID = NormaID,
+                    UserID = userID,
                     Descripcion = descript,
                     Document = fullName,
                     Year = year,
