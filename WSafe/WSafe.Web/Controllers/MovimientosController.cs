@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -128,7 +127,7 @@ namespace WSafe.Web.Controllers
             }
             catch (Exception ex)
             {
-                message+= ex.Message;
+                message += ex.Message;
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
@@ -349,7 +348,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public HttpResponseMessage GetFile(int id)
+        public FileResult GetFile(int id)
         {
             try
             {
@@ -378,22 +377,24 @@ namespace WSafe.Web.Controllers
                 var item = model.Item.ToString();
                 var fullFilePath = "~/SG-SST/" + ruta + year + "/" + item + "/" + model.Document;
 
-                // Descargar Pdf
-                HttpResponseMessage result = new HttpResponseMessage(System.Net.HttpStatusCode.OK);
-                string pdfLocation = Server.MapPath(fullFilePath);
-                var stream = new MemoryStream(System.IO.File.ReadAllBytes(pdfLocation));
-                stream.Position = 0;
-                if (stream == null)
-                {
-                    return null;
-                }
+                // Descargar archivo
+                //HttpResponseMessage result = new HttpResponseMessage(System.Net.HttpStatusCode.OK);
+                var fileName = model.Document;
+                string fileLocation = Server.MapPath(fullFilePath);
+                return File(fileLocation, "application/force-download", Path.GetFileName(fileLocation));
+                //byte[] fileBytes = System.IO.File.ReadAllBytes(pdfLocation);
+                //var stream = new MemoryStream(System.IO.File.ReadAllBytes(pdfLocation));
+                //stream.Position = 0;
+                //if (stream == null)
+                //{
+                //    return null;
+                //}
 
-                result.Content = new StreamContent(stream);
-                result.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
-                result.Content.Headers.ContentDisposition.FileName = model.Document;
-                result.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/pdf");
-                result.Content.Headers.ContentLength = stream.Length;
-                return result;
+                //result.Content = new StreamContent(stream);
+                //result.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
+                //result.Content.Headers.ContentDisposition.FileName = model.Document;
+                //result.Content.Headers.ContentLength = stream.Length;
+                //return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
             }
             catch (Win32Exception w)
             {
