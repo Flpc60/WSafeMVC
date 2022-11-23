@@ -348,7 +348,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public FileResult GetFile(int id)
+        public FileResult Download(int id)
         {
             try
             {
@@ -379,9 +379,16 @@ namespace WSafe.Web.Controllers
 
                 // Descargar archivo
                 //HttpResponseMessage result = new HttpResponseMessage(System.Net.HttpStatusCode.OK);
-                var fileName = model.Document;
-                string fileLocation = Server.MapPath(fullFilePath);
-                return File(fileLocation, "application/force-download", Path.GetFileName(fileLocation));
+                //var fileName = model.Document;
+                //string fileLocation = Server.MapPath(fullFilePath);
+                string path = "~/SG-SST/" + ruta + year + "/" + item + "/";
+                string fullPath = Server.MapPath(path);
+                string fileName = model.Document;
+                string fileLocation = Path.Combine(fullPath, fileName);
+
+                return File(fileLocation, System.Net.Mime.MediaTypeNames.Application.Octet);
+
+                //return File(fileLocation, "application/force-download", Path.GetFileName(fileLocation));
                 //byte[] fileBytes = System.IO.File.ReadAllBytes(pdfLocation);
                 //var stream = new MemoryStream(System.IO.File.ReadAllBytes(pdfLocation));
                 //stream.Position = 0;
