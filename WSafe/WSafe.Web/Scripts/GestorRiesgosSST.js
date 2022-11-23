@@ -464,12 +464,7 @@ function ShowMovimientos(phva) {
                     html += '<td><a href = "#" onclick = "GeneratePDF(' + item.ID + ')" class="btn btn-warning">Generar PDF</a></td>';
                 }
 
-                if (item.Type != ".PDF") {
-                    html += '<td><a href = "#" onclick = "DownLoadPDF(' + item.ID + ')" class="btn btn-success" style ="pointer-events: none;">Descargar PDF</a></td>';
-                } else {
-                    html += '<td><a href = "#" onclick = "DownLoadPDF(' + item.ID + ')" class="btn btn-success">Descargar PDF</a></td>';
-                }
-
+                html += '<td><a href = "#" onclick = "DownLoadPDF(' + item.ID + ')" class="btn btn-success">Descargar</a></td>';
                 html += '<td><a href = "#" onclick = "DeleteMovimient(' + item.ID + ')" class="btn btn-danger">Eliminar</a></td>';
                 html += '</tr>';
             });
