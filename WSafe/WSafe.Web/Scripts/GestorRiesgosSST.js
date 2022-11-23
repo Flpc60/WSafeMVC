@@ -664,7 +664,7 @@ function DownLoadPDF(movimientID) {
     $.ajax({
         async: true,
         type: 'GET',
-        url: "/Movimientos/GetFile",
+        url: "/Movimientos/Download",
         data: { id: movimientID },
         dataType: "json",
         success: function (result) {
