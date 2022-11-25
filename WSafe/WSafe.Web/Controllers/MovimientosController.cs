@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -348,7 +349,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public FileResult Download(int id)
+        public string Download(int id)
         {
             try
             {
@@ -378,17 +379,22 @@ namespace WSafe.Web.Controllers
                 var fullFilePath = "~/SG-SST/" + ruta + year + "/" + item + "/" + model.Document;
 
                 // Descargar archivo
-                //HttpResponseMessage result = new HttpResponseMessage(System.Net.HttpStatusCode.OK);
-                //var fileName = model.Document;
-                //string fileLocation = Server.MapPath(fullFilePath);
                 string path = "~/SG-SST/" + ruta + year + "/" + item + "/";
                 string fullPath = Server.MapPath(path);
                 string fileName = model.Document;
                 string fileLocation = Path.Combine(fullPath, fileName);
+                HttpContext.Response.ContentType = "APPLICATION/OCTET-STREAM";
+                string filename = Path.GetFileName(fileLocation);
+                String Header = "Attachment; Filename=" + filename;
+                HttpContext.Response.AppendHeader("Content-Disposition", Header);
+                HttpContext.Response.WriteFile(fileLocation);
+                HttpContext.Response.End();
+                WebClient cln = new WebClient();
+                cln.DownloadFile(fullPath, fileLocation);
+                return "";
 
-                return File(fileLocation, System.Net.Mime.MediaTypeNames.Application.Octet);
-
-                //return File(fileLocation, "application/force-download", Path.GetFileName(fileLocation));
+                //return File(fileLocation, "APPLICATION/OCTET-STREAM",filename);
+                //return File(fileLocation, System.Net.Mime.MediaTypeNames.Application.Octet);
                 //byte[] fileBytes = System.IO.File.ReadAllBytes(pdfLocation);
                 //var stream = new MemoryStream(System.IO.File.ReadAllBytes(pdfLocation));
                 //stream.Position = 0;
@@ -448,9 +454,13 @@ namespace WSafe.Web.Controllers
                 var year = model.Year.ToString();
                 var item = model.Item.ToString();
                 var fullFilePath = "~/SG-SST/" + ruta + year + "/" + item + "/" + model.Document;
-                var path = Server.MapPath(fullFilePath);
+                string fullPath = Server.MapPath(fullFilePath);
                 _empresaContext.Movimientos.Remove(model);
                 await _empresaContext.SaveChangesAsync();
+                string fileName = model.Document;
+                string fileLocation = Path.Combine(fullPath, fileName);
+                WebClient cln = new WebClient();
+                cln.DownloadFile(fullPath, fileLocation);
                 message = "El archivo se ha eliminado correctamente !!";
                 return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
