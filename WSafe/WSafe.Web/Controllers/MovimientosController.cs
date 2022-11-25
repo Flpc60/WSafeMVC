@@ -349,7 +349,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public string Download(int id)
+        public FileResult Download(int id)
         {
             try
             {
@@ -383,19 +383,9 @@ namespace WSafe.Web.Controllers
                 string fullPath = Server.MapPath(path);
                 string fileName = model.Document;
                 string fileLocation = Path.Combine(fullPath, fileName);
-                HttpContext.Response.ContentType = "APPLICATION/OCTET-STREAM";
-                string filename = Path.GetFileName(fileLocation);
-                String Header = "Attachment; Filename=" + filename;
-                HttpContext.Response.AppendHeader("Content-Disposition", Header);
-                HttpContext.Response.WriteFile(fileLocation);
-                HttpContext.Response.End();
-                WebClient cln = new WebClient();
-                cln.DownloadFile(fullPath, fileLocation);
-                return "";
-
-                //return File(fileLocation, "APPLICATION/OCTET-STREAM",filename);
+                byte[] fileBytes = System.IO.File.ReadAllBytes(fileLocation);
+                return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileLocation);
                 //return File(fileLocation, System.Net.Mime.MediaTypeNames.Application.Octet);
-                //byte[] fileBytes = System.IO.File.ReadAllBytes(pdfLocation);
                 //var stream = new MemoryStream(System.IO.File.ReadAllBytes(pdfLocation));
                 //stream.Position = 0;
                 //if (stream == null)
@@ -453,14 +443,15 @@ namespace WSafe.Web.Controllers
 
                 var year = model.Year.ToString();
                 var item = model.Item.ToString();
-                var fullFilePath = "~/SG-SST/" + ruta + year + "/" + item + "/" + model.Document;
+                var fullFilePath = "~/SG-SST/" + ruta + year + "/" + item + "/";
                 string fullPath = Server.MapPath(fullFilePath);
                 _empresaContext.Movimientos.Remove(model);
                 await _empresaContext.SaveChangesAsync();
                 string fileName = model.Document;
                 string fileLocation = Path.Combine(fullPath, fileName);
+                string url = Request.Url.ToString();
                 WebClient cln = new WebClient();
-                cln.DownloadFile(fullPath, fileLocation);
+                cln.DownloadFile(url, fileLocation);
                 message = "El archivo se ha eliminado correctamente !!";
                 return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
