@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Security.Policy;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -453,6 +453,74 @@ namespace WSafe.Web.Controllers
                 WebClient cln = new WebClient();
                 cln.DownloadFile(url, fileLocation);
                 message = "El archivo se ha eliminado correctamente !!";
+                return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Win32Exception w)
+            {
+                return Json(new { data = false, mensaj = w.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpPost]
+        public async Task<ActionResult> SendFile(int id)
+        {
+            var message = "";
+            try
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Movimient model = await _empresaContext.Movimientos.FindAsync(id);
+                if (model == null)
+                {
+                    message = "El archivo NO ha sido abierto correctamente !!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                var cycle = model.Ciclo.ToString();
+                var ruta = model.Ciclo.ToString();
+
+                switch (cycle)
+                {
+                    case "P":
+                        ruta = "1. PLANEAR/";
+                        break;
+
+                    case "H":
+                        ruta = "2. HACER/";
+                        break;
+                    case "V":
+                        ruta = "3. VERIFICAR/";
+                        break;
+                    case "A":
+                        ruta = "4. ACTUAR/";
+                        break;
+                }
+
+                var year = model.Year.ToString();
+                var item = model.Item.ToString();
+                var fullFilePath = "~/SG-SST/" + ruta + year + "/" + item + "/";
+                string fullPath = Server.MapPath(fullFilePath);
+                _empresaContext.Movimientos.Remove(model);
+                await _empresaContext.SaveChangesAsync();
+                string fileName = model.Document;
+                string fileLocation = Path.Combine(fullPath, fileName);
+                string url = Request.Url.ToString();
+                string emailOrigen = "wsafesoftware@gmail.com";
+                string emailDestino = "wsafesoftware@gmail.com";
+                string contraseña = "Flpc5416?";
+                string asunto = "Requerimiento SG-SST";
+                string contenido = "<b>Favor realizar las acciones indicadas en el adjunto, de acuerdo con los terminos</b>";
+                MailMessage oMailMessage = new MailMessage(emailOrigen, emailDestino,asunto, contenido);
+                oMailMessage.Attachments.Add(new Attachment(fileLocation));
+                oMailMessage.IsBodyHtml = true;
+                SmtpClient oSmtpClient = new SmtpClient("smtp.gmail.com");
+                oSmtpClient.EnableSsl = true;
+                oSmtpClient.UseDefaultCredentials = false;
+                oSmtpClient.Port = 587;
+                oSmtpClient.Credentials = new System.Net.NetworkCredential(emailOrigen, contraseña);
+                oSmtpClient.Send(oMailMessage);
+                oSmtpClient.Dispose();
+                message = "El archivo se ha enviado correctamente !!";
                 return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch (Win32Exception w)

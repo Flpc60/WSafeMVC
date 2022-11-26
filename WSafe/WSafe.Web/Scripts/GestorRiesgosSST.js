@@ -466,6 +466,7 @@ function ShowMovimientos(phva) {
 
                 html += '<td><a href = "#" onclick = "DownLoadPDF(' + item.ID + ')" class="btn btn-success">Descargar</a></td>';
                 html += '<td><a href = "#" onclick = "DeleteMovimient(' + item.ID + ')" class="btn btn-danger">Eliminar</a></td>';
+                html += '<td><a href = "#" onclick = "SendEmail(' + item.ID + ')" class="btn btn-success">Enviar correo</a></td>';
                 html += '</tr>';
             });
             $('.tbody').html(html);
@@ -4676,4 +4677,26 @@ function CancelRecomendation() {
     $(".tabGesRecomendations").css("display", "none");
     $(".tabAddRecomendations").css("display", "none");
     $("#txtRecomendation").val("");
+}
+
+function SendEmail(movimientID) {
+    $(".tabGesMovimientos").css("display", "none");
+    $.ajax({
+        async: true,
+        type: 'POST',
+        url: "/Movimientos/SendFile",
+        data: { id: movimientID },
+        dataType: "json",
+        success: function (result) {
+            alert(result.mensaj);
+            ShowMovimientos(ciclo);
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    $(".tabGesMovimientos").css("display", "block");
+    $(".tabAddMovimientos").css("display", "none");
+    $("#btnAddMovimient").hide();
+    $("#btnCanMovimient").show();
 }
