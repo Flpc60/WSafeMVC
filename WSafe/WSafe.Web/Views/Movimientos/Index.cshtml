@@ -12,17 +12,23 @@
 
 <hr />
 <hr />
-<h4>EMPRESA : @Session["organization"].ToString().Trim()</h4>
+<h3 style="text-align:center"><strong>@Session["organization"].ToString().Trim()</strong></h3>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
         NÚMERO TRABAJADORES : @Session["numeroTrabajadores"].ToString().Trim()
     </div>
-    <div class="col-md-4">
+    <div class="col-md-5">
         HORARIO DE TRABAJO : @Session["turnoOperativo"].ToString().Trim()
     </div>
+    <div class="col-md-2">
+        PERIODO : @Session["year"].ToString().Trim()
+    </div>
+    <div class="col-md-2">
+        CLASE RIESGO : @Session["riesgo"].ToString().Trim()
+    </div>
 </div>
-
+<br />
 <div class="pull-left">
     <div class="btn-group">
         <button type="button" class="btn btn-primary btn-lg" id="planear" title="doble click para cerrar la ventana">1. PLANEAR</button>
@@ -55,8 +61,10 @@
         </div>
 
         <div class="tabGesMovimientos">
+            <hr />
+            <hr />
             <div class="col-md-12">
-                <button type="button" class="btn btn-primary" id="addMovimient">Subir un nuevo archivo</button>
+                <button type="button" class="btn btn-primary btn-lg" id="addMovimient">Subir archivo</button>
             </div>
             @Html.Partial("_ShowMovimientos")
         </div>
@@ -76,6 +84,7 @@
             $("#txtStandardID").val("");
             $("#txtDescripcion").val("");
             $("#fileLoad").val("");
+            $("#addMovimient").show();
         }
 
         function loadNormas(phva) {
@@ -119,7 +128,7 @@
                     $("#txtStandardID").val("");
                     $("#txtDescripcion").val("");
                     $(".tabAddMovimientos").css("display", "none");
-                    $("#addMovimient").focus();
+                    $("#addMovimient").show();
                     alert(response.mensaj);
                     ShowMovimientos(ciclo);
                 },

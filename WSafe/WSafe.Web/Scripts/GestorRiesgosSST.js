@@ -466,7 +466,7 @@ function ShowMovimientos(phva) {
 
                 html += '<td><a href = "#" onclick = "DownLoadPDF(' + item.ID + ')" class="btn btn-success">Descargar</a></td>';
                 html += '<td><a href = "#" onclick = "DeleteMovimient(' + item.ID + ')" class="btn btn-danger">Eliminar</a></td>';
-                html += '<td><a href = "#" onclick = "SendEmail(' + item.ID + ')" class="btn btn-success">Enviar correo</a></td>';
+                html += '<td><a href = "#" onclick = "SendEmail(' + item.ID + ')" class="btn btn-info">Enviar correo</a></td>';
                 html += '</tr>';
             });
             $('.tbody').html(html);
@@ -2063,6 +2063,7 @@ function GestorMovimient() {
     $("#planear").click(function () {
         ResetTab();
         $(".tabGesMovimientos").css("display", "block");
+        $("#addMovimient").show();
         $(".tabCerrar").css("display", "none");
         ciclo = "P";
         loadNormas(ciclo);
@@ -2075,6 +2076,7 @@ function GestorMovimient() {
     $("#hacer").click(function () {
         ResetTab();
         $(".tabGesMovimientos").css("display", "block");
+        $("#addMovimient").show();
         $(".tabCerrar").css("display", "none");
         ciclo = "H";
         loadNormas(ciclo);
@@ -2087,6 +2089,7 @@ function GestorMovimient() {
     $("#verificar").click(function () {
         ResetTab();
         $(".tabGesMovimientos").css("display", "block");
+        $("#addMovimient").show();
         $(".tabCerrar").css("display", "none");
         ciclo = "V";
         loadNormas(ciclo);
@@ -2099,6 +2102,7 @@ function GestorMovimient() {
     $("#actuar").click(function () {
         ResetTab();
         $(".tabGesMovimientos").css("display", "block");
+        $("#addMovimient").show();
         $(".tabCerrar").css("display", "none");
         ciclo = "A";
         loadNormas(ciclo);
@@ -2116,6 +2120,7 @@ function GestorMovimient() {
         $("#fileLoad").val("");
         $("#txtStandardID").focus();
         $("#btnAddMovimient").show();
+        $("#addMovimient").hide();
         $("#btnCanMovimient").show();
     });
 }
@@ -4684,7 +4689,7 @@ function SendEmail(movimientID) {
     $.ajax({
         async: true,
         type: 'POST',
-        url: "/Movimientos/SendFile",
+        url: "/Movimientos/SendMail",
         data: { id: movimientID },
         dataType: "json",
         success: function (result) {

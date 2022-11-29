@@ -76,6 +76,8 @@ namespace WSafe.Web.Controllers
                 Session["organization"] = empresa.RazonSocial.Trim() + " NIT : " + empresa.NIT;
                 Session["numeroTrabajadores"] = empresa.NumeroTrabajadores;
                 Session["turnoOperativo"] = empresa.TurnosOperativo;
+                Session["year"] = empresa.Year;
+                Session["riesgo"] = empresa.ClaseRiesgo;
                 return Json(new { result = "Redirect", url = Url.Action("Index", "Home"), mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
