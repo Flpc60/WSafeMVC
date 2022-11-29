@@ -461,7 +461,7 @@ namespace WSafe.Web.Controllers
             }
         }
         [HttpPost]
-        public async Task<ActionResult> SendFile(int id)
+        public async Task<ActionResult> SendMail(int id)
         {
             var message = "";
             try
@@ -503,16 +503,22 @@ namespace WSafe.Web.Controllers
                 _empresaContext.Movimientos.Remove(model);
                 await _empresaContext.SaveChangesAsync();
                 string fileName = model.Document;
+
+                // Enviar Email
                 string fileLocation = Path.Combine(fullPath, fileName);
                 string url = Request.Url.ToString();
-                string emailOrigen = "wsafesoftware@gmail.com";
-                string emailDestino = "wsafesoftware@gmail.com";
-                string contraseña = "Flpc5416?";
+                string emailOrigen = "flpuertacardon@gmail.com";
+                string emailDestino = "flpuertacardon@gmail.com";
+                string contraseña = "ryexorlfkqdqpvls";
                 string asunto = "Requerimiento SG-SST";
                 string contenido = "<b>Favor realizar las acciones indicadas en el adjunto, de acuerdo con los terminos</b>";
-                MailMessage oMailMessage = new MailMessage(emailOrigen, emailDestino,asunto, contenido);
-                oMailMessage.Attachments.Add(new Attachment(fileLocation));
+                MailMessage oMailMessage = new MailMessage();
+                oMailMessage.From = new MailAddress(emailOrigen);
+                oMailMessage.Subject = asunto;
+                oMailMessage.To.Add(new MailAddress(emailDestino));
+                oMailMessage.Body = contenido;
                 oMailMessage.IsBodyHtml = true;
+                oMailMessage.Attachments.Add(new Attachment(fileLocation));
                 SmtpClient oSmtpClient = new SmtpClient("smtp.gmail.com");
                 oSmtpClient.EnableSsl = true;
                 oSmtpClient.UseDefaultCredentials = false;
