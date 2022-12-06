@@ -34,7 +34,7 @@
         <button type="button" class="btn btn-primary btn-lg" id="planear" title="doble click para cerrar la ventana">1. PLANEAR</button>
         <button type="button" class="btn btn-warning btn-lg" id="hacer" title="doble click para cerrar la ventana">2. HACER</button>
         <button type="button" class="btn btn-success btn-lg" id="verificar" title="doble click para cerrar la ventana">3. VERIFICAR</button>
-        <button type="button" class="btn btn-danger btn-lg" id="actuar" title="doble click para cerrar la ventana">4. ACTUAR</button>
+        <button type="button" class="btn btn-info btn-lg" id="actuar" title="doble click para cerrar la ventana">4. ACTUAR</button>
     </div>
 </div>
 
@@ -63,8 +63,19 @@
         <div class="tabGesMovimientos">
             <hr />
             <hr />
-            <div class="col-md-12">
-                <button type="button" class="btn btn-primary btn-lg" id="addMovimient">Subir archivo</button>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="searchbar">
+                        <label class="control-label col-md-2" for="txtStandardID">ESTÁNDAR :</label>
+                        <select name="txtStandardID" class="form-control form-control-lg" id="txtStandardID">
+                            <option selected="selected" value="0">Seleccione un estándar ...</option>
+                        </select>
+                        <button type="button" class="btn btn-success" id="selectMovimient">Filtrar</button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-primary" id="addMovimient">Subir archivo</button>
+                </div>
             </div>
             @Html.Partial("_ShowMovimientos")
         </div>
