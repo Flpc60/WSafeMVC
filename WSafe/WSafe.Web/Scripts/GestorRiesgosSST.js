@@ -439,9 +439,13 @@ function ShowZones() {
 
 function ShowMovimientos(phva) {
     // Mostrar todos los movimientos
+    var Item = $("#txtStandardID").val();
     $.ajax({
         url: "/Movimientos/GetMovimientos",
-        data: { ciclo: phva },
+        data: {
+            ciclo: phva,
+            item: Item
+        },
         type: "GET",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
@@ -2122,6 +2126,13 @@ function GestorMovimient() {
         $("#btnAddMovimient").show();
         $("#addMovimient").hide();
         $("#btnCanMovimient").show();
+    });
+
+    $("#selectMovimient").click(function () {
+        $(".tabAddMovimientos").css("display", "block");
+        $(".tabCerrar").css("display", "none");
+        loadNormas(ciclo);
+        ShowMovimientos(ciclo);
     });
 }
 
