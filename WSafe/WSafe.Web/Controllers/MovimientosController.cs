@@ -259,13 +259,13 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> GetMovimientos(string ciclo, string item)
+        public async Task<JsonResult> GetMovimientos(string ciclo, int item)
         {
             if (ciclo != null)
             {
                 var data = _empresaContext.Movimientos
-                    .Where(m => m.Ciclo == ciclo && m.Item == item)
-                    .OrderBy(i => i.Item)
+                    .Where(m => m.Ciclo == ciclo && m.NormaID == item)
+                    .OrderBy(m => m.Item)
                     .ToList();
                 var result = _converterHelper.ToListMovimientos(data);
                 return Json(result, JsonRequestBehavior.AllowGet);

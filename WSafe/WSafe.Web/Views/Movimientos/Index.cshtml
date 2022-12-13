@@ -64,17 +64,19 @@
             <hr />
             <hr />
             <div class="row">
-                <div class="col-md-8">
-                    <div class="searchbar">
-                        <label class="control-label col-md-2" for="txtStandardID">ESTÁNDAR :</label>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-primary" id="addMovimient">Subir archivo</button>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
                         <select name="txtStandardID" class="form-control form-control-lg" id="txtStandardID">
                             <option selected="selected" value="0">Seleccione un estándar ...</option>
                         </select>
-                        <button type="button" class="btn btn-success" id="selectMovimient">Filtrar</button>
+                        <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="txtStandardID"></span>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <button type="button" class="btn btn-primary" id="addMovimient">Subir archivo</button>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-success" id="selectMovimient">Buscar</button>
                 </div>
             </div>
             @Html.Partial("_ShowMovimientos")
@@ -88,6 +90,11 @@
     <script src="~/Scripts/GestorRiesgosSST.js" type="text/javascript"></script>
     <script type="text/javascript">
 
+        $(document).ready(function () {
+            ClearTextBox();
+            $("#txtStandardID").focus();
+        });
+
         var ciclo = "";
         GestorMovimient();
         function CancelMovimient() {
@@ -99,18 +106,16 @@
         }
 
         function loadNormas(phva) {
-            var selectedStandard = $("#txtStandardID").val();
-            if (selectedStandard != null && selectedStandard != '') {
-                $.getJSON('@Url.Action("GetNormas")', { ciclo: phva }, function (standards) {
-                    if (standards != null && !jQuery.isEmptyObject(standards)) {
-                        var html = '';
-                        $.each(standards, function (index, item) {
-                            html += '<option value = "' + item.Value + '">' + item.Text + '</option>';
-                        });
-                        $("#txtStandardID").html(html);
-                    };
-                });
-            }
+            $.getJSON('@Url.Action("GetNormas")', { ciclo: phva }, function (result) {
+                if (result != null) {
+                    var html = '';
+                    $.each(result, function (index, item) {
+                        html += '<option value = "' + item.Value + '">' + item.Text + '</option>';
+                    });
+                    $("#txtStandardID").html(html);
+                    $("#txtStandardID1").html(html);
+                };
+            });
         }
 
         function AddNewMovimient() {
@@ -123,7 +128,7 @@
             }
             var dataFile = new FormData();
             dataFile.append("fileLoad", selectedFile);
-            dataFile.append("NormaID", $("#txtStandardID").val());
+            dataFile.append("NormaID", $("#txtStandardID1").val());
             dataFile.append("Descripcion", $("#txtDescripcion").val());
 
             $.ajax({
@@ -136,7 +141,7 @@
                 success: function (response) {
                     $("#btnAddMovimient").hide();
                     $("#btnCanMovimient").hide();
-                    $("#txtStandardID").val("");
+                    $("#txtStandardID1").val("");
                     $("#txtDescripcion").val("");
                     $(".tabAddMovimientos").css("display", "none");
                     $("#addMovimient").show();
@@ -149,11 +154,6 @@
                 }
             });
         }
-
-        $(document).ready(function () {
-            ClearTextBox();
-            $("#txtStandardID").focus();
-        });
 
     </script>
 }
