@@ -2067,11 +2067,9 @@ function GestorMovimient() {
     $("#planear").click(function () {
         ResetTab();
         $(".tabGesMovimientos").css("display", "block");
-        $("#addMovimient").show();
         $(".tabCerrar").css("display", "none");
         ciclo = "P";
         loadNormas(ciclo);
-        ShowMovimientos(ciclo);
     });
     $("#planear").dblclick(function () {
         ResetTab();
@@ -2080,11 +2078,9 @@ function GestorMovimient() {
     $("#hacer").click(function () {
         ResetTab();
         $(".tabGesMovimientos").css("display", "block");
-        $("#addMovimient").show();
         $(".tabCerrar").css("display", "none");
         ciclo = "H";
         loadNormas(ciclo);
-        ShowMovimientos(ciclo);
     });
     $("#hacer").dblclick(function () {
         ResetTab();
@@ -2093,11 +2089,9 @@ function GestorMovimient() {
     $("#verificar").click(function () {
         ResetTab();
         $(".tabGesMovimientos").css("display", "block");
-        $("#addMovimient").show();
         $(".tabCerrar").css("display", "none");
         ciclo = "V";
         loadNormas(ciclo);
-        ShowMovimientos(ciclo);
     });
     $("#verificar").dblclick(function () {
         ResetTab();
@@ -2106,11 +2100,9 @@ function GestorMovimient() {
     $("#actuar").click(function () {
         ResetTab();
         $(".tabGesMovimientos").css("display", "block");
-        $("#addMovimient").show();
         $(".tabCerrar").css("display", "none");
         ciclo = "A";
         loadNormas(ciclo);
-        ShowMovimientos(ciclo);
     });
     $("#actuar").dblclick(function () {
         ResetTab();
@@ -2129,9 +2121,7 @@ function GestorMovimient() {
     });
 
     $("#selectMovimient").click(function () {
-        $(".tabAddMovimientos").css("display", "block");
         $(".tabCerrar").css("display", "none");
-        loadNormas(ciclo);
         ShowMovimientos(ciclo);
     });
 }
