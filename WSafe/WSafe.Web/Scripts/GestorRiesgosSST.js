@@ -2067,6 +2067,8 @@ function GestorMovimient() {
     $("#planear").click(function () {
         ResetTab();
         $(".tabGesMovimientos").css("display", "block");
+        $("#addMovimient").show();
+        $("#planear").focus();
         $(".tabCerrar").css("display", "none");
         ciclo = "P";
         loadNormas(ciclo);
@@ -2079,6 +2081,8 @@ function GestorMovimient() {
         ResetTab();
         $(".tabGesMovimientos").css("display", "block");
         $(".tabCerrar").css("display", "none");
+        $("#addMovimient").show();
+        $("#hacer").show();
         ciclo = "H";
         loadNormas(ciclo);
     });
@@ -2090,6 +2094,8 @@ function GestorMovimient() {
         ResetTab();
         $(".tabGesMovimientos").css("display", "block");
         $(".tabCerrar").css("display", "none");
+        $("#addMovimient").show();
+        $("#verificar").focus();
         ciclo = "V";
         loadNormas(ciclo);
     });
@@ -2101,6 +2107,8 @@ function GestorMovimient() {
         ResetTab();
         $(".tabGesMovimientos").css("display", "block");
         $(".tabCerrar").css("display", "none");
+        $("#addMovimient").show();
+        $("#actuar").focus();
         ciclo = "A";
         loadNormas(ciclo);
     });

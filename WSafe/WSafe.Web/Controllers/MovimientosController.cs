@@ -118,12 +118,13 @@ namespace WSafe.Web.Controllers
                     Year = year,
                     Item = item,
                     Ciclo = cycle,
-                    Type = type
+                    Type = type,
+                    Path = path
                 };
 
                 _empresaContext.Movimientos.Add(model);
-                _empresaContext.SaveChangesAsync();
-                message = "El archivo ha sido creado correctamente !!";
+                _empresaContext.SaveChanges();
+                message = "El archivo ha sido subido correctamente !!";
                 return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -185,14 +186,6 @@ namespace WSafe.Web.Controllers
             catch (Win32Exception w)
             {
                 return Json(new { data = false, mensaj = w.Message }, JsonRequestBehavior.AllowGet);
-
-                //Console.WriteLine(w.Message);
-                //Console.WriteLine(w.ErrorCode.ToString());
-                //Console.WriteLine(w.NativeErrorCode.ToString());
-                //Console.WriteLine(w.StackTrace);
-                //Console.WriteLine(w.Source);
-                //Exception e = w.GetBaseException();
-                //Console.WriteLine(e.Message);
             }
             message = "El archivo ha sido abierto correctamente !!";
             return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
@@ -344,7 +337,7 @@ namespace WSafe.Web.Controllers
             {
                 return Json(new { data = false, mensaj = w.Message }, JsonRequestBehavior.AllowGet);
             }
-            message = "El archivo ha sido convertido correctamente !!";
+            message = "El archivo ha sido creado correctamente !!";
             return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
         }
 
