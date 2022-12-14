@@ -668,12 +668,12 @@ function DownLoadPDF(movimientID) {
     $(".tabGesMovimientos").css("display", "none");
     $.ajax({
         async: true,
-        type: 'GET',
+        type: 'POST',
         url: "/Movimientos/Download",
         data: { id: movimientID },
         dataType: "json",
         success: function (result) {
-            //alert(result.mensaj);
+            alert(result.mensaj);
             ShowMovimientos(ciclo);
         },
         error: function (errormessage) {
