@@ -14,6 +14,7 @@ using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Helpers;
 using WSafe.Web.Filters;
 using WSafe.Web.Models;
+using Aspose.Words;
 
 namespace WSafe.Web.Controllers
 {
@@ -305,11 +306,16 @@ namespace WSafe.Web.Controllers
                 var year = model.Year.ToString();
                 var item = model.Item.ToString();
                 var fullFilePath = "~/SG-SST/" + ruta + year + "/" + item + "/" + model.Document;
+                var filePath = "~/SG-SST/" + ruta + year + "/" + item + "/";
                 var path = Server.MapPath(fullFilePath);
+                var directoryPath = Server.MapPath(filePath);
                 var type = model.Type.ToLower();
                 var pathPdf = path.Replace(type, ".pdf");
                 // Crear PDF
-                DocumentCore docFile = DocumentCore.Load(path);
+                //DocumentCore docFile = DocumentCore.Load(path);
+                //DocumentCore docFile = DocumentCore.Load(path);
+                //docFile.Save(pathPdf);
+                var docFile = new Aspose.Words.Document(path);
                 docFile.Save(pathPdf);
 
                 // Crear movimiento de documentos
@@ -327,7 +333,8 @@ namespace WSafe.Web.Controllers
                     Year = model.Year,
                     Item = model.Item,
                     Ciclo = model.Ciclo,
-                    Type = type
+                    Type = type,
+                    Path = directoryPath
                 };
 
                 _empresaContext.Movimientos.Add(data);
