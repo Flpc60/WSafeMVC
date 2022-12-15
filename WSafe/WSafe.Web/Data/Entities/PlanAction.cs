@@ -35,5 +35,12 @@ namespace WSafe.Domain.Data.Entities
         [MaxLength(100)]
         public string Responsable { get; set; }
         public ActionCategories ActionCategory { get; set; }
+        public int EvaluationID { get; set; }
+        public int NormaID { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
+        public DateTime FechaActivity { get; set; }
+        [MaxLength(100)]
+        public string Observation { get; set; }
     }
 }

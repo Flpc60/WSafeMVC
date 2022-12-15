@@ -80,5 +80,9 @@ namespace WSafe.Domain.Data.Entities
         [Display(Name = "Año")]
         [MaxLength(4)]
         public string Year { get; set; }
+        public bool Agropecuaria { get; set; }
+        [Display(Name = "Responsable SG-SST")]
+        [MaxLength(50)]
+        public string ResponsableSGSST { get; set; }
     }
 }
