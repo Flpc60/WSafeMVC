@@ -808,6 +808,7 @@
     <Content Include="Views\Movimientos\Edit.cshtml" />
     <Content Include="Views\Movimientos\Index.cshtml" />
     <Content Include="Views\Shared\_ShowMovimientos.cshtml" />
+    <Content Include="Views\Shared\_ShowCalifications.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
