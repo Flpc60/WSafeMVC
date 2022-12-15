@@ -404,6 +404,7 @@
     <Compile Include="Data\Entities\Trabajador.cs" />
     <Compile Include="Data\Entities\Traza.cs" />
     <Compile Include="Data\Entities\User.cs" />
+    <Compile Include="Data\Entities\ValorationCategory.cs" />
     <Compile Include="Data\Entities\Zona.cs" />
     <Compile Include="Filters\AuthorizeUser.cs" />
     <Compile Include="Filters\VerificaSession.cs" />
@@ -544,6 +545,18 @@
     <Compile Include="Migrations\202212131454118_UpdateMovimient55.cs" />
     <Compile Include="Migrations\202212131454118_UpdateMovimient55.Designer.cs">
       <DependentUpon>202212131454118_UpdateMovimient55.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202212151545223_UpdateOrganization11.cs" />
+    <Compile Include="Migrations\202212151545223_UpdateOrganization11.Designer.cs">
+      <DependentUpon>202212151545223_UpdateOrganization11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202212151606513_UpdateOrganization12.cs" />
+    <Compile Include="Migrations\202212151606513_UpdateOrganization12.Designer.cs">
+      <DependentUpon>202212151606513_UpdateOrganization12.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202212151825568_UpdateEvaluation12.cs" />
+    <Compile Include="Migrations\202212151825568_UpdateEvaluation12.Designer.cs">
+      <DependentUpon>202212151825568_UpdateEvaluation12.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -1030,6 +1043,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202212131454118_UpdateMovimient55.resx">
       <DependentUpon>202212131454118_UpdateMovimient55.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212151545223_UpdateOrganization11.resx">
+      <DependentUpon>202212151545223_UpdateOrganization11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212151606513_UpdateOrganization12.resx">
+      <DependentUpon>202212151606513_UpdateOrganization12.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212151825568_UpdateEvaluation12.resx">
+      <DependentUpon>202212151825568_UpdateEvaluation12.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
