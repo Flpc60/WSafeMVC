@@ -69,15 +69,22 @@ namespace WSafe.Web.Controllers
                 }
                 var id = _empresaContext.Organizations.OrderByDescending(x => x.ID).First().ID;
                 var empresa = _empresaContext.Organizations.FirstOrDefault(o => o.ID == id);
+                var agropecuaria = "NO";
+                if (empresa.Agropecuaria == true)
+                {
+                    agropecuaria = "SI";
+                }
+
                 Session["User"] = result;
                 Session["userName"] = result.Name;
                 Session["roleID"] = result.RoleID;
                 Session["userID"] = result.ID;
-                Session["organization"] = empresa.RazonSocial.Trim() + " NIT : " + empresa.NIT;
+                Session["organization"] = empresa.RazonSocial.Trim() + " NIT : " + empresa.NIT + "     Agropecuaria : " + agropecuaria;
                 Session["numeroTrabajadores"] = empresa.NumeroTrabajadores;
                 Session["turnoOperativo"] = empresa.TurnosOperativo;
                 Session["year"] = empresa.Year;
                 Session["riesgo"] = empresa.ClaseRiesgo;
+                Session["responsable"] = empresa.ResponsableSGSST;
                 return Json(new { result = "Redirect", url = Url.Action("Index", "Home"), mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

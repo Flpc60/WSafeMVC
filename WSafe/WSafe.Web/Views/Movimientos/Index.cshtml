@@ -12,13 +12,14 @@
 
 <hr />
 <hr />
-<h3 style="text-align:center"><strong>@Session["organization"].ToString().Trim()</strong></h3>
+<h4 style="text-align:center"><strong>@Session["organization"].ToString().Trim()</strong></h4>
+<hr />
 
-<div class="row">
-    <div class="col-md-3">
+<div class="row" style="text-align:center">
+    <div class="col-md-2">
         NÚMERO TRABAJADORES : @Session["numeroTrabajadores"].ToString().Trim()
     </div>
-    <div class="col-md-5">
+    <div class="col-md-2">
         HORARIO DE TRABAJO : @Session["turnoOperativo"].ToString().Trim()
     </div>
     <div class="col-md-2">
@@ -27,8 +28,11 @@
     <div class="col-md-2">
         CLASE RIESGO : @Session["riesgo"].ToString().Trim()
     </div>
+    <div class="col-md-4">
+        RESPONSABLE SG-SST : @Session["responsable"].ToString().Trim()
+    </div>
 </div>
-<br />
+<hr />
 <div class="pull-left">
     <div class="btn-group">
         <button type="button" class="btn btn-primary btn-lg" id="planear" title="doble click para cerrar la ventana">1. PLANEAR</button>
