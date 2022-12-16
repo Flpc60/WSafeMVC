@@ -316,6 +316,7 @@
     <Compile Include="Controllers\AccionesController.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\AplicacionesController.cs" />
+    <Compile Include="Controllers\EvaluationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IncidentesController.cs" />
     <Compile Include="Controllers\IndicadoresController.cs" />
@@ -558,6 +559,14 @@
     <Compile Include="Migrations\202212151825568_UpdateEvaluation12.Designer.cs">
       <DependentUpon>202212151825568_UpdateEvaluation12.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202212161639062_UpdateCalification22.cs" />
+    <Compile Include="Migrations\202212161639062_UpdateCalification22.Designer.cs">
+      <DependentUpon>202212161639062_UpdateCalification22.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202212161852120_UpdateCalification23.cs" />
+    <Compile Include="Migrations\202212161852120_UpdateCalification23.Designer.cs">
+      <DependentUpon>202212161852120_UpdateCalification23.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
     <Compile Include="Models\AplicacionVM.cs" />
@@ -568,6 +577,7 @@
     <Compile Include="Models\DetailsIncidentVM.cs" />
     <Compile Include="Models\EmpresaContext.cs" />
     <Compile Include="Models\EquipoInvestigaVM.cs" />
+    <Compile Include="Models\EvaluationVM.cs" />
     <Compile Include="Models\IncidenteViewModel.cs" />
     <Compile Include="Models\IndicadorDetallesViewModel.cs" />
     <Compile Include="Models\IndicadorViewModel.cs" />
@@ -809,6 +819,11 @@
     <Content Include="Views\Movimientos\Index.cshtml" />
     <Content Include="Views\Shared\_ShowMovimientos.cshtml" />
     <Content Include="Views\Shared\_ShowCalifications.cshtml" />
+    <Content Include="Views\Evaluations\Create.cshtml" />
+    <Content Include="Views\Evaluations\Delete.cshtml" />
+    <Content Include="Views\Evaluations\Details.cshtml" />
+    <Content Include="Views\Evaluations\Edit.cshtml" />
+    <Content Include="Views\Evaluations\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1053,6 +1068,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202212151825568_UpdateEvaluation12.resx">
       <DependentUpon>202212151825568_UpdateEvaluation12.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212161639062_UpdateCalification22.resx">
+      <DependentUpon>202212161639062_UpdateCalification22.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212161852120_UpdateCalification23.resx">
+      <DependentUpon>202212161852120_UpdateCalification23.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

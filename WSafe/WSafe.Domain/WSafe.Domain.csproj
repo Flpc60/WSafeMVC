@@ -220,6 +220,7 @@
     <Compile Include="Models\DetailsIncidentVM.cs" />
     <Compile Include="Models\EmpresaContext.cs" />
     <Compile Include="Models\EquipoInvestigaVM.cs" />
+    <Compile Include="Models\EvaluationVM.cs" />
     <Compile Include="Models\IncidenteViewModel.cs" />
     <Compile Include="Models\IndicadorDetallesViewModel.cs" />
     <Compile Include="Models\IndicadorViewModel.cs" />
