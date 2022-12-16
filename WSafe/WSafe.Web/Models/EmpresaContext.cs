@@ -58,5 +58,7 @@ namespace WSafe.Web.Models
         public System.Data.Entity.DbSet<WSafe.Web.Models.RoleUserVM> RoleUserVMs { get; set; }
 
         public System.Data.Entity.DbSet<WSafe.Web.Models.MovimientVM> MovimientVMs { get; set; }
+
+        public System.Data.Entity.DbSet<WSafe.Web.Models.EvaluationVM> EvaluationVMs { get; set; }
     }
 }

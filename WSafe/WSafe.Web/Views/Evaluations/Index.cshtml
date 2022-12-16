@@ -1,0 +1,121 @@
+﻿@model IEnumerable<WSafe.Web.Models.EvaluationVM>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<hr />
+<hr />
+<h4 style="text-align:center"><strong>@Session["organization"].ToString().Trim()</strong></h4>
+<hr />
+
+<div class="row" style="text-align:center">
+    <div class="col-md-2">
+        NÚMERO TRABAJADORES : @Session["numeroTrabajadores"].ToString().Trim()
+    </div>
+    <div class="col-md-2">
+        HORARIO DE TRABAJO : @Session["turnoOperativo"].ToString().Trim()
+    </div>
+    <div class="col-md-2">
+        PERIODO : @Session["year"].ToString().Trim()
+    </div>
+    <div class="col-md-2">
+        CLASE RIESGO : @Session["riesgo"].ToString().Trim()
+    </div>
+    <div class="col-md-4">
+        RESPONSABLE SG-SST : @Session["responsable"].ToString().Trim()
+    </div>
+</div>
+<hr />
+
+<div class="pull-left">
+    <div class="btn-group">
+        @Html.ActionLink("Nueva Autoevaluación", "Create", new { @class = "glyphicon glyphicon-plus" },
+        new { @class = "btn btn-info btn-lg active" })
+        @Html.ActionLink("Ver gráfica", "Create", new { @class = "glyphicon glyphicon-plus" },
+        new { @class = "btn btn-info btn-lg active" })
+    </div>
+</div>
+
+<div class="table-responsive-xl" style="background-color: mediumaquamarine; width:100%; margin-right:0px">
+
+    <table class="table table-bordered">
+        <tr style="background-color:gainsboro">
+            <th>
+                @Html.DisplayNameFor(model => model.FechaEvaluation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cumple)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NoCumple)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NoAplica)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StandarsResult)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AplicationsResult)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Activitys)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ejecutadas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Avance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            string strStyle = string.Empty;
+            strStyle = "background-color:" + item.Color.Trim() + ";";
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaEvaluation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cumple)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NoCumple)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NoAplica)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StandarsResult)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AplicationsResult)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Activitys)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ejecutadas)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Avance)
+        </td>
+        <td style="@strStyle">
+            @Html.DisplayFor(modelItem => item.Category)
+        </td>
+        <td style="margin:initial; background-color:deepskyblue; text-align:left">
+            @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" })
+            @Html.ActionLink(" ", "PrintAccionesToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt" })
+            <a href="#" onclick="DeleteAccion('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
+        </td>
+    </tr>
+        }
+
+    </table>
+</div>

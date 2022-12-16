@@ -14,12 +14,9 @@ namespace WSafe.Domain.Data.Entities
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime FechaEvaluation { get; set; }
         public IEnumerable<Calification> Califications { get; set; }
-        [MaxLength(3)]
-        public string Cumple { get; set; }
-        [MaxLength(3)]
-        public string NoCumple { get; set; }
-        [MaxLength(3)]
-        public string NoAplica { get; set; }
+        public int Cumple { get; set; }
+        public int NoCumple { get; set; }
+        public int NoAplica { get; set; }
         public decimal StandarsResult { get; set; }
         public decimal AplicationsResult { get; set; }
         public ValorationCategory Category { get; set; }

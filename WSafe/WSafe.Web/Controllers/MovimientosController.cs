@@ -1,5 +1,4 @@
-﻿using SautinSoft.Document;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Data.Entity;
 using System.Diagnostics;
@@ -14,7 +13,6 @@ using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Helpers;
 using WSafe.Web.Filters;
 using WSafe.Web.Models;
-using Aspose.Words;
 
 namespace WSafe.Web.Controllers
 {
