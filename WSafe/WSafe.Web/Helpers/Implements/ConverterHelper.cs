@@ -1092,5 +1092,60 @@ namespace WSafe.Domain.Helpers.Implements
             }
             return model;
         }
+        // Crea nueva lista de EvaluatioVM
+        public IEnumerable<EvaluationVM> ToEvaluationVMList(IEnumerable<Evaluation> evaluation)
+        {
+            var model = new List<EvaluationVM>();
+            var activitys = 0;
+            var ejecutadas = 0;
+            decimal avance = 0;
+            string category = "";
+            string color = "";
+
+            foreach (var item in evaluation)
+            {
+                activitys = _empresaContext.PlanActions.Where(pa => pa.EvaluationID == item.ID).Count();
+                ejecutadas = _empresaContext.PlanActions.Where(pa => pa.EvaluationID == item.ID && pa.ActionCategory == ActionCategories.Finalizada).Count();
+                avance = Convert.ToDecimal((double)ejecutadas / (double)activitys * 100);
+
+                switch (item.Category)
+                {
+
+                    case ValorationCategory.ACEPTABLE:
+                        category = "ACEPTABLE";
+                        color = "green";
+                        break;
+
+                    case ValorationCategory.MODERADAMENTE_ACEPTABELE:
+                        category = "MODERADAMENTE ACEPTABLE";
+                        color = "yellow";
+                        break;
+
+                    case ValorationCategory.CRITICO:
+                        category = "CRÍTICO";
+                        color = "red";
+                        break;
+
+                }
+
+                model.Add(new EvaluationVM
+                {
+                    ID = item.ID,
+                    OrganizationID = item.OrganizationID,
+                    FechaEvaluation = item.FechaEvaluation.ToString("yyyy-MM-dd"),
+                    Cumple = item.Cumple,
+                    NoCumple = item.NoCumple,
+                    NoAplica = item.NoAplica,
+                    StandarsResult = item.StandarsResult,
+                    AplicationsResult = item.AplicationsResult,
+                    Activitys = activitys,
+                    Ejecutadas = ejecutadas,
+                    Avance = avance,
+                    Category = category,
+                    Color = color
+                });
+            }
+            return model;
+        }
     }
 }
