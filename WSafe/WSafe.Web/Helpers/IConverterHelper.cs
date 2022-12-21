@@ -43,5 +43,6 @@ namespace WSafe.Domain.Helpers
         AplicacionVM ToAplicationVM(Aplicacion aplicacion);
         IEnumerable<MovimientVM> ToListMovimientos(IEnumerable<Movimient> movimientos);
         IEnumerable<EvaluationVM> ToEvaluationVMList(IEnumerable<Evaluation> evaluation);
+        IEnumerable<CalificationVM> ToCalificationVMList(IEnumerable<CalificationVM> calification);
     }
 }

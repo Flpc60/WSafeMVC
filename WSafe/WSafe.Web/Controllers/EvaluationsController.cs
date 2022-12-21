@@ -1,8 +1,10 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Helpers;
 using WSafe.Web.Filters;
 using WSafe.Web.Models;
@@ -52,26 +54,55 @@ namespace WSafe.Web.Controllers
         }
 
         // GET: Evaluations/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Evaluations/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,OrganizationID,FechaEvaluation,Cumple,NoCumple,NoAplica,StandarsResult,AplicationsResult,Activitys,Ejecutadas,Avance,Category,Color")] EvaluationVM evaluationVM)
+        public async Task<ActionResult> CreateEvaluation()
         {
-            if (ModelState.IsValid)
+            var message = "";
+            try
             {
-                _empresaContext.EvaluationVMs.Add(evaluationVM);
+                var idEmpresa = _empresaContext.Organizations.OrderByDescending(x => x.ID).First().ID;
+                var evaluation = new Evaluation()
+                {
+                    ID = 0,
+                    OrganizationID = idEmpresa,
+                    FechaEvaluation = DateTime.Now
+                };
+                _empresaContext.Evaluations.Add(evaluation);
                 await _empresaContext.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
+                var evaluationID = _empresaContext.Evaluations.OrderByDescending(x => x.ID).First().ID;
 
-            return View(evaluationVM);
+                var normas = _empresaContext.Normas.ToList();
+
+                foreach (var item in normas)
+                {
+                    var calification = new Calification()
+                    {
+                        ID = 0,
+                        EvaluationID = evaluationID,
+                        NormaID = item.ID,
+                        Cumple = false,
+                        Justifica = false,
+                        Valoration = 0,
+                        Observation = ""
+                    };
+                    _empresaContext.Califications.Add(calification);
+                }
+
+                await _empresaContext.SaveChangesAsync();
+                message = "El registro ha sido ingresado correctamente !!";
+                return Json(new { data = evaluationID, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                message = "El registro NO ha sido ingresado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         // GET: Evaluations/Edit/5
@@ -138,6 +169,35 @@ namespace WSafe.Web.Controllers
                 _empresaContext.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [HttpGet]
+        public ActionResult GetCalifications(int id)
+        {
+            if (id != null)
+            {
+                var list =
+                    from c in _empresaContext.Califications
+                    join n in _empresaContext.Normas on c.NormaID equals n.ID
+                    where c.EvaluationID == id
+                    select new CalificationVM
+                    {
+                        ID = c.ID,
+                        Ciclo = n.Ciclo,
+                        Standard = n.Standard,
+                        Item = n.Item,
+                        Name = n.Name,
+                        Valor = n.Valor,
+                        Cumple = c.Cumple,
+                        Justify = c.Justifica,
+                        Valoration = c.Valoration,
+                        Observation = c.Observation
+                    };
+
+                var model = _converterHelper.ToCalificationVMList(list);
+                return Json(model, JsonRequestBehavior.AllowGet);
+            }
+            return Json(null, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -20,6 +20,6 @@ namespace WSafe.Domain.Data.Entities
         public decimal StandarsResult { get; set; }
         public decimal AplicationsResult { get; set; }
         public ValorationCategory Category { get; set; }
-        public IEnumerable<PlanAction> Planes { get; set; }
+        public IEnumerable<PlanActivity> Planes { get; set; }
     }
 }
