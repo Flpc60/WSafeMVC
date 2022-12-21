@@ -28,5 +28,7 @@ namespace WSafe.Domain.Helpers
         string GetComponent(int component);
         string GetOperation(int operation);
         string GetActionCategory(int estado);
+        string GetCiclo(string ciclo);
+        string GetStandard(string standar);
     }
 }
