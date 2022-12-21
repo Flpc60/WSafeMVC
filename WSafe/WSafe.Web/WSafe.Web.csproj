@@ -576,6 +576,10 @@
     <Compile Include="Migrations\202212201703546_UpdateCalification221.Designer.cs">
       <DependentUpon>202212201703546_UpdateCalification221.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202212211756516_UpdateCalifications33.cs" />
+    <Compile Include="Migrations\202212211756516_UpdateCalifications33.Designer.cs">
+      <DependentUpon>202212211756516_UpdateCalifications33.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
     <Compile Include="Models\AplicacionVM.cs" />
@@ -834,6 +838,7 @@
     <Content Include="Views\Evaluations\Details.cshtml" />
     <Content Include="Views\Evaluations\Edit.cshtml" />
     <Content Include="Views\Evaluations\Index.cshtml" />
+    <Content Include="Views\Shared\_EditCalification.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1090,6 +1095,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202212201703546_UpdateCalification221.resx">
       <DependentUpon>202212201703546_UpdateCalification221.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212211756516_UpdateCalifications33.resx">
+      <DependentUpon>202212211756516_UpdateCalifications33.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

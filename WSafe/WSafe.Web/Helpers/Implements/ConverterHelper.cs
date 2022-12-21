@@ -1151,36 +1151,8 @@ namespace WSafe.Domain.Helpers.Implements
         public IEnumerable<CalificationVM> ToCalificationVMList(IEnumerable<CalificationVM> calification)
         {
             var model = new List<CalificationVM>();
-            bool cumple = false;
-            bool noCumple = false;
-            bool justify = false;
-            bool noJustify = false;
-
             foreach (var item in calification)
             {
-
-                if (item.Cumple == true)
-                {
-                    cumple = true;
-                    noCumple = false;
-                }
-                else
-                {
-                    cumple = false;
-                    noCumple = true;
-                }
-
-                if (item.Justify == true)
-                {
-                    justify = true;
-                    noJustify = false;
-                }
-                else
-                {
-                    justify = false;
-                    noJustify = true;
-                }
-
                 model.Add(new CalificationVM
                 {
                     ID = item.ID,
@@ -1190,10 +1162,10 @@ namespace WSafe.Domain.Helpers.Implements
                     Item = item.Item,
                     Name = item.Name,
                     Valor = item.Valor,
-                    Cumple = cumple,
-                    NoCumple = noCumple,
-                    Justify = justify,
-                    NoJustify = noJustify,
+                    Cumple = item.Cumple,
+                    NoCumple = item.NoCumple,
+                    Justify = item.Justify,
+                    NoJustify = item.NoJustify,
                     Valoration = item.Valoration,
                     Observation = item.Observation
                 });
