@@ -4717,19 +4717,16 @@ function SendEmail(movimientID) {
 
 function AddEvaluation() {
     // Crea una nueva evaluación
-    $('.tabAddCalifications').css("display", "none");
+    $('.tabGesCalifications').css("display", "none");
     $.ajax({
         type: "POST",
         url: "/Evaluations/CreateEvaluation",
         dataType: "json",
         success: function (response) {
             var evaluationID = response.data;
-            if (response.dat != false) {
+            if (response.data != false) {
                 $("#txtEvaluationID").val(evaluationID);
             }
-
-            $("#btnAddRecomendation").hide();
-            $("#btnCanRecomendation").hide();
             alert(response.mensaj);
             ShowCalifications(evaluationID);
         },
@@ -4738,12 +4735,11 @@ function AddEvaluation() {
             alert(thrownError);
         }
     });
-    AddPlan(2); // adicionar recomendación
 }
 
 function ShowCalifications(evaluationID) {
     // Mostrar todos las calificaciones
-    //var evaluationID = $("#txtEvaluationID").val();
+    var evaluationID = $("#txtEvaluationID").val();
     $.ajax({
         url: "/Evaluations/GetCalifications",
         data: { id: evaluationID },
@@ -4818,28 +4814,35 @@ function ShowCalifications(evaluationID) {
     });
 }
 
-function getRecomendationByID(recomendationID) {
+function getCalificationByID(calificationID) {
     $.ajax({
         async: true,
         type: 'GET',
-        url: "/Incidentes/UpdateRecomendation",
+        url: "/Evaluations/UpdateCalification",
         data: {
-            id: recomendationID
+            id: calificationID
         },
         dataType: "json",
         contentType: "application/json;charset=UTF-8",
         success: function (result) {
             $.each(result, function (key, item) {
-                $("#txtRootCauseID").val(item.ID);
-                $("#txtMainCause").val(item.ID);
-                $("#txtMainCause").focus();
-                $("#txtRecomendationID").val(item.RecomendationID);
-                $("#txtRecomendation").val(item.Recomendation);
+                var standard =
+                    item.Ciclo + " " + item.Standard + " " + item.Item + " " + item.Name + " " + item.Valor;
+
+                $("#txtValor").val(item.Valor);
+                $("#txtStandard").val(standard);
+                $("#txtCumple").val(item.Cumple);
+                $("#txtNoCumple").val(item.NoCumple);
+                $("#txtJustify").val(item.Justify);
+                $("#txtNoJustify").val(item.NoJustify);
+                $("#txtValoration").val(item.Valoration);
+                $("#txtObservation").val(item.Observation);
+                $("#txtCumple").focus();
+                $("#txtCalificationID").val(item.ID);
             });
-            $("#btnUpdRecomendation").show();
-            $("#btnCanRecomendation").show();
-            $("#btnAddRecomendation").hide();
-            $(".tabAddRecomendations").css("display", "block");
+            $("#btnUpdCalification").show();
+            $("#btnCanCalification").show();
+            $(".tabAddCalifications").css("display", "block");
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -4885,14 +4888,24 @@ function DeleteCalification(id) {
     });
 }
 
-function UpdateCalification(id) {
+function UpdateCalification() {
     // Actualiza una actualización, captura la evaluationID de id = txtEvaluationID
     $(".tabGesCalifications").css("display", "none");
     $(".tabAddCalifications").css("display", "none");
+
+    var valoration = 0;
+    if ($("#txtCumple").is(':checked') || $("#txtJustify").is(':checked')) {
+        valoration = $("#txtValor").val();
+    }
+    var evaluationID = $("#txtEvaluationID").val();
     var calificationVM = {
-        ID: id,
-        EvaluationID: $("#txtEvaluationID").val(),
-        Name: $("#txtRecomendation").val()
+        ID: $("#txtCalificationID").val(),
+        Cumple: $("#txtCumple").val(),
+        NoCumple: $("#txtNoCumple").val(),
+        Justify: $("#txtJustify").val(),
+        NoJustify: $("#txtNoJustify").val(),
+        Valoration: valoration,
+        Observation: $("#txtObservation").val()
     };
     $.ajax({
         type: "POST",
@@ -4901,7 +4914,7 @@ function UpdateCalification(id) {
         dataType: "json",
         success: function (response) {
             alert(response.mensaj);
-            ShowCalifications(id);
+            ShowCalifications(evaluationID);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -4915,4 +4928,3 @@ function CancelCalifications() {
     $(".tabAddCalifications").css("display", "none");
     $("#txtCalifications").val("");
 }
-
