@@ -55,27 +55,12 @@
             </div>
         </div>
     </div>
-
-    <input type="hidden" id="txtAccionID" name="txtAccionID" />
-    <div class="tabIdCausas">
-        @Html.Partial("_EditarNoConformidad")
-        <div class="row">
-            <div class="col-md-8">
-                <button type="button" id="btnAddAction" class="btn btn-info" onclick="AddAccion()">Agregar</button>
-                <button type="button" id="btnCanAccc" class="btn btn-info" onclick="CancelAccion()">
-                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
-                </button>
-            </div>
-            <div class="col-md-4">
-            </div>
-        </div>
-    </div>
-
     <div class="tabGesPlanAcc">
         <hr />
         <input type="hidden" id="planAccionID" name="planAccionID" />
         @Html.Partial("_BorrarPlanAcc")
     </div>
+
     <div class="tabAddPlanAcc">
         <input type="hidden" id="txtPlanAccionID" name="txtPlanAccionID" />
         @Html.Partial("_ModificaPlan")
@@ -90,6 +75,27 @@
             <div class="col-md-4">
             </div>
         </div>
+    </div>
+    <div class="tabResultado">
+
+        <div class="row" style="text-align:center">
+            <div class="col-md-2">
+                <p id="txtTotales"></p>
+            </div>
+            <div class="col-md-2">
+                <p id="txtCumple"></p>
+            </div>
+            <div class="col-md-2">
+                <p id="txtNoCumple"></p>
+            </div>
+            <div class="col-md-2">
+                <p id="txtNoAplica"></p>
+            </div>
+            <div class="col-md-2">
+                <p id="txtValoracion"></p>
+            </div>
+        </div>
+
     </div>
 
 </div>
