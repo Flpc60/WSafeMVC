@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using WSafe.Domain.Data.Entities;
+using WSafe.Domain.Data.Entities.ICAM;
 using WSafe.Domain.Helpers;
 using WSafe.Web.Filters;
 using WSafe.Web.Models;
@@ -87,7 +88,9 @@ namespace WSafe.Web.Controllers
                         EvaluationID = evaluationID,
                         NormaID = item.ID,
                         Cumple = false,
-                        Justifica = false,
+                        NoCumple = false,
+                        Justify = false,
+                        NoJustify = false,
                         Valoration = 0,
                         Observation = ""
                     };
@@ -189,7 +192,9 @@ namespace WSafe.Web.Controllers
                         Name = n.Name,
                         Valor = n.Valor,
                         Cumple = c.Cumple,
-                        Justify = c.Justifica,
+                        NoCumple = c.NoCumple,
+                        Justify = c.Justify,
+                        NoJustify = c.NoJustify,
                         Valoration = c.Valoration,
                         Observation = c.Observation
                     };
@@ -198,6 +203,65 @@ namespace WSafe.Web.Controllers
                 return Json(model, JsonRequestBehavior.AllowGet);
             }
             return Json(null, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult UpdateCalification(int id)
+        {
+            var calification =
+                    from c in _empresaContext.Califications
+                    join n in _empresaContext.Normas on c.NormaID equals n.ID
+                    where c.ID == id
+                    select new CalificationVM
+                    {
+                        ID = c.ID,
+                        Ciclo = n.Ciclo,
+                        Standard = n.Standard,
+                        Item = n.Item,
+                        Name = n.Name,
+                        Valor = n.Valor,
+                        Cumple = c.Cumple,
+                        NoCumple = c.NoCumple,
+                        Justify = c.Justify,
+                        NoJustify = c.NoJustify,
+                        Valoration = c.Valoration,
+                        Observation = c.Observation
+                    };
+            return Json(calification, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UpdateCalification(int id, bool cumple, bool noCumple, bool justify, bool noJustify, decimal valoration, string observation)
+        {
+            var message = "";
+            try
+            {
+                Calification calification = await _empresaContext.Califications.FindAsync(id);
+                calification.Cumple = cumple;
+                calification.NoCumple = noCumple;
+                calification.Justify = justify;
+                calification.NoJustify = noJustify;
+                calification.Valoration = valoration;
+                calification.Observation = observation;
+
+                if (ModelState.IsValid)
+                {
+                    _empresaContext.Entry(calification).State = EntityState.Modified;
+                    await _empresaContext.SaveChangesAsync();
+                    message = "La actualización se ha realizado exitosamente !!";
+                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    message = "La actualización NO se ha realizado exitosamente !!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                message = "La actualización NO se ha realizado exitosamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

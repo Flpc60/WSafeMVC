@@ -17,7 +17,7 @@
 <h4>@title</h4>
 <div class="pull-left">
     <div class="btn-group">
-        <button type="button" class="btn btn-info" id="evaluation" title="doble click para cerrar la ventana"> 1. REALIZAR AUTOEVALUACIÓN</button>
+        <button type="button" class="btn btn-info" id="evaluation" onclick="AddEvaluation()"> 1. REALIZAR AUTOEVALUACIÓN</button>
         <button type="button" class="btn btn-info" id="showEvaluation" title="doble click para cerrar la ventana"> 2. VISUALIZAR</button>
         <button type="button" class="btn btn-info" id="activitys" title="doble click para cerrar la ventana"> 2. PLAN DE ACTIVIDADES</button>
     </div>
@@ -32,52 +32,8 @@
 
 
     <div class="tabGesCalifications">
-        <div class="col-md-12">
-            <button type="button" class="btn btn-success" id="addCalifications">Adicionar calificación</button>
-        </div>
         @Html.Partial("_ShowCalifications")
-    </div>
-
-    <div class="tabAddCalifications">
-        <input type="hidden" id="txtCalificationID" name="txtCalificationID" />
-        <input type="hidden" id="txtEvaluationID" name="txtEvaluationID" />
-        @Html.Partial("_EditCalification")
-        <div class="row">
-            <div class="col-md-8">
-                <hr />
-                <button type="button" id="btnAddCalification" class="btn btn-primary" onclick="AddCalification()">Guardar</button>
-                <button type="button" id="btnUpdCalification" class="btn btn-primary" onclick="UpdateCalification()">Actualizar</button>
-                <button type="button" id="btnCanCalification" class="btn btn-primary" onclick="CancelCalification()">
-                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
-                </button>
-            </div>
-            <div class="col-md-4">
-            </div>
-        </div>
-    </div>
-    <div class="tabGesPlanAcc">
         <hr />
-        <input type="hidden" id="planAccionID" name="planAccionID" />
-        @Html.Partial("_BorrarPlanAcc")
-    </div>
-
-    <div class="tabAddPlanAcc">
-        <input type="hidden" id="txtPlanAccionID" name="txtPlanAccionID" />
-        @Html.Partial("_ModificaPlan")
-        <div class="row">
-            <div class="col-md-8">
-                <button type="button" id="btnAddPlan" class="btn btn-primary" onclick="AddPlanAccion()">Adicionar</button>
-                <button type="button" id="btnUpdPlan" class="btn btn-primary" onclick="UpdatePlanAcc()">Actualizar</button>
-                <button type="button" id="btnCanPlan" class="btn btn-primary" onclick="CancelPlan()">
-                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
-                </button>
-            </div>
-            <div class="col-md-4">
-            </div>
-        </div>
-    </div>
-    <div class="tabResultado">
-
         <div class="row" style="text-align:center">
             <div class="col-md-2">
                 <p id="txtTotales"></p>
@@ -95,7 +51,24 @@
                 <p id="txtValoracion"></p>
             </div>
         </div>
+    </div>
 
+    <div class="tabAddCalifications">
+        <input type="hidden" id="txtCalificationID" name="txtCalificationID" />
+        <input type="hidden" id="txtEvaluationID" name="txtEvaluationID" />
+        <input type="hidden" id="txtValor" name="txtValor" />
+        @Html.Partial("_EditCalification")
+        <div class="row">
+            <div class="col-md-8">
+                <hr />
+                <button type="button" id="btnUpdCalification" class="btn btn-primary" onclick="UpdateCalification()">Actualizar</button>
+                <button type="button" id="btnCanCalification" class="btn btn-primary" onclick="CancelCalification()">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                </button>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
     </div>
 
 </div>
