@@ -391,6 +391,7 @@
     <Compile Include="Data\Entities\Peligro.cs" />
     <Compile Include="Data\Entities\PlanAccion.cs" />
     <Compile Include="Data\Entities\PlanAction.cs" />
+    <Compile Include="Data\Entities\PlanActivity.cs" />
     <Compile Include="Data\Entities\Proceso.cs" />
     <Compile Include="Data\Entities\Riesgo.cs" />
     <Compile Include="Data\Entities\Role.cs" />
@@ -571,11 +572,16 @@
     <Compile Include="Migrations\202212192336439_UpdateNorma22.Designer.cs">
       <DependentUpon>202212192336439_UpdateNorma22.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202212201703546_UpdateCalification221.cs" />
+    <Compile Include="Migrations\202212201703546_UpdateCalification221.Designer.cs">
+      <DependentUpon>202212201703546_UpdateCalification221.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
     <Compile Include="Models\AplicacionVM.cs" />
     <Compile Include="Models\AplicationsViewModel.cs" />
     <Compile Include="Models\AuthorizationVM.cs" />
+    <Compile Include="Models\CalificationVM.cs" />
     <Compile Include="Models\ControlViewModel.cs" />
     <Compile Include="Models\CreateIndicatorsViewModel.cs" />
     <Compile Include="Models\DetailsIncidentVM.cs" />
@@ -1081,6 +1087,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202212192336439_UpdateNorma22.resx">
       <DependentUpon>202212192336439_UpdateNorma22.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212201703546_UpdateCalification221.resx">
+      <DependentUpon>202212201703546_UpdateCalification221.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

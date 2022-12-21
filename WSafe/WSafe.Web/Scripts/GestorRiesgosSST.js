@@ -4714,3 +4714,167 @@ function SendEmail(movimientID) {
     $("#btnAddMovimient").hide();
     $("#btnCanMovimient").show();
 }
+
+function AddEvaluation() {
+    // Crea una nueva evaluación
+    $('.tabAddCalifications').css("display", "none");
+    $.ajax({
+        type: "POST",
+        url: "/Evaluations/CreateEvaluation",
+        dataType: "json",
+        success: function (response) {
+            var evaluationID = response.data;
+            if (response.dat != false) {
+                $("#txtEvaluationID").val(evaluationID);
+            }
+
+            $("#btnAddRecomendation").hide();
+            $("#btnCanRecomendation").hide();
+            alert(response.mensaj);
+            ShowCalifications(evaluationID);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+    AddPlan(2); // adicionar recomendación
+}
+
+function ShowCalifications(evaluationID) {
+    // Mostrar todos las calificaciones
+    //var evaluationID = $("#txtEvaluationID").val();
+    $.ajax({
+        url: "/Evaluations/GetCalifications",
+        data: { id: evaluationID },
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (result) {
+            var html = '';
+            $.each(result, function (key, item) {
+                html += '<tr>';
+                html += '<td>' + item.Ciclo + '</td>';
+                html += '<td>' + item.Standard + '</td>';
+                html += '<td>' + item.Item + '</td>';
+                html += '<td>' + item.Name + '</td>';
+                html += '<td>' + item.Valor + '</td>';
+                html += '<td>' + item.Cumple + '</td>';
+                html += '<td>' + item.NoCumple + '</td>';
+                html += '<td>' + item.Justify + '</td>';
+                html += '<td>' + item.NoJustify + '</td>';
+                html += '<td>' + item.Valoration + '</td>';
+                html += '<td>' + item.item.Observation + '</td>';
+                html += '<td><a href="#" onclick="return getCalificationByID(' + item.ID + ')">Editar</a></td>';
+                html += '</tr>';
+            });
+            $('.tbody').html(html);
+            $('.tabGesCalifications').css("display", "block");
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function getRecomendationByID(recomendationID) {
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: "/Incidentes/UpdateRecomendation",
+        data: {
+            id: recomendationID
+        },
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        success: function (result) {
+            $.each(result, function (key, item) {
+                $("#txtRootCauseID").val(item.ID);
+                $("#txtMainCause").val(item.ID);
+                $("#txtMainCause").focus();
+                $("#txtRecomendationID").val(item.RecomendationID);
+                $("#txtRecomendation").val(item.Recomendation);
+            });
+            $("#btnUpdRecomendation").show();
+            $("#btnCanRecomendation").show();
+            $("#btnAddRecomendation").hide();
+            $(".tabAddRecomendations").css("display", "block");
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function DeleteCalification(id) {
+    $.ajax({
+        url: "/Incidentes/DeleteRecomendation/" + id,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        async: true,                                             // si es asincrónico o no
+        success: function (result) {
+            var text = "";
+            text += "Esta seguro de querer borrar esta recomendación ? :\n\n";
+            text += "Recomendación : " + result.data.Name + "\n";
+            var respuesta = confirm(text);
+            if (respuesta == true) {
+                $.ajax({
+                    url: "/Incidentes/DeleteRecomendation/" + id,
+                    type: "POST",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    async: true,                                               // si es asincrónico o no
+                    success: function (result) {
+                        alert(result.mensaj);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                    }
+                });
+            }
+            ClearTextBox();
+            ShowRecomendations();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function UpdateCalification(id) {
+    // Actualiza una actualización, captura la evaluationID de id = txtEvaluationID
+    $(".tabGesCalifications").css("display", "none");
+    $(".tabAddCalifications").css("display", "none");
+    var calificationVM = {
+        ID: id,
+        EvaluationID: $("#txtEvaluationID").val(),
+        Name: $("#txtRecomendation").val()
+    };
+    $.ajax({
+        type: "POST",
+        url: "/Evaluations/UpdateCapacitacion",
+        data: { model: calificationVM },
+        dataType: "json",
+        success: function (response) {
+            alert(response.mensaj);
+            $(".tabGesCalifications").css("display", "block");
+            ShowReCalifications(id);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function CancelCalifications() {
+    $(".tabGesCalifications").css("display", "none");
+    $(".tabAddCalifications").css("display", "none");
+    $("#txtCalifications").val("");
+}
+

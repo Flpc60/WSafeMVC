@@ -494,5 +494,57 @@ namespace WSafe.Domain.Helpers.Implements
                     return "Sín iniciar";
             }
         }
+        public string GetCiclo(string ciclo)
+        {
+            switch (ciclo)
+            {
+                case "P":
+                    return "PLANEAR";
+
+                case "H":
+                    return "HACER";
+
+                case "V":
+                    return "VERIFICAR";
+
+                case "A":
+                    return "ACTUAR";
+
+                default:
+                    return "PLANEAR";
+
+            }
+        }
+        public string GetStandard(string standar)
+        {
+            switch (standar)
+            {
+                case "R":
+                    return "RECURSOS";
+
+                case "I":
+                    return "GESTIÓN INTEGRAL";
+
+                case "S":
+                    return "GESTIÓN SALUD";
+
+                case "P":
+                    return "GESTIÓN PELIGROS";
+
+
+                case "A":
+                    return "GESTIÓN AMENAZAS";
+
+                case "V":
+                    return "VERIFICACIÓN";
+
+                case "M":
+                    return "MEJORAMIENTO";
+
+                default:
+                    return "RECURSOS";
+
+            }
+        }
     }
 }

@@ -1,123 +1,166 @@
-﻿@model WSafe.Web.Models.EvaluationVM
-
-@{
-    ViewBag.Title = "Create";
+﻿@{
+    var title = "GESTIONAR EVALUACIÓN DE ESTÁNDARES";
 }
 
-<h2>Create</h2>
+<style>
+    .tabIdCausas, .tabGesPlanAcc, .tabGesSeguiPlanAcc, .tabPlanAcc, .tabSeguimAcc, .tabSeguimPlanAcc, .tabAddPlanAcc, .tabAddSeguimAcc,
+    .tabGesCalifications, .tabAddCalifications
 
-@using (Html.BeginForm()) 
+    {
+        display: none;
+    }
+
+</style>
+
+<hr />
+<hr />
+<h4>@title</h4>
+<div class="pull-left">
+    <div class="btn-group">
+        <button type="button" class="btn btn-info" id="evaluation" title="doble click para cerrar la ventana"> 1. REALIZAR AUTOEVALUACIÓN</button>
+        <button type="button" class="btn btn-info" id="showEvaluation" title="doble click para cerrar la ventana"> 2. VISUALIZAR</button>
+        <button type="button" class="btn btn-info" id="activitys" title="doble click para cerrar la ventana"> 2. PLAN DE ACTIVIDADES</button>
+    </div>
+</div>
+
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>EvaluationVM</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.OrganizationID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.OrganizationID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.OrganizationID, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.FechaEvaluation, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FechaEvaluation, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FechaEvaluation, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Cumple, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Cumple, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Cumple, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NoCumple, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NoCumple, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NoCumple, "", new { @class = "text-danger" })
-            </div>
+    <div class="tabGesCalifications">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-success" id="addCalifications">Adicionar calificación</button>
         </div>
+        @Html.Partial("_ShowCalifications")
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NoAplica, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NoAplica, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NoAplica, "", new { @class = "text-danger" })
+    <div class="tabAddCalifications">
+        <input type="hidden" id="txtCalificationID" name="txtCalificationID" />
+        <input type="hidden" id="txtEvaluationID" name="txtEvaluationID" />
+        @Html.Partial("_EditCalification")
+        <div class="row">
+            <div class="col-md-8">
+                <hr />
+                <button type="button" id="btnAddCalification" class="btn btn-primary" onclick="AddCalification()">Guardar</button>
+                <button type="button" id="btnUpdCalification" class="btn btn-primary" onclick="UpdateCalification()">Actualizar</button>
+                <button type="button" id="btnCanCalification" class="btn btn-primary" onclick="CancelCalification()">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                </button>
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.StandarsResult, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.StandarsResult, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.StandarsResult, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.AplicationsResult, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.AplicationsResult, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AplicationsResult, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Activitys, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Activitys, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Activitys, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Ejecutadas, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Ejecutadas, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Ejecutadas, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Avance, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Avance, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Avance, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Color, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Color, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Color, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div class="col-md-4">
             </div>
         </div>
     </div>
+
+    <input type="hidden" id="txtAccionID" name="txtAccionID" />
+    <div class="tabIdCausas">
+        @Html.Partial("_EditarNoConformidad")
+        <div class="row">
+            <div class="col-md-8">
+                <button type="button" id="btnAddAction" class="btn btn-info" onclick="AddAccion()">Agregar</button>
+                <button type="button" id="btnCanAccc" class="btn btn-info" onclick="CancelAccion()">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                </button>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+
+    <div class="tabGesPlanAcc">
+        <hr />
+        <input type="hidden" id="planAccionID" name="planAccionID" />
+        @Html.Partial("_BorrarPlanAcc")
+    </div>
+    <div class="tabAddPlanAcc">
+        <input type="hidden" id="txtPlanAccionID" name="txtPlanAccionID" />
+        @Html.Partial("_ModificaPlan")
+        <div class="row">
+            <div class="col-md-8">
+                <button type="button" id="btnAddPlan" class="btn btn-primary" onclick="AddPlanAccion()">Adicionar</button>
+                <button type="button" id="btnUpdPlan" class="btn btn-primary" onclick="UpdatePlanAcc()">Actualizar</button>
+                <button type="button" id="btnCanPlan" class="btn btn-primary" onclick="CancelPlan()">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                </button>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+
+</div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+@section Scripts
+{
+    <script type="text/javascript">
+
+        $.ajaxSetup({
+
+            error: function (jqXHR, textStatus, errorThrown) {
+
+                if (jqXHR.status === 0) {
+
+                    alert('Not connect: Verify Network.');
+
+                } else if (jqXHR.status == 404) {
+
+                    alert('Requested page not found [404]');
+
+                } else if (jqXHR.status == 500) {
+
+                    alert('Internal Server Error [500].');
+
+                } else if (textStatus === 'parsererror') {
+
+                    alert('Requested JSON parse failed.');
+
+                } else if (textStatus === 'timeout') {
+
+                    alert('Time out error.');
+
+                } else if (textStatus === 'abort') {
+
+                    alert('Ajax request aborted.');
+
+                } else {
+
+                    alert('Uncaught Error: ' + jqXHR.responseText);
+
+                }
+            }
+        });
+
+        $(document).ready(function () {
+            ClearTextBox();
+            GestorActions();
+        });
+
+        $('#idFechaIni').change(function () {
+            var fecha = $("#idFechaIni").val();
+            validarFechaIni(fecha);
+        });
+
+        $('#idFechaFin').change(function () {
+            var fechaIni = $("#idFechaIni").val();
+            var fechaFin = $("#idFechaFin").val();
+            validarFechaFin(fechaIni, fechaFin);
+        });
+
+        $('#FechaSolicitud').change(function () {
+            var fecha = $("#FechaSolicitud").val();
+            validarFechaIni(fecha);
+        });
+
+        $('#FechaCierre').change(function () {
+            var fechaIni = $("#idFechaIni").val();
+            var fechaFin = $("#FechaCierre").val();
+            validarFechaFin(fechaIni, fechaFin);
+        });
+
+    </script>
+}
