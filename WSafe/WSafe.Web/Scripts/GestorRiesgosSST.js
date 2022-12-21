@@ -4753,7 +4753,23 @@ function ShowCalifications(evaluationID) {
         async: true,
         success: function (result) {
             var html = '';
+            var totales = 0, cumple = 0, noCumple = 0, noAplica = 0;
             $.each(result, function (key, item) {
+                totales += item.Valoration;
+
+                if (item.Cumple) {
+                    cumple++;
+                }
+                if (item.NoCumple) {
+                    noCumple++;
+                }
+                if (item.Justify) {
+                    NoAplica++;
+                }
+                if (item.NoJustify) {
+                    NoAplica++;
+                }
+
                 html += '<tr>';
                 html += '<td>' + item.Ciclo + '</td>';
                 html += '<td>' + item.Standard + '</td>';
@@ -4769,6 +4785,29 @@ function ShowCalifications(evaluationID) {
                 html += '<td><a href="#" onclick="return getCalificationByID(' + item.ID + ')">Editar</a></td>';
                 html += '</tr>';
             });
+
+            $("#txtTotales").val("TOTALES : " + totales);
+            $("#txtCumple").val("CUMPLE : " + cumple);
+            $("#txtNoCumple").val("NO CUMPLE : " + noCumple);
+            $("#txtNoAplica").val("NO APLICA : " + noAplica);
+
+            switch (true)
+            {
+                case (totales > 85) :
+                    $("#txtValoracion").val("VALORACIÓN ACEPTABLE");
+                    $("#txtValoracion").css('back-ground', 'green');
+                    break;
+
+                case (totales => 61 && totales <= 85):
+                    $("#txtValoracion").val("VALORACIÓN MODERADAMENTE ACEPTABLE");
+                    $("#txtValoracion").css('back-ground', 'yellow');
+                    break;
+
+                case (totales <= 60):
+                    $("#txtValoracion").val("VALORACIÓN CRITICO");
+                    $("#txtValoracion").css('back-ground', 'red');
+                    break;
+            }
             $('.tbody').html(html);
             $('.tabGesCalifications').css("display", "block");
         },
@@ -4862,8 +4901,7 @@ function UpdateCalification(id) {
         dataType: "json",
         success: function (response) {
             alert(response.mensaj);
-            $(".tabGesCalifications").css("display", "block");
-            ShowReCalifications(id);
+            ShowCalifications(id);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
