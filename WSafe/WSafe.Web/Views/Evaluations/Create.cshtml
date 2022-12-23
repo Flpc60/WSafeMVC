@@ -17,8 +17,8 @@
 <h4>@title</h4>
 <div class="pull-left">
     <div class="btn-group">
-        <button type="button" class="btn btn-info" id="evaluation" onclick="AddEvaluation()"> 1. REALIZAR AUTOEVALUACIÓN</button>
-        <button type="button" class="btn btn-info" id="showEvaluation" title="doble click para cerrar la ventana"> 2. VISUALIZAR</button>
+        <button type="button" class="btn btn-info" id="evaluation" onclick="AddEvaluation()"> 1. CALIFICAR ESTÁNDARES</button>
+        <button type="button" class="btn btn-info" id="showEvaluation" title="doble click para cerrar la ventana"> 2. RESULTADO</button>
         <button type="button" class="btn btn-info" id="activitys" title="doble click para cerrar la ventana"> 2. PLAN DE ACTIVIDADES</button>
     </div>
 </div>
@@ -29,33 +29,10 @@
 
 <div class="form-horizontal">
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-
-    <div class="tabGesCalifications">
-        @Html.Partial("_ShowCalifications")
-        <hr />
-        <div class="row" style="text-align:center">
-            <div class="col-md-2">
-                <p id="txtTotales"></p>
-            </div>
-            <div class="col-md-2">
-                <p id="txtCumple"></p>
-            </div>
-            <div class="col-md-2">
-                <p id="txtNoCumple"></p>
-            </div>
-            <div class="col-md-2">
-                <p id="txtNoAplica"></p>
-            </div>
-            <div class="col-md-2">
-                <p id="txtValoracion"></p>
-            </div>
-        </div>
-    </div>
+    <input type="hidden" id="txtEvaluationID" name="txtEvaluationID" />
 
     <div class="tabAddCalifications">
         <input type="hidden" id="txtCalificationID" name="txtCalificationID" />
-        <input type="hidden" id="txtEvaluationID" name="txtEvaluationID" />
         <input type="hidden" id="txtValor" name="txtValor" />
         @Html.Partial("_EditCalification")
         <div class="row">
@@ -71,6 +48,28 @@
         </div>
     </div>
 
+    <div class="tabGesCalifications">
+        <hr />
+        @Html.Partial("_ShowCalifications")
+        <hr />
+        <div class="row" style="text-align: center; background-color: mediumaquamarine">
+            <div class="col-md-2">
+                <p id="txtTotales"></p>
+            </div>
+            <div class="col-md-2">
+                <p id="txtCumple"></p>
+            </div>
+            <div class="col-md-2">
+                <p id="txtNoCumple"></p>
+            </div>
+            <div class="col-md-2">
+                <p id="txtNoAplica"></p>
+            </div>
+            <div class="col-md-2" style="font-size:large">
+                <p id="txtValoracion"></p>
+            </div>
+        </div>
+    </div>
 </div>
 }
 
