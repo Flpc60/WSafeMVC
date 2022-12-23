@@ -1,45 +1,42 @@
-﻿<div class="container" style="background-color:mediumaquamarine">
+﻿<hr />
+<hr />
+<hr />
+<div class="container" style="background-color:mediumaquamarine">
 
     <div class="row">
         <div class="col-md-10">
-            <div class="form-group" style="text-align:center; font-size:medium">
+            <div class="form-group" style="text-align: left; font-size: 14px; margin-left: 50px">
+                <p id="txtCiclo"></p>
                 <p id="txtStandard"></p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-2"></div>
-    <div class="row">
-        <div class="col-md-10">
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="txtCumple" id="txtCumple" />
-                <label class="form-check-label" for="txtCumple"> Cumple totalmente </label>
-                <input class="form-check-input" type="radio" name="txtNoCumple" id="txtNoCumple" checked />
-                <label class="form-check-label" for="txtNoCumple"> No Cumple totalmente </label>
-            </div>
-            <div class="form-check">
+                <p id="txtItem"></p>
             </div>
         </div>
         <div class="col-md-2"></div>
     </div>
-
     <div class="row">
-        <div class="col-md-10">
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="txtJustify" id="txtJustify" />
-                <label class="form-check-label" for="txtJustify"> No aplica Justifica </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="txtNoJustify" id="txtNoJustify" checked />
-                <label class="form-check-label" for="txtNoJustify"> No aplica No Justifica </label>
-            </div>
+        <div class="col-md-6" style="text-align: center">
+            <label for="txtCumple"> Cumple totalmente el estándar ? </label>
+            <input type="radio" name="txtCumple" id="txtCumple" /><br />
+            <label for="txtNoCumple"> No Cumple totalmente el estándar ?  </label>
+            <input type="radio" name="txtCumple" id="txtNoCumple" />
         </div>
-        <div class="col-md-2"></div>
+        <div class="col-md-6"></div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-6" style="text-align: center">
+            <label for="txtJustify"> No aplica Justifica </label>
+            <input type="radio" name="txtJustify" id="txtJustify" /><br />
+            <label for="txtNoJustify"> No aplica No Justifica </label>
+            <input type="radio" name="txtJustify" id="txtNoJustify"/>
+        </div>
+        <div class="col-md-6"></div>
     </div>
 
     <div class="row">
         <div class="col-md-10">
             <div class="form-group">
-                <div class="col-md-6">
+                <div class="col-md-10">
                     <hr />
                     <label for="txtObservation">OBSERVACIONES :</label>
                     <textarea id="txtObservation" style="resize:none;" class="form-control" rows=2 cols=70 required></textarea>
