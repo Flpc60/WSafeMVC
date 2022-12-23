@@ -19,12 +19,14 @@ namespace WSafe.Web.Controllers
         private readonly IComboHelper _comboHelper;
         private readonly IConverterHelper _converterHelper;
         private readonly IChartHelper _chartHelper;
-        public EvaluationsController(EmpresaContext empresaContext, IComboHelper comboHelper, IConverterHelper converterHelper, IChartHelper chartHelper)
+        private readonly IGestorHelper _gestorHelper;
+        public EvaluationsController(EmpresaContext empresaContext, IComboHelper comboHelper, IConverterHelper converterHelper, IChartHelper chartHelper, IGestorHelper gestorHelper)
         {
             _empresaContext = empresaContext;
             _comboHelper = comboHelper;
             _converterHelper = converterHelper;
             _chartHelper = chartHelper;
+            _gestorHelper = gestorHelper;
         }
 
         [AuthorizeUser(operation: 1, component: 2)]
@@ -174,14 +176,14 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetCalifications(int id)
+        public ActionResult GetCalifications(int id, string ciclo)
         {
             if (id != null)
             {
                 var list =
                     from c in _empresaContext.Califications
                     join n in _empresaContext.Normas on c.NormaID equals n.ID
-                    where c.EvaluationID == id
+                    where (c.EvaluationID == id && n.Ciclo == ciclo)
                     select new CalificationVM
                     {
                         ID = c.ID,
@@ -207,7 +209,7 @@ namespace WSafe.Web.Controllers
         [HttpGet]
         public JsonResult UpdateCalification(int id)
         {
-            var calification =
+            var list =
                     from c in _empresaContext.Califications
                     join n in _empresaContext.Normas on c.NormaID equals n.ID
                     where c.ID == id
@@ -226,14 +228,14 @@ namespace WSafe.Web.Controllers
                         Valoration = c.Valoration,
                         Observation = c.Observation
                     };
-            return Json(calification, JsonRequestBehavior.AllowGet);
+            var model = _converterHelper.ToCalificationVMList(list);
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public async Task<ActionResult> EditCalification(int id, bool cumple, bool noCumple, bool justify, bool noJustify, decimal valoration, string observation)
         {
             var message = "";
-
             try
             {
                 Calification calification = await _empresaContext.Califications.FindAsync(id);
