@@ -496,7 +496,7 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public string GetCiclo(string ciclo)
         {
-            switch (ciclo)
+            switch (ciclo.Trim())
             {
                 case "P":
                     return "PLANEAR";
@@ -517,7 +517,7 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public string GetStandard(string standar)
         {
-            switch (standar)
+            switch (standar.Trim())
             {
                 case "R":
                     return "RECURSOS";

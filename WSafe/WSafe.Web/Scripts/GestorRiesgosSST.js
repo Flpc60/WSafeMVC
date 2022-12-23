@@ -4717,7 +4717,8 @@ function SendEmail(movimientID) {
 
 function AddEvaluation() {
     // Crea una nueva evaluación
-    $('.tabGesCalifications').css("display", "none");
+    //$('.tabGesCalifications').css("display", "none");
+    $(".tabGesCiclo").css("display", "block");
     $.ajax({
         type: "POST",
         url: "/Evaluations/CreateEvaluation",
@@ -4727,7 +4728,6 @@ function AddEvaluation() {
             if (response.data != false) {
                 $("#txtEvaluationID").val(evaluationID);
             }
-            ShowCalifications(evaluationID);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -4736,12 +4736,15 @@ function AddEvaluation() {
     });
 }
 
-function ShowCalifications(evaluationID) {
+function ShowCalifications(evaluationID, phva) {
     // Mostrar todos las calificaciones
-    //var evaluationID = $("#txtEvaluationID").val();
+    evaluationID = $("#txtEvaluationID").val();
     $.ajax({
         url: "/Evaluations/GetCalifications",
-        data: { id: evaluationID },
+        data: {
+            id: evaluationID,
+            ciclo: phva
+        },
         type: "GET",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
@@ -4774,8 +4777,6 @@ function ShowCalifications(evaluationID) {
                 }
 
                 html += '<tr>';
-                html += '<td>' + item.Ciclo + '</td>';
-                html += '<td>' + item.Standard + '</td>';
                 html += '<td>' + item.Item + ' ' + item.Name + '</td>';
                 html += '<td>' + item.Valor + '</td>';
                 html += '<td>' + cumpleSi + '</td>';
@@ -4834,9 +4835,9 @@ function getCalificationByID(calificationID) {
         contentType: "application/json;charset=UTF-8",
         success: function (result) {
             $.each(result, function (key, item) {
-                var standard =
-                    item.Ciclo + " " + item.Standard + " " + item.Item + " " + item.Name + " " + item.Valor;
-
+                var ciclo = "CICLO : "+ item.Ciclo;
+                var standard = "ESTÁNDAR : " + item.Standard;
+                var item = "ITEM ESTÁNDAR : " + item.Item + " " + item.Name + "   VALOR : " + item.Valor;
                 $("#txtValor").val(item.Valor);
                 $("#txtCumple").val(item.Cumple);
                 $("#txtNoCumple").val(item.NoCumple);
@@ -4846,7 +4847,9 @@ function getCalificationByID(calificationID) {
                 $("#txtObservation").val(item.Observation);
                 $("#txtCumple").focus();
                 $("#txtCalificationID").val(item.ID);
+                document.getElementById("txtCiclo").innerHTML = ciclo;
                 document.getElementById("txtStandard").innerHTML = standard;
+                document.getElementById("txtItem").innerHTML = item;
             });
 
             $("#btnUpdCalification").show();
@@ -4903,51 +4906,51 @@ function UpdateCalification() {
     $(".tabAddCalifications").css("display", "none");
 
     var Valoration = 0;
-    var evaluationID = $("#txtEvaluationID").val();
-    var id = $("#txtCalificationID").val();
-    var cumple = $("#txtCumple").val();
-    var noCumple = $("#txtNoCumple").val();
-    var justify = $("#txtJustify").val();
-    var noJustify = $("#txtNoJustify").val();
-    var observation = $("#txtObservation").val();
+    //var evaluationID = $("#txtEvaluationID").val();
+    var Id = $("#txtCalificationID").val();
+    var Cumple = $("#txtCumple").val();
+    var NoCumple = $("#txtNoCumple").val();
+    var Justify = $("#txtJustify").val();
+    var NoJustify = $("#txtNoJustify").val();
+    var Observation = $("#txtObservation").val();
 
     if ($("#txtCumple").is(':checked') || $("#txtJustify").is(':checked')) {
         Valoration = $("#txtValor").val();
     }
     if ($("#txtCumple").is(':checked')) {
-        cumple = true;
-        noCumple = false;
+        Cumple = true;
+        NoCumple = false;
     }
 
     if ($("#txtNoCumple").is(':checked')) {
-        cumple = false;
-        noCumple = true;
+        Cumple = false;
+        NoCumple = true;
     }
 
     if ($("#txtJustify").is(':checked')) {
-        justify = true;
-        noJustify = false;
+        Justify = true;
+        NoJustify = false;
     }
 
     if ($("#txtNoJustify").is(':checked')) {
-        justify = false;
-        noJustify = true;
+        Justify = false;
+        NoJustify = true;
     }
     $.ajax({
         type: "POST",
         url: "/Evaluations/EditCalification",
         data: {
-            id: id,
-            cumple: cumple,
-            noCumple: noCumple,
-            justify: justify,
-            noJustify: noJustify,
+            id: Id,
+            cumple: Cumple,
+            noCumple: NoCumple,
+            justify: Justify,
+            noJustify: NoJustify,
             valoration: Valoration,
-            observation: observation
+            observation: Observation
         },
         dataType: "json",
         success: function (response) {
-            ShowCalifications(response.data);
+            ShowCalifications(response.data, ciclo);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -4960,4 +4963,52 @@ function CancelCalifications() {
     $(".tabGesCalifications").css("display", "none");
     $(".tabAddCalifications").css("display", "none");
     $("#txtCalifications").val("");
+}
+
+function GestorEvaluations() {
+
+    //Activa ventanas para gestionar calificación estándares
+
+    $("#planear").click(function () {
+        ResetTab();
+        $("#planear").focus();
+        $(".tabCerrar").css("display", "none");
+        ciclo = "P";
+        evaluationID = $("#txtEvaluationID").val();
+        ShowCalifications(evaluationID, ciclo);
+    });
+    $("#planear").dblclick(function () {
+        ResetTab();
+    });
+
+    $("#hacer").click(function () {
+        ResetTab();
+        $(".tabCerrar").css("display", "none");
+        $("#hacer").show();
+        ciclo = "H";
+    });
+    $("#hacer").dblclick(function () {
+        ResetTab();
+    });
+
+    $("#verificar").click(function () {
+        ResetTab();
+        $(".tabCerrar").css("display", "none");
+        $("#verificar").focus();
+        ciclo = "V";
+    });
+    $("#verificar").dblclick(function () {
+        ResetTab();
+    });
+
+    $("#actuar").click(function () {
+        ResetTab();
+        $(".tabCerrar").css("display", "none");
+        $("#actuar").focus();
+        ciclo = "A";
+    });
+    $("#actuar").dblclick(function () {
+        ResetTab();
+    });
+
 }
