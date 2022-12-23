@@ -1106,7 +1106,11 @@ namespace WSafe.Domain.Helpers.Implements
             {
                 activitys = _empresaContext.PlanActions.Where(pa => pa.EvaluationID == item.ID).Count();
                 ejecutadas = _empresaContext.PlanActions.Where(pa => pa.EvaluationID == item.ID && pa.ActionCategory == ActionCategories.Finalizada).Count();
-                avance = Convert.ToDecimal((double)ejecutadas / (double)activitys * 100);
+
+                if (activitys > 0)
+                {
+                    avance = Convert.ToDecimal((double)ejecutadas / (double)activitys * 100);
+                }
 
                 switch (item.Category)
                 {

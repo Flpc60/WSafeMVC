@@ -5,7 +5,6 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using WSafe.Domain.Data.Entities;
-using WSafe.Domain.Data.Entities.ICAM;
 using WSafe.Domain.Helpers;
 using WSafe.Web.Filters;
 using WSafe.Web.Models;
@@ -231,9 +230,10 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> UpdateCalification(int id, bool cumple, bool noCumple, bool justify, bool noJustify, decimal valoration, string observation)
+        public async Task<ActionResult> EditCalification(int id, bool cumple, bool noCumple, bool justify, bool noJustify, decimal valoration, string observation)
         {
             var message = "";
+
             try
             {
                 Calification calification = await _empresaContext.Califications.FindAsync(id);
@@ -249,7 +249,7 @@ namespace WSafe.Web.Controllers
                     _empresaContext.Entry(calification).State = EntityState.Modified;
                     await _empresaContext.SaveChangesAsync();
                     message = "La actualización se ha realizado exitosamente !!";
-                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                    return Json(new { data = calification.EvaluationID, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
