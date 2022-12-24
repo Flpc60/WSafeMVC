@@ -1160,7 +1160,6 @@ namespace WSafe.Domain.Helpers.Implements
                 model.Add(new CalificationVM
                 {
                     ID = item.ID,
-                    OrganizationID = item.OrganizationID,
                     Ciclo = _gestorHelper.GetCiclo(item.Ciclo),
                     Standard = _gestorHelper.GetStandard(item.Standard),
                     Item = item.Item,

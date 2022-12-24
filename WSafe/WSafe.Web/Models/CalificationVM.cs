@@ -3,7 +3,7 @@
     public class CalificationVM
     {
         public int ID { get; set; }
-        public int OrganizationID { get; set; }
+        public int EvaluationID { get; set; }
         public string Ciclo { get; set; }
         public string Item { get; set; }
         public string Name { get; set; }
