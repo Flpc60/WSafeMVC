@@ -233,31 +233,23 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> EditCalification(int id, bool cumple, bool noCumple, bool justify, bool noJustify, decimal valoration, string observation)
+        public async Task<ActionResult> EditCalification(CalificationVM model)
         {
             var message = "";
             try
             {
-                Calification calification = await _empresaContext.Califications.FindAsync(id);
-                calification.Cumple = cumple;
-                calification.NoCumple = noCumple;
-                calification.Justify = justify;
-                calification.NoJustify = noJustify;
-                calification.Valoration = valoration;
-                calification.Observation = observation;
-
-                if (ModelState.IsValid)
-                {
-                    _empresaContext.Entry(calification).State = EntityState.Modified;
-                    await _empresaContext.SaveChangesAsync();
-                    message = "La actualización se ha realizado exitosamente !!";
-                    return Json(new { data = calification.EvaluationID, mensaj = message }, JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    message = "La actualización NO se ha realizado exitosamente !!";
-                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
-                }
+                Calification calification = await _empresaContext.Califications.FindAsync(model.ID);
+                calification.Cumple = model.Cumple;
+                calification.NoCumple = model.NoCumple;
+                calification.Justify = model.Justify;
+                calification.NoJustify = model.NoJustify;
+                calification.Valoration = model.Valoration;
+                calification.Observation = model.Observation;
+                // Actualizar la BD
+                _empresaContext.Entry(calification).State = EntityState.Modified;
+                await _empresaContext.SaveChangesAsync();
+                message = "La actualización se ha realizado exitosamente !!";
+                return Json(new { data = calification.EvaluationID, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
