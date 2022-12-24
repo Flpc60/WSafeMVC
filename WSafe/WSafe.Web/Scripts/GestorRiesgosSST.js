@@ -4753,27 +4753,24 @@ function ShowCalifications(evaluationID, phva) {
             var html = '', cumpleSi = '', cumpleNo = '', justifySi = '', justifyNo = '';
             var totales = 0, cumple = 0, noCumple = 0, noAplica = 0;
             $.each(result, function (key, item) {
+                cumpleSi = '', cumpleNo = '', justifySi = '', justifyNo = '';
                 totales += item.Valoration;
 
                 if (item.Cumple == true) {
                     cumple++;
-                    cumpleSi = " x ";
-                    cumpleNo = "   ";
+                    cumpleSi = "   X";
                 }
                 if (item.NoCumple == true) {
                     noCumple++;
-                    cumpleNo = " x ";
-                    cumpleSi = "   ";
+                    cumpleNo = "   X";
                 }
                 if (item.Justify == true) {
                     noAplica++;
-                    justifySi = " x ";
-                    justifyNo = "   ";
+                    justifySi = "   X";
                 }
                 if (item.NoJustify == true) {
                     noAplica++;
-                    justifyNo = " x ";
-                    justifySi = "   ";
+                    justifyNo = "   X";
                 }
 
                 html += '<tr>';
@@ -4836,9 +4833,11 @@ function getCalificationByID(calificationID) {
         contentType: "application/json;charset=UTF-8",
         success: function (result) {
             $.each(result, function (key, item) {
-                var ciclo = "CICLO : "+ item.Ciclo;
-                var standard = "ESTÁNDAR : " + item.Standard;
-                var item = "ITEM ESTÁNDAR : " + item.Item + " " + item.Name + "   VALOR : " + item.Valor;
+                var ciclo = " CICLO : "+ item.Ciclo;
+                var standard = " ESTÁNDAR : " + item.Standard;
+                var itemStandard = " ITEM ESTÁNDAR : " + item.Item + " " + item.Name;
+                var valorItem = " VALOR : " + item.Valor;
+                valoration = item.Valor;
                 $("#txtValor").val(item.Valor);
                 $("#txtCumple").val(item.Cumple);
                 $("#txtNoCumple").val(item.NoCumple);
@@ -4849,7 +4848,8 @@ function getCalificationByID(calificationID) {
                 $("#txtCumple").focus();
                 document.getElementById("txtCiclo").innerHTML = ciclo;
                 document.getElementById("txtStandard").innerHTML = standard;
-                document.getElementById("txtItem").innerHTML = item;
+                document.getElementById("txtItem").innerHTML = itemStandard;
+                document.getElementById("txtValorItem").innerHTML = valorItem;
             });
 
             $("#btnUpdCalification").show();
@@ -4904,9 +4904,8 @@ function UpdateCalification() {
     // Actualiza una actualización, captura la evaluationID de id = txtEvaluationID
     $(".tabGesCalifications").css("display", "none");
     $(".tabAddCalifications").css("display", "none");
-
-    var Valoration = 0;
-    //var evaluationID = $("#txtEvaluationID").val();
+    var evaluationID = $("#txtEvaluationID").val();
+    valoration = 0;
     var Id = $("#txtCalificationID").val();
     var Cumple = $("#txtCumple").val();
     var NoCumple = $("#txtNoCumple").val();
@@ -4915,7 +4914,7 @@ function UpdateCalification() {
     var Observation = $("#txtObservation").val();
 
     if ($("#txtCumple").is(':checked') || $("#txtJustify").is(':checked')) {
-        Valoration = $("txtValor").val();
+        valoration = $("#txtValor").val()*100;
     }
     if ($("#txtCumple").is(':checked')) {
         Cumple = true;
@@ -4939,18 +4938,18 @@ function UpdateCalification() {
     var calificationVM =
     {
         ID: Id,
-        OrganizationID: "",
+        EvaluationID: evaluationID,
         Ciclo: "",
         Item: "",
         Name: "",
         Standard: "",
         Valor: "",
-        cumple: Cumple,
-        noCumple: NoCumple,
-        justify: Justify,
-        noJustify: NoJustify,
-        valoration: Valoration,
-        observation: Observation
+        Cumple: Cumple,
+        NoCumple: NoCumple,
+        Justify: Justify,
+        NoJustify: NoJustify,
+        Valoration: valoration,
+        Observation: Observation
     };
 
     $.ajax({

@@ -216,6 +216,7 @@ namespace WSafe.Web.Controllers
                     select new CalificationVM
                     {
                         ID = c.ID,
+                        EvaluationID = c.EvaluationID,
                         Ciclo = n.Ciclo,
                         Standard = n.Standard,
                         Item = n.Item,
@@ -243,7 +244,7 @@ namespace WSafe.Web.Controllers
                 calification.NoCumple = model.NoCumple;
                 calification.Justify = model.Justify;
                 calification.NoJustify = model.NoJustify;
-                calification.Valoration = model.Valoration;
+                calification.Valoration = model.Valoration/100;
                 calification.Observation = model.Observation;
                 // Actualizar la BD
                 _empresaContext.Entry(calification).State = EntityState.Modified;
