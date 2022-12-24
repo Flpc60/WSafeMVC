@@ -4824,6 +4824,7 @@ function ShowCalifications(evaluationID, phva) {
 }
 
 function getCalificationByID(calificationID) {
+    $("#txtCalificationID").val(calificationID);
     $.ajax({
         async: true,
         type: 'GET',
@@ -4846,7 +4847,6 @@ function getCalificationByID(calificationID) {
                 $("#txtValoration").val(item.Valoration);
                 $("#txtObservation").val(item.Observation);
                 $("#txtCumple").focus();
-                $("#txtCalificationID").val(item.ID);
                 document.getElementById("txtCiclo").innerHTML = ciclo;
                 document.getElementById("txtStandard").innerHTML = standard;
                 document.getElementById("txtItem").innerHTML = item;
@@ -4915,7 +4915,7 @@ function UpdateCalification() {
     var Observation = $("#txtObservation").val();
 
     if ($("#txtCumple").is(':checked') || $("#txtJustify").is(':checked')) {
-        Valoration = $("#txtValor").val();
+        Valoration = $("txtValor").val();
     }
     if ($("#txtCumple").is(':checked')) {
         Cumple = true;
@@ -4936,18 +4936,27 @@ function UpdateCalification() {
         Justify = false;
         NoJustify = true;
     }
+    var calificationVM =
+    {
+        ID: Id,
+        OrganizationID: "",
+        Ciclo: "",
+        Item: "",
+        Name: "",
+        Standard: "",
+        Valor: "",
+        cumple: Cumple,
+        noCumple: NoCumple,
+        justify: Justify,
+        noJustify: NoJustify,
+        valoration: Valoration,
+        observation: Observation
+    };
+
     $.ajax({
         type: "POST",
         url: "/Evaluations/EditCalification",
-        data: {
-            id: Id,
-            cumple: Cumple,
-            noCumple: NoCumple,
-            justify: Justify,
-            noJustify: NoJustify,
-            valoration: Valoration,
-            observation: Observation
-        },
+        data: { model: calificationVM },
         dataType: "json",
         success: function (response) {
             ShowCalifications(response.data, ciclo);
