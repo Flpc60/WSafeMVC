@@ -1,27 +1,28 @@
 ﻿<hr />
 <hr />
 <hr />
-<div class="container" style="background-color:mediumaquamarine">
+<div class="container" style="background-color: mediumaquamarine; width: 900px; text-align: justify; font-size: 14px; margin-left: 40px">
 
     <div class="row">
         <div class="col-md-10">
-            <div class="form-group" style="text-align: left; font-size: 14px; margin-left: 50px">
+            <div class="form-group">
                 <p id="txtCiclo"></p>
                 <p id="txtStandard"></p>
                 <p id="txtItem"></p>
+                <p id="txtValorItem"></p>
             </div>
         </div>
         <div class="col-md-2"></div>
     </div>
     <div class="row">
-        <div class="col-md-6" style="text-align: left; margin-left: 50px">
-            <label for="txtCumple"> Cumple totalmente el estándar ? </label>
+        <div class="col-md-6">
+            <label for="txtCumple"> Cumple totalmente con el estándar ? </label>
             <input type="radio" name="txtCumple" id="txtCumple" /><br />
-            <label for="txtNoCumple"> No Cumple totalmente el estándar ?  </label>
+            <label for="txtNoCumple"> No Cumple totalmente con el estándar ?  </label>
             <input type="radio" name="txtCumple" id="txtNoCumple" /><br />
-            <label for="txtJustify"> No aplica Justifica </label>
+            <label for="txtJustify"> No aplica y Justifica porque ?</label>
             <input type="radio" name="txtCumple" id="txtJustify" /><br />
-            <label for="txtNoJustify"> No aplica No Justifica </label>
+            <label for="txtNoJustify"> No aplica y No Justifica porque ?</label>
             <input type="radio" name="txtCumple" id="txtNoJustify" />
         </div>
         <div class="col-md-6"></div>
@@ -32,7 +33,6 @@
         <div class="col-md-10">
             <div class="form-group">
                 <div class="col-md-10">
-                    <hr />
                     <label for="txtObservation">OBSERVACIONES :</label>
                     <textarea id="txtObservation" style="resize:none;" class="form-control" rows=2 cols=70 required></textarea>
                 </div>
