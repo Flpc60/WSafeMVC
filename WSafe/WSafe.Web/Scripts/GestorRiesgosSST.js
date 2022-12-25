@@ -4907,10 +4907,10 @@ function UpdateCalification() {
     var evaluationID = $("#txtEvaluationID").val();
     valoration = 0;
     var Id = $("#txtCalificationID").val();
-    var Cumple = $("#txtCumple").val();
-    var NoCumple = $("#txtNoCumple").val();
-    var Justify = $("#txtJustify").val();
-    var NoJustify = $("#txtNoJustify").val();
+    var Cumple = false;
+    var NoCumple = false;
+    var Justify = false;
+    var NoJustify = false;
     var Observation = $("#txtObservation").val();
 
     if ($("#txtCumple").is(':checked') || $("#txtJustify").is(':checked')) {
@@ -4967,7 +4967,7 @@ function UpdateCalification() {
     });
 }
 
-function CancelCalifications() {
+function CancelCalification() {
     $(".tabGesCalifications").css("display", "none");
     $(".tabAddCalifications").css("display", "none");
     $("#txtCalifications").val("");
@@ -4994,6 +4994,8 @@ function GestorEvaluations() {
         $(".tabCerrar").css("display", "none");
         $("#hacer").show();
         ciclo = "H";
+        evaluationID = $("#txtEvaluationID").val();
+        ShowCalifications(evaluationID, ciclo);
     });
     $("#hacer").dblclick(function () {
         ResetTab();
@@ -5004,6 +5006,8 @@ function GestorEvaluations() {
         $(".tabCerrar").css("display", "none");
         $("#verificar").focus();
         ciclo = "V";
+        evaluationID = $("#txtEvaluationID").val();
+        ShowCalifications(evaluationID, ciclo);
     });
     $("#verificar").dblclick(function () {
         ResetTab();
@@ -5014,9 +5018,10 @@ function GestorEvaluations() {
         $(".tabCerrar").css("display", "none");
         $("#actuar").focus();
         ciclo = "A";
+        evaluationID = $("#txtEvaluationID").val();
+        ShowCalifications(evaluationID, ciclo);
     });
     $("#actuar").dblclick(function () {
         ResetTab();
     });
-
 }
