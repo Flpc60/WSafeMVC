@@ -1466,7 +1466,9 @@ function UpdateOrganization(id) {
         ResolucionLicencia: $("#resolucionLicencia").val(),
         ResponsableLicencia: $("#txtLicenciaResponsable").val(),
         RenovacionLicencia: $("#renovacionLicencia").val(),
-        RenovacionLicencia: $("#renovacionLicencia").val()
+        RenovacionCurso: $("#renovacionCurso").val(),
+        NivelEstudios: $("#idNivelEstudios").val(),
+        MesesExperiencia: $("#txtMesesExperiencia").val()
     };
 
     $.ajax({
@@ -5037,5 +5039,83 @@ function GestorEvaluations() {
     });
     $("#actuar").dblclick(function () {
         ResetTab();
+    });
+}
+
+function UpdateEvaluation() {
+
+    // Actualiza una evaluación, captura la evaluationID de id = txtEvaluationID
+    $(".tabGesCalifications").css("display", "none");
+    $(".tabAddCalifications").css("display", "none");
+    var evaluationID = $("#txtEvaluationID").val();
+    $.ajax({
+        type: "GET",
+        url: "/Evaluations/UpdateEvaluation",
+        data: { id: evaluationID },
+        dataType: "json",
+        success: function (response) {
+            var html = '', puntaje = '';
+            var totales = 0, cumple = 0, noCumple = 0, noAplica = 0;
+            $.each(response, function (key, item) {
+                puntaje = '';
+                totales += item.Valoration;
+
+                if (item.Cumple == true) {
+                    cumple++;
+                    puntaje = "Cumple Totalmente";
+                }
+                if (item.NoCumple == true) {
+                    noCumple++;
+                    puntaje = "No Cumple";
+                }
+                if (item.Justify == true) {
+                    noAplica++;
+                    puntaje = "Justifica";
+                }
+                if (item.NoJustify == true) {
+                    noAplica++;
+                    puntaje = "No Justifica";
+                }
+
+                html += '<tr>';
+                html += '<td>' + item.Ciclo + '</td>';
+                html += '<td>' + item.Standard + '</td>';
+                html += '<td>' + item.Item + ' ' + item.Name + '</td>';
+                html += '<td>' + item.Valor + '</td>';
+                html += '<td>' + puntaje + '</td>';
+                html += '<td>' + item.Valoration + '</td>';
+                html += '<hr />';
+                html += '</tr>';
+            });
+
+            document.getElementById("txtTotales").innerHTML = "TOTALES : " + totales;
+            document.getElementById("txtCumple").innerHTML = "CUMPLE : " + cumple;
+            document.getElementById("txtNoCumple").innerHTML = "NO CUMPLE : " + noCumple;
+            document.getElementById("txtNoAplica").innerHTML = "NO APLICA : " + noAplica;
+
+            switch (true) {
+                case (totales > 85):
+                    document.getElementById("txtValoracion").innerHTML = "VALORACIÓN ACEPTABLE";
+                    document.getElementById("txtValoracion").style.backgroundColor = "green";
+                    break;
+
+                case (totales >= 61 && totales <= 85):
+                    document.getElementById("txtValoracion").innerHTML = "VALORACIÓN MODERADAMENTE ACEPTABLE";
+                    document.getElementById("txtValoracion").style.backgroundColor = "yellow";
+                    break;
+
+                case (totales <= 60):
+                    document.getElementById("txtValoracion").innerHTML = "VALORACIÓN CRÍTICO";
+                    document.getElementById("txtValoracion").style.backgroundColor = "red";
+                    break;
+            }
+
+            $('.tcuerpo').html(html);
+            $('.tabGesEvaluation').css("display", "block");
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
     });
 }

@@ -34,7 +34,7 @@ namespace WSafe.Web.Controllers
         public async Task<ActionResult> Index()
         {
             var list = await _empresaContext.Evaluations
-                .OrderByDescending(e => e.FechaEvaluation)
+                .OrderBy(e => e.FechaEvaluation)
                 .ToListAsync();
             var modelo = _converterHelper.ToEvaluationVMList(list);
             return View(modelo);
@@ -213,6 +213,7 @@ namespace WSafe.Web.Controllers
                     from c in _empresaContext.Califications
                     join n in _empresaContext.Normas on c.NormaID equals n.ID
                     where c.ID == id
+                    orderby n.Item
                     select new CalificationVM
                     {
                         ID = c.ID,
@@ -251,6 +252,86 @@ namespace WSafe.Web.Controllers
                 await _empresaContext.SaveChangesAsync();
                 message = "La actualización se ha realizado exitosamente !!";
                 return Json(new { data = calification.EvaluationID, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                message = "La actualización NO se ha realizado exitosamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> UpdateEvaluation(int id)
+        {
+            var message = "";
+            try
+            {
+                var cumple = 0;
+                var noCumple = 0;
+                var noAplica = 0;
+                decimal standarsResult = 0;
+                decimal aplicationsResult = 0;
+                var result =
+                        from c in _empresaContext.Califications
+                        join n in _empresaContext.Normas on c.NormaID equals n.ID
+                        where c.EvaluationID == id
+                        select new CalificationVM
+                        {
+                            ID = c.ID,
+                            EvaluationID = c.EvaluationID,
+                            Ciclo = n.Ciclo,
+                            Standard = n.Standard,
+                            Item = n.Item,
+                            Name = n.Name,
+                            Valor = n.Valor,
+                            Cumple = c.Cumple,
+                            NoCumple = c.NoCumple,
+                            Justify = c.Justify,
+                            NoJustify = c.NoJustify,
+                            Valoration = c.Valoration,
+                            Observation = c.Observation
+                        };
+                var list = _converterHelper.ToCalificationVMList(result);
+                var total = list.Count();
+
+                foreach (var item in list)
+                {
+                    if (item.Cumple) { cumple++; }
+                    if (item.NoCumple) { noCumple++; }
+                    if (item.Justify) { noAplica++; }
+                    if (item.NoJustify) { noAplica++; }
+                }
+                var aplica = total - noAplica;
+                if (total>0) { standarsResult = cumple / total; }
+                if (aplica > 0) { aplicationsResult = cumple / aplica; }
+                ValorationCategory category = ValorationCategory.ACEPTABLE;
+
+                switch (total)
+                {
+                    case int v when(v > 85):
+                        category = ValorationCategory.ACEPTABLE;
+                        break;
+
+                    case int v when (v >= 61 && v <= 85):
+                        category = ValorationCategory.MODERADAMENTE_ACEPTABLE;
+                        break;
+
+                    case int v when (v < 60):
+                        category = ValorationCategory.CRITICO;
+                        break;
+                }
+
+                // Actualizar la BD
+                Evaluation model = await _empresaContext.Evaluations.FindAsync(id);
+                model.Cumple = cumple;
+                model.NoCumple = noCumple;
+                model.NoAplica = noAplica;
+                model.StandarsResult = standarsResult;
+                model.AplicationsResult = aplicationsResult;
+                model.Category = category;
+                _empresaContext.Entry(model).State = EntityState.Modified;
+                await _empresaContext.SaveChangesAsync();
+                return Json(list, JsonRequestBehavior.AllowGet);
             }
             catch
             {
