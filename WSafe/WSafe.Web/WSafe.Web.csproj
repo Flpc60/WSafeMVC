@@ -692,6 +692,7 @@
     <Content Include="Views\Evaluations\Edit.cshtml" />
     <Content Include="Views\Evaluations\Index.cshtml" />
     <Content Include="Views\Shared\_EditCalification.cshtml" />
+    <Content Include="Views\Shared\_ShowEvaluation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
