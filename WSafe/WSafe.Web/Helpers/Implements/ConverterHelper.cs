@@ -1120,7 +1120,7 @@ namespace WSafe.Domain.Helpers.Implements
                         color = "green";
                         break;
 
-                    case ValorationCategory.MODERADAMENTE_ACEPTABELE:
+                    case ValorationCategory.MODERADAMENTE_ACEPTABLE:
                         category = "MODERADAMENTE ACEPTABLE";
                         color = "yellow";
                         break;

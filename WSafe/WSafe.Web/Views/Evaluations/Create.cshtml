@@ -4,7 +4,7 @@
 
 <style>
     .tabIdCausas, .tabGesPlanAcc, .tabGesSeguiPlanAcc, .tabPlanAcc, .tabSeguimAcc, .tabSeguimPlanAcc, .tabAddPlanAcc, .tabAddSeguimAcc,
-    .tabGesCalifications, .tabAddCalifications, .tabGesCiclo
+    .tabGesCalifications, .tabAddCalifications, .tabGesCiclo,.tabGesEvaluation
     {
         display: none;
     }
@@ -28,7 +28,7 @@
 
 <div class="form-horizontal">
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <input type="hidden" id="txtEvaluationID" name="txtEvaluationID"/>
+    <input type="hidden" id="txtEvaluationID" name="txtEvaluationID" />
     <div class="tabGesCiclo">
         <hr />
         <hr />
@@ -38,13 +38,14 @@
                 <button type="button" class="btn btn-warning btn-lg" id="hacer" title="doble click para cerrar la ventana">2. HACER</button>
                 <button type="button" class="btn btn-success btn-lg" id="verificar" title="doble click para cerrar la ventana">3. VERIFICAR</button>
                 <button type="button" class="btn btn-info btn-lg" id="actuar" title="doble click para cerrar la ventana">4. ACTUAR</button>
+                <button type="button" class="btn btn-info btn-lg" id="calificar" onclick="UpdateEvaluation()">RESULTADOS</button>
             </div>
         </div>
     </div>
 
     <div class="tabAddCalifications">
         <input type="hidden" id="txtCalificationID" name="txtCalificationID" />
-        <input type="hidden" id="txtValor" name="txtValor"/>
+        <input type="hidden" id="txtValor" name="txtValor" />
         @Html.Partial("_EditCalification")
         <div class="row">
             <div class="col-md-8">
@@ -61,26 +62,35 @@
 
     <div class="tabGesCalifications">
         <hr />
+        <hr />
         @Html.Partial("_ShowCalifications")
+    </div>
+
+    <div class="tabGesEvaluation">
+        <hr />
+        <hr />
+        @Html.Partial("_ShowEvaluation")
         <hr />
         <div class="row" style="text-align: center; background-color: mediumaquamarine">
             <div class="col-md-2">
-                <p id="txtTotales"></p>
+                <p1 id="txtTotales"></p1>
             </div>
             <div class="col-md-2">
-                <p id="txtCumple"></p>
+                <p2 id="txtCumple"></p2>
             </div>
             <div class="col-md-2">
-                <p id="txtNoCumple"></p>
+                <p3 id="txtNoCumple"></p3>
             </div>
             <div class="col-md-2">
-                <p id="txtNoAplica"></p>
+                <p4 id="txtNoAplica"></p4>
             </div>
             <div class="col-md-2" style="font-size:large">
-                <p id="txtValoracion"></p>
+                <p5 id="txtValoracion"></p5>
             </div>
+            <div class="col-md-2"></div>
         </div>
     </div>
+
 </div>
 }
 

@@ -1,7 +1,12 @@
 ﻿@model WSafe.Domain.Data.Entities.Organization
-<div class="container" style="background-color:mediumaquamarine">
+@{
+    var resolucionLicencia = Model.ResolucionLicencia;
+}
+
+<div class="container" style="background-color:azure">
     <hr />
-    <h5 style="text-align:center"> REGISTRAR INFORMACIÓN DE LA EMPRESA</h5>
+    <h5 style="text-align:center"> <strong>REGISTRAR INFORMACIÓN DE LA EMPRESA</strong></h5>
+    <hr />
     <div class="row">
         <div class="col-md-3">
             <div class="form-group">
@@ -32,7 +37,7 @@
         </div>
     </div>
 </div>
-<div class="container" style="background-color: mediumaquamarine ">
+<div class="container" style="background-color: azure">
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
@@ -63,7 +68,7 @@
         </div>
     </div>
 </div>
-<div class="container" style="background-color: mediumaquamarine">
+<div class="container" style="background-color: azure">
     <div class="row">
         <div class="col-md-3">
             <div class="form-group">
@@ -94,7 +99,7 @@
         </div>
     </div>
 </div>
-<div class="container" style="background-color: mediumaquamarine">
+<div class="container" style="background-color: azure">
     <div class="row">
         <div class="col-md-5">
             <div class="form-group">
@@ -116,7 +121,7 @@
         </div>
     </div>
 </div>
-<div class="container" style="background-color: mediumaquamarine">
+<div class="container" style="background-color: azure">
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
@@ -209,13 +214,13 @@
         <div class="col-md-6">
             <div class="form-group">
                 @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <div class="col-md-4">
                     @Html.EditorFor(model => model.Year, new { htmlAttributes = new { @class = "form-control", @id = "txtYear" } })
                     @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(model => model.Agropecuaria, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="checkbox">
@@ -230,7 +235,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 @Html.LabelFor(model => model.ResponsableSGSST, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <div class="col-md-6">
                     @Html.EditorFor(model => model.ResponsableSGSST, new { htmlAttributes = new { @class = "form-control", @id = "txtResponsable" } })
                     @Html.ValidationMessageFor(model => model.ResponsableSGSST, "", new { @class = "text-danger" })
                 </div>
@@ -239,7 +244,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 @Html.LabelFor(model => model.DocumentResponsable, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="checkbox">
+                <div class="col-md-4">
                     @Html.EditorFor(model => model.DocumentResponsable, new { htmlAttributes = new { @class = "form-control", @id = "txtDocResponsable" } })
                     @Html.ValidationMessageFor(model => model.DocumentResponsable, "", new { @class = "text-danger" })
                 </div>
@@ -252,8 +257,8 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.ResolucionLicencia, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-8">
-                    <input type="date" class="form-control" data-val-required="El campo Fecha solicitud es obligatotio" id="resolucionLicencia" name="resolucionLicencia"
-                           value='@ViewBag.resolucionLicencia'>
+                    @Html.EditorFor(model => model.ResolucionLicencia, new { htmlAttributes = new { @class = "form-control", @id = "resolucionLicencia", @value = "@resolucionLicencia" } })
+                    @Html.ValidationMessageFor(model => model.ResolucionLicencia, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
@@ -274,7 +279,7 @@
                 @Html.LabelFor(model => model.RenovacionLicencia, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-8">
                     <input type="date" class="form-control" data-val-required="El campo Fecha solicitud es obligatotio" id="renovacionLicencia" name="renovacionLicencia"
-                           value='@ViewBag.renovacionLicencia'>
+                           value='@resolucionLicencia'>
                 </div>
             </div>
         </div>
@@ -283,12 +288,11 @@
                 @Html.LabelFor(model => model.RenovacionCurso, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-8">
                     <input type="date" class="form-control" data-val-required="El campo Fecha solicitud es obligatotio" id="renovacionCurso" name="renovacionCurso"
-                           value='@ViewBag.renovacionCurso'>
+                           value='@resolucionLicencia'>
                 </div>
             </div>
         </div>
     </div>
-
 
     <div class="row">
         <div class="col-md-6">
