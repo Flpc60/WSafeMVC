@@ -1,5 +1,7 @@
 ﻿@model WSafe.Domain.Data.Entities.Organization
 <div class="container" style="background-color:mediumaquamarine">
+    <hr />
+    <h5 style="text-align:center"> REGISTRAR INFORMACIÓN DE LA EMPRESA</h5>
     <div class="row">
         <div class="col-md-3">
             <div class="form-group">
@@ -131,7 +133,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Politica, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.TextAreaFor(model => model.Politica, new { @class = "form-control", @id = "txtPolitica", cols = "70", rows = "2"})
+                    @Html.TextAreaFor(model => model.Politica, new { @class = "form-control", @id = "txtPolitica", cols = "70", rows = "2" })
                     @Html.ValidationMessageFor(model => model.Politica, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -203,6 +205,112 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Year, new { htmlAttributes = new { @class = "form-control", @id = "txtYear" } })
+                    @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Agropecuaria, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Agropecuaria, new { htmlAttributes = new { @class = "form-control", @id = "txtAgropecuaria" } })
+                    @Html.ValidationMessageFor(model => model.Agropecuaria, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ResponsableSGSST, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ResponsableSGSST, new { htmlAttributes = new { @class = "form-control", @id = "txtResponsable" } })
+                    @Html.ValidationMessageFor(model => model.ResponsableSGSST, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.DocumentResponsable, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.DocumentResponsable, new { htmlAttributes = new { @class = "form-control", @id = "txtDocResponsable" } })
+                    @Html.ValidationMessageFor(model => model.DocumentResponsable, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ResolucionLicencia, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    <input type="date" class="form-control" data-val-required="El campo Fecha solicitud es obligatotio" id="resolucionLicencia" name="resolucionLicencia"
+                           value='@ViewBag.resolucionLicencia'>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ResponsableLicencia, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.ResponsableLicencia, new { htmlAttributes = new { @class = "form-control", @id = "txtLicenciaResponsable" } })
+                    @Html.ValidationMessageFor(model => model.ResponsableLicencia, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.RenovacionLicencia, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    <input type="date" class="form-control" data-val-required="El campo Fecha solicitud es obligatotio" id="renovacionLicencia" name="renovacionLicencia"
+                           value='@ViewBag.renovacionLicencia'>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.RenovacionCurso, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    <input type="date" class="form-control" data-val-required="El campo Fecha solicitud es obligatotio" id="renovacionCurso" name="renovacionCurso"
+                           value='@ViewBag.renovacionCurso'>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.NivelEstudios, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EnumDropDownListFor(model => model.NivelEstudios, htmlAttributes: new { @class = "form-control", @id = "idNivelEstudios" })
+                    @Html.ValidationMessageFor(model => model.NivelEstudios, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.MesesExperiencia, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.MesesExperiencia, new { htmlAttributes = new { @class = "form-control", @id = "txtMesesExperiencia" } })
+                    @Html.ValidationMessageFor(model => model.MesesExperiencia, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-12">
             <p id="txtInfoBasic" style="color:red; text-align:center; padding:1%; font-size:20px"></p>

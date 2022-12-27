@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace WSafe.Domain.Data.Entities
 {
@@ -77,12 +78,35 @@ namespace WSafe.Domain.Data.Entities
         [MaxLength(150)]
         public string TurnosOperativo { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Año")]
+        [Display(Name = "Año del periodo : ")]
         [MaxLength(4)]
         public string Year { get; set; }
+        [Display(Name = "Es unidad de Producción Agropecuaria")]
         public bool Agropecuaria { get; set; }
         [Display(Name = "Responsable SG-SST")]
         [MaxLength(50)]
         public string ResponsableSGSST { get; set; }
+        [Display(Name = "Documento Responsable SG-SST")]
+        [MaxLength(20)]
+        public string DocumentResponsable { get; set; }
+        [Display(Name = "Resolución de licencia")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
+        public DateTime ResolucionLicencia { get; set; }
+        [Display(Name = "Número de la Licencia")]
+        [MaxLength(20)]
+        public string ResponsableLicencia { get; set; }
+        [Display(Name = "Renovación de licencia")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
+        public DateTime RenovacionLicencia { get; set; }
+        [Display(Name = "Renovación de curso SG-SSTlicencia")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
+        public DateTime RenovacionCurso { get; set; }
+        [Display(Name = "Nivel de Estudios")]
+        public NivelesEscolaridad NivelEstudios { get; set; }
+        [Display(Name = "Meses de experiencia")]
+        public int MesesExperiencia { get; set; }
     }
 }

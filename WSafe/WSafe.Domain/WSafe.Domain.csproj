@@ -173,6 +173,7 @@
     <Compile Include="Data\Entities\Movimient.cs" />
     <Compile Include="Data\Entities\NivelesConsecuencia.cs" />
     <Compile Include="Data\Entities\NivelesDeficiencia.cs" />
+    <Compile Include="Data\Entities\NivelesEscolaridad.cs" />
     <Compile Include="Data\Entities\NivelesExposicion.cs" />
     <Compile Include="Data\Entities\NivelesProbabilidad.cs" />
     <Compile Include="Data\Entities\NivelesRiesgo.cs" />
