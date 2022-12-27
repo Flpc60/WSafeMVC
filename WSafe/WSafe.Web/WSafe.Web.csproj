@@ -381,6 +381,7 @@
     <Compile Include="Data\Entities\Movimient.cs" />
     <Compile Include="Data\Entities\NivelesConsecuencia.cs" />
     <Compile Include="Data\Entities\NivelesDeficiencia.cs" />
+    <Compile Include="Data\Entities\NivelesEscolaridad.cs" />
     <Compile Include="Data\Entities\NivelesExposicion.cs" />
     <Compile Include="Data\Entities\NivelesProbabilidad.cs" />
     <Compile Include="Data\Entities\NivelesRiesgo.cs" />
@@ -424,161 +425,13 @@
     <Compile Include="Migrations\202207092147338_InitialCreate.Designer.cs">
       <DependentUpon>202207092147338_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202207231511598_UpdateTrabajador.cs" />
-    <Compile Include="Migrations\202207231511598_UpdateTrabajador.Designer.cs">
-      <DependentUpon>202207231511598_UpdateTrabajador.cs</DependentUpon>
+    <Compile Include="Migrations\202212262230314_UpdateOrganization1.cs" />
+    <Compile Include="Migrations\202212262230314_UpdateOrganization1.Designer.cs">
+      <DependentUpon>202212262230314_UpdateOrganization1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202207232310431_UpdateAplicaVM.cs" />
-    <Compile Include="Migrations\202207232310431_UpdateAplicaVM.Designer.cs">
-      <DependentUpon>202207232310431_UpdateAplicaVM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202209071757525_UpdateOrganization.cs" />
-    <Compile Include="Migrations\202209071757525_UpdateOrganization.Designer.cs">
-      <DependentUpon>202209071757525_UpdateOrganization.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202209091542371_UpdateIncident.cs" />
-    <Compile Include="Migrations\202209091542371_UpdateIncident.Designer.cs">
-      <DependentUpon>202209091542371_UpdateIncident.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202209121932075_UpdateAplication.cs" />
-    <Compile Include="Migrations\202209121932075_UpdateAplication.Designer.cs">
-      <DependentUpon>202209121932075_UpdateAplication.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202209131548486_UpdateAplication2.cs" />
-    <Compile Include="Migrations\202209131548486_UpdateAplication2.Designer.cs">
-      <DependentUpon>202209131548486_UpdateAplication2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202209262008554_UpdateRisk.cs" />
-    <Compile Include="Migrations\202209262008554_UpdateRisk.Designer.cs">
-      <DependentUpon>202209262008554_UpdateRisk.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202209262131153_UpdateRisk2.cs" />
-    <Compile Include="Migrations\202209262131153_UpdateRisk2.Designer.cs">
-      <DependentUpon>202209262131153_UpdateRisk2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202209272109261_Updaterisk3.cs" />
-    <Compile Include="Migrations\202209272109261_Updaterisk3.Designer.cs">
-      <DependentUpon>202209272109261_Updaterisk3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202209281608405_UpdatePlanAction.cs" />
-    <Compile Include="Migrations\202209281608405_UpdatePlanAction.Designer.cs">
-      <DependentUpon>202209281608405_UpdatePlanAction.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202209282046565_UpdateAccion.cs" />
-    <Compile Include="Migrations\202209282046565_UpdateAccion.Designer.cs">
-      <DependentUpon>202209282046565_UpdateAccion.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202209282157088_UpdateAction3.cs" />
-    <Compile Include="Migrations\202209282157088_UpdateAction3.Designer.cs">
-      <DependentUpon>202209282157088_UpdateAction3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202210081844369_CreateEvent.cs" />
-    <Compile Include="Migrations\202210081844369_CreateEvent.Designer.cs">
-      <DependentUpon>202210081844369_CreateEvent.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202210102147269_UpdateRootCause.cs" />
-    <Compile Include="Migrations\202210102147269_UpdateRootCause.Designer.cs">
-      <DependentUpon>202210102147269_UpdateRootCause.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202210141933103_UpdateRootCause1.cs" />
-    <Compile Include="Migrations\202210141933103_UpdateRootCause1.Designer.cs">
-      <DependentUpon>202210141933103_UpdateRootCause1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202210150007048_UpdateReason.cs" />
-    <Compile Include="Migrations\202210150007048_UpdateReason.Designer.cs">
-      <DependentUpon>202210150007048_UpdateReason.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202210150032042_UpdateReason1.cs" />
-    <Compile Include="Migrations\202210150032042_UpdateReason1.Designer.cs">
-      <DependentUpon>202210150032042_UpdateReason1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202210150051168_UpdateReason11.cs" />
-    <Compile Include="Migrations\202210150051168_UpdateReason11.Designer.cs">
-      <DependentUpon>202210150051168_UpdateReason11.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202210150256033_UpdateReason3.cs" />
-    <Compile Include="Migrations\202210150256033_UpdateReason3.Designer.cs">
-      <DependentUpon>202210150256033_UpdateReason3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202210152009197_Update-Recomendation.cs" />
-    <Compile Include="Migrations\202210152009197_Update-Recomendation.Designer.cs">
-      <DependentUpon>202210152009197_Update-Recomendation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202211101619244_CreateMovimient.cs" />
-    <Compile Include="Migrations\202211101619244_CreateMovimient.Designer.cs">
-      <DependentUpon>202211101619244_CreateMovimient.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202211101632075_UpdateNorma.cs" />
-    <Compile Include="Migrations\202211101632075_UpdateNorma.Designer.cs">
-      <DependentUpon>202211101632075_UpdateNorma.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202211101733158_UpdateNorma1.cs" />
-    <Compile Include="Migrations\202211101733158_UpdateNorma1.Designer.cs">
-      <DependentUpon>202211101733158_UpdateNorma1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202211111758266_UpdateMovimient2.cs" />
-    <Compile Include="Migrations\202211111758266_UpdateMovimient2.Designer.cs">
-      <DependentUpon>202211111758266_UpdateMovimient2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202211112020430_UpdateMovimient3.cs" />
-    <Compile Include="Migrations\202211112020430_UpdateMovimient3.Designer.cs">
-      <DependentUpon>202211112020430_UpdateMovimient3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202211122310009_UpdateMovimient7.cs" />
-    <Compile Include="Migrations\202211122310009_UpdateMovimient7.Designer.cs">
-      <DependentUpon>202211122310009_UpdateMovimient7.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202211160018314_UpdateMovimient11.cs" />
-    <Compile Include="Migrations\202211160018314_UpdateMovimient11.Designer.cs">
-      <DependentUpon>202211160018314_UpdateMovimient11.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202211172155092_UpdateMovimient22.cs" />
-    <Compile Include="Migrations\202211172155092_UpdateMovimient22.Designer.cs">
-      <DependentUpon>202211172155092_UpdateMovimient22.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202211212238481_UpdateMovimient33.cs" />
-    <Compile Include="Migrations\202211212238481_UpdateMovimient33.Designer.cs">
-      <DependentUpon>202211212238481_UpdateMovimient33.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202211212310218_UpdateMovimient44.cs" />
-    <Compile Include="Migrations\202211212310218_UpdateMovimient44.Designer.cs">
-      <DependentUpon>202211212310218_UpdateMovimient44.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202212131454118_UpdateMovimient55.cs" />
-    <Compile Include="Migrations\202212131454118_UpdateMovimient55.Designer.cs">
-      <DependentUpon>202212131454118_UpdateMovimient55.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202212151545223_UpdateOrganization11.cs" />
-    <Compile Include="Migrations\202212151545223_UpdateOrganization11.Designer.cs">
-      <DependentUpon>202212151545223_UpdateOrganization11.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202212151606513_UpdateOrganization12.cs" />
-    <Compile Include="Migrations\202212151606513_UpdateOrganization12.Designer.cs">
-      <DependentUpon>202212151606513_UpdateOrganization12.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202212151825568_UpdateEvaluation12.cs" />
-    <Compile Include="Migrations\202212151825568_UpdateEvaluation12.Designer.cs">
-      <DependentUpon>202212151825568_UpdateEvaluation12.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202212161639062_UpdateCalification22.cs" />
-    <Compile Include="Migrations\202212161639062_UpdateCalification22.Designer.cs">
-      <DependentUpon>202212161639062_UpdateCalification22.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202212161852120_UpdateCalification23.cs" />
-    <Compile Include="Migrations\202212161852120_UpdateCalification23.Designer.cs">
-      <DependentUpon>202212161852120_UpdateCalification23.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202212192336439_UpdateNorma22.cs" />
-    <Compile Include="Migrations\202212192336439_UpdateNorma22.Designer.cs">
-      <DependentUpon>202212192336439_UpdateNorma22.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202212201703546_UpdateCalification221.cs" />
-    <Compile Include="Migrations\202212201703546_UpdateCalification221.Designer.cs">
-      <DependentUpon>202212201703546_UpdateCalification221.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202212211756516_UpdateCalifications33.cs" />
-    <Compile Include="Migrations\202212211756516_UpdateCalifications33.Designer.cs">
-      <DependentUpon>202212211756516_UpdateCalifications33.cs</DependentUpon>
+    <Compile Include="Migrations\202212270118305_UpdateOrganization11.cs" />
+    <Compile Include="Migrations\202212270118305_UpdateOrganization11.Designer.cs">
+      <DependentUpon>202212270118305_UpdateOrganization11.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -982,122 +835,11 @@
     <EmbeddedResource Include="Migrations\202207092147338_InitialCreate.resx">
       <DependentUpon>202207092147338_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202207231511598_UpdateTrabajador.resx">
-      <DependentUpon>202207231511598_UpdateTrabajador.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202212262230314_UpdateOrganization1.resx">
+      <DependentUpon>202212262230314_UpdateOrganization1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202207232310431_UpdateAplicaVM.resx">
-      <DependentUpon>202207232310431_UpdateAplicaVM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202209071757525_UpdateOrganization.resx">
-      <DependentUpon>202209071757525_UpdateOrganization.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202209091542371_UpdateIncident.resx">
-      <DependentUpon>202209091542371_UpdateIncident.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202209121932075_UpdateAplication.resx">
-      <DependentUpon>202209121932075_UpdateAplication.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202209131548486_UpdateAplication2.resx">
-      <DependentUpon>202209131548486_UpdateAplication2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202209262008554_UpdateRisk.resx">
-      <DependentUpon>202209262008554_UpdateRisk.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202209262131153_UpdateRisk2.resx">
-      <DependentUpon>202209262131153_UpdateRisk2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202209272109261_Updaterisk3.resx">
-      <DependentUpon>202209272109261_Updaterisk3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202209281608405_UpdatePlanAction.resx">
-      <DependentUpon>202209281608405_UpdatePlanAction.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202209282046565_UpdateAccion.resx">
-      <DependentUpon>202209282046565_UpdateAccion.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202209282157088_UpdateAction3.resx">
-      <DependentUpon>202209282157088_UpdateAction3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202210081844369_CreateEvent.resx">
-      <DependentUpon>202210081844369_CreateEvent.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202210102147269_UpdateRootCause.resx">
-      <DependentUpon>202210102147269_UpdateRootCause.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202210141933103_UpdateRootCause1.resx">
-      <DependentUpon>202210141933103_UpdateRootCause1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202210150007048_UpdateReason.resx">
-      <DependentUpon>202210150007048_UpdateReason.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202210150032042_UpdateReason1.resx">
-      <DependentUpon>202210150032042_UpdateReason1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202210150051168_UpdateReason11.resx">
-      <DependentUpon>202210150051168_UpdateReason11.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202210150256033_UpdateReason3.resx">
-      <DependentUpon>202210150256033_UpdateReason3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202210152009197_Update-Recomendation.resx">
-      <DependentUpon>202210152009197_Update-Recomendation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202211101619244_CreateMovimient.resx">
-      <DependentUpon>202211101619244_CreateMovimient.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202211101632075_UpdateNorma.resx">
-      <DependentUpon>202211101632075_UpdateNorma.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202211101733158_UpdateNorma1.resx">
-      <DependentUpon>202211101733158_UpdateNorma1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202211111758266_UpdateMovimient2.resx">
-      <DependentUpon>202211111758266_UpdateMovimient2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202211112020430_UpdateMovimient3.resx">
-      <DependentUpon>202211112020430_UpdateMovimient3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202211122310009_UpdateMovimient7.resx">
-      <DependentUpon>202211122310009_UpdateMovimient7.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202211160018314_UpdateMovimient11.resx">
-      <DependentUpon>202211160018314_UpdateMovimient11.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202211172155092_UpdateMovimient22.resx">
-      <DependentUpon>202211172155092_UpdateMovimient22.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202211212238481_UpdateMovimient33.resx">
-      <DependentUpon>202211212238481_UpdateMovimient33.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202211212310218_UpdateMovimient44.resx">
-      <DependentUpon>202211212310218_UpdateMovimient44.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202212131454118_UpdateMovimient55.resx">
-      <DependentUpon>202212131454118_UpdateMovimient55.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202212151545223_UpdateOrganization11.resx">
-      <DependentUpon>202212151545223_UpdateOrganization11.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202212151606513_UpdateOrganization12.resx">
-      <DependentUpon>202212151606513_UpdateOrganization12.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202212151825568_UpdateEvaluation12.resx">
-      <DependentUpon>202212151825568_UpdateEvaluation12.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202212161639062_UpdateCalification22.resx">
-      <DependentUpon>202212161639062_UpdateCalification22.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202212161852120_UpdateCalification23.resx">
-      <DependentUpon>202212161852120_UpdateCalification23.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202212192336439_UpdateNorma22.resx">
-      <DependentUpon>202212192336439_UpdateNorma22.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202212201703546_UpdateCalification221.resx">
-      <DependentUpon>202212201703546_UpdateCalification221.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202212211756516_UpdateCalifications33.resx">
-      <DependentUpon>202212211756516_UpdateCalifications33.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202212270118305_UpdateOrganization11.resx">
+      <DependentUpon>202212270118305_UpdateOrganization11.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

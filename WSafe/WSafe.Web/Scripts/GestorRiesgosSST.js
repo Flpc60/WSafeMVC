@@ -1428,6 +1428,12 @@ function UpdateOrganization(id) {
     if (!validateOrganization()) {
         return false;
     }
+    if ($("#txtAgropecuaria").is(':checked')) {
+        $("#txtAgropecuaria").val(true)
+    }
+    else {
+        $("#txtAgropecuaria").val(false)
+    }
 
     $(".tabBasics").css("display", "none");
     var organizaVM = {
@@ -1452,7 +1458,15 @@ function UpdateOrganization(id) {
         Procesos: "Procesos",
         Organigrama: "Organigrama",
         TurnosAdministrativo: $("#txtAdministrativo").val(),
-        TurnosOperativo: $("#txtOperativo").val()
+        TurnosOperativo: $("#txtOperativo").val(),
+        Year: $("#txtYear").val(),
+        Agropecuaria: $("#txtAgropecuaria").val(),
+        ResponsableSGSST: $("#txtResponsable").val(),
+        DocumentResponsable: $("#txtDocResponsable").val(),
+        ResolucionLicencia: $("#resolucionLicencia").val(),
+        ResponsableLicencia: $("#txtLicenciaResponsable").val(),
+        RenovacionLicencia: $("#renovacionLicencia").val(),
+        RenovacionLicencia: $("#renovacionLicencia").val()
     };
 
     $.ajax({
