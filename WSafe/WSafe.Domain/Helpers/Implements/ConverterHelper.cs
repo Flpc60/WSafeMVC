@@ -1170,7 +1170,7 @@ namespace WSafe.Domain.Helpers.Implements
                     Justify = item.Justify,
                     NoJustify = item.NoJustify,
                     Valoration = item.Valoration,
-                    Observation = item.Observation
+                    Verification = item.Verification.Trim()
                 });
             }
             return model;

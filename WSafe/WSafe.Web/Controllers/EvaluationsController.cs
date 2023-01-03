@@ -197,7 +197,7 @@ namespace WSafe.Web.Controllers
                         Justify = c.Justify,
                         NoJustify = c.NoJustify,
                         Valoration = c.Valoration,
-                        Observation = c.Observation
+                        Verification = n.Verification.Trim()
                     };
 
                 var model = _converterHelper.ToCalificationVMList(list);
@@ -336,6 +336,34 @@ namespace WSafe.Web.Controllers
             catch
             {
                 message = "La actualización NO se ha realizado exitosamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpPost]
+        public async Task<ActionResult> CreatePlanActivity(PlanActivity model)
+        {
+            var message = "";
+            try
+            {
+                var planActivity = new PlanActivity()
+                {
+                    ID = 0,
+                    EvaluationID = model.EvaluationID,
+                    NormaID = model.NormaID,
+                    FechaFinal = DateTime.Now,
+                    Activity = model.Activity,
+                    TrabajadorID = model.TrabajadorID,
+                    Presupuesto = model.Presupuesto,
+                    ActionCategory = ActionCategories.Sin_Iniciar,
+                    Observation = model.Observation
+                };
+                _empresaContext.PlanActivities.Add(planActivity);
+                await _empresaContext.SaveChangesAsync();
+                return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                message = "El registro NO ha sido ingresado correctamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
