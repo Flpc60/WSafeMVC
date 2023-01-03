@@ -45,6 +45,7 @@
 
     <div class="tabAddCalifications">
         <input type="hidden" id="txtCalificationID" name="txtCalificationID" />
+        <input type="hidden" id="txtNormaID" name="txtNormaID" />
         <input type="hidden" id="txtValor" name="txtValor" />
         @Html.Partial("_EditCalification")
         <div class="row">
@@ -99,6 +100,7 @@
     <script type="text/javascript">
         var ciclo = "";
         var evaluationID = $("#txtEvaluationID").val();
+        var normaID = $("#txtNormaID").val();
         var valoration = $("#txtValor").val();
         GestorEvaluations();
         $(document).ready(function () {

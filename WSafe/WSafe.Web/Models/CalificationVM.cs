@@ -15,5 +15,6 @@
         public bool NoJustify { get; set; }
         public decimal Valoration { get; set; }
         public string Observation { get; set; }
+        public string Verification { get; set; }
     }
 }

@@ -25,5 +25,6 @@ namespace WSafe.Domain.Data.Entities
         [Display(Name = "ESTÁNDAR")]
         [MaxLength(2)]
         public string Standard { get; set; }
+        public string Verification { get; set; }
     }
 }

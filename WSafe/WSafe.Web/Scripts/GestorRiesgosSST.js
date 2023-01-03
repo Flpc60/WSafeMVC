@@ -4752,6 +4752,36 @@ function AddEvaluation() {
     });
 }
 
+function AddPlanActivity() {
+    // Crea un nuevo plan de actividad
+    //$('.tabGesCalifications').css("display", "none");
+    var planActivity = {
+        ID: "0",
+        EvaluationID: $("#txtEvaluationID").val(),
+        NormaID: $("#txtNormaID").val(),
+        Activity: $("#txtActivity").val(),
+        TrabajadorID: 1,
+        Presupuesto: 1,
+        Observation: $("#txtObservation").val()
+    };
+    $.ajax({
+        type: "POST",
+        url: "/Evaluations/CreatePlanActivity",
+        data: { model: planActivity },
+        dataType: "json",
+        success: function (response) {
+            var evaluationID = response.data;
+            if (response.data != false) {
+                $("#txtEvaluationID").val(evaluationID);
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
 function ShowCalifications(evaluationID, phva) {
     // Mostrar todos las calificaciones
     evaluationID = $("#txtEvaluationID").val();
@@ -4791,13 +4821,13 @@ function ShowCalifications(evaluationID, phva) {
 
                 html += '<tr>';
                 html += '<td>' + item.Item + ' ' + item.Name + '</td>';
+                html += '<td>' + item.Verification + '</td>';
                 html += '<td>' + item.Valor + '</td>';
                 html += '<td>' + cumpleSi + '</td>';
                 html += '<td>' + cumpleNo + '</td>';
                 html += '<td>' + justifySi + '</td>';
                 html += '<td>' + justifyNo + '</td>';
                 html += '<td>' + item.Valoration + '</td>';
-                html += '<td>' + item.Observation + '</td>';
                 html += '<td><a href="#" onclick="return getCalificationByID(' + item.ID + ')">Calificar</a></td>';
                 html += '<hr />';
                 html += '</tr>';
@@ -4861,6 +4891,7 @@ function getCalificationByID(calificationID) {
                 $("#txtNoJustify").val(item.NoJustify);
                 $("#txtValoration").val(item.Valoration);
                 $("#txtObservation").val(item.Observation);
+                $("#txtEvaluationID").val(item.EvaluationID);
                 $("#txtCumple").focus();
                 document.getElementById("txtCiclo").innerHTML = ciclo;
                 document.getElementById("txtStandard").innerHTML = standard;
@@ -4981,6 +5012,8 @@ function UpdateCalification() {
             alert(thrownError);
         }
     });
+    AddPlanActivity();
+
 }
 
 function CancelCalification() {
