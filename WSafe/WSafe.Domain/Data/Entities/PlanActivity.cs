@@ -7,7 +7,6 @@ namespace WSafe.Domain.Data.Entities
     {
         public int ID { get; set; }
         public int EvaluationID { get; set; }
-        public int NormaID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "FECHA CUMPLIMIENTO")]
         [DataType(DataType.Date)]

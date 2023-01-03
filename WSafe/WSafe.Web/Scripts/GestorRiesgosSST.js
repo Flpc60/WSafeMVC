@@ -4743,6 +4743,7 @@ function AddEvaluation() {
             var evaluationID = response.data;
             if (response.data != false) {
                 $("#txtEvaluationID").val(evaluationID);
+                $("#btnEvaluation").hide();
             }
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -4752,13 +4753,12 @@ function AddEvaluation() {
     });
 }
 
-function AddPlanActivity() {
+function AddPlanActivity(evaluationID) {
     // Crea un nuevo plan de actividad
     //$('.tabGesCalifications').css("display", "none");
     var planActivity = {
         ID: "0",
-        EvaluationID: $("#txtEvaluationID").val(),
-        NormaID: $("#txtNormaID").val(),
+        EvaluationID: evaluationID,
         Activity: $("#txtActivity").val(),
         TrabajadorID: 1,
         Presupuesto: 1,
@@ -4770,10 +4770,6 @@ function AddPlanActivity() {
         data: { model: planActivity },
         dataType: "json",
         success: function (response) {
-            var evaluationID = response.data;
-            if (response.data != false) {
-                $("#txtEvaluationID").val(evaluationID);
-            }
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -4784,7 +4780,7 @@ function AddPlanActivity() {
 
 function ShowCalifications(evaluationID, phva) {
     // Mostrar todos las calificaciones
-    evaluationID = $("#txtEvaluationID").val();
+    //evaluationID = $("#txtEvaluationID").val();
     $.ajax({
         url: "/Evaluations/GetCalifications",
         data: {
@@ -4951,7 +4947,7 @@ function UpdateCalification() {
     // Actualiza una actualización, captura la evaluationID de id = txtEvaluationID
     $(".tabGesCalifications").css("display", "none");
     $(".tabAddCalifications").css("display", "none");
-    var evaluationID = $("#txtEvaluationID").val();
+    //evaluationID = $("#txtEvaluationID").val();
     valoration = 0;
     var Id = $("#txtCalificationID").val();
     var Cumple = false;
@@ -5005,15 +5001,25 @@ function UpdateCalification() {
         data: { model: calificationVM },
         dataType: "json",
         success: function (response) {
-            ShowCalifications(response.data, ciclo);
+            evaluationID = response.data;
+            $("#txtEvaluationID").val(evaluationID);
+            if ($("#txtActivity").val() != "") {
+                AddPlanActivity(evaluationID);
+            }
+            $("#txtCumple").val(false);
+            $("#txtNoCumple").val(false);
+            $("#txtJustify").val(false);
+            $("#txtNoJustify").val(false);
+            $("#txtValoration").val("");
+            $("#txtObservation").val("");
+            $("#txtActivity").val("");
+            ShowCalifications(evaluationID, ciclo);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
             alert(thrownError);
         }
     });
-    AddPlanActivity();
-
 }
 
 function CancelCalification() {
@@ -5080,7 +5086,7 @@ function UpdateEvaluation() {
     // Actualiza una evaluación, captura la evaluationID de id = txtEvaluationID
     $(".tabGesCalifications").css("display", "none");
     $(".tabAddCalifications").css("display", "none");
-    var evaluationID = $("#txtEvaluationID").val();
+    evaluationID = $("#txtEvaluationID").val();
     $.ajax({
         type: "GET",
         url: "/Evaluations/UpdateEvaluation",
