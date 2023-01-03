@@ -429,6 +429,22 @@
     <Compile Include="Migrations\202301030003257_UpdateNorma11.Designer.cs">
       <DependentUpon>202301030003257_UpdateNorma11.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202301031141258_UpdateNorma22.cs" />
+    <Compile Include="Migrations\202301031141258_UpdateNorma22.Designer.cs">
+      <DependentUpon>202301031141258_UpdateNorma22.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202301031212200_UpdateNorma33.cs" />
+    <Compile Include="Migrations\202301031212200_UpdateNorma33.Designer.cs">
+      <DependentUpon>202301031212200_UpdateNorma33.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202301032121169_UpdateNorma44.cs" />
+    <Compile Include="Migrations\202301032121169_UpdateNorma44.Designer.cs">
+      <DependentUpon>202301032121169_UpdateNorma44.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202301032237566_UpdateNorma55.cs" />
+    <Compile Include="Migrations\202301032237566_UpdateNorma55.Designer.cs">
+      <DependentUpon>202301032237566_UpdateNorma55.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
     <Compile Include="Models\AplicacionVM.cs" />
@@ -834,6 +850,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202301030003257_UpdateNorma11.resx">
       <DependentUpon>202301030003257_UpdateNorma11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202301031141258_UpdateNorma22.resx">
+      <DependentUpon>202301031141258_UpdateNorma22.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202301031212200_UpdateNorma33.resx">
+      <DependentUpon>202301031212200_UpdateNorma33.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202301032121169_UpdateNorma44.resx">
+      <DependentUpon>202301032121169_UpdateNorma44.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202301032237566_UpdateNorma55.resx">
+      <DependentUpon>202301032237566_UpdateNorma55.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
