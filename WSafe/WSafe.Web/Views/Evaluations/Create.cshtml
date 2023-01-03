@@ -4,21 +4,31 @@
 
 <style>
     .tabIdCausas, .tabGesPlanAcc, .tabGesSeguiPlanAcc, .tabPlanAcc, .tabSeguimAcc, .tabSeguimPlanAcc, .tabAddPlanAcc, .tabAddSeguimAcc,
-    .tabGesCalifications, .tabAddCalifications, .tabGesCiclo,.tabGesEvaluation
-    {
+    .tabGesCalifications, .tabAddCalifications, .tabGesCiclo, .tabGesEvaluation {
         display: none;
     }
-
 </style>
 
 <hr />
 <hr />
-<h4>@title</h4>
+<h4 style="text-align:center"><strong>@Session["organization"].ToString().Trim()</strong></h4>
+<hr />
+<div class="row" style="text-align:center">
+    <div class="col-md-4">
+        NÚMERO TRABAJADORES : @Session["numeroTrabajadores"].ToString().Trim()
+    </div>
+    <div class="col-md-4">
+        CLASE RIESGO : @Session["riesgo"].ToString().Trim()
+    </div>
+    <div class="col-md-4"></div>
+</div>
+<hr />
+
 <div class="pull-left">
     <div class="btn-group">
-        <button type="button" class="btn btn-info" id="evaluation" onclick="AddEvaluation()"> 1. CALIFICAR ESTÁNDARES</button>
+        <button type="button" class="btn btn-info" id="btnEvaluation" onclick="AddEvaluation()"> 1. CALIFICAR ESTÁNDARES</button>
         <button type="button" class="btn btn-info" id="showEvaluation" title="doble click para cerrar la ventana"> 2. RESULTADO</button>
-        <button type="button" class="btn btn-info" id="activitys" title="doble click para cerrar la ventana"> 2. PLAN DE ACTIVIDADES</button>
+        <button type="button" class="btn btn-info" id="activitys" title="doble click para cerrar la ventana"> 3. PLAN DE ACTIVIDADES</button>
     </div>
 </div>
 
@@ -26,73 +36,85 @@
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <input type="hidden" id="txtEvaluationID" name="txtEvaluationID" />
-    <div class="tabGesCiclo">
-        <hr />
-        <hr />
-        <div class="pull-left">
-            <div class="btn-group">
-                <button type="button" class="btn btn-primary btn-lg" id="planear" title="doble click para cerrar la ventana">1. PLANEAR</button>
-                <button type="button" class="btn btn-warning btn-lg" id="hacer" title="doble click para cerrar la ventana">2. HACER</button>
-                <button type="button" class="btn btn-success btn-lg" id="verificar" title="doble click para cerrar la ventana">3. VERIFICAR</button>
-                <button type="button" class="btn btn-info btn-lg" id="actuar" title="doble click para cerrar la ventana">4. ACTUAR</button>
-                <button type="button" class="btn btn-info btn-lg" id="calificar" onclick="UpdateEvaluation()">RESULTADOS</button>
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <input type="hidden" id="txtEvaluationID" name="txtEvaluationID" />
+        <div class="tabGesCiclo">
+            <hr />
+            <hr />
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="pull-right">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-light-blue btn-lg" id="planear" title="doble click para cerrar la ventana">1. PLANEAR</button>
+                                <button type="button" class="btn btn-warning btn-lg" id="hacer" title="doble click para cerrar la ventana">2. HACER</button>
+                                <button type="button" class="btn btn-success btn-lg" id="verificar" title="doble click para cerrar la ventana">3. VERIFICAR</button>
+                                <button type="button" class="btn btn-info btn-lg" id="actuar" title="doble click para cerrar la ventana">4. ACTUAR</button>
+                                <button type="button" class="btn btn-default btn-lg" id="calificar" onclick="UpdateEvaluation()">RESULTADOS</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="txtMinimos"> Estándares Mínimos ? </label>
+                        <input type="radio" name="txtEstandares" id="txtMinimos" checked /><br />
+                        <label for="txtEstandares"> Todos los estándares ?  </label>
+                        <input type="radio" name="txtEstandares" id="txtEstandares" /><br />
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="tabAddCalifications">
-        <input type="hidden" id="txtCalificationID" name="txtCalificationID" />
-        <input type="hidden" id="txtNormaID" name="txtNormaID" />
-        <input type="hidden" id="txtValor" name="txtValor" />
-        @Html.Partial("_EditCalification")
-        <div class="row">
-            <div class="col-md-8">
-                <hr />
-                <button type="button" id="btnUpdCalification" class="btn btn-primary" onclick="UpdateCalification()">Actualizar</button>
-                <button type="button" id="btnCanCalification" class="btn btn-primary" onclick="CancelCalification()">
-                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
-                </button>
-            </div>
-            <div class="col-md-4">
+        <div class="tabAddCalifications">
+            <input type="hidden" id="txtCalificationID" name="txtCalificationID" />
+            <input type="hidden" id="txtNormaID" name="txtNormaID" />
+            <input type="hidden" id="txtValor" name="txtValor" />
+            @Html.Partial("_EditCalification")
+            <div class="row">
+                <div class="col-md-8">
+                    <hr />
+                    <button type="button" id="btnUpdCalification" class="btn btn-primary" onclick="UpdateCalification()">Actualizar</button>
+                    <button type="button" id="btnCanCalification" class="btn btn-primary" onclick="CancelCalification()">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                    </button>
+                </div>
+                <div class="col-md-4">
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="tabGesCalifications">
-        <hr />
-        <hr />
-        @Html.Partial("_ShowCalifications")
-    </div>
-
-    <div class="tabGesEvaluation">
-        <hr />
-        <hr />
-        @Html.Partial("_ShowEvaluation")
-        <hr />
-        <div class="row" style="text-align: center; background-color: mediumaquamarine">
-            <div class="col-md-2">
-                <p1 id="txtTotales"></p1>
-            </div>
-            <div class="col-md-2">
-                <p2 id="txtCumple"></p2>
-            </div>
-            <div class="col-md-2">
-                <p3 id="txtNoCumple"></p3>
-            </div>
-            <div class="col-md-2">
-                <p4 id="txtNoAplica"></p4>
-            </div>
-            <div class="col-md-2" style="font-size:large">
-                <p5 id="txtValoracion"></p5>
-            </div>
-            <div class="col-md-2"></div>
+        <div class="tabGesCalifications">
+            <hr />
+            <hr />
+            @Html.Partial("_ShowCalifications")
         </div>
-    </div>
 
-</div>
+        <div class="tabGesEvaluation">
+            <hr />
+            <hr />
+            @Html.Partial("_ShowEvaluation")
+            <hr />
+            <div class="row" style="text-align: center; background-color: mediumaquamarine">
+                <div class="col-md-2">
+                    <p1 id="txtTotales"></p1>
+                </div>
+                <div class="col-md-2">
+                    <p2 id="txtCumple"></p2>
+                </div>
+                <div class="col-md-2">
+                    <p3 id="txtNoCumple"></p3>
+                </div>
+                <div class="col-md-2">
+                    <p4 id="txtNoAplica"></p4>
+                </div>
+                <div class="col-md-2" style="font-size:large">
+                    <p5 id="txtValoracion"></p5>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+
+    </div>
 }
 
 @section Scripts

@@ -108,5 +108,7 @@ namespace WSafe.Domain.Data.Entities
         public NivelesEscolaridad NivelEstudios { get; set; }
         [Display(Name = "Meses de experiencia")]
         public int MesesExperiencia { get; set; }
+        [MaxLength(2)]
+        public string Range { get; set; }
     }
 }

@@ -69,6 +69,8 @@ namespace WSafe.Web.Controllers
             try
             {
                 var idEmpresa = _empresaContext.Organizations.OrderByDescending(x => x.ID).First().ID;
+                var organization = await _empresaContext.Organizations.FindAsync(idEmpresa);
+                var range = Int32.Parse(organization.Range.Trim());
                 var evaluation = new Evaluation()
                 {
                     ID = 0,
@@ -79,7 +81,9 @@ namespace WSafe.Web.Controllers
                 await _empresaContext.SaveChangesAsync();
                 var evaluationID = _empresaContext.Evaluations.OrderByDescending(x => x.ID).First().ID;
 
-                var normas = _empresaContext.Normas.ToList();
+                var normas = _empresaContext.Normas
+                        .Where(n => Int32.Parse(n.Range) <= range)
+                        .ToList();
 
                 foreach (var item in normas)
                 {
@@ -184,6 +188,7 @@ namespace WSafe.Web.Controllers
                     from c in _empresaContext.Califications
                     join n in _empresaContext.Normas on c.NormaID equals n.ID
                     where (c.EvaluationID == id && n.Ciclo == ciclo)
+                    orderby n.Item
                     select new CalificationVM
                     {
                         ID = c.ID,
@@ -228,7 +233,8 @@ namespace WSafe.Web.Controllers
                         Justify = c.Justify,
                         NoJustify = c.NoJustify,
                         Valoration = c.Valoration,
-                        Observation = c.Observation
+                        Observation = c.Observation,
+                        Verification = n.Verification
                     };
             var model = _converterHelper.ToCalificationVMList(list);
             return Json(model, JsonRequestBehavior.AllowGet);
@@ -349,7 +355,6 @@ namespace WSafe.Web.Controllers
                 {
                     ID = 0,
                     EvaluationID = model.EvaluationID,
-                    NormaID = model.NormaID,
                     FechaFinal = DateTime.Now,
                     Activity = model.Activity,
                     TrabajadorID = model.TrabajadorID,
