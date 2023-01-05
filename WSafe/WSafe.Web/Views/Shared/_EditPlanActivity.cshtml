@@ -1,0 +1,51 @@
+﻿@{
+    var trabajadores = ViewBag.trabajadores;
+}
+<br />
+<div class="container" style="background-color:azure">
+    <h4><strong>INGRESAR PLAN DE ACTIVIDADES :</strong></h4>
+    <div class="row">
+        <div class="col-md-10">
+            <div class="form-group">
+                <div class="col-md-12">
+                    <hr />
+                    <label for="intervencion">Actividad</label>
+                    <textarea id="txtActivity" style="resize:none;" class="form-control" rows=3 cols=70 required></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10">
+            <div class="form-group">
+                <label class="control-label col-md-2" for="Respons">Funcionario responsable</label>
+                <div class="col-md-6">
+                    @Html.DropDownList("Trabajadores", trabajadores as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "txtResponsable" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-2" for="txtPresupuesto">Recursos Financieros</label>
+                <div class="col-md-6">
+                    <input name="txtPresupuesto" class="form-control text-box single-line" id="txtPresupuesto" type="number" value="0,00">
+                    <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="txtPresupuesto"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-2" for="txtFechaFinal">Fecha cumplimiento</label>
+                <div class="col-md-6">
+                    <input type="date" class="form-control" id="txtFechaFinal" required>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
