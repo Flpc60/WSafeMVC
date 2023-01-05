@@ -26,7 +26,6 @@ namespace WSafe.Domain.Data.Entities
         [MaxLength(2)]
         public string Standard { get; set; }
         public string Verification { get; set; }
-        [MaxLength(2)]
-        public string Range { get; set; }
+        public int Range { get; set; }
     }
 }

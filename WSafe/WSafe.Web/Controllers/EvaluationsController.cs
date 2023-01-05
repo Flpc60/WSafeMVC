@@ -59,11 +59,12 @@ namespace WSafe.Web.Controllers
         [HttpGet]
         public ActionResult Create()
         {
+            ViewBag.trabajadores = _comboHelper.GetComboTrabajadores();
             return View();
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateEvaluation()
+        public async Task<ActionResult> CreateEvaluation(bool indicador)
         {
             var message = "";
             try
@@ -80,10 +81,14 @@ namespace WSafe.Web.Controllers
                 _empresaContext.Evaluations.Add(evaluation);
                 await _empresaContext.SaveChangesAsync();
                 var evaluationID = _empresaContext.Evaluations.OrderByDescending(x => x.ID).First().ID;
+                var normas = _empresaContext.Normas.ToList();
 
-                var normas = _empresaContext.Normas
-                        .Where(n => Int32.Parse(n.Range) <= range)
-                        .ToList();
+                if (indicador)
+                {
+                    normas = _empresaContext.Normas
+                            .Where(n => n.Range <= range)
+                            .ToList();
+                }
 
                 foreach (var item in normas)
                 {
@@ -360,7 +365,10 @@ namespace WSafe.Web.Controllers
                     TrabajadorID = model.TrabajadorID,
                     Presupuesto = model.Presupuesto,
                     ActionCategory = ActionCategories.Sin_Iniciar,
-                    Observation = model.Observation
+                    Observation = model.Observation,
+                    Ciclo = model.Ciclo,
+                    Item = model.Item,
+                    Name = model.Name
                 };
                 _empresaContext.PlanActivities.Add(planActivity);
                 await _empresaContext.SaveChangesAsync();
@@ -371,6 +379,19 @@ namespace WSafe.Web.Controllers
                 message = "El registro NO ha sido ingresado correctamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        [HttpGet]
+        public ActionResult GetPlanActivities(int id)
+        {
+            if (id != null)
+            {
+                var list = _empresaContext.PlanActivities
+                    .Where(p => p.EvaluationID == id)
+                    .ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            return Json(null, JsonRequestBehavior.AllowGet);
         }
     }
 }
