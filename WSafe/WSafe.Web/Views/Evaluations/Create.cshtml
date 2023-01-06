@@ -24,9 +24,9 @@
             CLASE RIESGO : @Session["riesgo"].ToString().Trim()
         </div>
         <div class="col-md-5">
-            <label for="txtMinimos">Estándares Mínimos ? </label>
+            <label for="txtMinimos">Estándares Mínimos para la Empresa ? </label>
             <input type="radio" name="txtEstandares" id="txtMinimos" checked/><br />
-            <label for="txtEstandares">Todos los estándares ? </label>
+            <label for="txtEstandares">Estándares Aplicables y No Aplicables ? </label>
             <input type="radio" name="txtEstandares" id="txtEstandares"/><br />
         </div>
     </div>
@@ -87,8 +87,6 @@
     </div>
 
     <div class="tabGesCalifications">
-        <hr />
-        <hr />
         @Html.Partial("_ShowCalifications")
     </div>
 

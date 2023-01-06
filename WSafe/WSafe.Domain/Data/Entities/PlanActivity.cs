@@ -19,8 +19,8 @@ namespace WSafe.Domain.Data.Entities
         [Display(Name = "TRABAJADOR RESPONSABLE")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int TrabajadorID { get; set; }
-        [Display(Name = "PRESUPUESTO")]
-        public decimal Presupuesto { get; set; }
+        [Display(Name = "RECURSOS")]
+        public RecursosCategory Recurso { get; set; }
         public ActionCategories ActionCategory { get; set; }
         [MaxLength(100)]
         [Display(Name = "OBSERVACIONES")]

@@ -394,6 +394,7 @@
     <Compile Include="Data\Entities\PlanAction.cs" />
     <Compile Include="Data\Entities\PlanActivity.cs" />
     <Compile Include="Data\Entities\Proceso.cs" />
+    <Compile Include="Data\Entities\RecursosCategory.cs" />
     <Compile Include="Data\Entities\Riesgo.cs" />
     <Compile Include="Data\Entities\Role.cs" />
     <Compile Include="Data\Entities\RoleOperation.cs" />
@@ -432,6 +433,10 @@
     <Compile Include="Migrations\202301042306539_UpdateNorma22.cs" />
     <Compile Include="Migrations\202301042306539_UpdateNorma22.Designer.cs">
       <DependentUpon>202301042306539_UpdateNorma22.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202301060044415_UpdatePlanActivity1.cs" />
+    <Compile Include="Migrations\202301060044415_UpdatePlanActivity1.Designer.cs">
+      <DependentUpon>202301060044415_UpdatePlanActivity1.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -843,6 +848,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202301042306539_UpdateNorma22.resx">
       <DependentUpon>202301042306539_UpdateNorma22.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202301060044415_UpdatePlanActivity1.resx">
+      <DependentUpon>202301060044415_UpdatePlanActivity1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
