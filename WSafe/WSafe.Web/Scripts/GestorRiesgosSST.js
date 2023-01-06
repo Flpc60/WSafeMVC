@@ -1424,15 +1424,45 @@ function UpdateAccion(id) {
 
 function UpdateOrganization(id) {
     // Actualiza datos básicos de la empresa
-    
     if (!validateOrganization()) {
         return false;
     }
+
+    var range = 3;
     if ($("#txtAgropecuaria").is(':checked')) {
         $("#txtAgropecuaria").val(true)
     }
     else {
         $("#txtAgropecuaria").val(false)
+    }
+
+    var char = ($("#txtClaseRiesgo").val()).trim();
+    if (($("#txtNumero").val() <= 10)) {
+        var input = "I,II,III";
+        var pos = input.indexOf(char);
+        if (pos >= 0) {
+            range = 1;
+        }
+    }
+
+    if (($("#txtNumero").val() > 10) && ($("#txtNumero").val() <= 50)) {
+        var input = "I,II,III";
+        var pos = input.indexOf(char);
+        if (pos >= 0) {
+            range = 2;
+        }
+    }
+
+    if (($("#txtNumero").val() > 50)) {
+            range = 3;
+    }
+
+    if (($("#txtNumero").val() <= 50)) {
+        input = "IV,V";
+        var pos = input.indexOf(char);
+        if (pos >= 0) {
+            range = 3;
+        }
     }
 
     $(".tabBasics").css("display", "none");
@@ -1468,7 +1498,8 @@ function UpdateOrganization(id) {
         RenovacionLicencia: $("#renovacionLicencia").val(),
         RenovacionCurso: $("#renovacionCurso").val(),
         NivelEstudios: $("#idNivelEstudios").val(),
-        MesesExperiencia: $("#txtMesesExperiencia").val()
+        MesesExperiencia: $("#txtMesesExperiencia").val(),
+        Range: range
     };
 
     $.ajax({
@@ -4767,7 +4798,7 @@ function AddPlanActivity(evaluationID) {
         EvaluationID: evaluationID,
         Activity: $("#txtActivity").val(),
         TrabajadorID: $("#txtResponsable").val(),
-        Presupuesto: $("#txtPresupuesto").val(),
+        Presupuesto: $("#txtRecursos").val(),
         Observation: $("#txtObservation").val(),
         Ciclo: ciclo,
         Item: Item,
@@ -5027,6 +5058,7 @@ function UpdateCalification() {
     // Actualiza una actualización, captura la evaluationID de id = txtEvaluationID
     $(".tabGesCalifications").css("display", "none");
     $(".tabAddCalifications").css("display", "none");
+    $(".tabAddPlanAcc").css("display", "none");
     //evaluationID = $("#txtEvaluationID").val();
     valoration = 0;
     var Id = $("#txtCalificationID").val();

@@ -363,7 +363,7 @@ namespace WSafe.Web.Controllers
                     FechaFinal = DateTime.Now,
                     Activity = model.Activity,
                     TrabajadorID = model.TrabajadorID,
-                    Presupuesto = model.Presupuesto,
+                    Recurso = model.Recurso,
                     ActionCategory = ActionCategories.Sin_Iniciar,
                     Observation = model.Observation,
                     Ciclo = model.Ciclo,
