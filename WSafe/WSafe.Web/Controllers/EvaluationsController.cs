@@ -197,6 +197,7 @@ namespace WSafe.Web.Controllers
                     select new CalificationVM
                     {
                         ID = c.ID,
+                        NormaID = c.NormaID,
                         Ciclo = n.Ciclo,
                         Standard = n.Standard,
                         Item = n.Item,
@@ -228,6 +229,7 @@ namespace WSafe.Web.Controllers
                     {
                         ID = c.ID,
                         EvaluationID = c.EvaluationID,
+                        NormaID = c.NormaID,
                         Ciclo = n.Ciclo,
                         Standard = n.Standard,
                         Item = n.Item,
@@ -290,6 +292,7 @@ namespace WSafe.Web.Controllers
                         {
                             ID = c.ID,
                             EvaluationID = c.EvaluationID,
+                            NormaID = c.NormaID,
                             Ciclo = n.Ciclo,
                             Standard = n.Standard,
                             Item = n.Item,
@@ -300,7 +303,8 @@ namespace WSafe.Web.Controllers
                             Justify = c.Justify,
                             NoJustify = c.NoJustify,
                             Valoration = c.Valoration,
-                            Observation = c.Observation
+                            Observation = c.Observation,
+                            Verification = n.Verification
                         };
                 var list = _converterHelper.ToCalificationVMList(result);
                 var total = list.Count();
@@ -360,15 +364,13 @@ namespace WSafe.Web.Controllers
                 {
                     ID = 0,
                     EvaluationID = model.EvaluationID,
+                    NormaID = model.NormaID,
                     FechaFinal = DateTime.Now,
                     Activity = model.Activity,
                     TrabajadorID = model.TrabajadorID,
                     Recurso = model.Recurso,
                     ActionCategory = ActionCategories.Sin_Iniciar,
-                    Observation = model.Observation,
-                    Ciclo = model.Ciclo,
-                    Item = model.Item,
-                    Name = model.Name
+                    Observation = model.Observation
                 };
                 _empresaContext.PlanActivities.Add(planActivity);
                 await _empresaContext.SaveChangesAsync();
@@ -384,12 +386,29 @@ namespace WSafe.Web.Controllers
         [HttpGet]
         public ActionResult GetPlanActivities(int id)
         {
+
             if (id != null)
             {
-                var list = _empresaContext.PlanActivities
-                    .Where(p => p.EvaluationID == id)
-                    .ToList();
-                return Json(list, JsonRequestBehavior.AllowGet);
+                var list =
+                    from p in _empresaContext.PlanActivities
+                    join n in _empresaContext.Normas on p.NormaID equals n.ID
+                    where (p.EvaluationID == id)
+                    orderby n.Item
+                    select new PlanActivityVM
+                    {
+                        ID = p.ID,
+                        TrabajadorID = p.TrabajadorID,
+                        FechaFinal = p.FechaFinal,
+                        Activity = p.Activity,
+                        Recurso = p.Recurso,
+                        ActionCategory = p.ActionCategory,
+                        Observation = p.Observation,
+                        Ciclo = n.Ciclo,
+                        Item = n.Item,
+                        Name = n.Name,
+                    };
+                var model = _converterHelper.ToPlanActivityVMList(list);
+                return Json(model, JsonRequestBehavior.AllowGet);
             }
             return Json(null, JsonRequestBehavior.AllowGet);
         }

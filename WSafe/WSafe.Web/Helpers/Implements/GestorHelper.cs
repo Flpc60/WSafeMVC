@@ -546,5 +546,23 @@ namespace WSafe.Domain.Helpers.Implements
 
             }
         }
+
+        public string GetRecurso(RecursosCategory recurso)
+        {
+            switch (recurso)
+            {
+                case RecursosCategory.Administrativos:
+                    return "Administrativos";
+
+                case RecursosCategory.Financieros:
+                    return "Financieros";
+
+                case RecursosCategory.Tecnicos:
+                    return "Técnicos";
+
+                default:
+                    return "Administrativos";
+            }
+        }
     }
 }

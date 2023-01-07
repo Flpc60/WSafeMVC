@@ -1160,6 +1160,7 @@ namespace WSafe.Domain.Helpers.Implements
                 model.Add(new CalificationVM
                 {
                     ID = item.ID,
+                    NormaID = item.NormaID,
                     Ciclo = _gestorHelper.GetCiclo(item.Ciclo),
                     Standard = _gestorHelper.GetStandard(item.Standard),
                     Item = item.Item,
@@ -1171,6 +1172,30 @@ namespace WSafe.Domain.Helpers.Implements
                     NoJustify = item.NoJustify,
                     Valoration = item.Valoration,
                     Verification = item.Verification.Trim()
+                });
+            }
+            return model;
+        }
+        // Crea nueva lista de CalificationVM
+        public IEnumerable<PlanActivityVM> ToPlanActivityVMList(IEnumerable<PlanActivityVM> planActivity)
+        {
+            var model = new List<PlanActivityVM>();
+            foreach (var item in planActivity)
+            {
+                model.Add(new PlanActivityVM
+                {
+                    ID = item.ID,
+                    TrabajadorID = item.TrabajadorID,
+                    Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto,
+                    FechaFinal = item.FechaFinal,
+                    FechaCumplimiento = item.FechaFinal.ToString("yyyy-MM-dd"),
+                    Activity = item.Activity,
+                    TxtRecurso = _gestorHelper.GetRecurso(item.Recurso),
+                    TxtActionCategory = _gestorHelper.GetActionCategory((int)item.ActionCategory),
+                    Observation = item.Observation,
+                    Ciclo = _gestorHelper.GetCiclo(item.Ciclo),
+                    Item = item.Item,
+                    Name = item.Name
                 });
             }
             return model;
