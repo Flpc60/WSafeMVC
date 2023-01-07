@@ -7,6 +7,7 @@ namespace WSafe.Domain.Data.Entities
     {
         public int ID { get; set; }
         public int EvaluationID { get; set; }
+        public int NormaID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "FECHA CUMPLIMIENTO")]
         [DataType(DataType.Date)]
@@ -25,17 +26,5 @@ namespace WSafe.Domain.Data.Entities
         [MaxLength(100)]
         [Display(Name = "OBSERVACIONES")]
         public string Observation { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "CICLO")]
-        [MaxLength(2)]
-        public string Ciclo { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "ITEM")]
-        [MaxLength(6)]
-        public string Item { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "NOMBRE")]
-        [MaxLength(200)]
-        public string Name { get; set; }
     }
 }

@@ -30,5 +30,6 @@ namespace WSafe.Domain.Helpers
         string GetActionCategory(int estado);
         string GetCiclo(string ciclo);
         string GetStandard(string standar);
+        string GetRecurso(RecursosCategory recurso);
     }
 }
