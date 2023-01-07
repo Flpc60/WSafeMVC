@@ -235,6 +235,7 @@
     <Compile Include="Models\MatrizRiesgosVM.cs" />
     <Compile Include="Models\MovimientVM.cs" />
     <Compile Include="Models\PlanAccionVM.cs" />
+    <Compile Include="Models\PlanActivityVM.cs" />
     <Compile Include="Models\RiesgoViewModel.cs" />
     <Compile Include="Models\RoleOperationVM.cs" />
     <Compile Include="Models\RoleUserVM.cs" />

@@ -1428,6 +1428,7 @@ function UpdateOrganization(id) {
         return false;
     }
 
+    // Define el rango de la empresa con base en los estándares mónimos
     var range = 3;
     if ($("#txtAgropecuaria").is(':checked')) {
         $("#txtAgropecuaria").val(true)
@@ -4793,16 +4794,18 @@ function AddEvaluation() {
 function AddPlanActivity(evaluationID) {
     // Crea un nuevo plan de actividad
     //$('.tabGesCalifications').css("display", "none");
+    normaID = $("#txtNormaID").val();
     var planActivity = {
         ID: "0",
         EvaluationID: evaluationID,
+        NormaID: normaID,
         Activity: $("#txtActivity").val(),
         TrabajadorID: $("#txtResponsable").val(),
         Presupuesto: $("#txtRecursos").val(),
         Observation: $("#txtObservation").val(),
+        Recurso: $("#txtRecursos").val(),
         Ciclo: ciclo,
-        Item: Item,
-        Name: name
+        Item: Item
     };
     $.ajax({
         type: "POST",
@@ -4912,55 +4915,21 @@ function ShowPlanActivities(evaluationID) {
         dataType: "json",
         async: true,
         success: function (response) {
-            var html = '', ciclo = '';
+            var html = '';
             $.each(response, function (key, item) {
-                switch (item.Ciclo) {
-                    case "P":
-                        ciclo = "PLANEAR";
-                        break;
-                    case "H":
-                        ciclo = "HACER";
-                        break;
-                    case "V":
-                        ciclo = "VERIFICAR";
-                        break;
-                    case "A":
-                        ciclo = "ACTUAR";
-                        break;
-                }
-
                 html += '<tr>';
-                html += '<td>' + ciclo + '</td>';
+                html += '<td>' + item.Ciclo + '</td>';
                 html += '<td>' + item.Item + ' ' + item.Name + '</td>';
                 html += '<td>' + item.Observation + '</td>';
+                html += '<td>' + item.Activity + '</td>';
                 html += '<td>' + item.Responsable + '</td>';
-                html += '<td><a href="#" onclick="return getCalificationByID(' + item.ID + ')">Calificar</a></td>';
+                html += '<td>' + item.FechaCumplimiento + '</td>';
+                html += '<td>' + item.TxtRecurso + '</td>';
+                html += '<td>' + item.TxtActionCategory + '</td>';
+                html += '<td><a href="#" onclick="return getPlanActivityByID(' + item.ID + ')">Editar</a></td>';
                 html += '<hr />';
                 html += '</tr>';
             });
-
-            document.getElementById("txtTotales").innerHTML = "TOTALES : " + totales;
-            document.getElementById("txtCumple").innerHTML = "CUMPLE : " + cumple;
-            document.getElementById("txtNoCumple").innerHTML = "NO CUMPLE : " + noCumple;
-            document.getElementById("txtNoAplica").innerHTML = "NO APLICA : " + noAplica;
-
-            switch (true) {
-                case (totales > 85):
-                    document.getElementById("txtValoracion").innerHTML = "VALORACIÓN ACEPTABLE";
-                    document.getElementById("txtValoracion").style.backgroundColor = "green";
-                    break;
-
-                case (totales => 61 && totales <= 85):
-                    document.getElementById("txtValoracion").innerHTML = "VALORACIÓN MODERADAMENTE ACEPTABLE";
-                    document.getElementById("txtValoracion").style.backgroundColor = "yellow";
-                    break;
-
-                case (totales <= 60):
-                    document.getElementById("txtValoracion").innerHTML = "VALORACIÓN CRÍTICO";
-                    document.getElementById("txtValoracion").style.backgroundColor = "red";
-                    break;
-            }
-
             $('.tbody').html(html);
             $('.tabGesCalifications').css("display", "block");
         },
@@ -4990,7 +4959,7 @@ function getCalificationByID(calificationID) {
                 var valorItem = " VALOR : " + item.Valor;
                 valoration = item.Valor;
                 Item = item.Item;
-                name = item.Name;
+                $("#txtNormaID").val(item.NormaID);
                 $("#txtValor").val(item.Valor);
                 $("#txtCumple").val(item.Cumple);
                 $("#txtNoCumple").val(item.NoCumple);
@@ -5062,6 +5031,8 @@ function UpdateCalification() {
     //evaluationID = $("#txtEvaluationID").val();
     valoration = 0;
     var Id = $("#txtCalificationID").val();
+    normaID = $("#txtNormaID").val();
+
     var Cumple = false;
     var NoCumple = false;
     var Justify = false;
@@ -5094,9 +5065,9 @@ function UpdateCalification() {
     {
         ID: Id,
         EvaluationID: evaluationID,
+        NormaID: normaID,
         Ciclo: "",
         Item: "",
-        Name: "",
         Standard: "",
         Valor: "",
         Cumple: Cumple,
@@ -5143,10 +5114,24 @@ function CancelCalification() {
 function GestorEvaluations() {
 
     //Activa ventanas para gestionar calificación estándares
+    $("#btnShowPlanActivitys").click(function () {
+        ResetTab();
+        $(".tabGesPlanAcc").css("display", "block");
+        $(".tabCerrar").css("display", "none");
+        evaluationID = $("#txtEvaluationID").val();
+        ShowPlanActivities(evaluationID);
+    });
+
+    $("#btnShowPlanActivitys").dblclick(function () {
+        $(".tabGesPlanAcc").css("display", "none");
+        ResetTab();
+    });
+
     $("#btnPlanActivity").click(function () {
         ResetTab();
         $("#btnPlanActivity").focus();
         $(".tabAddPlanAcc").css("display", "block");
+        $("#txtActivity").show();
         $(".tabCerrar").css("display", "none");
     });
 

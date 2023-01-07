@@ -44,5 +44,6 @@ namespace WSafe.Domain.Helpers
         IEnumerable<MovimientVM> ToListMovimientos(IEnumerable<Movimient> movimientos);
         IEnumerable<EvaluationVM> ToEvaluationVMList(IEnumerable<Evaluation> evaluation);
         IEnumerable<CalificationVM> ToCalificationVMList(IEnumerable<CalificationVM> calification);
+        IEnumerable<PlanActivityVM> ToPlanActivityVMList(IEnumerable<PlanActivityVM> planActivity);
     }
 }
