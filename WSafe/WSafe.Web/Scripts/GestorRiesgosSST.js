@@ -1,6 +1,6 @@
 ﻿// Agregar funcionlidad principal del lado del cliente...
 
-const { each } = require("jquery");
+
 
 function viewHistory() {
     //    $(".tabMediAplica").css("display", "none");
@@ -4858,7 +4858,7 @@ function ShowCalifications(evaluationID, phva) {
                     justifyNo = "   X";
                 }
 
-                html += '<tr>';
+                html += '<tr class="table-primary">';
                 html += '<td>' + item.Item + ' ' + item.Name + '</td>';
                 html += '<td>' + item.Verification + '</td>';
                 html += '<td>' + item.Valor + '</td>';
