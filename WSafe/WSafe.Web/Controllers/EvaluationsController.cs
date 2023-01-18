@@ -258,7 +258,7 @@ namespace WSafe.Web.Controllers
                 calification.NoCumple = model.NoCumple;
                 calification.Justify = model.Justify;
                 calification.NoJustify = model.NoJustify;
-                calification.Valoration = model.Valoration/100;
+                calification.Valoration = model.Valoration / 100;
                 calification.Observation = model.Observation;
                 // Actualizar la BD
                 _empresaContext.Entry(calification).State = EntityState.Modified;
@@ -317,13 +317,13 @@ namespace WSafe.Web.Controllers
                     if (item.NoJustify) { noAplica++; }
                 }
                 var aplica = total - noAplica;
-                if (total>0) { standarsResult = cumple / total; }
+                if (total > 0) { standarsResult = cumple / total; }
                 if (aplica > 0) { aplicationsResult = cumple / aplica; }
                 ValorationCategory category = ValorationCategory.ACEPTABLE;
 
                 switch (total)
                 {
-                    case int v when(v > 85):
+                    case int v when (v > 85):
                         category = ValorationCategory.ACEPTABLE;
                         break;
 
