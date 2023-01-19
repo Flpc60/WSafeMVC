@@ -369,8 +369,9 @@ namespace WSafe.Web.Controllers
                     Activity = model.Activity,
                     TrabajadorID = model.TrabajadorID,
                     Recurso = model.Recurso,
-                    ActionCategory = ActionCategories.Sin_Iniciar,
-                    Observation = model.Observation
+                    ActionCategory = model.ActionCategory,
+                    Observation = model.Observation,
+                    Fundamentos = model.Fundamentos
                 };
                 _empresaContext.PlanActivities.Add(planActivity);
                 await _empresaContext.SaveChangesAsync();
@@ -406,6 +407,7 @@ namespace WSafe.Web.Controllers
                         Ciclo = n.Ciclo,
                         Item = n.Item,
                         Name = n.Name,
+                        Fundamentos = p.Fundamentos
                     };
                 var model = _converterHelper.ToPlanActivityVMList(list);
                 return Json(model, JsonRequestBehavior.AllowGet);
