@@ -4,6 +4,7 @@
     {
         Financieros = 1,
         Administrativos = 2,
-        Tecnicos = 3
+        Tecnicos = 3,
+        Humanos = 4
     }
 }

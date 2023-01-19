@@ -560,6 +560,9 @@ namespace WSafe.Domain.Helpers.Implements
                 case RecursosCategory.Tecnicos:
                     return "Técnicos";
 
+                case RecursosCategory.Humanos:
+                    return "Humanos";
+
                 default:
                     return "Administrativos";
             }
