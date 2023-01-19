@@ -1195,7 +1195,8 @@ namespace WSafe.Domain.Helpers.Implements
                     Observation = item.Observation,
                     Ciclo = _gestorHelper.GetCiclo(item.Ciclo),
                     Item = item.Item,
-                    Name = item.Name
+                    Name = item.Name,
+                    Fundamentos = item.Fundamentos
                 });
             }
             return model;
