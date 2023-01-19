@@ -1,7 +1,5 @@
 ﻿// Agregar funcionlidad principal del lado del cliente...
 
-
-
 function viewHistory() {
     //    $(".tabMediAplica").css("display", "none");
     var riesgoID = $("#txtRiesgoID").val();
@@ -4791,21 +4789,22 @@ function AddEvaluation() {
     });
 }
 
-function AddPlanActivity(evaluationID) {
+function AddPlanActivity() {
     // Crea un nuevo plan de actividad
     //$('.tabGesCalifications').css("display", "none");
+    evaluationID = $("#txtEvaluationID").val();
     normaID = $("#txtNormaID").val();
     var planActivity = {
         ID: "0",
         EvaluationID: evaluationID,
         NormaID: normaID,
-        Activity: $("#txtActivity").val(),
         TrabajadorID: $("#txtResponsable").val(),
-        Presupuesto: $("#txtRecursos").val(),
-        Observation: $("#txtObservation").val(),
+        FechaFinal: $("#txtFechaFinal").val(),
+        Activity: $("#txtActivity").val(),
         Recurso: $("#txtRecursos").val(),
-        Ciclo: ciclo,
-        Item: Item
+        ActionCategory: $("#txtActionCategory").val(),
+        Observation: $("#txtObservation").val(),
+        Fundamentos: $("#txtFundamentos").val()
     };
     $.ajax({
         type: "POST",
@@ -4926,7 +4925,7 @@ function ShowPlanActivities(evaluationID) {
                 html += '<td>' + item.FechaCumplimiento + '</td>';
                 html += '<td>' + item.TxtRecurso + '</td>';
                 html += '<td>' + item.TxtActionCategory + '</td>';
-                html += '<td><a href="#" onclick="return getPlanActivityByID(' + item.ID + ')">Editar</a></td>';
+                html += '<td><a href="#" onclick="return getPlanActivityByID(' + item.ID + ')">Editar</a> | <a href = "#" onclick = "DeletePlanActivity(' + item.ID + ')"> Eliminar</a></td>';
                 html += '<hr />';
                 html += '</tr>';
             });
@@ -4977,10 +4976,91 @@ function getCalificationByID(calificationID) {
 
             $("#btnUpdCalification").show();
             $("#btnCanCalification").show();
+            $("#btnUpdPlanActivity").hide();
             $(".tabAddCalifications").css("display", "block");
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
+        }
+    });
+}
+
+function getPlanActivityByID(planActivityID) {
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: "/Evaluations/UpdatePlanActivity",
+        data: {
+            id: planActivityID
+        },
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        success: function (result) {
+            $.each(result, function (key, item) {
+                var standard = " ESTÁNDAR : " + item.Standard;
+                var itemStandard = " ITEM ESTÁNDAR : " + item.Item + " " + item.Name;
+                $("#txtActivity").val(item.Activity);
+                $("#txtResponsable").val(item.TrabajadorID);
+                $("#txtRecursos").val(item.Recurso);
+                $("#txtFechaFinal").val(item.FechaCumpliemto);
+                $("#txtFundamentos").val(item.Fundamentos);
+                $("#txtActionCategory").val(item.ActionCategory);
+                $("#txtObservation").val(item.Observation);
+                $("#txtEvaluationID").val(item.EvaluationID);
+                $("#txtPlanActivityID").val(item.ID);
+                $("#txtObservation").focus();
+                document.getElementById("txtStandard").innerHTML = standard;
+                document.getElementById("txtItem").innerHTML = itemStandard;
+            });
+
+            $("#btnAddPlanActivity").hide();
+            $("#btnUpdPlanActivity").show();
+            $("#btnCanPlanActivity").show();
+            $(".tabAddPlanAcc").css("display", "block");
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function DeletePlanActivity(id) {
+    $.ajax({
+        url: "/Evaluation/DeletePlanActivity/" + id,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        async: true,                                             // si es asincrónico o no
+        success: function (result) {
+            var text = "";
+            var evaluationID = result.EvaluationID;
+            text += "Esta seguro de querer borrar esta actividad ? :\n\n";
+            text += "Observación : " + result.Observation + "\n";
+            text += "Actividad : " + result.Activity + "\n";
+            text += "Responsable : " + result.Responsable + "\n";
+            var respuesta = confirm(text);
+            if (respuesta == true) {
+                $.ajax({
+                    url: "/Evaluation/DeletePlanActivity/" + id,
+                    type: "POST",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    async: true,                                               // si es asincrónico o no
+                    success: function (result) {
+                        alert(result.mensaj);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                    }
+                });
+            }
+            ClearTextBox();
+            ShowPlanActivities(evaluationID);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
         }
     });
 }
@@ -5023,6 +5103,42 @@ function DeleteCalification(id) {
     });
 }
 
+function UpdatePlanActivity() {
+    // Actualiza una actividad, captura la evaluationID de id = txtEvaluationID
+    $(".tabGesPlanAcc").css("display", "none");
+    $(".tabAddPlanAcc").css("display", "none");
+    planActivityID = $("#txtPlanActivityID").val();
+    var planActivityVM =
+    {
+        ID: planActivityID,
+        EvaluationID: evaluationID,
+        NormaID: normaID,
+        TrabajadorID: $("#txtResponsable").val(),
+        FechaFinal: $("#txtFechaFinal").val(),
+        Activity: $("#txtActivity").val(),
+        Recurso: $("#txtRecursos").val(),
+        ActionCategory: $("#txtActionCategory").val(),
+        Observation: $("#txtObservation").val(),
+        Fundamentos: $("#txtFundamentos").val()
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/Evaluations/UpdatePlanActivity",
+        data: { model: planActivityVM },
+        dataType: "json",
+        success: function (response) {
+            evaluationID = response.data;
+            $("#txtEvaluationID").val(evaluationID);
+            ShowPlanActivity(evaluationID);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
 function UpdateCalification() {
     // Actualiza una actualización, captura la evaluationID de id = txtEvaluationID
     $(".tabGesCalifications").css("display", "none");
@@ -5040,7 +5156,7 @@ function UpdateCalification() {
     var Observation = $("#txtObservation").val();
 
     if ($("#txtCumple").is(':checked') || $("#txtJustify").is(':checked')) {
-        valoration = $("#txtValor").val()*100;
+        valoration = $("#txtValor").val() * 100;
     }
     if ($("#txtCumple").is(':checked')) {
         Cumple = true;
@@ -5087,7 +5203,7 @@ function UpdateCalification() {
             evaluationID = response.data;
             $("#txtEvaluationID").val(evaluationID);
             if ($("#txtActivity").val() != "") {
-                AddPlanActivity(evaluationID);
+                AddPlanActivity();
             }
             $("#txtCumple").val(false);
             $("#txtNoCumple").val(false);
@@ -5106,13 +5222,24 @@ function UpdateCalification() {
 }
 
 function CancelCalification() {
-    $(".tabGesCalifications").css("display", "none");
-    $(".tabAddCalifications").css("display", "none");
+    $(".tabGesPlanAcc").css("display", "none");
+    $(".tabAddPlanAcc").css("display", "none");
     $("#txtCalifications").val("");
 }
 
-function GestorEvaluations() {
+function CancelPlanActivity() {
+    $(".tabGesCalifications").css("display", "none");
+    $(".tabAddCalifications").css("display", "none");
+    $("#txtResponsable").val("");
+    $("#txtFechaFinal").val("");
+    $("#txtActivity").val("");
+    $("#txtRecursos").val("");
+    $("#txtActionCategory").val("");
+    $("#txtObservation").val("");
+    $("#txtFundamentos").val("");
+}
 
+function GestorEvaluations() {
     //Activa ventanas para gestionar calificación estándares
     $("#btnShowPlanActivitys").click(function () {
         ResetTab();
@@ -5133,6 +5260,13 @@ function GestorEvaluations() {
         $(".tabAddPlanAcc").css("display", "block");
         $("#txtActivity").show();
         $(".tabCerrar").css("display", "none");
+    });
+
+    $("#addPlanAcc").click(function () {
+        $(".tabAddPlanAcc").css("display", "block");
+        $(".tabCerrar").css("display", "none");
+        $("#btnAddPlanActivity").show();
+        $("#btnUpdPlanActivity").hide();
     });
 
     $("#planear").click(function () {

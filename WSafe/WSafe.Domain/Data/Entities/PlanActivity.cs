@@ -26,5 +26,8 @@ namespace WSafe.Domain.Data.Entities
         [MaxLength(100)]
         [Display(Name = "OBSERVACIONES")]
         public string Observation { get; set; }
+        [MaxLength(100)]
+        [Display(Name = "FUNDAMENTOS")]
+        public string Fundamentos { get; set; }
     }
 }
