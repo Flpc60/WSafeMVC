@@ -6,6 +6,8 @@ namespace WSafe.Web.Models
     public class PlanActivityVM
     {
         public int ID { get; set; }
+        public int EvaluationID { get; set; }
+        public int NormaID { get; set; }
         public int TrabajadorID { get; set; }
         public string Responsable { get; set; }
         public DateTime FechaFinal { get; set; }
@@ -19,5 +21,6 @@ namespace WSafe.Web.Models
         public string Ciclo { get; set; }
         public string Item { get; set; }
         public string Name { get; set; }
+        public string Fundamentos { get; set; }
     }
 }

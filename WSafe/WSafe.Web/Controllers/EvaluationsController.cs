@@ -412,5 +412,73 @@ namespace WSafe.Web.Controllers
             }
             return Json(null, JsonRequestBehavior.AllowGet);
         }
+        public async Task<ActionResult> DeletePlanActivity(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            PlanActivity plan = await _empresaContext.PlanActivities.FindAsync(id);
+            var model = _converterHelper.ToPlanActivityVM(plan);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DeletePlanActivity(int id)
+        {
+            var message = "";
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var result = await _empresaContext.PlanActivities.FindAsync(id);
+                    _empresaContext.PlanActivities.Remove(result);
+                    await _empresaContext.SaveChangesAsync();
+                    message = "El registro fué borrado correctamente !!";
+                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    message = "El registro NO fué borrado correctamente !!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                message = "El registro NO fué borrado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> UpdatePlanActivity(int id)
+        {
+            PlanActivity plan = await _empresaContext.PlanActivities.FindAsync(id);
+            var model = _converterHelper.ToPlanActivityVM(plan);
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UpdatePlanActivity(PlanActivityVM model)
+        {
+            var message = "";
+            try
+            {
+                // Actualizar la BD
+                _empresaContext.Entry(model).State = EntityState.Modified;
+                await _empresaContext.SaveChangesAsync();
+                message = "La actualización se ha realizado exitosamente !!";
+                return Json(new { data = model.EvaluationID, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                message = "La actualización NO se ha realizado exitosamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

@@ -1200,5 +1200,32 @@ namespace WSafe.Domain.Helpers.Implements
             }
             return model;
         }
+        public PlanActivityVM ToPlanActivityVM(PlanActivity plan)
+        {
+            var norma = _empresaContext.Normas.Find(plan.NormaID);
+            var ciclo = norma.Ciclo;
+            var item = norma.Item;
+            var name = norma.Name;
+
+            var result = new PlanActivityVM
+            {
+                ID = plan.ID,
+                EvaluationID = plan.EvaluationID,
+                TrabajadorID = plan.TrabajadorID,
+                Responsable = _empresaContext.Trabajadores.Find(plan.TrabajadorID).NombreCompleto.ToUpper(),
+                FechaCumplimiento = plan.FechaFinal.ToString("yyyy-MM-dd"),
+                Activity = plan.Activity,
+                Recurso = plan.Recurso,
+                TxtRecurso = _gestorHelper.GetRecurso(plan.Recurso).ToUpper(),
+                ActionCategory = plan.ActionCategory,
+                TxtActionCategory = _gestorHelper.GetActionCategory((int)plan.ActionCategory).ToUpper(),
+                Observation = plan.Observation,
+                Ciclo = ciclo.ToUpper(),
+                Item = item.ToUpper(),
+                Name = name.ToUpper(),
+                Fundamentos = plan.Fundamentos.ToUpper()
+            };
+            return result;
+        }
     }
 }
