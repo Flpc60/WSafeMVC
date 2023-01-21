@@ -11,7 +11,7 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "FECHA CUMPLIMIENTO")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaFinal { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "ACTIVIDAD")]

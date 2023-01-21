@@ -1,0 +1,136 @@
+﻿@model WSafe.Web.Models.MinimalsStandardsVM
+
+@{
+    ViewBag.Title = "GetEvaluation";
+    var califications = 
+}
+
+<h2>GetEvaluation</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.OrganizationID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NIT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RazonSocial)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Direccion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Municip)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Department)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClaseRiesgo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EconomicActivity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumeroTrabajadores)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ResponsableSGSST)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DocumentResponsable)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaEvaluation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cumple)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NoCumple)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NoAplica)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StandarsResult)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AplicationsResult)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.Califications) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrganizationID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NIT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RazonSocial)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Direccion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Municip)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Department)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClaseRiesgo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EconomicActivity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumeroTrabajadores)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ResponsableSGSST)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DocumentResponsable)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaEvaluation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cumple)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NoCumple)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NoAplica)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StandarsResult)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AplicationsResult)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
