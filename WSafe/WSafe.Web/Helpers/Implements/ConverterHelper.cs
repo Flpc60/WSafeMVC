@@ -1212,8 +1212,10 @@ namespace WSafe.Domain.Helpers.Implements
             {
                 ID = plan.ID,
                 EvaluationID = plan.EvaluationID,
+                NormaID = plan.NormaID,
                 TrabajadorID = plan.TrabajadorID,
                 Responsable = _empresaContext.Trabajadores.Find(plan.TrabajadorID).NombreCompleto.ToUpper(),
+                FechaFinal = plan.FechaFinal,
                 FechaCumplimiento = plan.FechaFinal.ToString("yyyy-MM-dd"),
                 Activity = plan.Activity,
                 Recurso = plan.Recurso,
@@ -1227,6 +1229,59 @@ namespace WSafe.Domain.Helpers.Implements
                 Fundamentos = plan.Fundamentos.ToUpper()
             };
             return result;
+        }
+        public MinimalsStandardsVM ToMinimalsStandardsVM(Evaluation evaluation)
+        {
+            var planes = _empresaContext.PlanActivities.Where(pa => pa.EvaluationID == evaluation.ID).ToList();
+            var list =
+                    from c in _empresaContext.Califications
+                    join n in _empresaContext.Normas on c.NormaID equals n.ID
+                    where c.EvaluationID == evaluation.ID
+                    orderby n.Item
+                    select new CalificationVM
+                    {
+                        ID = c.ID,
+                        EvaluationID = c.EvaluationID,
+                        NormaID = c.NormaID,
+                        Ciclo = n.Ciclo,
+                        Standard = n.Standard,
+                        Item = n.Item,
+                        Name = n.Name,
+                        Valor = n.Valor,
+                        Cumple = c.Cumple,
+                        NoCumple = c.NoCumple,
+                        Justify = c.Justify,
+                        NoJustify = c.NoJustify,
+                        Valoration = c.Valoration,
+                        Observation = c.Observation,
+                        Verification = n.Verification
+                    };
+            var califications = ToCalificationVMList(list);
+
+            var empresa = _empresaContext.Organizations.Find(evaluation.OrganizationID);
+            var model = new MinimalsStandardsVM
+            {
+                ID = evaluation.ID,
+                NIT = empresa.NIT,
+                RazonSocial = empresa.RazonSocial,
+                Direccion = empresa.Direccion,
+                Department = empresa.Department,
+                ClaseRiesgo = empresa.ClaseRiesgo,
+                EconomicActivity = empresa.EconomicActivity,
+                NumeroTrabajadores = empresa.NumeroTrabajadores,
+                ResponsableSGSST = empresa.ResponsableSGSST,
+                DocumentResponsable = empresa.DocumentResponsable,
+                FechaEvaluation = evaluation.FechaEvaluation,
+                Califications = (IEnumerable<Calification>)califications,
+                Cumple = evaluation.Cumple,
+                NoCumple = evaluation.NoCumple,
+                NoAplica = evaluation.NoAplica,
+                StandarsResult = evaluation.StandarsResult,
+                AplicationsResult = evaluation.AplicationsResult,
+                Category = evaluation.Category,
+                Planes = planes
+            };
+            return model;
         }
     }
 }
