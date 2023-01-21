@@ -5002,7 +5002,7 @@ function getPlanActivityByID(planActivityID) {
             $("#txtActivity").val(result.Activity);
             $("#txtResponsable").val(result.TrabajadorID);
             $("#txtRecursos").val(result.Recurso);
-            $("#txtFechaFinal").val(result.FechaCumpliemto);
+            $("#txtFechaFinal").val(result.FechaFinal);
             $("#txtFundamentos").val(result.Fundamentos);
             $("#txtActionCategory").val(result.ActionCategory);
             $("#txtObservation").val(result.Observation);

@@ -15,7 +15,7 @@ using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
 {
-    // Gestión de riesgos en SST
+    // Gestión de riesgos en el SG-SST
     public class RiesgosController : Controller
     {
         private int _operation;
@@ -48,7 +48,6 @@ namespace WSafe.Web.Controllers
                 return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
             }
         }
-
         public async Task<ActionResult> GetAll()
         {
             var list = await _empresaContext.Riesgos

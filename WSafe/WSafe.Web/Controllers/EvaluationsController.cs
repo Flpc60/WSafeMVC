@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rotativa;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -465,7 +466,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> UpdatePlanActivity(PlanActivityVM model)
+        public async Task<ActionResult> UpdatePlanActivity(PlanActivity model)
         {
             var message = "";
             try
@@ -481,6 +482,28 @@ namespace WSafe.Web.Controllers
                 message = "La actualización NO se ha realizado exitosamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
+        }
+        public async Task<ActionResult> GetEvaluation(int id)
+        {
+            var evaluation = await _empresaContext.Evaluations.FindAsync(id);
+            var modelo = _converterHelper.ToMinimalsStandardsVM(evaluation);
+            ViewBag.fecha = DateTime.Now;
+            return View(modelo);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> PrintMinimalStandardToPdf()
+        {
+            Random random = new Random();
+            var filename = "EstándaresMinimos" + random.Next(1, 100) + ".Pdf";
+            var filePathName = "~/Documents/" + filename;
+            var report = new ViewAsPdf("GetEvaluation");
+            report.FileName = filePathName;
+            report.PageSize = Rotativa.Options.Size.A4;
+            report.PageOrientation = Rotativa.Options.Orientation.Landscape;
+            report.PageWidth = 399;
+            report.PageHeight = 399;
+            return report;
         }
     }
 }

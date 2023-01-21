@@ -46,5 +46,6 @@ namespace WSafe.Domain.Helpers
         IEnumerable<CalificationVM> ToCalificationVMList(IEnumerable<CalificationVM> calification);
         IEnumerable<PlanActivityVM> ToPlanActivityVMList(IEnumerable<PlanActivityVM> planActivity);
         PlanActivityVM ToPlanActivityVM(PlanActivity planActivity);
+        MinimalsStandardsVM ToMinimalsStandardsVM(Evaluation evaluation);
     }
 }
