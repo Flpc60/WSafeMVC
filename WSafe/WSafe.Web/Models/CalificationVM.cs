@@ -17,5 +17,9 @@
         public decimal Valoration { get; set; }
         public string Observation { get; set; }
         public string Verification { get; set; }
+        public string TxtCumple { get; set; }
+        public string TxtNoCumple { get; set; }
+        public string TxtJustify { get; set; }
+        public string TxtNoJustify { get; set; }
     }
 }

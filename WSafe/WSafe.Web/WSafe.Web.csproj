@@ -476,6 +476,10 @@
     <Compile Include="Migrations\202301201536271_UpdatePlan44.designer.cs">
       <DependentUpon>202301201536271_UpdatePlan44.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202301252203261_UpdatePlan55.cs" />
+    <Compile Include="Migrations\202301252203261_UpdatePlan55.Designer.cs">
+      <DependentUpon>202301252203261_UpdatePlan55.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
     <Compile Include="Models\AplicacionVM.cs" />
@@ -881,6 +885,7 @@
     <Content Include="Scripts\jquery-3.6.3.slim.min.map" />
     <Content Include="Scripts\jquery-3.6.3.min.map" />
     <Content Include="Views\Evaluations\GetEvaluation.cshtml" />
+    <Content Include="Views\Evaluations\MinimalsStandards.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1034,6 +1039,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202301201536271_UpdatePlan44.resx">
       <DependentUpon>202301201536271_UpdatePlan44.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202301252203261_UpdatePlan55.resx">
+      <DependentUpon>202301252203261_UpdatePlan55.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

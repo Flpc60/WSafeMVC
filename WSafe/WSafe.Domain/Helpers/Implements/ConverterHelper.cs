@@ -1171,7 +1171,11 @@ namespace WSafe.Domain.Helpers.Implements
                     Justify = item.Justify,
                     NoJustify = item.NoJustify,
                     Valoration = item.Valoration,
-                    Verification = item.Verification.Trim()
+                    Verification = item.Verification,
+                    TxtCumple = "",
+                    TxtNoCumple = "",
+                    TxtJustify = "",
+                    TxtNoJustify = ""
                 });
             }
             return model;
@@ -1195,8 +1199,8 @@ namespace WSafe.Domain.Helpers.Implements
                     Observation = item.Observation,
                     Ciclo = _gestorHelper.GetCiclo(item.Ciclo),
                     Item = item.Item,
-                    Name = item.Name,
-                    Fundamentos = item.Fundamentos
+                    Name = item.Item+ " " + item.Name.Trim(),
+                    Fundamentos = item.Fundamentos.Trim()
                 });
             }
             return model;
@@ -1232,8 +1236,28 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public MinimalsStandardsVM ToMinimalsStandardsVM(Evaluation evaluation)
         {
-            var planes = _empresaContext.PlanActivities.Where(pa => pa.EvaluationID == evaluation.ID).ToList();
             var list =
+                from p in _empresaContext.PlanActivities
+                join n in _empresaContext.Normas on p.NormaID equals n.ID
+                where (p.EvaluationID == evaluation.ID)
+                orderby n.Item
+                select new PlanActivityVM
+                {
+                    ID = p.ID,
+                    TrabajadorID = p.TrabajadorID,
+                    FechaFinal = p.FechaFinal,
+                    Activity = p.Activity,
+                    Recurso = p.Recurso,
+                    ActionCategory = p.ActionCategory,
+                    Observation = p.Observation,
+                    Ciclo = n.Ciclo,
+                    Item = n.Item,
+                    Name = n.Name,
+                    Fundamentos = p.Fundamentos
+                };
+            var planes = ToPlanActivityVMList(list);
+
+            var califications =
                     from c in _empresaContext.Califications
                     join n in _empresaContext.Normas on c.NormaID equals n.ID
                     where c.EvaluationID == evaluation.ID
@@ -1243,10 +1267,10 @@ namespace WSafe.Domain.Helpers.Implements
                         ID = c.ID,
                         EvaluationID = c.EvaluationID,
                         NormaID = c.NormaID,
-                        Ciclo = n.Ciclo,
-                        Standard = n.Standard,
+                        Ciclo = _gestorHelper.GetCiclo(n.Ciclo),
+                        Standard = _gestorHelper.GetStandard(n.Standard),
                         Item = n.Item,
-                        Name = n.Name,
+                        Name = n.Item + " " + n.Name.Trim(),
                         Valor = n.Valor,
                         Cumple = c.Cumple,
                         NoCumple = c.NoCumple,
@@ -1254,10 +1278,44 @@ namespace WSafe.Domain.Helpers.Implements
                         NoJustify = c.NoJustify,
                         Valoration = c.Valoration,
                         Observation = c.Observation,
-                        Verification = n.Verification
+                        Verification = n.Verification.Trim()
                     };
-            var califications = ToCalificationVMList(list);
 
+            foreach (var item in califications)
+            {
+                if (item.Cumple == true)
+                {
+                    item.TxtCumple = "  X  ";
+                }
+                else
+                {
+                    item.TxtCumple = "     ";
+                }
+                if (item.NoCumple == true)
+                {
+                    item.TxtNoCumple = "  X  ";
+                }
+                else
+                {
+                    item.TxtNoCumple = "     ";
+                }
+                if (item.Justify == true)
+                {
+                    item.TxtJustify = "  X  ";
+                }
+                else
+                {
+                    item.TxtJustify = "     ";
+                }
+                if (item.NoJustify == true)
+                {
+                    item.TxtNoJustify = "  X  ";
+                }
+                else
+                {
+                    item.TxtNoJustify = "     ";
+                }
+            }
             var empresa = _empresaContext.Organizations.Find(evaluation.OrganizationID);
             var model = new MinimalsStandardsVM
             {
@@ -1269,17 +1327,17 @@ namespace WSafe.Domain.Helpers.Implements
                 ClaseRiesgo = empresa.ClaseRiesgo,
                 EconomicActivity = empresa.EconomicActivity,
                 NumeroTrabajadores = empresa.NumeroTrabajadores,
-                ResponsableSGSST = empresa.ResponsableSGSST,
+                ResponsableSGSST = empresa.ResponsableSGSST.Trim() + " - "+ empresa.DocumentResponsable.Trim(),
                 DocumentResponsable = empresa.DocumentResponsable,
                 FechaEvaluation = evaluation.FechaEvaluation,
-                Califications = (IEnumerable<Calification>)califications,
+                Califications = (ICollection<CalificationVM>)califications,
                 Cumple = evaluation.Cumple,
                 NoCumple = evaluation.NoCumple,
                 NoAplica = evaluation.NoAplica,
                 StandarsResult = evaluation.StandarsResult,
                 AplicationsResult = evaluation.AplicationsResult,
                 Category = evaluation.Category,
-                Planes = planes
+                Planes = (ICollection<PlanActivityVM>)planes
             };
             return model;
         }

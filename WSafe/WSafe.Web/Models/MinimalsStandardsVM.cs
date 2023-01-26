@@ -19,13 +19,13 @@ namespace WSafe.Web.Models
         public string ResponsableSGSST { get; set; }
         public string DocumentResponsable { get; set; }
         public DateTime FechaEvaluation { get; set; }
-        public IEnumerable<Calification> Califications { get; set; }
+        public ICollection<CalificationVM> Califications { get; set; }
         public int Cumple { get; set; }
         public int NoCumple { get; set; }
         public int NoAplica { get; set; }
         public decimal StandarsResult { get; set; }
         public decimal AplicationsResult { get; set; }
         public ValorationCategory Category { get; set; }
-        public IEnumerable<PlanActivity> Planes { get; set; }
+        public ICollection<PlanActivityVM> Planes { get; set; }
     }
 }
