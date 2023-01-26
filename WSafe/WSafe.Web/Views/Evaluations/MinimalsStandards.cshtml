@@ -1,0 +1,290 @@
+﻿@model WSafe.Web.Models.MinimalsStandardsVM
+
+@{
+    ViewBag.Title = "Sistema de Gestión de la Seguridad y Salud en el Trabajo";
+    var formato = "EVALUACIÓN DE ESTÁNDARES MÍNIMOS";
+    var fecha = DateTime.Today;
+    Layout = null;
+}
+
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryunobtrusive")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryui")
+@Scripts.Render("~/bundles/bootstrap")
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <img src="~/Images/LogoEntidad.png" class="img-responsive" alt="Cinque Terre" width="80" height="80"><img/>
+        </div>
+        <div class="col-md-10">
+            <div style="display:block">
+                <div style="text-align:center">
+                    <h4>@ViewBag.Title</h4>
+                </div>
+                <div style="text-align:center">
+                    <p>
+                        <strong><b>@Session["organization"].ToString()</b></strong>
+                    </p>
+                </div>
+                <div style="text-align:center">
+                    <p>
+                        <strong><b>@formato</b></strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            @Html.DisplayFor(model => model.Direccion)
+        </div>
+        <div class="col-md-4">
+            @Html.DisplayFor(model => model.Municip)
+        </div>
+        <div class="col-md-4">
+            @Html.DisplayFor(model => model.Department)
+        </div>
+        <div class="col-md-4">
+            <p>
+                <strong><b>CLASE RIESGO : @Html.DisplayFor(model => model.ClaseRiesgo)</b></strong>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                <strong><b>ACTIVIDAD ECONÓMICA : @Html.DisplayFor(model => model.EconomicActivity)</b></strong>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <strong><b>NÚMERO TRABAJADORES : @Html.DisplayFor(model => model.NumeroTrabajadores)</b></strong>
+        </div>
+        <div class="col-md-4">
+            <strong><b>RESPONSABLE SG-SST : @Html.DisplayFor(model => model.ResponsableSGSST)</b></strong>
+        </div>
+        <div class="col-md-4">
+            <strong><b>FECHA EVALUACIÓN : @Html.DisplayFor(model => model.FechaEvaluation)</b></strong>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    @{
+        if (Model.Califications.Count > 0)
+        {
+            <div>
+                <p style="text-align:center; background-color:grey">
+                    <strong><b>TABLA DE VALORES Y CALIFICACIÓN</b></strong>
+                </p>
+            </div>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            CICLO
+                        </th>
+                        <th>
+                            ESTÁNDAR
+                        </th>
+                        <th>
+                            ITEM DEL ESTÁNDAR
+                        </th>
+                        <th>
+                            VALOR
+                        </th>
+                        <th>
+                            PESO PORCENTUAL
+                        </th>
+                        <th>
+                            CUMPLE TOTALMENTE
+                        </th>
+                        <th>
+                            NO CUMPLE
+                        </th>
+                        <th>
+                            JUSTIFICA
+                        </th>
+                        <th>
+                            NO JUSTIFICA
+                        </th>
+                        <th>
+                            CALIFICACIÓN
+                        </th>
+                        <th>
+                            OBSERVACIÓN
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Califications)
+                    {
+                        var peso = item.Valor;
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ciclo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Standard)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Valor)
+                        </td>
+                        <td>
+                            @peso
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TxtCumple)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TxtNoCumple)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TxtJustify)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TxtNoJustify)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Valoration)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Observation)
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        if (Model.Planes.Count > 0)
+        {
+            <div>
+                <p style="text-align:center; background-color:grey">
+                    <strong><b>PLAN DE MEJORAMIENTO</b></strong>
+                </p>
+            </div>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            CICLO
+                        </th>
+                        <th>
+                            ITEM DEL ESTÁNDAR
+                        </th>
+                        <th>
+                            OBSERVACIONES
+                        </th>
+                        <th>
+                            ACTIVIDAD
+                        </th>
+                        <th>
+                            RESPONSABLE
+                        </th>
+                        <th>
+                            FECHA CUMPLIMIENTO
+                        </th>
+                        <th>
+                            RECURSOS
+                        </th>
+                        <th>
+                            FUNDAMENTOS
+                        </th>
+                        <th>
+                            ESTADO
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="tbody">
+                    @foreach (var item in Model.Planes)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ciclo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Observation)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Activity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Responsable)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FechaFinal)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TxtRecurso)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Fundamentos)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TxtActionCategory)
+                        </td>
+                    </tr>
+                    }
+
+                </tbody>
+            </table>
+        }
+    }
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <p>
+                <strong><b>CUMPLE : @Html.DisplayFor(model => model.Cumple)</b></strong>
+            </p>
+        </div>
+        <div class="col-md-4">
+            <p>
+                <strong><b>NO CUMPLE : @Html.DisplayFor(model => model.NoCumple)</b></strong>
+            </p>
+        </div>
+        <div class="col-md-4">
+            <p>
+                <strong><b>NO APLICA : @Html.DisplayFor(model => model.NoAplica)</b></strong>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <p>
+                <strong><b>RESULTADO ESTÁNDARES : @Html.DisplayFor(model => model.StandarsResult)</b></strong>
+            </p>
+        </div>
+        <div class="col-md-4">
+            <p>
+                <strong><b>RESULTADO APLICA : @Html.DisplayFor(model => model.AplicationsResult)</b></strong>
+            </p>
+        </div>
+        <div class="col-md-4">
+            <p>
+                <strong><b>NO APLICA : @Html.DisplayFor(model => model.NoAplica)</b></strong>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                <strong><b>EL NIVEL DE SU EVALUACIÓN ES : @Html.DisplayFor(model => model.Category)</b></strong>
+            </p>
+        </div>
+
+    </div>
+</div>

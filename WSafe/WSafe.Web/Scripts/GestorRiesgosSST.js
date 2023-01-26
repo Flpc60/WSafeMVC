@@ -5391,3 +5391,23 @@ function UpdateEvaluation() {
         }
     });
 }
+
+function downLoadEvaluation() {
+    $(".tabGesMovimientos").css("display", "none");
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: "/Evaluations/PrintMinimalStandardToPdf",
+        data: { id: evaluationID },
+        dataType: "json",
+        success: function (result) {
+            ShowEvaluation();
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    $(".tabAddMovimientos").css("display", "none");
+    $("#btnAddMovimient").hide();
+    $("#btnCanMovimient").show();
+}

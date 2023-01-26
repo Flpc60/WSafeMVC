@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.Security;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Helpers;
 using WSafe.Web.Filters;
@@ -209,7 +210,11 @@ namespace WSafe.Web.Controllers
                         Justify = c.Justify,
                         NoJustify = c.NoJustify,
                         Valoration = c.Valoration,
-                        Verification = n.Verification.Trim()
+                        Verification = n.Verification.Trim(),
+                        TxtCumple = "",
+                        TxtNoCumple = "",
+                        TxtJustify = "",
+                        TxtNoJustify = ""
                     };
 
                 var model = _converterHelper.ToCalificationVMList(list);
@@ -483,26 +488,25 @@ namespace WSafe.Web.Controllers
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public async Task<ActionResult> GetEvaluation(int id)
+        public async Task<ActionResult> MinimalsStandards(int id)
         {
             var evaluation = await _empresaContext.Evaluations.FindAsync(id);
             var modelo = _converterHelper.ToMinimalsStandardsVM(evaluation);
-            ViewBag.fecha = DateTime.Now;
             return View(modelo);
         }
 
         [HttpGet]
-        public async Task<ActionResult> PrintMinimalStandardToPdf()
+        public async Task<ActionResult> PrintMinimalStandardToPdf(int id)
         {
             Random random = new Random();
             var filename = "EstándaresMinimos" + random.Next(1, 100) + ".Pdf";
             var filePathName = "~/Documents/" + filename;
-            var report = new ViewAsPdf("GetEvaluation");
+            var report = new ViewAsPdf("MinimalsStandards", new { id = id });
             report.FileName = filePathName;
             report.PageSize = Rotativa.Options.Size.A4;
-            report.PageOrientation = Rotativa.Options.Orientation.Landscape;
-            report.PageWidth = 399;
-            report.PageHeight = 399;
+            report.Copies = 1;
+            report.PageOrientation.GetValueOrDefault();
+            report.FormsAuthenticationCookieName = FormsAuthentication.FormsCookieName;
             return report;
         }
     }
