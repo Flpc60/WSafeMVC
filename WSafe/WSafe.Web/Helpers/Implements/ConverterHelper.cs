@@ -1171,11 +1171,7 @@ namespace WSafe.Domain.Helpers.Implements
                     Justify = item.Justify,
                     NoJustify = item.NoJustify,
                     Valoration = item.Valoration,
-                    Verification = item.Verification,
-                    TxtCumple = "",
-                    TxtNoCumple = "",
-                    TxtJustify = "",
-                    TxtNoJustify = ""
+                    Verification = item.Verification.Trim(),
                 });
             }
             return model;
