@@ -1,5 +1,6 @@
 ﻿using Rotativa;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -189,49 +190,14 @@ namespace WSafe.Web.Controllers
         [HttpGet]
         public ActionResult GetCalifications(int id, string ciclo)
         {
-            if (id != null)
+            try
             {
                 var list =
                     from c in _empresaContext.Califications
                     join n in _empresaContext.Normas on c.NormaID equals n.ID
-                    where (c.EvaluationID == id && n.Ciclo == ciclo)
+                    where c.EvaluationID == id && n.Ciclo == ciclo
                     orderby n.Item
-                    select new CalificationVM
-                    {
-                        ID = c.ID,
-                        NormaID = c.NormaID,
-                        Ciclo = n.Ciclo,
-                        Standard = n.Standard,
-                        Item = n.Item,
-                        Name = n.Name,
-                        Valor = n.Valor,
-                        Cumple = c.Cumple,
-                        NoCumple = c.NoCumple,
-                        Justify = c.Justify,
-                        NoJustify = c.NoJustify,
-                        Valoration = c.Valoration,
-                        Verification = n.Verification.Trim(),
-                        TxtCumple = "",
-                        TxtNoCumple = "",
-                        TxtJustify = "",
-                        TxtNoJustify = ""
-                    };
-
-                var model = _converterHelper.ToCalificationVMList(list);
-                return Json(model, JsonRequestBehavior.AllowGet);
-            }
-            return Json(null, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpGet]
-        public JsonResult UpdateCalification(int id)
-        {
-            var list =
-                    from c in _empresaContext.Califications
-                    join n in _empresaContext.Normas on c.NormaID equals n.ID
-                    where c.ID == id
-                    orderby n.Item
-                    select new CalificationVM
+                    select new
                     {
                         ID = c.ID,
                         EvaluationID = c.EvaluationID,
@@ -249,8 +215,50 @@ namespace WSafe.Web.Controllers
                         Observation = c.Observation,
                         Verification = n.Verification
                     };
-            var model = _converterHelper.ToCalificationVMList(list);
-            return Json(model, JsonRequestBehavior.AllowGet);
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                var message = "La consulta NO se ha realizado exitosamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public JsonResult UpdateCalification(int id)
+        {
+            try
+            {
+                var list =
+                        from c in _empresaContext.Califications
+                        join n in _empresaContext.Normas on c.NormaID equals n.ID
+                        where c.ID == id
+                        orderby n.Item
+                        select new
+                        {
+                            ID = c.ID,
+                            EvaluationID = c.EvaluationID,
+                            NormaID = c.NormaID,
+                            Ciclo = n.Ciclo,
+                            Standard = n.Standard,
+                            Item = n.Item,
+                            Name = n.Name,
+                            Valor = n.Valor,
+                            Cumple = c.Cumple,
+                            NoCumple = c.NoCumple,
+                            Justify = c.Justify,
+                            NoJustify = c.NoJustify,
+                            Valoration = c.Valoration,
+                            Observation = c.Observation,
+                            Verification = n.Verification
+                        };
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                var message = "La consulta NO se ha realizado exitosamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [HttpPost]
@@ -393,15 +401,14 @@ namespace WSafe.Web.Controllers
         [HttpGet]
         public ActionResult GetPlanActivities(int id)
         {
-
-            if (id != null)
+            try
             {
                 var list =
                     from p in _empresaContext.PlanActivities
                     join n in _empresaContext.Normas on p.NormaID equals n.ID
                     where (p.EvaluationID == id)
                     orderby n.Item
-                    select new PlanActivityVM
+                    select new
                     {
                         ID = p.ID,
                         TrabajadorID = p.TrabajadorID,
@@ -415,10 +422,35 @@ namespace WSafe.Web.Controllers
                         Name = n.Name,
                         Fundamentos = p.Fundamentos
                     };
-                var model = _converterHelper.ToPlanActivityVMList(list);
+
+                var model = new List<PlanActivityVM>();
+                foreach (var item in list)
+                {
+                    model.Add(new PlanActivityVM
+                    {
+                        ID = item.ID,
+                        TrabajadorID = item.TrabajadorID,
+                        Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto,
+                        FechaFinal = item.FechaFinal,
+                        FechaCumplimiento = item.FechaFinal.ToString("yyyy-MM-dd"),
+                        Activity = item.Activity,
+                        TxtRecurso = _gestorHelper.GetRecurso(item.Recurso),
+                        TxtActionCategory = _gestorHelper.GetActionCategory((int)item.ActionCategory),
+                        Observation = item.Observation,
+                        Ciclo = _gestorHelper.GetCiclo(item.Ciclo),
+                        Item = item.Item,
+                        Name = item.Item + " " + item.Name.Trim(),
+                        Fundamentos = item.Fundamentos.Trim()
+                    });
+                }
                 return Json(model, JsonRequestBehavior.AllowGet);
             }
-            return Json(null, JsonRequestBehavior.AllowGet);
+            catch
+            {
+
+                var message = "La conslta NO ser ha realizado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
         }
         public async Task<ActionResult> DeletePlanActivity(int? id)
         {

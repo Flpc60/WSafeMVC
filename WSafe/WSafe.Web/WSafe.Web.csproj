@@ -448,37 +448,9 @@
     <Compile Include="Migrations\202207092147338_InitialCreate.Designer.cs">
       <DependentUpon>202207092147338_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202301041724527_UpdateNorma11.cs" />
-    <Compile Include="Migrations\202301041724527_UpdateNorma11.Designer.cs">
-      <DependentUpon>202301041724527_UpdateNorma11.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202301042306539_UpdateNorma22.cs" />
-    <Compile Include="Migrations\202301042306539_UpdateNorma22.Designer.cs">
-      <DependentUpon>202301042306539_UpdateNorma22.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202301060044415_UpdatePlanActivity1.cs" />
-    <Compile Include="Migrations\202301060044415_UpdatePlanActivity1.Designer.cs">
-      <DependentUpon>202301060044415_UpdatePlanActivity1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202301061841081_UpdatePlanActivity11.cs" />
-    <Compile Include="Migrations\202301061841081_UpdatePlanActivity11.Designer.cs">
-      <DependentUpon>202301061841081_UpdatePlanActivity11.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202301070008591_UpdatePlanActivity22.cs" />
-    <Compile Include="Migrations\202301070008591_UpdatePlanActivity22.Designer.cs">
-      <DependentUpon>202301070008591_UpdatePlanActivity22.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202301182131251_UpdatePlanActivity33.cs" />
-    <Compile Include="Migrations\202301182131251_UpdatePlanActivity33.designer.cs">
-      <DependentUpon>202301182131251_UpdatePlanActivity33.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202301201536271_UpdatePlan44.cs" />
-    <Compile Include="Migrations\202301201536271_UpdatePlan44.designer.cs">
-      <DependentUpon>202301201536271_UpdatePlan44.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202301252203261_UpdatePlan55.cs" />
-    <Compile Include="Migrations\202301252203261_UpdatePlan55.Designer.cs">
-      <DependentUpon>202301252203261_UpdatePlan55.cs</DependentUpon>
+    <Compile Include="Migrations\202301261333508_UpdateCalificationVM1.cs" />
+    <Compile Include="Migrations\202301261333508_UpdateCalificationVM1.Designer.cs">
+      <DependentUpon>202301261333508_UpdateCalificationVM1.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -1019,29 +991,8 @@
     <EmbeddedResource Include="Migrations\202207092147338_InitialCreate.resx">
       <DependentUpon>202207092147338_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202301041724527_UpdateNorma11.resx">
-      <DependentUpon>202301041724527_UpdateNorma11.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202301042306539_UpdateNorma22.resx">
-      <DependentUpon>202301042306539_UpdateNorma22.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202301060044415_UpdatePlanActivity1.resx">
-      <DependentUpon>202301060044415_UpdatePlanActivity1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202301061841081_UpdatePlanActivity11.resx">
-      <DependentUpon>202301061841081_UpdatePlanActivity11.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202301070008591_UpdatePlanActivity22.resx">
-      <DependentUpon>202301070008591_UpdatePlanActivity22.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202301182131251_UpdatePlanActivity33.resx">
-      <DependentUpon>202301182131251_UpdatePlanActivity33.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202301201536271_UpdatePlan44.resx">
-      <DependentUpon>202301201536271_UpdatePlan44.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202301252203261_UpdatePlan55.resx">
-      <DependentUpon>202301252203261_UpdatePlan55.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202301261333508_UpdateCalificationVM1.resx">
+      <DependentUpon>202301261333508_UpdateCalificationVM1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
