@@ -5397,11 +5397,11 @@ function downLoadEvaluation() {
     $.ajax({
         async: true,
         type: 'GET',
-        url: "/Evaluations/PrintMinimalStandardToPdf",
+        url: "/Evaluations/GeneratePDF",
         data: { id: evaluationID },
         dataType: "json",
         success: function (result) {
-            ShowEvaluation();
+            //ShowEvaluation();
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
