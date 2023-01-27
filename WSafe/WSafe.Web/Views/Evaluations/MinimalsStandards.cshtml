@@ -7,29 +7,39 @@
     Layout = null;
 }
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="~/Content/bootstrap-table.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-table/bootstrap-table.min.js"></script>
 @Styles.Render("~/Content/css")
+@Styles.Render("~/Content/bootstrap")
 @Scripts.Render("~/bundles/modernizr")
-@Scripts.Render("~/bundles/jqueryval")
 @Scripts.Render("~/bundles/jqueryunobtrusive")
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/jqueryui")
-@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/GestorRiesgosSST.js" type="text/javascript"></script>
 
 <div class="container-fluid">
-    <div class="row">
+    <div class="row" style="display:flex">
         <div class="col-md-2">
-            <img src="~/Images/LogoEntidad.png" class="img-responsive" alt="Cinque Terre" width="80" height="80"><img/>
+            <img src="~/Images/LogoEntidad.png" class="img-responsive" alt="Cinque Terre" width="80" height="80"><img />
         </div>
         <div class="col-md-10">
+            <div style="text-align:center">
+                <h4>@ViewBag.Title</h4>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div style="text-align:center">
+                <p>
+                    <strong><b>@Session["organization"].ToString()</b></strong>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
             <div style="display:block">
-                <div style="text-align:center">
-                    <h4>@ViewBag.Title</h4>
-                </div>
-                <div style="text-align:center">
-                    <p>
-                        <strong><b>@Session["organization"].ToString()</b></strong>
-                    </p>
-                </div>
                 <div style="text-align:center">
                     <p>
                         <strong><b>@formato</b></strong>
@@ -38,20 +48,17 @@
             </div>
         </div>
     </div>
-</div>
-
-<div class="container-fluid">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
             @Html.DisplayFor(model => model.Direccion)
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             @Html.DisplayFor(model => model.Municip)
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             @Html.DisplayFor(model => model.Department)
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <p>
                 <strong><b>CLASE RIESGO : @Html.DisplayFor(model => model.ClaseRiesgo)</b></strong>
             </p>
@@ -76,7 +83,7 @@
         </div>
     </div>
 </div>
-<div class="container-fluid">
+<div class="table-responsive">
     @{
         if (Model.Califications.Count > 0)
         {
@@ -85,7 +92,7 @@
                     <strong><b>TABLA DE VALORES Y CALIFICACIÓN</b></strong>
                 </p>
             </div>
-            <table class="table table-bordered table-hover">
+            <table class="table table-bordered table-condensed table-striped">
                 <thead>
                     <tr>
                         <th>
@@ -127,41 +134,41 @@
                     @foreach (var item in Model.Califications)
                     {
                         var peso = item.Valor;
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Ciclo)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Standard)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Valor)
-                        </td>
-                        <td>
-                            @peso
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TxtCumple)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TxtNoCumple)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TxtJustify)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TxtNoJustify)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Valoration)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Observation)
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Ciclo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Standard)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Valor)
+                            </td>
+                            <td>
+                                @peso
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TxtCumple)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TxtNoCumple)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TxtJustify)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TxtNoJustify)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Valoration)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Observation)
+                            </td>
+                        </tr>
                     }
                 </tbody>
             </table>
@@ -173,7 +180,7 @@
                     <strong><b>PLAN DE MEJORAMIENTO</b></strong>
                 </p>
             </div>
-            <table class="table table-bordered table-hover">
+            <table class="table table-bordered table-condensed table-striped">
                 <thead>
                     <tr>
                         <th>
@@ -208,35 +215,35 @@
                 <tbody class="tbody">
                     @foreach (var item in Model.Planes)
                     {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Ciclo)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Observation)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Activity)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Responsable)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FechaFinal)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TxtRecurso)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Fundamentos)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TxtActionCategory)
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Ciclo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Observation)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Activity)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Responsable)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FechaFinal)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TxtRecurso)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Fundamentos)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TxtActionCategory)
+                            </td>
+                        </tr>
                     }
 
                 </tbody>
@@ -244,7 +251,7 @@
         }
     }
 </div>
-<div class="container-fluid">
+<div class="container-fluid" style="display:flex">
     <div class="row">
         <div class="col-md-4">
             <p>
@@ -285,6 +292,5 @@
                 <strong><b>EL NIVEL DE SU EVALUACIÓN ES : @Html.DisplayFor(model => model.Category)</b></strong>
             </p>
         </div>
-
     </div>
 </div>

@@ -1304,7 +1304,7 @@ namespace WSafe.Domain.Helpers.Implements
             {
                 if (item.Cumple == true)
                 {
-                    txtCumple = "  X  ";
+                    txtCumple = "    X  ";
                 }
                 else
                 {
@@ -1312,7 +1312,7 @@ namespace WSafe.Domain.Helpers.Implements
                 }
                 if (item.NoCumple == true)
                 {
-                    txtNoCumple = "  X  ";
+                    txtNoCumple = "    X  ";
                 }
                 else
                 {
@@ -1320,7 +1320,7 @@ namespace WSafe.Domain.Helpers.Implements
                 }
                 if (item.Justify == true)
                 {
-                    txtJustify = "  X  ";
+                    txtJustify = "    X  ";
                 }
                 else
                 {
@@ -1328,7 +1328,7 @@ namespace WSafe.Domain.Helpers.Implements
                 }
                 if (item.NoJustify == true)
                 {
-                    txtNoJustify = "  X  ";
+                    txtNoJustify = "    X  ";
                 }
                 else
                 {
