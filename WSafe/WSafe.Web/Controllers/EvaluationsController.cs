@@ -430,7 +430,6 @@ namespace WSafe.Web.Controllers
                     {
                         ID = item.ID,
                         TrabajadorID = item.TrabajadorID,
-                        Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto,
                         FechaFinal = item.FechaFinal,
                         FechaCumplimiento = item.FechaFinal.ToString("yyyy-MM-dd"),
                         Activity = item.Activity,
@@ -439,10 +438,16 @@ namespace WSafe.Web.Controllers
                         Observation = item.Observation,
                         Ciclo = _gestorHelper.GetCiclo(item.Ciclo),
                         Item = item.Item,
-                        Name = item.Item + " " + item.Name.Trim(),
+                        Name = item.Name.Trim(),
                         Fundamentos = item.Fundamentos.Trim()
                     });
                 }
+
+                foreach (var item in model)
+                {
+                    item.Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpper();
+                }
+
                 return Json(model, JsonRequestBehavior.AllowGet);
             }
             catch
@@ -528,12 +533,15 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> PrintMinimalStandardToPdf(int id)
+        public async Task<ActionResult>  GeneratePDF(int id)
         {
             Random random = new Random();
             var filename = "EstándaresMinimos" + random.Next(1, 100) + ".Pdf";
             var filePathName = "~/Documents/" + filename;
+            var evaluation = await _empresaContext.Evaluations.FindAsync(id);
+            var model = _converterHelper.ToMinimalsStandardsVM(evaluation);
             var report = new ViewAsPdf("MinimalsStandards", new { id = id });
+            report.Model = model;
             report.FileName = filePathName;
             report.PageSize = Rotativa.Options.Size.A4;
             report.Copies = 1;
