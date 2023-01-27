@@ -525,7 +525,8 @@ namespace WSafe.Web.Controllers
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
-/*        public async Task<ActionResult> MinimalsStandards(int id)
+/*
+        public async Task<ActionResult> MinimalsStandards(int id)
         {
             var evaluation = await _empresaContext.Evaluations.FindAsync(id);
             var modelo = _converterHelper.ToMinimalsStandardsVM(evaluation);
@@ -543,7 +544,7 @@ namespace WSafe.Web.Controllers
             var report = new ViewAsPdf("MinimalsStandards", new { id = id });
             report.Model = model;
             report.FileName = filePathName;
-            report.PageSize = Rotativa.Options.Size.A4;
+            report.PageSize = Rotativa.Options.Size.Letter;
             report.Copies = 1;
             report.PageOrientation.GetValueOrDefault();
             report.FormsAuthenticationCookieName = FormsAuthentication.FormsCookieName;
