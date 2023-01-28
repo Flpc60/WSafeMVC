@@ -1304,7 +1304,7 @@ namespace WSafe.Domain.Helpers.Implements
             {
                 if (item.Cumple == true)
                 {
-                    txtCumple = "  X  ";
+                    txtCumple = "    X  ";
                 }
                 else
                 {
@@ -1312,7 +1312,7 @@ namespace WSafe.Domain.Helpers.Implements
                 }
                 if (item.NoCumple == true)
                 {
-                    txtNoCumple = "  X  ";
+                    txtNoCumple = "    X  ";
                 }
                 else
                 {
@@ -1320,7 +1320,7 @@ namespace WSafe.Domain.Helpers.Implements
                 }
                 if (item.Justify == true)
                 {
-                    txtJustify = "  X  ";
+                    txtJustify = "    X  ";
                 }
                 else
                 {
@@ -1328,7 +1328,7 @@ namespace WSafe.Domain.Helpers.Implements
                 }
                 if (item.NoJustify == true)
                 {
-                    txtNoJustify = "  X  ";
+                    txtNoJustify = "    X  ";
                 }
                 else
                 {
@@ -1357,6 +1357,27 @@ namespace WSafe.Domain.Helpers.Implements
                     TxtNoJustify = txtNoJustify
                 });
             }
+            var category = "ACEPTABLE";
+            var color = "green";
+            switch (evaluation.Category)
+            {
+
+                case ValorationCategory.ACEPTABLE:
+                    category = "ACEPTABLE";
+                    color = "green";
+                    break;
+
+                case ValorationCategory.MODERADAMENTE_ACEPTABLE:
+                    category = "MODERADAMENTE ACEPTABLE";
+                    color = "yellow";
+                    break;
+
+                case ValorationCategory.CRITICO:
+                    category = "CRÍTICO";
+                    color = "red";
+                    break;
+
+            }
 
             var empresa = _empresaContext.Organizations.Find(evaluation.OrganizationID);
             var model = new MinimalsStandardsVM
@@ -1379,7 +1400,9 @@ namespace WSafe.Domain.Helpers.Implements
                 StandarsResult = evaluation.StandarsResult,
                 AplicationsResult = evaluation.AplicationsResult,
                 Category = evaluation.Category,
-                Planes = planes
+                Planes = planes,
+                TxtCategory = category,
+                Color = color
             };
             return model;
         }

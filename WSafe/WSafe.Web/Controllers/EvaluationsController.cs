@@ -525,14 +525,7 @@ namespace WSafe.Web.Controllers
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
-/*
-        public async Task<ActionResult> MinimalsStandards(int id)
-        {
-            var evaluation = await _empresaContext.Evaluations.FindAsync(id);
-            var modelo = _converterHelper.ToMinimalsStandardsVM(evaluation);
-            return View(modelo);
-        }
-*/
+
         [HttpGet]
         public async Task<ActionResult>  GeneratePDF(int id)
         {

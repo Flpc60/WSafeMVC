@@ -27,5 +27,7 @@ namespace WSafe.Web.Models
         public decimal AplicationsResult { get; set; }
         public ValorationCategory Category { get; set; }
         public ICollection<PlanActivityVM> Planes { get; set; }
+        public string Color { get; set; }
+        public string TxtCategory { get; set; }
     }
 }

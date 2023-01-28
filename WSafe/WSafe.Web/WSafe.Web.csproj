@@ -560,7 +560,7 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Images\LogoEntidad.png" />
+    <Content Include="Images\LogoEntidad.jpg" />
     <Content Include="Rotativa\help-wkhtmltoimage.txt" />
     <Content Include="Rotativa\help-wkhtmltopdf.txt" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
