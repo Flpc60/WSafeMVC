@@ -41,9 +41,8 @@
     <input type="hidden" id="txtEvaluationID" name="txtEvaluationID"/>
     <div class="container-fluid">
         <button type="button" class="btn btn-primary" id="btnEvaluation" onclick="AddEvaluation()">CALIFICAR ESTÁNDARES</button>
-        <button type="button" class="btn btn-info" id="showEvaluation" title="doble click para cerrar la ventana">RESULTADOS</button>
+        <button type="button" class="btn btn-success" id="calificar" onclick="UpdateEvaluation()">RESULTADOS</button>
         <button type="button" class="btn btn-warning" id="btnShowPlanActivitys" title="doble click para cerrar la ventana">PLAN DE ACTIVIDADES</button>
-        <button type="button" class="btn btn-success" id="downLoad" onclick="downLoadEvaluation()">GENERAR PDF</button>
     </div>
     <div class="tabGesPlanAcc">
         <div class="container-fluid">
@@ -51,12 +50,11 @@
         </div>
     </div>
     <div class="tabGesCiclo">
-        <div class="container">
+        <div class="container" style="margin-right:5%">
             <button type="button" class="btn btn-primary" id="planear" title="doble click para cerrar la ventana">1. PLANEAR</button>
             <button type="button" class="btn btn-warning" id="hacer" title="doble click para cerrar la ventana">2. HACER</button>
             <button type="button" class="btn btn-success" id="verificar" title="doble click para cerrar la ventana">3. VERIFICAR</button>
             <button type="button" class="btn btn-info" id="actuar" title="doble click para cerrar la ventana">4. ACTUAR</button>
-            <button type="button" class="btn btn-secondary" id="calificar" onclick="UpdateEvaluation()">RESULTADOS</button>
         </div>
     </div>
     <div class="tabAddPlanAcc">

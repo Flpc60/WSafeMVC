@@ -298,11 +298,10 @@ namespace WSafe.Web.Controllers
                 var noAplica = 0;
                 decimal standarsResult = 0;
                 decimal aplicationsResult = 0;
-                var result =
-                        from c in _empresaContext.Califications
+                var list1 = ( from c in _empresaContext.Califications
                         join n in _empresaContext.Normas on c.NormaID equals n.ID
                         where c.EvaluationID == id
-                        select new CalificationVM
+                        select new
                         {
                             ID = c.ID,
                             EvaluationID = c.EvaluationID,
@@ -319,11 +318,31 @@ namespace WSafe.Web.Controllers
                             Valoration = c.Valoration,
                             Observation = c.Observation,
                             Verification = n.Verification
-                        };
-                var list = _converterHelper.ToCalificationVMList(result);
-                var total = list.Count();
+                        }).ToList();
 
-                foreach (var item in list)
+                var list2 = new List<CalificationVM>();
+                foreach (var item in list1)
+                {
+                    list2.Add(new CalificationVM
+                    {
+                        ID = item.ID,
+                        NormaID = item.NormaID,
+                        Ciclo = _gestorHelper.GetCiclo(item.Ciclo),
+                        Standard = _gestorHelper.GetStandard(item.Standard),
+                        Item = item.Item,
+                        Name = item.Name,
+                        Valor = item.Valor,
+                        Cumple = item.Cumple,
+                        NoCumple = item.NoCumple,
+                        Justify = item.Justify,
+                        NoJustify = item.NoJustify,
+                        Valoration = item.Valoration,
+                        Verification = item.Verification.Trim(),
+                    });
+                }
+
+                var total = list2.Count();
+                foreach (var item in list2)
                 {
                     if (item.Cumple) { cumple++; }
                     if (item.NoCumple) { noCumple++; }
@@ -335,17 +354,17 @@ namespace WSafe.Web.Controllers
                 if (aplica > 0) { aplicationsResult = cumple / aplica; }
                 ValorationCategory category = ValorationCategory.ACEPTABLE;
 
-                switch (total)
+                switch (standarsResult)
                 {
-                    case int v when (v > 85):
+                    case decimal v when (v > 85):
                         category = ValorationCategory.ACEPTABLE;
                         break;
 
-                    case int v when (v >= 61 && v <= 85):
+                    case decimal v when (v >= 61 && v <= 85):
                         category = ValorationCategory.MODERADAMENTE_ACEPTABLE;
                         break;
 
-                    case int v when (v < 60):
+                    case decimal v when (v < 60):
                         category = ValorationCategory.CRITICO;
                         break;
                 }
@@ -360,7 +379,7 @@ namespace WSafe.Web.Controllers
                 model.Category = category;
                 _empresaContext.Entry(model).State = EntityState.Modified;
                 await _empresaContext.SaveChangesAsync();
-                return Json(list, JsonRequestBehavior.AllowGet);
+                return Json(list2, JsonRequestBehavior.AllowGet);
             }
             catch
             {

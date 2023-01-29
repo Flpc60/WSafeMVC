@@ -4969,8 +4969,8 @@ function getCalificationByID(calificationID) {
                 $("#txtObservation").val(item.Observation);
                 $("#txtEvaluationID").val(item.EvaluationID);
                 $("#txtCumple").focus();
-                document.getElementById("txtCiclo").innerHTML = ciclo;
-                document.getElementById("txtStandard").innerHTML = standard;
+                //document.getElementById("txtCiclo").innerHTML = ciclo;
+                //document.getElementById("txtStandard").innerHTML = standard;
                 document.getElementById("txtItem").innerHTML = itemStandard;
                 document.getElementById("txtValorItem").innerHTML = valorItem;
             });
