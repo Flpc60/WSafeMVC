@@ -21,18 +21,10 @@
 <div class="container-fluid">
     <div class="row">
         <div style="display:inline-block">
-            <div class="col-md-2">
-                <img src="~/Images/LogoEntidad.jpg" class="img-responsive" alt="Cinque Terre" width="80" height="80"><img />
-            </div>
-            <div class="col-md-5">
-                <p>
-                    <strong><b>@ViewBag.Title</b></strong>
-                </p>
-            </div>
-            <div class="col-md-5">
-                <p>
-                    <strong><b>@formato</b></strong>
-                </p>
+            <div class="col-md-12">
+                <img src="~/Images/banner1.jpg" class="img-responsive" width="100" height="100"><img />
+                <p><strong><b>@ViewBag.Title</b></strong></p>
+                <p><strong><b>@formato</b></strong></p>
             </div>
         </div>
     </div>
@@ -41,6 +33,7 @@
             <div style="text-align:center">
                 <p>
                     <strong><b>@Session["organization"].ToString()</b></strong>
+                    <strong><b>CLASE RIESGO : @Html.DisplayFor(model => model.ClaseRiesgo)</b></strong>
                 </p>
             </div>
         </div>
@@ -56,9 +49,6 @@
             @Html.DisplayFor(model => model.Department)
         </div>
         <div class="col-md-3">
-            <p>
-                <strong><b>CLASE RIESGO : @Html.DisplayFor(model => model.ClaseRiesgo)</b></strong>
-            </p>
         </div>
     </div>
     <div class="row">
@@ -92,38 +82,38 @@
             <table class="table table-bordered table-condensed table-striped">
                 <thead>
                     <tr>
-                        <th>
+                        <th scope="col">
                             CICLO
                         </th>
-                        <th>
+                        <th scope="col">
                             ESTÁNDAR
                         </th>
-                        <th>
+                        <th scope="col">
                             ITEM DEL ESTÁNDAR
                         </th>
-                        <th>
+                        <th scope="col">
                             VALOR
                         </th>
-                        <th>
+                        <th scope="col">
                             PESO PORCENTUAL
                         </th>
-                        <th>
+                        <th scope="col">
                             CUMPLE TOTALMENTE
                         </th>
-                        <th>
+                        <th scope="col">
                             NO CUMPLE
                         </th>
-                        <th>
+                        <th scope="col">
                             JUSTIFICA
                         </th>
-                        <th>
+                        <th scope="col">
                             NO JUSTIFICA
                         </th>
-                        <th>
+                        <th scope="col">
                             CALIFICACIÓN
                         </th>
-                        <th>
-                            OBSERVACIÓN
+                        <th scope="col">
+                            OBSERVACIONES
                         </th>
                     </tr>
                 </thead>
@@ -248,43 +238,33 @@
         }
     }
 </div>
-<div class="container-fluid" style="display:inline-flex">
+<div>
+    <p style="text-align:center; background-color:grey">
+        <strong><b>RESULTADOS DE LA EVALUACIÓN</b></strong>
+    </p>
+</div>
+<div class="container-fluid">
     <div class="row">
         <div class="col-md-4">
-            <p>
-                <strong><b>CUMPLE : @Html.DisplayFor(model => model.Cumple)</b></strong>
-            </p>
+            <strong><b>CUMPLE : @Html.DisplayFor(model => model.Cumple)</b></strong>
         </div>
         <div class="col-md-4">
-            <p>
-                <strong><b>NO CUMPLE : @Html.DisplayFor(model => model.NoCumple)</b></strong>
-            </p>
+            <strong><b>NO CUMPLE : @Html.DisplayFor(model => model.NoCumple)</b></strong>
         </div>
         <div class="col-md-4">
-            <p>
-                <strong><b>NO APLICA : @Html.DisplayFor(model => model.NoAplica)</b></strong>
-            </p>
-        </div>
-    </div>
-    <div class="row" style="display:inline-flex">
-        <div class="col-md-4">
-            <p>
-                <strong><b>RESULTADO ESTÁNDARES : @Html.DisplayFor(model => model.StandarsResult)</b></strong>
-            </p>
-        </div>
-        <div class="col-md-4">
-            <p>
-                <strong><b>RESULTADO APLICA : @Html.DisplayFor(model => model.AplicationsResult)</b></strong>
-            </p>
-        </div>
-        <div class="col-md-4">
-            <p>
-                <strong><b>NO APLICA : @Html.DisplayFor(model => model.NoAplica)</b></strong>
-            </p>
+            <strong><b>NO APLICA : @Html.DisplayFor(model => model.NoAplica)</b></strong>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-4">
+            <strong><b>RESULTADO ESTÁNDARES : @Html.DisplayFor(model => model.StandarsResult)</b></strong>
+        </div>
+        <div class="col-md-4">
+            <strong><b>RESULTADO APLICA : @Html.DisplayFor(model => model.AplicationsResult)</b></strong>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="text-align:center">
             <p style="@strStyle">
                 <strong><b>EL NIVEL DE SU EVALUACIÓN ES : @Html.DisplayFor(model => model.TxtCategory)</b></strong>
             </p>
