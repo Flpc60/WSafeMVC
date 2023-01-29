@@ -452,6 +452,10 @@
     <Compile Include="Migrations\202301261333508_UpdateCalificationVM1.Designer.cs">
       <DependentUpon>202301261333508_UpdateCalificationVM1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202301281704279_UpdateCalificationVM2.cs" />
+    <Compile Include="Migrations\202301281704279_UpdateCalificationVM2.Designer.cs">
+      <DependentUpon>202301281704279_UpdateCalificationVM2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
     <Compile Include="Models\AplicacionVM.cs" />
@@ -560,6 +564,7 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Images\banner1.jpg" />
     <Content Include="Images\LogoEntidad.jpg" />
     <Content Include="Rotativa\help-wkhtmltoimage.txt" />
     <Content Include="Rotativa\help-wkhtmltopdf.txt" />
@@ -989,6 +994,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202301261333508_UpdateCalificationVM1.resx">
       <DependentUpon>202301261333508_UpdateCalificationVM1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202301281704279_UpdateCalificationVM2.resx">
+      <DependentUpon>202301281704279_UpdateCalificationVM2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
