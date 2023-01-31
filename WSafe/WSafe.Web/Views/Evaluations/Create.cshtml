@@ -50,28 +50,16 @@
         </div>
     </div>
     <div class="tabGesCiclo">
-        <div class="container" style="margin-right:5%">
-            <button type="button" class="btn btn-primary" id="planear" title="doble click para cerrar la ventana">1. PLANEAR</button>
-            <button type="button" class="btn btn-warning" id="hacer" title="doble click para cerrar la ventana">2. HACER</button>
-            <button type="button" class="btn btn-success" id="verificar" title="doble click para cerrar la ventana">3. VERIFICAR</button>
-            <button type="button" class="btn btn-info" id="actuar" title="doble click para cerrar la ventana">4. ACTUAR</button>
+        <div class="container-fluid" style="margin-left:65%">
+            <button type="button" class="btn btn-primary" id="planear" title="doble click para cerrar la ventana">PLANEAR</button>
+            <button type="button" class="btn btn-warning" id="hacer" title="doble click para cerrar la ventana">HACER</button>
+            <button type="button" class="btn btn-success" id="verificar" title="doble click para cerrar la ventana">VERIFICAR</button>
+            <button type="button" class="btn btn-info" id="actuar" title="doble click para cerrar la ventana">ACTUAR</button>
         </div>
     </div>
     <div class="tabAddPlanAcc">
         <input type="hidden" id="txtPlanActivityID" name="txtPlanActivityID"/>
         @Html.Partial("_EditPlanActivity")
-        <div class="row">
-            <div class="col-md-8">
-                <hr />
-                <button type="button" id="btnAddPlanActivity" class="btn btn-primary" onclick="AddPlanActivity()">Adicionar</button>
-                <button type="button" id="btnUpdPlanActivity" class="btn btn-primary" onclick="UpdatePlanActivity()">Actualizar</button>
-                <button type="button" id="btnCanPlanActivity" class="btn btn-primary" onclick="CancelPlanActivity()">
-                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
-                </button>
-            </div>
-            <div class="col-md-4">
-            </div>
-        </div>
     </div>
     <div class="tabAddCalifications">
         <input type="hidden" id="txtCalificationID" name="txtCalificationID" />
@@ -126,6 +114,12 @@
         var evaluationID = $("#txtEvaluationID").val();
         var normaID = $("#txtNormaID").val();
         var valoration = $("#txtValor").val();
+
+        $('#txtFechaFinal').change(function () {
+            var fecha = $("#txtFechaFinal").val();
+            validarCumplimiento(fecha);
+        });
+
         GestorEvaluations();
         $(document).ready(function () {
         });

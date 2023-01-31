@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -192,8 +193,7 @@ namespace WSafe.Web.Controllers
         {
             try
             {
-                var list =
-                    from c in _empresaContext.Califications
+                var list = ( from c in _empresaContext.Califications
                     join n in _empresaContext.Normas on c.NormaID equals n.ID
                     where c.EvaluationID == id && n.Ciclo == ciclo
                     orderby n.Item
@@ -214,7 +214,9 @@ namespace WSafe.Web.Controllers
                         Valoration = c.Valoration,
                         Observation = c.Observation,
                         Verification = n.Verification
-                    };
+                    }
+                ).ToList();
+                    
                 return Json(list, JsonRequestBehavior.AllowGet);
             }
             catch
@@ -229,7 +231,7 @@ namespace WSafe.Web.Controllers
         {
             try
             {
-                var list =
+                var calification =
                         from c in _empresaContext.Califications
                         join n in _empresaContext.Normas on c.NormaID equals n.ID
                         where c.ID == id
@@ -252,7 +254,7 @@ namespace WSafe.Web.Controllers
                             Observation = c.Observation,
                             Verification = n.Verification
                         };
-                return Json(list, JsonRequestBehavior.AllowGet);
+                return Json(calification, JsonRequestBehavior.AllowGet);
             }
             catch
             {

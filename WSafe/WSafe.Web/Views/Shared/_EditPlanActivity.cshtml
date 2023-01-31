@@ -2,13 +2,12 @@
     var trabajadores = ViewBag.trabajadores;
 }
 <br />
-<div class="container" style="background-color:azure">
+<div class="container" style="background-color: azure; width: 50%; padding: 3%; border-style: double">
     <div class="row">
         <div class="col-md-4">
             <p><strong>INGRESAR PLAN DE MEJORAMIENTO :</strong></p>
         </div>
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
+        <div class="col-md-8">
             <p id="txtItem"></p>
         </div>
     </div>
@@ -41,8 +40,8 @@
     <div class="row">
         <div class="col-md-10">
             <div class="form-group">
-                <label class="control-label col-md-2" for="Respons">Funcionario responsable</label>
-                <div class="col-md-6">
+                <label class="control-label col-md-4" for="Respons">Funcionario responsable</label>
+                <div class="col-md-8">
                     @Html.DropDownList("Trabajadores", trabajadores as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "txtResponsable" })
                 </div>
             </div>
@@ -53,8 +52,8 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label class="control-label col-md-3" for="txtRecursos">Recursos :</label>
-                <div class="col-md-6">
+                <label class="control-label col-md-6" for="txtRecursos">Recursos :</label>
+                <div class="col-md-8">
                     <select name="txtRecursos" class="form-control" id="txtRecursos">
                         <option selected="selected" value="0">Seleccione un recurso...</option>
                         <option value="1">Financieros</option>
@@ -68,8 +67,8 @@
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <label class="control-label col-md-2" for="txtFechaFinal">Fecha cumplimiento</label>
-                <div class="col-md-6">
+                <label class="control-label col-md-4" for="txtFechaFinal">Fecha cumplimiento</label>
+                <div class="col-md-8">
                     <input type="date" class="form-control" id="txtFechaFinal" required>
                 </div>
             </div>
@@ -89,10 +88,10 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-8">
             <div class="form-group">
-                <label class="control-label col-md-4" for="txtActionCategory">Estado actividad :</label>
-                <div class="col-md-6">
+                <label class="control-label col-md-6" for="txtActionCategory">Estado actividad :</label>
+                <div class="col-md-8">
                     <select name="txtActionCategory" class="form-control" id="txtActionCategory">
                         <option selected="selected" value="0">Seleccione un estado...</option>
                         <option value="1">Sín Iniciar</option>
@@ -103,6 +102,13 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6"></div>
+        <hr />
+        <div class="col-md-4">
+            <button type="button" id="btnAddPlanActivity" class="btn btn-primary" onclick="AddPlanActivity()">Adicionar</button>
+            <button type="button" id="btnUpdPlanActivity" class="btn btn-primary" onclick="UpdatePlanActivity()">Actualizar</button>
+            <button type="button" id="btnCanPlanActivity" class="btn btn-primary" onclick="CancelPlanActivity()">
+                <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+            </button>
+        </div>
     </div>
 </div>

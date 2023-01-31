@@ -613,6 +613,15 @@ function ClearTextBox() {
     $("#txtNombre").val("");
 }
 
+validarCumplimiento = function (item) {
+    var fecha = Date.now();
+    var date = Date.parse(item);
+    if (date < fecha) {
+        alert("Fecha cumplimiento incorrecta !!");
+        return false;
+    };
+}
+
 validarFechaIni = function (item) {
     var fecha = Date.now();
     var date = Date.parse(item);
@@ -3702,6 +3711,7 @@ function AddEvent() {
         }
     });
 }
+
 function ShowEvents() {
     // Mostrar todos los eventos
     var incidentID = $("#txtIncidenteID").val();
@@ -4842,19 +4852,19 @@ function ShowCalifications(evaluationID, phva) {
 
                 if (item.Cumple == true) {
                     cumple++;
-                    cumpleSi = "   X";
+                    cumpleSi = "     X";
                 }
                 if (item.NoCumple == true) {
                     noCumple++;
-                    cumpleNo = "   X";
+                    cumpleNo = "     X";
                 }
                 if (item.Justify == true) {
                     noAplica++;
-                    justifySi = "   X";
+                    justifySi = "     X";
                 }
                 if (item.NoJustify == true) {
                     noAplica++;
-                    justifyNo = "   X";
+                    justifyNo = "     X";
                 }
 
                 html += '<tr class="table-primary">';
@@ -4959,6 +4969,25 @@ function getCalificationByID(calificationID) {
                 var valorItem = " VALOR : " + item.Valor;
                 valoration = item.Valor;
                 Item = item.Item;
+
+                $("#txtCumple").prop('checked',false)
+                $("#txtNoCumple").prop('checked',false)
+                $("#txtJustify").prop('checked',false)
+                $("#txtNoJustify").prop('checked',false)
+
+                if (item.Cumple == true) {
+                    $("#txtCumple").prop('checked',true)
+                }
+                if (item.NoCumple == true) {
+                    $("#txtNoCumple").prop('checked',true)
+                }
+                if (item.Justify == true) {
+                    $("#txtJustify").prop('checked',true)
+                }
+                if (item.NoJustify == true) {
+                    $("#txtNoJustify").prop('checked',true)
+                }
+
                 $("#txtNormaID").val(item.NormaID);
                 $("#txtValor").val(item.Valor);
                 $("#txtCumple").val(item.Cumple);
@@ -4969,10 +4998,9 @@ function getCalificationByID(calificationID) {
                 $("#txtObservation").val(item.Observation);
                 $("#txtEvaluationID").val(item.EvaluationID);
                 $("#txtCumple").focus();
-                //document.getElementById("txtCiclo").innerHTML = ciclo;
-                //document.getElementById("txtStandard").innerHTML = standard;
+                document.getElementById("txtCiclo").innerHTML = ciclo;
                 document.getElementById("txtItem").innerHTML = itemStandard;
-                document.getElementById("txtValorItem").innerHTML = valorItem;
+                document.getElementById("itemStandard").innerHTML = itemStandard;
             });
 
             $("#btnUpdCalification").show();
@@ -5223,8 +5251,8 @@ function CancelCalification() {
 }
 
 function CancelPlanActivity() {
-    $(".tabGesCalifications").css("display", "none");
-    $(".tabAddCalifications").css("display", "none");
+    //$(".tabGesCalifications").css("display", "none");
+    $(".tabAddPlanAcc").css("display", "none");
     $("#txtResponsable").val("");
     $("#txtFechaFinal").val("");
     $("#txtActivity").val("");
