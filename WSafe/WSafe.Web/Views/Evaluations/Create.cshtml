@@ -117,7 +117,9 @@
 
         $('#txtFechaFinal').change(function () {
             var fecha = $("#txtFechaFinal").val();
-            validarCumplimiento(fecha);
+            if (!validarCumplimiento(fecha)) {
+                return false;
+            }
         });
 
         GestorEvaluations();
