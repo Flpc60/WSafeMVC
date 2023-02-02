@@ -129,12 +129,13 @@ namespace WSafe.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EvaluationVM evaluationVM = await _empresaContext.EvaluationVMs.FindAsync(id);
-            if (evaluationVM == null)
+            var result = await _empresaContext.Evaluations.FindAsync(id);
+            if (result == null)
             {
                 return HttpNotFound();
             }
-            return View(evaluationVM);
+            ViewBag.Id = result.ID;
+            return View();
         }
 
         // POST: Evaluations/Edit/5
@@ -160,12 +161,12 @@ namespace WSafe.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EvaluationVM evaluationVM = await _empresaContext.EvaluationVMs.FindAsync(id);
-            if (evaluationVM == null)
+            Evaluation evaluation = await _empresaContext.Evaluations.FindAsync(id);
+            if (evaluation == null)
             {
                 return HttpNotFound();
             }
-            return View(evaluationVM);
+            return View(evaluation);
         }
 
         // POST: Evaluations/Delete/5
@@ -173,8 +174,8 @@ namespace WSafe.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            EvaluationVM evaluationVM = await _empresaContext.EvaluationVMs.FindAsync(id);
-            _empresaContext.EvaluationVMs.Remove(evaluationVM);
+            Evaluation evaluation = await _empresaContext.Evaluations.FindAsync(id);
+            _empresaContext.Evaluations.Remove(evaluation);
             await _empresaContext.SaveChangesAsync();
             return RedirectToAction("Index");
         }
@@ -397,10 +398,10 @@ namespace WSafe.Web.Controllers
             {
                 var planActivity = new PlanActivity()
                 {
-                    ID = 0,
+                    ID = model.ID,
                     EvaluationID = model.EvaluationID,
                     NormaID = model.NormaID,
-                    FechaFinal = DateTime.Now,
+                    FechaFinal = model.FechaFinal,
                     Activity = model.Activity,
                     TrabajadorID = model.TrabajadorID,
                     Recurso = model.Recurso,

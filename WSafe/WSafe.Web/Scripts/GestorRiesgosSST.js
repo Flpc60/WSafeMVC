@@ -5285,6 +5285,14 @@ function GestorEvaluations() {
         $(".tabCerrar").css("display", "none");
     });
 
+    $("#btnPlanActivity2").click(function () {
+        ResetTab();
+        $("#btnPlanActivity").focus();
+        $(".tabAddPlanAcc").css("display", "block");
+        $("#txtActivity").show();
+        $(".tabCerrar").css("display", "none");
+    });
+
     $("#addPlanAcc").click(function () {
         $(".tabAddPlanAcc").css("display", "block");
         $(".tabCerrar").css("display", "none");
