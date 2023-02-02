@@ -1104,8 +1104,8 @@ namespace WSafe.Domain.Helpers.Implements
 
             foreach (var item in evaluation)
             {
-                activitys = _empresaContext.PlanActions.Where(pa => pa.EvaluationID == item.ID).Count();
-                ejecutadas = _empresaContext.PlanActions.Where(pa => pa.EvaluationID == item.ID && pa.ActionCategory == ActionCategories.Finalizada).Count();
+                activitys = _empresaContext.PlanActivities.Where(pa => pa.EvaluationID == item.ID).Count();
+                ejecutadas = _empresaContext.PlanActivities.Where(pa => pa.EvaluationID == item.ID && pa.ActionCategory == ActionCategories.Finalizada).Count();
 
                 if (activitys > 0)
                 {
@@ -1384,9 +1384,10 @@ namespace WSafe.Domain.Helpers.Implements
             {
                 ID = evaluation.ID,
                 NIT = empresa.NIT,
-                RazonSocial = empresa.RazonSocial,
-                Direccion = empresa.Direccion,
-                Department = empresa.Department,
+                RazonSocial = empresa.RazonSocial.Trim(),
+                Direccion = empresa.Direccion.Trim(),
+                Municip = empresa.Municip.Trim(),
+                Department = empresa.Department.Trim(),
                 ClaseRiesgo = empresa.ClaseRiesgo,
                 EconomicActivity = empresa.EconomicActivity,
                 NumeroTrabajadores = empresa.NumeroTrabajadores,

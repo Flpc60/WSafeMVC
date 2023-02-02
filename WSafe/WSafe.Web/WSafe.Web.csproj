@@ -456,6 +456,10 @@
     <Compile Include="Migrations\202301281704279_UpdateCalificationVM2.Designer.cs">
       <DependentUpon>202301281704279_UpdateCalificationVM2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202302020009371_PlanActivity111.cs" />
+    <Compile Include="Migrations\202302020009371_PlanActivity111.Designer.cs">
+      <DependentUpon>202302020009371_PlanActivity111.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
     <Compile Include="Models\AplicacionVM.cs" />
@@ -997,6 +1001,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202301281704279_UpdateCalificationVM2.resx">
       <DependentUpon>202301281704279_UpdateCalificationVM2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202302020009371_PlanActivity111.resx">
+      <DependentUpon>202302020009371_PlanActivity111.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
