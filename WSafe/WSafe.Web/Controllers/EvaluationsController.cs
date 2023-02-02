@@ -479,19 +479,25 @@ namespace WSafe.Web.Controllers
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        [HttpGet]
         public async Task<ActionResult> DeletePlanActivity(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PlanActivity plan = await _empresaContext.PlanActivities.FindAsync(id);
-            var model = _converterHelper.ToPlanActivityVM(plan);
-            if (model == null)
+            try
             {
-                return HttpNotFound();
+                PlanActivity plan = await _empresaContext.PlanActivities.FindAsync(id);
+                var model = _converterHelper.ToPlanActivityVM(plan);
+                return Json(model, JsonRequestBehavior.AllowGet);
             }
-            return Json(model, JsonRequestBehavior.AllowGet);
+            catch
+            {
+                var message = "El registro NO fué borrado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [HttpPost]

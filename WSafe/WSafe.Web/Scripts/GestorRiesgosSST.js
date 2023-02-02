@@ -4852,30 +4852,30 @@ function ShowCalifications(evaluationID, phva) {
 
                 if (item.Cumple == true) {
                     cumple++;
-                    cumpleSi = "     X";
+                    cumpleSi = "X";
                 }
                 if (item.NoCumple == true) {
                     noCumple++;
-                    cumpleNo = "     X";
+                    cumpleNo = "X";
                 }
                 if (item.Justify == true) {
                     noAplica++;
-                    justifySi = "     X";
+                    justifySi = "X";
                 }
                 if (item.NoJustify == true) {
                     noAplica++;
-                    justifyNo = "     X";
+                    justifyNo = "X";
                 }
 
                 html += '<tr class="table-primary">';
                 html += '<td>' + item.Item + ' ' + item.Name + '</td>';
                 html += '<td>' + item.Verification + '</td>';
                 html += '<td>' + item.Valor + '</td>';
-                html += '<td>' + cumpleSi + '</td>';
-                html += '<td>' + cumpleNo + '</td>';
-                html += '<td>' + justifySi + '</td>';
-                html += '<td>' + justifyNo + '</td>';
-                html += '<td>' + item.Valoration + '</td>';
+                html += '<td style="text-align:center;font-size:large">' + cumpleSi + '</td>';
+                html += '<td style="text-align:center;font-size:large">' + cumpleNo + '</td>';
+                html += '<td style="text-align:center;font-size:large">' + justifySi + '</td>';
+                html += '<td style="text-align:center;font-size:large">' + justifyNo + '</td>';
+                html += '<td style="text-align:center;font-size:large">' + item.Valoration + '</td>';
                 html += '<td><a href="#" onclick="return getCalificationByID(' + item.ID + ')">Calificar</a></td>';
                 html += '<hr />';
                 html += '</tr>';
@@ -5005,7 +5005,6 @@ function getCalificationByID(calificationID) {
 
             $("#btnUpdCalification").show();
             $("#btnCanCalification").show();
-            $("#btnUpdPlanActivity").hide();
             $(".tabAddCalifications").css("display", "block");
         },
         error: function (errormessage) {
@@ -5030,14 +5029,14 @@ function getPlanActivityByID(planActivityID) {
             $("#txtActivity").val(result.Activity);
             $("#txtResponsable").val(result.TrabajadorID);
             $("#txtRecursos").val(result.Recurso);
-            $("#txtFechaFinal").val(result.FechaFinal);
+            $("#txtFechaFinal").val(result.FechaCumplimiento);
             $("#txtFundamentos").val(result.Fundamentos);
             $("#txtActionCategory").val(result.ActionCategory);
             $("#txtObservation").val(result.Observation);
             $("#txtEvaluationID").val(result.EvaluationID);
             $("#txtPlanActivityID").val(result.ID);
             $("#txtObservation").focus();
-            document.getElementById("txtStandard").innerHTML = standard;
+            //document.getElementById("txtStandard").innerHTML = standard;
             document.getElementById("txtItem").innerHTML = itemStandard;
             $("#btnAddPlanActivity").hide();
             $("#btnUpdPlanActivity").show();
@@ -5052,7 +5051,7 @@ function getPlanActivityByID(planActivityID) {
 
 function DeletePlanActivity(id) {
     $.ajax({
-        url: "/Evaluation/DeletePlanActivity/" + id,
+        url: "/Evaluations/DeletePlanActivity/" + id,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
@@ -5067,7 +5066,7 @@ function DeletePlanActivity(id) {
             var respuesta = confirm(text);
             if (respuesta == true) {
                 $.ajax({
-                    url: "/Evaluation/DeletePlanActivity/" + id,
+                    url: "/Evaluations/DeletePlanActivity/" + id,
                     type: "POST",
                     contentType: "application/json;charset=UTF-8",
                     dataType: "json",
@@ -5132,6 +5131,7 @@ function DeleteCalification(id) {
 function UpdatePlanActivity() {
     // Actualiza una actividad, captura la evaluationID de id = txtEvaluationID
     $(".tabGesPlanAcc").css("display", "none");
+    $(".tabAddCalifications").css("display", "none");
     $(".tabAddPlanAcc").css("display", "none");
     planActivityID = $("#txtPlanActivityID").val();
     var planActivityVM =
@@ -5283,14 +5283,15 @@ function GestorEvaluations() {
         $(".tabAddPlanAcc").css("display", "block");
         $("#txtActivity").show();
         $(".tabCerrar").css("display", "none");
-    });
-
-    $("#btnPlanActivity2").click(function () {
-        ResetTab();
-        $("#btnPlanActivity").focus();
-        $(".tabAddPlanAcc").css("display", "block");
-        $("#txtActivity").show();
-        $(".tabCerrar").css("display", "none");
+        $("#btnAddPlanActivity").show();
+        $("#btnUpdPlanActivity").hide();
+        $("#txtResponsable").val("");
+        $("#txtFechaFinal").val("");
+        $("#txtActivity").val("");
+        $("#txtRecursos").val("");
+        $("#txtActionCategory").val("");
+        $("#txtObservation").val("");
+        $("#txtFundamentos").val("");
     });
 
     $("#addPlanAcc").click(function () {
@@ -5298,6 +5299,13 @@ function GestorEvaluations() {
         $(".tabCerrar").css("display", "none");
         $("#btnAddPlanActivity").show();
         $("#btnUpdPlanActivity").hide();
+        $("#txtResponsable").val("");
+        $("#txtFechaFinal").val("");
+        $("#txtActivity").val("");
+        $("#txtRecursos").val("");
+        $("#txtActionCategory").val("");
+        $("#txtObservation").val("");
+        $("#txtFundamentos").val("");
     });
 
     $("#planear").click(function () {
