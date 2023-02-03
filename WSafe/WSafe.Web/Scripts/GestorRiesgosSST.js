@@ -5455,3 +5455,50 @@ function downLoadEvaluation() {
     $("#btnAddMovimient").hide();
     $("#btnCanMovimient").show();
 }
+
+function DeleteEvaluation(ID) {
+    var id = ID;
+    $.ajax({
+        url: "/Evaluations/DeleteEvaluation/" + id,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        async: true,                                               // si es asincrónico o no
+        success: function (result) {
+            if (result.data == false) {
+                alert(result.error);
+            } else {
+                var text = "";
+                text += "Esta seguro de querer borrar esta evaluación ? :\n\n";
+                text += "Fecha evaluación : " + result.dateEvaluation + "\n";
+                text += "Estándares que cumple : " + result.data.Cumple + "\n";
+                text += "Estándares que No cumple : " + result.data.NoCumple + "\n";
+                text += "Resultado evaluación estándares mínimos : " + result.data.StandarsResult + "\n";
+                var respuesta = confirm(text);
+
+                if (respuesta == true) {
+                    $.ajax({
+                        url: "/Evaluations/DeleteEvaluation/" + id,
+                        type: "POST",
+                        contentType: "application/json;charset=UTF-8",
+                        dataType: "json",
+                        async: true,
+                        success: function (response) {
+                            alert(response.message);
+                            location.reload(true);
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            alert(xhr.status);
+                            alert(thrownError);
+                        }
+                    });
+                }
+
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}

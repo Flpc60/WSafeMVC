@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -134,7 +133,8 @@ namespace WSafe.Web.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Id = result.ID;
+            ViewBag.trabajadores = _comboHelper.GetComboTrabajadores();
+            ViewBag.ID = result.ID;
             return View();
         }
 
@@ -194,30 +194,30 @@ namespace WSafe.Web.Controllers
         {
             try
             {
-                var list = ( from c in _empresaContext.Califications
-                    join n in _empresaContext.Normas on c.NormaID equals n.ID
-                    where c.EvaluationID == id && n.Ciclo == ciclo
-                    orderby n.Item
-                    select new
-                    {
-                        ID = c.ID,
-                        EvaluationID = c.EvaluationID,
-                        NormaID = c.NormaID,
-                        Ciclo = n.Ciclo,
-                        Standard = n.Standard,
-                        Item = n.Item,
-                        Name = n.Name,
-                        Valor = n.Valor,
-                        Cumple = c.Cumple,
-                        NoCumple = c.NoCumple,
-                        Justify = c.Justify,
-                        NoJustify = c.NoJustify,
-                        Valoration = c.Valoration,
-                        Observation = c.Observation,
-                        Verification = n.Verification
-                    }
+                var list = (from c in _empresaContext.Califications
+                            join n in _empresaContext.Normas on c.NormaID equals n.ID
+                            where c.EvaluationID == id && n.Ciclo == ciclo
+                            orderby n.Item
+                            select new
+                            {
+                                ID = c.ID,
+                                EvaluationID = c.EvaluationID,
+                                NormaID = c.NormaID,
+                                Ciclo = n.Ciclo,
+                                Standard = n.Standard,
+                                Item = n.Item,
+                                Name = n.Name,
+                                Valor = n.Valor,
+                                Cumple = c.Cumple,
+                                NoCumple = c.NoCumple,
+                                Justify = c.Justify,
+                                NoJustify = c.NoJustify,
+                                Valoration = c.Valoration,
+                                Observation = c.Observation,
+                                Verification = n.Verification
+                            }
                 ).ToList();
-                    
+
                 return Json(list, JsonRequestBehavior.AllowGet);
             }
             catch
@@ -301,27 +301,27 @@ namespace WSafe.Web.Controllers
                 var noAplica = 0;
                 decimal standarsResult = 0;
                 decimal aplicationsResult = 0;
-                var list1 = ( from c in _empresaContext.Califications
-                        join n in _empresaContext.Normas on c.NormaID equals n.ID
-                        where c.EvaluationID == id
-                        select new
-                        {
-                            ID = c.ID,
-                            EvaluationID = c.EvaluationID,
-                            NormaID = c.NormaID,
-                            Ciclo = n.Ciclo,
-                            Standard = n.Standard,
-                            Item = n.Item,
-                            Name = n.Name,
-                            Valor = n.Valor,
-                            Cumple = c.Cumple,
-                            NoCumple = c.NoCumple,
-                            Justify = c.Justify,
-                            NoJustify = c.NoJustify,
-                            Valoration = c.Valoration,
-                            Observation = c.Observation,
-                            Verification = n.Verification
-                        }).ToList();
+                var list1 = (from c in _empresaContext.Califications
+                             join n in _empresaContext.Normas on c.NormaID equals n.ID
+                             where c.EvaluationID == id
+                             select new
+                             {
+                                 ID = c.ID,
+                                 EvaluationID = c.EvaluationID,
+                                 NormaID = c.NormaID,
+                                 Ciclo = n.Ciclo,
+                                 Standard = n.Standard,
+                                 Item = n.Item,
+                                 Name = n.Name,
+                                 Valor = n.Valor,
+                                 Cumple = c.Cumple,
+                                 NoCumple = c.NoCumple,
+                                 Justify = c.Justify,
+                                 NoJustify = c.NoJustify,
+                                 Valoration = c.Valoration,
+                                 Observation = c.Observation,
+                                 Verification = n.Verification
+                             }).ToList();
 
                 var list2 = new List<CalificationVM>();
                 foreach (var item in list1)
@@ -353,8 +353,8 @@ namespace WSafe.Web.Controllers
                     if (item.NoJustify) { noAplica++; }
                 }
                 var aplica = total - noAplica;
-                if (total > 0) { standarsResult = cumple / total; }
-                if (aplica > 0) { aplicationsResult = cumple / aplica; }
+                if (total > 0) { standarsResult = Convert.ToDecimal((double)cumple / (double)total * 100); }
+                if (aplica > 0) { aplicationsResult = Convert.ToDecimal((double)cumple / (double)aplica * 100); }
                 ValorationCategory category = ValorationCategory.ACEPTABLE;
 
                 switch (standarsResult)
@@ -555,7 +555,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult>  GeneratePDF(int id)
+        public async Task<ActionResult> GeneratePDF(int id)
         {
             Random random = new Random();
             var filename = "EstándaresMinimos" + random.Next(1, 100) + ".Pdf";
@@ -570,6 +570,28 @@ namespace WSafe.Web.Controllers
             report.PageOrientation.GetValueOrDefault();
             report.FormsAuthenticationCookieName = FormsAuthentication.FormsCookieName;
             return report;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> DeleteEvaluation(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var message = "El registro NO ha sido eliminado exitosamente";
+            Evaluation evaluation = await _empresaContext.Evaluations.FindAsync(id);
+            var fecha = evaluation.FechaEvaluation.ToString("yyyy-MM-dd");
+            return Json(new { data = evaluation, dateEvaluation = fecha, error = message }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteEvaluation(int id)
+        {
+            Evaluation evaluation = await _empresaContext.Evaluations.FindAsync(id);
+            _empresaContext.Evaluations.Remove(evaluation);
+            await _empresaContext.SaveChangesAsync();
+            return Json(new { data = true, message = "El registro ha sido eliminado exitosamente" }, JsonRequestBehavior.AllowGet);
         }
     }
 }
