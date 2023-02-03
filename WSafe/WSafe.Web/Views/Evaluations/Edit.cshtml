@@ -1,11 +1,10 @@
 ﻿@{
     var title = "GESTIONAR EVALUACIÓN DE ESTÁNDARES";
-    var Id = ViewBag.Id;
 }
 
 <style>
     .tabIdCausas, .tabGesPlanAcc, .tabGesSeguiPlanAcc, .tabPlanAcc, .tabSeguimAcc, .tabSeguimPlanAcc, .tabAddPlanAcc, .tabAddSeguimAcc,
-    .tabGesCalifications, .tabAddCalifications, .tabGesCiclo, .tabGesEvaluation {
+    .tabGesCalifications, .tabAddCalifications, .tabGesEvaluation {
         display: none;
     }
 </style>
@@ -39,15 +38,20 @@
 
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <input type="hidden" id="txtEvaluationID" name="txtEvaluationID"/>
         <div class="container-fluid">
             <button type="button" class="btn btn-success" id="calificar" onclick="UpdateEvaluation()">RESULTADOS</button>
             <button type="button" class="btn btn-warning" id="btnShowPlanActivitys" title="doble click para cerrar la ventana">PLAN DE ACTIVIDADES</button>
-            @Html.ActionLink(" ", "GeneratePDF", new { id = @Id }, new { @class = "glyphicon glyphicon-download-alt" })
+            @Html.ActionLink("Generar PDF", "GeneratePDF", new { id = @ViewBag.ID }, new { @class = "btn btn-info" })
         </div>
         <div class="tabGesPlanAcc">
             <div class="container-fluid">
                 @Html.Partial("_ShowPlanActivity")
             </div>
+        </div>
+        <div class="tabAddPlanAcc">
+            <input type="hidden" id="txtPlanActivityID" name="txtPlanActivityID" />
+            @Html.Partial("_EditPlanActivity")
         </div>
         <div class="tabGesCiclo">
             <div class="container-fluid" style="margin-left:65%">
@@ -56,10 +60,6 @@
                 <button type="button" class="btn btn-success" id="verificar" title="doble click para cerrar la ventana">VERIFICAR</button>
                 <button type="button" class="btn btn-info" id="actuar" title="doble click para cerrar la ventana">ACTUAR</button>
             </div>
-        </div>
-        <div class="tabAddPlanAcc">
-            <input type="hidden" id="txtPlanActivityID" name="txtPlanActivityID" />
-            @Html.Partial("_EditPlanActivity")
         </div>
         <div class="tabAddCalifications">
             <input type="hidden" id="txtCalificationID" name="txtCalificationID" />
@@ -111,7 +111,9 @@
         var ciclo = "";
         var Item = "";
         var name = "";
-        var evaluationID = $("#txtEvaluationID").val();
+        var evaluationID = @ViewBag.ID;
+        $("#txtEvaluationID").val(evaluationID);
+
         var normaID = $("#txtNormaID").val();
         var valoration = $("#txtValor").val();
 

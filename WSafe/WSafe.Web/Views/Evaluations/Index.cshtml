@@ -115,7 +115,7 @@
         <td style="margin:initial; background-color:deepskyblue; text-align:left;font-size:15px;display:flex">
             @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) |
             @Html.ActionLink(" ", "GeneratePDF", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt" }) |
-            <a href="#" onclick="DeleteAccion('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
+            <a href="#" onclick="DeleteEvaluation('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
         </td>
     </tr>
         }
