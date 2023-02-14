@@ -110,5 +110,8 @@ namespace WSafe.Domain.Data.Entities
         public int MesesExperiencia { get; set; }
         [MaxLength(2)]
         public string Range { get; set; }
+        public int StandardEvaluation { get; set; }
+        public int StandardMatrixRisk { get; set; }
+        public int StandardActions { get; set; }
     }
 }

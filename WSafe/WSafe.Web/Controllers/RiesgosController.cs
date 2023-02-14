@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -48,6 +49,7 @@ namespace WSafe.Web.Controllers
                 return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
             }
         }
+/*
         public async Task<ActionResult> GetAll()
         {
             var list = await _empresaContext.Riesgos
@@ -63,14 +65,23 @@ namespace WSafe.Web.Controllers
             ViewBag.fecha = DateTime.Now;
             return View(modelo);
         }
-
+*/
         [HttpGet]
         public async Task<ActionResult> PrintRiesgosToPdf()
         {
+            // Configuración nombre archivo pdf
+            var organization = _empresaContext.Organizations.OrderByDescending(x => x.ID).First();
+            var year = organization.Year.ToString();
+            var item = _empresaContext.Normas.Find(organization.StandardMatrixRisk).Item;
+            var fullPath = "~/SG-SST/2. HACER/" + year + "/" + item + "/";
+            var path = Server.MapPath(fullPath);
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
             Random random = new Random();
-            var filename = "MatrizRiesgos" + random.Next(1, 100) + ".Pdf";
-            var filePathName = "~/Documents/" + filename;
-
+            var filename = "MatrixRisk" + random.Next(1, 100) + ".Pdf";
+            var filePathName = path + filename;
             var list = await _empresaContext.Riesgos
                 .Include(mi => mi.MedidasIntervencion)
                 .OrderByDescending(cr => cr.NivelRiesgo)
@@ -89,6 +100,30 @@ namespace WSafe.Web.Controllers
             report.PageOrientation = Rotativa.Options.Orientation.Landscape;
             report.PageWidth = 399;
             report.PageHeight = 399;
+            report.SaveOnServerPath = filePathName;
+
+            //Generar archivo de movimiento
+            var fullName = filename;
+            var type = Path.GetExtension(filename).ToUpper();
+            var descript = "Matriz de riesgos";
+            var userID = (int)Session["userID"];
+            Movimient movimient = new Movimient()
+            {
+                ID = 0,
+                OrganizationID = organization.ID,
+                NormaID = organization.StandardMatrixRisk,
+                UserID = userID,
+                Descripcion = descript,
+                Document = fullName,
+                Year = year,
+                Item = item,
+                Ciclo = "H",
+                Type = type,
+                Path = path
+            };
+            _empresaContext.Movimientos.Add(movimient);
+            _empresaContext.SaveChanges();
+
             return report;
         }
 
