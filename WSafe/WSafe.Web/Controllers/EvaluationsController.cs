@@ -2,9 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Drawing.Printing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using WSafe.Domain.Data.Entities;
@@ -557,18 +560,53 @@ namespace WSafe.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> GeneratePDF(int id)
         {
+            // Configuración nombre archivo pdf
+            var organization = _empresaContext.Organizations.OrderByDescending(x => x.ID).First();
+            var year = organization.Year.ToString();
+            var item = _empresaContext.Normas.Find(organization.StandardEvaluation).Item;
+            var fullPath = "~/SG-SST/1. PLANEAR/" + year + "/" + item + "/";
+            var path = Server.MapPath(fullPath);
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
             Random random = new Random();
             var filename = "EstándaresMinimos" + random.Next(1, 100) + ".Pdf";
-            var filePathName = "~/Documents/" + filename;
+            var filePathName = path + filename;
             var evaluation = await _empresaContext.Evaluations.FindAsync(id);
             var model = _converterHelper.ToMinimalsStandardsVM(evaluation);
-            var report = new ViewAsPdf("MinimalsStandards", new { id = id });
+            var report = new ViewAsPdf("MinimalsStandards");
             report.Model = model;
             report.FileName = filePathName;
             report.PageSize = Rotativa.Options.Size.Letter;
+            report.PageMargins = new Rotativa.Options.Margins(5, 5, 5, 5);
             report.Copies = 1;
             report.PageOrientation.GetValueOrDefault();
             report.FormsAuthenticationCookieName = FormsAuthentication.FormsCookieName;
+            report.SaveOnServerPath = filePathName;
+
+            //Generar archivo de movimiento
+            var fullName = filename;
+            var type = Path.GetExtension(filename).ToUpper();
+            var descript = "Evaluación estándares";
+            var userID = (int)Session["userID"];
+            Movimient movimient = new Movimient()
+            {
+                ID = 0,
+                OrganizationID = organization.ID,
+                NormaID = organization.StandardEvaluation,
+                UserID = userID,
+                Descripcion = descript,
+                Document = fullName,
+                Year = year,
+                Item = item,
+                Ciclo = "P",
+                Type = type,
+                Path = path
+            };
+            _empresaContext.Movimientos.Add(movimient);
+            _empresaContext.SaveChanges();
+
             return report;
         }
 
@@ -592,6 +630,75 @@ namespace WSafe.Web.Controllers
             _empresaContext.Evaluations.Remove(evaluation);
             await _empresaContext.SaveChangesAsync();
             return Json(new { data = true, message = "El registro ha sido eliminado exitosamente" }, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult CreateMovimient(string Descripcion, int NormaID, HttpPostedFileBase fileLoad)
+        {
+            var message = "";
+            try
+            {
+                var organizatión = _empresaContext.Organizations.OrderByDescending(x => x.ID).First();
+                var year = organizatión.Year.ToString();
+                var normaID = NormaID.ToString();
+                var userID = (int)Session["userID"];
+                var descript = Descripcion.ToString();
+                var norma = _empresaContext.Normas.Find(NormaID);
+                var cycle = norma.Ciclo.ToString();
+                var ruta = norma.Ciclo.ToString();
+
+                switch (cycle)
+                {
+                    case "P":
+                        ruta = "1. PLANEAR/";
+                        break;
+
+                    case "H":
+                        ruta = "2. HACER/";
+                        break;
+                    case "V":
+                        ruta = "3. VERIFICAR/";
+                        break;
+                    case "A":
+                        ruta = "4. ACTUAR/";
+                        break;
+                }
+
+                var item = norma.Item.ToString();
+                var fullPath = "~/SG-SST/" + ruta + year + "/" + item + "/";
+                var path = Server.MapPath(fullPath);
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                fileLoad.SaveAs(path + Path.GetFileName(fileLoad.FileName));
+                var fullName = fileLoad.FileName;
+                var type = Path.GetExtension(fileLoad.FileName).ToUpper();
+
+                // Crear movimiento de documentos
+                Movimient model = new Movimient()
+                {
+                    ID = 0,
+                    OrganizationID = organizatión.ID,
+                    NormaID = NormaID,
+                    UserID = userID,
+                    Descripcion = descript,
+                    Document = fullName,
+                    Year = year,
+                    Item = item,
+                    Ciclo = cycle,
+                    Type = type,
+                    Path = path
+                };
+
+                _empresaContext.Movimientos.Add(model);
+                _empresaContext.SaveChanges();
+                message = "El archivo ha sido subido correctamente !!";
+                return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                message += ex.Message;
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }
