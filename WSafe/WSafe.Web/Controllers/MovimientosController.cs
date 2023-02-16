@@ -32,12 +32,11 @@ namespace WSafe.Web.Controllers
             _chartHelper = chartHelper;
         }
 
-        [AuthorizeUser(operation: 1, component: 2)]
-
-
         // GET: Movimientos
+        [AuthorizeUser(operation: 1, component: 2)]
         public async Task<ActionResult> Index()
         {
+            ViewBag.Users = _comboHelper.GetComboUsers();
             return View();
         }
 
@@ -95,7 +94,7 @@ namespace WSafe.Web.Controllers
                 }
 
                 var item = norma.Item.ToString();
-                var fullPath = "~/SG-SST/" + ruta + year + "/" + item + "/";
+                var fullPath = "~/SG-SST/" + year + "/" + ruta + item + "/";
                 var path = Server.MapPath(fullPath);
                 if (!Directory.Exists(path))
                 {
@@ -169,7 +168,7 @@ namespace WSafe.Web.Controllers
 
             var year = model.Year.ToString();
             var item = model.Item.ToString();
-            var fullFilePath = "~/SG-SST/" + ruta + year + "/" + item + "/" + model.Document;
+            var fullFilePath = "~/SG-SST/" + year + "/" + ruta + item + "/" + model.Document;
             var path = Server.MapPath(fullFilePath);
             try
             {
@@ -303,8 +302,8 @@ namespace WSafe.Web.Controllers
 
                 var year = model.Year.ToString();
                 var item = model.Item.ToString();
-                var fullFilePath = "~/SG-SST/" + ruta + year + "/" + item + "/" + model.Document;
-                var filePath = "~/SG-SST/" + ruta + year + "/" + item + "/";
+                var fullFilePath = "~/SG-SST/" + year + "/" + ruta + item + "/" + model.Document;
+                var filePath = "~/SG-SST/" + year + "/" + ruta + item + "/";
                 var path = Server.MapPath(fullFilePath);
                 var directoryPath = Server.MapPath(filePath);
                 var type = model.Type.ToLower();
@@ -375,22 +374,18 @@ namespace WSafe.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> DeleteFile(int id)
         {
-            var message = "";
             try
             {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
+                var message = "";
                 Movimient model = await _empresaContext.Movimientos.FindAsync(id);
                 if (model == null)
                 {
-                    message = "El archivo NO ha sido abierto correctamente !!";
+                    message = "El archivo NO se ha abierto correctamente !!";
                     return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
+
                 var cycle = model.Ciclo.ToString();
                 var ruta = model.Ciclo.ToString();
-
                 switch (cycle)
                 {
                     case "P":
@@ -410,15 +405,14 @@ namespace WSafe.Web.Controllers
 
                 var year = model.Year.ToString();
                 var item = model.Item.ToString();
-                var fullFilePath = "~/SG-SST/" + ruta + year + "/" + item + "/";
+                var fullFilePath = "~/SG-SST/" + year + "/" + ruta + item + "/";
                 string fullPath = Server.MapPath(fullFilePath);
-                _empresaContext.Movimientos.Remove(model);
-                await _empresaContext.SaveChangesAsync();
                 string fileName = model.Document;
                 string fileLocation = Path.Combine(fullPath, fileName);
-                string url = Request.Url.ToString();
-                WebClient cln = new WebClient();
-                cln.DownloadFile(url, fileLocation);
+                FileInfo file = new FileInfo(fileLocation);
+                file.Delete();
+                _empresaContext.Movimientos.Remove(model);
+                await _empresaContext.SaveChangesAsync();
                 message = "El archivo se ha eliminado correctamente !!";
                 return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
@@ -428,15 +422,11 @@ namespace WSafe.Web.Controllers
             }
         }
         [HttpPost]
-        public async Task<ActionResult> SendMail(int id)
+        public async Task<ActionResult> SendMail(int id, int destino1, int destino2, int destino3, string sendAsunto, string sendMessage)
         {
             var message = "";
             try
             {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
                 Movimient model = await _empresaContext.Movimientos.FindAsync(id);
                 if (model == null)
                 {
@@ -465,24 +455,26 @@ namespace WSafe.Web.Controllers
 
                 var year = model.Year.ToString();
                 var item = model.Item.ToString();
-                var fullFilePath = "~/SG-SST/" + ruta + year + "/" + item + "/";
+                var fullFilePath = "~/SG-SST/" + year + "/" + ruta + item + "/";
                 string fullPath = Server.MapPath(fullFilePath);
-                _empresaContext.Movimientos.Remove(model);
-                await _empresaContext.SaveChangesAsync();
                 string fileName = model.Document;
 
                 // Enviar Email
                 string fileLocation = Path.Combine(fullPath, fileName);
-                string url = Request.Url.ToString();
-                string emailOrigen = "flpuertacardon@gmail.com";
-                string emailDestino = "flpuertacardon@gmail.com";
+                var userID = (int)Session["userID"];
+                string emailOrigen = _empresaContext.Users.Find(userID).Email;
+                string emailDestino1 = _empresaContext.Users.Find(destino1).Email;
+                string emailDestino2 = _empresaContext.Users.Find(destino2).Email;
+                string emailDestino3 = _empresaContext.Users.Find(destino3).Email;
                 string contraseña = "ryexorlfkqdqpvls";
-                string asunto = "Requerimiento SG-SST";
-                string contenido = "<b>Favor realizar las acciones indicadas en el adjunto, de acuerdo con los terminos</b>";
+                string asunto = sendAsunto;
+                string contenido = sendMessage;
                 MailMessage oMailMessage = new MailMessage();
                 oMailMessage.From = new MailAddress(emailOrigen);
                 oMailMessage.Subject = asunto;
-                oMailMessage.To.Add(new MailAddress(emailDestino));
+                oMailMessage.To.Add(new MailAddress(emailDestino1));
+                oMailMessage.To.Add(new MailAddress(emailDestino2));
+                oMailMessage.To.Add(new MailAddress(emailDestino3));
                 oMailMessage.Body = contenido;
                 oMailMessage.IsBodyHtml = true;
                 oMailMessage.Attachments.Add(new Attachment(fileLocation));

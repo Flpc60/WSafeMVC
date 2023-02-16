@@ -468,7 +468,7 @@ function ShowMovimientos(phva) {
 
                 html += '<td><a href = "#" onclick = "DownLoadPDF(' + item.ID + ')" class="btn btn-success">Descargar</a></td>';
                 html += '<td><a href = "#" onclick = "DeleteMovimient(' + item.ID + ')" class="btn btn-danger">Eliminar</a></td>';
-                html += '<td><a href = "#" onclick = "SendEmail(' + item.ID + ')" class="btn btn-info">Enviar correo</a></td>';
+                html += '<td><a href = "#" onclick = "OpenEmail(' + item.ID + ')" class="btn btn-info">Enviar</a></td>';
                 html += '</tr>';
             });
             $('.tbody').html(html);
@@ -4749,13 +4749,29 @@ function CancelRecomendation() {
     $("#txtRecomendation").val("");
 }
 
-function SendEmail(movimientID) {
+function OpenEmail(movimientID) {
+    $("#txtMovimientID").val(movimientID);
+    $(".tabSendEmail").css("display", "block");
+}
+
+function SendEmail() {
     $(".tabGesMovimientos").css("display", "none");
+    var movimientID = $("#txtMovimientID").val();
+    var asunto = $("#txtAsunto").val();
+    $("#txtSendAsunto").val(asunto);
     $.ajax({
         async: true,
         type: 'POST',
         url: "/Movimientos/SendMail",
-        data: { id: movimientID },
+        data:
+        {
+            id: movimientID,
+            destino1: $("#txtDestino1").val(),
+            destino2: $("#txtDestino2").val(),
+            destino3: $("#txtDestino3").val(),
+            sendAsunto: $("#txtAsunto").val(),
+            sendMessage: $("#txtMessage").val(),
+        },
         dataType: "json",
         success: function (result) {
             alert(result.mensaj);
@@ -4769,6 +4785,7 @@ function SendEmail(movimientID) {
     $(".tabAddMovimientos").css("display", "none");
     $("#btnAddMovimient").hide();
     $("#btnCanMovimient").show();
+    $(".tabSendEmail").css("display", "none");
 }
 
 function AddEvaluation() {

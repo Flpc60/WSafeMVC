@@ -5,7 +5,8 @@
 }
 
 <style>
-    .tabGesMovimientos, .tabAddMovimientos {
+    .tabGesMovimientos, .tabAddMovimientos, .tabSendEmail
+    {
         display: none;
     }
 </style>
@@ -44,47 +45,52 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="tabAddMovimientos">
-            @Html.Partial("_EditMovimient")
-            <div class="row">
-                <div class="col-md-8">
-                    <hr />
-                    <button type="button" id="btnAddMovimient" class="btn btn-primary" onclick="AddNewMovimient()">Subir archivo</button>
-                    <button type="button" id="btnCanMovimient" class="btn btn-primary" onclick="CancelMovimient()">
-                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
-                    </button>
-                </div>
-                <div class="col-md-4">
-                </div>
+    <div class="tabAddMovimientos">
+        @Html.Partial("_EditMovimient")
+        <div class="row">
+            <div class="col-md-8">
+                <hr />
+                <button type="button" id="btnAddMovimient" class="btn btn-primary" onclick="AddNewMovimient()">Subir archivo</button>
+                <button type="button" id="btnCanMovimient" class="btn btn-primary" onclick="CancelMovimient()">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                </button>
+            </div>
+            <div class="col-md-4">
             </div>
         </div>
-
-        <div class="tabGesMovimientos">
-            <hr />
-            <hr />
-            <div class="row">
-                <div class="col-md-4">
-                    <button type="button" class="btn btn-primary" id="addMovimient">Subir archivo</button>
-                </div>
-                <div class="col-md-5">
-                    <div class="form-group">
-                        <select name="txtStandardID" class="form-control form-control-lg" id="txtStandardID">
-                            <option selected="selected" value="0">Seleccione un estándar ...</option>
-                        </select>
-                        <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="txtStandardID"></span>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <button type="button" class="btn btn-success" id="selectMovimient">Buscar</button>
-                </div>
-            </div>
-            @Html.Partial("_ShowMovimientos")
-        </div>
-
     </div>
+
+    <div class="tabSendEmail">
+        <input type="hidden" id="txtMovimientID" name="txtMovimientID" />
+        @Html.Partial("_EditEmailForm")
+    </div>
+
+    <div class="tabGesMovimientos">
+        <hr />
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <button type="button" class="btn btn-primary" id="addMovimient">Subir archivo</button>
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <select name="txtStandardID" class="form-control form-control-lg" id="txtStandardID">
+                        <option selected="selected" value="0">Seleccione un estándar ...</option>
+                    </select>
+                    <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="txtStandardID"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-success" id="selectMovimient">Buscar</button>
+            </div>
+        </div>
+        @Html.Partial("_ShowMovimientos")
+    </div>
+
+</div>
 }
 
 @section Scripts
