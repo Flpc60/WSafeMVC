@@ -564,7 +564,7 @@ namespace WSafe.Web.Controllers
             var organization = _empresaContext.Organizations.OrderByDescending(x => x.ID).First();
             var year = organization.Year.ToString();
             var item = _empresaContext.Normas.Find(organization.StandardEvaluation).Item;
-            var fullPath = "~/SG-SST/1. PLANEAR/" + year + "/" + item + "/";
+            var fullPath = "~/SG-SST/" + year + "/1. PLANEAR/" + item + "/";
             var path = Server.MapPath(fullPath);
             if (!Directory.Exists(path))
             {
