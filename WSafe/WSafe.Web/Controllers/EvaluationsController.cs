@@ -407,7 +407,10 @@ namespace WSafe.Web.Controllers
                     FechaFinal = model.FechaFinal,
                     Activity = model.Activity,
                     TrabajadorID = model.TrabajadorID,
-                    Recurso = model.Recurso,
+                    Financieros = model.Financieros,
+                    Administrativos = model.Administrativos,
+                    Tecnicos = model.Tecnicos,
+                    Humanos = model.Humanos,
                     ActionCategory = model.ActionCategory,
                     Observation = model.Observation,
                     Fundamentos = model.Fundamentos
@@ -439,7 +442,10 @@ namespace WSafe.Web.Controllers
                         TrabajadorID = p.TrabajadorID,
                         FechaFinal = p.FechaFinal,
                         Activity = p.Activity,
-                        Recurso = p.Recurso,
+                        Financieros = p.Financieros,
+                        Administrativos = p.Administrativos,
+                        Tecnicos = p.Tecnicos,
+                        Humanos = p.Humanos,
                         ActionCategory = p.ActionCategory,
                         Observation = p.Observation,
                         Ciclo = n.Ciclo,
@@ -458,7 +464,10 @@ namespace WSafe.Web.Controllers
                         FechaFinal = item.FechaFinal,
                         FechaCumplimiento = item.FechaFinal.ToString("yyyy-MM-dd"),
                         Activity = item.Activity,
-                        TxtRecurso = _gestorHelper.GetRecurso(item.Recurso),
+                        Financieros = item.Financieros,
+                        Administrativos = item.Administrativos,
+                        Tecnicos = item.Tecnicos,
+                        Humanos = item.Humanos,
                         TxtActionCategory = _gestorHelper.GetActionCategory((int)item.ActionCategory),
                         Observation = item.Observation,
                         Ciclo = _gestorHelper.GetCiclo(item.Ciclo),
@@ -545,6 +554,7 @@ namespace WSafe.Web.Controllers
             try
             {
                 // Actualizar la BD
+                //PlanActivity plan = await _empresaContext.PlanActivities.FindAsync(model.ID);
                 _empresaContext.Entry(model).State = EntityState.Modified;
                 await _empresaContext.SaveChangesAsync();
                 message = "La actualización se ha realizado exitosamente !!";

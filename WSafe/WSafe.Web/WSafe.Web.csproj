@@ -468,6 +468,10 @@
     <Compile Include="Migrations\202302142110080_UpdateOrganization11.Designer.cs">
       <DependentUpon>202302142110080_UpdateOrganization11.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202302211730354_UpdplanActivity.cs" />
+    <Compile Include="Migrations\202302211730354_UpdplanActivity.Designer.cs">
+      <DependentUpon>202302211730354_UpdplanActivity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
     <Compile Include="Models\AplicacionVM.cs" />
@@ -1139,6 +1143,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202302142110080_UpdateOrganization11.resx">
       <DependentUpon>202302142110080_UpdateOrganization11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202302211730354_UpdplanActivity.resx">
+      <DependentUpon>202302211730354_UpdplanActivity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
