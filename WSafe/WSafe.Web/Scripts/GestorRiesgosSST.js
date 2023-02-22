@@ -4821,6 +4821,14 @@ function AddPlanActivity() {
     $('.tabAddPlanAcc').css("display", "none");
     //evaluationID = $("#txtEvaluationID").val();
     normaID = $("#txtNormaID").val();
+    var financieros = false;
+    var administrativos = false;
+    var tecnicos = false;
+    var humanos = false;
+    if ($("#txtFinancieros").is(':checked')) { financieros = true; }
+    if ($("#txtAdministrativos").is(':checked')) { administrativos = true; }
+    if ($("#txtTecnicos").is(':checked')) { tecnicos = true; }
+    if ($("#txtHumanos").is(':checked')) { humanos = true; }
     var planActivity = {
         ID: "0",
         EvaluationID: evaluationID,
@@ -4828,7 +4836,10 @@ function AddPlanActivity() {
         TrabajadorID: $("#txtResponsable").val(),
         FechaFinal: $("#txtFechaFinal").val(),
         Activity: $("#txtActivity").val(),
-        Recurso: $("#txtRecursos").val(),
+        Financieros: financieros,
+        Administrativos: administrativos,
+        Tecnicos: tecnicos,
+        Humanos: humanos,
         ActionCategory: $("#txtActionCategory").val(),
         Observation: $("#txtObservation").val(),
         Fundamentos: $("#txtFundamentos").val()
@@ -4943,6 +4954,23 @@ function ShowPlanActivities(evaluationID) {
         success: function (response) {
             var html = '';
             $.each(response, function (key, item) {
+                recursos = '';
+                if (item.Financieros) {
+                    recursos += 'Financieros, ';
+                }
+
+                if (item.Administrativos) {
+                    recursos += 'Administrativos, ';
+                }
+
+                if (item.Tecnicos) {
+                    recursos += 'Técnicos, ';
+                }
+
+                if (item.Humanos) {
+                    recursos += 'Humanos';
+                }
+
                 html += '<tr>';
                 html += '<td>' + item.Ciclo + '</td>';
                 html += '<td>' + item.Item + ' ' + item.Name + '</td>';
@@ -4950,10 +4978,10 @@ function ShowPlanActivities(evaluationID) {
                 html += '<td>' + item.Activity + '</td>';
                 html += '<td>' + item.Responsable + '</td>';
                 html += '<td>' + item.FechaCumplimiento + '</td>';
-                html += '<td>' + item.TxtRecurso + '</td>';
+                html += '<td>' + recursos + '</td>';
                 html += '<td>' + item.Fundamentos + '</td>';
                 html += '<td>' + item.TxtActionCategory + '</td>';
-                html += '<td><a href="#" onclick="return getPlanActivityByID(' + item.ID + ')">Editar</a> | <a href = "#" onclick = "DeletePlanActivity(' + item.ID + ')"> Eliminar</a></td>';
+                html += '<td><a href="#" onclick="return getPlanActivityByID(' + item.ID + ')">Editar</a></td>';
                 html += '<hr />';
                 html += '</tr>';
             });
@@ -5043,9 +5071,21 @@ function getPlanActivityByID(planActivityID) {
         success: function (result) {
             var standard = " ESTÁNDAR : " + result.Standard;
             var itemStandard = " ITEM ESTÁNDAR : " + result.Item + " " + result.Name;
+            $("#txtFinancieros").prop('checked', false)
+            $("#txtAdministrativos").prop('checked', false)
+            $("#txtTecnicos").prop('checked', false)
+            $("#txtHumanos").prop('checked', false)
+            if (result.Financieros) { $("#txtFinancieros").prop('checked', true) };
+            if (result.Administrativos) { $("#txtAdministrativos").prop('checked', true) };
+            if (result.Tecnicos) { $("#txtTecnicos").prop('checked', true) };
+            if (result.Humanos) { $("#txtHumanos").prop('checked', true) };
+
             $("#txtActivity").val(result.Activity);
             $("#txtResponsable").val(result.TrabajadorID);
-            $("#txtRecursos").val(result.Recurso);
+            $("#txtFinancieros").val(result.Financieros);
+            $("#txtAdministrativos").val(result.Administrativos);
+            $("#txtTecnicos").val(result.Tecnicos);
+            $("#txtHumanos").val(result.Humanos);
             $("#txtFechaFinal").val(result.FechaCumplimiento);
             $("#txtFundamentos").val(result.Fundamentos);
             $("#txtActionCategory").val(result.ActionCategory);
@@ -5151,6 +5191,15 @@ function UpdatePlanActivity() {
     $(".tabAddCalifications").css("display", "none");
     $(".tabAddPlanAcc").css("display", "none");
     planActivityID = $("#txtPlanActivityID").val();
+    var financieros = false;
+    var administrativos = false;
+    var tecnicos = false;
+    var humanos = false;
+    if ($("#txtFinancieros").is(':checked')) { financieros = true; }
+    if ($("#txtAdministrativos").is(':checked')) { administrativos = true; }
+    if ($("#txtTecnicos").is(':checked')) { tecnicos = true; }
+    if ($("#txtHumanos").is(':checked')) { humanos = true; }
+
     var planActivityVM =
     {
         ID: planActivityID,
@@ -5159,7 +5208,10 @@ function UpdatePlanActivity() {
         TrabajadorID: $("#txtResponsable").val(),
         FechaFinal: $("#txtFechaFinal").val(),
         Activity: $("#txtActivity").val(),
-        Recurso: $("#txtRecursos").val(),
+        Financieros: financieros,
+        Administrativos: administrativos,
+        Tecnicos: tecnicos,
+        Humanos: humanos,
         ActionCategory: $("#txtActionCategory").val(),
         Observation: $("#txtObservation").val(),
         Fundamentos: $("#txtFundamentos").val()

@@ -20,8 +20,14 @@ namespace WSafe.Domain.Data.Entities
         [Display(Name = "TRABAJADOR RESPONSABLE")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int TrabajadorID { get; set; }
-        [Display(Name = "RECURSOS")]
-        public RecursosCategory Recurso { get; set; }
+        [Display(Name = "FINANCIEROS")]
+        public bool Financieros { get; set; }
+        [Display(Name = "ADMINISTRATIVO")]
+        public bool Administrativos { get; set; }
+        [Display(Name = "TÉCNICOS")]
+        public bool Tecnicos { get; set; }
+        [Display(Name = "HUMANOS")]
+        public bool Humanos { get; set; }
         public ActionCategories ActionCategory { get; set; }
         [MaxLength(100)]
         [Display(Name = "OBSERVACIONES")]
