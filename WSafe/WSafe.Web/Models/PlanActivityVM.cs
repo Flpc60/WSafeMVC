@@ -18,8 +18,14 @@ namespace WSafe.Web.Models
         public DateTime FechaFinal { get; set; }
         public string FechaCumplimiento { get; set; }
         public string Activity { get; set; }
-        public RecursosCategory Recurso { get; set; }
-        public string TxtRecurso { get; set; }
+        [Display(Name = "FINANCIEROS")]
+        public bool Financieros { get; set; }
+        [Display(Name = "ADMINISTRATIVO")]
+        public bool Administrativos { get; set; }
+        [Display(Name = "TÉCNICOS")]
+        public bool Tecnicos { get; set; }
+        [Display(Name = "HUMANOS")]
+        public bool Humanos { get; set; }
         public ActionCategories ActionCategory { get; set; }
         public string TxtActionCategory { get; set; }
         public string Observation { get; set; }

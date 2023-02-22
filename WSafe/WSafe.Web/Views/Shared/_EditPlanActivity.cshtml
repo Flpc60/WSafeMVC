@@ -50,21 +50,27 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label class="control-label col-md-6" for="txtRecursos">Recursos :</label>
-                <div class="col-md-8">
-                    <select name="txtRecursos" class="form-control" id="txtRecursos">
-                        <option selected="selected" value="0">Seleccione un recurso...</option>
-                        <option value="1">Financieros</option>
-                        <option value="2">Administrativos</option>
-                        <option value="3">Técnicos</option>
-                        <option value="4">Humanos</option>
-                    </select>
-                    <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="txtRecursos"></span>
-                </div>
+        <label for="txtRecursos">RECURSOS :</label><br />
+        <div class="form-group">
+            <div class="col-md-3">
+                <label for="txtFinancieros">Financieros</label>
+                <input type="checkbox" id="txtFinancieros" />
+            </div>
+            <div class="col-md-3">
+                <label for="txtAdministrativos">Administrativos</label>
+                <input type="checkbox" id="txtAdministrativos" />
+            </div>
+            <div class="col-md-3">
+                <label for="txtTecnicos">Técnicos</label>
+                <input type="checkbox" id="txtTecnicos" />
+            </div>
+            <div class="col-md-3">
+                <label for="txtHumanos">Humanos</label>
+                <input type="checkbox" id="txtHumanos" />
             </div>
         </div>
+    </div>
+    <div class="row">
         <div class="col-md-6">
             <div class="form-group">
                 <label class="control-label col-md-4" for="txtFechaFinal">Fecha cumplimiento</label>
@@ -73,18 +79,14 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-6">
             <div class="form-group">
-                <div class="col-md-12">
+                <div class="col-md-10">
                     <hr />
                     <label for="txtFundamentos">Fundamentos y soportes :</label>
                     <textarea id="txtFundamentos" style="resize:none;" class="form-control" rows=3 cols=70 required></textarea>
                 </div>
             </div>
-        </div>
-        <div class="col-md-2">
         </div>
     </div>
     <div class="row">

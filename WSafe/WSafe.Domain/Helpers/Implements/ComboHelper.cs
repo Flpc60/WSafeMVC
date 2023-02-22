@@ -409,5 +409,23 @@ namespace WSafe.Domain.Helpers.Implements
 
             return list;
         }
+        public IEnumerable<SelectListItem> GetComboUsers()
+        {
+            var list = _empresaContext.Users.Select(t => new SelectListItem
+            {
+                Text = t.Name,
+                Value = t.ID.ToString()
+            })
+                .OrderBy(t => t.Text)
+                .ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione un destinatario...)",
+                Value = "0"
+            });
+
+            return list;
+        }
     }
 }
