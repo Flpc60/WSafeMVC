@@ -4820,7 +4820,7 @@ function AddPlanActivity() {
     // Crea un nuevo plan de actividad
     $('.tabAddPlanAcc').css("display", "none");
     //evaluationID = $("#txtEvaluationID").val();
-    normaID = $("#txtNormaID").val();
+    var normaID = $("#txtNormaID").val();
     var financieros = false;
     var administrativos = false;
     var tecnicos = false;
@@ -5092,13 +5092,13 @@ function getPlanActivityByID(planActivityID) {
             $("#txtObservation").val(result.Observation);
             $("#txtEvaluationID").val(result.EvaluationID);
             $("#txtPlanActivityID").val(result.ID);
-            $("#txtObservation").focus();
             //document.getElementById("txtStandard").innerHTML = standard;
             document.getElementById("txtItem").innerHTML = itemStandard;
             $("#btnAddPlanActivity").hide();
             $("#btnUpdPlanActivity").show();
             $("#btnCanPlanActivity").show();
             $(".tabAddPlanAcc").css("display", "block");
+            $("#txtObservation").focus();
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -5190,7 +5190,8 @@ function UpdatePlanActivity() {
     $(".tabGesPlanAcc").css("display", "none");
     $(".tabAddCalifications").css("display", "none");
     $(".tabAddPlanAcc").css("display", "none");
-    planActivityID = $("#txtPlanActivityID").val();
+    var planActivityID = $("#txtPlanActivityID").val();
+    var normaID = $("#txtNormaID").val();
     var financieros = false;
     var administrativos = false;
     var tecnicos = false;
@@ -5337,6 +5338,8 @@ function GestorEvaluations() {
         ResetTab();
         $(".tabGesPlanAcc").css("display", "block");
         $(".tabCerrar").css("display", "none");
+        $(".tabGesCalifications").css("display", "none");
+        $(".tabGesEvaluation").css("display", "none");
         evaluationID = $("#txtEvaluationID").val();
         ShowPlanActivities(evaluationID);
     });
@@ -5351,6 +5354,23 @@ function GestorEvaluations() {
         $("#btnPlanActivity").focus();
         $(".tabAddPlanAcc").css("display", "block");
         $("#txtActivity").show();
+        $(".tabCerrar").css("display", "none");
+        $("#btnAddPlanActivity").show();
+        $("#btnUpdPlanActivity").hide();
+        $("#txtResponsable").val("");
+        $("#txtFechaFinal").val("");
+        $("#txtActivity").val("");
+        $("#txtRecursos").val("");
+        $("#txtActionCategory").val("");
+        $("#txtObservation").val("");
+        $("#txtFundamentos").val("");
+    });
+
+    $("#txtNoCumple").click(function () {
+        ResetTab();
+        $("#btnPlanActivity").show();
+        $(".tabAddPlanAcc").css("display", "block");
+        $("#txtObservation").focus();
         $(".tabCerrar").css("display", "none");
         $("#btnAddPlanActivity").show();
         $("#btnUpdPlanActivity").hide();
