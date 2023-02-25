@@ -3682,6 +3682,46 @@ function chartCorrectiveActions() {
     });
 }
 
+function chartCalificationsCiclo() {
+
+    // Gráficar evaluación por ciclo
+    $.ajax({
+        url: "/Evaluations/GetAllCalifications",
+        type: "GET",
+        data: { id: evaluationID },
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (response) {
+            $("#imgCalificationsCiclo").attr("src", response);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function chartCalificationsStandard() {
+
+    // Gráficar evaluación por ciclo
+    $.ajax({
+        url: "/Evaluations/GetAllCalificationsStandard",
+        type: "GET",
+        data: { id: evaluationID },
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (response) {
+            $("#imgCalificationsStandard").attr("src", response);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
 function AddEvent() {
     // Crea un nuevo evento
     $('.tabAddEvents').css("display", "none");
