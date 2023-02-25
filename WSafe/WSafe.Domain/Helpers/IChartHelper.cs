@@ -24,5 +24,7 @@ namespace WSafe.Domain.Helpers
         IEnumerable<IndicadorDetallesViewModel> GetAllNoConformance();
         IEnumerable<IndicadorDetallesViewModel> GetAllValueActions();
         IEnumerable<IndicadorDetallesViewModel> GetAllValueCorrectiveActions();
+        IEnumerable<IndicadorDetallesViewModel> GetAllCalifications(int id);
+        IEnumerable<IndicadorDetallesViewModel> GetAllCalificationsStandard(int id);
     }
 }

@@ -23,7 +23,7 @@ namespace WSafe.Domain.Helpers.Implements
         {
             var chartImage = new Chart(width: 600, height: 300, theme: ChartTheme.Green);
             chartImage.AddTitle(nombre);
-            chartImage.SetXAxis("PERIODO");
+            chartImage.SetXAxis("CATEGORÍA");
             chartImage.SetYAxis("VALORES");
             chartImage.AddLegend();
             chartImage.AddSeries("RESULTADOS", chartType: tipo,
@@ -656,6 +656,293 @@ namespace WSafe.Domain.Helpers.Implements
                     ID = 3,
                     MesAnn = "Mejoras",
                     Resultado = pMejora
+                });
+
+                return viewModel;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
+        }
+        public IEnumerable<IndicadorDetallesViewModel> GetAllCalifications(int id)
+        {
+            try
+            {
+                var list = (from c in _empresaContext.Califications
+                            join n in _empresaContext.Normas on c.NormaID equals n.ID
+                            where c.EvaluationID == id
+                            orderby n.Item
+                            select new
+                            {
+                                ID = c.ID,
+                                Ciclo = n.Ciclo,
+                                Standard = n.Standard,
+                                Valor = n.Valor,
+                                Valoration = c.Valoration,
+                            }
+                ).ToList();
+                decimal pMaximo = 0;
+                decimal pObtenido = 0;
+                decimal hMaximo = 0;
+                decimal hObtenido = 0;
+                decimal vMaximo = 0;
+                decimal vObtenido = 0;
+                decimal aMaximo = 0;
+                decimal aObtenido = 0;
+                foreach (var item in list)
+                {
+                    switch (item.Ciclo)
+                    {
+                        case "P":
+                            pMaximo += item.Valor;
+                            pObtenido += item.Valoration;
+                            break;
+                        case "H":
+                            hMaximo += item.Valor;
+                            hObtenido += item.Valoration;
+                            break;
+                        case "V":
+                            vMaximo += item.Valor;
+                            vObtenido += item.Valoration;
+                            break;
+                        case "A":
+                            aMaximo += item.Valor;
+                            aObtenido += item.Valoration;
+                            break;
+                        default:
+                            pMaximo += item.Valor;
+                            pObtenido += item.Valoration;
+                            break;
+                    }
+                }
+                var viewModel = new List<IndicadorDetallesViewModel>();
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 1,
+                    MesAnn = "I. PLANEAR",
+                    Resultado = pMaximo
+                });
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 2,
+                    MesAnn = "I. PLANEAR",
+                    Resultado = pObtenido
+                });
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 3,
+                    MesAnn = "II. HACER",
+                    Resultado = pMaximo
+                });
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 4,
+                    MesAnn = "II. HACER",
+                    Resultado = pObtenido
+                });
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 5,
+                    MesAnn = "III. VERIFICAR",
+                    Resultado = pMaximo
+                });
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 6,
+                    MesAnn = "III. VERIFICAR",
+                    Resultado = pObtenido
+                });
+
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 7,
+                    MesAnn = "IV. ACTUAR",
+                    Resultado = pMaximo
+                });
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 8,
+                    MesAnn = "IV. ACTUAR",
+                    Resultado = pObtenido
+                });
+
+                return viewModel;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
+        }
+        public IEnumerable<IndicadorDetallesViewModel> GetAllCalificationsStandard(int id)
+        {
+            try
+            {
+                var list = (from c in _empresaContext.Califications
+                            join n in _empresaContext.Normas on c.NormaID equals n.ID
+                            where c.EvaluationID == id
+                            orderby n.Item
+                            select new
+                            {
+                                ID = c.ID,
+                                Ciclo = n.Ciclo,
+                                Standard = n.Standard,
+                                Valor = n.Valor,
+                                Valoration = c.Valoration,
+                            }
+                ).ToList();
+                decimal rMaximo = 0;
+                decimal rObtenido = 0;
+                decimal iMaximo = 0;
+                decimal iObtenido = 0;
+                decimal sMaximo = 0;
+                decimal sObtenido = 0;
+                decimal pMaximo = 0;
+                decimal pObtenido = 0;
+                decimal aMaximo = 0;
+                decimal aObtenido = 0;
+                decimal vMaximo = 0;
+                decimal vObtenido = 0;
+                decimal mMaximo = 0;
+                decimal mObtenido = 0;
+                foreach (var item in list)
+                {
+                    switch (item.Ciclo)
+                    {
+                        case "R":
+                            rMaximo += item.Valor;
+                            rObtenido += item.Valoration;
+                            break;
+                        case "I":
+                            iMaximo += item.Valor;
+                            iObtenido += item.Valoration;
+                            break;
+                        case "S":
+                            sMaximo += item.Valor;
+                            sObtenido += item.Valoration;
+                            break;
+                        case "P":
+                            pMaximo += item.Valor;
+                            pObtenido += item.Valoration;
+                            break;
+                        case "A":
+                            aMaximo += item.Valor;
+                            aObtenido += item.Valoration;
+                            break;
+                        case "V":
+                            vMaximo += item.Valor;
+                            vObtenido += item.Valoration;
+                            break;
+                        case "M":
+                            mMaximo += item.Valor;
+                            mObtenido += item.Valoration;
+                            break;
+                        default:
+                            pMaximo += item.Valor;
+                            pObtenido += item.Valoration;
+                            break;
+                    }
+                }
+                var viewModel = new List<IndicadorDetallesViewModel>();
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 1,
+                    MesAnn = "RECURSOS",
+                    Resultado = rMaximo
+                });
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 2,
+                    MesAnn = "RECURSOS",
+                    Resultado = rObtenido
+                });
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 3,
+                    MesAnn = "GESTION INTEGRAL",
+                    Resultado = iMaximo
+                });
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 4,
+                    MesAnn = "GESTION INTEGRAL",
+                    Resultado = iObtenido
+                });
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 5,
+                    MesAnn = "GESTIÓN SALUD",
+                    Resultado = sMaximo
+                });
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 6,
+                    MesAnn = "GESTIÓN SALUD",
+                    Resultado = sObtenido
+                });
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 7,
+                    MesAnn = "GESTIÓN RIESGOS",
+                    Resultado = pMaximo
+                });
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 8,
+                    MesAnn = "GESTIÓN RIESGOS",
+                    Resultado = pObtenido
+                });
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 9,
+                    MesAnn = "GESTIÓN AMENAZAS",
+                    Resultado = aMaximo
+                });
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 10,
+                    MesAnn = "GESTIÓN AMENAZAS",
+                    Resultado = aObtenido
+                });
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 11,
+                    MesAnn = "VERIFICACIÓN",
+                    Resultado = vMaximo
+                });
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 12,
+                    MesAnn = "VERIFICACIÓN",
+                    Resultado = vObtenido
+                });
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 13,
+                    MesAnn = "MEJORAMIENTO",
+                    Resultado = mMaximo
+                });
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 14,
+                    MesAnn = "MEJORAMIENTO",
+                    Resultado = mObtenido
                 });
 
                 return viewModel;

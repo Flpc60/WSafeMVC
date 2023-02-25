@@ -25,5 +25,7 @@ namespace WSafe.Web.Models
         public int AcumuladoDenominador { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int AcumuladoResultado { get; set; }
+        public string MesAnn1 { get; set; }
+        public decimal Resultado1 { get; set; }
     }
 }
