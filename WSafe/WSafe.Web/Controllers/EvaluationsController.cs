@@ -710,5 +710,44 @@ namespace WSafe.Web.Controllers
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        [HttpGet]
+        public ActionResult GetAllCalifications(int id)
+        {
+            try
+            {
+                Random random = new Random();
+                var filename = "chart" + random.Next(1, 100) + ".jpg";
+                var filePathName = "~/Images/" + filename;
+                var datos = _chartHelper.GetAllCalifications(id);
+                _chartHelper.DrawImagen(filePathName, "Column", "DESARROLLO POR CICLO PHVA", datos);
+                var image = "/Images/" + filename;
+                return Json(image, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetAllCalificationsStandard(int id)
+        {
+            try
+            {
+                Random random = new Random();
+                var filename = "chart" + random.Next(1, 100) + ".jpg";
+                var filePathName = "~/Images/" + filename;
+                var datos = _chartHelper.GetAllCalificationsStandard(id);
+                _chartHelper.DrawImagen(filePathName, "Column", "DESARROLLO POR ESTÁNDAR", datos);
+                var image = "/Images/" + filename;
+
+                return Json(image, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
+            }
+        }
     }
 }
