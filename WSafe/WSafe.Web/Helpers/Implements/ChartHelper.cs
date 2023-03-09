@@ -723,57 +723,32 @@ namespace WSafe.Domain.Helpers.Implements
                 {
                     ID = 1,
                     MesAnn = "I. PLANEAR",
-                    Resultado = pMaximo
-                });
-                viewModel.Add(new IndicadorDetallesViewModel
-                {
-                    ID = 2,
-                    MesAnn1 = "I. PLANEAR",
+                    Resultado = pMaximo,
                     Resultado1 = pObtenido
                 });
                 viewModel.Add(new IndicadorDetallesViewModel
                 {
-                    ID = 3,
+                    ID = 2,
                     MesAnn = "II. HACER",
-                    Resultado = pMaximo
+                    Resultado = hMaximo,
+                    Resultado1 = hObtenido
+                });
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 3,
+                    MesAnn = "III. VERIFICAR",
+                    Resultado = vMaximo,
+                    Resultado1 = vObtenido
                 });
 
                 viewModel.Add(new IndicadorDetallesViewModel
                 {
                     ID = 4,
-                    MesAnn1 = "II. HACER",
-                    Resultado1 = pObtenido
-                });
-
-                viewModel.Add(new IndicadorDetallesViewModel
-                {
-                    ID = 5,
-                    MesAnn = "III. VERIFICAR",
-                    Resultado = pMaximo
-                });
-
-                viewModel.Add(new IndicadorDetallesViewModel
-                {
-                    ID = 6,
-                    MesAnn1 = "III. VERIFICAR",
-                    Resultado1 = pObtenido
-                });
-
-
-                viewModel.Add(new IndicadorDetallesViewModel
-                {
-                    ID = 7,
                     MesAnn = "IV. ACTUAR",
-                    Resultado = pMaximo
+                    Resultado = aMaximo,
+                    Resultado1 = aObtenido
                 });
-
-                viewModel.Add(new IndicadorDetallesViewModel
-                {
-                    ID = 8,
-                    MesAnn1 = "IV. ACTUAR",
-                    Resultado1 = pObtenido
-                });
-
                 return viewModel;
             }
             catch (DbEntityValidationException ex)
