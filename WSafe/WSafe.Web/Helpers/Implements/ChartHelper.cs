@@ -789,7 +789,7 @@ namespace WSafe.Domain.Helpers.Implements
                 decimal mObtenido = 0;
                 foreach (var item in list)
                 {
-                    switch (item.Ciclo)
+                    switch (item.Standard)
                     {
                         case "R":
                             rMaximo += item.Valor;
@@ -830,98 +830,51 @@ namespace WSafe.Domain.Helpers.Implements
                 {
                     ID = 1,
                     MesAnn = "RECURSOS",
-                    Resultado = rMaximo
-                });
-                viewModel.Add(new IndicadorDetallesViewModel
-                {
-                    ID = 2,
-                    MesAnn1 = "RECURSOS",
+                    Resultado = rMaximo,
                     Resultado1 = rObtenido
                 });
                 viewModel.Add(new IndicadorDetallesViewModel
                 {
-                    ID = 3,
+                    ID = 2,
                     MesAnn = "GESTION INTEGRAL",
-                    Resultado = iMaximo
+                    Resultado = iMaximo,
+                    Resultado1 = iObtenido
                 });
-
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 3,
+                    MesAnn = "GESTIÓN SALUD",
+                    Resultado = sMaximo,
+                    Resultado1 = sObtenido
+                });
                 viewModel.Add(new IndicadorDetallesViewModel
                 {
                     ID = 4,
-                    MesAnn1 = "GESTION INTEGRAL",
-                    Resultado1 = iObtenido
+                    MesAnn = "GESTIÓN RIESGOS",
+                    Resultado = pMaximo,
+                    Resultado1 = pObtenido
                 });
-
                 viewModel.Add(new IndicadorDetallesViewModel
                 {
                     ID = 5,
-                    MesAnn = "GESTIÓN SALUD",
-                    Resultado = sMaximo
+                    MesAnn = "GESTIÓN AMENAZAS",
+                    Resultado = aMaximo,
+                    Resultado1 = aObtenido
                 });
-
                 viewModel.Add(new IndicadorDetallesViewModel
                 {
                     ID = 6,
-                    MesAnn1 = "GESTIÓN SALUD",
-                    Resultado1 = sObtenido
+                    MesAnn = "VERIFICACIÓN",
+                    Resultado = vMaximo,
+                    Resultado1 = vObtenido
                 });
-
                 viewModel.Add(new IndicadorDetallesViewModel
                 {
                     ID = 7,
-                    MesAnn = "GESTIÓN RIESGOS",
-                    Resultado = pMaximo
-                });
-
-                viewModel.Add(new IndicadorDetallesViewModel
-                {
-                    ID = 8,
-                    MesAnn1 = "GESTIÓN RIESGOS",
-                    Resultado1 = pObtenido
-                });
-
-                viewModel.Add(new IndicadorDetallesViewModel
-                {
-                    ID = 9,
-                    MesAnn = "GESTIÓN AMENAZAS",
-                    Resultado = aMaximo
-                });
-
-                viewModel.Add(new IndicadorDetallesViewModel
-                {
-                    ID = 10,
-                    MesAnn = "GESTIÓN AMENAZAS",
-                    Resultado = aObtenido
-                });
-
-                viewModel.Add(new IndicadorDetallesViewModel
-                {
-                    ID = 11,
-                    MesAnn = "VERIFICACIÓN",
-                    Resultado = vMaximo
-                });
-
-                viewModel.Add(new IndicadorDetallesViewModel
-                {
-                    ID = 12,
-                    MesAnn = "VERIFICACIÓN",
-                    Resultado = vObtenido
-                });
-
-                viewModel.Add(new IndicadorDetallesViewModel
-                {
-                    ID = 13,
                     MesAnn = "MEJORAMIENTO",
-                    Resultado = mMaximo
+                    Resultado = mMaximo,
+                    Resultado1 = mObtenido
                 });
-
-                viewModel.Add(new IndicadorDetallesViewModel
-                {
-                    ID = 14,
-                    MesAnn = "MEJORAMIENTO",
-                    Resultado = mObtenido
-                });
-
                 return viewModel;
             }
             catch (DbEntityValidationException ex)

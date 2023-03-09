@@ -3682,26 +3682,6 @@ function chartCorrectiveActions() {
     });
 }
 
-function chartCalificationsStandard() {
-
-    // Gráficar evaluación por ciclo
-    $.ajax({
-        url: "/Evaluations/GetAllCalificationsStandard",
-        type: "GET",
-        data: { id: evaluationID },
-        contentType: "application/json;charset=utf-8",
-        dataType: "json",
-        async: true,
-        success: function (response) {
-            $("#imgCalificationsStandard").attr("src", response);
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            alert(xhr.status);
-            alert(thrownError);
-        }
-    });
-}
-
 function AddEvent() {
     // Crea un nuevo evento
     $('.tabAddEvents').css("display", "none");
@@ -5472,6 +5452,7 @@ function UpdateEvaluation() {
     $(".tabGesCalifications").css("display", "none");
     $(".tabAddCalifications").css("display", "none");
     $(".tabAddPlanAcc").css("display", "none");
+    $(".tabGesPlanAcc").css("display", "none");
     evaluationID = $("#txtEvaluationID").val();
     $.ajax({
         type: "GET",
@@ -5612,30 +5593,6 @@ function DeleteEvaluation(ID) {
     });
 }
 
-function chartConfig() {
-    var config = {
-        type: 'bar',
-        data:
-        {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [
-                {
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
-                    borderWidth: 1
-                }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    }
-    return config;
-}
-
 function chartCalificationsCiclo() {
 
     // Gráficar evaluación por ciclo
@@ -5663,33 +5620,100 @@ function chartCalificationsCiclo() {
                     datasets: [
                         {
                             label: "VALORES MÁXIMOS",
-                            backgroundColor: "darkgreen",
+                            backgroundColor: "green",
                             data: arrayData1
                         },
                         {
                             label: "VALORES OBTENIDOS",
-                            backgroundColor: "darkorange",
+                            backgroundColor: "orange",
                             data: arrayData2
                         }
                     ]
                 },
                 options: {
+                    responsive: true,
                     scales: {
-                        responsive: true,
-                        xAxes: [{
-                            gridLines: {
-                                display: false
+                        x: {
+                            display: true,
+                            title: {
+                                display: true
                             }
-                        }],
-                        yAxes: [{
-                            gridLines: {
-                                display: false
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true
                             }
-                        }]
+                        }
                     },
                     title: {
                         display: true,
                         text: 'DESARROLLO POR CICLO PHVA'
+                    }
+                }
+            });
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function chartPorStandard() {
+
+    // Gráficar evaluación por standard
+    $.ajax({
+        url: "/Evaluations/GetAllCalificationsStandard",
+        type: "GET",
+        data: { id: evaluationID },
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (data) {
+            var arrayData1 = [];
+            var arrayData2 = [];
+            for (var i = 0; i < data.length; i++) {
+                arrayData1.push(data[i].Resultado);
+                arrayData2.push(data[i].Resultado1);
+            }
+            const ctx = document.getElementById("calificationsStandard").getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ["G. RECURSOS", "G. INTEGRAL", "G. SALUD", "G. RIESGOS", "G. AMENAZAS", "VERIFICACIÓN", "MEJORAMIENTO"],
+                    datasets: [
+                        {
+                            label: "VALORES MÁXIMOS",
+                            backgroundColor: "blue",
+                            data: arrayData1
+                        },
+                        {
+                            label: "VALORES OBTENIDOS",
+                            backgroundColor: "red",
+                            data: arrayData2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'DESARROLLO POR ESTÁNDAR'
                     }
                 }
             });

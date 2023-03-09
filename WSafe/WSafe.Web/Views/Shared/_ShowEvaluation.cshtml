@@ -1,6 +1,14 @@
 ﻿<div class="table-responsive" style="background-color: azure">
-    <button type="button" class="btn btn-primary" id="btnChartCycle" onclick="chartCalificationsCiclo()">Grafica ciclo</button>
-    <button type="button" class="btn btn-warning" id="btnChartStandadrd" onclick="chartCalificationsStandard()">Grafica estándar</button>
+    <button type="button" class="btn btn-primary" id="btnChartCycle" onclick="chartCalificationsCiclo()">Graficar ciclo</button>
+    <button type="button" class="btn btn-warning" id="btnChartStandadrd" onclick="chartPorStandard()">Graficar estándar</button>
+    <div class="row">
+        <div class="col-md-6">
+            <div><canvas id="calificationsPhva" width="200" height="100"></canvas></div>
+        </div>
+        <div class="col-md-6">
+            <div><canvas id="calificationsStandard" width="200" height="100"></canvas></div>
+        </div>
+    </div>
     <table class="table table-bordered">
         <thead>
             <tr style="background-color:gainsboro; width:auto">

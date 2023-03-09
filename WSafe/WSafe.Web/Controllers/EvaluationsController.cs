@@ -720,7 +720,6 @@ namespace WSafe.Web.Controllers
                 var filename = "chart" + random.Next(1, 100) + ".jpg";
                 var filePathName = "~/Images/" + filename;
                 var datos = _chartHelper.GetAllCalifications(id);
-                //_chartHelper.DrawImagen(filePathName, "Column", "DESARROLLO POR CICLO PHVA", datos);
                 var image = "/Images/" + filename;
                 return Json(datos, JsonRequestBehavior.AllowGet);
             }
@@ -739,10 +738,8 @@ namespace WSafe.Web.Controllers
                 var filename = "chart" + random.Next(1, 100) + ".jpg";
                 var filePathName = "~/Images/" + filename;
                 var datos = _chartHelper.GetAllCalificationsStandard(id);
-                _chartHelper.DrawImagen(filePathName, "Column", "DESARROLLO POR ESTÁNDAR", datos);
                 var image = "/Images/" + filename;
-
-                return Json(image, JsonRequestBehavior.AllowGet);
+                return Json(datos, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
