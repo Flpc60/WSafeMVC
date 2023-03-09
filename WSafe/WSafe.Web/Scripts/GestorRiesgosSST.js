@@ -3682,26 +3682,6 @@ function chartCorrectiveActions() {
     });
 }
 
-function chartCalificationsCiclo() {
-
-    // Gráficar evaluación por ciclo
-    $.ajax({
-        url: "/Evaluations/GetAllCalifications",
-        type: "GET",
-        data: { id: evaluationID },
-        contentType: "application/json;charset=utf-8",
-        dataType: "json",
-        async: true,
-        success: function (response) {
-            $("#imgCalificationsCiclo").attr("src", response);
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            alert(xhr.status);
-            alert(thrownError);
-        }
-    });
-}
-
 function chartCalificationsStandard() {
 
     // Gráficar evaluación por ciclo
@@ -5624,6 +5604,95 @@ function DeleteEvaluation(ID) {
                 }
 
             }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function chartConfig() {
+    var config = {
+        type: 'bar',
+        data:
+        {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [
+                {
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3],
+                    borderWidth: 1
+                }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    }
+    return config;
+}
+
+function chartCalificationsCiclo() {
+
+    // Gráficar evaluación por ciclo
+    //let controlCiclo = document.getElementById("imgCalificationsCiclo");
+    //import Chart from '~/Scripts/chart.umd.js';
+    $.ajax({
+        url: "/Evaluations/GetAllCalifications",
+        type: "GET",
+        data: { id: evaluationID },
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (data) {
+            var arrayData1 = [];
+            var arrayData2 = [];
+            for (var i = 0; i < data.length; i++) {
+                arrayData1.push(data[i].Resultado);
+                arrayData2.push(data[i].Resultado1);
+            }
+            const ctx = document.getElementById("calificationsPhva").getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ["I. PLANEAR","II. HACER","III. VERIFICAR","IV. ACTUAR"],
+                    datasets: [
+                        {
+                            label: "VALORES MÁXIMOS",
+                            backgroundColor: "darkgreen",
+                            data: arrayData1
+                        },
+                        {
+                            label: "VALORES OBTENIDOS",
+                            backgroundColor: "darkorange",
+                            data: arrayData2
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        responsive: true,
+                        xAxes: [{
+                            gridLines: {
+                                display: false
+                            }
+                        }],
+                        yAxes: [{
+                            gridLines: {
+                                display: false
+                            }
+                        }]
+                    },
+                    title: {
+                        display: true,
+                        text: 'DESARROLLO POR CICLO PHVA'
+                    }
+                }
+            });
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);

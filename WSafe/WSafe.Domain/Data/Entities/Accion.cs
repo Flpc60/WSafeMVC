@@ -44,8 +44,9 @@ namespace WSafe.Domain.Data.Entities
         [Display(Name = "Efectiva")]
         public bool Efectiva { get; set; }
         public int RiesgoID { get; set; }
-        public IEnumerable<PlanAction> Planes { get; set; }
+        public ICollection<PlanAction> Planes { get; set; }
         public IEnumerable<SeguimientoAccion> Seguimientos { get; set; }
         public ActionCategories ActionCategory { get; set; }
+        public int PlanNumber => Planes == null ? 0 : Planes.Count;
     }
 }

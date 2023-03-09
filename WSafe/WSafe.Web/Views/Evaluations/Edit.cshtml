@@ -38,7 +38,7 @@
 
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <input type="hidden" id="txtEvaluationID" name="txtEvaluationID"/>
+        <input type="hidden" id="txtEvaluationID" name="txtEvaluationID" />
         <div class="container-fluid">
             <button type="button" class="btn btn-success" id="calificar" onclick="UpdateEvaluation()">RESULTADOS</button>
             <button type="button" class="btn btn-warning" id="btnShowPlanActivitys" title="doble click para cerrar la ventana">PLAN DE ACTIVIDADES</button>
@@ -82,6 +82,14 @@
             @Html.Partial("_ShowCalifications")
         </div>
         <div class="tabGesEvaluation">
+            <div class="row" style="margin-top:1%">
+                <div class="col-md-6">
+                    <div><canvas id="calificationsPhva" width="400" height="400"></canvas></div>
+                </div>
+                <div class="col-md-6">
+                    <div><canvas id="calificationsStandard" width="400" height="400"></canvas></div>
+                </div>
+            </div>
             @Html.Partial("_ShowEvaluation")
             <div class="row" style="text-align: center; background-color: mediumaquamarine">
                 <div class="col-md-2">
@@ -105,7 +113,7 @@
     </div>
 }
 
-@section Scripts
+@section scripts
 {
     <script type="text/javascript">
         var ciclo = "";
@@ -125,7 +133,5 @@
         });
 
         GestorEvaluations();
-        $(document).ready(function () {
-        });
     </script>
 }
