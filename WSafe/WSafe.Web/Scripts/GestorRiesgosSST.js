@@ -5461,24 +5461,22 @@ function UpdateEvaluation() {
         dataType: "json",
         success: function (response) {
             var html = '', puntaje = '';
-            var totales = 0, cumple = 0, noCumple = 0, noAplica = 0;
-            $.each(response, function (key, item) {
+            var totales = response.totales, cumple = 0, noCumple = 0, noAplica = 0;
+            $.each(response.data, function (key, item) {
                 puntaje = '';
-                totales += item.Valoration;
-
-                if (item.Cumple == true) {
+                if (item.Cumple) {
                     cumple++;
                     puntaje = "Cumple Totalmente";
                 }
-                if (item.NoCumple == true) {
+                if (item.NoCumple) {
                     noCumple++;
                     puntaje = "No Cumple";
                 }
-                if (item.Justify == true) {
+                if (item.Justify) {
                     noAplica++;
                     puntaje = "Justifica";
                 }
-                if (item.NoJustify == true) {
+                if (item.NoJustify) {
                     noAplica++;
                     puntaje = "No Justifica";
                 }
