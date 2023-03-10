@@ -302,11 +302,13 @@ namespace WSafe.Web.Controllers
                 var cumple = 0;
                 var noCumple = 0;
                 var noAplica = 0;
-                decimal standarsResult = 0;
-                decimal aplicationsResult = 0;
+                decimal standardResult = 0;
+                decimal aplicationResult = 0;
+                decimal noAplicaResult = 0;
                 var list1 = (from c in _empresaContext.Califications
                              join n in _empresaContext.Normas on c.NormaID equals n.ID
                              where c.EvaluationID == id
+                             orderby n.Item
                              select new
                              {
                                  ID = c.ID,
@@ -329,6 +331,8 @@ namespace WSafe.Web.Controllers
                 var list2 = new List<CalificationVM>();
                 foreach (var item in list1)
                 {
+                    standardResult += item.Valoration;
+                    if (item.Justify) { noAplicaResult += item.Valoration; }
                     list2.Add(new CalificationVM
                     {
                         ID = item.ID,
@@ -356,11 +360,10 @@ namespace WSafe.Web.Controllers
                     if (item.NoJustify) { noAplica++; }
                 }
                 var aplica = total - noAplica;
-                if (total > 0) { standarsResult = Convert.ToDecimal((double)cumple / (double)total * 100); }
-                if (aplica > 0) { aplicationsResult = Convert.ToDecimal((double)cumple / (double)aplica * 100); }
+                aplicationResult = standardResult - noAplicaResult;
                 ValorationCategory category = ValorationCategory.ACEPTABLE;
 
-                switch (standarsResult)
+                switch (standardResult)
                 {
                     case decimal v when (v > 85):
                         category = ValorationCategory.ACEPTABLE;
@@ -380,12 +383,12 @@ namespace WSafe.Web.Controllers
                 model.Cumple = cumple;
                 model.NoCumple = noCumple;
                 model.NoAplica = noAplica;
-                model.StandarsResult = standarsResult;
-                model.AplicationsResult = aplicationsResult;
+                model.StandarsResult = standardResult;
+                model.AplicationsResult = aplicationResult;
                 model.Category = category;
                 _empresaContext.Entry(model).State = EntityState.Modified;
                 await _empresaContext.SaveChangesAsync();
-                return Json(list2, JsonRequestBehavior.AllowGet);
+                return Json(new { data = list2, totales = standardResult, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
