@@ -1087,7 +1087,8 @@ namespace WSafe.Domain.Helpers.Implements
                     Descripcion = item.Descripcion,
                     Document = item.Document,
                     Year = item.Year,
-                    Type = item.Type
+                    Type = item.Type,
+                    Path = item.Path
                 }); ;
             }
             return model;
