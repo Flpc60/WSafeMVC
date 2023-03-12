@@ -35,5 +35,7 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [MaxLength(6)]
         public string Type { get; set; }
+        [MaxLength(100)]
+        public string Path { get; set; }
     }
 }

@@ -466,7 +466,7 @@ function ShowMovimientos(phva) {
                     html += '<td><a href = "#" onclick = "GeneratePDF(' + item.ID + ')" class="btn btn-warning">Generar PDF</a></td>';
                 }
 
-                html += '<td><a href = "#" onclick = "DownLoadPDF(' + item.ID + ')" class="btn btn-success">Descargar</a></td>';
+                html += '<td><a href = "#" onclick = "Download(' + item.Path + ',' + item.Document + ')" class="btn btn-success">Descargar</a></td>';
                 html += '<td><a href = "#" onclick = "DeleteMovimient(' + item.ID + ')" class="btn btn-danger">Eliminar</a></td>';
                 html += '<td><a href = "#" onclick = "OpenEmail(' + item.ID + ')" class="btn btn-info">Enviar</a></td>';
                 html += '</tr>';
@@ -671,22 +671,16 @@ validarCostos = function () {
     }
 }
 
-function DownLoadPDF(movimientID) {
+function Download(url, name) {
+    alert("url : " + url + "\n" + " name : " + name);
     $(".tabGesMovimientos").css("display", "none");
-    $.ajax({
-        async: true,
-        type: 'POST',
-        url: "/Movimientos/Download",
-        data: { id: movimientID },
-        dataType: "json",
-        success: function (result) {
-            alert(result.mensaj);
-            ShowMovimientos(ciclo);
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
-        }
-    });
+    var a = $("<a>")
+        .attr("href", url)
+        .attr("download", name)
+        .appendTo("body");
+    a[0].click();
+    a.remove();
+    ShowMovimientos(ciclo);
     $(".tabAddMovimientos").css("display", "none");
     $("#btnAddMovimient").hide();
     $("#btnCanMovimient").show();
