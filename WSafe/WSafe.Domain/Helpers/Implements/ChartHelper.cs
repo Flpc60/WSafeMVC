@@ -21,14 +21,16 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public void DrawImagen(string archivo, string tipo, string nombre, IEnumerable<IndicadorDetallesViewModel> lista)
         {
-            var chartImage = new Chart(width: 600, height: 300, theme: ChartTheme.Green);
+            var chartImage = new Chart(width: 600, height: 400, theme: ChartTheme.Green);
             chartImage.AddTitle(nombre);
             chartImage.SetXAxis("CATEGORÍA");
             chartImage.SetYAxis("VALORES");
-            chartImage.AddLegend();
-            chartImage.AddSeries("RESULTADOS", chartType: tipo,
+            chartImage.AddSeries(name: "MÁXIMO", chartType: tipo,
                 xValue: lista, xField: "MesAnn",
                 yValues: lista, yFields: "Resultado");
+            chartImage.AddSeries(name: "OBTENIDO", chartType: tipo,
+                xValue: lista, xField: "MesAnn1",
+                yValues: lista, yFields: "Resultado1");
             chartImage.Save(path: archivo);
         }
         public IEnumerable<IndicadorDetallesViewModel> GetFrecuenciaAccidentes(int[] periodo, int year)
@@ -721,57 +723,32 @@ namespace WSafe.Domain.Helpers.Implements
                 {
                     ID = 1,
                     MesAnn = "I. PLANEAR",
-                    Resultado = pMaximo
+                    Resultado = pMaximo,
+                    Resultado1 = pObtenido
                 });
                 viewModel.Add(new IndicadorDetallesViewModel
                 {
                     ID = 2,
-                    MesAnn = "I. PLANEAR",
-                    Resultado = pObtenido
+                    MesAnn = "II. HACER",
+                    Resultado = hMaximo,
+                    Resultado1 = hObtenido
                 });
+
                 viewModel.Add(new IndicadorDetallesViewModel
                 {
                     ID = 3,
-                    MesAnn = "II. HACER",
-                    Resultado = pMaximo
+                    MesAnn = "III. VERIFICAR",
+                    Resultado = vMaximo,
+                    Resultado1 = vObtenido
                 });
 
                 viewModel.Add(new IndicadorDetallesViewModel
                 {
                     ID = 4,
-                    MesAnn = "II. HACER",
-                    Resultado = pObtenido
-                });
-
-                viewModel.Add(new IndicadorDetallesViewModel
-                {
-                    ID = 5,
-                    MesAnn = "III. VERIFICAR",
-                    Resultado = pMaximo
-                });
-
-                viewModel.Add(new IndicadorDetallesViewModel
-                {
-                    ID = 6,
-                    MesAnn = "III. VERIFICAR",
-                    Resultado = pObtenido
-                });
-
-
-                viewModel.Add(new IndicadorDetallesViewModel
-                {
-                    ID = 7,
                     MesAnn = "IV. ACTUAR",
-                    Resultado = pMaximo
+                    Resultado = aMaximo,
+                    Resultado1 = aObtenido
                 });
-
-                viewModel.Add(new IndicadorDetallesViewModel
-                {
-                    ID = 8,
-                    MesAnn = "IV. ACTUAR",
-                    Resultado = pObtenido
-                });
-
                 return viewModel;
             }
             catch (DbEntityValidationException ex)
@@ -812,7 +789,7 @@ namespace WSafe.Domain.Helpers.Implements
                 decimal mObtenido = 0;
                 foreach (var item in list)
                 {
-                    switch (item.Ciclo)
+                    switch (item.Standard)
                     {
                         case "R":
                             rMaximo += item.Valor;
@@ -853,98 +830,51 @@ namespace WSafe.Domain.Helpers.Implements
                 {
                     ID = 1,
                     MesAnn = "RECURSOS",
-                    Resultado = rMaximo
+                    Resultado = rMaximo,
+                    Resultado1 = rObtenido
                 });
                 viewModel.Add(new IndicadorDetallesViewModel
                 {
                     ID = 2,
-                    MesAnn = "RECURSOS",
-                    Resultado = rObtenido
+                    MesAnn = "GESTION INTEGRAL",
+                    Resultado = iMaximo,
+                    Resultado1 = iObtenido
                 });
                 viewModel.Add(new IndicadorDetallesViewModel
                 {
                     ID = 3,
-                    MesAnn = "GESTION INTEGRAL",
-                    Resultado = iMaximo
+                    MesAnn = "GESTIÓN SALUD",
+                    Resultado = sMaximo,
+                    Resultado1 = sObtenido
                 });
-
                 viewModel.Add(new IndicadorDetallesViewModel
                 {
                     ID = 4,
-                    MesAnn = "GESTION INTEGRAL",
-                    Resultado = iObtenido
+                    MesAnn = "GESTIÓN RIESGOS",
+                    Resultado = pMaximo,
+                    Resultado1 = pObtenido
                 });
-
                 viewModel.Add(new IndicadorDetallesViewModel
                 {
                     ID = 5,
-                    MesAnn = "GESTIÓN SALUD",
-                    Resultado = sMaximo
+                    MesAnn = "GESTIÓN AMENAZAS",
+                    Resultado = aMaximo,
+                    Resultado1 = aObtenido
                 });
-
                 viewModel.Add(new IndicadorDetallesViewModel
                 {
                     ID = 6,
-                    MesAnn = "GESTIÓN SALUD",
-                    Resultado = sObtenido
+                    MesAnn = "VERIFICACIÓN",
+                    Resultado = vMaximo,
+                    Resultado1 = vObtenido
                 });
-
                 viewModel.Add(new IndicadorDetallesViewModel
                 {
                     ID = 7,
-                    MesAnn = "GESTIÓN RIESGOS",
-                    Resultado = pMaximo
-                });
-
-                viewModel.Add(new IndicadorDetallesViewModel
-                {
-                    ID = 8,
-                    MesAnn = "GESTIÓN RIESGOS",
-                    Resultado = pObtenido
-                });
-
-                viewModel.Add(new IndicadorDetallesViewModel
-                {
-                    ID = 9,
-                    MesAnn = "GESTIÓN AMENAZAS",
-                    Resultado = aMaximo
-                });
-
-                viewModel.Add(new IndicadorDetallesViewModel
-                {
-                    ID = 10,
-                    MesAnn = "GESTIÓN AMENAZAS",
-                    Resultado = aObtenido
-                });
-
-                viewModel.Add(new IndicadorDetallesViewModel
-                {
-                    ID = 11,
-                    MesAnn = "VERIFICACIÓN",
-                    Resultado = vMaximo
-                });
-
-                viewModel.Add(new IndicadorDetallesViewModel
-                {
-                    ID = 12,
-                    MesAnn = "VERIFICACIÓN",
-                    Resultado = vObtenido
-                });
-
-                viewModel.Add(new IndicadorDetallesViewModel
-                {
-                    ID = 13,
                     MesAnn = "MEJORAMIENTO",
-                    Resultado = mMaximo
+                    Resultado = mMaximo,
+                    Resultado1 = mObtenido
                 });
-
-                viewModel.Add(new IndicadorDetallesViewModel
-                {
-                    ID = 14,
-                    MesAnn = "MEJORAMIENTO",
-                    Resultado = mObtenido
-                });
-
                 return viewModel;
             }
             catch (DbEntityValidationException ex)

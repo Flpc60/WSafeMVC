@@ -79,22 +79,22 @@ namespace WSafe.Web.Controllers
                 switch (cycle)
                 {
                     case "P":
-                        ruta = "1. PLANEAR/";
+                        ruta = "1. PLANEAR";
                         break;
 
                     case "H":
-                        ruta = "2. HACER/";
+                        ruta = "2. HACER";
                         break;
                     case "V":
-                        ruta = "3. VERIFICAR/";
+                        ruta = "3. VERIFICAR";
                         break;
                     case "A":
-                        ruta = "4. ACTUAR/";
+                        ruta = "4. ACTUAR";
                         break;
                 }
 
                 var item = norma.Item.ToString();
-                var fullPath = "~/SG-SST/" + year + "/" + ruta + item + "/";
+                var fullPath = $"~/SG-SST/{year}/{ruta}/{item}/";
                 var path = Server.MapPath(fullPath);
                 if (!Directory.Exists(path))
                 {
@@ -344,31 +344,13 @@ namespace WSafe.Web.Controllers
             message = "El archivo ha sido creado correctamente !!";
             return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
         }
-
         [HttpPost]
-        public ActionResult Download(int id)
+        public async Task<FileResult> Download(int id)
         {
-            var message = "";
-            try
-            {
-                Movimient model = _empresaContext.Movimientos.Find(id);
-                string fileLocation = model.Path + model.Document;
-                WebClient User = new WebClient();
-                byte[] FileBuffer = User.DownloadData(fileLocation);
-                if (FileBuffer != null)
-                {
-                    return File(FileBuffer, System.Net.Mime.MediaTypeNames.Application.Octet, fileLocation);
-                }
-                message = "El archivo NO ha sido descargado correctamente !!";
-                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Win32Exception w)
-            {
-                message = "El archivo NO ha sido descargado correctamente !!";
-                return Json(new { data = false, mensaj = w.Message }, JsonRequestBehavior.AllowGet);
-            }
-            message = "El archivo ha sido descargado correctamente !!";
-            return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+            Movimient model = _empresaContext.Movimientos.Find(id);
+            string fileLocation = model.Path + model.Document;
+            byte[] bytes = System.IO.File.ReadAllBytes(fileLocation);
+            return File(bytes, "application/octet-stream", model.Document);
         }
 
         [HttpPost]
@@ -389,23 +371,23 @@ namespace WSafe.Web.Controllers
                 switch (cycle)
                 {
                     case "P":
-                        ruta = "1. PLANEAR/";
+                        ruta = "1. PLANEAR";
                         break;
 
                     case "H":
-                        ruta = "2. HACER/";
+                        ruta = "2. HACER";
                         break;
                     case "V":
-                        ruta = "3. VERIFICAR/";
+                        ruta = "3. VERIFICAR";
                         break;
                     case "A":
-                        ruta = "4. ACTUAR/";
+                        ruta = "4. ACTUAR";
                         break;
                 }
 
                 var year = model.Year.ToString();
                 var item = model.Item.ToString();
-                var fullFilePath = "~/SG-SST/" + year + "/" + ruta + item + "/";
+                var fullFilePath = $"~/SG-SST/{ year}/{ruta}/{item}/";
                 string fullPath = Server.MapPath(fullFilePath);
                 string fileName = model.Document;
                 string fileLocation = Path.Combine(fullPath, fileName);
