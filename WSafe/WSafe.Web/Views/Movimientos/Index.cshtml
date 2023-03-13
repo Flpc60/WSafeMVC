@@ -104,7 +104,10 @@
         });
 
         var ciclo = "";
+        var url = "";
+        var fileName = "";
         GestorMovimient();
+
         function CancelMovimient() {
             $(".tabAddMovimientos").css("display", "none");
             $("#txtStandardID").val("");
@@ -162,6 +165,17 @@
                     alert(thrownError);
                 }
             });
+        }
+
+        function downLoadFile(url, fileName) {
+            var anchor = document.createElement('a');
+            anchor.style.display = "none";
+            anchor.href = URL.createObjectURL(url);
+            anchor.setAttribute("download", fileName);
+            document.body.appendChild(anchor);
+            anchor.click();
+            window.URL.revokeObjectURL(anchor.href);
+            document.body.removeChild(anchor);
         }
 
     </script>
