@@ -449,8 +449,10 @@ function ShowMovimientos(phva) {
         dataType: "json",
         async: true,
         success: function (result) {
-            var html = '';
+            var html = '', url = '', fileName = '';
             $.each(result, function (key, item) {
+                url = item.Path + item.Document;
+                fileName = "1" + item.Document;
                 html += '<tr>';
                 html += '<td>' + item.Ciclo + '</td>';
                 html += '<td>' + item.Item + '</td>';
@@ -465,7 +467,7 @@ function ShowMovimientos(phva) {
 
                     html += '<td><a href = "#" onclick = "GeneratePDF(' + item.ID + ')" class="btn btn-warning">Generar PDF</a></td>';
                 }
-                html += '<td><button type="button" onclick="DescargarFile(' + item.ID + ')" class="btn btn-success">Descargar</button></td>';
+                html += '<td><a href = "' + url + '" download="' + fileName + '" class="btn btn-success">Descargar</a ></td>';
                 html += '<td><a href = "#" onclick="DeleteMovimient(' + item.ID + ')" class="btn btn-danger">Eliminar</a></td>';
                 html += '<td><a href = "#" onclick="OpenEmail(' + item.ID + ')" class="btn btn-info">Enviar</a></td>';
                 html += '</tr>';
