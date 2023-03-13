@@ -465,10 +465,9 @@ function ShowMovimientos(phva) {
 
                     html += '<td><a href = "#" onclick = "GeneratePDF(' + item.ID + ')" class="btn btn-warning">Generar PDF</a></td>';
                 }
-
-                html += '<td><a href = "#" onclick = "Download(' + item.Path + ',' + item.Document + ')" class="btn btn-success">Descargar</a></td>';
-                html += '<td><a href = "#" onclick = "DeleteMovimient(' + item.ID + ')" class="btn btn-danger">Eliminar</a></td>';
-                html += '<td><a href = "#" onclick = "OpenEmail(' + item.ID + ')" class="btn btn-info">Enviar</a></td>';
+                html += '<td><button type="button" onclick="DescargarFile(' + item.ID + ')" class="btn btn-success">Descargar</button></td>';
+                html += '<td><a href = "#" onclick="DeleteMovimient(' + item.ID + ')" class="btn btn-danger">Eliminar</a></td>';
+                html += '<td><a href = "#" onclick="OpenEmail(' + item.ID + ')" class="btn btn-info">Enviar</a></td>';
                 html += '</tr>';
             });
             $('.tbody').html(html);
@@ -671,16 +670,24 @@ validarCostos = function () {
     }
 }
 
-function Download(url, name) {
-    alert("url : " + url + "\n" + " name : " + name);
+function DescargarFile(movimientID) {
     $(".tabGesMovimientos").css("display", "none");
-    var a = $("<a>")
-        .attr("href", url)
-        .attr("download", name)
-        .appendTo("body");
-    a[0].click();
-    a.remove();
-    ShowMovimientos(ciclo);
+    $.ajax({
+        async: true,
+        type: 'POST',
+        url: "/Movimientos/Download",
+        data: { id: movimientID },
+        dataType: "json",
+        success: function (response) {
+            var url = response.url;
+            var fileName = response.name;
+            downLoadFile(url, fileName);
+            ShowMovimientos(ciclo);
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
     $(".tabAddMovimientos").css("display", "none");
     $("#btnAddMovimient").hide();
     $("#btnCanMovimient").show();

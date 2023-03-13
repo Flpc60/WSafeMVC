@@ -345,12 +345,17 @@ namespace WSafe.Web.Controllers
             return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public async Task<FileResult> Download(int id)
+        public async Task<ActionResult> Download(int id)
         {
-            Movimient model = _empresaContext.Movimientos.Find(id);
-            string fileLocation = model.Path + model.Document;
-            byte[] bytes = System.IO.File.ReadAllBytes(fileLocation);
-            return File(bytes, "application/octet-stream", model.Document);
+            try
+            {
+                Movimient model = _empresaContext.Movimientos.Find(id);
+                return Json(new { url = model.Path, name = model.Document }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Win32Exception w)
+            {
+                return Json(new { data = false, mensaj = w.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [HttpPost]
