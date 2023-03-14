@@ -435,6 +435,12 @@ function ShowZones() {
     });
 }
 
+function getAbsolutePath() {
+    var loc = window.location;
+    var pathName = loc.pathname.substring(0, loc.pathname.lastIndexOf('/') + 1);
+    return loc.href.substring(0, loc.href.length - ((loc.pathname + loc.search + loc.hash).length - pathName.length));
+}
+
 function ShowMovimientos(phva) {
     // Mostrar todos los movimientos
     var Item = $("#txtStandardID").val();
@@ -449,9 +455,26 @@ function ShowMovimientos(phva) {
         dataType: "json",
         async: true,
         success: function (result) {
-            var html = '', url = '', fileName = '';
+            var html = '', url = '', fileName = '', ruta = '';
             $.each(result, function (key, item) {
-                url = item.Path + item.Document;
+
+                switch (item.Ciclo) {
+                    case "P":
+                        ruta = "1. PLANEAR/";
+                        break;
+
+                    case "H":
+                        ruta = "2. HACER/";
+                        break;
+                    case "V":
+                        ruta = "3. VERIFICAR/";
+                        break;
+                    case "A":
+                        ruta = "4. ACTUAR/";
+                        break;
+                }
+
+                url = window.location.origin + "/SG-SST/" + item.Year + "/" + ruta + item.Item + "/" + item.Document;
                 fileName = "1" + item.Document;
                 html += '<tr>';
                 html += '<td>' + item.Ciclo + '</td>';
