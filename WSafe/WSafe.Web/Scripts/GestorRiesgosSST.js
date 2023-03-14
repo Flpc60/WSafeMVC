@@ -1528,9 +1528,12 @@ function UpdateOrganization(id) {
         ResponsableSGSST: $("#txtResponsable").val(),
         DocumentResponsable: $("#txtDocResponsable").val(),
         ResolucionLicencia: $("#resolucionLicencia").val(),
+        FechaResolucionLicencia: $("#resolucionLicencia").val(),
         ResponsableLicencia: $("#txtLicenciaResponsable").val(),
         RenovacionLicencia: $("#renovacionLicencia").val(),
+        FechaRenovacionLicencia: $("#renovacionLicencia").val(),
         RenovacionCurso: $("#renovacionCurso").val(),
+        FechaRenovacionCurso: $("#renovacionCurso").val(),
         NivelEstudios: $("#idNivelEstudios").val(),
         MesesExperiencia: $("#txtMesesExperiencia").val(),
         Range: range
@@ -2289,24 +2292,28 @@ function GestorOrganization() {
         $(".tabCerrar").css("display", "none");
         $("#btnAddZone").show();
         $("#btnCanZone").show();
+        $("#txtZone").focus();
     });
     $("#addProcess").click(function () {
         $(".tabAddProcess").css("display", "block");
         $(".tabCerrar").css("display", "none");
         $("#btnAddProcess").show();
         $("#btnCanProcess").show();
+        $("#txtProcess").focus();
     });
     $("#addActivity").click(function () {
         $(".tabAddActivitys").css("display", "block");
         $(".tabCerrar").css("display", "none");
         $("#btnAddActivity").show();
         $("#btnCanActivity").show();
+        $("#txtActivity").focus();
     });
     $("#addTask").click(function () {
         $(".tabAddTasks").css("display", "block");
         $(".tabCerrar").css("display", "none");
         $("#btnAddTask").show();
         $("#btnCanTask").show();
+        $("#txtDescripcion").focus();
     });
 }
 

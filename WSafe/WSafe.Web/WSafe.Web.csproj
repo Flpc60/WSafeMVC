@@ -448,13 +448,13 @@
     <Compile Include="Migrations\202207092147338_InitialCreate.Designer.cs">
       <DependentUpon>202207092147338_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202303021606341_UpdateAccion1.cs" />
-    <Compile Include="Migrations\202303021606341_UpdateAccion1.Designer.cs">
-      <DependentUpon>202303021606341_UpdateAccion1.cs</DependentUpon>
+    <Compile Include="Migrations\202303141609575_UpdateOrganization1.cs" />
+    <Compile Include="Migrations\202303141609575_UpdateOrganization1.Designer.cs">
+      <DependentUpon>202303141609575_UpdateOrganization1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202303120003085_UpdateMovimientVM.cs" />
-    <Compile Include="Migrations\202303120003085_UpdateMovimientVM.Designer.cs">
-      <DependentUpon>202303120003085_UpdateMovimientVM.cs</DependentUpon>
+    <Compile Include="Migrations\202303141655574_UpdateOrganization2.cs" />
+    <Compile Include="Migrations\202303141655574_UpdateOrganization2.Designer.cs">
+      <DependentUpon>202303141655574_UpdateOrganization2.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -995,11 +995,11 @@
     <EmbeddedResource Include="Migrations\202207092147338_InitialCreate.resx">
       <DependentUpon>202207092147338_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202303021606341_UpdateAccion1.resx">
-      <DependentUpon>202303021606341_UpdateAccion1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202303141609575_UpdateOrganization1.resx">
+      <DependentUpon>202303141609575_UpdateOrganization1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202303120003085_UpdateMovimientVM.resx">
-      <DependentUpon>202303120003085_UpdateMovimientVM.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202303141655574_UpdateOrganization2.resx">
+      <DependentUpon>202303141655574_UpdateOrganization2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

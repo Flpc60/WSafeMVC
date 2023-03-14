@@ -15,21 +15,18 @@
 <hr />
 <h4>@title</h4>
 
-<div class="pull-left">
-    <div class="btn-group">
-        <button type="button" class="btn btn-info" id="basics" title="doble click para cerrar la ventana">BÁSICOS</button>
-        <button type="button" class="btn btn-info" id="cargos" title="doble click para cerrar la ventana">CARGOS</button>
-        <button type="button" class="btn btn-info" id="zones" title="doble click para cerrar la ventana">ZONAS</button>
-        <button type="button" class="btn btn-info" id="process" title="doble click para cerrar la ventana">PROCESOS</button>
-        <button type="button" class="btn btn-info" id="activitys" title="doble click para cerrar la ventana">ACTIVIDADES</button>
-        <button type="button" class="btn btn-info" id="tasks" title="doble click para cerrar la ventana">TAREAS</button>
-    </div>
+<div class="container-fluid">
+    <button type="button" class="btn btn-info" id="basics" title="doble click para cerrar la ventana">BÁSICOS</button>
+    <button type="button" class="btn btn-info" id="cargos" title="doble click para cerrar la ventana">CARGOS</button>
+    <button type="button" class="btn btn-info" id="zones" title="doble click para cerrar la ventana">ZONAS</button>
+    <button type="button" class="btn btn-info" id="process" title="doble click para cerrar la ventana">PROCESOS</button>
+    <button type="button" class="btn btn-info" id="activitys" title="doble click para cerrar la ventana">ACTIVIDADES</button>
+    <button type="button" class="btn btn-info" id="tasks" title="doble click para cerrar la ventana">TAREAS</button>
 </div>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="tabBasics">

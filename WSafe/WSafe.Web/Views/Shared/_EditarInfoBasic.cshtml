@@ -1,6 +1,8 @@
 ﻿@model WSafe.Domain.Data.Entities.Organization
 @{
-    var resolucionLicencia = Model.ResolucionLicencia;
+    var resolucionLicencia = Model.FechaResolucionLicencia;
+    var renovacionLicencia = Model.FechaRenovacionLicencia;
+    var renovacionCurso = Model.FechaRenovacionCurso;
 }
 
 <div class="container" style="background-color:azure">
@@ -257,8 +259,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.ResolucionLicencia, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.ResolucionLicencia, new { htmlAttributes = new { @class = "form-control", @id = "resolucionLicencia", @value = "@resolucionLicencia" } })
-                    @Html.ValidationMessageFor(model => model.ResolucionLicencia, "", new { @class = "text-danger" })
+                    <input type="date" class="form-control" id="resolucionLicencia" value = "@resolucionLicencia" required>
                 </div>
             </div>
         </div>
@@ -278,8 +279,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.RenovacionLicencia, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-8">
-                    <input type="date" class="form-control" data-val-required="El campo Fecha solicitud es obligatotio" id="renovacionLicencia" name="renovacionLicencia"
-                           value='@resolucionLicencia'>
+                    <input type="date" class="form-control" id="renovacionLicencia" value="@renovacionLicencia" required>
                 </div>
             </div>
         </div>
@@ -287,8 +287,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.RenovacionCurso, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-8">
-                    <input type="date" class="form-control" data-val-required="El campo Fecha solicitud es obligatotio" id="renovacionCurso" name="renovacionCurso"
-                           value='@resolucionLicencia'>
+                    <input type="date" class="form-control" id="renovacionCurso" value="@renovacionCurso" required>
                 </div>
             </div>
         </div>
