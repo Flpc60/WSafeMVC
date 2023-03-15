@@ -30,19 +30,19 @@
             </div>
             <div class="navbar-collapse collapse navbar-menu">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Entidad", "Index", "Organizations")</li>
+                    <li>@Html.ActionLink("ENTIDAD", "Index", "Organizations")</li>
                     <li>@Html.ActionLink("SG-SST", "Index", "Movimientos")</li>
-                    <li>@Html.ActionLink("Evaluación Estándares", "Index", "Evaluations")</li>
-                    <li>@Html.ActionLink("Riesgos", "Index", "Riesgos")</li>
-                    <li>@Html.ActionLink("Incidentes", "Index", "Incidentes")</li>
-                    <li>@Html.ActionLink("Acciones", "Index", "Acciones")</li>
-                    <li>@Html.ActionLink("Indicadores", "Index", "Indicadores")</li>
-                    <li>@Html.ActionLink("Usuarios", "Index", "Accounts")</li>
+                    <li>@Html.ActionLink("EVAL. ESTÁNDARES", "Index", "Evaluations")</li>
+                    <li>@Html.ActionLink("RIESGOS", "Index", "Riesgos")</li>
+                    <li>@Html.ActionLink("INCIDENTES", "Index", "Incidentes")</li>
+                    <li>@Html.ActionLink("ACCIONES", "Index", "Acciones")</li>
+                    <li>@Html.ActionLink("INDICADORES", "Index", "Indicadores")</li>
+                    <li>@Html.ActionLink("USUARIOS", "Index", "Accounts")</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (Session["userName"] != null)
                     {
-                        <li><a style="color:white;font-family:Arial"><b>Hola : @Session["userName"].ToString().Trim()</b></a></li>
+                        <li><a style="color:white;font-family:Arial"><b>Bienvenido, @Session["userName"].ToString().Trim()</b></a></li>
                     }
                     <li>@Html.ActionLink("Cerrar sesión", "Logout", "Accounts", new { @class = "glyphicon glyphicon-log-out" })</li>
                 </ul>
