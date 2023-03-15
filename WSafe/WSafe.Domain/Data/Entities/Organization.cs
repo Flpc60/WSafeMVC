@@ -40,7 +40,7 @@ namespace WSafe.Domain.Data.Entities
         [MaxLength(20)]
         public string DocumentRepresent { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Nombre Represente Legal")]
+        [Display(Name = "Represente Legal")]
         [MaxLength(50)]
         public string NameRepresent { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
@@ -81,7 +81,7 @@ namespace WSafe.Domain.Data.Entities
         [Display(Name = "Año del periodo : ")]
         [MaxLength(4)]
         public string Year { get; set; }
-        [Display(Name = "Es unidad de Producción Agropecuaria")]
+        [Display(Name = "Producción Agropecuaria")]
         public bool Agropecuaria { get; set; }
         [Display(Name = "Responsable SG-SST")]
         [MaxLength(50)]
