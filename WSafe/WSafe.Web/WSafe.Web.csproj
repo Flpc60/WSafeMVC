@@ -448,13 +448,9 @@
     <Compile Include="Migrations\202207092147338_InitialCreate.Designer.cs">
       <DependentUpon>202207092147338_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202303141609575_UpdateOrganization1.cs" />
-    <Compile Include="Migrations\202303141609575_UpdateOrganization1.Designer.cs">
-      <DependentUpon>202303141609575_UpdateOrganization1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202303141655574_UpdateOrganization2.cs" />
-    <Compile Include="Migrations\202303141655574_UpdateOrganization2.Designer.cs">
-      <DependentUpon>202303141655574_UpdateOrganization2.cs</DependentUpon>
+    <Compile Include="Migrations\202303150101082_UpdateOrganization11.cs" />
+    <Compile Include="Migrations\202303150101082_UpdateOrganization11.Designer.cs">
+      <DependentUpon>202303150101082_UpdateOrganization11.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -995,11 +991,8 @@
     <EmbeddedResource Include="Migrations\202207092147338_InitialCreate.resx">
       <DependentUpon>202207092147338_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202303141609575_UpdateOrganization1.resx">
-      <DependentUpon>202303141609575_UpdateOrganization1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202303141655574_UpdateOrganization2.resx">
-      <DependentUpon>202303141655574_UpdateOrganization2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202303150101082_UpdateOrganization11.resx">
+      <DependentUpon>202303150101082_UpdateOrganization11.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
