@@ -1,5 +1,6 @@
 ﻿@model WSafe.Web.Models.RiesgoViewModel
-<div class="container" style="background-color: mediumaquamarine">
+<br />
+<div class="container" style="background-color: azure">
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -42,10 +43,10 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="form-group">
-                @Html.LabelFor(model => model.Rutinaria, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                @Html.LabelFor(model => model.Rutinaria, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-4">
                     <div class="checkbox">
                         @Html.EditorFor(model => model.Rutinaria, new { htmlAttributes = new { @class = "control-label col-md-2", @id = "txtRutinaria" } })
                         @Html.ValidationMessageFor(model => model.Rutinaria, "", new { @class = "text-danger" })
@@ -55,17 +56,17 @@
         </div>
         <div class="col-md-4">
             <div class="form-group">
-                @Html.LabelFor(model => model.CategoriasPeligros, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                @Html.LabelFor(model => model.CategoriasPeligros, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-8">
                     @Html.DropDownListFor(model => model.CategoriaPeligroID, Model.CategoriasPeligros, new { @class = "form-control", @id = "categoria" })
                     @Html.ValidationMessageFor(model => model.CategoriaPeligroID, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-5">
             <div class="form-group">
-                @Html.LabelFor(model => model.Peligros, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                @Html.LabelFor(model => model.Peligros, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-8">
                     @Html.DropDownListFor(model => model.PeligroID, Model.Peligros, new { @class = "form-control", @id = "peligro" })
                     @Html.ValidationMessageFor(model => model.PeligroID, "", new { @class = "text-danger" })
                 </div>

@@ -382,14 +382,18 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> UpdateOrganization(Organization organization)
+        public async Task<ActionResult> UpdateOrganization(Organization model)
         {
             var message = "";
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _empresaContext.Entry(organization).State = EntityState.Modified;
+                    Organization result = await _empresaContext.Organizations.FindAsync(model.ID);
+                    model.StandardEvaluation = result.StandardEvaluation;
+                    model.StandardMatrixRisk = result.StandardMatrixRisk;
+                    model.StandardActions = result.StandardActions;
+                    _empresaContext.Entry(model).State = EntityState.Modified;
                     await _empresaContext.SaveChangesAsync();
                     message = "La Organización ha sido actualizada correctamente!!";
                     return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
