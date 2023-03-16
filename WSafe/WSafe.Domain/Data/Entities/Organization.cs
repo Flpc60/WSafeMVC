@@ -5,8 +5,10 @@ namespace WSafe.Domain.Data.Entities
 {
     public class Organization
     {
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [MaxLength(20)]
         public string NIT { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Razon Social")]
@@ -29,7 +31,7 @@ namespace WSafe.Domain.Data.Entities
         [MaxLength(50)]
         public string Telefono { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [MaxLength(50)]
+        [MaxLength(20)]
         public string ARL { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Clase Riesgo")]

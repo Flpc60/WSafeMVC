@@ -448,9 +448,13 @@
     <Compile Include="Migrations\202207092147338_InitialCreate.Designer.cs">
       <DependentUpon>202207092147338_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202303150101082_UpdateOrganization11.cs" />
-    <Compile Include="Migrations\202303150101082_UpdateOrganization11.Designer.cs">
-      <DependentUpon>202303150101082_UpdateOrganization11.cs</DependentUpon>
+    <Compile Include="Migrations\202303151634253_UpdateOrganizatio01.cs" />
+    <Compile Include="Migrations\202303151634253_UpdateOrganizatio01.Designer.cs">
+      <DependentUpon>202303151634253_UpdateOrganizatio01.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202303151915400_UpdateOrganization02.cs" />
+    <Compile Include="Migrations\202303151915400_UpdateOrganization02.Designer.cs">
+      <DependentUpon>202303151915400_UpdateOrganization02.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -564,8 +568,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Images\banner1.jpg" />
     <Content Include="Images\LogoEntidad.jpg" />
-    <Content Include="Rotativa\help-wkhtmltoimage.txt" />
-    <Content Include="Rotativa\help-wkhtmltopdf.txt" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -574,15 +576,17 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="App_Browsers\qt.browser" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile2.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile3.pubxml" />
     <None Include="Properties\PublishProfiles\FTPProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\FTPProfile2.pubxml" />
-    <None Include="Rotativa\wkhtmltopdf.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <Content Include="Rotativa\help-wkhtmltoimage.txt" />
+    <Content Include="Rotativa\help-wkhtmltopdf.txt" />
+    <Content Include="Rotativa\wkhtmltoimage.exe" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\bootstrap-table\bootstrap-table.js" />
     <Content Include="Scripts\bootstrap-table\bootstrap-table.min.js" />
     <Content Include="Scripts\bootstrap-table\extensions\editable\bootstrap-table-editable.min.js" />
@@ -632,7 +636,6 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="App.config" />
-    <Content Include="App_Browsers\qt.browser" />
     <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <Content Include="Scripts\index.js.flow" />
     <Content Include="Scripts\esm\popper.min.js.map" />
@@ -991,8 +994,11 @@
     <EmbeddedResource Include="Migrations\202207092147338_InitialCreate.resx">
       <DependentUpon>202207092147338_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202303150101082_UpdateOrganization11.resx">
-      <DependentUpon>202303150101082_UpdateOrganization11.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202303151634253_UpdateOrganizatio01.resx">
+      <DependentUpon>202303151634253_UpdateOrganizatio01.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303151915400_UpdateOrganization02.resx">
+      <DependentUpon>202303151915400_UpdateOrganization02.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -1981,9 +1981,9 @@ function AddInterven() {
                 $("#txtIntervenID").val(result.data);
                 $("#btnAddInterven").hide();
                 $(".tabAddInterven").css("display", "none");
+                ClearTextBox();
             }
             alert(result.mensaj);
-            ClearTextBox();
             mostrarInterven();
         },
         error: function (xhr, ajaxOptions, thrownError) {
