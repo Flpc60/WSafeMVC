@@ -49,23 +49,7 @@ namespace WSafe.Web.Controllers
                 return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
             }
         }
-/*
-        public async Task<ActionResult> GetAll()
-        {
-            var list = await _empresaContext.Riesgos
-                .Include(mi => mi.MedidasIntervencion)
-                .OrderByDescending(cr => cr.NivelRiesgo)
-                .ToListAsync();
-            var modelo = _converterHelper.ToRiesgoViewModelFul(list);
-            var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == 8);
-            ViewBag.formato = document.Formato;
-            ViewBag.estandar = document.Estandar;
-            ViewBag.titulo = document.Titulo;
-            ViewBag.version = document.Version;
-            ViewBag.fecha = DateTime.Now;
-            return View(modelo);
-        }
-*/
+
         [HttpGet]
         public async Task<ActionResult> PrintRiesgosToPdf()
         {
@@ -73,7 +57,7 @@ namespace WSafe.Web.Controllers
             var organization = _empresaContext.Organizations.OrderByDescending(x => x.ID).First();
             var year = organization.Year.ToString();
             var item = _empresaContext.Normas.Find(organization.StandardMatrixRisk).Item;
-            var fullPath = "~/SG-SST/2. HACER/" + year + "/" + item + "/";
+            var fullPath = $"~/SG-SST/{year}/2. HACER/{item}/";
             var path = Server.MapPath(fullPath);
             if (!Directory.Exists(path))
             {

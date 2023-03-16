@@ -415,22 +415,6 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Details(int id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            var result = await _empresaContext.Acciones.FirstOrDefaultAsync(i => i.ID == id);
-
-            var model = _converterHelper.ToAccionVMFull(result, 1);
-            ViewBag.planes = model.Planes.Count();
-            ViewBag.sigue = model.Seguimientos.Count();
-            return View(model);
-        }
-
-        [HttpGet]
         public async Task<ActionResult> PrintAccionesToPdf(int id)
         {
             Random random = new Random();
@@ -441,7 +425,7 @@ namespace WSafe.Web.Controllers
             var model = _converterHelper.ToAccionVMFull(result, 1);
             ViewBag.planes = model.Planes.Count();
             ViewBag.sigue = model.Seguimientos.Count();
-            var report = new ViewAsPdf("Details", new { id = id });
+            var report = new ViewAsPdf("Details");
             report.Model = model;
             report.FileName = filePathName;
             report.PageSize = Rotativa.Options.Size.A4;
@@ -458,9 +442,9 @@ namespace WSafe.Web.Controllers
             var noConformance = _empresaContext.Acciones.Count();
             var numPlans = _empresaContext.PlanActions.Count();
             var numCorrective = _empresaContext.Acciones
-                .Where(ac =>ac.Categoria == CategoriasAccion.Correctiva).Count();
+                .Where(ac => ac.Categoria == CategoriasAccion.Correctiva).Count();
 
-            return Json(new { noConformance = noConformance, numPlans = numPlans, numCorrective = numCorrective },JsonRequestBehavior.AllowGet);
+            return Json(new { noConformance = noConformance, numPlans = numPlans, numCorrective = numCorrective }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
