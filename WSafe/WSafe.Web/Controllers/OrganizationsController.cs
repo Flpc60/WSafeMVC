@@ -28,8 +28,8 @@ namespace WSafe.Web.Controllers
         public async Task<ActionResult> Index()
         {
             var id = _empresaContext.Organizations.OrderByDescending(x => x.ID).First().ID;
-            ViewBag.id = id;
             Organization organization = await _empresaContext.Organizations.FindAsync(id);
+            ViewBag.id = organization.ID;
             return View(organization);
         }
         public ActionResult GetAllCargos()
@@ -384,29 +384,28 @@ namespace WSafe.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> UpdateOrganization(Organization model)
         {
-            var message = "";
             try
             {
+                var message = "";
                 if (ModelState.IsValid)
                 {
-                    Organization result = await _empresaContext.Organizations.FindAsync(model.ID);
-                    model.StandardEvaluation = result.StandardEvaluation;
-                    model.StandardMatrixRisk = result.StandardMatrixRisk;
-                    model.StandardActions = result.StandardActions;
                     _empresaContext.Entry(model).State = EntityState.Modified;
                     await _empresaContext.SaveChangesAsync();
                     message = "La Organización ha sido actualizada correctamente!!";
                     return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
-                message = "La Organización NO se ha podido actualizar correctamente!!";
-                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                else
+                {
+                    message = "La Organización NO se ha podido actualizar correctamente!!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                message = "La Organización NO se ha podido actualizar correctamente!!";
-                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                return View("Error", new HandleErrorInfo(ex, "Organizations", "Index"));
             }
         }
+
         [AuthorizeUser(operation: 4, component: 1)]
         public async Task<ActionResult> Delete(int? id)
         {

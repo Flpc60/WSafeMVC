@@ -117,6 +117,7 @@ namespace WSafe.Domain.Data.Entities
         public int StandardEvaluation { get; set; }
         public int StandardMatrixRisk { get; set; }
         public int StandardActions { get; set; }
+        public int StandardIncidents { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Fecha resolución licencia")]
         [MaxLength(12)]
