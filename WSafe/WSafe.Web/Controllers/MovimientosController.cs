@@ -64,9 +64,9 @@ namespace WSafe.Web.Controllers
         [HttpPost]
         public ActionResult CreateMovimient(string Descripcion, int NormaID, HttpPostedFileBase fileLoad)
         {
-            var message = "";
             try
             {
+                var message = "";
                 var organizatión = _empresaContext.Organizations.OrderByDescending(x => x.ID).First();
                 var year = organizatión.Year.ToString();
                 var normaID = NormaID.ToString();
@@ -127,51 +127,46 @@ namespace WSafe.Web.Controllers
             }
             catch (Exception ex)
             {
-                message += ex.Message;
-                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                return View("Error", new HandleErrorInfo(ex, "Movimientos", "Index"));
             }
         }
 
         [HttpGet]
         public async Task<ActionResult> OpenFile(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Movimient model = await _empresaContext.Movimientos.FindAsync(id);
-            var message = "";
-            if (model == null)
-            {
-                message = "El archivo NO ha sido abierto correctamente !!";
-                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
-            }
-            var cycle = model.Ciclo.ToString();
-            var ruta = model.Ciclo.ToString();
-
-            switch (cycle)
-            {
-                case "P":
-                    ruta = "1. PLANEAR/";
-                    break;
-
-                case "H":
-                    ruta = "2. HACER/";
-                    break;
-                case "V":
-                    ruta = "3. VERIFICAR/";
-                    break;
-                case "A":
-                    ruta = "4. ACTUAR/";
-                    break;
-            }
-
-            var year = model.Year.ToString();
-            var item = model.Item.ToString();
-            var fullFilePath = "~/SG-SST/" + year + "/" + ruta + item + "/" + model.Document;
-            var path = Server.MapPath(fullFilePath);
             try
             {
+                Movimient model = await _empresaContext.Movimientos.FindAsync(id);
+                var message = "";
+                if (model == null)
+                {
+                    message = "El archivo NO ha sido abierto correctamente !!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                var cycle = model.Ciclo.ToString();
+                var ruta = model.Ciclo.ToString();
+
+                switch (cycle)
+                {
+                    case "P":
+                        ruta = "1. PLANEAR";
+                        break;
+
+                    case "H":
+                        ruta = "2. HACER";
+                        break;
+                    case "V":
+                        ruta = "3. VERIFICAR";
+                        break;
+                    case "A":
+                        ruta = "4. ACTUAR";
+                        break;
+                }
+
+                var year = model.Year.ToString();
+                var item = model.Item.ToString();
+                var fullFilePath = $"~/SG-SST/{year}/{ruta}/{item}/{model.Document}";
+                var path = Server.MapPath(fullFilePath);
                 using (Process myProcess = new Process())
                 {
 
@@ -180,13 +175,12 @@ namespace WSafe.Web.Controllers
                     myProcess.StartInfo.CreateNoWindow = false;
                     Process.Start(path);
                 }
+                return Json(new { data = true }, JsonRequestBehavior.AllowGet);
             }
-            catch (Win32Exception w)
+            catch (Exception ex)
             {
-                return Json(new { data = false, mensaj = w.Message }, JsonRequestBehavior.AllowGet);
+                return View("Error", new HandleErrorInfo(ex, "Movimientos", "Index"));
             }
-            message = "El archivo ha sido abierto correctamente !!";
-            return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
         }
 
         // POST: Movimientos/Edit/5
@@ -267,13 +261,9 @@ namespace WSafe.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> CreatePDF(int id)
         {
-            var message = "";
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             try
             {
+                var message = "";
                 Movimient model = await _empresaContext.Movimientos.FindAsync(id);
                 if (model == null)
                 {
@@ -286,24 +276,24 @@ namespace WSafe.Web.Controllers
                 switch (cycle)
                 {
                     case "P":
-                        ruta = "1. PLANEAR/";
+                        ruta = "1. PLANEAR";
                         break;
 
                     case "H":
-                        ruta = "2. HACER/";
+                        ruta = "2. HACER";
                         break;
                     case "V":
-                        ruta = "3. VERIFICAR/";
+                        ruta = "3. VERIFICAR";
                         break;
                     case "A":
-                        ruta = "4. ACTUAR/";
+                        ruta = "4. ACTUAR";
                         break;
                 }
 
                 var year = model.Year.ToString();
                 var item = model.Item.ToString();
-                var fullFilePath = "~/SG-SST/" + year + "/" + ruta + item + "/" + model.Document;
-                var filePath = "~/SG-SST/" + year + "/" + ruta + item + "/";
+                var fullFilePath = $"~/SG-SST/{year}/{ruta}/{item}/{model.Document}";
+                var filePath = $"~/SG-SST/{year}/{ruta}/{item}/";
                 var path = Server.MapPath(fullFilePath);
                 var directoryPath = Server.MapPath(filePath);
                 var type = model.Type.ToLower();
@@ -336,13 +326,13 @@ namespace WSafe.Web.Controllers
 
                 _empresaContext.Movimientos.Add(data);
                 await _empresaContext.SaveChangesAsync();
+                message = "El archivo ha sido creado correctamente !!";
+                return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
-            catch (Win32Exception w)
+            catch (Exception ex)
             {
-                return Json(new { data = false, mensaj = w.Message }, JsonRequestBehavior.AllowGet);
+                return View("Error", new HandleErrorInfo(ex, "Movimientos", "Index"));
             }
-            message = "El archivo ha sido creado correctamente !!";
-            return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public async Task<ActionResult> Download(int id)

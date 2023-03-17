@@ -2,6 +2,10 @@
 
 @{
     var title = "INFORMACIÓN BÁSICA DE LA EMPRESA";
+    var sdEvaluation = Model.StandardEvaluation;
+    var sdMatrixRisk = Model.StandardMatrixRisk;
+    var sdActions = Model.StandardActions;
+    var sdIncidents = Model.StandardIncidents;
 }
 
 <style>
@@ -14,6 +18,10 @@
 <hr />
 <hr />
 <h4>@title</h4>
+<input type="hidden" id="sdEvaluation" name="StandardEvaluation" value="@sdEvaluation"/>
+<input type="hidden" id="sdMatrixRisk" name="sdMatrixRisk" value="@sdMatrixRisk"/>
+<input type="hidden" id="sdActions" name="sdActions" value="@sdActions"/>
+<input type="hidden" id="sdIncidents" name="sdIncidents" value="@sdIncidents"/>
 
 <div class="container-fluid">
     <button type="button" class="btn btn-info" id="basics" title="doble click para cerrar la ventana">BÁSICOS</button>

@@ -483,13 +483,6 @@ function ShowMovimientos(phva) {
                 html += '<td>' + item.Descripcion + '</td>';
                 html += '<td>' + item.Type + '</td>';
                 html += '<td><a href = "#" onclick = "EditMovimient(' + item.ID + ')" class="btn btn-primary">Abrir</a></td>';
-
-                if (item.Type == ".PDF") {
-                    html += '<td><a href = "#" onclick = "GeneratePDF(' + item.ID + ')" class="btn btn-warning" style ="pointer-events: none;">Generar PDF</a></td>';
-                } else {
-
-                    html += '<td><a href = "#" onclick = "GeneratePDF(' + item.ID + ')" class="btn btn-warning">Generar PDF</a></td>';
-                }
                 html += '<td><a href = "' + url + '" download="' + fileName + '" class="btn btn-success">Descargar</a ></td>';
                 html += '<td><a href = "#" onclick="DeleteMovimient(' + item.ID + ')" class="btn btn-danger">Eliminar</a></td>';
                 html += '<td><a href = "#" onclick="OpenEmail(' + item.ID + ')" class="btn btn-info">Enviar</a></td>';
@@ -749,7 +742,6 @@ function EditMovimient(movimientID) {
         dataType: "json",
         contentType: "application/json;charset=UTF-8",
         success: function (result) {
-            alert(result.mensaj);
             ShowMovimientos(ciclo);
         },
         error: function (errormessage) {
@@ -1536,13 +1528,17 @@ function UpdateOrganization(id) {
         FechaRenovacionCurso: $("#renovacionCurso").val(),
         NivelEstudios: $("#idNivelEstudios").val(),
         MesesExperiencia: $("#txtMesesExperiencia").val(),
-        Range: range
+        Range: range,
+        StandardEvaluation: $("#sdEvaluation").val(),
+        StandardMatrixRisk: $("#sdMatrixRisk").val(),
+        StandardActions: $("#sdActions").val(),
+        StandardIncidents: $("#sdIncidents").val()
     };
 
     $.ajax({
         type: "POST",
         url: "/Organizations/UpdateOrganization",
-        data: { organization: organizaVM },
+        data: { model: organizaVM },
         dataType: "json",
         success: function (result) {
             alert(result.mensaj);
