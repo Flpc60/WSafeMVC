@@ -53,62 +53,68 @@ namespace WSafe.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> PrintRiesgosToPdf()
         {
-            // Configuración nombre archivo pdf
-            var organization = _empresaContext.Organizations.OrderByDescending(x => x.ID).First();
-            var year = organization.Year.ToString();
-            var item = _empresaContext.Normas.Find(organization.StandardMatrixRisk).Item;
-            var fullPath = $"~/SG-SST/{year}/2. HACER/{item}/";
-            var path = Server.MapPath(fullPath);
-            if (!Directory.Exists(path))
+            try
             {
-                Directory.CreateDirectory(path);
+                // Configuración nombre archivo pdf
+                var organization = _empresaContext.Organizations.OrderByDescending(x => x.ID).First();
+                var year = organization.Year.ToString();
+                var item = _empresaContext.Normas.Find(organization.StandardMatrixRisk).Item;
+                var fullPath = $"~/SG-SST/{year}/2. HACER/{item}/";
+                var path = Server.MapPath(fullPath);
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                Random random = new Random();
+                var filename = "MatrixRisk" + random.Next(1, 100) + ".Pdf";
+                var filePathName = path + filename;
+                var list = await _empresaContext.Riesgos
+                    .Include(mi => mi.MedidasIntervencion)
+                    .OrderByDescending(cr => cr.NivelRiesgo)
+                    .ToListAsync();
+                var modelo = _converterHelper.ToRiesgoViewModelFul(list);
+                var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == 8);
+                ViewBag.formato = document.Formato;
+                ViewBag.estandar = document.Estandar;
+                ViewBag.titulo = document.Titulo;
+                ViewBag.version = document.Version;
+                ViewBag.fecha = DateTime.Now;
+                var report = new ViewAsPdf("GetAll");
+                report.Model = modelo;
+                report.FileName = filePathName;
+                report.PageSize = Rotativa.Options.Size.A4;
+                report.PageOrientation = Rotativa.Options.Orientation.Landscape;
+                report.PageWidth = 399;
+                report.PageHeight = 399;
+                report.SaveOnServerPath = filePathName;
+
+                //Generar archivo de movimiento
+                var fullName = filename;
+                var type = Path.GetExtension(filename).ToUpper();
+                var descript = "Matriz de riesgos";
+                var userID = (int)Session["userID"];
+                Movimient movimient = new Movimient()
+                {
+                    ID = 0,
+                    OrganizationID = organization.ID,
+                    NormaID = organization.StandardMatrixRisk,
+                    UserID = userID,
+                    Descripcion = descript,
+                    Document = fullName,
+                    Year = year,
+                    Item = item,
+                    Ciclo = "H",
+                    Type = type,
+                    Path = path
+                };
+                _empresaContext.Movimientos.Add(movimient);
+                _empresaContext.SaveChanges();
+                return report;
             }
-            Random random = new Random();
-            var filename = "MatrixRisk" + random.Next(1, 100) + ".Pdf";
-            var filePathName = path + filename;
-            var list = await _empresaContext.Riesgos
-                .Include(mi => mi.MedidasIntervencion)
-                .OrderByDescending(cr => cr.NivelRiesgo)
-                .ToListAsync();
-            var modelo = _converterHelper.ToRiesgoViewModelFul(list);
-            var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == 8);
-            ViewBag.formato = document.Formato;
-            ViewBag.estandar = document.Estandar;
-            ViewBag.titulo = document.Titulo;
-            ViewBag.version = document.Version;
-            ViewBag.fecha = DateTime.Now;
-            var report = new ViewAsPdf("GetAll");
-            report.Model = modelo;
-            report.FileName = filePathName;
-            report.PageSize = Rotativa.Options.Size.A4;
-            report.PageOrientation = Rotativa.Options.Orientation.Landscape;
-            report.PageWidth = 399;
-            report.PageHeight = 399;
-            report.SaveOnServerPath = filePathName;
-
-            //Generar archivo de movimiento
-            var fullName = filename;
-            var type = Path.GetExtension(filename).ToUpper();
-            var descript = "Matriz de riesgos";
-            var userID = (int)Session["userID"];
-            Movimient movimient = new Movimient()
+            catch (Exception ex)
             {
-                ID = 0,
-                OrganizationID = organization.ID,
-                NormaID = organization.StandardMatrixRisk,
-                UserID = userID,
-                Descripcion = descript,
-                Document = fullName,
-                Year = year,
-                Item = item,
-                Ciclo = "H",
-                Type = type,
-                Path = path
-            };
-            _empresaContext.Movimientos.Add(movimient);
-            _empresaContext.SaveChanges();
-
-            return report;
+                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
+            }
         }
 
         [AuthorizeUser(operation: 2, component: 2)]
