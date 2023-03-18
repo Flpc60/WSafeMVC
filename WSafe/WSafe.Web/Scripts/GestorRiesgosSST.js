@@ -1532,7 +1532,8 @@ function UpdateOrganization(id) {
         StandardEvaluation: $("#sdEvaluation").val(),
         StandardMatrixRisk: $("#sdMatrixRisk").val(),
         StandardActions: $("#sdActions").val(),
-        StandardIncidents: $("#sdIncidents").val()
+        StandardIncidents: $("#sdIncidents").val(),
+        ControlDate: $("#controlDate").val()
     };
 
     $.ajax({

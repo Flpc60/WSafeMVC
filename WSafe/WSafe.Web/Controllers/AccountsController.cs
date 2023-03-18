@@ -69,6 +69,14 @@ namespace WSafe.Web.Controllers
                 }
                 var id = _empresaContext.Organizations.OrderByDescending(x => x.ID).First().ID;
                 var empresa = _empresaContext.Organizations.FirstOrDefault(o => o.ID == id);
+
+                if (empresa.ControlDate < DateTime.Now)
+                {
+                    message = "Favor enviar recibo de pago para activar el servicio !!";
+                    ViewBag.mensaje = message;
+                    return Json(new { result = "", url = Url.Action("Index", "Home"), mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+
                 var agropecuaria = "NO";
                 if (empresa.Agropecuaria == true)
                 {
