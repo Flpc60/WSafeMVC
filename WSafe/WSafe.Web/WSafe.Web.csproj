@@ -460,6 +460,10 @@
     <Compile Include="Migrations\202303171318528_UpdateOrganization03.Designer.cs">
       <DependentUpon>202303171318528_UpdateOrganization03.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202303180527070_UpdOrganization04.cs" />
+    <Compile Include="Migrations\202303180527070_UpdOrganization04.Designer.cs">
+      <DependentUpon>202303180527070_UpdOrganization04.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
     <Compile Include="Models\AplicacionVM.cs" />
@@ -1006,6 +1010,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202303171318528_UpdateOrganization03.resx">
       <DependentUpon>202303171318528_UpdateOrganization03.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303180527070_UpdOrganization04.resx">
+      <DependentUpon>202303180527070_UpdOrganization04.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

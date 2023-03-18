@@ -6,6 +6,7 @@
     var sdMatrixRisk = Model.StandardMatrixRisk;
     var sdActions = Model.StandardActions;
     var sdIncidents = Model.StandardIncidents;
+    var controlDate = Model.ControlDate;
 }
 
 <style>
@@ -18,10 +19,11 @@
 <hr />
 <hr />
 <h4>@title</h4>
-<input type="hidden" id="sdEvaluation" name="StandardEvaluation" value="@sdEvaluation"/>
-<input type="hidden" id="sdMatrixRisk" name="sdMatrixRisk" value="@sdMatrixRisk"/>
-<input type="hidden" id="sdActions" name="sdActions" value="@sdActions"/>
-<input type="hidden" id="sdIncidents" name="sdIncidents" value="@sdIncidents"/>
+<input type="hidden" id="sdEvaluation" name="StandardEvaluation" value="@sdEvaluation" />
+<input type="hidden" id="sdMatrixRisk" name="sdMatrixRisk" value="@sdMatrixRisk" />
+<input type="hidden" id="sdActions" name="sdActions" value="@sdActions" />
+<input type="hidden" id="sdIncidents" name="sdIncidents" value="@sdIncidents" />
+<input type="hidden" id="controlDate" name="controlDate" value="@controlDate" />
 
 <div class="container-fluid">
     <button type="button" class="btn btn-info" id="basics" title="doble click para cerrar la ventana">BÁSICOS</button>

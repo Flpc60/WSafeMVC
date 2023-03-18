@@ -130,5 +130,10 @@ namespace WSafe.Domain.Data.Entities
         [Display(Name = "Renovación curso SG-SST")]
         [MaxLength(12)]
         public string FechaRenovacionCurso { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Vigencia arrendamiento")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime ControlDate { get; set; }
     }
 }
