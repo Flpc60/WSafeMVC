@@ -31,14 +31,14 @@ namespace WSafe.Web.Models
         public IEnumerable<SelectListItem> Tareas { get; set; }
         public bool Rutinaria { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Clasificación")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una categoria de peligro.")]
         public int CategoriaPeligroID { get; set; }
+        [Display(Name = "CATEGORIAS")]
         public IEnumerable<SelectListItem> CategoriasPeligros { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Descripción")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un peligro.")]
         public int PeligroID { get; set; }
+        [Display(Name = "PELIGROS")]
         public IEnumerable<SelectListItem> Peligros { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Efectos posibles")]

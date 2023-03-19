@@ -218,7 +218,7 @@ namespace WSafe.Domain.Helpers.Implements
                 }
                 foreach (var item in viewModel)
                 {
-                    item.MesAnn = _empresaContext.CategoriasPeligros.FirstOrDefault(cp => cp.ID == item.ID).Descripcion;
+                    item.MesAnn = _empresaContext.CategoriasPeligros.FirstOrDefault(cp => cp.ID == item.ID).Descripcion.ToUpper();
                 }
 
                 return viewModel;
