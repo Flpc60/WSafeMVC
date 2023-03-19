@@ -453,9 +453,8 @@ namespace WSafe.Web.Controllers
                 var filename = "chart" + random.Next(1, 100) + ".jpg";
                 var filePathName = "~/Images/" + filename;
                 var datos = _chartHelper.GetAllValueRisks();
-                _chartHelper.DrawImagen(filePathName, "Pie", "VALORACIÓN ACTUAL", datos);
                 var image = "/Images/" + filename;
-                return Json(image, JsonRequestBehavior.AllowGet);
+                return Json(datos, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -472,9 +471,8 @@ namespace WSafe.Web.Controllers
                 var filename = "chart" + random.Next(1, 100) + ".jpg";
                 var filePathName = "~/Images/" + filename;
                 var datos = _chartHelper.GetAllValueActivitys();
-                _chartHelper.DrawImagen(filePathName, "Pie", "ACTIVIDADES RUTINARIAS", datos);
                 var image = "/Images/" + filename;
-                return Json(image, JsonRequestBehavior.AllowGet);
+                return Json(datos, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -491,9 +489,8 @@ namespace WSafe.Web.Controllers
                 var filename = "chart" + random.Next(1, 100) + ".jpg";
                 var filePathName = "~/Images/" + filename;
                 var datos = _chartHelper.GetFatorRiesgoOcupacional();
-                _chartHelper.DrawImagen(filePathName, "Bar", "CLASIFICACIÓN PELIGROS", datos);
                 var image = "/Images/" + filename;
-                return Json(image, JsonRequestBehavior.AllowGet);
+                return Json(datos, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -510,9 +507,8 @@ namespace WSafe.Web.Controllers
                 var filename = "chart" + random.Next(1, 100) + ".jpg";
                 var filePathName = "~/Images/" + filename;
                 var datos = _chartHelper.GetAllValueEfects();
-                _chartHelper.DrawImagen(filePathName, "Bar", "CLASIFICACIÓN PELIGROS", datos);
                 var image = "/Images/" + filename;
-                return Json(image, JsonRequestBehavior.AllowGet);
+                return Json(datos, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

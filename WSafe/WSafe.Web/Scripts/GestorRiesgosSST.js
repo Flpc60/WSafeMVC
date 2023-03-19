@@ -3323,8 +3323,51 @@ function chartValueDangers() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         async: true,
-        success: function (response) {
-            $("#ValueDangers").attr("src", response);
+        success: function (data) {
+            var arrayData1 = [];
+            for (var i = 0; i < data.length; i++) {
+                arrayData1.push(data[i].Resultado);
+            }
+            const ctx = document.getElementById("ValueDangers").getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ["MUY ALTO", "ALTO", "MEDIO", "BAJO"],
+                    datasets: [
+                        {
+                            label: "CATEGORÍAS",
+                            backgroundColor: [
+                                'rgb(255, 99, 132)',
+                                'rgb(75, 192, 192)',
+                                'rgb(255, 205, 86)',
+                                'rgb(201, 203, 207)',
+                            ],
+                            data: arrayData1
+                        },
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'VALORACION PELIGROS'
+                    }
+                }
+            });
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -3341,8 +3384,48 @@ function chartClassDangers() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         async: true,
-        success: function (response) {
-            $("#ClassDangers").attr("src", response);
+        success: function (data) {
+            var arrayLabel = [];
+            var arrayData1 = [];
+            for (var i = 0; i < data.length; i++) {
+                arrayLabel.push(data[i].MesAnn);
+                arrayData1.push(data[i].Resultado);
+            }
+            const ctx = document.getElementById("ClassDangers").getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: arrayLabel,
+                    datasets: [
+                        {
+                            label: "CATEGORÍAS",
+                            backgroundColor: 'rgb(255, 205, 86)',
+                            data: arrayData1
+                        },
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'CLASIFICACIÓN PELIGROS'
+                    }
+                }
+            });
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -3359,8 +3442,49 @@ function chartCommonActivitys() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         async: true,
-        success: function (response) {
-            $("#CommonActivitys").attr("src", response);
+        success: function (data) {
+            var arrayData1 = [];
+            for (var i = 0; i < data.length; i++) {
+                arrayData1.push(data[i].Resultado);
+            }
+            const ctx = document.getElementById("CommonActivitys").getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ["RUTINARIA", "NO RUTINARIA"],
+                    datasets: [
+                        {
+                            label: "CATEGORÍAS",
+                            backgroundColor: [
+                                'rgb(75, 192, 192)',
+                                'rgb(255, 205, 86)',
+                            ],
+                            data: arrayData1
+                        },
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'ACTIVIDADES RUTINARIAS'
+                    }
+                }
+            });
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -3377,8 +3501,46 @@ function chartEfectosPosibles() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         async: true,
-        success: function (response) {
-            $("#EfectosPosibles").attr("src", response);
+        success: function (data) {
+            var arrayData1 = [];
+            for (var i = 0; i < data.length; i++) {
+                arrayData1.push(data[i].Resultado);
+            }
+            const ctx = document.getElementById("EfectosPosibles").getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ["EXTREMO","LEVE","MODERADO","A PROPIEDAD","","FALLAS A PROCESOS","PERDIDAS ECONÓMICAS"],
+                    datasets: [
+                        {
+                            label: "CATEGORÍAS DAÑOS",
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            data: arrayData1
+                        },
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'EFECTOS POSIBLES'
+                    }
+                }
+            });
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -5648,12 +5810,22 @@ function chartCalificationsCiclo() {
                     datasets: [
                         {
                             label: "VALORES MÁXIMOS",
-                            backgroundColor: "green",
+                            backgroundColor: [
+                                'rgb(75, 192, 192)',
+                                'rgb(75, 192, 192)',
+                                'rgb(75, 192, 192)',
+                                'rgb(75, 192, 192)',
+                            ],
                             data: arrayData1
                         },
                         {
                             label: "VALORES OBTENIDOS",
-                            backgroundColor: "orange",
+                            backgroundColor: [
+                                'rgb(255, 205, 86)',
+                                'rgb(255, 205, 86)',
+                                'rgb(255, 205, 86)',
+                                'rgb(255, 205, 86)',
+                            ],
                             data: arrayData2
                         }
                     ]
@@ -5713,12 +5885,28 @@ function chartPorStandard() {
                     datasets: [
                         {
                             label: "VALORES MÁXIMOS",
-                            backgroundColor: "blue",
+                            backgroundColor: [
+                                'rgb(75, 192, 192)',
+                                'rgb(75, 192, 192)',
+                                'rgb(75, 192, 192)',
+                                'rgb(75, 192, 192)',
+                                'rgb(75, 192, 192)',
+                                'rgb(75, 192, 192)',
+                                'rgb(75, 192, 192)'
+                            ],
                             data: arrayData1
                         },
                         {
                             label: "VALORES OBTENIDOS",
-                            backgroundColor: "red",
+                            backgroundColor: [
+                                'rgb(255, 205, 86)',
+                                'rgb(255, 205, 86)',
+                                'rgb(255, 205, 86)',
+                                'rgb(255, 205, 86)',
+                                'rgb(255, 205, 86)',
+                                'rgb(255, 205, 86)',
+                                'rgb(255, 205, 86)'
+                            ],
                             data: arrayData2
                         }
                     ]

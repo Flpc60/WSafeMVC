@@ -172,32 +172,29 @@
         </tbody>
     </table>
 </div>
-
-<div class="pull-left">
-    <div class="btn-group">
-        <button type="button" id="btnValueDangers" class="btn btn-warning" onclick="chartValueDangers()">VALORACIÓN PELIGROS</button>
-        <button type="button" id="btnClassDangers" class="btn btn-warning" onclick="chartClassDangers()">CLAISFICACIÓN PELIGROS</button>
-        <button type="button" id="btnCommonActivitys" class="btn btn-warning" onclick="chartCommonActivitys()">ACTIVIDADES RUTINARIAS</button>
-        <button type="button" id="btnEfectosPosibles" class="btn btn-warning" onclick="chartEfectosPosibles()">EFECTOS POSIBLES</button>
-    </div>
-</div>
-
 <hr />
-<div class="row">
-    <div class="col-md-6">
-        <img src="" id="ValueDangers" class="rounded float-left" alt="..." />
+<div class="container" style="margin-left:6%">
+    <button type="button" id="btnValueDangers" class="btn btn-success" onclick="chartValueDangers()">VALORACIÓN PELIGROS</button>
+    <button type="button" id="btnClassDangers" class="btn btn-success" onclick="chartClassDangers()">CLASIFICACIÓN PELIGROS</button>
+    <button type="button" id="btnCommonActivitys" class="btn btn-success" onclick="chartCommonActivitys()">ACTIVIDADES RUTINARIAS</button>
+    <button type="button" id="btnEfectosPosibles" class="btn btn-success" onclick="chartEfectosPosibles()">EFECTOS POSIBLES</button>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <div><canvas id="ValueDangers" width="200" height="100"></canvas></div>
+        </div>
+        <div class="col-md-6">
+            <div><canvas id="ClassDangers" width="200" height="100"></canvas></div>
+        </div>
     </div>
-    <div class="col-md-6">
-        <img src="" id="ClassDangers" class="rounded float-left" alt="..." />
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-6">
-        <img src="" id="CommonActivitys" class="rounded float-left" alt="..." />
-    </div>
-    <div class="col-md-6">
-        <img src="" id="EfectosPosibles" class="rounded float-left" alt="..." />
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <div><canvas id="CommonActivitys" width="200" height="100"></canvas></div>
+        </div>
+        <div class="col-md-6">
+            <div><canvas id="EfectosPosibles" width="200" height="100"></canvas></div>
+        </div>
     </div>
 </div>
 
