@@ -128,9 +128,9 @@ namespace WSafe.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateRiesgo(RiesgoViewModel model)
         {
-            var message = "";
             try
             {
+                var message = "";
                 if (ModelState.IsValid)
                 {
                     if (model.ID == 0)
@@ -143,19 +143,29 @@ namespace WSafe.Web.Controllers
                             message = "El registro NO ha sido ingresado correctamente !!";
                             return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
                         }
-                        message = "El registro ha sido ingresado correctamente !!";
-                        var idRiesgo = _empresaContext.Riesgos.OrderByDescending(x => x.ID).First().ID;
-                        return Json(new { data = idRiesgo, mensaj = message }, JsonRequestBehavior.AllowGet);
+                        else
+                        {
+                            message = "El registro ha sido ingresado correctamente !!";
+                            var idRiesgo = _empresaContext.Riesgos.OrderByDescending(x => x.ID).First().ID;
+                            return Json(new { data = idRiesgo, mensaj = message }, JsonRequestBehavior.AllowGet);
+                        }
+                    }
+                    else
+                    {
+                        message = "El registro NO ha sido ingresado correctamente !!";
+                        return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
                     }
                 }
+                else
+                {
+                    message = "El registro NO ha sido ingresado correctamente !!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                message = "El registro NO ha sido ingresado correctamente !!";
-                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
             }
-            message = "El registro NO ha sido ingresado correctamente !!";
-            return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
         }
 
         [AuthorizeUser(operation: 3, component: 2)]
@@ -180,10 +190,9 @@ namespace WSafe.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> UpdateRiesgo(RiesgoViewModel model)
         {
-            var message = "";
             try
             {
-
+                var message = "";
                 if (ModelState.IsValid)
                 {
                     var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
@@ -199,10 +208,9 @@ namespace WSafe.Web.Controllers
                     return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                message = "La actualización NO se ha realizado exitosamente !!";
-                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
             }
         }
         public IEnumerable<SelectListItem> GetPeligros()

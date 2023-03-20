@@ -14,17 +14,14 @@
 <br />
 <br />
 <h4>GESTIÓN DE ACCIONES CPM</h4>
-
-<div class="pull-left">
-    <div class="btn-group">
-        @Html.ActionLink("Nueva Acción", "Create", new { @class = "glyphicon glyphicon-plus" },
-        new { @class = "btn btn-info btn-lg active" })
-        <button class="btn btn-info btn-lg active" onclick="FindActions()">Consultar Acciones</button><br>
-    </div>
+<div class="container" style="margin-left:6%">
+    @Html.ActionLink("Nueva Acción", "Create", new { @class = "glyphicon glyphicon-plus" },
+    new { @class = "btn btn-info btn-lg active" })
+    <button class="btn btn-info btn-lg active" onclick="FindActions()">Consultar Acciones</button><br>
 </div>
 <br />
 
-<div class="table-responsive" style="background-color:azure">
+<div class="table-responsive" style="background-color: azure; width:100%; margin-right:0px">
     <table class="table table-bordered">
         <tr style="background-color:gainsboro; width:auto">
             <th>

@@ -1,6 +1,7 @@
 ﻿using Rotativa;
 using System;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -417,22 +418,64 @@ namespace WSafe.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> PrintAccionesToPdf(int id)
         {
-            Random random = new Random();
-            var filename = "ReporteAccion" + random.Next(1, 100) + ".Pdf";
-            var filePathName = "~/Documents/" + filename;
+            try
+            {
+                // Configuración nombre archivo pdf
+                var organization = _empresaContext.Organizations.OrderByDescending(x => x.ID).First();
+                var year = organization.Year.ToString();
+                var item = _empresaContext.Normas.Find(organization.StandardActions).Item;
+                var fullPath = $"~/SG-SST/{year}/4. ACTUAR/{item}/";
+                var path = Server.MapPath(fullPath);
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                Random random = new Random();
+                var filename = "ReporteAccion" + random.Next(1, 100) + ".Pdf";
+                var filePathName = path + filename;
+                var result = await _empresaContext.Acciones.FirstOrDefaultAsync(i => i.ID == id);
+                var model = _converterHelper.ToAccionVMFull(result, 1);
+                var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == 1);
+                ViewBag.formato = document.Formato;
+                ViewBag.estandar = document.Estandar;
+                ViewBag.titulo = document.Titulo;
+                ViewBag.version = document.Version;
+                ViewBag.fecha = DateTime.Now;
+                var report = new ViewAsPdf("Details");
+                report.Model = model;
+                report.FileName = filePathName;
+                report.PageSize = Rotativa.Options.Size.A4;
+                report.Copies = 1;
+                report.PageOrientation.GetValueOrDefault();
+                report.FormsAuthenticationCookieName = FormsAuthentication.FormsCookieName;
 
-            var result = await _empresaContext.Acciones.FirstOrDefaultAsync(i => i.ID == id);
-            var model = _converterHelper.ToAccionVMFull(result, 1);
-            ViewBag.planes = model.Planes.Count();
-            ViewBag.sigue = model.Seguimientos.Count();
-            var report = new ViewAsPdf("Details");
-            report.Model = model;
-            report.FileName = filePathName;
-            report.PageSize = Rotativa.Options.Size.A4;
-            report.Copies = 1;
-            report.PageOrientation.GetValueOrDefault();
-            report.FormsAuthenticationCookieName = FormsAuthentication.FormsCookieName;
-            return report;
+                //Generar archivo de movimiento
+                var fullName = filename;
+                var type = Path.GetExtension(filename).ToUpper();
+                var descript = "Reporte Acciones CPM";
+                var userID = (int)Session["userID"];
+                Movimient movimient = new Movimient()
+                {
+                    ID = 0,
+                    OrganizationID = organization.ID,
+                    NormaID = organization.StandardActions,
+                    UserID = userID,
+                    Descripcion = descript,
+                    Document = fullName,
+                    Year = year,
+                    Item = item,
+                    Ciclo = "A",
+                    Type = type,
+                    Path = path
+                };
+                _empresaContext.Movimientos.Add(movimient);
+                _empresaContext.SaveChanges();
+                return report;
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Acciones", "Index"));
+            }
         }
 
         [HttpGet]

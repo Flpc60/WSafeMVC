@@ -75,7 +75,10 @@ namespace WSafe.Domain.Helpers.Implements
                 NroExpuestos = model.NroExpuestos,
                 RequisitoLegal = model.RequisitoLegal,
                 IncidenteID = model.IncidenteID,
-                DangerCategory = model.DangerCategory
+                DangerCategory = model.DangerCategory,
+                FuenteControls = model.FuenteControls,
+                MedioControls = model.MedioControls,
+                IndividuoControls = model.IndividuoControls
             };
             return result;
         }
@@ -108,7 +111,10 @@ namespace WSafe.Domain.Helpers.Implements
                 Procesos = _comboHelper.GetComboProcesos(),
                 Actividades = _comboHelper.GetComboActividades(),
                 Tareas = _comboHelper.GetComboTareas(),
-                DangerCategory = riesgo.DangerCategory
+                DangerCategory = riesgo.DangerCategory,
+                FuenteControls = riesgo.FuenteControls,
+                MedioControls = riesgo.MedioControls,
+                IndividuoControls = riesgo.IndividuoControls
             };
 
             return model;
@@ -794,6 +800,34 @@ namespace WSafe.Domain.Helpers.Implements
                     requisito = "No";
                 }
 
+                if (item.FuenteControls != null)
+                {
+                    fuente = item.FuenteControls.ToUpper();
+                }
+                else
+                {
+                    fuente = "";
+                }
+
+                if (item.MedioControls != null)
+                {
+                    fuente = item.MedioControls.ToUpper();
+                }
+                else
+                {
+                    medio = "";
+                }
+
+                if (item.IndividuoControls != null)
+                {
+                    fuente = item.IndividuoControls.ToUpper();
+                }
+                else
+                {
+                    individuo = "";
+                }
+
+
                 foreach (var apl in item.MedidasIntervencion)
                 {
                     switch (apl.CategoriaAplicacion)
@@ -849,9 +883,9 @@ namespace WSafe.Domain.Helpers.Implements
                     CategoriaPeligro = _empresaContext.CategoriasPeligros.Find(item.CategoriaPeligroID).Descripcion,
                     Peligro = _empresaContext.Peligros.Find(item.PeligroID).Descripcion,
                     EfectosPosibles = _gestorHelper.GetEfectos(item.EfectosPosibles),
-                    Fuente = fuente,
-                    Medio = medio,
-                    Individuo = individuo,
+                    FuenteControls = fuente,
+                    MedioControls = medio,
+                    IndividuoControls = individuo,
                     NivelDeficiencia = item.NivelDeficiencia,
                     NivelExposicion = item.NivelExposicion,
                     NivelProbabilidad = item.NivelProbabilidad,
@@ -896,7 +930,10 @@ namespace WSafe.Domain.Helpers.Implements
                 AceptabilidadNR = _gestorHelper.GetAceptabilidadNR(riesgo.CategoriaRiesgo),
                 SignificadoNR = _gestorHelper.GetSignificadoNR(riesgo.CategoriaRiesgo),
                 NroExpuestos = riesgo.NroExpuestos,
-                PeorConsecuencia = riesgo.PeorConsecuencia
+                PeorConsecuencia = riesgo.PeorConsecuencia,
+                FuenteControls = riesgo.FuenteControls,
+                MedioControls = riesgo.MedioControls,
+                IndividuoControls = riesgo.IndividuoControls
             };
             return model;
         }
