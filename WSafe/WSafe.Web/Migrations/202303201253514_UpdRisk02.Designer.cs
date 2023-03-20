@@ -7,13 +7,13 @@ namespace WSafe.Web.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class UpdateOrganizatio01 : IMigrationMetadata
+    public sealed partial class UpdRisk02 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateOrganizatio01));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdRisk02));
         
         string IMigrationMetadata.Id
         {
-            get { return "202303151634253_UpdateOrganizatio01"; }
+            get { return "202303201253514_UpdRisk02"; }
         }
         
         string IMigrationMetadata.Source

@@ -448,25 +448,13 @@
     <Compile Include="Migrations\202207092147338_InitialCreate.Designer.cs">
       <DependentUpon>202207092147338_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202303151634253_UpdateOrganizatio01.cs" />
-    <Compile Include="Migrations\202303151634253_UpdateOrganizatio01.Designer.cs">
-      <DependentUpon>202303151634253_UpdateOrganizatio01.cs</DependentUpon>
+    <Compile Include="Migrations\202303200910592_UpdRiesgo01.cs" />
+    <Compile Include="Migrations\202303200910592_UpdRiesgo01.Designer.cs">
+      <DependentUpon>202303200910592_UpdRiesgo01.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202303151915400_UpdateOrganization02.cs" />
-    <Compile Include="Migrations\202303151915400_UpdateOrganization02.Designer.cs">
-      <DependentUpon>202303151915400_UpdateOrganization02.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202303171318528_UpdateOrganization03.cs" />
-    <Compile Include="Migrations\202303171318528_UpdateOrganization03.Designer.cs">
-      <DependentUpon>202303171318528_UpdateOrganization03.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202303180527070_UpdOrganization04.cs" />
-    <Compile Include="Migrations\202303180527070_UpdOrganization04.Designer.cs">
-      <DependentUpon>202303180527070_UpdOrganization04.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202303190816081_UpdOrganization05.cs" />
-    <Compile Include="Migrations\202303190816081_UpdOrganization05.Designer.cs">
-      <DependentUpon>202303190816081_UpdOrganization05.cs</DependentUpon>
+    <Compile Include="Migrations\202303201253514_UpdRisk02.cs" />
+    <Compile Include="Migrations\202303201253514_UpdRisk02.Designer.cs">
+      <DependentUpon>202303201253514_UpdRisk02.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -1006,20 +994,11 @@
     <EmbeddedResource Include="Migrations\202207092147338_InitialCreate.resx">
       <DependentUpon>202207092147338_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202303151634253_UpdateOrganizatio01.resx">
-      <DependentUpon>202303151634253_UpdateOrganizatio01.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202303200910592_UpdRiesgo01.resx">
+      <DependentUpon>202303200910592_UpdRiesgo01.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202303151915400_UpdateOrganization02.resx">
-      <DependentUpon>202303151915400_UpdateOrganization02.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202303171318528_UpdateOrganization03.resx">
-      <DependentUpon>202303171318528_UpdateOrganization03.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202303180527070_UpdOrganization04.resx">
-      <DependentUpon>202303180527070_UpdOrganization04.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202303190816081_UpdOrganization05.resx">
-      <DependentUpon>202303190816081_UpdOrganization05.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202303201253514_UpdRisk02.resx">
+      <DependentUpon>202303201253514_UpdRisk02.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

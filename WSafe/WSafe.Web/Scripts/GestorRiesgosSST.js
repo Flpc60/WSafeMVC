@@ -1865,7 +1865,10 @@ function AddNewRiesgo() {
         NivelConsecuencia: $("#consecuencia").val(),
         NroExpuestos: $("#txtExpuestos").val(),
         RequisitoLegal: $("#txtRequisito").val(),
-        DangerCategory: $("#txtDanger").val()
+        DangerCategory: $("#txtDanger").val(),
+        FuenteControls: $("#fuenteControls").val(),
+        MedioControls: $("#medioControls").val(),
+        IndividuoControls: $("#individuoControls").val()
     };
 
     $.ajax({
@@ -1921,7 +1924,10 @@ function UpdateRiesgo() {
         AceptabilidadNR: $("#txtAceptabilidad").val(),
         NroExpuestos: $("#txtExpuestos").val(),
         RequisitoLegal: $("#txtRequisito").val(),
-        DangerCategory: $("#txtDanger").val()
+        DangerCategory: $("#txtDanger").val(),
+        FuenteControls: $("#fuenteControls").val(),
+        MedioControls: $("#medioControls").val(),
+        IndividuoControls: $("#individuoControls").val()
     };
 
     $.ajax({

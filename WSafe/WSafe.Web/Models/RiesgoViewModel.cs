@@ -132,5 +132,14 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Categoria daño")]
         public DangerCategories DangerCategory { get; set; }
+        [Display(Name = "CONTROLES EN LA FUENTE :")]
+        [MaxLength(100)]
+        public string FuenteControls { get; set; }
+        [Display(Name = "CONTROLES EN EL MEDIO :")]
+        [MaxLength(100)]
+        public string MedioControls { get; set; }
+        [Display(Name = "CONTROLES EN EL INDIVIDUO :")]
+        [MaxLength(100)]
+        public string IndividuoControls { get; set; }
     }
 }

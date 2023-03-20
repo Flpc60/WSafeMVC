@@ -14,38 +14,8 @@
 @Scripts.Render("~/bundles/jqueryui")
 @Scripts.Render("~/bundles/bootstrap")
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-2">
-            <img src="~/Images/LogoEntidad.png" class="img-responsive" alt="Cinque Terre" width="80" height="80"><img />
-        </div>
-        <div class="col-md-10">
-            <div style="display:block">
-                <div style="text-align:center">
-                    <h4>@ViewBag.Title</h4>
-                </div>
-                <div style="text-align:center">
-                    <p>
-                        <strong><b>@Session["organization"].ToString()</b></strong>
-                    </p>
-                </div>
-                <div style="text-align:center">
-                    <p>
-                        <strong><b>@Html.DisplayFor(model => model.Titulo)</b></strong>
-                    </p>
-                </div>
-                <div style="text-align:center">
-                    <p>
-                        FORMATO N°:  <strong><b>@Html.DisplayFor(model => model.Formato)</b></strong>
-                        ESTANDAR :  <strong><b>@Html.DisplayFor(model => model.Estandar)</b></strong>
-                        FECHA : <strong><b>@fecha</b></strong>
-                        VERSIÓN : <strong><b>@Html.DisplayFor(model => model.Version)</b></strong>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+@Html.Partial("_CabezoteFormat")
+
 <div class="container">
     <div style="display:inline-flex">
         <p>
@@ -55,6 +25,7 @@
         </p>
     </div>
 </div>
+
 <div class="container" style="display:flex">
     <div>
         <p style="text-align:center; background-color:grey">
