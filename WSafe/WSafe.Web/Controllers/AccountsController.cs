@@ -201,9 +201,9 @@ namespace WSafe.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateRoleOperation([Bind(Include = "ID,RoleID,Operation, Component")] RoleOperation model)
         {
-            var message = "";
             try
             {
+                var message = "";
                 if (ModelState.IsValid)
                 {
                     message = "El registro ha sido ingresado exitosamente!!";
@@ -211,13 +211,15 @@ namespace WSafe.Web.Controllers
                     await _empresaContext.SaveChangesAsync();
                     return Json(new { result = model, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
-                message = "El registro NO ha sido ingresado exitosamente!!";
-                return Json(new { result = model, mensaj = message }, JsonRequestBehavior.AllowGet);
+                else
+                {
+                    message = "El registro NO ha sido ingresado exitosamente!!";
+                    return Json(new { result = model, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
             }
             catch (Exception ex)
             {
-                message = ex.Message;
-                return Json(new { result = model, mensaj = message }, JsonRequestBehavior.AllowGet);
+                return View("Error", new HandleErrorInfo(ex, "Accounts", "Index"));
             }
         }
         [HttpPost]
