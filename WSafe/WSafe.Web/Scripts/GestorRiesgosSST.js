@@ -400,6 +400,7 @@ function ShowAuthorizations() {
             });
             $('.tbody').html(html);
             $('.tabGesAuthorize').css("display", "block");
+            $('#addAuthorize').focus();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -482,7 +483,7 @@ function ShowMovimientos(phva) {
                 html += '<td>' + item.Name + '</td>';
                 html += '<td>' + item.Descripcion + '</td>';
                 html += '<td>' + item.Type + '</td>';
-                html += '<td><a href = "#" onclick = "EditMovimient(' + item.ID + ')" class="btn btn-primary">Abrir</a></td>';
+                html += '<td><a href = "' + url + '" class="btn btn-primary">Abrir</a></td>';
                 html += '<td><a href = "' + url + '" download="' + fileName + '" class="btn btn-success">Descargar</a ></td>';
                 html += '<td><a href = "#" onclick="DeleteMovimient(' + item.ID + ')" class="btn btn-danger">Eliminar</a></td>';
                 html += '<td><a href = "#" onclick="OpenEmail(' + item.ID + ')" class="btn btn-info">Enviar</a></td>';
@@ -2143,9 +2144,9 @@ function GestorAuthorization() {
     $("#addAuthorize").click(function () {
         $(".tabAddAuthorize").css("display", "block");
         $(".tabCerrar").css("display", "none");
+        $("#txtRoleID").focus();
         $("#btnAddAthorize").show();
     });
-
 }
 
 function GestorMovimient() {
