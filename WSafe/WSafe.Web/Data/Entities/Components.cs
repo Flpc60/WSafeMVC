@@ -8,5 +8,7 @@
         Acciones = 4,
         Indicadores = 5,
         Usuarios = 6,
+        SGSST = 7,
+        Eval_Estándares = 8
     }
 }

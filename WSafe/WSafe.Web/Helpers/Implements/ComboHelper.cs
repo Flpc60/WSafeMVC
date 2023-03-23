@@ -383,7 +383,7 @@ namespace WSafe.Domain.Helpers.Implements
 
         public IEnumerable<RoleOperation> GetAllAuthorizations()
         {
-            return _empresaContext.RoleOperations.ToList();
+            return _empresaContext.RoleOperations.OrderBy(ro => ro.RoleID).ToList();
         }
         public IEnumerable<Role> GetNameRoles()
         {

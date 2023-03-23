@@ -448,9 +448,9 @@
     <Compile Include="Migrations\202207092147338_InitialCreate.Designer.cs">
       <DependentUpon>202207092147338_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202303201303327_UpdRisk11.cs" />
-    <Compile Include="Migrations\202303201303327_UpdRisk11.Designer.cs">
-      <DependentUpon>202303201303327_UpdRisk11.cs</DependentUpon>
+    <Compile Include="Migrations\202303231438565_UpdRisk01.cs" />
+    <Compile Include="Migrations\202303231438565_UpdRisk01.Designer.cs">
+      <DependentUpon>202303231438565_UpdRisk01.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -990,8 +990,8 @@
     <EmbeddedResource Include="Migrations\202207092147338_InitialCreate.resx">
       <DependentUpon>202207092147338_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202303201303327_UpdRisk11.resx">
-      <DependentUpon>202303201303327_UpdRisk11.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202303231438565_UpdRisk01.resx">
+      <DependentUpon>202303231438565_UpdRisk01.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
