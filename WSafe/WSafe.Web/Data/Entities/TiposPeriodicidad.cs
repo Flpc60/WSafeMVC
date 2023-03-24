@@ -1,4 +1,4 @@
-﻿namespace WSafe.Web.Data.Entities
+﻿namespace WSafe.Domain.Data.Entities
 {
     public enum TiposPeriodicidad
     {

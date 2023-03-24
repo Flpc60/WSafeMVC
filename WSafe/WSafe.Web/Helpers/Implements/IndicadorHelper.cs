@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Mvc;
 using WSafe.Domain.Data.Entities.Incidentes;
 using WSafe.Web.Models;
 
@@ -209,6 +210,39 @@ namespace WSafe.Domain.Helpers.Implements
         public int DíasAusenciaIncapacidadLaboral(int year)
         {
             throw new NotImplementedException();
+        }
+        public IEnumerable<DashboardVM> GetIndicators()
+        {
+            try
+            {
+                var fecha = DateTime.Now;
+                var year = fecha.Month;
+                int[] periodo = {1,2,3,4,5,6,7,8,9,10,11,12 };
+                var denominador = NumeroTrabajadoresMes(periodo, year);
+
+                var result = from at in _empresaContext.Incidentes
+                             where (periodo.Contains(at.FechaIncidente.Month) && at.FechaIncidente.Year == year && at.CategoriasIncidente == CategoriasIncidente.Accidente)
+                             group at by new { at.FechaIncidente.Year, at.FechaIncidente.Month } into datosAgrupados
+                             orderby datosAgrupados.Key
+                             select new { Clave = datosAgrupados.Key, Datos = datosAgrupados };
+
+                var viewModel = new List<DashboardVM>();
+                foreach (var grupo in result)
+                {
+                    viewModel.Add(new DashboardVM
+                    {
+                        //MesAnn = (grupo.Clave.Month + "-" + grupo.Clave.Year).ToString(),
+                        //Numerador = grupo.Datos.Count(),
+                        //Denominador = denominador,
+                        //Resultado = Convert.ToDecimal((double)grupo.Datos.Count() / (double)denominador * 100),
+                    });
+                }
+                return viewModel;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

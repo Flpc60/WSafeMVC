@@ -11,7 +11,7 @@ namespace WSafe.Web.Controllers
 {
     public class IndicadoresController : Controller
     {
-        // Indicadores de resultados
+        // Indicadores SG-SST
         private readonly EmpresaContext _empresaContext;
         private readonly IComboHelper _comboHelper;
         private readonly IConverterHelper _converterHelper;
@@ -42,6 +42,8 @@ namespace WSafe.Web.Controllers
         {
             try
             {
+                var model = _indicadorHelper.GetIndicators();
+
                 var year = DateTime.Now.Year;
                 var mortales = _indicadorHelper.AccidentesTrabajoMortales(year);
                 var accidentes = _indicadorHelper.AccidentesTrabajo(year);
@@ -54,9 +56,9 @@ namespace WSafe.Web.Controllers
                 ViewBag.txtYear = year;
                 return View();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return View();
+                return View("Error", new HandleErrorInfo(ex, "Indicadores", "Index"));
             }
         }
 
