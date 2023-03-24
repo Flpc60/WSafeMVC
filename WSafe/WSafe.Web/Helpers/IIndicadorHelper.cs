@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using WSafe.Web.Models;
 
 namespace WSafe.Domain.Helpers.Implements
 {
@@ -27,5 +29,6 @@ namespace WSafe.Domain.Helpers.Implements
         int NumeroACPAccidentes(DateTime fechaInicial, DateTime fechaFinal);
         int NumeroACP(DateTime fechaInicial, DateTime fechaFinal);
         decimal ProporcionACPAccidentes(DateTime fechaInicial, DateTime fechaFinal);
+        IEnumerable<DashboardVM> GetIndicators();
     }
 }

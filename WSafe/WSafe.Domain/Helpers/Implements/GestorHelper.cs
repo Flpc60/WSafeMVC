@@ -453,6 +453,12 @@ namespace WSafe.Domain.Helpers.Implements
                 case (int)Components.Usuarios:
                     return "Usuarios";
 
+                case (int)Components.SGSST:
+                    return "SG-SST";
+
+                case (int)Components.Eval_Estándares:
+                    return "Eval.Estándares";
+
                 default:
                     return "Riesgos";
             }
