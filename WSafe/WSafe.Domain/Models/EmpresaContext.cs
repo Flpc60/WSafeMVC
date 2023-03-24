@@ -55,6 +55,7 @@ namespace WSafe.Web.Models
         public DbSet<Evaluation> Evaluations { get; set; }
         public DbSet<Norma> Normas { get; set; }
         public DbSet<PlanActivity> PlanActivities { get; set; }
+        public DbSet<Dashboard> Dashboards { get; set; }
         public System.Data.Entity.DbSet<WSafe.Web.Models.UserViewModel> UserViewModels { get; set; }
         public System.Data.Entity.DbSet<WSafe.Web.Models.RoleUserVM> RoleUserVMs { get; set; }
 
