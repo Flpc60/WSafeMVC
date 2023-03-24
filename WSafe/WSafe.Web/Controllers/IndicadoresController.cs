@@ -42,9 +42,9 @@ namespace WSafe.Web.Controllers
         {
             try
             {
-                var model = _indicadorHelper.GetIndicators();
-
                 var year = DateTime.Now.Year;
+                var model = _indicadorHelper.GetIndicators(year);
+
                 var mortales = _indicadorHelper.AccidentesTrabajoMortales(year);
                 var accidentes = _indicadorHelper.AccidentesTrabajo(year);
                 decimal proporcion = Convert.ToDecimal((double)mortales / (double)accidentes * 100);
