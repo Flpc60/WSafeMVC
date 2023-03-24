@@ -68,6 +68,7 @@ namespace WSafe.Domain.Helpers.Implements
             throw new NotImplementedException();
         }
 
+        //Accidentes de trabajo mortales
         public IEnumerable<IndicadorDetallesViewModel> GetAccidentesTrabajoMortales(int[] periodo, int year)
         {
             try

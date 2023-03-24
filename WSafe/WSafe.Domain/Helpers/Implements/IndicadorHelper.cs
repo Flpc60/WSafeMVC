@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Mvc;
 using WSafe.Domain.Data.Entities.Incidentes;
 using WSafe.Web.Models;
 
@@ -31,7 +30,8 @@ namespace WSafe.Domain.Helpers.Implements
         {
             return (from at in _empresaContext.Incidentes
                     where at.FechaIncidente.Year == year && at.CategoriasIncidente == CategoriasIncidente.Accidente
-                    && at.ConsecuenciasLesion == ConsecuenciasLesion.fatalidadMultiple select at).Count();
+                    && at.ConsecuenciasLesion == ConsecuenciasLesion.fatalidadMultiple
+                    select at).Count();
         }
         public decimal AusentismoCausaMedica(int year)
         {
@@ -42,7 +42,8 @@ namespace WSafe.Domain.Helpers.Implements
         public int DiasIncapacidadAccidentesTrabajo(int year)
         {
             return (from at in _empresaContext.Incidentes
-                    where at.FechaIncidente.Year == year && at.IncapacidadMedica == true select at).Sum(i => i.DiasIncapacidad);
+                    where at.FechaIncidente.Year == year && at.IncapacidadMedica == true
+                    select at).Sum(i => i.DiasIncapacidad);
         }
         public int DiasCargadosAccidentesTrabajo(int year)
         {
@@ -70,7 +71,7 @@ namespace WSafe.Domain.Helpers.Implements
         {
 
             return Convert.ToDecimal(NumeroCasosNuevosEnfermedadLaboral(periodo))
-                / Convert.ToDecimal(PromedioTrabajadores(periodo)) * 100000;
+                / Convert.ToDecimal(PromedioTrabajadores(2022)) * 100000;
         }
 
         public int NumeroCasosEnfermedadLaboral(int[] periodo)
@@ -78,18 +79,18 @@ namespace WSafe.Domain.Helpers.Implements
             throw new System.NotImplementedException();
         }
 
-        public int NumeroCasosNuevosEnfermedadLaboral(int[] periodo) 
+        public int NumeroCasosNuevosEnfermedadLaboral(int[] periodo)
         {
             throw new System.NotImplementedException();
         }
         public decimal PrevalenciaEnfermedad(int[] periodo)
         {
             return Convert.ToDecimal(NumeroCasosEnfermedadLaboral(periodo))
-                / Convert.ToDecimal(PromedioTrabajadores(periodo)) * 100000;
+                / Convert.ToDecimal(PromedioTrabajadores(2022)) * 100000;
         }
-        public decimal PromedioTrabajadores(int[] periodo) 
+        public decimal PromedioTrabajadores(int year)
         {
-            return (from t in _empresaContext.Trabajadores where (periodo.Contains(t.FechaNomina.Month)) select t).Count();
+            return (from t in _empresaContext.Trabajadores where (t.FechaRetiro.Year != year) select t).Count();
         }
 
         public decimal ProporcionAccidentesMortales(int year)
@@ -136,7 +137,8 @@ namespace WSafe.Domain.Helpers.Implements
         public int GetIncidentes(int year)
         {
             return (from at in _empresaContext.Incidentes
-                    where at.FechaIncidente.Year == year && at.CategoriasIncidente == CategoriasIncidente.Incidente select at).Count();
+                    where at.FechaIncidente.Year == year && at.CategoriasIncidente == CategoriasIncidente.Incidente
+                    select at).Count();
         }
 
         public decimal ProporcionIncidentesInvestigados(int year)
@@ -147,7 +149,7 @@ namespace WSafe.Domain.Helpers.Implements
 
         public int NumeroTrabajadoresMes(int[] periodo, int year)
         {
-            return (from t in _empresaContext.Trabajadores where(periodo.Contains(t.FechaNomina.Month) && t.FechaNomina.Year == year) select t).Count();
+            return (from t in _empresaContext.Trabajadores where (periodo.Contains(t.FechaIngreso.Month) && t.FechaIngreso.Year == year) select t).Count();
         }
 
         public int NumeroDiasTrabajadosMes()
@@ -211,20 +213,24 @@ namespace WSafe.Domain.Helpers.Implements
         {
             throw new NotImplementedException();
         }
-        public IEnumerable<DashboardVM> GetIndicators()
+        public IEnumerable<DashboardVM> GetIndicators(int year)
         {
             try
             {
-                var fecha = DateTime.Now;
-                var year = fecha.Month;
-                int[] periodo = {1,2,3,4,5,6,7,8,9,10,11,12 };
-                var denominador = NumeroTrabajadoresMes(periodo, year);
+                decimal denominador = PromedioTrabajadores(year);
 
-                var result = from at in _empresaContext.Incidentes
-                             where (periodo.Contains(at.FechaIncidente.Month) && at.FechaIncidente.Year == year && at.CategoriasIncidente == CategoriasIncidente.Accidente)
-                             group at by new { at.FechaIncidente.Year, at.FechaIncidente.Month } into datosAgrupados
-                             orderby datosAgrupados.Key
-                             select new { Clave = datosAgrupados.Key, Datos = datosAgrupados };
+                var result = (from at in _empresaContext.Incidentes
+                              where at.FechaIncidente.Year == year
+                              group at by new { at.FechaIncidente.Year } into data
+                              select new // Accidentalidad
+                              {
+                                  AccidentsProportion = data.Where(x => x.CategoriasIncidente ==                    CategoriasIncidente.Accidente).Count() / denominador,
+                                  Incidents = data.Where(x => x.CategoriasIncidente ==                              CategoriasIncidente.Incidente).Count(),
+                                  Accidents = data.Where(x => x.CategoriasIncidente ==                              CategoriasIncidente.Accidente).Count(),
+                                  Mortality = data.Where(x => x.CategoriasIncidente ==                              CategoriasIncidente.Accidente && x.ConsecuenciasLesion ==                       ConsecuenciasLesion.fatalidadMultiple).Count(),
+                                  Ausentisms = DiasIncapacidadAccidentesTrabajo(year),
+                              });
+
 
                 var viewModel = new List<DashboardVM>();
                 foreach (var grupo in result)
