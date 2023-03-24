@@ -465,6 +465,10 @@
     <Compile Include="Migrations\202303241644505_UpdDashboarVM01.Designer.cs">
       <DependentUpon>202303241644505_UpdDashboarVM01.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202303242237368_UpdDashboar02.cs" />
+    <Compile Include="Migrations\202303242237368_UpdDashboar02.Designer.cs">
+      <DependentUpon>202303242237368_UpdDashboar02.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -1007,6 +1011,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202303241644505_UpdDashboarVM01.resx">
       <DependentUpon>202303241644505_UpdDashboarVM01.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303242237368_UpdDashboar02.resx">
+      <DependentUpon>202303242237368_UpdDashboar02.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

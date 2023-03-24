@@ -25,7 +25,7 @@ namespace WSafe.Web.Models
         public decimal ResearchELProportion { get; set; }
         [Display(Name = "NÚMERO INCIDENTES")]
         public int Incdents { get; set; }
-        [Display(Name = "NÚMERO ACCODENTES")]
+        [Display(Name = "NÚMERO ACCIDENTES")]
         public int Accidents { get; set; }
         [Display(Name = "DÍAS AUSENTISMO")]
         public int Ausentisms { get; set; }

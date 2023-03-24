@@ -6,6 +6,7 @@ namespace WSafe.Domain.Data.Entities
 {
     public class Trabajador
     {
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ID { get; set; }
         [Display(Name = "Primer Apellido")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
@@ -31,9 +32,9 @@ namespace WSafe.Domain.Data.Entities
             }
         }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Fecha nacimiento")]
+        [Display(Name = "FECHA NACIMIENTO")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaNacimiento { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public CategoriasGenero Genero { get; set; }
@@ -47,10 +48,10 @@ namespace WSafe.Domain.Data.Entities
         [MaxLength(20)]
         public string Telefonos { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Fecha pago nomina")]
+        [Display(Name = "FECHA INGRESO")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
-        public DateTime FechaNomina { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime FechaIngreso { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Dias a pagar")]
         public int DiasPago { get; set; }
@@ -67,5 +68,12 @@ namespace WSafe.Domain.Data.Entities
         public string ARL { get; set; }
         [MaxLength(20)]
         public string Firma { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "FECHA RETIRO")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime FechaRetiro { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public int OrganizationID { get; set; }
     }
 }
