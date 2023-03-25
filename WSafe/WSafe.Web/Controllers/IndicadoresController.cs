@@ -43,18 +43,9 @@ namespace WSafe.Web.Controllers
             try
             {
                 var year = DateTime.Now.Year;
-                var model = _indicadorHelper.GetIndicators(year);
-
-                var mortales = _indicadorHelper.AccidentesTrabajoMortales(year);
-                var accidentes = _indicadorHelper.AccidentesTrabajo(year);
-                decimal proporcion = Convert.ToDecimal((double)mortales / (double)accidentes * 100);
-                ViewBag.txtProporcion = Math.Round(proporcion, 2);
-                ViewBag.txtIncidentes = _indicadorHelper.GetIncidentes(year);
-                ViewBag.txtAusentismos = _indicadorHelper.DiasIncapacidadAccidentesTrabajo(year);
-                ViewBag.txtMortales = mortales;
-                ViewBag.txtAccidentes = accidentes;
-                ViewBag.txtYear = year;
-                return View();
+                var month = DateTime.Now.Month;
+                var model = _indicadorHelper.GetIndicators(year, month);
+                return View(model);
             }
             catch (Exception ex)
             {
