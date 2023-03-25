@@ -1,11 +1,7 @@
-﻿@{
+﻿@model WSafe.Web.Models.DashboardVM
+@{
     ViewBag.Title = "Sistema de Gestión de la Seguridad y Salud en el Trabajo";
-    var proporcion = ViewBag.txtProporcion;
-    var incidentes = ViewBag.txtIncidentes;
-    var ausentismo = ViewBag.txtAusentismos;
-    var mortales = ViewBag.txtMortales;
-    var accidentes = ViewBag.txtAccidentes;
-    var ahora = ViewBag.txtYear;
+    var ahora = DateTime.Now.Year;
 }
 
 <div class="container">
@@ -17,28 +13,33 @@
     <div class="form-control">
         <label class="form-horizontal">
             SELECCIONE PERIODO :
-            <input type="number" id="txtYear" name="year" maxlength="4" min="2010" max="@ahora" value="@ahora"/>
+            <input type="number" id="txtYear" name="year" maxlength="4" min="2010" max="@ahora" value="@ahora" />
         </label>
     </div>
 </div>
 
-<div class="container">
+<div class="container" style="background-color:grey; color:white ;font-size:15px; padding:15px">
     <hr />
-    <div class="row" style="background-color:grey; color:white ;font-size:15px; padding:15px">
-        <div class="col-md-2">
-            <p id="txtMortales">ACCIDENTES MORTALES : @mortales</p>
+    <div class="row">
+        <div class="col-md-4">
+            <p id="txtMortales">ACCIDENTALIDAD: @Model.AccidentsProportion</p>
         </div>
-        <div class="col-md-3">
-            <p id="txtAccidentes">ACCIDENTES LABORALES : @accidentes</p>
+        <div class="col-md-4">
+            <p id="txtMortales">FRECUENCIA AT: @Model.Accidents</p>
         </div>
-        <div class="col-md-2">
-            <p id="txtProporcion">PROPORCIÓN ACCIDENTES MORTALES : @proporcion</p>
+        <div class="col-md-4">
+            <p id="txtMortales">AUSENTISMO: @Model.Ausentisms</p>
         </div>
-        <div class="col-md-2">
-            <p id="txtIncidentes">INCIDNENTES : @incidentes</p>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <p id="txtMortales">MORTALIDAD: @Model.Mortality</p>
         </div>
-        <div class="col-md-3">
-            <p id="txtAusentismos">AUSENTISMO LABORAL : @ausentismo DIAS</p>
+        <div class="col-md-4">
+            <p id="txtMortales">CUMPLIMIENTO ESTÁNDARES: @Model.MinimalStandardsProportion</p>
+        </div>
+        <div class="col-md-4">
+            <p id="txtMortales">CUMPLIMIENTO PLAN ANUAL: @Model.ActivitiesPlanProportion</p>
         </div>
     </div>
 </div>

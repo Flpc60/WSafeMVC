@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Data.Entities.Incidentes;
 using WSafe.Web.Models;
 
@@ -213,37 +214,43 @@ namespace WSafe.Domain.Helpers.Implements
         {
             throw new NotImplementedException();
         }
-        public IEnumerable<DashboardVM> GetIndicators(int year)
+        public DashboardVM GetIndicators(int year, int month)
         {
             try
             {
+                decimal activitys = _empresaContext.PlanActivities.Where(pa => pa.FechaFinal.Year == year).Count();
+                decimal executed = _empresaContext.PlanActivities.Where(pa => pa.FechaFinal.Year == year && pa.ActionCategory == ActionCategories.Finalizada).Count();
+                decimal proporcion = executed / activitys * 100;
+                decimal proporcionSM = _empresaContext.Evaluations
+                    .OrderByDescending(o =>o.FechaEvaluation.Year + o.FechaEvaluation.Month)
+                    .FirstOrDefault(e => e.FechaEvaluation.Year == year).StandarsResult;
                 decimal denominador = PromedioTrabajadores(year);
 
                 var result = (from at in _empresaContext.Incidentes
                               where at.FechaIncidente.Year == year
                               group at by new { at.FechaIncidente.Year } into data
-                              select new // Accidentalidad
+                              select new
                               {
-                                  AccidentsProportion = data.Where(x => x.CategoriasIncidente ==                    CategoriasIncidente.Accidente).Count() / denominador,
-                                  Incidents = data.Where(x => x.CategoriasIncidente ==                              CategoriasIncidente.Incidente).Count(),
+                                  AccidentsProportion = (data.Where(x => x.CategoriasIncidente ==                    CategoriasIncidente.Accidente).Count() / month)  / denominador,
                                   Accidents = data.Where(x => x.CategoriasIncidente ==                              CategoriasIncidente.Accidente).Count(),
                                   Mortality = data.Where(x => x.CategoriasIncidente ==                              CategoriasIncidente.Accidente && x.ConsecuenciasLesion ==                       ConsecuenciasLesion.fatalidadMultiple).Count(),
-                                  Ausentisms = DiasIncapacidadAccidentesTrabajo(year),
+                                  Ausentisms = data.Where(y =>y.IncapacidadMedica == true).Sum(i =>                 i.DiasIncapacidad),
+                                  MinimalStandardsProportion = proporcionSM,
+                                  ActivitiesPlanProportion = proporcion
                               });
 
-
-                var viewModel = new List<DashboardVM>();
-                foreach (var grupo in result)
+                var model = new DashboardVM();
+                foreach (var item in result)
                 {
-                    viewModel.Add(new DashboardVM
-                    {
-                        //MesAnn = (grupo.Clave.Month + "-" + grupo.Clave.Year).ToString(),
-                        //Numerador = grupo.Datos.Count(),
-                        //Denominador = denominador,
-                        //Resultado = Convert.ToDecimal((double)grupo.Datos.Count() / (double)denominador * 100),
-                    });
+                    model.AccidentsProportion = item.AccidentsProportion;
+                    model.Accidents = item.Accidents;
+                    model.Ausentisms = item.Ausentisms;
+                    model.Mortality = item.Mortality;
+                    model.MinimalStandardsProportion = item.MinimalStandardsProportion;
+                    model.ActivitiesPlanProportion = item.ActivitiesPlanProportion;
                 }
-                return viewModel;
+
+                return model;
             }
             catch (Exception ex)
             {

@@ -29,6 +29,6 @@ namespace WSafe.Domain.Helpers.Implements
         int NumeroACPAccidentes(DateTime fechaInicial, DateTime fechaFinal);
         int NumeroACP(DateTime fechaInicial, DateTime fechaFinal);
         decimal ProporcionACPAccidentes(DateTime fechaInicial, DateTime fechaFinal);
-        IEnumerable<DashboardVM> GetIndicators(int year);
+        DashboardVM GetIndicators(int year, int month);
     }
 }

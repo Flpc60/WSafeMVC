@@ -24,7 +24,7 @@ namespace WSafe.Web.Models
         [Display(Name = "% ENFERMEDADES LABORALES INVESTIGADAS")]
         public decimal ResearchELProportion { get; set; }
         [Display(Name = "NÚMERO INCIDENTES")]
-        public int Incdents { get; set; }
+        public int Incidents { get; set; }
         [Display(Name = "NÚMERO ACCIDENTES")]
         public int Accidents { get; set; }
         [Display(Name = "DÍAS AUSENTISMO")]
