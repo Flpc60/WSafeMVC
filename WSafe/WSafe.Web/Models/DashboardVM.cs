@@ -7,6 +7,8 @@ namespace WSafe.Web.Models
         public int ID { get; set; }
         [Display(Name = "AÑO")]
         public int Year { get; set; }
+        [Display(Name = "TASA MORTALIDAD")]
+        public decimal MortalityProportion { get; set; }
         [Display(Name = "ACCIDENTALIDAD")]
         public decimal AccidentsProportion { get; set; }
         [Display(Name = "% INDUCCIÓN")]
