@@ -42,7 +42,7 @@ namespace WSafe.Web.Controllers
         {
             try
             {
-                var year = DateTime.Now.Year;
+                var year = Convert.ToInt32(@Session["year"]);
                 var month = DateTime.Now.Month;
                 var model = _indicadorHelper.GetIndicators(year, month);
                 return View(model);

@@ -4,12 +4,32 @@
     var ahora = DateTime.Now.Year;
 }
 
-<div class="container">
-    <hr />
-    <hr />
-    <h2 style="background-color: blue; color: white">Dashboard Indicadores y acciones</h2>
-    <hr />
+<hr />
+<hr />
+<h4 style="text-align:center"><strong>@Session["organization"].ToString().Trim()</strong></h4>
+<hr />
+<div class="container-fluid">
+    <div class="row align-items-center">
+        <div class="col-md-2">
+            NÚMERO TRABAJADORES : @Session["numeroTrabajadores"].ToString().Trim()
+        </div>
+        <div class="col-md-2">
+            CLASE RIESGO : @Session["riesgo"].ToString().Trim()
+        </div>
+        <div class="col-md-3">
+            HORARIO : @Session["turnoOperativo"].ToString().Trim()
+        </div>
+        <div class="col-md-2">
+            PERIODO : @Session["year"].ToString().Trim()
+        </div>
+        <div class="col-md-3">
+            RESPONSABLE SG-SST : @Session["responsable"].ToString().Trim()
+        </div>
+    </div>
+</div>
+<hr />
 
+<div class="container">
     <div class="form-control">
         <label class="form-horizontal">
             SELECCIONE PERIODO :
@@ -18,28 +38,34 @@
     </div>
 </div>
 
-<div class="container" style="background-color:grey; color:white ;font-size:15px; padding:15px">
+<div class="container" style="background-color: #D35400; color: #ffffff; font-size: 15px; padding: 15px ">
     <hr />
     <div class="row">
-        <div class="col-md-4">
-            <p id="txtMortales">ACCIDENTALIDAD: @Model.AccidentsProportion</p>
+        <div class="col-md-3">
+            <p id="txtMortales"><strong>ACCIDENTALIDAD: @Model.AccidentsProportion</strong></p>
         </div>
-        <div class="col-md-4">
-            <p id="txtMortales">FRECUENCIA AT: @Model.Accidents</p>
+        <div class="col-md-3">
+            <p id="txtMortales"><strong>FRECUENCIA AT: @Model.Accidents</strong></p>
         </div>
-        <div class="col-md-4">
-            <p id="txtMortales">AUSENTISMO: @Model.Ausentisms</p>
+        <div class="col-md-3">
+            <p id="txtMortales"><strong>INCIDENTES: @Model.Incidents</strong></p>
+        </div>
+        <div class="col-md-3">
+            <p id="txtMortales"><strong>AUSENTISMOS: @Model.Ausentisms DIAS</strong></p>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-4">
-            <p id="txtMortales">MORTALIDAD: @Model.Mortality</p>
+        <div class="col-md-3">
+            <p id="txtMortales"><strong># MUERTES: @Model.Mortality</strong></p>
+        </div>
+        <div class="col-md-2">
+            <p id="txtMortales"><strong>MORTALIDAD: @Model.MortalityProportion</strong></p>
         </div>
         <div class="col-md-4">
-            <p id="txtMortales">CUMPLIMIENTO ESTÁNDARES: @Model.MinimalStandardsProportion</p>
+            <p id="txtMortales"><strong>CUMPLIMIENTO ESTÁNDARES: @Model.MinimalStandardsProportion</strong></p>
         </div>
-        <div class="col-md-4">
-            <p id="txtMortales">CUMPLIMIENTO PLAN ANUAL: @Model.ActivitiesPlanProportion</p>
+        <div class="col-md-3">
+            <p id="txtMortales"><strong>CUMPLIMIENTO PLAN ANUAL: @Model.ActivitiesPlanProportion</strong></p>
         </div>
     </div>
 </div>

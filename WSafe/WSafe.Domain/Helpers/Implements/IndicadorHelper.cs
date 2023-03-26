@@ -231,21 +231,25 @@ namespace WSafe.Domain.Helpers.Implements
                               group at by new { at.FechaIncidente.Year } into data
                               select new
                               {
-                                  AccidentsProportion = (data.Where(x => x.CategoriasIncidente ==                    CategoriasIncidente.Accidente).Count() / month)  / denominador,
+                                  AccidentsProportion = ((data.Where(x => x.CategoriasIncidente ==                    CategoriasIncidente.Accidente).Count() / month)  / denominador *                  100),
                                   Accidents = data.Where(x => x.CategoriasIncidente ==                              CategoriasIncidente.Accidente).Count(),
+                                  Incidents = data.Where(x => x.CategoriasIncidente ==                              CategoriasIncidente.Incidente).Count(),
                                   Mortality = data.Where(x => x.CategoriasIncidente ==                              CategoriasIncidente.Accidente && x.ConsecuenciasLesion ==                       ConsecuenciasLesion.fatalidadMultiple).Count(),
+                                  MortalityProportion = 100,
                                   Ausentisms = data.Where(y =>y.IncapacidadMedica == true).Sum(i =>                 i.DiasIncapacidad),
                                   MinimalStandardsProportion = proporcionSM,
                                   ActivitiesPlanProportion = proporcion
-                              });
+                              }).ToList();
 
                 var model = new DashboardVM();
                 foreach (var item in result)
                 {
-                    model.AccidentsProportion = item.AccidentsProportion;
+                    model.AccidentsProportion = Convert.ToDecimal(item.AccidentsProportion);
                     model.Accidents = item.Accidents;
+                    model.Incidents = item.Incidents;
                     model.Ausentisms = item.Ausentisms;
                     model.Mortality = item.Mortality;
+                    model.MortalityProportion = Convert.ToDecimal(item.Mortality / item.Accidents * 100);
                     model.MinimalStandardsProportion = item.MinimalStandardsProportion;
                     model.ActivitiesPlanProportion = item.ActivitiesPlanProportion;
                 }
