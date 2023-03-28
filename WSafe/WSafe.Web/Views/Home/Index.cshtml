@@ -1,3 +1,40 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial;
+        font-size: 14px;
+    }
+    .container img {
+        vertical-align: middle;
+    }
+
+    .container {
+        position: relative;
+    }
+
+
+    .content {
+        position: absolute;
+        bottom: 0;
+        background: rgb(0, 0, 0); /* Fallback color */
+        background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+        color: #f1f1f1;
+        width: 100%;
+        padding: 20px;
+    }
+</style>
+
+<div class="container" style="width:75%; margin-top:2%; padding:1%;font-size: 18px;">
+    <img class="img-responsive" src="~/Images/risk1.jpg">
+    <div class="content">
+        <h1>WSafe</h1>
+        <p>Facilidad para la planeación, el diseño y la implementación de las acciones para identificar, valorar y controlar las fuentes o situaciones que pongan en peligro la seguridad y salud de los trabajadores, con máxima eficiencia.</p>
+    </div>
+</div>
