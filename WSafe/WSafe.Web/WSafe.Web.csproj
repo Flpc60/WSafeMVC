@@ -454,20 +454,12 @@
     <Compile Include="Migrations\202207092147338_InitialCreate.Designer.cs">
       <DependentUpon>202207092147338_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202303241335469_AddDashboardTable01.cs" />
-    <Compile Include="Migrations\202303241335469_AddDashboardTable01.Designer.cs">
-      <DependentUpon>202303241335469_AddDashboardTable01.cs</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202303241644505_UpdDashboarVM01.cs" />
-    <Compile Include="Migrations\202303241644505_UpdDashboarVM01.Designer.cs">
-      <DependentUpon>202303241644505_UpdDashboarVM01.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202303242237368_UpdDashboar02.cs" />
-    <Compile Include="Migrations\202303242237368_UpdDashboar02.Designer.cs">
-      <DependentUpon>202303242237368_UpdDashboar02.cs</DependentUpon>
+    <Compile Include="Migrations\202303300022368_AddDashboard11.cs" />
+    <Compile Include="Migrations\202303300022368_AddDashboard11.Designer.cs">
+      <DependentUpon>202303300022368_AddDashboard11.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
@@ -1014,14 +1006,8 @@
     <EmbeddedResource Include="Migrations\202207092147338_InitialCreate.resx">
       <DependentUpon>202207092147338_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202303241335469_AddDashboardTable01.resx">
-      <DependentUpon>202303241335469_AddDashboardTable01.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202303241644505_UpdDashboarVM01.resx">
-      <DependentUpon>202303241644505_UpdDashboarVM01.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202303242237368_UpdDashboar02.resx">
-      <DependentUpon>202303242237368_UpdDashboar02.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202303300022368_AddDashboard11.resx">
+      <DependentUpon>202303300022368_AddDashboard11.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
