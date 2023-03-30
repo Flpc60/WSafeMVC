@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Data.Entities.Incidentes;
@@ -218,12 +219,24 @@ namespace WSafe.Domain.Helpers.Implements
         {
             try
             {
-                decimal activitys = _empresaContext.PlanActivities.Where(pa => pa.FechaFinal.Year == year).Count();
+                decimal activities = _empresaContext.PlanActivities.Where(pa => pa.FechaFinal.Year == year).Count();
+
                 decimal executed = _empresaContext.PlanActivities.Where(pa => pa.FechaFinal.Year == year && pa.ActionCategory == ActionCategories.Finalizada).Count();
-                decimal proporcion = executed / activitys * 100;
-                decimal proporcionSM = _empresaContext.Evaluations
+
+                decimal proporcion = 0;
+                if (activities > 0)
+                {
+                    proporcion = Convert.ToDecimal(executed / activities) * 100;
+                }
+                decimal proporcionSM = 0;
+                var evaluation = _empresaContext.Evaluations
                     .OrderByDescending(o =>o.FechaEvaluation.Year + o.FechaEvaluation.Month)
-                    .FirstOrDefault(e => e.FechaEvaluation.Year == year).StandarsResult;
+                    .FirstOrDefault(e => e.FechaEvaluation.Year == year);
+
+                if (evaluation != null)
+                {
+                    proporcionSM = evaluation.StandarsResult;
+                }
                 decimal denominador = PromedioTrabajadores(year);
 
                 var result = (from at in _empresaContext.Incidentes
@@ -244,14 +257,21 @@ namespace WSafe.Domain.Helpers.Implements
                 var model = new DashboardVM();
                 foreach (var item in result)
                 {
-                    model.AccidentsProportion = Convert.ToDecimal(item.AccidentsProportion);
+                    model.AccidentsProportion = Math.Round(Convert.ToDecimal(item.AccidentsProportion),2);
                     model.Accidents = item.Accidents;
                     model.Incidents = item.Incidents;
                     model.Ausentisms = item.Ausentisms;
                     model.Mortality = item.Mortality;
-                    model.MortalityProportion = Convert.ToDecimal(item.Mortality / item.Accidents * 100);
+                    if (item.Accidents == 0)
+                    {
+                        model.MortalityProportion = 0;
+                    }
+                    else
+                    {
+                        model.MortalityProportion = Math.Round(Convert.ToDecimal(((decimal)item.Mortality / (decimal)item.Accidents) * 100), 2);
+                    }
                     model.MinimalStandardsProportion = item.MinimalStandardsProportion;
-                    model.ActivitiesPlanProportion = item.ActivitiesPlanProportion;
+                    model.ActivitiesPlanProportion = Math.Round(item.ActivitiesPlanProportion,2);
                 }
 
                 return model;

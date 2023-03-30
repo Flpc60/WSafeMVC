@@ -5947,3 +5947,35 @@ function chartPorStandard() {
         }
     });
 }
+
+function getIndicators() {
+    var year = $("#txtYear").val();
+    if (year = null) {
+        year = new Date().getFullYear();
+    }
+
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: "/Indicadores/GetAllIndicators",
+        data: {
+            year: $("#txtYear").val()
+        },
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        success: function (response) {
+            document.getElementById("accidentsProportion").innerHTML = "<strong>ACCIDENTALIDAD: " + response.data.AccidentsProportion + "</strong>";
+            document.getElementById("accidents").innerHTML = "<strong>FRACUENCIA AT: " + response.data.Accidents + "</strong>";
+            document.getElementById("incidents").innerHTML = "<strong>INCIDENTES: " + response.data.Incidents + "</strong>";
+            document.getElementById("ausentisms").innerHTML = "<strong>AUSENTISMOS: " + response.data.Ausentisms + "</strong>";
+            document.getElementById("mortality").innerHTML = "<strong># MUERTES: " + response.data.Mortality + "</strong>";
+            document.getElementById("mortalityProportion").innerHTML = "<strong>MORTALIDAD: " + response.data.MortalityProportion + "</strong>";
+            document.getElementById("minimalStandardsProportion").innerHTML = "<strong>CUMPLIMIENTO ESTÁNDARES: " + response.data.MinimalStandardsProportion + "</strong>";
+            document.getElementById("activitiesPlanProportion").innerHTML = "<strong>CUMPLIMIENTO ESTÁNDARES: " + response.data.ActivitiesPlanProportion + "</strong>";
+            $('.queryIncidents').css("display", "block");
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
