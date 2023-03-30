@@ -1,6 +1,7 @@
 ﻿using Rotativa;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using WSafe.Domain.Helpers;
 using WSafe.Domain.Helpers.Implements;
@@ -42,10 +43,31 @@ namespace WSafe.Web.Controllers
         {
             try
             {
-                var year = Convert.ToInt32(@Session["year"]);
+                var year = DateTime.Now.Year;
                 var month = DateTime.Now.Month;
                 var model = _indicadorHelper.GetIndicators(year, month);
                 return View(model);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Indicadores", "Index"));
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> GetAllIndicators(int year)
+        {
+            try
+            {
+                var message = "";
+                int month = 12;
+                var model = _indicadorHelper.GetIndicators(year, month);
+
+                if (model == null)
+                {
+                    message = "La consulta No produjo ningún resultado !!";
+                }
+                return Json(new { data = model, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

@@ -4,6 +4,14 @@
     var ahora = DateTime.Now.Year;
 }
 
+<style>
+
+    .queryIncidents
+    {
+        display: none;
+    }
+
+</style>
 <hr />
 <hr />
 <h4 style="text-align:center"><strong>@Session["organization"].ToString().Trim()</strong></h4>
@@ -30,42 +38,52 @@
 <hr />
 
 <div class="container">
-    <div class="form-control">
-        <label class="form-horizontal">
-            SELECCIONE PERIODO :
-            <input type="number" id="txtYear" name="year" maxlength="4" min="2010" max="@ahora" value="@ahora" />
-        </label>
-    </div>
-</div>
-
-<div class="container" style="background-color: #D35400; color: #ffffff; font-size: 15px; padding: 15px ">
-    <hr />
     <div class="row">
         <div class="col-md-3">
-            <p id="txtMortales"><strong>ACCIDENTALIDAD: @Model.AccidentsProportion</strong></p>
-        </div>
-        <div class="col-md-3">
-            <p id="txtMortales"><strong>FRECUENCIA AT: @Model.Accidents</strong></p>
-        </div>
-        <div class="col-md-3">
-            <p id="txtMortales"><strong>INCIDENTES: @Model.Incidents</strong></p>
-        </div>
-        <div class="col-md-3">
-            <p id="txtMortales"><strong>AUSENTISMOS: @Model.Ausentisms DIAS</strong></p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3">
-            <p id="txtMortales"><strong># MUERTES: @Model.Mortality</strong></p>
+            <div class="form-control">
+                <label>
+                    PERIODO :
+                    <input type="number" id="txtYear" name="txtYear" maxlength="4" min="2010" max="@ahora" value="@ahora" />
+                </label>
+            </div>
         </div>
         <div class="col-md-2">
-            <p id="txtMortales"><strong>MORTALIDAD: @Model.MortalityProportion</strong></p>
+            <button type="button" class="btn btn-success" onclick="getIndicators()"><i class="fa fa-search fa-fw"></i> BUSCAR</button>
         </div>
-        <div class="col-md-4">
-            <p id="txtMortales"><strong>CUMPLIMIENTO ESTÁNDARES: @Model.MinimalStandardsProportion</strong></p>
+    </div>
+</div>
+<hr />
+
+<div class="queryIncidents">
+    <div class="container" style="background-color: #D35400; color: #ffffff; font-size: 15px; padding: 15px ">
+        <hr />
+        <div class="row">
+            <div class="col-md-3">
+                <p id="accidentsProportion"></p>
+            </div>
+            <div class="col-md-3">
+                <p id="accidents"></p>
+            </div>
+            <div class="col-md-3">
+                <p id="incidents"></p>
+            </div>
+            <div class="col-md-3">
+                <p id="ausentisms"></p>
+            </div>
         </div>
-        <div class="col-md-3">
-            <p id="txtMortales"><strong>CUMPLIMIENTO PLAN ANUAL: @Model.ActivitiesPlanProportion</strong></p>
+        <div class="row">
+            <div class="col-md-2">
+                <p id="mortality"></p>
+            </div>
+            <div class="col-md-2">
+                <p id="mortalityProportion"></p>
+            </div>
+            <div class="col-md-4">
+                <p id="minimalStandardsProportion"></p>
+            </div>
+            <div class="col-md-4">
+                <p id="activitiesPlanProportion"></p>
+            </div>
         </div>
     </div>
 </div>
@@ -103,6 +121,7 @@
 @section Scripts
 {
     <script type="text/javascript">
+/*
         $(document).on('click', '.frecuencia', function (e) {
             e.preventDefault();
             var year = $("#txtYear").val();
@@ -112,7 +131,7 @@
             });
             $("#txtPeriodo").val(Periodo);
         });
-
+*/
         var model = @Model;
         model.ID = 1;
         model.Year = year;
@@ -129,6 +148,5 @@
                 alert(thrownError);
             }
         });
-
     </script>
 }
