@@ -6,11 +6,9 @@
 
 <style>
 
-    .queryIncidents
-    {
+    .queryIncidents {
         display: none;
     }
-
 </style>
 <hr />
 <hr />
@@ -87,33 +85,28 @@
         </div>
     </div>
 </div>
-
-<div class="container">
+<hr />
+<div class="container" style="margin-left:6%">
+    <button type="button" id="btnFRecuencia" class="btn btn-success" onclick="frecuenciaAccidentalidad()"><i class="fa fa-search"></i> FRECUENCIA ACCIDENTALIDAD</button>
+    <button type="button" id="btnSeveridad" class="btn btn-success" onclick="severidadAccidentalidad()"><i class="fa fa-search"></i> SEVERIDAD ACCIDENTALIDAD</button>
+    <button type="button" id="btnMortality" class="btn btn-success" onclick="mortalityProportion()"><i class="fa fa-search"></i> PROPORCIÓN AT MORTALES</button>
+    <button type="button" id="btnFactorRisk" class="btn btn-success" onclick="factorRisk()"><i class="fa fa-search"></i> FACTOR RIESGO OCUPACIONAL</button>
     <hr />
     <div class="row">
-        <div class="col-md-4">
-            @Html.ActionLink("FRECUENCIA ACCIDENTALIDAD", "Details", "Indicadores", new { id = 1, year = ahora },
-            new { @class = "btn btn-warning btn-lg active" });
+        <div class="col-md-6">
+            <div><canvas id="atFrecuencia" width="200" height="100"></canvas></div>
         </div>
-        <div class="col-md-4">
-            @Html.ActionLink("SEVERIDAD ACCIDENTALIDAD", "Details", "Indicadores", new { id = 2, year = ahora },
-            new { @class = "btn btn-warning btn-lg active" });
-        </div>
-        <div class="col-md-4">
-            @Html.ActionLink("EFECTIVIDAD", "Details", "Indicadores", new { id = 2, year = ahora },
-            new { @class = "btn btn-warning btn-lg active" });
+        <div class="col-md-6">
+            <div><canvas id="atSeveridad" width="200" height="100"></canvas></div>
         </div>
     </div>
-</div>
-
-<div class="container">
     <hr />
     <div class="row">
-        <div class="col-md-4">
-            <button type="button" id="btnLoadEjecutadas" class="btn btn-info" onclick="ConsultarAccionesEjecutadas()"><i class="fa fa-search"></i> PROPORCIÓN ACCIONES EJECUTADAS</button>
+        <div class="col-md-6">
+            <div><canvas id="Mortality" width="200" height="100"></canvas></div>
         </div>
-        <div class="col-md-4">
-            <button type="button" id="btnLoadInfo" class="btn btn-success" onclick="ConsultarAccionesEfectivas()"><i class="fa fa-search"></i> PROPORCIÓN ACCIONES EFECTIVAS</button>
+        <div class="col-md-6">
+            <div><canvas id="FactorRisk" width="200" height="100"></canvas></div>
         </div>
     </div>
 </div>
