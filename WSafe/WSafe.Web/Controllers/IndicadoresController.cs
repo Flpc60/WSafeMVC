@@ -1,5 +1,6 @@
 ﻿using Rotativa;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -83,7 +84,17 @@ namespace WSafe.Web.Controllers
             {
                 if (year != null)
                 {
-                    var periodo = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+                    var month = 12;
+                    if (year == DateTime.Now.Year)
+                    {
+                        month = DateTime.Now.Month;
+                    }
+                    int[] periodo = new int[month];
+                    for (int i = 0; i < month; i++)
+                    {
+                        periodo[i] = i + 1;
+                    }
+
                     var indicador = _empresaContext.Indicadores.FirstOrDefault(i => i.ID == id);
                     var result = _converterHelper.ToIndicadorViewModelNew(indicador, periodo, year);
                     ViewBag.Titulo = result.Titulo;
@@ -179,6 +190,35 @@ namespace WSafe.Web.Controllers
             report.PageWidth = 199;
             report.PageHeight = 199;
             return report;
+        }
+
+        [HttpGet]
+        public ActionResult FrecuenciaAccidentalidad(int year)
+        {
+            try
+            {
+                Random random = new Random();
+                var filename = "chart" + random.Next(1, 100) + ".jpg";
+                var filePathName = "~/Images/" + filename;
+                var month = 12;
+                if (year == DateTime.Now.Year)
+                {
+                    month = DateTime.Now.Month;
+                }
+                int[] periodo = new int[month];
+                for (int i = 0; i < month; i++)
+                {
+                    periodo[i] = i + 1;
+                }
+
+                var datos = _chartHelper.GetFrecuenciaAccidentes(periodo, year);
+                var image = "/Images/" + filename;
+                return Json(datos, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
+            }
         }
     }
 }
