@@ -151,12 +151,13 @@ namespace WSafe.Domain.Helpers.Implements
 
         public int NumeroTrabajadoresMes(int[] periodo, int year)
         {
-            return (from t in _empresaContext.Trabajadores where (periodo.Contains(t.FechaIngreso.Month) && t.FechaIngreso.Year == year) select t).Count();
+            return (from t in _empresaContext.Trabajadores where (t.FechaIngreso.Year == year && periodo.Contains(t.FechaIngreso.Month)) select t).Count();
         }
 
-        public int NumeroDiasTrabajadosMes()
+        public int NumeroDiasTrabajadosMes(int month, int year)
         {
-            return _empresaContext.Trabajadores.Sum(dp => dp.DiasPago);
+            var result = from t in _empresaContext.Trabajadores where t.FechaIngreso.Year == year &&                    t.FechaIngreso.Month == month select t;
+            return result.Sum(dp => dp.DiasPago);
         }
         public int NumeroCasosEnfermedadLaboral(DateTime fechaInicial, DateTime fechaFinal)
         {
@@ -280,6 +281,12 @@ namespace WSafe.Domain.Helpers.Implements
             {
                 throw ex;
             }
+        }
+        public int AccidentesTrabajo(int year, int month)
+        {
+            return (from at in _empresaContext.Incidentes
+                    where at.FechaIncidente.Year == year && at.FechaIncidente.Month == month && at.CategoriasIncidente == CategoriasIncidente.Accidente
+                    select at).Count();
         }
     }
 }

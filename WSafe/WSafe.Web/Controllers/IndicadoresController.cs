@@ -220,5 +220,92 @@ namespace WSafe.Web.Controllers
                 return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
             }
         }
+
+        [HttpGet]
+        public ActionResult SeveridadAccidentalidad(int year)
+        {
+            try
+            {
+                Random random = new Random();
+                var filename = "chart" + random.Next(1, 100) + ".jpg";
+                var filePathName = "~/Images/" + filename;
+                var month = 12;
+                if (year == DateTime.Now.Year)
+                {
+                    month = DateTime.Now.Month;
+                }
+                int[] periodo = new int[month];
+                for (int i = 0; i < month; i++)
+                {
+                    periodo[i] = i + 1;
+                }
+
+                var datos = _chartHelper.GetSeveridadAccidentalidad(periodo, year);
+                var image = "/Images/" + filename;
+                return Json(datos, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
+            }
+        }
+
+        [HttpGet]
+        public ActionResult MortalityProportion(int year)
+        {
+            try
+            {
+                Random random = new Random();
+                var filename = "chart" + random.Next(1, 100) + ".jpg";
+                var filePathName = "~/Images/" + filename;
+                var month = 12;
+                if (year == DateTime.Now.Year)
+                {
+                    month = DateTime.Now.Month;
+                }
+                int[] periodo = new int[month];
+                for (int i = 0; i < month; i++)
+                {
+                    periodo[i] = i + 1;
+                }
+
+                var datos = _chartHelper.GetAccidentesTrabajoMortales(periodo, year);
+                var image = "/Images/" + filename;
+                return Json(datos, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetAusentismo(int year)
+        {
+            try
+            {
+                Random random = new Random();
+                var filename = "chart" + random.Next(1, 100) + ".jpg";
+                var filePathName = "~/Images/" + filename;
+                var month = 12;
+                if (year == DateTime.Now.Year)
+                {
+                    month = DateTime.Now.Month;
+                }
+                int[] periodo = new int[month];
+                for (int i = 0; i < month; i++)
+                {
+                    periodo[i] = i + 1;
+                }
+
+                var datos = _chartHelper.GetAusentismoCausaMedica(periodo, year);
+                var image = "/Images/" + filename;
+                return Json(datos, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Indicadores", "Index"));
+            }
+        }
     }
 }

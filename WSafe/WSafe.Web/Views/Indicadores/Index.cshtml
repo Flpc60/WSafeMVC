@@ -90,7 +90,12 @@
     <button type="button" id="btnFRecuencia" class="btn btn-success" onclick="frecuenciaAccidentalidad()"><i class="fa fa-search"></i> FRECUENCIA ACCIDENTALIDAD</button>
     <button type="button" id="btnSeveridad" class="btn btn-success" onclick="severidadAccidentalidad()"><i class="fa fa-search"></i> SEVERIDAD ACCIDENTALIDAD</button>
     <button type="button" id="btnMortality" class="btn btn-success" onclick="mortalityProportion()"><i class="fa fa-search"></i> PROPORCIÓN AT MORTALES</button>
+    <button type="button" id="btnPrevalence" class="btn btn-success" onclick="prevalenceIndicator()"><i class="fa fa-search"></i> PREVALENCIA ENFERMEDAD LABORAL</button>
+    <hr />
+    <button type="button" id="btnIncidencia" class="btn btn-success" onclick="incidenceIndicator()"><i class="fa fa-search"></i> INCIDENCIA ENFERMEDAD LABORAL</button>
+    <button type="button" id="btnAusentismo" class="btn btn-success" onclick="ausentismoIndicator()"><i class="fa fa-search"></i> AUSENTISMO POR CAUSA MÉDICA</button>
     <button type="button" id="btnFactorRisk" class="btn btn-success" onclick="factorRisk()"><i class="fa fa-search"></i> FACTOR RIESGO OCUPACIONAL</button>
+    <button type="button" id="btnProportionActions" class="btn btn-success" onclick="proportionActions()"><i class="fa fa-search"></i> PROPORCIÓN DE ACCIONES CPM</button>
     <hr />
     <div class="row">
         <div class="col-md-6">
@@ -106,7 +111,15 @@
             <div><canvas id="Mortality" width="200" height="100"></canvas></div>
         </div>
         <div class="col-md-6">
-            <div><canvas id="FactorRisk" width="200" height="100"></canvas></div>
+            <div><canvas id="Prevalence" width="200" height="100"></canvas></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div><canvas id="Prevalence" width="200" height="100"></canvas></div>
+        </div>
+        <div class="col-md-6">
+            <div><canvas id="Ausentismo" width="200" height="100"></canvas></div>
         </div>
     </div>
 </div>

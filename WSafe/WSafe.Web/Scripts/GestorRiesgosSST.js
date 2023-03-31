@@ -6006,9 +6006,10 @@ function frecuenciaAccidentalidad() {
                     datasets: [
                         {
                             label: "PERIODOS",
-                            borderColor: '#0E4FF0',
-                            backgroundColor: 'white',
-                            data: arrayData1
+                            data: arrayData1,
+                            fill: false,
+                            borderColor: 'rgb(75, 192, 192)',
+                            tension: 0.1,
                         },
                     ]
                 },
@@ -6031,6 +6032,195 @@ function frecuenciaAccidentalidad() {
                     title: {
                         display: true,
                         text: 'FRECUENCIA ACCIDENTALIDAD'
+                    }
+                }
+            });
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function severidadAccidentalidad() {
+    // Gráficar severidad accidentalidad
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: "/Indicadores/SeveridadAccidentalidad",
+        data: {
+            year: $("#txtYear").val()
+        },
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (data) {
+            var arrayLabel = [];
+            var arrayData1 = [];
+            for (var i = 0; i < data.length; i++) {
+                arrayLabel.push(data[i].MesAnn);
+                arrayData1.push(data[i].Resultado);
+            }
+            const ctx = document.getElementById("atSeveridad").getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: arrayLabel,
+                    datasets: [
+                        {
+                            label: "PERIODOS",
+                            data: arrayData1,
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderColor: 'rgba(54, 162, 235)',
+                            borderWidth: 1
+                        },
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'SEVERIDAD ACCIDENTALIDAD'
+                    }
+                }
+            });
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function mortalityProportion() {
+    // Gráficar proporción AT mortales
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: "/Indicadores/MortalityProportion",
+        data: {
+            year: $("#txtYear").val()
+        },
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (data) {
+            var arrayLabel = [];
+            var arrayData1 = [];
+            for (var i = 0; i < data.length; i++) {
+                arrayLabel.push(data[i].MesAnn);
+                arrayData1.push(data[i].Resultado);
+            }
+            const ctx = document.getElementById("Mortality").getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: arrayLabel,
+                    datasets: [
+                        {
+                            label: "PERIODOS",
+                            data: arrayData1,
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderColor: 'rgba(54, 162, 235)',
+                            borderWidth: 1
+                        },
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'PROPORCIÓN ACCIDENTES DE TRABAJO MORTALES'
+                    }
+                }
+            });
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function ausentismoIndicator() {
+    // Gráficar ausentismos por enfermedad laboral
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: "/Indicadores/GetAusentismo",
+        data: {
+            year: $("#txtYear").val()
+        },
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (data) {
+            var arrayLabel = [];
+            var arrayData1 = [];
+            for (var i = 0; i < data.length; i++) {
+                arrayLabel.push(data[i].MesAnn);
+                arrayData1.push(data[i].Resultado);
+            }
+            const ctx = document.getElementById("Mortality").getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: arrayLabel,
+                    datasets: [
+                        {
+                            label: "PERIODOS",
+                            data: arrayData1,
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderColor: 'rgba(54, 162, 235)',
+                            borderWidth: 1
+                        },
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'PROPORCIÓN ACCIDENTES DE TRABAJO MORTALES'
                     }
                 }
             });
