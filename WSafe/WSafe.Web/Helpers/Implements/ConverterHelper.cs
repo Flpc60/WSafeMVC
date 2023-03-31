@@ -381,7 +381,7 @@ namespace WSafe.Domain.Helpers.Implements
                     break;
 
                 case 7:
-                    datos = (List<IndicadorDetallesViewModel>)_chartHelper.GetFatorRiesgoOcupacional();
+                    datos = (List<IndicadorDetallesViewModel>)_chartHelper.GetFatorRiesgoOcupacional(year);
                     break;
             }
 

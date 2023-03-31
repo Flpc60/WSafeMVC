@@ -20,7 +20,7 @@ namespace WSafe.Domain.Helpers.Implements
         int EnfermedadesIncidentesAusentismos(DateTime fechaInicial, DateTime fechaFinal);
         int NumeroTrabajadoresMes(DateTime fechaInicial, DateTime fechaFinal);
         decimal PromedioTrabajadores(int year);
-        int NumeroDiasTrabajadosMes();
+        int NumeroDiasTrabajadosMes(int month, int year);
         decimal FrecuenciaAccidentalidad(DateTime fechaInicial, DateTime fechaFinal);
         decimal SeveridadAccidentalidad(DateTime fechaInicial, DateTime fechaFinal);
         decimal ProporcionAccidentesMortales(DateTime fechaInicial, DateTime fechaFinal);
@@ -30,5 +30,6 @@ namespace WSafe.Domain.Helpers.Implements
         int NumeroACP(DateTime fechaInicial, DateTime fechaFinal);
         decimal ProporcionACPAccidentes(DateTime fechaInicial, DateTime fechaFinal);
         DashboardVM GetIndicators(int year, int month);
+        int AccidentesTrabajo(int year, int month);
     }
 }

@@ -6187,18 +6187,18 @@ function ausentismoIndicator() {
                 arrayLabel.push(data[i].MesAnn);
                 arrayData1.push(data[i].Resultado);
             }
-            const ctx = document.getElementById("Mortality").getContext('2d');
+            const ctx = document.getElementById("Ausentismo").getContext('2d');
             const chart = new Chart(ctx, {
-                type: 'bar',
+                type: 'line',
                 data: {
                     labels: arrayLabel,
                     datasets: [
                         {
                             label: "PERIODOS",
                             data: arrayData1,
-                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                            borderColor: 'rgba(54, 162, 235)',
-                            borderWidth: 1
+                            fill: false,
+                            borderColor: 'rgb(75, 192, 192)',
+                            tension: 0.1
                         },
                     ]
                 },
@@ -6220,7 +6220,76 @@ function ausentismoIndicator() {
                     },
                     title: {
                         display: true,
-                        text: 'PROPORCIÓN ACCIDENTES DE TRABAJO MORTALES'
+                        text: 'AUSENTISMO POR CAUSA MÉDICA'
+                    }
+                }
+            });
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function factorRisk() {
+    // Gráficar facteor riesgo ocupacional
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: "/Indicadores/GetFatorRiesgoOcupacional",
+        data: {
+            year: $("#txtYear").val()
+        },
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (data) {
+            var arrayLabel = [];
+            var arrayData1 = [];
+            for (var i = 0; i < data.length; i++) {
+                arrayLabel.push(data[i].MesAnn);
+                arrayData1.push(data[i].Resultado);
+            }
+            const ctx = document.getElementById("FactorRisk").getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: arrayLabel,
+                    datasets: [
+                        {
+                            label: "CATEGORIAS",
+                            data: arrayData1,
+                            backgroundColor: [
+                                '#F0410E',
+                                '#E9F00E',
+                                '#56F00E',
+                                '#0EF0D8',
+                                '#0EA5F0',
+                                '#0E3BF0',
+                                '#670EF0)'
+                            ],
+                        },
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'FACTOR RIESGO OCUPACIONAL'
                     }
                 }
             });

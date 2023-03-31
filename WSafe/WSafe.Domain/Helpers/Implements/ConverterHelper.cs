@@ -353,35 +353,35 @@ namespace WSafe.Domain.Helpers.Implements
             var filename = "chart" + random.Next(1, 100) + ".jpg";
             var filePathName = "~/Images/" + filename;
 
-            var datos = _chartHelper.GetFrecuenciaAccidentes(periodo, year);
+            var datos = new List<IndicadorDetallesViewModel>();
             switch (indicador.ID)
             {
                 case 1:
-                    datos = _chartHelper.GetFrecuenciaAccidentes(periodo, year);
+                    datos = (List<IndicadorDetallesViewModel>)_chartHelper.GetFrecuenciaAccidentes(periodo, year);
                     break;
 
                 case 2:
-                    datos = _chartHelper.GetSeveridadAccidentalidad(periodo, year);
+                    datos = (List<IndicadorDetallesViewModel>)_chartHelper.GetSeveridadAccidentalidad(periodo, year);
                     break;
 
                 case 3:
-                    datos = _chartHelper.GetAccidentesTrabajoMortales(periodo, year);
+                    datos = (List<IndicadorDetallesViewModel>)_chartHelper.GetAccidentesTrabajoMortales(periodo, year);
                     break;
 
                 case 4:
-                    datos = _chartHelper.GetAccidentesTrabajoMortales(periodo, year);
+                    datos = (List<IndicadorDetallesViewModel>)_chartHelper.GetAccidentesTrabajoMortales(periodo, year);
                     break;
 
                 case 5:
-                    datos = _chartHelper.GetAccidentesTrabajoMortales(periodo, year);
+                    datos = (List<IndicadorDetallesViewModel>)_chartHelper.GetAccidentesTrabajoMortales(periodo, year);
                     break;
 
                 case 6:
-                    datos = _chartHelper.GetAusentismoCausaMedica(periodo, year);
+                    datos = (List<IndicadorDetallesViewModel>)_chartHelper.GetAusentismoCausaMedica(periodo, year);
                     break;
 
                 case 7:
-                    datos = _chartHelper.GetFatorRiesgoOcupacional();
+                    datos = (List<IndicadorDetallesViewModel>)_chartHelper.GetFatorRiesgoOcupacional(year);
                     break;
             }
 

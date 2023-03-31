@@ -156,8 +156,13 @@ namespace WSafe.Domain.Helpers.Implements
 
         public int NumeroDiasTrabajadosMes(int month, int year)
         {
+            var diasPago = 1;
             var result = from t in _empresaContext.Trabajadores where t.FechaIngreso.Year == year &&                    t.FechaIngreso.Month == month select t;
-            return result.Sum(dp => dp.DiasPago);
+            if (result.Count() > 0)
+            {
+                diasPago = result.Sum(dp => dp.DiasPago);
+            }
+            return diasPago;
         }
         public int NumeroCasosEnfermedadLaboral(DateTime fechaInicial, DateTime fechaFinal)
         {
