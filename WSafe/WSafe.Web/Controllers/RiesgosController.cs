@@ -493,10 +493,11 @@ namespace WSafe.Web.Controllers
         {
             try
             {
+                var year = DateTime.Now.Year;
                 Random random = new Random();
                 var filename = "chart" + random.Next(1, 100) + ".jpg";
                 var filePathName = "~/Images/" + filename;
-                var datos = _chartHelper.GetFatorRiesgoOcupacional();
+                var datos = _chartHelper.GetFatorRiesgoOcupacional(year);
                 var image = "/Images/" + filename;
                 return Json(datos, JsonRequestBehavior.AllowGet);
             }

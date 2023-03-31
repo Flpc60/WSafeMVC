@@ -206,7 +206,7 @@ namespace WSafe.Domain.Helpers.Implements
             }
         }
 
-        public IEnumerable<IndicadorDetallesViewModel> GetFatorRiesgoOcupacional()
+        public IEnumerable<IndicadorDetallesViewModel> GetFatorRiesgoOcupacional(int year)
         {
             try
             {
