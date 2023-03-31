@@ -37,13 +37,15 @@ namespace WSafe.Domain.Helpers.Implements
         {
             try
             {
-                var denominador = _indicadorHelper.NumeroTrabajadoresMes(periodo, year);
+                var denominador = _indicadorHelper.PromedioTrabajadores(year);
 
-                var result = from at in _empresaContext.Incidentes
-                             where (periodo.Contains(at.FechaIncidente.Month) && at.FechaIncidente.Year == year && at.CategoriasIncidente == CategoriasIncidente.Accidente)
+                var result = (from at in _empresaContext.Incidentes
+                             where (at.FechaIncidente.Year == year && periodo.Contains(at.FechaIncidente.Month) && at.CategoriasIncidente == CategoriasIncidente.Accidente)
                              group at by new { at.FechaIncidente.Year, at.FechaIncidente.Month } into datosAgrupados
                              orderby datosAgrupados.Key
-                             select new { Clave = datosAgrupados.Key, Datos = datosAgrupados };
+                             select new { 
+                                 Clave = datosAgrupados.Key, Datos = datosAgrupados
+                             }).ToList();
 
                 var viewModel = new List<IndicadorDetallesViewModel>();
                 foreach (var grupo in result)
@@ -52,7 +54,7 @@ namespace WSafe.Domain.Helpers.Implements
                     {
                         MesAnn = (grupo.Clave.Month + "-" + grupo.Clave.Year).ToString(),
                         Numerador = grupo.Datos.Count(),
-                        Denominador = denominador,
+                        Denominador = (int)denominador,
                         Resultado = Convert.ToDecimal((double)grupo.Datos.Count() / (double)denominador * 100),
                     });
                 }

@@ -5979,3 +5979,65 @@ function getIndicators() {
         }
     });
 }
+
+function frecuenciaAccidentalidad() {
+    // Gráficar frecuencia accidentalidad
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: "/Indicadores/FrecuenciaAccidentalidad",
+        data: {
+            year: $("#txtYear").val()
+        },
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (data) {
+            var arrayLabel = [];
+            var arrayData1 = [];
+            for (var i = 0; i < data.length; i++) {
+                arrayLabel.push(data[i].MesAnn);
+                arrayData1.push(data[i].Resultado);
+            }
+            const ctx = document.getElementById("atFrecuencia").getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: arrayLabel,
+                    datasets: [
+                        {
+                            label: "PERIODOS",
+                            borderColor: '#0E4FF0',
+                            backgroundColor: 'white',
+                            data: arrayData1
+                        },
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'FRECUENCIA ACCIDENTALIDAD'
+                    }
+                }
+            });
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}

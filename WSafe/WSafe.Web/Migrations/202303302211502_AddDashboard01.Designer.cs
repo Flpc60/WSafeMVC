@@ -7,13 +7,13 @@ namespace WSafe.Web.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddDashboard11 : IMigrationMetadata
+    public sealed partial class AddDashboard01 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddDashboard11));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddDashboard01));
         
         string IMigrationMetadata.Id
         {
-            get { return "202303300022368_AddDashboard11"; }
+            get { return "202303302211502_AddDashboard01"; }
         }
         
         string IMigrationMetadata.Source

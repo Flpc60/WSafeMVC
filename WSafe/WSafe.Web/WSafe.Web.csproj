@@ -457,9 +457,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202303300022368_AddDashboard11.cs" />
-    <Compile Include="Migrations\202303300022368_AddDashboard11.Designer.cs">
-      <DependentUpon>202303300022368_AddDashboard11.cs</DependentUpon>
+    <Compile Include="Migrations\202303302211502_AddDashboard01.cs" />
+    <Compile Include="Migrations\202303302211502_AddDashboard01.Designer.cs">
+      <DependentUpon>202303302211502_AddDashboard01.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
@@ -1006,8 +1006,8 @@
     <EmbeddedResource Include="Migrations\202207092147338_InitialCreate.resx">
       <DependentUpon>202207092147338_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202303300022368_AddDashboard11.resx">
-      <DependentUpon>202303300022368_AddDashboard11.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202303302211502_AddDashboard01.resx">
+      <DependentUpon>202303302211502_AddDashboard01.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
