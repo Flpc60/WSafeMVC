@@ -30,5 +30,6 @@ namespace WSafe.Domain.Helpers.Implements
         int NumeroACP(DateTime fechaInicial, DateTime fechaFinal);
         decimal ProporcionACPAccidentes(DateTime fechaInicial, DateTime fechaFinal);
         DashboardVM GetIndicators(int year, int month);
+        int AccidentesTrabajo(int year, int month);
     }
 }
