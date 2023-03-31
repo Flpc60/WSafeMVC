@@ -16,7 +16,7 @@ namespace WSafe.Domain.Helpers
         IEnumerable<IndicadorDetallesViewModel> GetAllIncidentes(int[] periodo, int year);
         IEnumerable<IndicadorDetallesViewModel> GetIncidentesInvestigados(int[] periodo, int year);
         IEnumerable<IndicadorDetallesViewModel> GetAusentismoCausaMedica(int[] periodo, int year);
-        IEnumerable<IndicadorDetallesViewModel> GetFatorRiesgoOcupacional();
+        IEnumerable<IndicadorDetallesViewModel> GetFatorRiesgoOcupacional(int year);
         IEnumerable<IndicadorDetallesViewModel> GetAllValueRisks();
         IEnumerable<IndicadorDetallesViewModel> GetAllValueActivitys();
         IEnumerable<IndicadorDetallesViewModel> GetAllValueDangers();
