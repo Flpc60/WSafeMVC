@@ -533,10 +533,11 @@ namespace WSafe.Web.Controllers
         {
             try
             {
+                var year = DateTime.Now.Year;
                 Random random = new Random();
                 var filename = "chart" + random.Next(1, 100) + ".jpg";
                 var filePathName = "~/Images/" + filename;
-                var datos = _chartHelper.GetAllValueCorrectiveActions();
+                var datos = _chartHelper.GetAllValueCorrectiveActions(year);
                 _chartHelper.DrawImagen(filePathName, "Pie", "TIPO ACCIONES", datos);
                 var image = "/Images/" + filename;
                 return Json(image, JsonRequestBehavior.AllowGet);
