@@ -616,11 +616,13 @@ namespace WSafe.Domain.Helpers.Implements
             }
         }
 
-        public IEnumerable<IndicadorDetallesViewModel> GetAllValueCorrectiveActions()
+        public IEnumerable<IndicadorDetallesViewModel> GetAllValueCorrectiveActions(int year)
         {
             try
             {
-                var result = _empresaContext.Acciones.ToList();
+                var result = _empresaContext.Acciones
+                    .Where(a => a.FechaSolicitud.Year == year)
+                    .ToList();
                 var correctivas = 0;
                 var preventivas = 0;
                 var mejoras = 0;
