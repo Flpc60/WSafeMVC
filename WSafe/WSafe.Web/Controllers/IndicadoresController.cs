@@ -325,5 +325,23 @@ namespace WSafe.Web.Controllers
                 return View("Error", new HandleErrorInfo(ex, "Indicadores", "Index"));
             }
         }
+
+        [HttpGet]
+        public ActionResult GetActionsIndicator(int year)
+        {
+            try
+            {
+                Random random = new Random();
+                var filename = "chart" + random.Next(1, 100) + ".jpg";
+                var filePathName = "~/Images/" + filename;
+                var datos = _chartHelper.GetAllValueCorrectiveActions(year);
+                var image = "/Images/" + filename;
+                return Json(datos, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Indicadores", "Index"));
+            }
+        }
     }
 }

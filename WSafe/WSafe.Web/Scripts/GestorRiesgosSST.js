@@ -6300,3 +6300,68 @@ function factorRisk() {
         }
     });
 }
+
+function proportionActions() {
+    // Gráficar proporcón de acciones
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: "/Indicadores/GetActionsIndicator",
+        data: {
+            year: $("#txtYear").val()
+        },
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (data) {
+            var arrayLabel = [];
+            var arrayData1 = [];
+            for (var i = 0; i < data.length; i++) {
+                arrayLabel.push(data[i].MesAnn);
+                arrayData1.push(data[i].Resultado);
+            }
+            const ctx = document.getElementById("ProportionActions").getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: arrayLabel,
+                    datasets: [
+                        {
+                            label: "CATEGORIAS",
+                            data: arrayData1,
+                            backgroundColor: [
+                                '#F0410E',
+                                '#E9F00E',
+                                '#56F00E',
+                            ],
+                        },
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'PROPORCIÓN DE ACCIONES CPM EJECUTADAS'
+                    }
+                }
+            });
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
