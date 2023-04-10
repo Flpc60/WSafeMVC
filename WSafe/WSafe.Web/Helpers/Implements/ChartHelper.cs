@@ -894,5 +894,54 @@ namespace WSafe.Domain.Helpers.Implements
                 throw ex;
             }
         }
+
+        public IEnumerable<IndicadorDetallesViewModel> GetAllEfectiveActions(int year)
+        {
+            try
+            {
+                var result = _empresaContext.Acciones
+                    .Where(a => a.FechaCierre.Year == year)
+                    .ToList();
+                var efectives = 0;
+                var notEfectives = 0;
+                var total = 0;
+                foreach (var item in result)
+                {
+                    total++;
+                    if (item.Efectiva)
+                    {
+                        efectives++;
+                    }
+                    else
+                    {
+                        notEfectives++;
+                    }
+                }
+
+                decimal pEfectives = Math.Round(Convert.ToDecimal((double)efectives / (double)total * 100), 2);
+                decimal pNotEfectives = Math.Round(Convert.ToDecimal((double)notEfectives / (double)total * 100), 2);
+                var viewModel = new List<IndicadorDetallesViewModel>();
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 1,
+                    MesAnn = "Efectivas",
+                    Resultado = pEfectives
+                });
+
+                viewModel.Add(new IndicadorDetallesViewModel
+                {
+                    ID = 2,
+                    MesAnn = "No Efectivas",
+                    Resultado = pNotEfectives
+                });
+
+                return viewModel;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
