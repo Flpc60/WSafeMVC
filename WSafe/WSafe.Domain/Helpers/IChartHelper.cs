@@ -26,5 +26,6 @@ namespace WSafe.Domain.Helpers
         IEnumerable<IndicadorDetallesViewModel> GetAllValueCorrectiveActions(int year);
         IEnumerable<IndicadorDetallesViewModel> GetAllCalifications(int id);
         IEnumerable<IndicadorDetallesViewModel> GetAllCalificationsStandard(int id);
+        IEnumerable<IndicadorDetallesViewModel> GetAllEfectiveActions(int year);
     }
 }
