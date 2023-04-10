@@ -3811,10 +3811,12 @@ function FindActions() {
             document.getElementById("noConformance").innerHTML = "No conformidades : " + response.noConformance;
             document.getElementById("numActions").innerHTML = "Estado Acciones : " + response.numPlans;
             document.getElementById("numCorrective").innerHTML = "Acciones Correctivas : " + response.numCorrective;
+            document.getElementById("numEfectives").innerHTML = "Acciones Efectivas : " + response.numEfectives;
             document.getElementById("noConformance").style.backgroundColor = "gray";
             document.getElementById("numActions").style.backgroundColor = "gray";
             document.getElementById("numCorrective").style.backgroundColor = "gray";
-            $("#numActions").focus();
+            document.getElementById("numEfectives").style.backgroundColor = "gray";
+            $('#noConformance').focus();
             $(".tabConsActions").css("display", "block");
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -3833,8 +3835,50 @@ function chartNoConformance() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         async: true,
-        success: function (response) {
-            $("#NoConformance").attr("src", response);
+        success: function (data) {
+            var arrayLabel = [];
+            var arrayData1 = [];
+            for (var i = 0; i < data.length; i++) {
+                arrayLabel.push(data[i].MesAnn);
+                arrayData1.push(data[i].Resultado);
+            }
+            const ctx = document.getElementById("NoConformance").getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: arrayLabel,
+                    datasets: [
+                        {
+                            label: "PERIODOS",
+                            data: arrayData1,
+                            fill: false,
+                            borderColor: 'rgb(75, 192, 192)',
+                            tension: 0.1,
+                        },
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'NO CONFORMIDADES'
+                    }
+                }
+            });
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -3852,8 +3896,52 @@ function chartActions() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         async: true,
-        success: function (response) {
-            $("#NumActions").attr("src", response);
+        success: function (data) {
+            var arrayLabel = [];
+            var arrayData1 = [];
+            for (var i = 0; i < data.length; i++) {
+                arrayLabel.push(data[i].MesAnn);
+                arrayData1.push(data[i].Resultado);
+            }
+            const ctx = document.getElementById("NumActions").getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: arrayLabel,
+                    datasets: [
+                        {
+                            label: "CATEGORIAS",
+                            data: arrayData1,
+                            backgroundColor: [
+                                '#F0410E',
+                                '#E9F00E',
+                                '#56F00E',
+                            ],
+                        },
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'ESTADO ACCIONES'
+                    }
+                }
+            });
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -3871,8 +3959,52 @@ function chartCorrectiveActions() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         async: true,
-        success: function (response) {
-            $("#NumCorrective").attr("src", response);
+        success: function (data) {
+            var arrayLabel = [];
+            var arrayData1 = [];
+            for (var i = 0; i < data.length; i++) {
+                arrayLabel.push(data[i].MesAnn);
+                arrayData1.push(data[i].Resultado);
+            }
+            const ctx = document.getElementById("NumCorrective").getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: arrayLabel,
+                    datasets: [
+                        {
+                            label: "CATEGORIAS",
+                            data: arrayData1,
+                            backgroundColor: [
+                                '#F0410E',
+                                '#E9F00E',
+                                '#56F00E',
+                            ],
+                        },
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'TIPO ACCIONES'
+                    }
+                }
+            });
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -6355,6 +6487,68 @@ function proportionActions() {
                     title: {
                         display: true,
                         text: 'PROPORCIÓN DE ACCIONES CPM EJECUTADAS'
+                    }
+                }
+            });
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function chartEfectiveActions() {
+
+    // Gráficar acciones efectivas / no efectivas
+    $.ajax({
+        url: "/Acciones/GetEfectiveActions",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (data) {
+            var arrayLabel = [];
+            var arrayData1 = [];
+            for (var i = 0; i < data.length; i++) {
+                arrayLabel.push(data[i].MesAnn);
+                arrayData1.push(data[i].Resultado);
+            }
+            const ctx = document.getElementById("efectives").getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: arrayLabel,
+                    datasets: [
+                        {
+                            label: "CATEGORIAS",
+                            data: arrayData1,
+                            backgroundColor: [
+                                '#F0410E',
+                                '#E9F00E'
+                            ],
+                        },
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'EFECTIVIDAD ACCIONES'
                     }
                 }
             });
