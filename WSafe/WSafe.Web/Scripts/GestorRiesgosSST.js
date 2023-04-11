@@ -6524,7 +6524,7 @@ function chartEfectiveActions() {
                             label: "CATEGORIAS",
                             data: arrayData1,
                             backgroundColor: [
-                                '#F0410E',
+                                '#56F00E',
                                 '#E9F00E'
                             ],
                         },
