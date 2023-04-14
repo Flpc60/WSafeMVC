@@ -129,6 +129,7 @@
     <Compile Include="Data\Entities\CategoriaAplicacion.cs" />
     <Compile Include="Data\Entities\CategoriaControl.cs" />
     <Compile Include="Data\Entities\CategoriaIntervencion.cs" />
+    <Compile Include="Data\Entities\CategoriasAfectacion.cs" />
     <Compile Include="Data\Entities\CategoriasCausa.cs" />
     <Compile Include="Data\Entities\Components.cs" />
     <Compile Include="Data\Entities\CondicionSalud.cs" />
@@ -199,8 +200,11 @@
     <Compile Include="Data\Entities\SocioDemografico.cs" />
     <Compile Include="Data\Entities\Tarea.cs" />
     <Compile Include="Data\Entities\TenenciasVivienda.cs" />
+    <Compile Include="Data\Entities\TiposAgente.cs" />
     <Compile Include="Data\Entities\TiposDeporte.cs" />
+    <Compile Include="Data\Entities\TiposEvento.cs" />
     <Compile Include="Data\Entities\TiposIndicador.cs" />
+    <Compile Include="Data\Entities\TiposLesion.cs" />
     <Compile Include="Data\Entities\TiposPeriodicidad.cs" />
     <Compile Include="Data\Entities\TiposVinculacion.cs" />
     <Compile Include="Data\Entities\Trabajador.cs" />
