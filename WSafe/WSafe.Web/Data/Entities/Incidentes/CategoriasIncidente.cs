@@ -4,11 +4,11 @@ namespace WSafe.Domain.Data.Entities.Incidentes
 {
     public enum CategoriasIncidente
     {
-        [Display(Name = "Incidentes")]
+        [Display(Name = "Incidente")]
         Incidente = 1,
-        [Display(Name = "Accidentes de Trabajo")]
+        [Display(Name = "Accidente de Trabajo")]
         Accidente = 2,
-        [Display(Name = "Enfermedad laboral")]
+        [Display(Name = "Accidente Mortal")]
         Enfermedad = 3
     }
 }
