@@ -3249,7 +3249,8 @@ function LoginUser() {
         Name: $("#txtName").val(),
         Email: $("#txtEmail").val(),
         Password: $("#txtPassword").val(),
-        RoleID: "0"
+        RoleID: "0",
+        OrgID: $("#orgID").val()
     };
     $.ajax({
         type: "POST",
@@ -3262,6 +3263,14 @@ function LoginUser() {
                 window.location = response.url;
             }
             else {
+                if (response.result != null) {
+                    var html = '';
+                    $.each(response.result, function (index, item) {
+                        html += '<option value = "' + item.Value + '">' + item.Text + '</option>';
+                    });
+                    $("#orgID").html(html);
+                };
+
                 document.getElementById("txtLogin").innerHTML = response.mensaj;
             }
         },
