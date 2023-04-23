@@ -119,7 +119,7 @@ namespace WSafe.Domain.Data.Entities
         public string TxtFechaIncident { get; set; }
         public int DiasPerdidos { get; set; }
         public int DiasCargados { get; set; }
-        public CategoriaPeligro CategoriaPeligro { get; set; }
+        public int CategoriaPeligroID { get; set; }
         public TiposEvento TipoEvento { get; set; }
         public TiposLesion TipoLesion { get; set; }
         public TiposAgente TipoAgente { get; set; }
