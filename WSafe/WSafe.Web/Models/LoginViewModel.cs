@@ -19,5 +19,6 @@ namespace WSafe.Web.Models
         [MaxLength(100)]
         public string Password { get; set; }
         public bool Estado { get; set; }
+        public int OrgID { get; set; }
     }
 }

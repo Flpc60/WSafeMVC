@@ -38,6 +38,9 @@ namespace WSafe.Domain.Data.Entities
         [MaxLength(10)]
         public string ClaseRiesgo { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Tipo documento")]
+        public DocumentTypes DocumentType { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Documento Represente Legal")]
         [MaxLength(20)]
         public string DocumentRepresent { get; set; }
@@ -135,5 +138,7 @@ namespace WSafe.Domain.Data.Entities
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime ControlDate { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public int ClientID { get; set; }
     }
 }

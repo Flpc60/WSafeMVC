@@ -18,5 +18,9 @@ namespace WSafe.Domain.Data.Entities
         [MaxLength(100)]
         public string Password { get; set; }
         public int RoleID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatotio")]
+        public int OrganizationID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatotio")]
+        public int ClientID { get; set; }
     }
 }

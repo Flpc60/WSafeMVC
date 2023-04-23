@@ -17,6 +17,9 @@ namespace WSafe.Web.Controllers
     public class AccountsController : Controller
     {
         // Gestión de cuentas
+        private int _clientID;
+        private int _orgID;
+        private string _path;
         private readonly EmpresaContext _empresaContext;
         private readonly IConverterHelper _converterHelper;
         private readonly IComboHelper _comboHelper;
@@ -37,7 +40,9 @@ namespace WSafe.Web.Controllers
         [AuthorizeUser(operation: 1, component: 6)]
         public ActionResult Index()
         {
-            var userList = _empresaContext.Users.ToList();
+            var userList = _empresaContext.Users
+                .Where(u => u.ClientID == _clientID)
+                .ToList();
             var model = _converterHelper.ToUsersVM(userList);
             return View(model);
         }
@@ -48,7 +53,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult LoginUser([Bind(Include = "ID,Name,Email,Password,RoleID")] LoginViewModel model)
+        public ActionResult LoginUser([Bind(Include = "ID,Name,Email,Password,RoleID,OrgID")] LoginViewModel model)
         {
             var message = "";
             if (model.Name == null || model.Email == null || model.Password == null)
@@ -60,6 +65,21 @@ namespace WSafe.Web.Controllers
             try
             {
                 string password = GetSHA256(model.Password);
+                if (model.OrgID == 0)
+                {
+                    var userList = (from u in _empresaContext.Users
+                                    join o in _empresaContext.Organizations
+                                    on u.OrganizationID equals o.ID
+                                    where (u.Name == model.Name && u.Email == model.Email && u.Password ==          password)
+                                    select new
+                                    {
+                                        Text = o.RazonSocial.Trim() + " - " + o.NIT.Trim(),
+                                        Value = u.OrganizationID
+                                    })                              
+                        .ToList();
+                    message = "Seleccione una organización !!";
+                    return Json(new { result = userList, url = Url.Action("Index", "Home"), mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
                 var result = _empresaContext.Users.Where(u => u.Name == model.Name.Trim() && u.Email == model.Email.Trim() && u.Password == password.Trim()).FirstOrDefault();
                 if (result == null || result.RoleID == 0)
                 {
@@ -93,6 +113,10 @@ namespace WSafe.Web.Controllers
                 Session["year"] = empresa.Year;
                 Session["riesgo"] = empresa.ClaseRiesgo;
                 Session["responsable"] = empresa.ResponsableSGSST;
+                Session["clientID"] = empresa.ClientID;
+                Session["orgID"] = empresa.ID;
+                Session["path"] = $"ORG{empresa.ID}/SG-SST/";
+
                 return Json(new { result = "Redirect", url = Url.Action("Index", "Home"), mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
