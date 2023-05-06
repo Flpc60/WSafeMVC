@@ -1092,7 +1092,9 @@ namespace WSafe.Domain.Helpers.Implements
                 Email = user.Email,
                 Password = user.Password,
                 RoleID = user.RoleID,
-                Roles = _comboHelper.GetAllRoles()
+                Roles = _comboHelper.GetAllRoles(),
+                OrganizationID = user.OrganizationID,
+                ClientID = user.ClientID
             };
             return modelo;
         }
