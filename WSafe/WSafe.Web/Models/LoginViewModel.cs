@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace WSafe.Web.Models
 {
@@ -19,6 +21,15 @@ namespace WSafe.Web.Models
         [MaxLength(100)]
         public string Password { get; set; }
         public bool Estado { get; set; }
-        public int OrgID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatotio")]
+        public int OrganizationID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Consultoría")]
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una consultoría !!")]
+        public int ClientID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Consultoría")]
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una consultoría !!")]
+        public IEnumerable<SelectListItem> Clients { get; set; }
     }
 }

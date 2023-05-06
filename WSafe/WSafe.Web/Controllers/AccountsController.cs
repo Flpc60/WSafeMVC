@@ -17,7 +17,7 @@ namespace WSafe.Web.Controllers
     public class AccountsController : Controller
     {
         // Gestión de cuentas
-        private int _clientID;
+        public int _clientID;
         private int _orgID;
         private string _path;
         private readonly EmpresaContext _empresaContext;
@@ -40,6 +40,7 @@ namespace WSafe.Web.Controllers
         [AuthorizeUser(operation: 1, component: 6)]
         public ActionResult Index()
         {
+            _clientID = (int)Session["clientID"];
             var userList = _empresaContext.Users
                 .Where(u => u.ClientID == _clientID)
                 .ToList();
@@ -49,11 +50,12 @@ namespace WSafe.Web.Controllers
         public ActionResult Login()
         {
             var model = new LoginViewModel();
+            model.Clients = _comboHelper.GetClients();
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult LoginUser([Bind(Include = "ID,Name,Email,Password,RoleID,OrgID")] LoginViewModel model)
+        public ActionResult LoginUser([Bind(Include = "ID,Name,Email,Password,RoleID,OrganizationID,ClientID")] LoginViewModel model)
         {
             var message = "";
             if (model.Name == null || model.Email == null || model.Password == null)
@@ -65,12 +67,12 @@ namespace WSafe.Web.Controllers
             try
             {
                 string password = GetSHA256(model.Password);
-                if (model.OrgID == 0)
+                if (model.OrganizationID == 0)
                 {
                     var userList = (from u in _empresaContext.Users
                                     join o in _empresaContext.Organizations
                                     on u.OrganizationID equals o.ID
-                                    where (u.Name == model.Name && u.Email == model.Email && u.Password ==          password)
+                                    where (u.Name == model.Name && u.Email == model.Email && u.Password ==          password && u.ClientID == model.ClientID)
                                     select new
                                     {
                                         Text = o.RazonSocial.Trim() + " - " + o.NIT.Trim(),
@@ -80,15 +82,14 @@ namespace WSafe.Web.Controllers
                     message = "Seleccione una organización !!";
                     return Json(new { result = userList, url = Url.Action("Index", "Home"), mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
-                var result = _empresaContext.Users.Where(u => u.Name == model.Name.Trim() && u.Email == model.Email.Trim() && u.Password == password.Trim()).FirstOrDefault();
+                var result = _empresaContext.Users.Where(u => u.Name == model.Name.Trim() && u.Email == model.Email.Trim() && u.Password == password.Trim() && u.OrganizationID == model.OrganizationID).FirstOrDefault();
                 if (result == null || result.RoleID == 0)
                 {
-                    message = "El Usuario o la contraseña son inválidos, o no tiene un rol asignado en el sistema!!";
+                    message = "El Usuario, la contraseña o la organización son inválidos, o no tiene un rol asignado en el sistema!!";
                     ViewBag.mensaje = message;
                     return Json(new { result = "", url = Url.Action("Index", "Home"), mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
-                var id = _empresaContext.Organizations.OrderByDescending(x => x.ID).First().ID;
-                var empresa = _empresaContext.Organizations.FirstOrDefault(o => o.ID == id);
+                var empresa = _empresaContext.Organizations.Find(model.OrganizationID);
 
                 if (empresa.ControlDate < DateTime.Now)
                 {
@@ -115,7 +116,8 @@ namespace WSafe.Web.Controllers
                 Session["responsable"] = empresa.ResponsableSGSST;
                 Session["clientID"] = empresa.ClientID;
                 Session["orgID"] = empresa.ID;
-                Session["path"] = $"ORG{empresa.ID}/SG-SST/";
+                Session["path"] = $"ORG{empresa.ID}/SG-SST/{empresa.Year}/";
+                _clientID = empresa.ClientID;
 
                 return Json(new { result = "Redirect", url = Url.Action("Index", "Home"), mensaj = message }, JsonRequestBehavior.AllowGet);
             }
@@ -146,6 +148,12 @@ namespace WSafe.Web.Controllers
         {
             try
             {
+                //TODO
+                var result = _empresaContext.Users.Find(model.ID);
+                model.OrganizationID = result.OrganizationID;
+                model.ClientID = result.ClientID;
+                model.Roles = _comboHelper.GetAllRoles();
+
                 if (ModelState.IsValid)
                 {
                     User user = await _converterHelper.ToUserAsync(model);
@@ -174,7 +182,7 @@ namespace WSafe.Web.Controllers
             return View(user);
         }
         [HttpPost]
-        public async Task<ActionResult> CreateUser([Bind(Include = "ID,Name,Email,Password,RoleID")] User model)
+        public async Task<ActionResult> CreateUser([Bind(Include = "ID,Name,Email,Password,RoleID,OrganizationID,ClientID")] User model)
         {
             var message = "";
             try
@@ -188,16 +196,16 @@ namespace WSafe.Web.Controllers
                         model.Password = password;
                         _empresaContext.Users.Add(model);
                         await _empresaContext.SaveChangesAsync();
-                        message = "El Usuario ha sido registrado";
+                        message = "El Usuario se ha registrado correctamente !!";
                     }
                     else
                     {
-                        message = "El Usuario ya esta registrado";
+                        message = "El Usuario ya fué registrado en otro momento !!";
                     }
                 }
                 else
                 {
-                    message = "El usuario NO pudo ser registrado";
+                    message = "El usuario NO se pudo registrar !!";
                 }
             }
             catch (Exception ex)

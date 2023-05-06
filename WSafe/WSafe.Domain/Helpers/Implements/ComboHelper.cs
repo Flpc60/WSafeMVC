@@ -427,5 +427,23 @@ namespace WSafe.Domain.Helpers.Implements
 
             return list;
         }
+        public IEnumerable<SelectListItem> GetClients()
+        {
+            var list = _empresaContext.Clients.Select(c => new SelectListItem
+            {
+                Text = c.Name,
+                Value = c.ID.ToString()
+            })
+                .OrderBy(c => c.Text)
+                .ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione una consultoría...)",
+                Value = "0"
+            });
+
+            return list;
+        }
     }
 }

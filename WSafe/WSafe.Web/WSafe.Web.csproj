@@ -471,6 +471,10 @@
     <Compile Include="Migrations\202304230213294_UpdateClient.Designer.cs">
       <DependentUpon>202304230213294_UpdateClient.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202305052258320_updateRoleUserVM.cs" />
+    <Compile Include="Migrations\202305052258320_updateRoleUserVM.Designer.cs">
+      <DependentUpon>202305052258320_updateRoleUserVM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -1021,6 +1025,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202304230213294_UpdateClient.resx">
       <DependentUpon>202304230213294_UpdateClient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305052258320_updateRoleUserVM.resx">
+      <DependentUpon>202305052258320_updateRoleUserVM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
