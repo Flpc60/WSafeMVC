@@ -248,6 +248,7 @@
     <Compile Include="Models\MatrizRiesgosVM.cs" />
     <Compile Include="Models\MinimalsStandardsVM.cs" />
     <Compile Include="Models\MovimientVM.cs" />
+    <Compile Include="Models\OrganizationVM.cs" />
     <Compile Include="Models\PlanAccionVM.cs" />
     <Compile Include="Models\PlanActivityVM.cs" />
     <Compile Include="Models\RiesgoViewModel.cs" />

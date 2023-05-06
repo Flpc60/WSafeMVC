@@ -14,6 +14,10 @@ namespace WSafe.Web.Controllers
     // Datos básicos de la organización
     public class OrganizationsController : Controller
     {
+        private int _clientID;
+        private int _orgID;
+        private string _year;
+        private string _path;
         private readonly EmpresaContext _empresaContext;
         private readonly IComboHelper _comboHelper;
         private readonly IConverterHelper _converterHelper;
@@ -27,9 +31,18 @@ namespace WSafe.Web.Controllers
         [AuthorizeUser(operation: 1, component: 1)]
         public async Task<ActionResult> Index()
         {
-            var id = _empresaContext.Organizations.OrderByDescending(x => x.ID).First().ID;
-            Organization organization = await _empresaContext.Organizations.FindAsync(id);
+            _clientID = (int)Session["clientID"];
+            _orgID = (int)Session["orgID"];
+            _year = (string)Session["year"];
+            _path = (string)Session["path"];
+            var folders = _empresaContext.Clients.Find(_clientID).Folders;
+            var cantidad = _empresaContext.Organizations
+                .Where(o => o.ID == _orgID).Count();
+            bool create = false;
+            if(folders > cantidad) { create = true; }
+            Organization organization = await _empresaContext.Organizations.FindAsync(_orgID);
             ViewBag.id = organization.ID;
+            ViewBag.create = create;
             return View(organization);
         }
         public ActionResult GetAllCargos()
@@ -354,19 +367,21 @@ namespace WSafe.Web.Controllers
         }
         public ActionResult Create()
         {
-            return View();
+            _clientID = (int)Session["clientID"];
+            var model = new OrganizationVM() {ClientID = _clientID };
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,NIT,RazonSocial,Direccion,Municip,Department,Telefono,ARL,ClaseRiesgo,DocumentRepresent,NameRepresent,EconomicActivity,NumeroTrabajadores,Products,Mision,Vision,Objetivos,Procesos,Organigrama,TurnosAdministrativo,TurnosOperativo")] Organization organization)
+        public async Task<ActionResult> Create(Organization model)
         {
             var message = "";
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _empresaContext.Organizations.Add(organization);
+                    _empresaContext.Organizations.Add(model);
                     await _empresaContext.SaveChangesAsync();
                     message = "La Organización ha sido actualizada correctamente!!";
                     return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
