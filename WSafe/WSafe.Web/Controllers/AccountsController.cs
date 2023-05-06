@@ -17,8 +17,9 @@ namespace WSafe.Web.Controllers
     public class AccountsController : Controller
     {
         // Gestión de cuentas
-        public int _clientID;
+        private int _clientID;
         private int _orgID;
+        private string _year;
         private string _path;
         private readonly EmpresaContext _empresaContext;
         private readonly IConverterHelper _converterHelper;
@@ -40,7 +41,7 @@ namespace WSafe.Web.Controllers
         [AuthorizeUser(operation: 1, component: 6)]
         public ActionResult Index()
         {
-            _clientID = (int)Session["clientID"];
+            //_clientID = (int)Session["clientID"];
             var userList = _empresaContext.Users
                 .Where(u => u.ClientID == _clientID)
                 .ToList();
@@ -111,13 +112,12 @@ namespace WSafe.Web.Controllers
                 Session["organization"] = empresa.RazonSocial.Trim() + " NIT : " + empresa.NIT + "     Agropecuaria : " + agropecuaria;
                 Session["numeroTrabajadores"] = empresa.NumeroTrabajadores;
                 Session["turnoOperativo"] = empresa.TurnosOperativo;
-                Session["year"] = empresa.Year;
+                Session["year"] = empresa.Year.Trim();
                 Session["riesgo"] = empresa.ClaseRiesgo;
                 Session["responsable"] = empresa.ResponsableSGSST;
                 Session["clientID"] = empresa.ClientID;
                 Session["orgID"] = empresa.ID;
                 Session["path"] = $"ORG{empresa.ID}/SG-SST/{empresa.Year}/";
-                _clientID = empresa.ClientID;
 
                 return Json(new { result = "Redirect", url = Url.Action("Index", "Home"), mensaj = message }, JsonRequestBehavior.AllowGet);
             }

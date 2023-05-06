@@ -66,5 +66,7 @@ namespace WSafe.Web.Models
 
         public System.Data.Entity.DbSet<WSafe.Web.Models.MinimalsStandardsVM> MinimalsStandardsVMs { get; set; }
         public virtual DbSet<CalificationVM> CalificationVM { get; set; }
+
+        public System.Data.Entity.DbSet<WSafe.Web.Models.OrganizationVM> OrganizationVMs { get; set; }
     }
 }

@@ -7,6 +7,7 @@
     var sdActions = Model.StandardActions;
     var sdIncidents = Model.StandardIncidents;
     var controlDate = Model.ControlDate;
+    var createOrg = ViewBag.create;
 }
 
 <style>
@@ -24,6 +25,17 @@
 <input type="hidden" id="sdActions" name="sdActions" value="@sdActions" />
 <input type="hidden" id="sdIncidents" name="sdIncidents" value="@sdIncidents" />
 <input type="hidden" id="controlDate" name="controlDate" value="@controlDate" />
+
+@{
+    if (createOrg)
+    {
+        <div class="container" style="margin-left:6%">
+            @Html.ActionLink("Nueva Organización", "Create", new { @class = "glyphicon glyphicon-plus" },
+            new { @class = "btn btn-info btn-lg active" })
+        </div>
+        <br />
+    }
+}
 
 <div class="container-fluid">
     <button type="button" class="btn btn-info" id="basics" title="doble click para cerrar la ventana">BÁSICOS</button>
