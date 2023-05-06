@@ -475,6 +475,10 @@
     <Compile Include="Migrations\202305052258320_updateRoleUserVM.Designer.cs">
       <DependentUpon>202305052258320_updateRoleUserVM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202305062235453_CreateOrganizationVM.cs" />
+    <Compile Include="Migrations\202305062235453_CreateOrganizationVM.Designer.cs">
+      <DependentUpon>202305062235453_CreateOrganizationVM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -500,6 +504,7 @@
     <Compile Include="Models\MatrizRiesgosVM.cs" />
     <Compile Include="Models\MinimalsStandardsVM.cs" />
     <Compile Include="Models\MovimientVM.cs" />
+    <Compile Include="Models\OrganizationVM.cs" />
     <Compile Include="Models\PlanAccionVM.cs" />
     <Compile Include="Models\PlanActivityVM.cs" />
     <Compile Include="Models\RiesgoViewModel.cs" />
@@ -887,6 +892,7 @@
     <Content Include="Views\Evaluations\GetEvaluation.cshtml" />
     <Content Include="Views\Evaluations\MinimalsStandards.cshtml" />
     <Content Include="Views\Shared\_EditEmailForm.cshtml" />
+    <Content Include="Views\Organizations\Create - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1028,6 +1034,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202305052258320_updateRoleUserVM.resx">
       <DependentUpon>202305052258320_updateRoleUserVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305062235453_CreateOrganizationVM.resx">
+      <DependentUpon>202305062235453_CreateOrganizationVM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
