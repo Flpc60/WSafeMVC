@@ -3225,7 +3225,9 @@ function AddUser() {
         Name: $("#txtName").val(),
         Email: $("#txtEmail").val(),
         Password: $("#txtPassword").val(),
-        RoleID: "0"
+        RoleID: "0",
+        OrganizationID: "0",
+        ClientID: $("#clientID").val()
     };
     $.ajax({
         type: "POST",
@@ -3250,7 +3252,8 @@ function LoginUser() {
         Email: $("#txtEmail").val(),
         Password: $("#txtPassword").val(),
         RoleID: "0",
-        OrgID: $("#orgID").val()
+        OrganizationID: $("#orgID").val(),
+        ClientID: $("#clientID").val()
     };
     $.ajax({
         type: "POST",
@@ -3269,6 +3272,7 @@ function LoginUser() {
                         html += '<option value = "' + item.Value + '">' + item.Text + '</option>';
                     });
                     $("#orgID").html(html);
+                    $(".tabOrganization").css("display", "block");
                 };
 
                 document.getElementById("txtLogin").innerHTML = response.mensaj;
