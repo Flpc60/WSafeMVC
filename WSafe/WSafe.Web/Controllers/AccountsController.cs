@@ -70,14 +70,12 @@ namespace WSafe.Web.Controllers
                 string password = GetSHA256(model.Password);
                 if (model.OrganizationID == 0)
                 {
-                    var userList = (from u in _empresaContext.Users
-                                    join o in _empresaContext.Organizations
-                                    on u.OrganizationID equals o.ID
-                                    where (u.Name == model.Name && u.Email == model.Email && u.Password ==          password && u.ClientID == model.ClientID)
+                    var userList = (from o in _empresaContext.Organizations
+                                    where (o.ClientID == model.ClientID)
                                     select new
                                     {
                                         Text = o.RazonSocial.Trim() + " - " + o.NIT.Trim(),
-                                        Value = u.OrganizationID
+                                        Value = o.ID
                                     })                              
                         .ToList();
                     message = "Seleccione una organización !!";
