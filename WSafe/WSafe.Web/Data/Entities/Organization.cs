@@ -37,8 +37,6 @@ namespace WSafe.Domain.Data.Entities
         [Display(Name = "Clase Riesgo")]
         [MaxLength(10)]
         public string ClaseRiesgo { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Tipo documento")]
         public DocumentTypes DocumentType { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Documento Represente Legal")]
@@ -94,7 +92,6 @@ namespace WSafe.Domain.Data.Entities
         [Display(Name = "Documento Responsable SG-SST")]
         [MaxLength(20)]
         public string DocumentResponsable { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Fecha resolución licencia")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
@@ -106,7 +103,6 @@ namespace WSafe.Domain.Data.Entities
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime RenovacionLicencia { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Renovación curso SG-SST")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
@@ -121,20 +117,12 @@ namespace WSafe.Domain.Data.Entities
         public int StandardMatrixRisk { get; set; }
         public int StandardActions { get; set; }
         public int StandardIncidents { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Fecha resolución licencia")]
         [MaxLength(12)]
         public string FechaResolucionLicencia { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Renovación Licencia")]
         [MaxLength(12)]
         public string FechaRenovacionLicencia { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Renovación curso SG-SST")]
         [MaxLength(12)]
         public string FechaRenovacionCurso { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Vigencia arrendamiento")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime ControlDate { get; set; }

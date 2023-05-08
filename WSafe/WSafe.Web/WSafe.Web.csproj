@@ -479,6 +479,18 @@
     <Compile Include="Migrations\202305062235453_CreateOrganizationVM.Designer.cs">
       <DependentUpon>202305062235453_CreateOrganizationVM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202305081643224_UpdOrganization.cs" />
+    <Compile Include="Migrations\202305081643224_UpdOrganization.Designer.cs">
+      <DependentUpon>202305081643224_UpdOrganization.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305081724126_UpdOrganization1.cs" />
+    <Compile Include="Migrations\202305081724126_UpdOrganization1.Designer.cs">
+      <DependentUpon>202305081724126_UpdOrganization1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305081743374_UpdOrganization11.cs" />
+    <Compile Include="Migrations\202305081743374_UpdOrganization11.Designer.cs">
+      <DependentUpon>202305081743374_UpdOrganization11.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -1037,6 +1049,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202305062235453_CreateOrganizationVM.resx">
       <DependentUpon>202305062235453_CreateOrganizationVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305081643224_UpdOrganization.resx">
+      <DependentUpon>202305081643224_UpdOrganization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305081724126_UpdOrganization1.resx">
+      <DependentUpon>202305081724126_UpdOrganization1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305081743374_UpdOrganization11.resx">
+      <DependentUpon>202305081743374_UpdOrganization11.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

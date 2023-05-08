@@ -1534,7 +1534,8 @@ function UpdateOrganization(id) {
         StandardMatrixRisk: $("#sdMatrixRisk").val(),
         StandardActions: $("#sdActions").val(),
         StandardIncidents: $("#sdIncidents").val(),
-        ControlDate: $("#controlDate").val()
+        ControlDate: $("#controlDate").val(),
+        ClientID: $("#clientID").val()
     };
 
     $.ajax({

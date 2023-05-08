@@ -4,7 +4,10 @@
     var resolucionLicencia = Model.FechaResolucionLicencia;
     var renovacionLicencia = Model.FechaRenovacionLicencia;
     var renovacionCurso = Model.FechaRenovacionCurso;
+    var _clientID = Model.ClientID;
 }
+
+<input type="hidden" id="clientID" value="@_clientID" name="clientID" />
 
 <div class="container" style="background-color:azure">
     <hr />
@@ -260,7 +263,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.ResolucionLicencia, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-8">
-                    <input type="date" class="form-control" id="resolucionLicencia" value = "@resolucionLicencia" required>
+                    <input type="date" class="form-control" id="resolucionLicencia" value="@resolucionLicencia" required>
                 </div>
             </div>
         </div>

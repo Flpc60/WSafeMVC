@@ -37,7 +37,7 @@ namespace WSafe.Web.Controllers
             _path = (string)Session["path"];
             var folders = _empresaContext.Clients.Find(_clientID).Folders;
             var cantidad = _empresaContext.Organizations
-                .Where(o => o.ID == _orgID).Count();
+                .Where(o => o.ClientID == _clientID).Count();
             bool create = false;
             if(folders > cantidad) { create = true; }
             Organization organization = await _empresaContext.Organizations.FindAsync(_orgID);
@@ -368,7 +368,11 @@ namespace WSafe.Web.Controllers
         public ActionResult Create()
         {
             _clientID = (int)Session["clientID"];
-            var model = new OrganizationVM() {ClientID = _clientID };
+            var model = new Organization()
+            {
+                ClientID = _clientID,
+                ControlDate = DateTime.Now
+            };
             return View(model);
         }
 
@@ -376,23 +380,24 @@ namespace WSafe.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(Organization model)
         {
-            var message = "";
             try
             {
+                model.ControlDate = DateTime.Now;
+                model.RenovacionCurso = DateTime.Now;
+                model.ResolucionLicencia = DateTime.Now;
+                model.RenovacionLicencia = DateTime.Now;
+
                 if (ModelState.IsValid)
                 {
                     _empresaContext.Organizations.Add(model);
                     await _empresaContext.SaveChangesAsync();
-                    message = "La Organización ha sido actualizada correctamente!!";
-                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                    return RedirectToAction("Index","Home");
                 }
-                message = "La Organización no se ha podido actualizar correctamente!!";
-                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                return View(model);
             }
             catch
             {
-                message = "La Organización no se ha podido actualizar correctamente!!";
-                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                return View(model);
             }
         }
 
