@@ -41,11 +41,33 @@ namespace WSafe.Web.Controllers
         [AuthorizeUser(operation: 1, component: 6)]
         public ActionResult Index()
         {
-            //_clientID = (int)Session["clientID"];
+            _clientID = (int)Session["clientID"];
             var userList = _empresaContext.Users
                 .Where(u => u.ClientID == _clientID)
                 .ToList();
             var model = _converterHelper.ToUsersVM(userList);
+            var orgList = (from o in _empresaContext.Organizations
+                            where (o.ClientID == _clientID)
+                            select new
+                            {
+                                Text = o.RazonSocial.Trim() + " - " + o.NIT.Trim(),
+                                Value = o.ID
+                            })
+                .ToList();
+
+            var orgUsers = (from u in _empresaContext.Users
+                           where (u.ClientID == _clientID)
+                           group u by u.Name
+                           into userGr
+                           select new
+                           {
+                               Text = userGr.OrderBy(g => g.Name),
+                               Value = userGr.Key
+                           })
+                .ToList();
+            ViewBag.orgUsers = orgUsers;
+            ViewBag.orgList = orgList;
+
             return View(model);
         }
         public ActionResult Login()
