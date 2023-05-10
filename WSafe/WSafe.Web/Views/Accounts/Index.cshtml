@@ -15,46 +15,43 @@
 <h2>GESTIÓN DE USUARIOS</h2>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-2">
         @Html.ActionLink("Gestionar roles", "Create", new { @class = "glyphicon glyphicon-plus" },
         new { @class = "btn btn-info" })
     </div>
-    <div class="col-md-4">
-        <button type="button" class="btn btn-success" id="authorize">Nueva Autorización</button>
-        <button type="button" class="btn btn-warning" onclick="cancelAuthorize()">Cancelar Autorización</button>
+    <div class="col-md-8">
     </div>
-    <div class="col-md-4">
+    <div class="col-md-2">
+        <button type="button" class="btn btn-success" id="authorize">Nueva Autorización</button>
     </div>
 </div>
+<hr />
+
 <div class="tabAuthorize">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="form-group">
-                <label for="">Usuario:</label><br>
-                <div class="col-md-10">
+                <label for="">USUARIO:</label><br>
+                <div class="col-md-8">
                     @Html.DropDownList("Usuarios", users as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "userID" })
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="form-group">
-                <label for="">Organización:</label><br>
-                <div class="col-md-10">
+                <label for="">ORGANIZACIÓN:</label><br>
+                <div class="col-md-12">
                     @Html.DropDownList("Organizacioness", orgs as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "organizationID" })
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-2">
-        </div>
-        <div class="col-md-6">
-            <button type="button" class="btn btn-success" onclick="authorizeUser()">Autorice usuario</button>
-        </div>
         <div class="col-md-4">
+            <br /><button type="button" class="btn btn-success" onclick="authorizeUser()">Autorice usuario</button>
+            <button type="button" class="btn btn-danger" onclick="cancelAuthorize()">Cancelar Autorización</button>
         </div>
     </div>
 </div>
+<hr />
 <div class="table-responsive" style="background-color: azure">
 
     <table class="table">
@@ -109,11 +106,13 @@
             $("#authorize").click(function () {
                 $(".tabAuthorize").css("display", "block");
                 $("#userID").show();
+                $("#authorize").hide();
             });
         });
 
         function cancelAuthorize() {
             $(".tabAuthorize").css("display", "none");
+            $("#authorize").show();
             $("#userID").val("");
             $("#organizationID").val("");
         }

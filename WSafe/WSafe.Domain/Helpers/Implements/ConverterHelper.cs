@@ -1028,20 +1028,45 @@ namespace WSafe.Domain.Helpers.Implements
 
             return model;
         }
-
-        public IEnumerable<UserViewModel> ToUsersVM(IEnumerable<User> userList)
+        public IEnumerable<UserViewModel> ToUsersVM(int _clientID)
         {
+            var list1 = (from u in _empresaContext.Users
+                        join r in _empresaContext.Roles on u.RoleID equals r.ID
+                        join o in _empresaContext.Organizations on u.OrganizationID equals o.ID
+                        where u.ClientID == _clientID
+                        orderby u.Name
+                        select new
+                        {
+                            ID = u.ID,
+                            Name = u.Name,
+                            Email = u.Email,
+                            RoleID = r.ID,
+                            Role = r.Name,
+                            RazonSocial = o.RazonSocial.Trim().ToUpper()
+                        }).ToList();
+
+            var list2 = (from u in _empresaContext.Users
+                         where (u.ClientID == _clientID && u.RoleID == 0)
+                         orderby u.Name
+                         select new
+                         {
+                             ID = u.ID,
+                             Name = u.Name,
+                             Email = u.Email,
+                             RoleID = u.RoleID
+                         }).ToList();
+
             var modelo = new List<UserViewModel>();
-            var role = " ";
-            foreach (var item in userList)
+            var role = "";
+            foreach (var item in list1)
             {
-                if (item.RoleID != 0)
+                if (item.RoleID == 0)
                 {
-                    role = _gestorHelper.GetRole(item.RoleID);
+                    role = "No tiene permisos";
                 }
                 else
                 {
-                    role = "No tiene permisos";
+                    role = item.Role.ToUpper();
                 }
 
                 modelo.Add(new UserViewModel
@@ -1049,9 +1074,24 @@ namespace WSafe.Domain.Helpers.Implements
                     ID = item.ID,
                     Name = item.Name,
                     Email = item.Email,
-                    Role = role
+                    RoleID = item.RoleID,
+                    Role = role,
+                    RazonSocial = item.RazonSocial.Trim().ToUpper()
                 });
             }
+            foreach (var item in list2)
+            {
+                modelo.Add(new UserViewModel
+                {
+                    ID = item.ID,
+                    Name = item.Name,
+                    Email = item.Email,
+                    RoleID = item.RoleID,
+                    Role = "No tiene permisos",
+                    RazonSocial = "No tiene Organización"
+                });
+            }
+
             return modelo;
         }
 
@@ -1106,7 +1146,9 @@ namespace WSafe.Domain.Helpers.Implements
                 Name = user.Name,
                 Email = user.Email,
                 Password = user.Password,
-                RoleID = user.RoleID
+                RoleID = user.RoleID,
+                OrganizationID = user.OrganizationID,
+                ClientID = user.ClientID
             };
             return result;
         }
@@ -1278,26 +1320,26 @@ namespace WSafe.Domain.Helpers.Implements
         public MinimalsStandardsVM ToMinimalsStandardsVM(Evaluation evaluation)
         {
             var list = (from p in _empresaContext.PlanActivities
-                join n in _empresaContext.Normas on p.NormaID equals n.ID
-                where p.EvaluationID == evaluation.ID
-                orderby n.Item
-                select new
-                {
-                    ID = p.ID,
-                    TrabajadorID = p.TrabajadorID,
-                    FechaFinal = p.FechaFinal,
-                    Activity = p.Activity,
-                    Financieros = p.Financieros,
-                    Administrativos = p.Administrativos,
-                    Tecnicos = p.Tecnicos,
-                    Humanos = p.Humanos,
-                    ActionCategory = p.ActionCategory,
-                    Observation = p.Observation,
-                    Ciclo = n.Ciclo,
-                    Item = n.Item,
-                    Name = n.Name,
-                    Fundamentos = p.Fundamentos
-                }).ToList();
+                        join n in _empresaContext.Normas on p.NormaID equals n.ID
+                        where p.EvaluationID == evaluation.ID
+                        orderby n.Item
+                        select new
+                        {
+                            ID = p.ID,
+                            TrabajadorID = p.TrabajadorID,
+                            FechaFinal = p.FechaFinal,
+                            Activity = p.Activity,
+                            Financieros = p.Financieros,
+                            Administrativos = p.Administrativos,
+                            Tecnicos = p.Tecnicos,
+                            Humanos = p.Humanos,
+                            ActionCategory = p.ActionCategory,
+                            Observation = p.Observation,
+                            Ciclo = n.Ciclo,
+                            Item = n.Item,
+                            Name = n.Name,
+                            Fundamentos = p.Fundamentos
+                        }).ToList();
 
             var planes = new List<PlanActivityVM>();
             foreach (var item in list)
@@ -1324,27 +1366,27 @@ namespace WSafe.Domain.Helpers.Implements
             }
 
             var list2 = (from c in _empresaContext.Califications
-                    join n in _empresaContext.Normas on c.NormaID equals n.ID
-                    where c.EvaluationID == evaluation.ID
-                    orderby n.Item
-                    select new
-                    {
-                        ID = c.ID,
-                        EvaluationID = c.EvaluationID,
-                        NormaID = c.NormaID,
-                        Ciclo = n.Ciclo,
-                        Standard = n.Standard,
-                        Item = n.Item,
-                        Name = n.Item + " " + n.Name.Trim(),
-                        Valor = n.Valor,
-                        Cumple = c.Cumple,
-                        NoCumple = c.NoCumple,
-                        Justify = c.Justify,
-                        NoJustify = c.NoJustify,
-                        Valoration = c.Valoration,
-                        Observation = c.Observation,
-                        Verification = n.Verification.Trim()
-                    }).ToList();
+                         join n in _empresaContext.Normas on c.NormaID equals n.ID
+                         where c.EvaluationID == evaluation.ID
+                         orderby n.Item
+                         select new
+                         {
+                             ID = c.ID,
+                             EvaluationID = c.EvaluationID,
+                             NormaID = c.NormaID,
+                             Ciclo = n.Ciclo,
+                             Standard = n.Standard,
+                             Item = n.Item,
+                             Name = n.Item + " " + n.Name.Trim(),
+                             Valor = n.Valor,
+                             Cumple = c.Cumple,
+                             NoCumple = c.NoCumple,
+                             Justify = c.Justify,
+                             NoJustify = c.NoJustify,
+                             Valoration = c.Valoration,
+                             Observation = c.Observation,
+                             Verification = n.Verification.Trim()
+                         }).ToList();
 
             var txtCumple = " ";
             var txtNoCumple = " ";

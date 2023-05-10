@@ -87,7 +87,7 @@
                 <div class="form-group">
                     <i class="fa fa-landmark"></i>
                     <label for="">Consultoría</label><br>
-                    <div class="col-md-10">
+                    <div class="col-md-12">
                         @Html.DropDownListFor(model => model.ClientID, Model.Clients, new { @class = "form-control", @id = "clientID" })
                         @Html.ValidationMessageFor(model => model.ClientID, "", new { @class = "text-danger" })
                     </div>
