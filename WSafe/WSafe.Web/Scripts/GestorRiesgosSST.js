@@ -3300,6 +3300,7 @@ function authorizeUser() {
             alert(response.mensaj);
             window.location = response.url;
             $(".tabAuthorize").css("display", "none");
+            $("#authorize").show();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
