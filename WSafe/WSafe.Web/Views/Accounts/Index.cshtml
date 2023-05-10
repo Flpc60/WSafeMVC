@@ -2,15 +2,57 @@
 
 @{
     ViewBag.Title = "Index";
+    var users = ViewBag.userList;
+    var orgs = ViewBag.orgList;
 }
+<style>
+
+    .tabAuthorize {
+        display: none;
+    }
+</style>
+
 <h2>GESTIÓN DE USUARIOS</h2>
 
 <div class="row">
     <div class="col-md-4">
         @Html.ActionLink("Gestionar roles", "Create", new { @class = "glyphicon glyphicon-plus" },
-        new { @class = "btn btn-info btn-lg active" })
+        new { @class = "btn btn-info" })
     </div>
-    <div class="col-md-8">
+    <div class="col-md-4">
+        <button type="button" class="btn btn-success" id="authorize">Nueva Autorización</button>
+        <button type="button" class="btn btn-warning" onclick="cancelAuthorize()">Cancelar Autorización</button>
+    </div>
+    <div class="col-md-4">
+    </div>
+</div>
+<div class="tabAuthorize">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="">Usuario:</label><br>
+                <div class="col-md-10">
+                    @Html.DropDownList("Usuarios", users as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "userID" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="">Organización:</label><br>
+                <div class="col-md-10">
+                    @Html.DropDownList("Organizacioness", orgs as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "organizationID" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-6">
+            <button type="button" class="btn btn-success" onclick="authorizeUser()">Autorice usuario</button>
+        </div>
+        <div class="col-md-4">
+        </div>
     </div>
 </div>
 <div class="table-responsive" style="background-color: azure">
@@ -27,28 +69,54 @@
                 @Html.DisplayNameFor(model => model.Role)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.RazonSocial)
+            </th>
+            <th>
                 Acciones
             </th>
         </tr>
 
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Role)
-                </td>
-                <td style="font-size:15px">
-                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) |
-                    <a href="#" onclick="DeleteUser('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
-                </td>
-            </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Role)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RazonSocial)
+        </td>
+        <td style="font-size:15px">
+            @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) |
+            <a href="#" onclick="DeleteUser('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
+        </td>
+    </tr>
         }
 
     </table>
 </div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#authorize").click(function () {
+                $(".tabAuthorize").css("display", "block");
+                $("#userID").show();
+            });
+        });
+
+        function cancelAuthorize() {
+            $(".tabAuthorize").css("display", "none");
+            $("#userID").val("");
+            $("#organizationID").val("");
+        }
+
+    </script>
+}

@@ -42,10 +42,32 @@ namespace WSafe.Web.Controllers
         public ActionResult Index()
         {
             _clientID = (int)Session["clientID"];
-            var userList = _empresaContext.Users
-                .Where(u => u.ClientID == _clientID)
-                .ToList();
-            var model = _converterHelper.ToUsersVM(userList);
+            var model = (from u in _empresaContext.Users
+                        join o in _empresaContext.Organizations on u.OrganizationID equals o.ID
+                        join r in _empresaContext.Roles on u.RoleID equals r.ID
+                        where u.ClientID == _clientID
+                        orderby u.Name
+                        select new UserViewModel
+                        {
+                            ID = u.ID,
+                            Name = u.Name,
+                            Email = u.Email,
+                            Role = r.Name,
+                            RazonSocial = o.RazonSocial.Trim().ToUpper()
+                        }).ToList();
+
+            foreach (var item in model)
+            {
+                if (item.RoleID == 0)
+                {
+                    item.Role = "No tiene permisos";
+                }
+                else
+                {
+                    item.Role = item.Role.ToUpper();
+                }
+            }
+
             var orgList = (from o in _empresaContext.Organizations
                             where (o.ClientID == _clientID)
                             select new
@@ -62,10 +84,10 @@ namespace WSafe.Web.Controllers
                            select new
                            {
                                Text = userGr.OrderBy(g => g.Name),
-                               Value = userGr.Key
+                               Value = userGr.OrderBy(g => g.ID)
                            })
                 .ToList();
-            ViewBag.orgUsers = orgUsers;
+            ViewBag.userList = orgUsers;
             ViewBag.orgList = orgList;
 
             return View(model);
@@ -401,6 +423,26 @@ namespace WSafe.Web.Controllers
             stream = sha256.ComputeHash(encoding.GetBytes(str));
             for (int i = 0; i < stream.Length; i++) sb.AppendFormat("{0:x2}", stream[i]);
             return sb.ToString();
+        }
+        [HttpPost]
+        public async Task<ActionResult> CreateAuthorization(int userID, int organizationID)
+        {
+            var message = "";
+            try
+            {
+                User user = _empresaContext.Users.Find(userID);
+                user.OrganizationID = organizationID;
+                _empresaContext.Users.Add(user);
+                await _empresaContext.SaveChangesAsync();
+                message = "El usuario se ha autorizado correctamente !!";
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+                return Json(new { result = "", url = Url.Action("Index", "Accounts"), mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { result = "Redirect", url = Url.Action("Index", "Accounts"), mensaj = message }, JsonRequestBehavior.AllowGet);
         }
     }
 }

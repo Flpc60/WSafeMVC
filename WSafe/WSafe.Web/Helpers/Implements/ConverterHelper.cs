@@ -1028,7 +1028,6 @@ namespace WSafe.Domain.Helpers.Implements
 
             return model;
         }
-
         public IEnumerable<UserViewModel> ToUsersVM(IEnumerable<User> userList)
         {
             var modelo = new List<UserViewModel>();
