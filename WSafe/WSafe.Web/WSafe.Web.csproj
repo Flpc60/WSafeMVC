@@ -491,6 +491,10 @@
     <Compile Include="Migrations\202305081743374_UpdOrganization11.Designer.cs">
       <DependentUpon>202305081743374_UpdOrganization11.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202305100031463_UpdUserVM.cs" />
+    <Compile Include="Migrations\202305100031463_UpdUserVM.Designer.cs">
+      <DependentUpon>202305100031463_UpdUserVM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -1058,6 +1062,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202305081743374_UpdOrganization11.resx">
       <DependentUpon>202305081743374_UpdOrganization11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305100031463_UpdUserVM.resx">
+      <DependentUpon>202305100031463_UpdUserVM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
