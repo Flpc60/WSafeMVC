@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -42,49 +43,23 @@ namespace WSafe.Web.Controllers
         public ActionResult Index()
         {
             _clientID = (int)Session["clientID"];
-            var model = (from u in _empresaContext.Users
-                        join o in _empresaContext.Organizations on u.OrganizationID equals o.ID
-                        join r in _empresaContext.Roles on u.RoleID equals r.ID
-                        where u.ClientID == _clientID
-                        orderby u.Name
-                        select new UserViewModel
-                        {
-                            ID = u.ID,
-                            Name = u.Name,
-                            Email = u.Email,
-                            Role = r.Name,
-                            RazonSocial = o.RazonSocial.Trim().ToUpper()
-                        }).ToList();
-
-            foreach (var item in model)
-            {
-                if (item.RoleID == 0)
-                {
-                    item.Role = "No tiene permisos";
-                }
-                else
-                {
-                    item.Role = item.Role.ToUpper();
-                }
-            }
-
+            var model = _converterHelper.ToUsersVM(_clientID);
             var orgList = (from o in _empresaContext.Organizations
                             where (o.ClientID == _clientID)
-                            select new
+                            select new SelectListItem
                             {
                                 Text = o.RazonSocial.Trim() + " - " + o.NIT.Trim(),
-                                Value = o.ID
+                                Value = o.ID.ToString()
                             })
                 .ToList();
 
             var orgUsers = (from u in _empresaContext.Users
                            where (u.ClientID == _clientID)
-                           group u by u.Name
-                           into userGr
-                           select new
+                           orderby u.Name
+                           select new SelectListItem
                            {
-                               Text = userGr.OrderBy(g => g.Name),
-                               Value = userGr.OrderBy(g => g.ID)
+                               Text = u.Name.ToUpper(),
+                               Value = u.ID.ToString()
                            })
                 .ToList();
             ViewBag.userList = orgUsers;
@@ -191,9 +166,7 @@ namespace WSafe.Web.Controllers
             try
             {
                 //TODO
-                var result = _empresaContext.Users.Find(model.ID);
-                model.OrganizationID = result.OrganizationID;
-                model.ClientID = result.ClientID;
+                model.OrganizationID = (int)Session["orgID"];
                 model.Roles = _comboHelper.GetAllRoles();
 
                 if (ModelState.IsValid)

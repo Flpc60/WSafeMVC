@@ -36,7 +36,7 @@ namespace WSafe.Domain.Helpers
         IEnumerable<AccidentadoVM> ToListLesionadosVM(IEnumerable<Accidentado> lesionados);
         Task<Accidentado> ToLesionadoAsync(AccidentadoVM model, bool isNew);
         DetailsIncidentVM ToIncidentVMFull(Incidente incidente, int id);
-        IEnumerable<UserViewModel> ToUsersVM(IEnumerable<User> userList);
+        IEnumerable<UserViewModel> ToUsersVM(int _clientID);
         IEnumerable<AuthorizationVM> ToRolOperationVM(IEnumerable<RoleOperation> roleOperation);
         RoleUserVM ToAuthorizationVM(User user);
         Task<User> ToUserAsync(RoleUserVM user);
