@@ -5,14 +5,17 @@ namespace WSafe.Web.Models
     public class UserViewModel
     {
         public int ID { get; set; }
-        [Display(Name = "Nombre usuario")]
+        [Display(Name = "USUARIO")]
         public string Name { get; set; }
-        [Display(Name = "Correo electrónico")]
+        [Display(Name = "CORREO")]
         public string Email { get; set; }
-        [Display(Name = "Rol usuario")]
+        [Display(Name = "ROL")]
         public string Role { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Perfiles usuario")]
         public int RoleID { get; set; }
+        [Display(Name = "ORGANIZACIÓN")]
+        [MaxLength(50)]
+        public string RazonSocial { get; set; }
     }
 }

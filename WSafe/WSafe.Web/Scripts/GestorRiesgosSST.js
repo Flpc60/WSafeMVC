@@ -3286,6 +3286,28 @@ function LoginUser() {
     });
 }
 
+function authorizeUser() {
+    // Crea nueva autorización usuario
+    $.ajax({
+        type: "POST",
+        url: "/Accounts/CreateAuthorization",
+        data: {
+            userID: $("#userID").val(),
+            organizationID: $("#organizationID").val()
+        },
+        dataType: "json",
+        success: function (response) {
+            alert(response.mensaj);
+            window.location = response.url;
+            $(".tabAuthorize").css("display", "none");
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
 function SelectComponent() {
     $("#txtComponent").val(document.getElementById("txtComponent").value);
 }
