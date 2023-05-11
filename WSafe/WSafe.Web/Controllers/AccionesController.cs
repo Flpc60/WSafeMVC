@@ -20,6 +20,10 @@ namespace WSafe.Web.Controllers
     public class AccionesController : Controller
     {
         // Inyecciones
+        private int _clientID;
+        private int _orgID;
+        private string _year;
+        private string _path;
         private readonly EmpresaContext _empresaContext;
         private readonly IComboHelper _comboHelper;
         private readonly IConverterHelper _converterHelper;
@@ -41,7 +45,9 @@ namespace WSafe.Web.Controllers
         [AuthorizeUser(operation: 1, component: 4)]
         public async Task<ActionResult> Index()
         {
+            _orgID = (int)Session["orgID"];
             var list = await _empresaContext.Acciones
+                    .Where(r => r.OrganizationID == _orgID)
                 .OrderByDescending(a => a.FechaSolicitud)
                 .ToListAsync();
             var modelo = _converterHelper.ToAccionVMList(list);
@@ -96,6 +102,8 @@ namespace WSafe.Web.Controllers
             var message = "";
             try
             {
+                model.ClientID = (int)Session["clientID"];
+                model.OrganizationID = (int)Session["orgID"];
                 if (ModelState.IsValid)
                 {
                     var consulta = new AccionService(new AccionRepository(_empresaContext));
@@ -247,6 +255,8 @@ namespace WSafe.Web.Controllers
             var message = "";
             try
             {
+                model.ClientID = (int)Session["clientID"];
+                model.OrganizationID = (int)Session["orgID"];
                 if (ModelState.IsValid)
                 {
                     var result = await _converterHelper.ToAccionAsync(model, true);
@@ -421,8 +431,11 @@ namespace WSafe.Web.Controllers
             try
             {
                 // Configuración nombre archivo pdf
-                var organization = _empresaContext.Organizations.OrderByDescending(x => x.ID).First();
-                var year = organization.Year.ToString();
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
+                var organization = _empresaContext.Organizations.Find(_orgID);
+                var year = _year;
                 var item = _empresaContext.Normas.Find(organization.StandardActions).Item;
                 var fullPath = $"~/SG-SST/{year}/4. ACTUAR/{item}/";
                 var path = Server.MapPath(fullPath);
@@ -481,9 +494,17 @@ namespace WSafe.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> GetAllPlans()
         {
-
-            var noConformance = _empresaContext.Acciones.Count();
-            var numPlans = _empresaContext.PlanActions.Count();
+            _clientID = (int)Session["clientID"];
+            _orgID = (int)Session["orgID"];
+            _year = (string)Session["year"];
+            var noConformance = _empresaContext.Acciones
+                .Where(a => a.OrganizationID == _orgID)
+                .Count();
+            var numPlans = (from a in _empresaContext.Acciones
+                            where (a.OrganizationID == _orgID)
+                            join p in _empresaContext.PlanActions on a.ID equals p.AccionID
+                            select p).Count();
+                            
             var numCorrective = _empresaContext.Acciones
                 .Where(ac => ac.Categoria == CategoriasAccion.Correctiva).Count();
             var numEfectives = _empresaContext.Acciones
@@ -497,10 +518,13 @@ namespace WSafe.Web.Controllers
         {
             try
             {
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
                 Random random = new Random();
                 var filename = "chart" + random.Next(1, 100) + ".jpg";
                 var filePathName = "~/Images/" + filename;
-                var datos = _chartHelper.GetAllNoConformance();
+                var datos = _chartHelper.GetAllNoConformance(_orgID);
                 var image = "/Images/" + filename;
                 return Json(datos, JsonRequestBehavior.AllowGet);
             }
@@ -515,10 +539,13 @@ namespace WSafe.Web.Controllers
         {
             try
             {
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
                 Random random = new Random();
                 var filename = "chart" + random.Next(1, 100) + ".jpg";
                 var filePathName = "~/Images/" + filename;
-                var datos = _chartHelper.GetAllValueActions();
+                var datos = _chartHelper.GetAllValueActions(_orgID);
                 var image = "/Images/" + filename;
                 return Json(datos, JsonRequestBehavior.AllowGet);
             }
@@ -533,11 +560,14 @@ namespace WSafe.Web.Controllers
         {
             try
             {
-                var year = DateTime.Now.Year;
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
+                int year = Convert.ToInt32(_year);
                 Random random = new Random();
                 var filename = "chart" + random.Next(1, 100) + ".jpg";
                 var filePathName = "~/Images/" + filename;
-                var datos = _chartHelper.GetAllValueCorrectiveActions(year);
+                var datos = _chartHelper.GetAllValueCorrectiveActions(year, _orgID);
                 var image = "/Images/" + filename;
                 return Json(datos, JsonRequestBehavior.AllowGet);
             }
@@ -551,11 +581,14 @@ namespace WSafe.Web.Controllers
         {
             try
             {
-                var year = DateTime.Now.Year;
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
+                int year = Convert.ToInt32(_year);
                 Random random = new Random();
                 var filename = "chart" + random.Next(1, 100) + ".jpg";
                 var filePathName = "~/Images/" + filename;
-                var datos = _chartHelper.GetAllEfectiveActions(year);
+                var datos = _chartHelper.GetAllEfectiveActions(year, _orgID);
                 var image = "/Images/" + filename;
                 return Json(datos, JsonRequestBehavior.AllowGet);
             }

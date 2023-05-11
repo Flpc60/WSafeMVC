@@ -21,11 +21,11 @@ namespace WSafe.Domain.Helpers
         IEnumerable<IndicadorDetallesViewModel> GetAllValueActivitys(int _orgID);
         IEnumerable<IndicadorDetallesViewModel> GetAllValueDangers(int _orgID);
         IEnumerable<IndicadorDetallesViewModel> GetAllValueEfects(int _orgID);
-        IEnumerable<IndicadorDetallesViewModel> GetAllNoConformance();
-        IEnumerable<IndicadorDetallesViewModel> GetAllValueActions();
-        IEnumerable<IndicadorDetallesViewModel> GetAllValueCorrectiveActions(int year);
+        IEnumerable<IndicadorDetallesViewModel> GetAllNoConformance(int _orgID);
+        IEnumerable<IndicadorDetallesViewModel> GetAllValueActions(int _orgID);
+        IEnumerable<IndicadorDetallesViewModel> GetAllValueCorrectiveActions(int year, int _orgID);
         IEnumerable<IndicadorDetallesViewModel> GetAllCalifications(int id);
         IEnumerable<IndicadorDetallesViewModel> GetAllCalificationsStandard(int id);
-        IEnumerable<IndicadorDetallesViewModel> GetAllEfectiveActions(int year);
+        IEnumerable<IndicadorDetallesViewModel> GetAllEfectiveActions(int year, int _orgID);
     }
 }

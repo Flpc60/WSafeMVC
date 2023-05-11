@@ -536,11 +536,12 @@ namespace WSafe.Domain.Helpers.Implements
                 throw ex;
             }
         }
-        public IEnumerable<IndicadorDetallesViewModel> GetAllNoConformance()
+        public IEnumerable<IndicadorDetallesViewModel> GetAllNoConformance(int _orgID)
         {
             try
             {
                 var result = from a in _empresaContext.Acciones
+                             where (a.OrganizationID == _orgID)
                              group a by new { a.FechaSolicitud.Year, a.FechaSolicitud.Month } into datosAgrupados
                              orderby datosAgrupados.Key
                              select new { Clave = datosAgrupados.Key, Datos = datosAgrupados };
@@ -563,11 +564,13 @@ namespace WSafe.Domain.Helpers.Implements
             }
         }
 
-        public IEnumerable<IndicadorDetallesViewModel> GetAllValueActions()
+        public IEnumerable<IndicadorDetallesViewModel> GetAllValueActions(int _orgID)
         {
             try
             {
-                var result = _empresaContext.Acciones.ToList();
+                var result = _empresaContext.Acciones
+                    .Where(r => r.OrganizationID == _orgID)
+                    .ToList();
                 var sinIniciar = 0;
                 var proceso = 0;
                 var finalizada = 0;
@@ -625,7 +628,7 @@ namespace WSafe.Domain.Helpers.Implements
             }
         }
 
-        public IEnumerable<IndicadorDetallesViewModel> GetAllValueCorrectiveActions(int year)
+        public IEnumerable<IndicadorDetallesViewModel> GetAllValueCorrectiveActions(int year, int _orgID)
         {
             try
             {
@@ -904,16 +907,18 @@ namespace WSafe.Domain.Helpers.Implements
             }
         }
 
-        public IEnumerable<IndicadorDetallesViewModel> GetAllEfectiveActions(int year)
+        public IEnumerable<IndicadorDetallesViewModel> GetAllEfectiveActions(int year, int _orgID)
         {
             try
             {
                 var result = _empresaContext.Acciones
-                    .Where(a => a.FechaCierre.Year == year)
+                    .Where(a => a.OrganizationID == _orgID && a.FechaCierre.Year == year)
                     .ToList();
                 var efectives = 0;
                 var notEfectives = 0;
                 var total = 0;
+                decimal pEfectives = 0;
+                decimal pNotEfectives = 0;
                 foreach (var item in result)
                 {
                     total++;
@@ -927,8 +932,11 @@ namespace WSafe.Domain.Helpers.Implements
                     }
                 }
 
-                decimal pEfectives = Math.Round(Convert.ToDecimal((double)efectives / (double)total * 100), 2);
-                decimal pNotEfectives = Math.Round(Convert.ToDecimal((double)notEfectives / (double)total * 100), 2);
+                if (total > 0)
+                {
+                    pEfectives = Math.Round(Convert.ToDecimal((double)efectives / (double)total * 100), 2);
+                    pNotEfectives = Math.Round(Convert.ToDecimal((double)notEfectives / (double)total * 100), 2);
+                }
                 var viewModel = new List<IndicadorDetallesViewModel>();
 
                 viewModel.Add(new IndicadorDetallesViewModel

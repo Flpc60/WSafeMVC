@@ -182,7 +182,9 @@ namespace WSafe.Domain.Helpers.Implements
                 Seguimientos = new List<Seguimiento>(),
                 FechaSolicitudStr = accion.FechaSolicitud.ToString("yyyy-MM-dd"),
                 FechaCierreStr = accion.FechaCierre.ToString("yyyy-MM-dd"),
-                ActionState = _gestorHelper.GetActionCategory((int)accion.ActionCategory)
+                ActionState = _gestorHelper.GetActionCategory((int)accion.ActionCategory),
+                OrganizationID = accion.OrganizationID,
+                ClientID = accion.ClientID
             };
             model.Planes.Add(new PlanAction() { AccionID = accion.ID });
             model.Seguimientos.Add(new Seguimiento() { AccionID = accion.ID });
@@ -206,7 +208,9 @@ namespace WSafe.Domain.Helpers.Implements
                 EficaciaDespues = model.EficaciaDespues,
                 FechaCierre = model.FechaCierre,
                 Efectiva = model.Efectiva,
-                ActionCategory = model.ActionCategory
+                ActionCategory = model.ActionCategory,
+                OrganizationID = model.OrganizationID,
+                ClientID = model.ClientID
             };
             return result;
         }

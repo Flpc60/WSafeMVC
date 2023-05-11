@@ -48,5 +48,7 @@ namespace WSafe.Domain.Data.Entities
         public IEnumerable<SeguimientoAccion> Seguimientos { get; set; }
         public ActionCategories ActionCategory { get; set; }
         public int PlanNumber => Planes == null ? 0 : Planes.Count;
+        public int OrganizationID { get; set; }
+        public int ClientID { get; set; }
     }
 }
