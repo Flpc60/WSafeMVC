@@ -206,12 +206,13 @@ namespace WSafe.Domain.Helpers.Implements
             }
         }
 
-        public IEnumerable<IndicadorDetallesViewModel> GetFatorRiesgoOcupacional(int year)
+        public IEnumerable<IndicadorDetallesViewModel> GetFatorRiesgoOcupacional(int _orgID)
         {
             try
             {
-                var result = from at in _empresaContext.Riesgos
-                             group at by new { at.CategoriaPeligroID } into datosAgrupados
+                var result = from r in _empresaContext.Riesgos
+                             where r.OrganizationID == _orgID
+                             group r by new { r.CategoriaPeligroID } into datosAgrupados
                              orderby datosAgrupados.Count() ascending
                              select new { Clave = datosAgrupados.Key, Datos = datosAgrupados };
 
@@ -254,11 +255,13 @@ namespace WSafe.Domain.Helpers.Implements
             throw new NotImplementedException();
         }
 
-        public IEnumerable<IndicadorDetallesViewModel> GetAllValueRisks()
+        public IEnumerable<IndicadorDetallesViewModel> GetAllValueRisks(int _orgID)
         {
             try
             {
-                var result = _empresaContext.Riesgos.ToList();
+                var result = _empresaContext.Riesgos
+                    .Where(r => r.OrganizationID == _orgID)
+                    .ToList();
                 var muyAlto = 0;
                 var alto = 0;
                 var medio = 0;
@@ -333,11 +336,13 @@ namespace WSafe.Domain.Helpers.Implements
             }
         }
 
-        public IEnumerable<IndicadorDetallesViewModel> GetAllValueActivitys()
+        public IEnumerable<IndicadorDetallesViewModel> GetAllValueActivitys(int _orgID)
         {
             try
             {
-                var result = _empresaContext.Riesgos.ToList();
+                var result = _empresaContext.Riesgos
+                    .Where(r => r.OrganizationID == _orgID)
+                    .ToList();
                 var rutinaria = 0;
                 var noRutinaria = 0;
                 var total = 0;
@@ -380,11 +385,13 @@ namespace WSafe.Domain.Helpers.Implements
             }
         }
 
-        public IEnumerable<IndicadorDetallesViewModel> GetAllValueDangers()
+        public IEnumerable<IndicadorDetallesViewModel> GetAllValueDangers(int _orgID)
         {
             try
             {
-                var result = _empresaContext.Riesgos.ToList();
+                var result = _empresaContext.Riesgos
+                    .Where(r =>r.OrganizationID == _orgID)
+                    .ToList();
                 var rutinaria = 0;
                 var noRutinaria = 0;
                 var total = 0;
@@ -427,11 +434,13 @@ namespace WSafe.Domain.Helpers.Implements
             }
         }
 
-        public IEnumerable<IndicadorDetallesViewModel> GetAllValueEfects()
+        public IEnumerable<IndicadorDetallesViewModel> GetAllValueEfects(int _orgID)
         {
             try
             {
-                var result = _empresaContext.Riesgos.ToList();
+                var result = _empresaContext.Riesgos
+                    .Where(r => r.OrganizationID == _orgID)
+                    .ToList();
                 var extremo = 0;
                 var leve = 0;
                 var moderado = 0;

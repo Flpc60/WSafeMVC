@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -45,22 +44,22 @@ namespace WSafe.Web.Controllers
             _clientID = (int)Session["clientID"];
             var model = _converterHelper.ToUsersVM(_clientID);
             var orgList = (from o in _empresaContext.Organizations
-                            where (o.ClientID == _clientID)
-                            select new SelectListItem
-                            {
-                                Text = o.RazonSocial.Trim() + " - " + o.NIT.Trim(),
-                                Value = o.ID.ToString()
-                            })
+                           where (o.ClientID == _clientID)
+                           select new SelectListItem
+                           {
+                               Text = o.RazonSocial.Trim() + " - " + o.NIT.Trim(),
+                               Value = o.ID.ToString()
+                           })
                 .ToList();
 
             var orgUsers = (from u in _empresaContext.Users
-                           where (u.ClientID == _clientID)
-                           orderby u.Name
-                           select new SelectListItem
-                           {
-                               Text = u.Name.ToUpper(),
-                               Value = u.ID.ToString()
-                           })
+                            where (u.ClientID == _clientID)
+                            orderby u.Name
+                            select new SelectListItem
+                            {
+                                Text = u.Name.ToUpper(),
+                                Value = u.ID.ToString()
+                            })
                 .ToList();
             ViewBag.userList = orgUsers;
             ViewBag.orgList = orgList;
@@ -95,7 +94,7 @@ namespace WSafe.Web.Controllers
                                     {
                                         Text = o.RazonSocial.Trim() + " - " + o.NIT.Trim(),
                                         Value = o.ID
-                                    })                              
+                                    })
                         .ToList();
                     message = "Seleccione una organización !!";
                     return Json(new { result = userList, url = Url.Action("Index", "Home"), mensaj = message }, JsonRequestBehavior.AllowGet);

@@ -16,11 +16,11 @@ namespace WSafe.Domain.Helpers
         IEnumerable<IndicadorDetallesViewModel> GetAllIncidentes(int[] periodo, int year);
         IEnumerable<IndicadorDetallesViewModel> GetIncidentesInvestigados(int[] periodo, int year);
         IEnumerable<IndicadorDetallesViewModel> GetAusentismoCausaMedica(int[] periodo, int year);
-        IEnumerable<IndicadorDetallesViewModel> GetFatorRiesgoOcupacional(int year);
-        IEnumerable<IndicadorDetallesViewModel> GetAllValueRisks();
-        IEnumerable<IndicadorDetallesViewModel> GetAllValueActivitys();
-        IEnumerable<IndicadorDetallesViewModel> GetAllValueDangers();
-        IEnumerable<IndicadorDetallesViewModel> GetAllValueEfects();
+        IEnumerable<IndicadorDetallesViewModel> GetFatorRiesgoOcupacional(int _orgID);
+        IEnumerable<IndicadorDetallesViewModel> GetAllValueRisks(int _orgID);
+        IEnumerable<IndicadorDetallesViewModel> GetAllValueActivitys(int _orgID);
+        IEnumerable<IndicadorDetallesViewModel> GetAllValueDangers(int _orgID);
+        IEnumerable<IndicadorDetallesViewModel> GetAllValueEfects(int _orgID);
         IEnumerable<IndicadorDetallesViewModel> GetAllNoConformance();
         IEnumerable<IndicadorDetallesViewModel> GetAllValueActions();
         IEnumerable<IndicadorDetallesViewModel> GetAllValueCorrectiveActions(int year);
