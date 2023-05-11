@@ -67,5 +67,7 @@ namespace WSafe.Web.Models
         [Display(Name = "ESTADO")]
         public ActionCategories ActionCategory { get; set; }
         public string ActionState { get; set; }
+        public int OrganizationID { get; set; }
+        public int ClientID { get; set; }
     }
 }
