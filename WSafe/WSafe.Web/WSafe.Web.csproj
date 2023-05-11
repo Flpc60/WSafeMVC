@@ -511,6 +511,26 @@
     <Compile Include="Migrations\202305111447091_UpdAccionVM.Designer.cs">
       <DependentUpon>202305111447091_UpdAccionVM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202305111835147_UpdEvaluation.cs" />
+    <Compile Include="Migrations\202305111835147_UpdEvaluation.Designer.cs">
+      <DependentUpon>202305111835147_UpdEvaluation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305111959429_UpdTrabajador.cs" />
+    <Compile Include="Migrations\202305111959429_UpdTrabajador.Designer.cs">
+      <DependentUpon>202305111959429_UpdTrabajador.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305112025536_UpdIncident.cs" />
+    <Compile Include="Migrations\202305112025536_UpdIncident.Designer.cs">
+      <DependentUpon>202305112025536_UpdIncident.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305112155494_UpdIncidentVM.cs" />
+    <Compile Include="Migrations\202305112155494_UpdIncidentVM.Designer.cs">
+      <DependentUpon>202305112155494_UpdIncidentVM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305112300267_UpdMovimient.cs" />
+    <Compile Include="Migrations\202305112300267_UpdMovimient.Designer.cs">
+      <DependentUpon>202305112300267_UpdMovimient.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -1093,6 +1113,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202305111447091_UpdAccionVM.resx">
       <DependentUpon>202305111447091_UpdAccionVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305111835147_UpdEvaluation.resx">
+      <DependentUpon>202305111835147_UpdEvaluation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305111959429_UpdTrabajador.resx">
+      <DependentUpon>202305111959429_UpdTrabajador.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305112025536_UpdIncident.resx">
+      <DependentUpon>202305112025536_UpdIncident.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305112155494_UpdIncidentVM.resx">
+      <DependentUpon>202305112155494_UpdIncidentVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305112300267_UpdMovimient.resx">
+      <DependentUpon>202305112300267_UpdMovimient.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -71,9 +71,9 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public decimal IncidenciaEnfermedad(int[] periodo)
         {
-
+            //TODO
             return Convert.ToDecimal(NumeroCasosNuevosEnfermedadLaboral(periodo))
-                / Convert.ToDecimal(PromedioTrabajadores(2022)) * 100000;
+                / 100000;
         }
 
         public int NumeroCasosEnfermedadLaboral(int[] periodo)
@@ -87,12 +87,15 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public decimal PrevalenciaEnfermedad(int[] periodo)
         {
+            //TODO
             return Convert.ToDecimal(NumeroCasosEnfermedadLaboral(periodo))
-                / Convert.ToDecimal(PromedioTrabajadores(2022)) * 100000;
+                / 100000;
         }
-        public decimal PromedioTrabajadores(int year)
+        public decimal PromedioTrabajadores(int year, int _orgID)
         {
-            return (from t in _empresaContext.Trabajadores where (t.FechaRetiro.Year != year) select t).Count();
+            return (from t in _empresaContext.Trabajadores
+                    where (t.FechaRetiro.Year != year && t.OrganizationID == _orgID)
+                    select t).Count();
         }
 
         public decimal ProporcionAccidentesMortales(int year)
@@ -221,13 +224,19 @@ namespace WSafe.Domain.Helpers.Implements
         {
             throw new NotImplementedException();
         }
-        public DashboardVM GetIndicators(int year, int month)
+        public DashboardVM GetIndicators(int year, int month, int _orgID)
         {
             try
             {
-                decimal activities = _empresaContext.PlanActivities.Where(pa => pa.FechaFinal.Year == year).Count();
+                decimal activities = (from e in _empresaContext.Evaluations
+                                      join p in _empresaContext.PlanActivities on e.ID equals                         p.EvaluationID
+                                      where (e.OrganizationID == _orgID && e.FechaEvaluation.Year == year             && e.FechaEvaluation.Month == month)
+                                      select p).Count();
 
-                decimal executed = _empresaContext.PlanActivities.Where(pa => pa.FechaFinal.Year == year && pa.ActionCategory == ActionCategories.Finalizada).Count();
+                decimal executed = (from e in _empresaContext.Evaluations
+                                    join p in _empresaContext.PlanActivities on e.ID equals p.EvaluationID
+                                    where (e.OrganizationID == _orgID && e.FechaEvaluation.Year == year &&          e.FechaEvaluation.Month == month && p.ActionCategory ==                         ActionCategories.Finalizada)
+                                    select p).Count();
 
                 decimal proporcion = 0;
                 if (activities > 0)
@@ -236,6 +245,7 @@ namespace WSafe.Domain.Helpers.Implements
                 }
                 decimal proporcionSM = 0;
                 var evaluation = _empresaContext.Evaluations
+                    .Where(r => r.OrganizationID == _orgID)
                     .OrderByDescending(o =>o.FechaEvaluation.Year + o.FechaEvaluation.Month)
                     .FirstOrDefault(e => e.FechaEvaluation.Year == year);
 
@@ -243,10 +253,10 @@ namespace WSafe.Domain.Helpers.Implements
                 {
                     proporcionSM = evaluation.StandarsResult;
                 }
-                decimal denominador = PromedioTrabajadores(year);
+                decimal denominador = PromedioTrabajadores(year, _orgID);
 
                 var result = (from at in _empresaContext.Incidentes
-                              where at.FechaIncidente.Year == year
+                              where (at.FechaIncidente.Year == year && at.OrganizationID == _orgID)
                               group at by new { at.FechaIncidente.Year } into data
                               select new
                               {
