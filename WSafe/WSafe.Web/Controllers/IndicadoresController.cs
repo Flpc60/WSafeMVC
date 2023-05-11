@@ -14,6 +14,10 @@ namespace WSafe.Web.Controllers
     public class IndicadoresController : Controller
     {
         // Indicadores SG-SST
+        private int _clientID;
+        private int _orgID;
+        private string _year;
+        private string _path;
         private readonly EmpresaContext _empresaContext;
         private readonly IComboHelper _comboHelper;
         private readonly IConverterHelper _converterHelper;
@@ -331,10 +335,13 @@ namespace WSafe.Web.Controllers
         {
             try
             {
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
                 Random random = new Random();
                 var filename = "chart" + random.Next(1, 100) + ".jpg";
                 var filePathName = "~/Images/" + filename;
-                var datos = _chartHelper.GetAllValueCorrectiveActions(year);
+                var datos = _chartHelper.GetAllValueCorrectiveActions(year, _orgID);
                 var image = "/Images/" + filename;
                 return Json(datos, JsonRequestBehavior.AllowGet);
             }
