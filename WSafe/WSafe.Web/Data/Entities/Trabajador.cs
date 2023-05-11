@@ -73,7 +73,7 @@ namespace WSafe.Domain.Data.Entities
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaRetiro { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int OrganizationID { get; set; }
+        public int ClientID { get; set; }
     }
 }

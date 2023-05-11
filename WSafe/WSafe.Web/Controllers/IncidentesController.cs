@@ -19,6 +19,10 @@ namespace WSafe.Web.Controllers
     // Controlador de incidentes / accidentes laborales
     public class IncidentesController : Controller
     {
+        private int _clientID;
+        private int _orgID;
+        private string _year;
+        private string _path;
         private readonly EmpresaContext _empresaContext;
         private readonly IComboHelper _comboHelper;
         private readonly IConverterHelper _converterHelper;
@@ -34,9 +38,11 @@ namespace WSafe.Web.Controllers
         [AuthorizeUser(operation: 1, component: 3)]
         public async Task<ActionResult> Index()
         {
+            _orgID = (int)Session["orgID"];
             var consulta = new IncidenteService(new IncidenteRepository(_empresaContext));
-
-            return View(await consulta.GetALL());
+            var result = await consulta.GetALL();
+            var model = result.Where(i => i.OrganizationID == _orgID);
+            return View(model);
         }
         public async Task<ActionResult> Details(int? id)
         {
@@ -69,6 +75,8 @@ namespace WSafe.Web.Controllers
             var message = "";
             try
             {
+                model.ClientID = (int)Session["clientID"];
+                model.OrganizationID = (int)Session["orgID"];
                 if (ModelState.IsValid)
                 {
                     var consulta = new IncidenteService(new IncidenteRepository(_empresaContext));
@@ -117,6 +125,8 @@ namespace WSafe.Web.Controllers
         {
             try
             {
+                model.ClientID = (int)Session["clientID"];
+                model.OrganizationID = (int)Session["orgID"];
                 if (ModelState.IsValid)
                 {
                     var consulta = new IncidenteService(new IncidenteRepository(_empresaContext));

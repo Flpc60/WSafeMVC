@@ -148,5 +148,7 @@ namespace WSafe.Web.Models
         public string FechaReportStr { get; set; }
         public AccidenteProbabilidad Probabilidad { get; set; }
         public IEnumerable<AccidentadoVM> Lesionados { get; set; }
+        public int OrganizationID { get; set; }
+        public int ClientID { get; set; }
     }
 }

@@ -33,11 +33,11 @@ namespace WSafe.Domain.Helpers.Implements
                 yValues: lista, yFields: "Resultado1");
             chartImage.Save(path: archivo);
         }
-        public IEnumerable<IndicadorDetallesViewModel> GetFrecuenciaAccidentes(int[] periodo, int year)
+        public IEnumerable<IndicadorDetallesViewModel> GetFrecuenciaAccidentes(int[] periodo, int year, int _orgID)
         {
             try
             {
-                var denominador = _indicadorHelper.PromedioTrabajadores(year);
+                var denominador = _indicadorHelper.PromedioTrabajadores(year, _orgID);
 
                 var result = (from at in _empresaContext.Incidentes
                              where (at.FechaIncidente.Year == year && periodo.Contains(at.FechaIncidente.Month) && at.CategoriasIncidente == CategoriasIncidente.Accidente)
@@ -71,13 +71,13 @@ namespace WSafe.Domain.Helpers.Implements
         }
 
         //Accidentes de trabajo mortales
-        public IEnumerable<IndicadorDetallesViewModel> GetAccidentesTrabajoMortales(int[] periodo, int year)
+        public IEnumerable<IndicadorDetallesViewModel> GetAccidentesTrabajoMortales(int[] periodo, int year, int _orgID)
         {
             try
             {
                 var result = from at in _empresaContext.Incidentes
                              where (at.FechaIncidente.Year == year && periodo.Contains(at.FechaIncidente.Month) && at.CategoriasIncidente == CategoriasIncidente.Accidente
-                             && at.ConsecuenciasLesion == ConsecuenciasLesion.fatalidadMultiple)
+                             && at.ConsecuenciasLesion == ConsecuenciasLesion.fatalidadMultiple && at.OrganizationID == _orgID)
                              group at by new { at.FechaIncidente.Year, at.FechaIncidente.Month } into datosAgrupados
                              orderby datosAgrupados.Key
                              select new { Clave = datosAgrupados.Key, Datos = datosAgrupados };
@@ -134,14 +134,14 @@ namespace WSafe.Domain.Helpers.Implements
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<IndicadorDetallesViewModel> GetSeveridadAccidentalidad(int[] periodo, int year)
+        public IEnumerable<IndicadorDetallesViewModel> GetSeveridadAccidentalidad(int[] periodo, int year, int _orgID)
         {
             try
             {
-                var denominador = _indicadorHelper.PromedioTrabajadores(year);
+                var denominador = _indicadorHelper.PromedioTrabajadores(year, _orgID);
 
                 var result = from at in _empresaContext.Incidentes
-                             where (at.FechaIncidente.Year == year && periodo.Contains(at.FechaIncidente.Month) && at.CategoriasIncidente == CategoriasIncidente.Accidente)
+                             where (at.FechaIncidente.Year == year && periodo.Contains(at.FechaIncidente.Month) && at.CategoriasIncidente == CategoriasIncidente.Accidente && at.OrganizationID == _orgID)
                              group at by new { at.FechaIncidente.Year, at.FechaIncidente.Month } into datosAgrupados
                              orderby datosAgrupados.Key
                              select new
@@ -169,7 +169,6 @@ namespace WSafe.Domain.Helpers.Implements
                 throw ex;
             }
         }
-
         public IEnumerable<IndicadorDetallesViewModel> GetAusentismoCausaMedica(int[] periodo, int year)
         {
             try
@@ -206,7 +205,7 @@ namespace WSafe.Domain.Helpers.Implements
             }
         }
 
-        public IEnumerable<IndicadorDetallesViewModel> GetFatorRiesgoOcupacional(int _orgID)
+        public IEnumerable<IndicadorDetallesViewModel> GetFatorRiesgoOcupacional(int year, int _orgID)
         {
             try
             {
@@ -633,7 +632,7 @@ namespace WSafe.Domain.Helpers.Implements
             try
             {
                 var result = _empresaContext.Acciones
-                    .Where(a => a.FechaSolicitud.Year == year)
+                    .Where(a => a.FechaSolicitud.Year == year && a.OrganizationID == _orgID)
                     .ToList();
                 var correctivas = 0;
                 var preventivas = 0;

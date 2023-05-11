@@ -1,6 +1,5 @@
 ﻿using Rotativa;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -48,9 +47,12 @@ namespace WSafe.Web.Controllers
         {
             try
             {
-                var year = DateTime.Now.Year;
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
+                int year = Convert.ToInt32(_year);
                 var month = DateTime.Now.Month;
-                var model = _indicadorHelper.GetIndicators(year, month);
+                var model = _indicadorHelper.GetIndicators(year, month, _orgID);
                 return View(model);
             }
             catch (Exception ex)
@@ -64,9 +66,13 @@ namespace WSafe.Web.Controllers
         {
             try
             {
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
+                //int year = Convert.ToInt32(_year);
                 var message = "";
                 int month = 12;
-                var model = _indicadorHelper.GetIndicators(year, month);
+                var model = _indicadorHelper.GetIndicators(year, month, _orgID);
 
                 if (model == null)
                 {
@@ -201,6 +207,9 @@ namespace WSafe.Web.Controllers
         {
             try
             {
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
                 Random random = new Random();
                 var filename = "chart" + random.Next(1, 100) + ".jpg";
                 var filePathName = "~/Images/" + filename;
@@ -215,7 +224,7 @@ namespace WSafe.Web.Controllers
                     periodo[i] = i + 1;
                 }
 
-                var datos = _chartHelper.GetFrecuenciaAccidentes(periodo, year);
+                var datos = _chartHelper.GetFrecuenciaAccidentes(periodo, year, _orgID);
                 var image = "/Images/" + filename;
                 return Json(datos, JsonRequestBehavior.AllowGet);
             }
@@ -230,6 +239,9 @@ namespace WSafe.Web.Controllers
         {
             try
             {
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
                 Random random = new Random();
                 var filename = "chart" + random.Next(1, 100) + ".jpg";
                 var filePathName = "~/Images/" + filename;
@@ -244,7 +256,7 @@ namespace WSafe.Web.Controllers
                     periodo[i] = i + 1;
                 }
 
-                var datos = _chartHelper.GetSeveridadAccidentalidad(periodo, year);
+                var datos = _chartHelper.GetSeveridadAccidentalidad(periodo, year, _orgID);
                 var image = "/Images/" + filename;
                 return Json(datos, JsonRequestBehavior.AllowGet);
             }
@@ -259,6 +271,9 @@ namespace WSafe.Web.Controllers
         {
             try
             {
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
                 Random random = new Random();
                 var filename = "chart" + random.Next(1, 100) + ".jpg";
                 var filePathName = "~/Images/" + filename;
@@ -273,7 +288,7 @@ namespace WSafe.Web.Controllers
                     periodo[i] = i + 1;
                 }
 
-                var datos = _chartHelper.GetAccidentesTrabajoMortales(periodo, year);
+                var datos = _chartHelper.GetAccidentesTrabajoMortales(periodo, year, _orgID);
                 var image = "/Images/" + filename;
                 return Json(datos, JsonRequestBehavior.AllowGet);
             }
@@ -288,6 +303,9 @@ namespace WSafe.Web.Controllers
         {
             try
             {
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
                 Random random = new Random();
                 var filename = "chart" + random.Next(1, 100) + ".jpg";
                 var filePathName = "~/Images/" + filename;
@@ -317,10 +335,13 @@ namespace WSafe.Web.Controllers
         {
             try
             {
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
                 Random random = new Random();
                 var filename = "chart" + random.Next(1, 100) + ".jpg";
                 var filePathName = "~/Images/" + filename;
-                var datos = _chartHelper.GetFatorRiesgoOcupacional(year);
+                var datos = _chartHelper.GetFatorRiesgoOcupacional(year, _orgID);
                 var image = "/Images/" + filename;
                 return Json(datos, JsonRequestBehavior.AllowGet);
             }

@@ -124,5 +124,7 @@ namespace WSafe.Domain.Data.Entities
         public TiposLesion TipoLesion { get; set; }
         public TiposAgente TipoAgente { get; set; }
         public CategoriasAfectacion CategoriaAfectacion { get; set; }
+        public int OrganizationID { get; set; }
+        public int ClientID { get; set; }
     }
 }

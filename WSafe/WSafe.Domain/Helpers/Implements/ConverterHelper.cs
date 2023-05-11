@@ -259,7 +259,9 @@ namespace WSafe.Domain.Helpers.Implements
                 ConsecuenciasMedio = model.ConsecuenciasMedio,
                 ConsecuenciasImagen = model.ConsecuenciasImagen,
                 Probabilidad = model.Probabilidad,
-                TrabajadorID = model.TrabajadorID
+                TrabajadorID = model.TrabajadorID,
+                OrganizationID = model.OrganizationID,
+                ClientID = model.ClientID
             };
             return result;
         }
@@ -365,23 +367,23 @@ namespace WSafe.Domain.Helpers.Implements
             switch (indicador.ID)
             {
                 case 1:
-                    datos = (List<IndicadorDetallesViewModel>)_chartHelper.GetFrecuenciaAccidentes(periodo, year);
+                    //datos = (List<IndicadorDetallesViewModel>)_chartHelper.GetFrecuenciaAccidentes(periodo, year);
                     break;
 
                 case 2:
-                    datos = (List<IndicadorDetallesViewModel>)_chartHelper.GetSeveridadAccidentalidad(periodo, year);
+                    //datos = (List<IndicadorDetallesViewModel>)_chartHelper.GetSeveridadAccidentalidad(periodo, year);
                     break;
 
                 case 3:
-                    datos = (List<IndicadorDetallesViewModel>)_chartHelper.GetAccidentesTrabajoMortales(periodo, year);
+                    //datos = (List<IndicadorDetallesViewModel>)_chartHelper.GetAccidentesTrabajoMortales(periodo, year);
                     break;
 
                 case 4:
-                    datos = (List<IndicadorDetallesViewModel>)_chartHelper.GetAccidentesTrabajoMortales(periodo, year);
+                    //datos = (List<IndicadorDetallesViewModel>)_chartHelper.GetAccidentesTrabajoMortales(periodo, year);
                     break;
 
                 case 5:
-                    datos = (List<IndicadorDetallesViewModel>)_chartHelper.GetAccidentesTrabajoMortales(periodo, year);
+                    //datos = (List<IndicadorDetallesViewModel>)_chartHelper.GetAccidentesTrabajoMortales(periodo, year);
                     break;
 
                 case 6:
@@ -389,7 +391,7 @@ namespace WSafe.Domain.Helpers.Implements
                     break;
 
                 case 7:
-                    datos = (List<IndicadorDetallesViewModel>)_chartHelper.GetFatorRiesgoOcupacional(year);
+                    //datos = (List<IndicadorDetallesViewModel>)_chartHelper.GetFatorRiesgoOcupacional(year);
                     break;
             }
 

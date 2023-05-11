@@ -18,6 +18,10 @@ namespace WSafe.Web.Controllers
 {
     public class EvaluationsController : Controller
     {
+        private int _clientID;
+        private int _orgID;
+        private string _year;
+        private string _path;
         private int _operation;
         private int _roleID;
         private readonly EmpresaContext _empresaContext;
@@ -38,7 +42,9 @@ namespace WSafe.Web.Controllers
         // GET: Evaluations
         public async Task<ActionResult> Index()
         {
+            _orgID = (int)Session["orgID"];
             var list = await _empresaContext.Evaluations
+                .Where(r => r.OrganizationID == _orgID)
                 .OrderBy(e => e.FechaEvaluation)
                 .ToListAsync();
             var modelo = _converterHelper.ToEvaluationVMList(list);
@@ -74,14 +80,16 @@ namespace WSafe.Web.Controllers
             var message = "";
             try
             {
-                var idEmpresa = _empresaContext.Organizations.OrderByDescending(x => x.ID).First().ID;
-                var organization = await _empresaContext.Organizations.FindAsync(idEmpresa);
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                var organization = await _empresaContext.Organizations.FindAsync(_orgID);
                 var range = Int32.Parse(organization.Range.Trim());
                 var evaluation = new Evaluation()
                 {
                     ID = 0,
-                    OrganizationID = idEmpresa,
-                    FechaEvaluation = DateTime.Now
+                    OrganizationID = _orgID,
+                    FechaEvaluation = DateTime.Now,
+                    ClientID = _clientID
                 };
                 _empresaContext.Evaluations.Add(evaluation);
                 await _empresaContext.SaveChangesAsync();
@@ -385,6 +393,8 @@ namespace WSafe.Web.Controllers
                 model.StandarsResult = standardResult;
                 model.AplicationsResult = aplicationResult;
                 model.Category = category;
+                model.ClientID = (int)Session["clientID"];
+                model.OrganizationID = (int)Session["orgID"];
                 _empresaContext.Entry(model).State = EntityState.Modified;
                 await _empresaContext.SaveChangesAsync();
                 return Json(new { data = list2, totales = standardResult, mensaj = message }, JsonRequestBehavior.AllowGet);
@@ -573,8 +583,11 @@ namespace WSafe.Web.Controllers
         public async Task<ActionResult> GeneratePDF(int id)
         {
             // Configuración nombre archivo pdf
-            var organization = _empresaContext.Organizations.OrderByDescending(x => x.ID).First();
-            var year = organization.Year.ToString();
+            _clientID = (int)Session["clientID"];
+            _orgID = (int)Session["orgID"];
+            _year = (string)Session["year"];
+            var organization = _empresaContext.Organizations.Find(_orgID);
+            var year = _year;
             var item = _empresaContext.Normas.Find(organization.StandardEvaluation).Item;
             var fullPath = "~/SG-SST/" + year + "/1. PLANEAR/" + item + "/";
             var path = Server.MapPath(fullPath);
@@ -605,7 +618,7 @@ namespace WSafe.Web.Controllers
             Movimient movimient = new Movimient()
             {
                 ID = 0,
-                OrganizationID = organization.ID,
+                OrganizationID = _orgID,
                 NormaID = organization.StandardEvaluation,
                 UserID = userID,
                 Descripcion = descript,
@@ -614,7 +627,8 @@ namespace WSafe.Web.Controllers
                 Item = item,
                 Ciclo = "P",
                 Type = type,
-                Path = path
+                Path = path,
+                ClientID = _clientID
             };
             _empresaContext.Movimientos.Add(movimient);
             _empresaContext.SaveChanges();

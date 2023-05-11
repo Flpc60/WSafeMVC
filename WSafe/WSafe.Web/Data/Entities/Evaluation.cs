@@ -21,5 +21,6 @@ namespace WSafe.Domain.Data.Entities
         public decimal AplicationsResult { get; set; }
         public ValorationCategory Category { get; set; }
         public IEnumerable<PlanActivity> Planes { get; set; }
+        public int ClientID { get; set; }
     }
 }
