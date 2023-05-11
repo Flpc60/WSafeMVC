@@ -19,6 +19,10 @@ namespace WSafe.Web.Controllers
     // Gestión de riesgos en el SG-SST
     public class RiesgosController : Controller
     {
+        private int _clientID;
+        private int _orgID;
+        private string _year;
+        private string _path;
         private int _operation;
         private int _roleID;
         private readonly EmpresaContext _empresaContext;
@@ -38,7 +42,9 @@ namespace WSafe.Web.Controllers
         {
             try
             {
+                _orgID = (int)Session["orgID"];
                 var list = await _empresaContext.Riesgos
+                    .Where(r => r.OrganizationID == _orgID)
                     .OrderByDescending(cr => cr.NivelRiesgo)
                     .ToListAsync();
                 var modelo = _converterHelper.ToRiesgoViewModelList(list);
@@ -56,8 +62,11 @@ namespace WSafe.Web.Controllers
             try
             {
                 // Configuración nombre archivo pdf
-                var organization = _empresaContext.Organizations.OrderByDescending(x => x.ID).First();
-                var year = organization.Year.ToString();
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
+                var organization = _empresaContext.Organizations.Find(_orgID);
+                var year = _year;
                 var item = _empresaContext.Normas.Find(organization.StandardMatrixRisk).Item;
                 var fullPath = $"~/SG-SST/{year}/2. HACER/{item}/";
                 var path = Server.MapPath(fullPath);
@@ -69,6 +78,7 @@ namespace WSafe.Web.Controllers
                 var filename = "MatrixRisk" + random.Next(1, 100) + ".Pdf";
                 var filePathName = path + filename;
                 var list = await _empresaContext.Riesgos
+                    .Where(r => r.OrganizationID == _orgID)
                     .Include(mi => mi.MedidasIntervencion)
                     .OrderByDescending(cr => cr.NivelRiesgo)
                     .ToListAsync();
@@ -131,6 +141,8 @@ namespace WSafe.Web.Controllers
             try
             {
                 var message = "";
+                model.ClientID = (int)Session["clientID"];
+                model.OrganizationID = (int)Session["orgID"];
                 if (ModelState.IsValid)
                 {
                     if (model.ID == 0)
@@ -193,6 +205,8 @@ namespace WSafe.Web.Controllers
             try
             {
                 var message = "";
+                model.ClientID = (int)Session["clientID"];
+                model.OrganizationID = (int)Session["orgID"];
                 if (ModelState.IsValid)
                 {
                     var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
@@ -457,10 +471,11 @@ namespace WSafe.Web.Controllers
         {
             try
             {
+                _orgID = (int)Session["orgID"];
                 Random random = new Random();
                 var filename = "chart" + random.Next(1, 100) + ".jpg";
                 var filePathName = "~/Images/" + filename;
-                var datos = _chartHelper.GetAllValueRisks();
+                var datos = _chartHelper.GetAllValueRisks(_orgID);
                 var image = "/Images/" + filename;
                 return Json(datos, JsonRequestBehavior.AllowGet);
             }
@@ -475,10 +490,11 @@ namespace WSafe.Web.Controllers
         {
             try
             {
+                _orgID = (int)Session["orgID"];
                 Random random = new Random();
                 var filename = "chart" + random.Next(1, 100) + ".jpg";
                 var filePathName = "~/Images/" + filename;
-                var datos = _chartHelper.GetAllValueActivitys();
+                var datos = _chartHelper.GetAllValueActivitys(_orgID);
                 var image = "/Images/" + filename;
                 return Json(datos, JsonRequestBehavior.AllowGet);
             }
@@ -493,11 +509,13 @@ namespace WSafe.Web.Controllers
         {
             try
             {
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
                 var year = DateTime.Now.Year;
                 Random random = new Random();
                 var filename = "chart" + random.Next(1, 100) + ".jpg";
                 var filePathName = "~/Images/" + filename;
-                var datos = _chartHelper.GetFatorRiesgoOcupacional(year);
+                var datos = _chartHelper.GetFatorRiesgoOcupacional(_orgID);
                 var image = "/Images/" + filename;
                 return Json(datos, JsonRequestBehavior.AllowGet);
             }
@@ -512,10 +530,11 @@ namespace WSafe.Web.Controllers
         {
             try
             {
+                _orgID = (int)Session["orgID"];
                 Random random = new Random();
                 var filename = "chart" + random.Next(1, 100) + ".jpg";
                 var filePathName = "~/Images/" + filename;
-                var datos = _chartHelper.GetAllValueEfects();
+                var datos = _chartHelper.GetAllValueEfects(_orgID);
                 var image = "/Images/" + filename;
                 return Json(datos, JsonRequestBehavior.AllowGet);
             }

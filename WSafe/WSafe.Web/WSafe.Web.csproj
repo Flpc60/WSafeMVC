@@ -495,6 +495,14 @@
     <Compile Include="Migrations\202305100031463_UpdUserVM.Designer.cs">
       <DependentUpon>202305100031463_UpdUserVM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202305102123357_UpdRisk.cs" />
+    <Compile Include="Migrations\202305102123357_UpdRisk.Designer.cs">
+      <DependentUpon>202305102123357_UpdRisk.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305102151441_UpdRiskVM.cs" />
+    <Compile Include="Migrations\202305102151441_UpdRiskVM.Designer.cs">
+      <DependentUpon>202305102151441_UpdRiskVM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -1065,6 +1073,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202305100031463_UpdUserVM.resx">
       <DependentUpon>202305100031463_UpdUserVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305102123357_UpdRisk.resx">
+      <DependentUpon>202305102123357_UpdRisk.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305102151441_UpdRiskVM.resx">
+      <DependentUpon>202305102151441_UpdRiskVM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
