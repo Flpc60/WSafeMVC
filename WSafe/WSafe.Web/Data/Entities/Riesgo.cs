@@ -117,5 +117,7 @@ namespace WSafe.Domain.Data.Entities
         [Display(Name = "CONTROLES EN EL INDIVIDUO :")]
         [MaxLength(100)]
         public string IndividuoControls { get; set; }
+        public int OrganizationID { get; set; }
+        public int ClientID { get; set; }
     }
 }

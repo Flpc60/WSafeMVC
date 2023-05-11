@@ -78,7 +78,9 @@ namespace WSafe.Domain.Helpers.Implements
                 DangerCategory = model.DangerCategory,
                 FuenteControls = model.FuenteControls,
                 MedioControls = model.MedioControls,
-                IndividuoControls = model.IndividuoControls
+                IndividuoControls = model.IndividuoControls,
+                OrganizationID = model.OrganizationID,
+                ClientID = model.ClientID
             };
             return result;
         }
@@ -114,7 +116,9 @@ namespace WSafe.Domain.Helpers.Implements
                 DangerCategory = riesgo.DangerCategory,
                 FuenteControls = riesgo.FuenteControls,
                 MedioControls = riesgo.MedioControls,
-                IndividuoControls = riesgo.IndividuoControls
+                IndividuoControls = riesgo.IndividuoControls,
+                OrganizationID = riesgo.OrganizationID,
+                ClientID = riesgo.ClientID
             };
 
             return model;
