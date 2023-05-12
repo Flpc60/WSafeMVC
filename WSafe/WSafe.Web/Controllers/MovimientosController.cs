@@ -144,6 +144,10 @@ namespace WSafe.Web.Controllers
         {
             try
             {
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
+                _path = (string)Session["path"];
                 Movimient model = await _empresaContext.Movimientos.FindAsync(id);
                 var message = "";
                 if (model == null)
@@ -173,7 +177,7 @@ namespace WSafe.Web.Controllers
 
                 var year = model.Year.ToString();
                 var item = model.Item.ToString();
-                var fullFilePath = $"~/SG-SST/{year}/{ruta}/{item}/{model.Document}";
+                var fullFilePath = $"{_path}/{ruta}/{item}/{model.Document}";
                 var path = Server.MapPath(fullFilePath);
                 using (Process myProcess = new Process())
                 {
@@ -256,12 +260,16 @@ namespace WSafe.Web.Controllers
         {
             if (ciclo != null)
             {
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
+                _path = (string)Session["path"];
                 var data = _empresaContext.Movimientos
-                    .Where(m => m.Ciclo == ciclo && m.NormaID == item)
+                    .Where(m => m.Ciclo == ciclo && m.NormaID == item && m.Year == _year && m.OrganizationID ==_orgID)
                     .OrderBy(m => m.Item)
                     .ToList();
                 var result = _converterHelper.ToListMovimientos(data);
-                return Json(result, JsonRequestBehavior.AllowGet);
+                return Json(new {data=result}, JsonRequestBehavior.AllowGet);
             }
             return Json(null, JsonRequestBehavior.AllowGet);
         }
@@ -271,6 +279,10 @@ namespace WSafe.Web.Controllers
         {
             try
             {
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
+                _path = (string)Session["path"];
                 var message = "";
                 Movimient model = await _empresaContext.Movimientos.FindAsync(id);
                 if (model == null)
@@ -300,8 +312,8 @@ namespace WSafe.Web.Controllers
 
                 var year = model.Year.ToString();
                 var item = model.Item.ToString();
-                var fullFilePath = $"~/SG-SST/{year}/{ruta}/{item}/{model.Document}";
-                var filePath = $"~/SG-SST/{year}/{ruta}/{item}/";
+                var fullFilePath = $"{_path}/{ruta}/{item}/{model.Document}";
+                var filePath = $"{_path}/{ruta}/{item}/";
                 var path = Server.MapPath(fullFilePath);
                 var directoryPath = Server.MapPath(filePath);
                 var type = model.Type.ToLower();
@@ -329,7 +341,8 @@ namespace WSafe.Web.Controllers
                     Item = model.Item,
                     Ciclo = model.Ciclo,
                     Type = type,
-                    Path = directoryPath
+                    Path = directoryPath,
+                    ClientID = _clientID
                 };
 
                 _empresaContext.Movimientos.Add(data);
@@ -361,6 +374,10 @@ namespace WSafe.Web.Controllers
         {
             try
             {
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
+                _path = (string)Session["path"];
                 var message = "";
                 Movimient model = await _empresaContext.Movimientos.FindAsync(id);
                 if (model == null)
@@ -390,7 +407,7 @@ namespace WSafe.Web.Controllers
 
                 var year = model.Year.ToString();
                 var item = model.Item.ToString();
-                var fullFilePath = $"~/SG-SST/{ year}/{ruta}/{item}/";
+                var fullFilePath = $"{_path}/{ruta}/{item}/";
                 string fullPath = Server.MapPath(fullFilePath);
                 string fileName = model.Document;
                 string fileLocation = Path.Combine(fullPath, fileName);
@@ -440,7 +457,7 @@ namespace WSafe.Web.Controllers
 
                 var year = model.Year.ToString();
                 var item = model.Item.ToString();
-                var fullFilePath = "~/SG-SST/" + year + "/" + ruta + item + "/";
+                var fullFilePath = $"{_path}/{ruta}/{item}/";
                 string fullPath = Server.MapPath(fullFilePath);
                 string fileName = model.Document;
 
