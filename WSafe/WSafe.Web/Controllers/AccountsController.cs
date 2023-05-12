@@ -133,8 +133,7 @@ namespace WSafe.Web.Controllers
                 Session["responsable"] = empresa.ResponsableSGSST;
                 Session["clientID"] = empresa.ClientID;
                 Session["orgID"] = empresa.ID;
-                Session["path"] = $"ORG{empresa.ID}/SG-SST/{empresa.Year}/";
-
+                Session["path"] = $"~/ORG{empresa.ID}/SG-SST/{empresa.Year}";
                 return Json(new { result = "Redirect", url = Url.Action("Index", "Home"), mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

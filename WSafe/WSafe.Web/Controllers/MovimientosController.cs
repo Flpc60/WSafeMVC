@@ -18,6 +18,10 @@ namespace WSafe.Web.Controllers
 {
     public class MovimientosController : Controller
     {
+        private int _clientID;
+        private int _orgID;
+        private string _year;
+        private string _path;
         private int _operation;
         private int _roleID;
         private readonly EmpresaContext _empresaContext;
@@ -66,9 +70,13 @@ namespace WSafe.Web.Controllers
         {
             try
             {
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
+                _path = (string)Session["path"];
                 var message = "";
-                var organizatión = _empresaContext.Organizations.OrderByDescending(x => x.ID).First();
-                var year = organizatión.Year.ToString();
+                var organizatión = _empresaContext.Organizations.Find(_orgID);
+                var year = _year;
                 var normaID = NormaID.ToString();
                 var userID = (int)Session["userID"];
                 var descript = Descripcion.ToString();
@@ -92,9 +100,8 @@ namespace WSafe.Web.Controllers
                         ruta = "4. ACTUAR";
                         break;
                 }
-
                 var item = norma.Item.ToString();
-                var fullPath = $"~/SG-SST/{year}/{ruta}/{item}/";
+                var fullPath = $"{_path}/{ruta}/{item}/";
                 var path = Server.MapPath(fullPath);
                 if (!Directory.Exists(path))
                 {
@@ -108,7 +115,7 @@ namespace WSafe.Web.Controllers
                 Movimient model = new Movimient()
                 {
                     ID = 0,
-                    OrganizationID = organizatión.ID,
+                    OrganizationID = _orgID,
                     NormaID = NormaID,
                     UserID = userID,
                     Descripcion = descript,
@@ -117,7 +124,8 @@ namespace WSafe.Web.Controllers
                     Item = item,
                     Ciclo = cycle,
                     Type = type,
-                    Path = path
+                    Path = path,
+                    ClientID = _clientID
                 };
 
                 _empresaContext.Movimientos.Add(model);
