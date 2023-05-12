@@ -455,9 +455,9 @@ function ShowMovimientos(phva) {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         async: true,
-        success: function (result) {
+        success: function (response) {
             var html = '', url = '', fileName = '', ruta = '';
-            $.each(result, function (key, item) {
+            $.each(response.data, function (key, item) {
 
                 switch (item.Ciclo) {
                     case "P":
@@ -475,7 +475,7 @@ function ShowMovimientos(phva) {
                         break;
                 }
 
-                url = window.location.origin + "/SG-SST/" + item.Year + "/" + ruta + item.Item + "/" + item.Document;
+                url = window.location.origin + "/ORG" + item.OrganizationID + "/SG-SST/" + item.Year + "/" + ruta + item.Item + "/" + item.Document;
                 fileName = "1" + item.Document;
                 html += '<tr>';
                 html += '<td>' + item.Ciclo + '</td>';
