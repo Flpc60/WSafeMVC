@@ -22,11 +22,13 @@ namespace WSafe.Web.Controllers
         private readonly IComboHelper _comboHelper;
         private readonly IConverterHelper _converterHelper;
         private readonly IChartHelper _chartHelper;
-        public OrganizationsController(EmpresaContext empresaContext, IComboHelper comboHelper, IConverterHelper converterHelper)
+        private readonly IGestorHelper _gestorHelper;
+        public OrganizationsController(EmpresaContext empresaContext, IComboHelper comboHelper, IConverterHelper converterHelper, IGestorHelper gestorHelper)
         {
             _empresaContext = empresaContext;
             _comboHelper = comboHelper;
             _converterHelper = converterHelper;
+            _gestorHelper = gestorHelper;
         }
         [AuthorizeUser(operation: 1, component: 1)]
         public async Task<ActionResult> Index()
@@ -382,6 +384,12 @@ namespace WSafe.Web.Controllers
         {
             try
             {
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
+                _path = (string)Session["path"];
+
+
                 model.ControlDate = DateTime.Now;
                 model.RenovacionCurso = DateTime.Now;
                 model.ResolucionLicencia = DateTime.Now;
@@ -391,6 +399,12 @@ namespace WSafe.Web.Controllers
                 {
                     _empresaContext.Organizations.Add(model);
                     await _empresaContext.SaveChangesAsync();
+                    var id = _empresaContext.Organizations.OrderByDescending(o => o.ID)
+                        .Select(o => o.ID).First();
+                    var path = $"~/ORG{id}/SG-SST/{_year}";
+                    var directory = Server.MapPath(path);
+
+                    _gestorHelper.CreateFolder(directory);
                     return RedirectToAction("Index","Home");
                 }
                 return View(model);
