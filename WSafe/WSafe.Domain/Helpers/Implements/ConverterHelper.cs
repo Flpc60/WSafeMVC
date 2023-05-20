@@ -332,7 +332,9 @@ namespace WSafe.Domain.Helpers.Implements
                 Probabilidad = incidente.Probabilidad,
                 Lesionados = new List<AccidentadoVM>(),
                 FechaIncidentStr = incidente.FechaIncidente.ToString("yyyy-MM-dd"),
-                FechaReportStr = incidente.FechaReporte.ToString("yyyy-MM-dd")
+                FechaReportStr = incidente.FechaReporte.ToString("yyyy-MM-dd"),
+                OrganizationID = incidente.OrganizationID,
+                ClientID = incidente.ClientID
             };
 
             return model;
@@ -1509,6 +1511,63 @@ namespace WSafe.Domain.Helpers.Implements
                 Color = color
             };
             return model;
+        }
+        public async Task<Trabajador> ToTrabajadorAsync(WorkersVM model, bool isNew)
+        {
+            var result = new Trabajador
+            {
+                ID = isNew ? 0 : model.ID,
+                PrimerApellido = model.PrimerApellido,
+                SegundoApellido = model.SegundoApellido,
+                Nombres = model.Nombres,
+                Documento = model.Documento,
+                FechaNacimiento = model.FechaNacimiento,
+                Genero = model.Genero,
+                EstadoCivil = model.EstadoCivil,
+                Direccion = model.Direccion,
+                Telefonos = model.Telefonos,
+                FechaIngreso = model.FechaIngreso,
+                TipoVinculacion = model.TipoVinculacion,
+                CargoID = model.CargoID,
+                EPS = model.EPS,
+                AFP = model.AFP,
+                ARL = model.ARL,
+                FechaRetiro = model.FechaRetiro,
+                OrganizationID = model.OrganizationID,
+                ClientID = model.ClientID,
+                UserID = model.UserID,
+                DocumentType = model.DocumentType,
+        };
+            return result;
+        }
+        public WorkersVM ToTrabajadorVM(Trabajador model)
+        {
+            var result = new WorkersVM
+            {
+                ID = model.ID,
+                PrimerApellido = model.PrimerApellido,
+                SegundoApellido = model.SegundoApellido,
+                Nombres = model.Nombres,
+                Documento = model.Documento,
+                FechaNacimiento = model.FechaNacimiento,
+                Genero = model.Genero,
+                EstadoCivil = model.EstadoCivil,
+                Direccion = model.Direccion,
+                Telefonos = model.Telefonos,
+                FechaIngreso = model.FechaIngreso,
+                TipoVinculacion = model.TipoVinculacion,
+                CargoID = model.CargoID,
+                EPS = model.EPS,
+                AFP = model.AFP,
+                ARL = model.ARL,
+                FechaRetiro = model.FechaRetiro,
+                OrganizationID = model.OrganizationID,
+                ClientID = model.ClientID,
+                UserID = model.UserID,
+                DocumentType = model.DocumentType,
+                Cargos = _comboHelper.GetCargosAll()
+        };
+            return result;
         }
     }
 }

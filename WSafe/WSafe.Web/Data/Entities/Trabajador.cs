@@ -15,7 +15,7 @@ namespace WSafe.Domain.Data.Entities
         [Display(Name = "Segundo Apellido")]
         [MaxLength(50)]
         public string SegundoApellido { get; set; }
-        [Display(Name = "Primer Nombre")]
+        [Display(Name = "Nombres")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [MaxLength(50)]
         public string Nombres { get; set; }
@@ -32,7 +32,7 @@ namespace WSafe.Domain.Data.Entities
             }
         }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "FECHA NACIMIENTO")]
+        [Display(Name = "Fecha nacimiento")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaNacimiento { get; set; }
@@ -48,11 +48,10 @@ namespace WSafe.Domain.Data.Entities
         [MaxLength(20)]
         public string Telefonos { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "FECHA INGRESO")]
+        [Display(Name = "Fecha de ingreso")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaIngreso { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Dias a pagar")]
         public int DiasPago { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
@@ -68,12 +67,15 @@ namespace WSafe.Domain.Data.Entities
         public string ARL { get; set; }
         [MaxLength(20)]
         public string Firma { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "FECHA RETIRO")]
+        [Display(Name = "Fecha retiro")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaRetiro { get; set; }
         public int OrganizationID { get; set; }
         public int ClientID { get; set; }
+        public int UserID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Tipo documento")]
+        public DocumentTypes DocumentType { get; set; }
     }
 }

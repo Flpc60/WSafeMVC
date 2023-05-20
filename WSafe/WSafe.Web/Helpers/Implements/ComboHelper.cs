@@ -445,5 +445,23 @@ namespace WSafe.Domain.Helpers.Implements
 
             return list;
         }
+        public IEnumerable<SelectListItem> GetCargosAll()
+        {
+            var list = _empresaContext.Cargos.Select(r => new SelectListItem
+            {
+                Text = r.Descripcion,
+                Value = r.ID.ToString()
+            })
+                .OrderBy(t => t.Text)
+                .ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione un cargo...)",
+                Value = "0"
+            });
+
+            return list;
+        }
     }
 }

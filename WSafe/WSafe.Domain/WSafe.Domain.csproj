@@ -258,6 +258,7 @@
     <Compile Include="Models\SeguimientoAccionVM.cs" />
     <Compile Include="Models\UserListVM.cs" />
     <Compile Include="Models\UserViewModel.cs" />
+    <Compile Include="Models\WorkersVM.cs" />
     <Compile Include="Models\_DetailsAccionVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IAccionRepository.cs" />
