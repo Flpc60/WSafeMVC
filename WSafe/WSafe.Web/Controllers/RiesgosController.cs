@@ -187,7 +187,6 @@ namespace WSafe.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
             var result = await _empresaContext.Riesgos.FirstOrDefaultAsync(i => i.ID == id.Value);
             var model = _converterHelper.ToRiesgoViewModel(result);
             if (model == null)
@@ -439,7 +438,7 @@ namespace WSafe.Web.Controllers
             }
             catch (Exception ex)
             {
-                return View("Error", new HandleErrorInfo(ex, "Acciones", "Delete"));
+                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Delete"));
             }
 
             return Json(new { data = true, message = "El registro ha sido eliminado exitosamente" }, JsonRequestBehavior.AllowGet);
@@ -542,6 +541,15 @@ namespace WSafe.Web.Controllers
             {
                 return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
             }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _empresaContext.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

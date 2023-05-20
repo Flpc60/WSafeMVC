@@ -47,5 +47,6 @@ namespace WSafe.Domain.Helpers
         IEnumerable<PlanActivityVM> ToPlanActivityVMList(IEnumerable<PlanActivityVM> planActivity);
         PlanActivityVM ToPlanActivityVM(PlanActivity planActivity);
         MinimalsStandardsVM ToMinimalsStandardsVM(Evaluation evaluation);
-    }
+        Task<Trabajador> ToTrabajadorAsync(WorkersVM model, bool isNew);
+        WorkersVM ToTrabajadorVM(Trabajador model);    }
 }

@@ -345,6 +345,7 @@
     <Compile Include="Controllers\MovimientosController.cs" />
     <Compile Include="Controllers\OrganizationsController.cs" />
     <Compile Include="Controllers\RiesgosController.cs" />
+    <Compile Include="Controllers\WorkersController.cs" />
     <Compile Include="Data\Entities\Accidentado.cs" />
     <Compile Include="Data\Entities\Accion.cs" />
     <Compile Include="Data\Entities\Action.cs" />
@@ -531,6 +532,22 @@
     <Compile Include="Migrations\202305112300267_UpdMovimient.Designer.cs">
       <DependentUpon>202305112300267_UpdMovimient.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202305191616289_UpdTrabajador1.cs" />
+    <Compile Include="Migrations\202305191616289_UpdTrabajador1.Designer.cs">
+      <DependentUpon>202305191616289_UpdTrabajador1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305191840124_UpdTrabajadorVM.cs" />
+    <Compile Include="Migrations\202305191840124_UpdTrabajadorVM.Designer.cs">
+      <DependentUpon>202305191840124_UpdTrabajadorVM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305192337076_UpdTrabajador11.cs" />
+    <Compile Include="Migrations\202305192337076_UpdTrabajador11.Designer.cs">
+      <DependentUpon>202305192337076_UpdTrabajador11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305192343296_UpdTrabajador2.cs" />
+    <Compile Include="Migrations\202305192343296_UpdTrabajador2.Designer.cs">
+      <DependentUpon>202305192343296_UpdTrabajador2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -566,6 +583,7 @@
     <Compile Include="Models\SeguimientoAccionVM.cs" />
     <Compile Include="Models\UserListVM.cs" />
     <Compile Include="Models\UserViewModel.cs" />
+    <Compile Include="Models\WorkersVM.cs" />
     <Compile Include="Models\_DetailsAccionVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IAccionRepository.cs" />
@@ -945,6 +963,12 @@
     <Content Include="Views\Evaluations\MinimalsStandards.cshtml" />
     <Content Include="Views\Shared\_EditEmailForm.cshtml" />
     <Content Include="Views\Organizations\Create - Copy.cshtml" />
+    <Content Include="Views\Workers\Create.cshtml" />
+    <Content Include="Views\Workers\Delete.cshtml" />
+    <Content Include="Views\Workers\Details.cshtml" />
+    <Content Include="Views\Workers\Edit.cshtml" />
+    <Content Include="Views\Workers\Index.cshtml" />
+    <Content Include="Views\Shared\_EditTrabajador.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1248,6 +1272,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202305112300267_UpdMovimient.resx">
       <DependentUpon>202305112300267_UpdMovimient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305191616289_UpdTrabajador1.resx">
+      <DependentUpon>202305191616289_UpdTrabajador1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305191840124_UpdTrabajadorVM.resx">
+      <DependentUpon>202305191840124_UpdTrabajadorVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305192337076_UpdTrabajador11.resx">
+      <DependentUpon>202305192337076_UpdTrabajador11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305192343296_UpdTrabajador2.resx">
+      <DependentUpon>202305192343296_UpdTrabajador2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

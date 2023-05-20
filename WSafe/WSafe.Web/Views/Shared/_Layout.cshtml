@@ -29,7 +29,7 @@
                 <a href="#" class = "navbar-brand"><i class="fa-duotone fa-user-helmet-safety"></i>WSafe</a>
             </div>
             <div class="navbar-collapse collapse navbar-menu">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav" style="font-size:11px">
                     <li>@Html.ActionLink("ENTIDAD", "Index", "Organizations")</li>
                     <li>@Html.ActionLink("SG-SST", "Index", "Movimientos")</li>
                     <li>@Html.ActionLink("AUTOEVALUACIÓN", "Index", "Evaluations")</li>
@@ -38,11 +38,12 @@
                     <li>@Html.ActionLink("ACCIONES", "Index", "Acciones")</li>
                     <li>@Html.ActionLink("INDICADORES", "Index", "Indicadores")</li>
                     <li>@Html.ActionLink("USUARIOS", "Index", "Accounts")</li>
+                    <li>@Html.ActionLink("TRABAJADORES", "Index", "Workers")</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (Session["userName"] != null)
                     {
-                        <li><a style="color:white;font-family:Arial"><b>Bienvenido, @Session["userName"].ToString().Trim()</b></a></li>
+                        <li><a style="color:white;font-family:Arial"><b>Usuario(a): @Session["userName"].ToString().Trim()</b></a></li>
                     }
                     <li>@Html.ActionLink("Cerrar sesión", "Logout", "Accounts", new { @class = "glyphicon glyphicon-log-out" })</li>
                 </ul>
