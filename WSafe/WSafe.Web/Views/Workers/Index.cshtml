@@ -1,0 +1,113 @@
+﻿@model IEnumerable<WSafe.Domain.Data.Entities.Trabajador>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<br />
+<br />
+<h4>GESTIÓN TRABAJADORES: @Session["organization"].ToString().Trim()</h4>
+<div class="container" style="margin-left:6%">
+    @Html.ActionLink("Nuevo Trabajador", "Create", new { @class = "glyphicon glyphicon-plus" },
+    new { @class = "btn btn-info btn-lg active" })
+</div>
+<br />
+
+<div class="row" style="margin-left:6%">
+    <div class="col-md-4">
+        NÚMERO TRABAJADORES : @Session["numeroTrabajadores"].ToString().Trim()
+    </div>
+    <div class="col-md-4">
+        HORARIO DE TRABAJO : @Session["turnoOperativo"].ToString().Trim()
+    </div>
+    <div class="col-md-4">
+        <input type="search" id="myInput" placeholder="Escriba un nombre de elemento para filtrar" style="width:350px">
+    </div>
+</div>
+
+<br />
+<div class="table-responsive" style="background-color: azure; width:100%; margin-right:0px">
+    <table class="table table-bordered">
+        <tr style="background-color:gainsboro">
+            <th>
+                @Html.DisplayNameFor(model => model.PrimerApellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SegundoApellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombres)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Documento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaNacimiento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstadoCivil)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaIngreso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoVinculacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaRetiro)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PrimerApellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SegundoApellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombres)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DocumentType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Documento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaNacimiento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genero)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EstadoCivil)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaIngreso)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoVinculacion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaRetiro)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Borrar", "Delete", new { id = item.ID })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

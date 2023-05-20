@@ -68,5 +68,7 @@ namespace WSafe.Web.Models
         public virtual DbSet<CalificationVM> CalificationVM { get; set; }
 
         public System.Data.Entity.DbSet<WSafe.Web.Models.OrganizationVM> OrganizationVMs { get; set; }
+
+        public System.Data.Entity.DbSet<WSafe.Web.Models.WorkersVM> WorkersVMs { get; set; }
     }
 }
