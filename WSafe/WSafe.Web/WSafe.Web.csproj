@@ -464,89 +464,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202304230204442_CreateClient.cs" />
-    <Compile Include="Migrations\202304230204442_CreateClient.Designer.cs">
-      <DependentUpon>202304230204442_CreateClient.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202304230213294_UpdateClient.cs" />
-    <Compile Include="Migrations\202304230213294_UpdateClient.Designer.cs">
-      <DependentUpon>202304230213294_UpdateClient.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202305052258320_updateRoleUserVM.cs" />
-    <Compile Include="Migrations\202305052258320_updateRoleUserVM.Designer.cs">
-      <DependentUpon>202305052258320_updateRoleUserVM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202305062235453_CreateOrganizationVM.cs" />
-    <Compile Include="Migrations\202305062235453_CreateOrganizationVM.Designer.cs">
-      <DependentUpon>202305062235453_CreateOrganizationVM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202305081643224_UpdOrganization.cs" />
-    <Compile Include="Migrations\202305081643224_UpdOrganization.Designer.cs">
-      <DependentUpon>202305081643224_UpdOrganization.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202305081724126_UpdOrganization1.cs" />
-    <Compile Include="Migrations\202305081724126_UpdOrganization1.Designer.cs">
-      <DependentUpon>202305081724126_UpdOrganization1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202305081743374_UpdOrganization11.cs" />
-    <Compile Include="Migrations\202305081743374_UpdOrganization11.Designer.cs">
-      <DependentUpon>202305081743374_UpdOrganization11.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202305100031463_UpdUserVM.cs" />
-    <Compile Include="Migrations\202305100031463_UpdUserVM.Designer.cs">
-      <DependentUpon>202305100031463_UpdUserVM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202305102123357_UpdRisk.cs" />
-    <Compile Include="Migrations\202305102123357_UpdRisk.Designer.cs">
-      <DependentUpon>202305102123357_UpdRisk.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202305102151441_UpdRiskVM.cs" />
-    <Compile Include="Migrations\202305102151441_UpdRiskVM.Designer.cs">
-      <DependentUpon>202305102151441_UpdRiskVM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202305111429538_UpdAccion.cs" />
-    <Compile Include="Migrations\202305111429538_UpdAccion.Designer.cs">
-      <DependentUpon>202305111429538_UpdAccion.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202305111447091_UpdAccionVM.cs" />
-    <Compile Include="Migrations\202305111447091_UpdAccionVM.Designer.cs">
-      <DependentUpon>202305111447091_UpdAccionVM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202305111835147_UpdEvaluation.cs" />
-    <Compile Include="Migrations\202305111835147_UpdEvaluation.Designer.cs">
-      <DependentUpon>202305111835147_UpdEvaluation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202305111959429_UpdTrabajador.cs" />
-    <Compile Include="Migrations\202305111959429_UpdTrabajador.Designer.cs">
-      <DependentUpon>202305111959429_UpdTrabajador.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202305112025536_UpdIncident.cs" />
-    <Compile Include="Migrations\202305112025536_UpdIncident.Designer.cs">
-      <DependentUpon>202305112025536_UpdIncident.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202305112155494_UpdIncidentVM.cs" />
-    <Compile Include="Migrations\202305112155494_UpdIncidentVM.Designer.cs">
-      <DependentUpon>202305112155494_UpdIncidentVM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202305112300267_UpdMovimient.cs" />
-    <Compile Include="Migrations\202305112300267_UpdMovimient.Designer.cs">
-      <DependentUpon>202305112300267_UpdMovimient.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202305191616289_UpdTrabajador1.cs" />
-    <Compile Include="Migrations\202305191616289_UpdTrabajador1.Designer.cs">
-      <DependentUpon>202305191616289_UpdTrabajador1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202305191840124_UpdTrabajadorVM.cs" />
-    <Compile Include="Migrations\202305191840124_UpdTrabajadorVM.Designer.cs">
-      <DependentUpon>202305191840124_UpdTrabajadorVM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202305192337076_UpdTrabajador11.cs" />
-    <Compile Include="Migrations\202305192337076_UpdTrabajador11.Designer.cs">
-      <DependentUpon>202305192337076_UpdTrabajador11.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202305192343296_UpdTrabajador2.cs" />
-    <Compile Include="Migrations\202305192343296_UpdTrabajador2.Designer.cs">
-      <DependentUpon>202305192343296_UpdTrabajador2.cs</DependentUpon>
+    <Compile Include="Migrations\202305261826389_UpdPlanVM.cs" />
+    <Compile Include="Migrations\202305261826389_UpdPlanVM.Designer.cs">
+      <DependentUpon>202305261826389_UpdPlanVM.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
@@ -673,8 +593,6 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="App_Browsers\qt.browser" />
-    <Content Include="Images\wsafe.jpg" />
-    <Content Include="Images\wsafe.pdf" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile2.pubxml" />
@@ -686,6 +604,8 @@
     <Content Include="Images\risk.png" />
     <Content Include="Images\risk1.jpg" />
     <Content Include="Images\technology.jpg" />
+    <Content Include="Images\wsafe.jpg" />
+    <Content Include="Images\wsafe2.jpg" />
     <Content Include="Rotativa\help-wkhtmltoimage.txt" />
     <Content Include="Rotativa\help-wkhtmltopdf.txt" />
     <Content Include="Rotativa\wkhtmltoimage.exe" />
@@ -1224,68 +1144,8 @@
     <EmbeddedResource Include="Migrations\202207092147338_InitialCreate.resx">
       <DependentUpon>202207092147338_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202304230204442_CreateClient.resx">
-      <DependentUpon>202304230204442_CreateClient.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202304230213294_UpdateClient.resx">
-      <DependentUpon>202304230213294_UpdateClient.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202305052258320_updateRoleUserVM.resx">
-      <DependentUpon>202305052258320_updateRoleUserVM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202305062235453_CreateOrganizationVM.resx">
-      <DependentUpon>202305062235453_CreateOrganizationVM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202305081643224_UpdOrganization.resx">
-      <DependentUpon>202305081643224_UpdOrganization.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202305081724126_UpdOrganization1.resx">
-      <DependentUpon>202305081724126_UpdOrganization1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202305081743374_UpdOrganization11.resx">
-      <DependentUpon>202305081743374_UpdOrganization11.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202305100031463_UpdUserVM.resx">
-      <DependentUpon>202305100031463_UpdUserVM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202305102123357_UpdRisk.resx">
-      <DependentUpon>202305102123357_UpdRisk.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202305102151441_UpdRiskVM.resx">
-      <DependentUpon>202305102151441_UpdRiskVM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202305111429538_UpdAccion.resx">
-      <DependentUpon>202305111429538_UpdAccion.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202305111447091_UpdAccionVM.resx">
-      <DependentUpon>202305111447091_UpdAccionVM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202305111835147_UpdEvaluation.resx">
-      <DependentUpon>202305111835147_UpdEvaluation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202305111959429_UpdTrabajador.resx">
-      <DependentUpon>202305111959429_UpdTrabajador.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202305112025536_UpdIncident.resx">
-      <DependentUpon>202305112025536_UpdIncident.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202305112155494_UpdIncidentVM.resx">
-      <DependentUpon>202305112155494_UpdIncidentVM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202305112300267_UpdMovimient.resx">
-      <DependentUpon>202305112300267_UpdMovimient.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202305191616289_UpdTrabajador1.resx">
-      <DependentUpon>202305191616289_UpdTrabajador1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202305191840124_UpdTrabajadorVM.resx">
-      <DependentUpon>202305191840124_UpdTrabajadorVM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202305192337076_UpdTrabajador11.resx">
-      <DependentUpon>202305192337076_UpdTrabajador11.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202305192343296_UpdTrabajador2.resx">
-      <DependentUpon>202305192343296_UpdTrabajador2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202305261826389_UpdPlanVM.resx">
+      <DependentUpon>202305261826389_UpdPlanVM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

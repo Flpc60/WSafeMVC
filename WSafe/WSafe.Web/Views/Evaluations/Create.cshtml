@@ -1,7 +1,6 @@
 ﻿@{
     var title = "GESTIONAR EVALUACIÓN DE ESTÁNDARES";
 }
-
 <style>
     .tabIdCausas, .tabGesPlanAcc, .tabGesSeguiPlanAcc, .tabPlanAcc, .tabSeguimAcc, .tabSeguimPlanAcc, .tabAddPlanAcc, .tabAddSeguimAcc,
     .tabGesCalifications, .tabAddCalifications, .tabGesCiclo, .tabGesEvaluation {
@@ -120,6 +119,14 @@
             if (!validarCumplimiento(fecha)) {
                 return false;
             }
+        });
+
+        $('#txtCumple').change(function () {
+            $("#btnUpdCalification").focus();
+        });
+
+        $('#btnEvaluation').click(function () {
+            $("#planear").focus();
         });
 
         GestorEvaluations();

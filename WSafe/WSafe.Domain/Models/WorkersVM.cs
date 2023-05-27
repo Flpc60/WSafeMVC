@@ -66,7 +66,6 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [MaxLength(20)]
         public string ARL { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Fecha retiro")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]

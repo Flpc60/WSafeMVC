@@ -19,7 +19,6 @@ namespace WSafe.Web.Controllers
     // Getionar todas las acciones correctvas, preventivas y de mejora de la organización
     public class AccionesController : Controller
     {
-        // Inyecciones
         private int _clientID;
         private int _orgID;
         private string _year;
@@ -176,7 +175,7 @@ namespace WSafe.Web.Controllers
 
             var model = new PlanAccionVM
             {
-                AccionID = idAccion,
+                AccionID = idAccion
             };
             return Json(model, JsonRequestBehavior.AllowGet);
         }
@@ -187,6 +186,7 @@ namespace WSafe.Web.Controllers
             var message = "";
             try
             {
+                model.FechaActivity = DateTime.Now;
                 if (ModelState.IsValid)
                 {
                     PlanAction result = await _converterHelper.ToPlanAccionAsync(model);
@@ -222,7 +222,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateSeguimientoPlan(Seguimiento seguimientoAccion)
+        public async Task<ActionResult> CreateSeguimientoPlan(SeguimientoAccion seguimientoAccion)
         {
             if (seguimientoAccion.AccionID == 0)
             {
@@ -233,11 +233,10 @@ namespace WSafe.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Seguimiento model = await _converterHelper.ToSeguimientoAccionAsync(seguimientoAccion);
-                    _empresaContext.Seguimientos.Add(seguimientoAccion);
+                    _empresaContext.SeguimientosAccion.Add(seguimientoAccion);
                     await _empresaContext.SaveChangesAsync();
                     message = "El registro ha sido ingresado correctamente !!";
-                    return Json(new { data = model, mensaj = message }, JsonRequestBehavior.AllowGet);
+                    return Json(new { data = seguimientoAccion, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
                 message = "El registro ha sido ingresado correctamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
@@ -301,7 +300,8 @@ namespace WSafe.Web.Controllers
             }
 
             //TODO
-            var seguimientos = _empresaContext.Seguimientos.Where(sa => sa.AccionID == idAccion).ToList();
+            var seguimientos = _empresaContext.SeguimientosAccion
+                .Where(sa => sa.AccionID == idAccion).ToList();
             var result = _converterHelper.ToSeguimientoAccionVMList(seguimientos);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -315,14 +315,15 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> UpdatePlanAccion([Bind(Include = "ID, AccionID, FechaInicial, FechaFinal, Causa, Accion, TrabajadorID, Prioritaria, Costos, ActionCategory")] PlanAction planAccion)
+        public async Task<ActionResult> UpdatePlanAccion([Bind(Include = "ID, AccionID, FechaInicial, FechaFinal, Causa, Accion, TrabajadorID, Prioritaria, Costos, ActionCategory, Responsable, EvaluationID, NormaID, FechaActivity, Observation")] PlanAction planAccion)
         {
             var message = "";
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _empresaContext.Entry(planAccion).State = EntityState.Modified;
+                    PlanAction plan = await _converterHelper.ToPlanAccionAsync(planAccion);
+                    _empresaContext.Entry(plan).State = EntityState.Modified;
                     await _empresaContext.SaveChangesAsync();
                     message = "La actualización se ha realizado exitosamente !!";
                     return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
@@ -367,13 +368,13 @@ namespace WSafe.Web.Controllers
         [HttpGet]
         public JsonResult UpdateSeguimientoAccion(int ID)
         {
-            var seguimiento = _empresaContext.Seguimientos.FirstOrDefault(sa => sa.ID == ID);
+            var seguimiento = _empresaContext.SeguimientosAccion.FirstOrDefault(sa => sa.ID == ID);
             var model = _converterHelper.ToSeguimientoAccionVM(seguimiento);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public async Task<ActionResult> UpdateSeguimientoAccion([Bind(Include = "ID, AccionID, FechaSeguimiento, Resultado, TrabajadorID")] Seguimiento model)
+        public async Task<ActionResult> UpdateSeguimientoAccion([Bind(Include = "ID, AccionID, FechaSeguimiento, Resultado, TrabajadorID")] SeguimientoAccion model)
         {
             var message = "";
             try
@@ -403,7 +404,7 @@ namespace WSafe.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Seguimiento sigue = await _empresaContext.Seguimientos.FindAsync(id);
+            SeguimientoAccion sigue = await _empresaContext.SeguimientosAccion.FindAsync(id);
             var model = _converterHelper.ToSeguimientoAccionVM(sigue);
             if (model == null)
             {
@@ -417,8 +418,8 @@ namespace WSafe.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Seguimiento accion = await _empresaContext.Seguimientos.FindAsync(id);
-                _empresaContext.Seguimientos.Remove(accion);
+                SeguimientoAccion accion = await _empresaContext.SeguimientosAccion.FindAsync(id);
+                _empresaContext.SeguimientosAccion.Remove(accion);
                 await _empresaContext.SaveChangesAsync();
                 return Json(accion, JsonRequestBehavior.AllowGet);
             }

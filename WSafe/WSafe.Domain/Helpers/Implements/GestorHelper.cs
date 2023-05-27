@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using WSafe.Domain.Data.Entities;
 using WSafe.Web.Models;
@@ -572,6 +573,74 @@ namespace WSafe.Domain.Helpers.Implements
                 default:
                     return "Administrativos";
             }
+        }
+        public void CreateFolder(string path)
+        {
+            // create nodo ORG
+            var directory = path;
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            // create nodo ORG/SG-SST/YEAR/PLANEAR
+            directory = $"{path}/1. PLANEAR";
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            // create nodo ORG/SG-SST/YEAR/HACER
+            directory = $"{path}/2. HACER";
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            // create nodo ORG/SG-SST/YEAR/VERIFICAR
+            directory = $"{path}/3. VERIFICAR";
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            // create nodo ORG/SG-SST/YEAR/ACTUAR
+            directory = $"{path}/4. ACTUAR";
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            var list = _empresaContext.Normas.OrderByDescending(n => n.Item).ToList();
+            foreach (var norma in list)
+            {
+                switch (norma.Ciclo)
+                {
+                    case "P":
+                        directory = $"{path}/1. PLANEAR/{norma.Item}";
+                        break;
+
+                    case "H":
+                        directory = $"{path}/2. HACER/{norma.Item}";
+                        break;
+
+                    case "V":
+                        directory = $"{path}/3. VERIFICAR/{norma.Item}";
+                        break;
+
+                    case "A":
+                        directory = $"{path}/4. ACTUAR/{norma.Item}";
+                        break;
+                }
+
+                // create nodo ORG/SG-SST/YEAR/ACTUAR/ITEM
+                if (!Directory.Exists(directory))
+                {
+                    Directory.CreateDirectory(directory);
+                }
+
+            }
+            return;
         }
     }
 }
