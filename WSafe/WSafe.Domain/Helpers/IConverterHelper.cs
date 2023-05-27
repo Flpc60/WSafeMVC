@@ -26,10 +26,10 @@ namespace WSafe.Domain.Helpers
         PlanAccionVM ToPlanAccionVM(PlanAction planAccion);
         PlanAccionVM ToPlanAccionVMNew();
         Task<PlanAction> ToPlanAccionAsync(PlanAction plan);
-        SeguimientoAccionVM ToSeguimientoAccionVM(Seguimiento seguimientoAccion);
-        Task<Seguimiento> ToSeguimientoAccionAsync(Seguimiento model);
+        SeguimientoAccionVM ToSeguimientoAccionVM(SeguimientoAccion seguimientoAccion);
+        Task<SeguimientoAccion> ToSeguimientoAccionAsync(SeguimientoAccion model);
         IEnumerable<PlanAccionVM> ToPlanAccionVMList(IEnumerable<PlanAction> plan);
-        IEnumerable<SeguimientoAccionVM> ToSeguimientoAccionVMList(IEnumerable<Seguimiento> accion);
+        IEnumerable<SeguimientoAccionVM> ToSeguimientoAccionVMList(IEnumerable<SeguimientoAccion> accion);
         IEnumerable<AccionViewModel> ToAccionVMList(IEnumerable<Accion> accion);
         _DetailsAccionVM ToAccionVMFull(Accion accion, int id);
         MatrizRiesgosVM ToRiesgoVMUnit(Riesgo riesgo);

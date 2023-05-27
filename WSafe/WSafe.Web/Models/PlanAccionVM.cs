@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using WSafe.Domain.Data.Entities;
 
 namespace WSafe.Web.Models
@@ -28,12 +29,17 @@ namespace WSafe.Web.Models
         [Display(Name = "Responsable")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un trabajador.")]
         public int TrabajadorID { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [MaxLength(100)]
         public string Responsable { get; set; }
         [Display(Name = "Acción prioritaria")]
         public bool Prioritaria { get; set; }
         [Display(Name = "Costos ejecución")]
         public decimal Costos { get; set; }
         public ActionCategories ActionCategory { get; set; }
+        public int EvaluationID { get; set; }
+        public string FechaActivity { get; set; }
+        public int NormaID { get; set; }
+        [MaxLength(100)]
+        public string Observation { get; set; }
     }
 }

@@ -3,7 +3,7 @@ namespace WSafe.Web.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class UpdTrabajador2 : DbMigration
+    public partial class UpdPlanVM : DbMigration
     {
         public override void Up()
         {

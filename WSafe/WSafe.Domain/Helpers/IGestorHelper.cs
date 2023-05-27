@@ -31,5 +31,6 @@ namespace WSafe.Domain.Helpers
         string GetCiclo(string ciclo);
         string GetStandard(string standar);
         string GetRecurso(RecursosCategory recurso);
+        void CreateFolder(string path);
     }
 }

@@ -600,7 +600,11 @@ namespace WSafe.Domain.Helpers.Implements
                 Costos = plan.Costos,
                 TrabajadorID = plan.TrabajadorID,
                 Responsable = _empresaContext.Trabajadores.Find(plan.TrabajadorID).NombreCompleto.ToUpper(),
-                ActionCategory = plan.ActionCategory
+                ActionCategory = plan.ActionCategory,
+                EvaluationID = plan.EvaluationID,
+                FechaActivity = plan.FechaActivity.ToString("yyyy-MM-dd"),
+                NormaID = plan.NormaID,
+                Observation = plan.Observation
             };
             return result;
         }
@@ -622,11 +626,15 @@ namespace WSafe.Domain.Helpers.Implements
                 Prioritaria = plan.Prioritaria,
                 Costos = plan.Costos,
                 Responsable = plan.Responsable,
-                ActionCategory = plan.ActionCategory
+                ActionCategory = plan.ActionCategory,
+                EvaluationID = plan.EvaluationID,
+                FechaActivity = plan.FechaInicial,
+                NormaID = plan.NormaID,
+                Observation = plan.Observation
             };
             return result;
         }
-        public SeguimientoAccionVM ToSeguimientoAccionVM(Seguimiento seguimientoAccion)
+        public SeguimientoAccionVM ToSeguimientoAccionVM(SeguimientoAccion seguimientoAccion)
         {
             var result = new SeguimientoAccionVM
             {
@@ -639,9 +647,9 @@ namespace WSafe.Domain.Helpers.Implements
             };
             return result;
         }
-        public async Task<Seguimiento> ToSeguimientoAccionAsync(Seguimiento model)
+        public async Task<SeguimientoAccion> ToSeguimientoAccionAsync(SeguimientoAccion model)
         {
-            var result = new Seguimiento
+            var result = new SeguimientoAccion
             {
                 ID = model.ID,
                 AccionID = model.AccionID,
@@ -700,7 +708,7 @@ namespace WSafe.Domain.Helpers.Implements
             }
             return model;
         }
-        public IEnumerable<SeguimientoAccionVM> ToSeguimientoAccionVMList(IEnumerable<Seguimiento> accion)
+        public IEnumerable<SeguimientoAccionVM> ToSeguimientoAccionVMList(IEnumerable<SeguimientoAccion> accion)
         {
             var model = new List<SeguimientoAccionVM>();
             foreach (var item in accion)

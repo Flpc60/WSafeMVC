@@ -55,24 +55,6 @@ function viewHistory() {
                         break;
                 }
 
-                switch (item.Aceptabilidad) {
-                    case 1:
-                        aceptabilidad = "No Aceptable";
-                        break;
-
-                    case 2:
-                        aceptabilidad = "No Aceptable o Aceptable con control Específico";
-                        break;
-
-                    case 3:
-                        aceptabilidad = "Mejorable";
-                        break;
-
-                    case 4:
-                        aceptabilidad = "Aceptable";
-                        break;
-                }
-
                 html += '<tr>';
                 html += '<td>' + item.NivelDeficiencia + '</td>';
                 html += '<td>' + item.NivelExposicion + '</td>';
@@ -81,7 +63,6 @@ function viewHistory() {
                 html += '<td>' + item.NivelConsecuencia + '</td>';
                 html += '<td>' + nr + '</td>';
                 html += '<td>' + interpretaNR + '</td>';
-                html += '<td>' + aceptabilidad + '</td>';
                 html += '<td>' + item.Nombre + '</td>';
                 html += '<td>' + item.TextCategoria + '</td>';
                 html += '<td>' + item.TextIntervencion + '</td>';
@@ -834,6 +815,11 @@ function getPlanByID(PlanID) {
             $("#txtAccionID").val(result.AccionID);
             $("#planAccionID").val(result.ID);
             $("#txtActionCategory").val(result.ActionCategory);
+            $("#txtResponsable").val(result.Responsable);
+            $("#txtEvaluationID").val(result.EvaluationID);
+            $("#txtNormaID").val(result.NormaID);
+            $("#txtFechaActivity").val(result.FechaActivity);
+            $("#txtObservation").val(result.Observation);
             if (result.Prioritaria == true) {
                 $("#idPrioritaria").prop('checked', true);
             } else {
@@ -1722,9 +1708,11 @@ function AddPlanAccion() {
         url: "/Acciones/CreatePlanAccion",
         data: { model: planAccionVM },
         dataType: "json",
-        success: function (result) {
-            $("#txtPlanAccionID").val(result.ID);
-            alert("El registro ha sido ingresado exitosamente");
+        success: function (response) {
+            if (response.data != false) {
+                $("#txtPlanAccionID").val(response.data.ID);
+            }
+            alert(response.mensaj);
             ClearTextBox();
             mostrarPlanAcc();
         },
@@ -1738,6 +1726,7 @@ function AddPlanAccion() {
 function UpdatePlanAcc() {
     // Actualiza una accion creada, captura la accionID de id = txtAccionID
     // llama la acción del controlador UpdatePlanAccion
+    //TODO
     $(".tabPlanAcc").css("display", "none");
     $(".tabGesPlanAcc").css("display", "none");
     $(".tabAddPlanAcc").css("display", "none");
@@ -1760,7 +1749,12 @@ function UpdatePlanAcc() {
         TrabajadorID: $("#idRespons").val(),
         Prioritaria: $("#idPrioritaria").val(),
         Costos: $("#idCostos").val(),
-        ActionCategory: $("#txtPlanCategory").val()
+        ActionCategory: $("#txtPlanCategory").val(),
+        Responsable: $("#txtResponsable").val(),
+        EvaluationID: $("#txtEvaluationID").val(),
+        NormaID: $("#txtNormaID").val(),
+        FechaActivity: $("#idFechaIni").val(),
+        Observation: $("#txtObservation").val()
     };
     $.ajax({
         type: "POST",
@@ -1996,7 +1990,7 @@ function AddInterven() {
             alert(thrownError);
         }
     });
-    AddPlan(1); // adicionar plan acción
+    //AddPlan(1); // adicionar plan acción
 }
 
 function UpdateIntervencion() {
@@ -5218,6 +5212,7 @@ function AddPlanActivity() {
         data: { model: planActivity },
         dataType: "json",
         success: function (response) {
+            $("#btnUpdCalification").focus();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
