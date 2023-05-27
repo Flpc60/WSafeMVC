@@ -100,6 +100,7 @@ namespace WSafe.Web.Controllers
                         ruta = "4. ACTUAR";
                         break;
                 }
+
                 var item = norma.Item.ToString();
                 var fullPath = $"{_path}/{ruta}/{item}/";
                 var path = Server.MapPath(fullPath);

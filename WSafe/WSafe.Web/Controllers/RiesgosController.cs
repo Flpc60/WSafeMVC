@@ -65,10 +65,11 @@ namespace WSafe.Web.Controllers
                 _clientID = (int)Session["clientID"];
                 _orgID = (int)Session["orgID"];
                 _year = (string)Session["year"];
+                _path = (string)Session["path"];
                 var organization = _empresaContext.Organizations.Find(_orgID);
                 var year = _year;
                 var item = _empresaContext.Normas.Find(organization.StandardMatrixRisk).Item;
-                var fullPath = $"~/SG-SST/{year}/2. HACER/{item}/";
+                var fullPath = $"{_path}/2. HACER/{item}/";
                 var path = Server.MapPath(fullPath);
                 if (!Directory.Exists(path))
                 {
@@ -106,7 +107,7 @@ namespace WSafe.Web.Controllers
                 Movimient movimient = new Movimient()
                 {
                     ID = 0,
-                    OrganizationID = organization.ID,
+                    OrganizationID = _orgID,
                     NormaID = organization.StandardMatrixRisk,
                     UserID = userID,
                     Descripcion = descript,
@@ -115,7 +116,8 @@ namespace WSafe.Web.Controllers
                     Item = item,
                     Ciclo = "H",
                     Type = type,
-                    Path = path
+                    Path = path,
+                    ClientID = _clientID
                 };
                 _empresaContext.Movimientos.Add(movimient);
                 _empresaContext.SaveChanges();

@@ -2,10 +2,12 @@
 using System;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.Security;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Data.Entities.ICAM;
 using WSafe.Domain.Helpers;
@@ -389,10 +391,24 @@ namespace WSafe.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> PrintIncidentsToPdf(int id)
         {
+            // Configuración nombre archivo pdf
+            _clientID = (int)Session["clientID"];
+            _orgID = (int)Session["orgID"];
+            _year = (string)Session["year"];
+            _path = (string)Session["path"];
+            var organization = _empresaContext.Organizations.Find(_orgID);
+            var year = _year;
+            var item = _empresaContext.Normas.Find(organization.StandardIncidents).Item;
+            var fullPath = $"{_path}/2. HACER/{item}/";
+            var path = Server.MapPath(fullPath);
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
             Random random = new Random();
             var filename = "ReporteIncidentes" + random.Next(1, 100) + ".Pdf";
-            var filePathName = "~/Documents/" + filename;
-
+            var filePathName = path + filename;
             var result = await _empresaContext.Incidentes.FirstOrDefaultAsync(i => i.ID == id);
             var model = _converterHelper.ToIncidentVMFull(result, 6);
             ViewBag.id = id;
@@ -403,7 +419,31 @@ namespace WSafe.Web.Controllers
             report.PageSize = Rotativa.Options.Size.A4;
             report.Copies = 1;
             report.PageOrientation.GetValueOrDefault();
+            report.FormsAuthenticationCookieName = FormsAuthentication.FormsCookieName;
+            report.SaveOnServerPath = filePathName;
 
+            //Generar archivo de movimiento
+            var fullName = filename;
+            var type = Path.GetExtension(filename).ToUpper();
+            var descript = "Reporte incidentes";
+            var userID = (int)Session["userID"];
+            Movimient movimient = new Movimient()
+            {
+                ID = 0,
+                OrganizationID = _orgID,
+                NormaID = organization.StandardIncidents,
+                UserID = userID,
+                Descripcion = descript,
+                Document = fullName,
+                Year = year,
+                Item = item,
+                Ciclo = "H",
+                Type = type,
+                Path = path,
+                ClientID = _clientID
+            };
+            _empresaContext.Movimientos.Add(movimient);
+            _empresaContext.SaveChanges();
             return report;
         }
 
