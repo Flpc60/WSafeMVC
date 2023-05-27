@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = "Index";
 }
-
 <hr />
 <hr />
 <h4 style="text-align:center"><strong>@Session["organization"].ToString().Trim()</strong></h4>
@@ -32,8 +31,6 @@
     <div class="pull-left">
         @Html.ActionLink("Nueva Autoevaluación", "Create", new { @class = "glyphicon glyphicon-plus" },
         new { @class = "btn btn-primary" })
-        @Html.ActionLink("Ver gráfica", "Create", new { @class = "glyphicon glyphicon-plus" },
-        new { @class = "btn btn-success" })
     </div>
 </div>
 <hr />
