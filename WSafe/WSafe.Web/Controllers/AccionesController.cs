@@ -435,10 +435,11 @@ namespace WSafe.Web.Controllers
                 _clientID = (int)Session["clientID"];
                 _orgID = (int)Session["orgID"];
                 _year = (string)Session["year"];
+                _path = (string)Session["path"];
                 var organization = _empresaContext.Organizations.Find(_orgID);
                 var year = _year;
                 var item = _empresaContext.Normas.Find(organization.StandardActions).Item;
-                var fullPath = $"~/SG-SST/{year}/4. ACTUAR/{item}/";
+                var fullPath = $"{_path}/4. ACTUAR/{item}/";
                 var path = Server.MapPath(fullPath);
                 if (!Directory.Exists(path))
                 {
@@ -462,6 +463,7 @@ namespace WSafe.Web.Controllers
                 report.Copies = 1;
                 report.PageOrientation.GetValueOrDefault();
                 report.FormsAuthenticationCookieName = FormsAuthentication.FormsCookieName;
+                report.SaveOnServerPath = filePathName;
 
                 //Generar archivo de movimiento
                 var fullName = filename;
@@ -471,7 +473,7 @@ namespace WSafe.Web.Controllers
                 Movimient movimient = new Movimient()
                 {
                     ID = 0,
-                    OrganizationID = organization.ID,
+                    OrganizationID = _orgID,
                     NormaID = organization.StandardActions,
                     UserID = userID,
                     Descripcion = descript,
@@ -480,7 +482,8 @@ namespace WSafe.Web.Controllers
                     Item = item,
                     Ciclo = "A",
                     Type = type,
-                    Path = path
+                    Path = path,
+                    ClientID = _clientID
                 };
                 _empresaContext.Movimientos.Add(movimient);
                 _empresaContext.SaveChanges();
