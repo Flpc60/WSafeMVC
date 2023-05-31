@@ -12,7 +12,7 @@ namespace WSafe.Web.Controllers
 {
     public class IndicadoresController : Controller
     {
-        // Indicadores SG-SST
+        // Gestión Indicadores SG-SST
         private int _clientID;
         private int _orgID;
         private string _year;
