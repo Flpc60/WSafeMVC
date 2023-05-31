@@ -138,6 +138,7 @@
     <Compile Include="Data\Entities\Dashboard.cs" />
     <Compile Include="Data\Entities\Document.cs" />
     <Compile Include="Data\Entities\DocumentTypes.cs" />
+    <Compile Include="Data\Entities\EstratoCategories.cs" />
     <Compile Include="Data\Entities\Evaluation.cs" />
     <Compile Include="Data\Entities\FuentesAccion.cs" />
     <Compile Include="Data\Entities\Hobbies.cs" />
@@ -206,13 +207,16 @@
     <Compile Include="Data\Entities\TiposDeporte.cs" />
     <Compile Include="Data\Entities\TiposEvento.cs" />
     <Compile Include="Data\Entities\TiposIndicador.cs" />
+    <Compile Include="Data\Entities\TiposJornada.cs" />
     <Compile Include="Data\Entities\TiposLesion.cs" />
     <Compile Include="Data\Entities\TiposPeriodicidad.cs" />
+    <Compile Include="Data\Entities\TiposSangre.cs" />
     <Compile Include="Data\Entities\TiposVinculacion.cs" />
     <Compile Include="Data\Entities\Trabajador.cs" />
     <Compile Include="Data\Entities\Traza.cs" />
     <Compile Include="Data\Entities\User.cs" />
     <Compile Include="Data\Entities\ValorationCategory.cs" />
+    <Compile Include="Data\Entities\WorkAreas.cs" />
     <Compile Include="Data\Entities\Zona.cs" />
     <Compile Include="Helpers\IChartHelper.cs" />
     <Compile Include="Helpers\IComboHelper.cs" />

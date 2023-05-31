@@ -2,11 +2,13 @@
 {
     public enum NivelesEscolaridad
     {
-        Técnico = 1,
-        Tecnólogo = 2,
-        Profesional = 3,
-        Especialización = 4,
-        Maestría = 5,
-        Doctorado = 6
+        Primaria = 1,
+        Secundaria = 2,
+        Técnico = 3,
+        Tecnólogo = 4,
+        Profesional = 5,
+        Especialización = 6,
+        Maestría = 7,
+        Doctorado = 8
     }
 }
