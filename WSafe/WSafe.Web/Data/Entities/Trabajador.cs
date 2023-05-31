@@ -42,9 +42,11 @@ namespace WSafe.Domain.Data.Entities
         [Display(Name = "Estado civil")]
         public EstadosCivil EstadoCivil { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Dirección residencia")]
         [MaxLength(50)]
         public string Direccion { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Teléfonos")]
         [MaxLength(20)]
         public string Telefonos { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
@@ -77,5 +79,33 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Tipo documento")]
         public DocumentTypes DocumentType { get; set; }
+        [Display(Name = "Profesión")]
+        public string Profesion { get; set; }
+        [Display(Name = "Area de trabajo")]
+        public WorkAreas WorkArea { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Tipo jornada")]
+        public TiposJornada TipoJornada { get; set; }
+        [Display(Name = "Tipo de sangre")]
+        public TiposSangre TipoSangre { get; set; }
+        [Display(Name = "Nombre del conyuge")]
+        public string Conyuge { get; set; }
+        [Display(Name = "Número de hijos")]
+        public int NumberHijos { get; set; }
+        [Display(Name = "Estrato socioeconómico")]
+        public EstratoCategories StratumCategory { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatotio")]
+        [Display(Name = "Correo electrónico")]
+        [MaxLength(50)]
+        public string Email { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatotio")]
+        [Display(Name = "Tipo de vivienda")]
+        public TenenciasVivienda TenenciaVivienda { get; set; }
+        [Display(Name = "Enfermedad que padece")]
+        public string Enfermedad { get; set; }
+        [Display(Name = "Tratamiento que recibe")]
+        public string Tratamento { get; set; }
+        [Display(Name = "Recomendaciones especiales")]
+        public string SpecialRecomendations { get; set; }
     }
 }

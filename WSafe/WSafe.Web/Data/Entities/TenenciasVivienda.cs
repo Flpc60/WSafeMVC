@@ -4,6 +4,7 @@
     {
         Propia = 1,
         Arrendada = 2,
-        Otra = 3
+        Familiar = 3,
+        Otra = 4
     }
 }
