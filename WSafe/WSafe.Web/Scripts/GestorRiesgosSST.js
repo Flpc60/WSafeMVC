@@ -1540,137 +1540,41 @@ function UpdateOrganization(id) {
 }
 
 function validateOrganization() {
-    if ($('#txtNit').val() == "") {
-        document.getElementById("txtInfoBasic").innerHTML = "Falta NIT de la organización";
-        $("#txtNit").focus();
-        return false;
-    }
-    else {
-        if ($('#txtRazon').val() == "") {
-            document.getElementById("txtInfoBasic").innerHTML = "Falta Razón social de la organización";
-            $("#txtRazon").focus();
+    var fields = [
+        { id: "txtNit", message: "Falta NIT de la organización" },
+        { id: "txtRazon", message: "Falta Razón social de la organización" },
+        { id: "txtDireccion", message: "Falta Dirección de la organización" },
+        { id: "txtMunicip", message: "Falta Municipio de la organización" },
+        { id: "txtDepartment", message: "Falta Departamento de la organización" },
+        { id: "txtTelefono", message: "Falta teléfonos de la organización" },
+        { id: "txtArl", message: "Falta ARL de la organización" },
+        { id: "txtClaseRiesgo", message: "Falta Clase riesgo de la organización" },
+        { id: "txtDocument", message: "Falta documento del representante legal de la organización" },
+        { id: "txtName", message: "Falta nombre del representante legal de la organización" },
+        { id: "txtEconomic", message: "Falta actvidad económica de la organización" },
+        { id: "txtNumero", message: "Falta número de trabajadores de la organización" },
+        { id: "txtPolitica", message: "Falta política de la organización" },
+        { id: "txtProducts", message: "Falta clase productos de la organización" },
+        { id: "txtMision", message: "Falta Misión de la organización" },
+        { id: "txtVision", message: "Falta Visión de la organización" },
+        { id: "txtObjetivos", message: "Falta Objetivos de la organización" },
+        { id: "txtAdministrativo", message: "Falta definir turnos administrativos de la organización" },
+        { id: "txtOperativo", message: "Falta definir turnos operativos de la organización" },
+        { id: "txtYear", message: "Falta definir periodo de la organización" },
+        { id: "txtResponsable", message: "Falta definir responsable del SG-SST de la organización" },
+    ];
+
+    for (var i = 0; i < fields.length; i++) {
+        var field = fields[i];
+        var value = $("#" + field.id).val();
+
+        if (value == "") {
+            document.getElementById("txtInfoBasic").innerHTML = field.message;
+            $("#" + field.id).focus();
             return false;
         }
-        else {
-            if ($('#txtDireccion').val() == "") {
-                document.getElementById("txtInfoBasic").innerHTML = "Falta Dirección de la organización";
-                $("#txtDireccion").focus();
-                return false;
-            }
-            else {
-                if ($('#txtMunicip').val() == "") {
-                    document.getElementById("txtInfoBasic").innerHTML = "Falta Municipio de la organización";
-                    $("#txtMunicip").focus();
-                    return false;
-                }
-                else {
-                    if ($('#txtDepartment').val() == "") {
-                        document.getElementById("txtInfoBasic").innerHTML = "Falta Departamento de la organización";
-                        $("#txtDepartment").focus();
-                        return false;
-                    }
-                    else {
-                        if ($('#txtTelefono').val() == "") {
-                            document.getElementById("txtInfoBasic").innerHTML = "Falta teléfonos de la organización";
-                            $("#txtTelefono").focus();
-                            return false;
-                        }
-                        else {
-                            if ($('#txtArl').val() == "") {
-                                document.getElementById("txtInfoBasic").innerHTML = "Falta ARL de la organización";
-                                $("#txtArl").focus();
-                                return false;
-                            }
-                            else {
-                                if ($('#txtClaseRiesgo').val() == "") {
-                                    document.getElementById("txtInfoBasic").innerHTML = "Falta Clase riesgo de la organización";
-                                    $("#txtClaseRiesgo").focus();
-                                    return false;
-                                }
-                                else {
-                                    if ($('#txtDocument').val() == "") {
-                                        document.getElementById("txtInfoBasic").innerHTML = "Falta documento del representante legal de la organización";
-                                        $("#txtDocument").focus();
-                                        return false;
-                                    }
-                                    else {
-                                        if ($('#txtName').val() == "") {
-                                            document.getElementById("txtInfoBasic").innerHTML = "Falta nombre del representante legal de la organización";
-                                            $("#txtName").focus();
-                                            return false;
-                                        }
-                                        else {
-                                            if ($('#txtEconomic').val() == "") {
-                                                document.getElementById("txtInfoBasic").innerHTML = "Falta actvidad económica de la organización";
-                                                $("#txtEconomic").focus();
-                                                return false;
-                                            }
-                                            else {
-                                                if ($('#txtNumero').val() == "") {
-                                                    document.getElementById("txtInfoBasic").innerHTML = "Falta número de trabajadores de la organización";
-                                                    $("#txtNumero").focus();
-                                                    return false;
-                                                }
-                                                else {
-                                                    if ($('#txtPolitica').val() == "") {
-                                                        document.getElementById("txtInfoBasic").innerHTML = "Falta política de la organización";
-                                                        $("#txtPolitica").focus();
-                                                        return false;
-                                                    }
-                                                    else {
-                                                        if ($('#txtProducts').val() == "") {
-                                                            document.getElementById("txtInfoBasic").innerHTML = "Falta clase productos de la organización";
-                                                            $("#txtProducts").focus();
-                                                            return false;
-                                                        }
-                                                        else {
-                                                            if ($('#txtMision').val() == "") {
-                                                                document.getElementById("txtInfoBasic").innerHTML = "Falta Misión de la organización";
-                                                                $("#txtMision").focus();
-                                                                return false;
-                                                            }
-                                                            else {
-                                                                if ($('#txtVision').val() == "") {
-                                                                    document.getElementById("txtInfoBasic").innerHTML = "Falta Visión de la organización";
-                                                                    $("#txtVision").focus();
-                                                                    return false;
-                                                                }
-                                                                else {
-                                                                    if ($('#txtObjetivos').val() == "") {
-                                                                        document.getElementById("txtInfoBasic").innerHTML = "Falta Objetivos de la organización";
-                                                                        $("#txtObjetivos").focus();
-                                                                        return false;
-                                                                    }
-                                                                    else {
-                                                                        if ($('#txtAdministrativo').val() == "") {
-                                                                            document.getElementById("txtInfoBasic").innerHTML = "Falta definir turnos administrativos de la organización";
-                                                                            $("#txtAdministrativo").focus();
-                                                                            return false;
-                                                                        }
-                                                                        else {
-                                                                            if ($('#txtOperativo').val() == "") {
-                                                                                document.getElementById("txtInfoBasic").innerHTML = "Falta definir turnos operativos de la organización";
-                                                                                $("#txtOperativo").focus();
-                                                                                return false;
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
     }
+
     document.getElementById("txtInfoBasic").innerHTML = "";
     return true;
 }
@@ -4444,7 +4348,7 @@ function ShowBarriers() {
         async: true,
         success: function (result) {
             var html = '';
-            var barrier = '';
+            var barrier = '', name = '';
             $.each(result, function (key, item) {
                 name = item.Name.toUpperCase();
                 switch (item.BarrierCategory) {
@@ -6135,7 +6039,7 @@ function getIndicators() {
             document.getElementById("mortality").innerHTML = "<strong># MUERTES: " + response.data.Mortality + "</strong>";
             document.getElementById("mortalityProportion").innerHTML = "<strong>MORTALIDAD: " + response.data.MortalityProportion + "</strong>";
             document.getElementById("minimalStandardsProportion").innerHTML = "<strong>CUMPLIMIENTO ESTÁNDARES: " + response.data.MinimalStandardsProportion + "</strong>";
-            document.getElementById("activitiesPlanProportion").innerHTML = "<strong>CUMPLIMIENTO ESTÁNDARES: " + response.data.ActivitiesPlanProportion + "</strong>";
+            document.getElementById("activitiesPlanProportion").innerHTML = "<strong>% EJECUCIÓN ACTIVIDADES: " + response.data.ActivitiesPlanProportion + "</strong>";
             $('.queryIncidents').css("display", "block");
         },
         error: function (errormessage) {

@@ -23,7 +23,7 @@ namespace WSafe.Web.Models
         public string FechaCierre { get; set; }
         public bool Efectiva { get; set; }
         public ICollection<PlanAction> Planes { get; set; }
-        public ICollection<Seguimiento> Seguimientos { get; set; }
+        public ICollection<SeguimientoAccion> Seguimientos { get; set; }
         public ActionCategories ActionCategory { get; set; }
     }
 }

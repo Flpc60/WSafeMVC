@@ -1,8 +1,8 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
+    <style>
     * {
         box-sizing: border-box;
     }
@@ -12,33 +12,55 @@
         font-size: 14px;
     }
 
-    .container img {
-        vertical-align: middle;
+    .container-fluid {
+        padding:0;
     }
 
-    .container {
-        position: relative;
+    .row {
+        display:flex;
+        flex-wrap:wrap;
     }
 
+    .col-md-6 {
+        width:50%;
+        padding:0;
+    }
+
+    .img-responsive {
+        max-width:100%;
+        height:auto;
+    }
 
     .content {
-        position: absolute;
-        bottom: 0;
-        background: rgb(0, 0, 0); /* Fallback color */
-        background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+        position: relative;
+        background: #3D74B0; /* Fallback color */
         color: #f1f1f1;
-        width: 100%;
-        padding: 20px;
+        width: auto;
+        height: auto;
+        padding: 10%;
+        font-size: 20px;
+        text-align: justify;
+        border-radius: 15%;
+        margin-top: 30%;
     }
-</style>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-7" style="width:50%; height:50%; padding:0.0%; margin:0%">
-            <img class="img-responsive" src="~/Images/wsafe2.jpg">
-        </div>
-        <div class="col-md-5" style="font-size: 18px; text-align:justify; padding:10%">
-            <p><strong>WSafe</strong></p>
-            <p1>Facilidad para la planeación, el diseño y la implementación de las acciones para identificar, valorar y controlar las fuentes o situaciones que pongan en peligro la seguridad y salud de los trabajadores, con máxima eficiencia.</p1>
+
+    </style>
+
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6" style="width:50%; height:50%; padding:0.0%; margin:0%">
+                <img class="img-responsive" src="~/Images/wsafe2.jpg">
+            </div>
+            <div class="col-md-6">
+                <div class="content">
+                    <p><strong><b>WSafe</b></strong></p>
+                    <p1>Plataforma tecnológica que facilita la planeación, el diseño y la implementación de las acciones para identificar, valorar y controlar las fuentes o situaciones que pongan en peligro la seguridad y salud de los trabajadores, con máxima eficiencia.</p1>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+</body>
+</html>

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Data.Entities.Incidentes;
@@ -160,7 +158,7 @@ namespace WSafe.Domain.Helpers.Implements
         public int NumeroDiasTrabajadosMes(int month, int year)
         {
             var diasPago = 1;
-            var result = from t in _empresaContext.Trabajadores where t.FechaIngreso.Year == year &&                    t.FechaIngreso.Month == month select t;
+            var result = from t in _empresaContext.Trabajadores where t.FechaIngreso.Year == year && t.FechaIngreso.Month == month select t;
             if (result.Count() > 0)
             {
                 diasPago = result.Sum(dp => dp.DiasPago);
@@ -228,16 +226,12 @@ namespace WSafe.Domain.Helpers.Implements
         {
             try
             {
-                decimal activities = (from e in _empresaContext.Evaluations
-                                      join p in _empresaContext.PlanActivities on e.ID equals                         p.EvaluationID
-                                      where (e.OrganizationID == _orgID && e.FechaEvaluation.Year == year             && e.FechaEvaluation.Month == month)
-                                      select p).Count();
-
-                decimal executed = (from e in _empresaContext.Evaluations
-                                    join p in _empresaContext.PlanActivities on e.ID equals p.EvaluationID
-                                    where (e.OrganizationID == _orgID && e.FechaEvaluation.Year == year &&          e.FechaEvaluation.Month == month && p.ActionCategory ==                         ActionCategories.Finalizada)
-                                    select p).Count();
-
+                var activitiesQuery = from e in _empresaContext.Evaluations
+                                      join p in _empresaContext.PlanActivities on e.ID equals p.EvaluationID
+                                      where (e.OrganizationID == _orgID && e.FechaEvaluation.Year == year)
+                                      select p;
+                decimal activities = activitiesQuery.Count();
+                decimal executed = activitiesQuery.Count(p => p.ActionCategory == ActionCategories.Finalizada);
                 decimal proporcion = 0;
                 if (activities > 0)
                 {
@@ -246,7 +240,7 @@ namespace WSafe.Domain.Helpers.Implements
                 decimal proporcionSM = 0;
                 var evaluation = _empresaContext.Evaluations
                     .Where(r => r.OrganizationID == _orgID)
-                    .OrderByDescending(o =>o.FechaEvaluation.Year + o.FechaEvaluation.Month)
+                    .OrderByDescending(o => o.FechaEvaluation.Year + o.FechaEvaluation.Month)
                     .FirstOrDefault(e => e.FechaEvaluation.Year == year);
 
                 if (evaluation != null)
@@ -260,12 +254,12 @@ namespace WSafe.Domain.Helpers.Implements
                               group at by new { at.FechaIncidente.Year } into data
                               select new
                               {
-                                  AccidentsProportion = ((data.Where(x => x.CategoriasIncidente ==                    CategoriasIncidente.Accidente).Count() / month)  / denominador *                  100),
-                                  Accidents = data.Where(x => x.CategoriasIncidente ==                              CategoriasIncidente.Accidente).Count(),
-                                  Incidents = data.Where(x => x.CategoriasIncidente ==                              CategoriasIncidente.Incidente).Count(),
-                                  Mortality = data.Where(x => x.CategoriasIncidente ==                              CategoriasIncidente.Accidente && x.ConsecuenciasLesion ==                       ConsecuenciasLesion.fatalidadMultiple).Count(),
+                                  AccidentsProportion = ((data.Where(x => x.CategoriasIncidente == CategoriasIncidente.Accidente).Count() / month) / denominador * 100),
+                                  Accidents = data.Where(x => x.CategoriasIncidente == CategoriasIncidente.Accidente).Count(),
+                                  Incidents = data.Where(x => x.CategoriasIncidente == CategoriasIncidente.Incidente).Count(),
+                                  Mortality = data.Where(x => x.CategoriasIncidente == CategoriasIncidente.Accidente && x.ConsecuenciasLesion == ConsecuenciasLesion.fatalidadMultiple).Count(),
                                   MortalityProportion = 100,
-                                  Ausentisms = data.Where(y =>y.IncapacidadMedica == true).Sum(i =>                 i.DiasIncapacidad),
+                                  Ausentisms = data.Where(y => y.IncapacidadMedica == true).Sum(i => i.DiasIncapacidad),
                                   MinimalStandardsProportion = proporcionSM,
                                   ActivitiesPlanProportion = proporcion
                               }).ToList();
@@ -273,7 +267,7 @@ namespace WSafe.Domain.Helpers.Implements
                 var model = new DashboardVM();
                 foreach (var item in result)
                 {
-                    model.AccidentsProportion = Math.Round(Convert.ToDecimal(item.AccidentsProportion),2);
+                    model.AccidentsProportion = Math.Round(Convert.ToDecimal(item.AccidentsProportion), 2);
                     model.Accidents = item.Accidents;
                     model.Incidents = item.Incidents;
                     model.Ausentisms = item.Ausentisms;
@@ -287,7 +281,7 @@ namespace WSafe.Domain.Helpers.Implements
                         model.MortalityProportion = Math.Round(Convert.ToDecimal(((decimal)item.Mortality / (decimal)item.Accidents) * 100), 2);
                     }
                     model.MinimalStandardsProportion = item.MinimalStandardsProportion;
-                    model.ActivitiesPlanProportion = Math.Round(item.ActivitiesPlanProportion,2);
+                    model.ActivitiesPlanProportion = Math.Round(item.ActivitiesPlanProportion, 2);
                 }
 
                 return model;
