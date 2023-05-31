@@ -178,16 +178,14 @@ namespace WSafe.Domain.Helpers.Implements
                 FechaCierre = accion.FechaCierre.ToString("yyyy-MM-dd"),
                 Efectiva = accion.Efectiva,
                 ActionCategory = accion.ActionCategory,
-                Planes = new List<PlanAction>(),
-                Seguimientos = new List<Seguimiento>(),
+                Planes = new List<PlanAction> { new PlanAction { AccionID = accion.ID } },
+                Seguimientos = new List<Seguimiento> { new Seguimiento { AccionID = accion.ID } },
                 FechaSolicitudStr = accion.FechaSolicitud.ToString("yyyy-MM-dd"),
                 FechaCierreStr = accion.FechaCierre.ToString("yyyy-MM-dd"),
                 ActionState = _gestorHelper.GetActionCategory((int)accion.ActionCategory),
                 OrganizationID = accion.OrganizationID,
                 ClientID = accion.ClientID
             };
-            model.Planes.Add(new PlanAction() { AccionID = accion.ID });
-            model.Seguimientos.Add(new Seguimiento() { AccionID = accion.ID });
             return model;
         }
         public async Task<Accion> ToAccionAsync(Accion model, bool isNew)
@@ -727,52 +725,48 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public _DetailsAccionVM ToAccionVMFull(Accion accion, int id)
         {
-            var planes = _empresaContext.PlanActions.Where(pa => pa.AccionID == accion.ID).ToList();
-            var sigue = _empresaContext.Seguimientos.Where(sa => sa.AccionID == accion.ID).ToList();
             var responsable = _empresaContext.Trabajadores.FirstOrDefault(t => t.ID == accion.TrabajadorID);
             var cargo = _empresaContext.Cargos.FirstOrDefault(t => t.ID == responsable.CargoID);
-
             var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == id);
             var model = new _DetailsAccionVM
             {
                 ID = accion.ID,
-                Formato = document.Formato,
-                Estandar = document.Estandar,
-                Titulo = document.Titulo,
-                Version = document.Version,
+                Planes = _empresaContext.PlanActions.Where(pa => pa.AccionID == accion.ID).ToList(),
+                Seguimientos = _empresaContext.SeguimientosAccion.Where(sa => sa.AccionID == accion.ID).ToList(),
+                Formato = document?.Formato,
+                Estandar = document?.Estandar,
+                Titulo = document?.Titulo,
+                Version = document?.Version,
                 FechaSolicitud = accion.FechaSolicitud.ToString("dd-MM-yyyy"),
                 Categoria = accion.Categoria,
-                Responsable = responsable.NombreCompleto.ToUpper(),
-                Cargo = cargo.Descripcion.ToUpper(),
+                Responsable = responsable?.NombreCompleto.ToUpperInvariant(),
+                Cargo = cargo?.Descripcion.ToUpperInvariant(),
                 Proceso = _empresaContext.Procesos.Find(accion.ProcesoID).Descripcion,
-                FuenteAccion = _gestorHelper.GetFuenteAccion(accion.FuenteAccion).ToUpper(),
-                Descripcion = accion.Descripcion.ToUpper(),
+                FuenteAccion = _gestorHelper.GetFuenteAccion(accion.FuenteAccion).ToUpperInvariant(),
+                Descripcion = accion.Descripcion.ToUpperInvariant(),
                 EficaciaAntes = accion.EficaciaAntes,
                 EficaciaDespues = accion.EficaciaDespues,
                 FechaCierre = accion.FechaCierre.ToString("dd-MM-yyyy"),
                 Efectiva = accion.Efectiva,
                 ActionCategory = accion.ActionCategory,
-                Planes = planes,
-                Seguimientos = sigue
             };
 
             foreach (var item in model.Planes)
             {
-                item.Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpper();
+                item.Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpperInvariant();
                 item.FechaInicial.ToString("dd-MM-yyyy");
                 item.FechaFinal.ToString("dd-MM-yyyy");
-                item.Accion.ToUpper();
+                item.Accion.ToUpperInvariant();
             }
 
             foreach (var item in model.Seguimientos)
             {
-                item.Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpper();
+                item.Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpperInvariant();
                 item.FechaSeguimiento.ToString("dd-MM-yyyy");
-                item.Resultado.ToUpper();
+                item.Resultado.ToUpperInvariant();
             }
             return model;
         }
-
         public IEnumerable<MatrizRiesgosVM> ToRiesgoViewModelFul(IEnumerable<Riesgo> riesgo)
         {
             var model = new List<MatrizRiesgosVM>();
@@ -1197,23 +1191,15 @@ namespace WSafe.Domain.Helpers.Implements
         // Crea nueva lista de EvaluatioVM
         public IEnumerable<EvaluationVM> ToEvaluationVMList(IEnumerable<Evaluation> evaluation)
         {
-            var model = new List<EvaluationVM>();
-            var activitys = 0;
-            var ejecutadas = 0;
-            decimal avance = 0;
-            string category = "";
-            string color = "";
-
+            var model = new List<EvaluationVM>(evaluation.Count());
             foreach (var item in evaluation)
             {
-                activitys = _empresaContext.PlanActivities.Where(pa => pa.EvaluationID == item.ID).Count();
-                ejecutadas = _empresaContext.PlanActivities.Where(pa => pa.EvaluationID == item.ID && pa.ActionCategory == ActionCategories.Finalizada).Count();
-
-                if (activitys > 0)
-                {
-                    avance = Convert.ToDecimal((double)ejecutadas / (double)activitys * 100);
-                }
-
+                var activitiesQuery = _empresaContext.PlanActivities.Where(pa => pa.EvaluationID == item.ID);
+                var activitys = activitiesQuery.Count();
+                var ejecutadas = activitiesQuery.Count(pa =>pa.ActionCategory == ActionCategories.Finalizada);
+                var category = "";
+                var color = "";
+                decimal avance = activitys > 0 ? (decimal)ejecutadas / activitys * 100 : 0;
                 switch (item.Category)
                 {
 

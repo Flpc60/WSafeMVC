@@ -61,7 +61,7 @@
 </div>
 
 @{
-    if (@ViewBag.planes > 0)
+    if (Model.Planes.Count() > 0)
     {
         <div>
             <p style="text-align:center; background-color:grey">
@@ -118,7 +118,7 @@
             </tbody>
         </table>
     }
-    if (ViewBag.sigue > 0)
+    if (Model.Seguimientos.Count() > 0)
     {
         <div>
             <p style="text-align:center; background-color:grey">
