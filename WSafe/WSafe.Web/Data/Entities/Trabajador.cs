@@ -107,5 +107,8 @@ namespace WSafe.Domain.Data.Entities
         public string Tratamiento { get; set; }
         [Display(Name = "Recomendaciones especiales")]
         public string SpecialRecomendations { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatotio")]
+        [Display(Name = "Nivel estudios")]
+        public NivelesEscolaridad Escolaridad { get; set; }
     }
 }

@@ -201,15 +201,6 @@
     </div>
     <div class="col-md-3">
         <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-3" })
-            <div class="col-md-9">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="form-group">
             @Html.LabelFor(model => model.TenenciaVivienda, htmlAttributes: new { @class = "control-label col-md-3" })
             <div class="col-md-8">
                 @Html.EnumDropDownListFor(model => model.TenenciaVivienda, htmlAttributes: new { @class = "form-control" })
@@ -219,6 +210,17 @@
     </div>
     <div class="col-md-3">
         <div class="form-group">
+            @Html.LabelFor(model => model.Escolaridad, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-8">
+                @Html.EnumDropDownListFor(model => model.Escolaridad, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Escolaridad, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
             @Html.LabelFor(model => model.EPS, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-8">
                 @Html.EditorFor(model => model.EPS, new { htmlAttributes = new { @class = "form-control" } })
@@ -226,8 +228,6 @@
             </div>
         </div>
     </div>
-</div>
-<div class="row">
     <div class="col-md-3">
         <div class="form-group">
             @Html.LabelFor(model => model.AFP, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -248,6 +248,17 @@
     </div>
     <div class="col-md-3">
         <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
             @Html.LabelFor(model => model.Enfermedad, htmlAttributes: new { @class = "control-label col-md-3" })
             <div class="col-md-9">
                 @Html.EditorFor(model => model.Enfermedad, new { htmlAttributes = new { @class = "form-control" } })
@@ -255,9 +266,7 @@
             </div>
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="form-group">
             @Html.LabelFor(model => model.Tratamiento, htmlAttributes: new { @class = "control-label col-md-3" })
             <div class="col-md-9">
@@ -266,12 +275,21 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="form-group">
             @Html.LabelFor(model => model.SpecialRecomendations, htmlAttributes: new { @class = "control-label col-md-3" })
             <div class="col-md-9">
                 @Html.EditorFor(model => model.SpecialRecomendations, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.SpecialRecomendations, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <div class="container">
+                <input type="submit" value="Guardar" class="btn btn-success" />
+                @Html.ActionLink("Listado trabajadores", "Index", new { @class = "glyphicon glyphicon-plus" },
+                new { @class = "btn btn-info" })
             </div>
         </div>
     </div>
