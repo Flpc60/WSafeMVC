@@ -1531,6 +1531,18 @@ namespace WSafe.Domain.Helpers.Implements
                 ClientID = model.ClientID,
                 UserID = model.UserID,
                 DocumentType = model.DocumentType,
+                Profesion = model.Profesion,
+                WorkArea = model.WorkArea,
+                TipoJornada = model.TipoJornada,
+                TenenciaVivienda = model.TenenciaVivienda,
+                TipoSangre = model.TipoSangre,
+                Conyuge = model.Conyuge,
+                NumberHijos = model.NumberHijos,
+                StratumCategory = model.StratumCategory,
+                Email = model.Email,
+                Enfermedad = model.Enfermedad,
+                Tratamiento = model.Tratamiento,
+                SpecialRecomendations = model.SpecialRecomendations
         };
             return result;
         }
@@ -1559,8 +1571,20 @@ namespace WSafe.Domain.Helpers.Implements
                 ClientID = model.ClientID,
                 UserID = model.UserID,
                 DocumentType = model.DocumentType,
-                Cargos = _comboHelper.GetCargosAll()
-        };
+                Cargos = _comboHelper.GetCargosAll(),
+                Profesion = model.Profesion,
+                WorkArea = model.WorkArea,
+                TipoJornada = model.TipoJornada,
+                TenenciaVivienda = model.TenenciaVivienda,
+                TipoSangre = model.TipoSangre,
+                Conyuge = model.Conyuge,
+                NumberHijos = model.NumberHijos,
+                StratumCategory = model.StratumCategory,
+                Email = model.Email,
+                Enfermedad = model.Enfermedad,
+                Tratamiento = model.Tratamiento,
+                SpecialRecomendations = model.SpecialRecomendations
+            };
             return result;
         }
     }
