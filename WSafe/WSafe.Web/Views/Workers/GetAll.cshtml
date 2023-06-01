@@ -1,0 +1,200 @@
+﻿@model IEnumerable<WSafe.Web.Models.SocioDemographicVM>
+
+@{
+    ViewBag.Title = "Sistema de Gestión de la Seguridad y Salud en el Trabajo";
+    Layout = null;
+}
+
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryunobtrusive")
+
+
+@Html.Partial("_CabezoteFormat")
+
+<table class="table table-bordered table-hover">
+    <tr style="background-color:gainsboro">
+        <th>
+            @Html.DisplayNameFor(model => model.Genero)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Documento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaNacimiento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaIngreso)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Escolaridad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Profesion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkArea)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cargo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TipoVinculacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TipoJornada)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EPS)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AFP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ARL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Age)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TipoSangre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Antiguedad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EstadoCivil)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Conyuge)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberHijos)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StratumCategory)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Telefonos)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Direccion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenenciaVivienda)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Enfermedad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tratamiento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SpecialRecomendations)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Genero)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Documento)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.FullName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.FechaNacimiento)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.FechaIngreso)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Escolaridad)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Profesion)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.WorkArea)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Cargo)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TipoVinculacion)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TipoJornada)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.EPS)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.AFP)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ARL)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Age)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TipoSangre)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Antiguedad)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.EstadoCivil)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Conyuge)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.NumberHijos)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.StratumCategory)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Telefonos)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Email)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Direccion)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TenenciaVivienda)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Enfermedad)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Tratamiento)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.SpecialRecomendations)
+    </td>
+</tr>
+    }
+
+</table>
+<div class="container body-content">
+    <hr />
+    <footer>
+        <p>&copy; @DateTime.Now.Year - FLPCSoft</p>
+    </footer>
+</div>
