@@ -104,7 +104,7 @@ namespace WSafe.Domain.Data.Entities
         [Display(Name = "Enfermedad que padece")]
         public string Enfermedad { get; set; }
         [Display(Name = "Tratamiento que recibe")]
-        public string Tratamento { get; set; }
+        public string Tratamiento { get; set; }
         [Display(Name = "Recomendaciones especiales")]
         public string SpecialRecomendations { get; set; }
     }

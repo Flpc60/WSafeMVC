@@ -472,6 +472,18 @@
     <Compile Include="Migrations\202305261826389_UpdPlanVM.Designer.cs">
       <DependentUpon>202305261826389_UpdPlanVM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202305312003416_UpdWorkerVM.cs" />
+    <Compile Include="Migrations\202305312003416_UpdWorkerVM.Designer.cs">
+      <DependentUpon>202305312003416_UpdWorkerVM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305312220262_UpdWorkerVM2.cs" />
+    <Compile Include="Migrations\202305312220262_UpdWorkerVM2.Designer.cs">
+      <DependentUpon>202305312220262_UpdWorkerVM2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305312258325_UpdWorker2.cs" />
+    <Compile Include="Migrations\202305312258325_UpdWorker2.Designer.cs">
+      <DependentUpon>202305312258325_UpdWorker2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -897,6 +909,7 @@
     <Content Include="Views\Shared\_EditTrabajador.cshtml" />
     <Content Include="Views\Accounts\Login - Copy.cshtml" />
     <Content Include="Views\Shared\_EvalRiesgo - Copy.cshtml" />
+    <Content Include="Views\Shared\_EditTrabajador - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1152,6 +1165,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202305261826389_UpdPlanVM.resx">
       <DependentUpon>202305261826389_UpdPlanVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305312003416_UpdWorkerVM.resx">
+      <DependentUpon>202305312003416_UpdWorkerVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305312220262_UpdWorkerVM2.resx">
+      <DependentUpon>202305312220262_UpdWorkerVM2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305312258325_UpdWorker2.resx">
+      <DependentUpon>202305312258325_UpdWorker2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

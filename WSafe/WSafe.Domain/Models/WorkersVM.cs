@@ -53,7 +53,7 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int CargoID { get; set; }
         [MaxLength(20)]
-        [Display(Name = "CARGO")]
+        [Display(Name = "Cargo")]
         public IEnumerable<SelectListItem> Cargos { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string EPS { get; set; }
@@ -98,7 +98,7 @@ namespace WSafe.Web.Models
         [Display(Name = "Enfermedad que padece")]
         public string Enfermedad { get; set; }
         [Display(Name = "Tratamiento que recibe")]
-        public string Tratamento { get; set; }
+        public string Tratamiento { get; set; }
         [Display(Name = "Recomendaciones especiales")]
         public string SpecialRecomendations { get; set; }
     }
