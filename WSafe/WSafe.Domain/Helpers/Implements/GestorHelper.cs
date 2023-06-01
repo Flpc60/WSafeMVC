@@ -642,5 +642,178 @@ namespace WSafe.Domain.Helpers.Implements
             }
             return;
         }
+        public string GetEscolaridad(NivelesEscolaridad escolaridad)
+        {
+            switch (escolaridad)
+            {
+                case NivelesEscolaridad.Primaria:
+                    return "Primaria";
+
+                case NivelesEscolaridad.Secundaria:
+                    return "Secundaria";
+
+                case NivelesEscolaridad.Doctorado:
+                    return "Doctorado";
+
+                case NivelesEscolaridad.Especialización:
+                    return "Especialización";
+
+                case NivelesEscolaridad.Maestría:
+                    return "Maestría";
+
+                case NivelesEscolaridad.Tecnólogo:
+                    return "Tecnólogo";
+
+                case NivelesEscolaridad.Técnico:
+                    return "Técnico";
+
+                case NivelesEscolaridad.Profesional:
+                    return "Profesional";
+
+                default:
+                    return "Primaria";
+            }
+        }
+        public string GetWorkArea(WorkAreas area)
+        {
+            switch (area)
+            {
+                case WorkAreas.Administrativa:
+                    return "Administrativa";
+
+                case WorkAreas.Contratista:
+                    return "Contratista";
+
+                case WorkAreas.Operativa:
+                    return "Operativa";
+
+                case WorkAreas.Practicante:
+                    return "Practicante";
+
+                default:
+                    return "Administrativa";
+            }
+        }
+        public string GetTipoJornada(TiposJornada jornada)
+        {
+            switch (jornada)
+            {
+                case TiposJornada.Diurna:
+                    return "Diurna";
+
+                case TiposJornada.Nocturna:
+                    return "Nocturna";
+
+                case TiposJornada.Rotativa:
+                    return "Rotativa";
+
+                default:
+                    return "Diurna";
+            }
+        }
+        public int CalculateAge(DateTime dateOfBirth)
+        {
+            DateTime currentDate = DateTime.Now;
+            int age = currentDate.Year - dateOfBirth.Year;
+
+            // Check if the birthday has already occurred this year
+            if (currentDate.Month < dateOfBirth.Month ||
+                (currentDate.Month == dateOfBirth.Month && currentDate.Day < dateOfBirth.Day))
+            {
+                age--;
+            }
+
+            return age;
+        }
+        public string GetBloodType(TiposSangre blood)
+        {
+            switch (blood)
+            {
+                case TiposSangre.Type1:
+                    return "AB+";
+
+                case TiposSangre.Type2:
+                    return "AB-";
+
+                case TiposSangre.Type3:
+                    return "A+";
+
+                case TiposSangre.Type4:
+                    return "A-";
+
+                case TiposSangre.Type5:
+                    return "B+";
+
+                case TiposSangre.Type6:
+                    return "B-";
+
+                case TiposSangre.Type7:
+                    return "O+";
+
+                case TiposSangre.Type8:
+                    return "O-";
+
+                default:
+                    return "AB+";
+            }
+        }
+        public string GetStratum(EstratoCategories stratum)
+        {
+            switch (stratum)
+            {
+                case EstratoCategories.Estrato1:
+                    return "Estrato 1";
+
+                case EstratoCategories.Estrato2:
+                    return "Estrato 2";
+
+                case EstratoCategories.Estrato3:
+                    return "Estrato 3";
+
+                case EstratoCategories.Estrato4:
+                    return "Estrato 4";
+
+                case EstratoCategories.Estrato5:
+                    return "Estrato 5";
+
+                case EstratoCategories.Estrato6:
+                    return "Estrato 6";
+
+                case EstratoCategories.Estrato7:
+                    return "Estrato 7";
+
+                case EstratoCategories.Estrato8:
+                    return "Estrato 8";
+
+                case EstratoCategories.Estrato9:
+                    return "Estrato 9";
+
+                case EstratoCategories.Estrato10:
+                    return "Estrato 10";
+
+                default:
+                    return "Estrato 1";
+            }
+        }
+        public string GetTenenciaVivienda(TenenciasVivienda tenencia)
+        {
+            switch (tenencia)
+            {
+                case TenenciasVivienda.Propia:
+                    return "Propia";
+
+                case TenenciasVivienda.Arrendada:
+                    return "Arrendada";
+
+                case TenenciasVivienda.Familiar:
+                    return "Familiar";
+
+                case TenenciasVivienda.Otra:
+                    return "Otra";
+
+                default:
+                    return "Propia";
+            }
+        }
     }
 }

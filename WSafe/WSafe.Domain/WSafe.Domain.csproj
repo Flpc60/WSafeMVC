@@ -260,6 +260,7 @@
     <Compile Include="Models\RoleUserVM.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Models\SeguimientoAccionVM.cs" />
+    <Compile Include="Models\SocioDemographicVM.cs" />
     <Compile Include="Models\UserListVM.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\WorkersVM.cs" />

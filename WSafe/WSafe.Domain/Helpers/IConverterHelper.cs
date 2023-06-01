@@ -48,5 +48,7 @@ namespace WSafe.Domain.Helpers
         PlanActivityVM ToPlanActivityVM(PlanActivity planActivity);
         MinimalsStandardsVM ToMinimalsStandardsVM(Evaluation evaluation);
         Task<Trabajador> ToTrabajadorAsync(WorkersVM model, bool isNew);
-        WorkersVM ToTrabajadorVM(Trabajador model);    }
+        WorkersVM ToTrabajadorVM(Trabajador model);
+        IEnumerable<SocioDemographicVM> ToWorkersVM(IEnumerable<Trabajador> trabajador);
+    }   
 }

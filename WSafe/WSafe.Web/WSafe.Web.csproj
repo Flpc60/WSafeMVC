@@ -484,6 +484,18 @@
     <Compile Include="Migrations\202305312258325_UpdWorker2.Designer.cs">
       <DependentUpon>202305312258325_UpdWorker2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202306011721041_CreateSocioDemograhicVM.cs" />
+    <Compile Include="Migrations\202306011721041_CreateSocioDemograhicVM.Designer.cs">
+      <DependentUpon>202306011721041_CreateSocioDemograhicVM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202306011932473_UpdSocioDemograhicVM.cs" />
+    <Compile Include="Migrations\202306011932473_UpdSocioDemograhicVM.Designer.cs">
+      <DependentUpon>202306011932473_UpdSocioDemograhicVM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202306012142348_UpdOrganization.cs" />
+    <Compile Include="Migrations\202306012142348_UpdOrganization.Designer.cs">
+      <DependentUpon>202306012142348_UpdOrganization.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -517,6 +529,7 @@
     <Compile Include="Models\RoleUserVM.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Models\SeguimientoAccionVM.cs" />
+    <Compile Include="Models\SocioDemographicVM.cs" />
     <Compile Include="Models\UserListVM.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\WorkersVM.cs" />
@@ -910,6 +923,7 @@
     <Content Include="Views\Accounts\Login - Copy.cshtml" />
     <Content Include="Views\Shared\_EvalRiesgo - Copy.cshtml" />
     <Content Include="Views\Shared\_EditTrabajador - Copy.cshtml" />
+    <Content Include="Views\Workers\GetAll.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1174,6 +1188,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202305312258325_UpdWorker2.resx">
       <DependentUpon>202305312258325_UpdWorker2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202306011721041_CreateSocioDemograhicVM.resx">
+      <DependentUpon>202306011721041_CreateSocioDemograhicVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202306011932473_UpdSocioDemograhicVM.resx">
+      <DependentUpon>202306011932473_UpdSocioDemograhicVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202306012142348_UpdOrganization.resx">
+      <DependentUpon>202306012142348_UpdOrganization.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

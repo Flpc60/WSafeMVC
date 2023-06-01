@@ -128,5 +128,6 @@ namespace WSafe.Domain.Data.Entities
         public DateTime ControlDate { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ClientID { get; set; }
+        public int StandardSocioDemographic { get; set; }
     }
 }

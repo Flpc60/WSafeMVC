@@ -4,12 +4,15 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <br />
 <br />
 <br />
 <h4>GESTIÓN TRABAJADORES: @Session["organization"].ToString().Trim()</h4>
 <div class="container" style="margin-left:6%">
     @Html.ActionLink("Nuevo Trabajador", "Create", new { @class = "glyphicon glyphicon-plus" },
+    new { @class = "btn btn-info btn-lg active" })
+    @Html.ActionLink("Generar Perfíl Sociodemogáfico", "GenerateWorkersPdf", new { @class = "glyphicon glyphicon-download-alt" },
     new { @class = "btn btn-info btn-lg active" })
 </div>
 <br />

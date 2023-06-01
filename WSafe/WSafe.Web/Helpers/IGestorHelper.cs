@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using WSafe.Domain.Data.Entities;
 
 namespace WSafe.Domain.Helpers
@@ -32,5 +33,12 @@ namespace WSafe.Domain.Helpers
         string GetStandard(string standar);
         string GetRecurso(RecursosCategory recurso);
         void CreateFolder(string path);
+        string GetEscolaridad(NivelesEscolaridad escolaridad);
+        string GetWorkArea(WorkAreas area);
+        string GetTipoJornada(TiposJornada jornada);
+        int CalculateAge(DateTime dateOfBirth);
+        string GetBloodType(TiposSangre blood);
+        string GetStratum(EstratoCategories stratum);
+        string GetTenenciaVivienda(TenenciasVivienda tenencia);
     }
 }

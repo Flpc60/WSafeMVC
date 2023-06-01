@@ -922,7 +922,6 @@ namespace WSafe.Domain.Helpers.Implements
             }
             return model;
         }
-
         public MatrizRiesgosVM ToRiesgoVMUnit(Riesgo riesgo)
         {
             var model = new MatrizRiesgosVM
@@ -1542,7 +1541,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Email = model.Email,
                 Enfermedad = model.Enfermedad,
                 Tratamiento = model.Tratamiento,
-                SpecialRecomendations = model.SpecialRecomendations
+                SpecialRecomendations = model.SpecialRecomendations,
+                Escolaridad = model.Escolaridad
         };
             return result;
         }
@@ -1583,9 +1583,51 @@ namespace WSafe.Domain.Helpers.Implements
                 Email = model.Email,
                 Enfermedad = model.Enfermedad,
                 Tratamiento = model.Tratamiento,
-                SpecialRecomendations = model.SpecialRecomendations
+                SpecialRecomendations = model.SpecialRecomendations,
+                Escolaridad = model.Escolaridad
             };
             return result;
+        }
+
+        public IEnumerable<SocioDemographicVM> ToWorkersVM(IEnumerable<Trabajador> trabajador)
+        {
+            var model = new List<SocioDemographicVM>();
+            foreach (var item in trabajador)
+            {
+                model.Add(new SocioDemographicVM
+                {
+                    ID = item.ID,
+                    Genero = _gestorHelper.GetGenero(item.Genero),
+                    Documento = item.Documento,
+                    FullName = _empresaContext.Trabajadores.Find(item.ID).NombreCompleto,
+                    FechaNacimiento = item.FechaNacimiento.ToString("yyyy-MM-dd"),
+                    FechaIngreso = item.FechaIngreso.ToString("yyyy-MM-dd"),
+                    Escolaridad = _gestorHelper.GetEscolaridad(item.Escolaridad),
+                    Profesion = item.Profesion,
+                    WorkArea = _gestorHelper.GetWorkArea(item.WorkArea),
+                    Cargo = _empresaContext.Cargos.Find(item.CargoID).Descripcion,
+                    TipoVinculacion = _gestorHelper.GetTipoVinculacion(item.TipoVinculacion),
+                    TipoJornada = _gestorHelper.GetTipoJornada(item.TipoJornada),
+                    EPS = item.EPS,
+                    AFP = item.AFP,
+                    ARL = item.ARL,
+                    Age = _gestorHelper.CalculateAge(item.FechaNacimiento).ToString(),
+                    TipoSangre = _gestorHelper.GetBloodType(item.TipoSangre),
+                    Antiguedad = _gestorHelper.CalculateAge(item.FechaIngreso).ToString(),
+                    EstadoCivil = _gestorHelper.GetEstadoCivil(item.EstadoCivil),
+                    Conyuge = item.Conyuge,
+                    NumberHijos = item.NumberHijos.ToString(),
+                    StratumCategory = _gestorHelper.GetStratum(item.StratumCategory),
+                    Telefonos = item.Telefonos,
+                    Email = item.Email,
+                    Direccion = item.Direccion,
+                    TenenciaVivienda = _gestorHelper.GetTenenciaVivienda(item.TenenciaVivienda),
+                    Enfermedad = item.Enfermedad,
+                    Tratamiento = item.Tratamiento,
+                    SpecialRecomendations = item.SpecialRecomendations
+                });
+            }
+            return model;
         }
     }
 }
