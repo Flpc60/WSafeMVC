@@ -6334,7 +6334,7 @@ function factorRisk() {
                                 '#0EF0D8',
                                 '#0EA5F0',
                                 '#0E3BF0',
-                                '#670EF0)'
+                                '#670EF0'
                             ],
                         },
                     ]
@@ -6358,6 +6358,414 @@ function factorRisk() {
                     title: {
                         display: true,
                         text: 'FACTOR RIESGO OCUPACIONAL'
+                    }
+                }
+            });
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function escolaridadIndicator() {
+    // Gráficar escolaridad
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: "/Indicadores/GetScholarship",
+        data: {
+            year: $("#txtYear").val()
+        },
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (data) {
+            var arrayLabel = [];
+            var arrayData1 = [];
+            for (var i = 0; i < data.length; i++) {
+                arrayLabel.push(data[i].MesAnn);
+                arrayData1.push(data[i].Resultado);
+            }
+            const ctx = document.getElementById("Escolaridad").getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: arrayLabel,
+                    datasets: [
+                        {
+                            label: "CATEGORIAS",
+                            data: arrayData1,
+                            backgroundColor: [
+                                '#F0410E',
+                                '#E9F00E',
+                                '#56F00E',
+                                '#0EF0D8',
+                                '#0EA5F0',
+                                '#0E3BF0',
+                                '#670EF0',
+                                '#0EA5F0'
+                            ],
+                        },
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'ESCOLARIDAD'
+                    }
+                }
+            });
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function workAreaIndicator() {
+    // Gráficar escolaridad
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: "/Indicadores/GetWorkAreas",
+        data: {
+            year: $("#txtYear").val()
+        },
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (data) {
+            var arrayLabel = [];
+            var arrayData1 = [];
+            for (var i = 0; i < data.length; i++) {
+                arrayLabel.push(data[i].MesAnn);
+                arrayData1.push(data[i].Resultado);
+            }
+            const ctx = document.getElementById("workArea").getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: arrayLabel,
+                    datasets: [
+                        {
+                            label: "CATEGORIAS",
+                            data: arrayData1,
+                            backgroundColor: [
+                                '#F0410E',
+                                '#E9F00E',
+                                '#56F00E',
+                                '#0EA5F0'
+                            ],
+                        },
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'AREAS DE TRABAJO'
+                    }
+                }
+            });
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function ocupacionIndicator() {
+    // Gráficar ocupación
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: "/Indicadores/GetOcupaciones",
+        data: {
+            year: $("#txtYear").val()
+        },
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (data) {
+            var arrayLabel = [];
+            var arrayData1 = [];
+            for (var i = 0; i < data.length; i++) {
+                arrayLabel.push(data[i].MesAnn);
+                arrayData1.push(data[i].Resultado);
+            }
+            const ctx = document.getElementById("Ocupacion").getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: arrayLabel,
+                    datasets: [
+                        {
+                            label: "CATEGORIAS",
+                            data: arrayData1,
+                            backgroundColor: [
+                                '#F0410E',
+                                '#E9F00E',
+                                '#56F00E',
+                                '#0EF0D8',
+                                '#0EA5F0',
+                                '#0E3BF0',
+                                '#670EF0',
+                                '#0EA5F0'
+                            ],
+                        },
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'OCUPACIÓN'
+                    }
+                }
+            });
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function tipoVinculacionIndicator() {
+    // Gráficar tipo vinculación
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: "/Indicadores/GetTiposVinculacion",
+        data: {
+            year: $("#txtYear").val()
+        },
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (data) {
+            var arrayLabel = [];
+            var arrayData1 = [];
+            for (var i = 0; i < data.length; i++) {
+                arrayLabel.push(data[i].MesAnn);
+                arrayData1.push(data[i].Resultado);
+            }
+            const ctx = document.getElementById("Vinculación").getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: arrayLabel,
+                    datasets: [
+                        {
+                            label: "CATEGORIAS",
+                            data: arrayData1,
+                            backgroundColor: [
+                                '#F0410E',
+                                '#E9F00E',
+                                '#56F00E',
+                                '#0EF0D8',
+                                '#0EA5F0',
+                                '#0E3BF0'
+                            ],
+                        },
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'TIPOS VINCULACIÓN'
+                    }
+                }
+            });
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function estadoCivilIndicator() {
+    // Gráficar estado civil
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: "/Indicadores/GetEstadosCivil",
+        data: {
+            year: $("#txtYear").val()
+        },
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (data) {
+            var arrayLabel = [];
+            var arrayData1 = [];
+            for (var i = 0; i < data.length; i++) {
+                arrayLabel.push(data[i].MesAnn);
+                arrayData1.push(data[i].Resultado);
+            }
+            const ctx = document.getElementById("estadoCivil").getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: arrayLabel,
+                    datasets: [
+                        {
+                            label: "CATEGORIAS",
+                            data: arrayData1,
+                            backgroundColor: [
+                                '#F0410E',
+                                '#E9F00E',
+                                '#56F00E',
+                                '#0EF0D8',
+                                '#0EA5F0',
+                                '#0E3BF0'
+                            ],
+                        },
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'ESTADO CIVIL'
+                    }
+                }
+            });
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function tipoViviendaIndicator() {
+    // Gráficar tipo vivienda
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: "/Indicadores/GetTiposVivienda",
+        data: {
+            year: $("#txtYear").val()
+        },
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (data) {
+            var arrayLabel = [];
+            var arrayData1 = [];
+            for (var i = 0; i < data.length; i++) {
+                arrayLabel.push(data[i].MesAnn);
+                arrayData1.push(data[i].Resultado);
+            }
+            const ctx = document.getElementById("tipoVivienda").getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: arrayLabel,
+                    datasets: [
+                        {
+                            label: "CATEGORIAS",
+                            data: arrayData1,
+                            backgroundColor: [
+                                '#56F00E',
+                                '#0EF0D8',
+                                '#0EA5F0',
+                                '#0E3BF0'
+                            ],
+                        },
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'TENENCIA VIVIENDA'
                     }
                 }
             });

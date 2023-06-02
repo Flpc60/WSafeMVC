@@ -27,5 +27,11 @@ namespace WSafe.Domain.Helpers
         IEnumerable<IndicadorDetallesViewModel> GetAllCalifications(int id);
         IEnumerable<IndicadorDetallesViewModel> GetAllCalificationsStandard(int id);
         IEnumerable<IndicadorDetallesViewModel> GetAllEfectiveActions(int year, int _orgID);
+        IEnumerable<IndicadorDetallesViewModel> GetAllScholarship(int year, int _orgID);
+        IEnumerable<IndicadorDetallesViewModel> GetAllWorkAreas(int year, int _orgID);
+        IEnumerable<IndicadorDetallesViewModel> GetAllOcupaciones(int year, int _orgID);
+        IEnumerable<IndicadorDetallesViewModel> GetAllTiposVinculacion(int year, int _orgID);
+        IEnumerable<IndicadorDetallesViewModel> GetAllEstadosCivil(int year, int _orgID);
+        IEnumerable<IndicadorDetallesViewModel> GetAllTiposVivienda(int year, int _orgID);
     }
 }

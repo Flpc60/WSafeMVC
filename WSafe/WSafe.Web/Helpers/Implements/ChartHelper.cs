@@ -14,10 +14,12 @@ namespace WSafe.Domain.Helpers.Implements
         // Construir gráficas
         private readonly EmpresaContext _empresaContext;
         private readonly IndicadorHelper _indicadorHelper;
-        public ChartHelper(EmpresaContext empresaContext, IndicadorHelper indicadorHelper)
+        private readonly GestorHelper _gestorHelper;
+        public ChartHelper(EmpresaContext empresaContext, IndicadorHelper indicadorHelper, GestorHelper gestorHelper)
         {
             _empresaContext = empresaContext;
             _indicadorHelper = indicadorHelper;
+            _gestorHelper = gestorHelper;
         }
         public void DrawImagen(string archivo, string tipo, string nombre, IEnumerable<IndicadorDetallesViewModel> lista)
         {
@@ -952,6 +954,174 @@ namespace WSafe.Domain.Helpers.Implements
                     Resultado = pNotEfectives
                 });
 
+                return viewModel;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
+        }
+        public IEnumerable<IndicadorDetallesViewModel> GetAllScholarship(int year, int _orgID)
+        {
+            try
+            {
+                var result = from t in _empresaContext.Trabajadores
+                             where t.OrganizationID == _orgID
+                             group t by new { t.Escolaridad } into datosAgrupados
+                             orderby datosAgrupados.Count() ascending
+                             select new { Clave = datosAgrupados.Key, Datos = datosAgrupados };
+
+                var viewModel = new List<IndicadorDetallesViewModel>();
+                foreach (var grupo in result)
+                {
+                    viewModel.Add(new IndicadorDetallesViewModel
+                    {
+                        MesAnn = grupo.Clave.Escolaridad.ToString(),
+                        Numerador = grupo.Datos.Count(),
+                        Denominador = 1,
+                        Resultado = grupo.Datos.Count()
+                    });
+                }
+                return viewModel;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
+        }
+        public IEnumerable<IndicadorDetallesViewModel> GetAllWorkAreas(int year, int _orgID)
+        {
+            try
+            {
+                var result = from t in _empresaContext.Trabajadores
+                             where t.OrganizationID == _orgID
+                             group t by new { t.WorkArea } into datosAgrupados
+                             orderby datosAgrupados.Count() ascending
+                             select new { Clave = datosAgrupados.Key, Datos = datosAgrupados };
+
+                var viewModel = new List<IndicadorDetallesViewModel>();
+                foreach (var grupo in result)
+                {
+                    viewModel.Add(new IndicadorDetallesViewModel
+                    {
+                        MesAnn = grupo.Clave.WorkArea.ToString(),
+                        Numerador = grupo.Datos.Count(),
+                        Denominador = 1,
+                        Resultado = grupo.Datos.Count()
+                    });
+                }
+                return viewModel;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
+        }
+        public IEnumerable<IndicadorDetallesViewModel> GetAllOcupaciones(int year, int _orgID)
+        {
+            try
+            {
+                var result = from t in _empresaContext.Trabajadores
+                             where t.OrganizationID == _orgID
+                             group t by new { t.CargoID } into datosAgrupados
+                             orderby datosAgrupados.Count() ascending
+                             select new { Clave = datosAgrupados.Key, Datos = datosAgrupados };
+
+                var viewModel = new List<IndicadorDetallesViewModel>();
+                foreach (var grupo in result)
+                {
+                    viewModel.Add(new IndicadorDetallesViewModel
+                    {
+                        MesAnn = _empresaContext.Cargos.Find(grupo.Clave.CargoID).Descripcion,
+                        Numerador = grupo.Datos.Count(),
+                        Denominador = 1,
+                        Resultado = grupo.Datos.Count()
+                    });
+                }
+                return viewModel;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
+        }
+        public IEnumerable<IndicadorDetallesViewModel> GetAllTiposVinculacion(int year, int _orgID)
+        {
+            try
+            {
+                var result = from t in _empresaContext.Trabajadores
+                             where t.OrganizationID == _orgID
+                             group t by new { t.TipoVinculacion } into datosAgrupados
+                             orderby datosAgrupados.Count() ascending
+                             select new { Clave = datosAgrupados.Key, Datos = datosAgrupados };
+
+                var viewModel = new List<IndicadorDetallesViewModel>();
+                foreach (var grupo in result)
+                {
+                    viewModel.Add(new IndicadorDetallesViewModel
+                    {
+                        MesAnn = grupo.Clave.TipoVinculacion.ToString(),
+                        Numerador = grupo.Datos.Count(),
+                        Denominador = 1,
+                        Resultado = grupo.Datos.Count()
+                    });
+                }
+                return viewModel;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
+        }
+        public IEnumerable<IndicadorDetallesViewModel> GetAllEstadosCivil(int year, int _orgID)
+        {
+            try
+            {
+                var result = from t in _empresaContext.Trabajadores
+                             where t.OrganizationID == _orgID
+                             group t by new { t.EstadoCivil } into datosAgrupados
+                             orderby datosAgrupados.Count() ascending
+                             select new { Clave = datosAgrupados.Key, Datos = datosAgrupados };
+
+                var viewModel = new List<IndicadorDetallesViewModel>();
+                foreach (var grupo in result)
+                {
+                    viewModel.Add(new IndicadorDetallesViewModel
+                    {
+                        MesAnn = grupo.Clave.EstadoCivil.ToString(),
+                        Numerador = grupo.Datos.Count(),
+                        Denominador = 1,
+                        Resultado = grupo.Datos.Count()
+                    });
+                }
+                return viewModel;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
+        }
+        public IEnumerable<IndicadorDetallesViewModel> GetAllTiposVivienda(int year, int _orgID)
+        {
+            try
+            {
+                var result = from t in _empresaContext.Trabajadores
+                             where t.OrganizationID == _orgID
+                             group t by new { t.TenenciaVivienda } into datosAgrupados
+                             orderby datosAgrupados.Count() ascending
+                             select new { Clave = datosAgrupados.Key, Datos = datosAgrupados };
+
+                var viewModel = new List<IndicadorDetallesViewModel>();
+                foreach (var grupo in result)
+                {
+                    viewModel.Add(new IndicadorDetallesViewModel
+                    {
+                        MesAnn = grupo.Clave.TenenciaVivienda.ToString(),
+                        Numerador = grupo.Datos.Count(),
+                        Denominador = 1,
+                        Resultado = grupo.Datos.Count()
+                    });
+                }
                 return viewModel;
             }
             catch (DbEntityValidationException ex)
