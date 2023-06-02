@@ -498,5 +498,47 @@ namespace WSafe.Web.Controllers
                 return View("Error", new HandleErrorInfo(ex, "Indicadores", "Index"));
             }
         }
+
+        [HttpGet]
+        public ActionResult GetTiposJornada(int year)
+        {
+            try
+            {
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
+                Random random = new Random();
+                var filename = "chart" + random.Next(1, 100) + ".jpg";
+                var filePathName = "~/Images/" + filename;
+                var datos = _chartHelper.GetAllTiposJornada(year, _orgID);
+                var image = "/Images/" + filename;
+                return Json(datos, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Indicadores", "Index"));
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetNumeroHijos(int year)
+        {
+            try
+            {
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
+                Random random = new Random();
+                var filename = "chart" + random.Next(1, 100) + ".jpg";
+                var filePathName = "~/Images/" + filename;
+                var datos = _chartHelper.GetAllNumeroHijos(year, _orgID);
+                var image = "/Images/" + filename;
+                return Json(datos, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Indicadores", "Index"));
+            }
+        }
     }
 }

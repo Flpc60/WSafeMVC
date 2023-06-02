@@ -1129,5 +1129,61 @@ namespace WSafe.Domain.Helpers.Implements
                 throw ex;
             }
         }
+        public IEnumerable<IndicadorDetallesViewModel> GetAllTiposJornada(int year, int _orgID)
+        {
+            try
+            {
+                var result = from t in _empresaContext.Trabajadores
+                             where t.OrganizationID == _orgID
+                             group t by new { t.TipoJornada } into datosAgrupados
+                             orderby datosAgrupados.Count() ascending
+                             select new { Clave = datosAgrupados.Key, Datos = datosAgrupados };
+
+                var viewModel = new List<IndicadorDetallesViewModel>();
+                foreach (var grupo in result)
+                {
+                    viewModel.Add(new IndicadorDetallesViewModel
+                    {
+                        MesAnn = grupo.Clave.TipoJornada.ToString(),
+                        Numerador = grupo.Datos.Count(),
+                        Denominador = 1,
+                        Resultado = grupo.Datos.Count()
+                    });
+                }
+                return viewModel;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
+        }
+        public IEnumerable<IndicadorDetallesViewModel> GetAllNumeroHijos(int year, int _orgID)
+        {
+            try
+            {
+                var result = from t in _empresaContext.Trabajadores
+                             where t.OrganizationID == _orgID
+                             group t by new { t.NumberHijos } into datosAgrupados
+                             orderby datosAgrupados.Count() ascending
+                             select new { Clave = datosAgrupados.Key, Datos = datosAgrupados };
+
+                var viewModel = new List<IndicadorDetallesViewModel>();
+                foreach (var grupo in result)
+                {
+                    viewModel.Add(new IndicadorDetallesViewModel
+                    {
+                        MesAnn = grupo.Clave.NumberHijos.ToString(),
+                        Numerador = grupo.Datos.Count(),
+                        Denominador = 1,
+                        Resultado = grupo.Datos.Count()
+                    });
+                }
+                return viewModel;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
