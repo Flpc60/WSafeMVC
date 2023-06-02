@@ -1541,7 +1541,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Email = model.Email,
                 Enfermedad = model.Enfermedad,
                 Tratamiento = model.Tratamiento,
-                SpecialRecomendations = model.SpecialRecomendations
+                SpecialRecomendations = model.SpecialRecomendations,
+                Escolaridad = model.Escolaridad
         };
             return result;
         }
@@ -1582,7 +1583,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Email = model.Email,
                 Enfermedad = model.Enfermedad,
                 Tratamiento = model.Tratamiento,
-                SpecialRecomendations = model.SpecialRecomendations
+                SpecialRecomendations = model.SpecialRecomendations,
+                Escolaridad = model.Escolaridad
             };
             return result;
         }
