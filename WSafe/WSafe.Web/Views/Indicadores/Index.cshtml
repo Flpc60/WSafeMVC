@@ -96,6 +96,16 @@
     <button type="button" id="btnFactorRisk" class="btn btn-success" onclick="factorRisk()"><i class="fa fa-search"></i> FACTOR RIESGO OCUPACIONAL</button>
     <button type="button" id="btnProportionActions" class="btn btn-success" onclick="proportionActions()"><i class="fa fa-search"></i> PROPORCIÓN DE ACCIONES CPM</button>
     <hr />
+    <button type="button" id="btnEscolaridad" class="btn btn-success" onclick="escolaridadIndicator()"><i class="fa fa-search"></i> ESCOLARIDAD</button>
+    <button type="button" id="btnArea" class="btn btn-success" onclick="workAreaIndicator()"><i class="fa fa-search"></i> AREA DE TRABAJO</button>
+    <button type="button" id="btnOcupacion" class="btn btn-success" onclick="ocupacionIndicator()"><i class="fa fa-search"></i> OCUPACIÓN</button>
+    <button type="button" id="btnVinculacion" class="btn btn-success" onclick="tipoVinculacionIndicator()"><i class="fa fa-search"></i> TIPO VINCULACIÓN</button>
+    <hr />
+    <button type="button" id="btnestadoCivil" class="btn btn-success" onclick="estadoCivilIndicator()"><i class="fa fa-search"></i> ESTADO CIVIL</button>
+    <button type="button" id="btntipoVivienda" class="btn btn-success" onclick="tipoViviendaIndicator()"><i class="fa fa-search"></i> TIPO VIVIENDA</button>
+    <button type="button" id="btnFactorRisk" class="btn btn-success" onclick="tipoJornadaIndicator()"><i class="fa fa-search"></i> TIPO JORNADA</button>
+    <button type="button" id="btnProportionActions" class="btn btn-success" onclick="numeroHijos()"><i class="fa fa-search"></i> NÚMERO HIJOS</button>
+    <hr />
     <div class="row">
         <div class="col-md-6">
             <div><canvas id="atFrecuencia" width="200" height="100"></canvas></div>
@@ -113,6 +123,7 @@
             <div><canvas id="Prevalence" width="200" height="100"></canvas></div>
         </div>
     </div>
+    <hr />
     <div class="row">
         <div class="col-md-6">
             <div><canvas id="Incidence" width="200" height="100"></canvas></div>
@@ -121,12 +132,40 @@
             <div><canvas id="Ausentismo" width="200" height="100"></canvas></div>
         </div>
     </div>
+    <hr />
     <div class="row">
         <div class="col-md-6">
             <div><canvas id="FactorRisk" width="200" height="100"></canvas></div>
         </div>
         <div class="col-md-6">
             <div><canvas id="ProportionActions" width="200" height="100"></canvas></div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <div><canvas id="Escolaridad" width="200" height="100"></canvas></div>
+        </div>
+        <div class="col-md-6">
+            <div><canvas id="workArea" width="200" height="100"></canvas></div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <div><canvas id="Ocupacion" width="200" height="100"></canvas></div>
+        </div>
+        <div class="col-md-6">
+            <div><canvas id="Vinculación" width="200" height="100"></canvas></div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <div><canvas id="estadoCivil" width="200" height="100"></canvas></div>
+        </div>
+        <div class="col-md-6">
+            <div><canvas id="tipoVivienda" width="200" height="100"></canvas></div>
         </div>
     </div>
 </div>
