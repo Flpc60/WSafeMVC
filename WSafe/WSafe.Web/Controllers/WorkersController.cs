@@ -1,5 +1,6 @@
 ﻿using Rotativa;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
@@ -68,6 +69,11 @@ namespace WSafe.Web.Controllers
         {
             try
             {
+                if (!ValidateModel(model))
+                {
+                    model.Cargos = _comboHelper.GetCargosAll();
+                    return View(model);
+                }
                 model.ClientID = (int)Session["clientID"];
                 model.OrganizationID = (int)Session["orgID"];
                 model.UserID = (int)Session["userID"];
@@ -79,12 +85,17 @@ namespace WSafe.Web.Controllers
                     await _empresaContext.SaveChangesAsync();
                     return RedirectToAction("Index");
                 }
+                else
+                {
+                    model.Cargos = _comboHelper.GetCargosAll();
+                    return View(model);
+                }
             }
             catch (Exception ex)
             {
                 return View("Error", new HandleErrorInfo(ex, "Trabajadores", "Index"));
             }
-            return View(model);
+            //return View(model);
         }
 
         // GET: Workers/Edit/5
@@ -111,6 +122,12 @@ namespace WSafe.Web.Controllers
         {
             try
             {
+                if (!ValidateModel(model))
+                {
+                    model.Cargos = _comboHelper.GetCargosAll();
+                    return View(model);
+                }
+
                 if (ModelState.IsValid)
                 {
                     Trabajador trabajador = await _converterHelper.ToTrabajadorAsync(model, false);
@@ -118,12 +135,17 @@ namespace WSafe.Web.Controllers
                     await _empresaContext.SaveChangesAsync();
                     return RedirectToAction("Index");
                 }
+                else
+                {
+                    model.Cargos = _comboHelper.GetCargosAll();
+                    return View(model);
+                }
             }
             catch (Exception ex)
             {
                 return View("Error", new HandleErrorInfo(ex, "Trabajadores", "Delete"));
             }
-            return View(model);
+            //return View(model);
         }
 
         // GET: Workers/Delete/5
@@ -231,6 +253,22 @@ namespace WSafe.Web.Controllers
             {
                 return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
             }
+        }
+        public static bool ValidateModel(WorkersVM model)
+        {
+            if(model.DocumentType == 0) { return false; }
+            if (model.CargoID == 0) { return false; }
+            if (model.Escolaridad == 0) { return false; }
+            if (model.EstadoCivil == 0) { return false; }
+            if (model.Genero == 0) { return false; }
+            if (model.StratumCategory == 0) { return false; }
+            if (model.TenenciaVivienda == 0) { return false; }
+            if (model.TipoJornada == 0) { return false; }
+            if (model.TipoSangre == 0) { return false; }
+            if (model.TipoVinculacion == 0) { return false; }
+            if (model.WorkArea == 0) { return false; }
+
+            return true;
         }
         protected override void Dispose(bool disposing)
         {
