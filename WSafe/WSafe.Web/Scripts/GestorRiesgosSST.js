@@ -1735,7 +1735,44 @@ function UpdateSigueAcc() {
     });
 }
 
+function validateRisk() {
+    var fields = [
+        { id: "zona", message: "El contenido de la zona es obligatorio" },
+        { id: "proceso", message: "El contenido del proceso es obligatorio" },
+        { id: "activity", message: "El contenido de la actividad es obligatorio" },
+        { id: "tarea", message: "El contenido de la tarea es obligatorio" },
+        { id: "txtRutinaria", message: "El contenido de rutinaria es obligatorio" },
+        { id: "categoria", message: "El contenido de la categoria es obligatorio" },
+        { id: "peligro", message: "El contenido del peligro es obligatorio" },
+        { id: "txtEfectos", message: "El contenido de efectos psibles es obligatorio" },
+        { id: "exposicion", message: "El contenido de exposición es obligatorio" },
+        { id: "consecuencia", message: "El contenido de la consecuencia es obligatorio" },
+        { id: "txtExpuestos", message: "El contenido de número de expuestos es obligatorio" },
+        { id: "txtDanger", message: "El contenido de categoría daño es obligatorio" }
+    ];
+
+    for (var i = 0; i < fields.length; i++) {
+        var field = fields[i];
+        var value = $("#" + field.id).val();
+
+        if (value == "" || value == 0) {
+            document.getElementById("txtInfoRisk").innerHTML = field.message;
+            $("#" + field.id).focus();
+            return false;
+        }
+    }
+
+    document.getElementById("txtInfoRisk").innerHTML = "";
+    return true;
+
+}
+
 function AddNewRiesgo() {
+    // Ingresar nuevo risk
+    if (!validateRisk()) {
+        return false;
+    }
+
     $(".tabPeligros").css("display", "none");
     if ($("#txtRequisito").is(':checked')) {
         $("#txtRequisito").val(true)
@@ -1794,6 +1831,11 @@ function AddNewRiesgo() {
 }
 
 function UpdateRiesgo() {
+    // Actualizar risk
+    if (!validateRisk()) {
+        return false;
+    }
+
     $(".tabPeligros").css("display", "none");
     if ($("#txtRequisito").is(':checked')) {
         $("#txtRequisito").val(true)
