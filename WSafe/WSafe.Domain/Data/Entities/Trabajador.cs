@@ -94,7 +94,6 @@ namespace WSafe.Domain.Data.Entities
         public int NumberHijos { get; set; }
         [Display(Name = "Estrato socioeconómico")]
         public EstratoCategories StratumCategory { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Correo electrónico")]
         [MaxLength(50)]
         public string Email { get; set; }

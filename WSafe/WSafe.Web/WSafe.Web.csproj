@@ -468,6 +468,18 @@
     <Compile Include="Migrations\202306022123249_UpdIndicatorVM.Designer.cs">
       <DependentUpon>202306022123249_UpdIndicatorVM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202306031047086_UpdWorkerVM.cs" />
+    <Compile Include="Migrations\202306031047086_UpdWorkerVM.Designer.cs">
+      <DependentUpon>202306031047086_UpdWorkerVM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202306031120128_UpdWorkerVM1.cs" />
+    <Compile Include="Migrations\202306031120128_UpdWorkerVM1.Designer.cs">
+      <DependentUpon>202306031120128_UpdWorkerVM1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202306031545034_UpdateWorker.cs" />
+    <Compile Include="Migrations\202306031545034_UpdateWorker.Designer.cs">
+      <DependentUpon>202306031545034_UpdateWorker.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -1154,6 +1166,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202306022123249_UpdIndicatorVM.resx">
       <DependentUpon>202306022123249_UpdIndicatorVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202306031047086_UpdWorkerVM.resx">
+      <DependentUpon>202306031047086_UpdWorkerVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202306031120128_UpdWorkerVM1.resx">
+      <DependentUpon>202306031120128_UpdWorkerVM1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202306031545034_UpdateWorker.resx">
+      <DependentUpon>202306031545034_UpdateWorker.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

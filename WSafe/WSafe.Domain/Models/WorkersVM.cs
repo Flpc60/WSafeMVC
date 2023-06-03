@@ -80,15 +80,16 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Tipo jornada")]
         public TiposJornada TipoJornada { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Tipo de sangre")]
         public TiposSangre TipoSangre { get; set; }
         [Display(Name = "Nombre del conyuge")]
         public string Conyuge { get; set; }
         [Display(Name = "Número de hijos")]
         public int NumberHijos { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Estrato socioeconómico")]
         public EstratoCategories StratumCategory { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Correo electrónico")]
         [MaxLength(50)]
         public string Email { get; set; }
