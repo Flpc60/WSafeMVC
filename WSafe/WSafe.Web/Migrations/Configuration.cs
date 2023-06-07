@@ -6,7 +6,7 @@ namespace WSafe.Web.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(WSafe.Web.Models.EmpresaContext context)
