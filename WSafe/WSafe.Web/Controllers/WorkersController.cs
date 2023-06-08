@@ -1,4 +1,5 @@
-﻿using Rotativa;
+﻿using Microsoft.IdentityModel.Tokens;
+using Rotativa;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -69,15 +70,15 @@ namespace WSafe.Web.Controllers
         {
             try
             {
-                if (!ValidateModel(model))
-                {
-                    model.Cargos = _comboHelper.GetCargosAll();
-                    return View(model);
-                }
+                model.Cargos = _comboHelper.GetCargosAll();
+                model.FechaRetiro = Convert.ToDateTime("01/01/2090");
                 model.ClientID = (int)Session["clientID"];
                 model.OrganizationID = (int)Session["orgID"];
                 model.UserID = (int)Session["userID"];
-                model.FechaRetiro = Convert.ToDateTime("01/01/2090");
+                if (!ValidateModel(model))
+                {
+                    return View(model);
+                }
                 if (ModelState.IsValid)
                 {
                     Trabajador trabajador = await _converterHelper.ToTrabajadorAsync(model, true);
@@ -256,17 +257,29 @@ namespace WSafe.Web.Controllers
         }
         public static bool ValidateModel(WorkersVM model)
         {
-            if(model.DocumentType == 0) { return false; }
-            if (model.CargoID == 0) { return false; }
-            if (model.Escolaridad == 0) { return false; }
-            if (model.EstadoCivil == 0) { return false; }
-            if (model.Genero == 0) { return false; }
-            if (model.StratumCategory == 0) { return false; }
-            if (model.TenenciaVivienda == 0) { return false; }
-            if (model.TipoJornada == 0) { return false; }
-            if (model.TipoSangre == 0) { return false; }
-            if (model.TipoVinculacion == 0) { return false; }
-            if (model.WorkArea == 0) { return false; }
+            var properties = typeof(WorkersVM).GetProperties();
+
+            foreach (var property in properties)
+            {
+                var value = property.GetValue(model);
+
+                if(property.Name != "ID" && property.Name != "NumberHijos" && property.Name != "SegundoApellido" && property.Name != "Conyuge" && property.Name != "Email")
+                {
+                    if (value is int intValue && intValue == 0)
+                    {
+                        return false;
+                    }
+                    else if (value is DateTime dateTimeValue && dateTimeValue == DateTime.MinValue)
+                    {
+                        return false;
+                    }
+                    else if (value == null || string.IsNullOrEmpty(value.ToString()))
+                    {
+                        return false;
+                    }
+                }
+
+            }
 
             return true;
         }
