@@ -73,7 +73,6 @@ namespace WSafe.Web.Controllers
         [AuthorizeUser(operation: 3, component: 4)]
         public async Task<ActionResult> Edit(int? id)
         {
-            //TODO
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

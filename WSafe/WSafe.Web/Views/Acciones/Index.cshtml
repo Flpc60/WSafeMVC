@@ -9,14 +9,40 @@
     }
 </style>
 
-<br />
-<br />
-<br />
 <h4>GESTIÓN DE ACCIONES CPM</h4>
-<div class="container" style="margin-left:6%">
-    @Html.ActionLink("Nueva Acción", "Create", new { @class = "glyphicon glyphicon-plus" },
-    new { @class = "btn btn-info btn-lg active" })
-    <button class="btn btn-info btn-lg active" onclick="FindActions()">Consultar Acciones</button><br>
+<hr />
+<div class="container">
+    <div class="row align-items-center">
+        <div class="col-md-2">
+            NÚMERO TRABAJADORES : @Session["numeroTrabajadores"].ToString().Trim()
+        </div>
+        <div class="col-md-2">
+            CLASE RIESGO : @Session["riesgo"].ToString().Trim()
+        </div>
+        <div class="col-md-3">
+            HORARIO : @Session["turnoOperativo"].ToString().Trim()
+        </div>
+        <div class="col-md-2">
+            PERIODO : @Session["year"].ToString().Trim()
+        </div>
+        <div class="col-md-3">
+            RESPONSABLE SG-SST : @Session["responsable"].ToString().Trim()
+        </div>
+    </div>
+</div>
+<hr />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            @Html.ActionLink("Nueva acción", "Create", null, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-plus" })
+        </div>
+        <div class="col-md-4">
+            <button class="btn btn-success btn-lg active glyphicon glyphicon-search" onclick="FindActions()">Consultar Acciones</button><br>
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
 </div>
 <br />
 
@@ -112,11 +138,11 @@
 </div>
 
 <div class="tabConsActions">
-    <div class="container" style="margin-left:6%">
-        <button type="button" id="noConformance" class="btn btn-secondary btn-lg" onclick="chartNoConformance()"></button>
-        <button type="button" id="numActions" class="btn btn-secondary btn-lg" onclick="chartActions()"></button>
-        <button type="button" id="numCorrective" class="btn btn-secondary btn-lg" onclick="chartCorrectiveActions()"></button>
-        <button type="button" id="numEfectives" class="btn btn-secondary btn-lg" onclick="chartEfectiveActions()"></button>
+    <div class="container">
+        <button type="button" id="noConformance" class="btn btn-success btn-lg active glyphicon glyphicon-search" onclick="chartNoConformance()"></button>
+        <button type="button" id="numActions" class="btn btn-success btn-lg active glyphicon glyphicon-search" onclick="chartActions()"></button>
+        <button type="button" id="numCorrective" class="btn btn-success btn-lg active glyphicon glyphicon-search" onclick="chartCorrectiveActions()"></button>
+        <button type="button" id="numEfectives" class="btn btn-success btn-lg active glyphicon glyphicon-search" onclick="chartEfectiveActions()"></button>
         <hr />
         <div class="row">
             <div class="col-md-6">

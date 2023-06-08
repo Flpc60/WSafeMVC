@@ -6,65 +6,61 @@
 }
 
 <h4>GESTIÓN TRABAJADORES: @Session["organization"].ToString().Trim()</h4>
-<div class="container">
-    <div class="row">
-        <div class="col-md-6">
-            @Html.ActionLink("Nuevo Trabajador", "Create", null, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-plus" })
-        </div>
-        <div class="col-md-6">
-            @Html.ActionLink("Generar Perfíl Sociodemogáfico", "GenerateWorkersPdf", null, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-download-alt" })
-        </div>
+<div class="container" style="margin-left:6%">
+    @Html.ActionLink("Nuevo Trabajador", "Create", new { @class = "glyphicon glyphicon-plus" },
+    new { @class = "btn btn-info btn-lg active" })
+    @Html.ActionLink("Generar Perfíl Sociodemogáfico", "GenerateWorkersPdf", new { @class = "glyphicon glyphicon-download-alt" },
+    new { @class = "btn btn-info btn-lg active" })
+</div>
+
+<br />
+
+<div class="row" style="margin-left:6%">
+    <div class="col-md-4">
+        NÚMERO TRABAJADORES : @Session["numeroTrabajadores"].ToString().Trim()
+    </div>
+    <div class="col-md-4">
+        HORARIO DE TRABAJO : @Session["turnoOperativo"].ToString().Trim()
+    </div>
+    <div class="col-md-4">
+        <input type="search" id="myInput" placeholder="Escriba un nombre de elemento para filtrar" style="width:350px">
     </div>
 </div>
 
 <br />
 
-<div class="row">
-    <div class="col-md-4">
-        NÚMERO TRABAJADORES: @Session["numeroTrabajadores"].ToString().Trim()
-    </div>
-    <div class="col-md-4">
-        HORARIO DE TRABAJO: @Session["turnoOperativo"].ToString().Trim()
-    </div>
-    <div class="col-md-4">
-        <input type="search" id="myInput" placeholder="Escriba un nombre de elemento para filtrar" style="width:100%">
-    </div>
-</div>
-
-<br />
-
-<div class="table-responsive">
+<div class="table-responsive" style="background-color: azure; width:100%; margin-right:0px">
     <table class="table table-bordered">
-        <tr class="table-header">
+        <tr style="background-color:gainsboro">
             <th>
-                Primer Apellido
+                @Html.DisplayNameFor(model => model.PrimerApellido)
             </th>
             <th>
-                Segundo Apellido
+                @Html.DisplayNameFor(model => model.SegundoApellido)
             </th>
             <th>
-                Nombres
+                @Html.DisplayNameFor(model => model.Nombres)
             </th>
             <th>
-                Document Type
+                @Html.DisplayNameFor(model => model.DocumentType)
             </th>
             <th>
-                Documento
+                @Html.DisplayNameFor(model => model.Documento)
             </th>
             <th>
-                Fecha Nacimiento
+                @Html.DisplayNameFor(model => model.FechaNacimiento)
             </th>
             <th>
-                Género
+                @Html.DisplayNameFor(model => model.Genero)
             </th>
             <th>
-                Estado Civil
+                @Html.DisplayNameFor(model => model.EstadoCivil)
             </th>
             <th>
-                Fecha Ingreso
+                @Html.DisplayNameFor(model => model.FechaIngreso)
             </th>
             <th>
-                Tipo Vinculación
+                @Html.DisplayNameFor(model => model.TipoVinculacion)
             </th>
             <th></th>
         </tr>

@@ -44,7 +44,6 @@ namespace WSafe.Web.Models
         [Display(Name = "Efectos posibles")]
         public EfectosPosibles EfectosPosibles { get; set; }
         [Display(Name = "ND")]
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Range(0, int.MaxValue, ErrorMessage = "Debes seleccionar un nivel de deficiencia.")]
         public int NivelDeficiencia { get; set; }
         [Display(Name = "Niveles Deficiencia")]
@@ -124,6 +123,7 @@ namespace WSafe.Web.Models
         [Display(Name = "Aceptabilidad NR")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public CategoriasAceptabilidad AceptabilidadNR { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Nro. Expuestos")]
         public int NroExpuestos { get; set; }
         [Display(Name = "Requisito legal")]

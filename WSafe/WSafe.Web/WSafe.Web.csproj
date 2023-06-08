@@ -894,13 +894,15 @@
     <Content Include="Views\Workers\Edit.cshtml" />
     <Content Include="Views\Workers\Index.cshtml" />
     <Content Include="Views\Shared\_EditTrabajador.cshtml" />
-    <Content Include="Views\Shared\_EvalRiesgo - Copy.cshtml" />
     <Content Include="Views\Shared\_EditTrabajador - Copy.cshtml" />
     <Content Include="Views\Workers\GetAll.cshtml" />
     <Content Include="Views\Home\Index - Copy.cshtml" />
     <Content Include="Views\Accounts\Login - Copy.cshtml" />
     <Content Include="Views\Shared\_Layout - Copy.cshtml" />
     <Content Include="Views\Shared\_EditarInfoBasic - Copy.cshtml" />
+    <Content Include="Views\Workers\Index - Copy.cshtml" />
+    <Content Include="Views\Shared\_EvalRiesgo - Copy.cshtml" />
+    <Content Include="Views\Riesgos\Index - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

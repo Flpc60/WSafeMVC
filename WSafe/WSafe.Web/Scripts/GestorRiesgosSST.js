@@ -1338,10 +1338,46 @@ function DeleteRoleOperation(id) {
     }
 }
 
+function validateAction() {
+    var fields = [
+        { id: "zona", message: "El contenido de la zona es obligatorio" },
+        { id: "proceso", message: "El contenido del proceso es obligatorio" },
+        { id: "activity", message: "El contenido de la actividad es obligatorio" },
+        { id: "tarea", message: "El contenido de la tarea es obligatorio" },
+        { id: "FechaSolicitud", message: "El contenido de la Fecha Solicitud es obligatorio" },
+        { id: "categoriaAcc", message: "El contenido del tipo de acción es obligatorio" },
+        { id: "idTrabajador", message: "El nombre del traajador es obligatorio" },
+        { id: "idFuente", message: "El contenido de la fuente origen es obligatorio" },
+        { id: "idDescrip", message: "El contenido de la descripción es obligatorio" },
+        { id: "FechaCierre", message: "El contenido de la Fecha Cierre es obligatorio" },
+        { id: "txtActionCategory", message: "El contenido del estado de la acción es obligatorio" },
+    ];
+
+    for (var i = 0; i < fields.length; i++) {
+        var field = fields[i];
+        var value = $("#" + field.id).val();
+
+        if (value == "" || value == 0) {
+            document.getElementById("txtInfoAct").innerHTML = field.message;
+            $("#" + field.id).focus();
+            return false;
+        }
+    }
+
+    document.getElementById("txtInfoAct").innerHTML = "";
+    return true;
+
+}
+
 // las siguientes funciones cran una nueva accion, plan acción y nuevo seguimiento
 function AddAccion() {
     // Crea una nueva acción, para una nueva no conformidad
     // Retorna la accionID, y se la pasa a PlanAccion y SeguimientoAccion
+
+    if (!validateAction()) {
+        return false;
+    }
+
     $(".tabIdCausas").css("display", "none");
     if ($("#idEfectiva").is(':checked')) {
         $("#idEfectiva").val(true)
@@ -1389,6 +1425,11 @@ function AddAccion() {
 }
 
 function UpdateAccion(id) {
+
+    if (!validateAction()) {
+        return false;
+    }
+
     $(".tabIdCausas").css("display", "none");
     $("#txtAccionID").val(id);
     if ($("#idEfectiva").is(':checked')) {

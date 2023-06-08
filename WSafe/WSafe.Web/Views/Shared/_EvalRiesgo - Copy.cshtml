@@ -1,11 +1,25 @@
 ﻿@model WSafe.Web.Models.RiesgoViewModel
-<br />
+
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        font-family: Arial;
+    }
+
+</style>
+
 <div class="container" style="background-color: azure; padding: 20px">
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(model => model.NivelesDeficiencia, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div>
+                <div class="col-md-6">
                     @Html.EnumDropDownListFor(model => model.NivelesDeficiencia, htmlAttributes: new { @class = "form-control", @id = "deficienciaSelected" })
                     @Html.ValidationMessageFor(model => model.NivelesDeficiencia, "", new { @class = "text-danger" })
                 </div>
@@ -87,7 +101,7 @@
         <div class="col-md-3">
             <div class="form-group">
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.CategoriaRiesgo, new { htmlAttributes = new { @class = "form-control", @id = "interpretaNR"}})
+                    @Html.EditorFor(model => model.CategoriaRiesgo, new { htmlAttributes = new { @class = "form-control", @id = "interpretaNR" } })
                     @Html.ValidationMessageFor(model => model.CategoriaRiesgo, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -96,7 +110,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.AceptabilidadNR, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.AceptabilidadNR, new { htmlAttributes = new { @class = "form-control", @id = "txtAceptabilidad"}})
+                    @Html.EditorFor(model => model.AceptabilidadNR, new { htmlAttributes = new { @class = "form-control", @id = "txtAceptabilidad" } })
                     @Html.ValidationMessageFor(model => model.AceptabilidadNR, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -124,5 +138,9 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <p id="txtInfoRisk" style="color:red; text-align:center; padding:1%; font-size:20px"></p>
+        </div>
+    </div>
 </div>
-<br />
