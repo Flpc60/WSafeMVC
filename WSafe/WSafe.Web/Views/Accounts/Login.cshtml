@@ -10,16 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-
-    <style>
-        .tabOrganization {
-            display: none;
-        }
-
-        .tabClients {
-            display: block;
-        }
-    </style>
+    <link rel="stylesheet" href="~/Content/login-style.css"> <!-- Create and link your custom CSS file -->
 
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -34,101 +25,100 @@
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="container" style="background-color: antiquewhite; margin: auto; float: initial; padding: 2%; height:80%;width:40%;border-radius:15%">
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="panel-heading">
-                        <p class="panel-title" style="text-align: center; font-weight: bold">
-                            Optimización del SG-SST, cumpliemiento del decreto 1072 de 2015 y con la participación de todos los trabajadores
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <img src="~/Images/wsafe.jpg" max-with="100%" height="100" class="Avatar" style="background-color:antiquewhite"
-                         align="middle">
+    <div class="container login-container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="panel-heading">
+                    <p class="panel-title text-center">
+                        <strong>Optimización del SG-SST, cumplimiento del decreto 1072 de 2015 con la participación de todos los trabajadores</strong>
+                    </p>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <i class="fa fa-users"></i>
-                        <label for="">Usuario</label><br>
-                        <div class="col-md-12">
-                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @id = "txtName", @placeholder = "Ingresa nombre de usuario", autofocus = true } })
-                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                </div>
+            <div class="col-md-4 offset-md-4">
+                <img src="~/Images/wsafe.jpg" alt="WSafe Logo" class="avatar img-fluid">
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                        <label for="">Correo</label><br>
-                        <div class="col-md-12">
-                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @id = "txtEmail", @placeholder = "Ingresa correo electrónico" } })
-                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <i class="fa fa-key"></i>
-                        <label for="">Contraseña</label><br>
-                        <div class="col-md-12">
-                            <input type="password" name="txtPassword" id="txtPassword" class="form-control" placeholder="Ingresa contraseña" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="tabClients">
-                <div class="row">
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <i class="fa fa-users"></i>
+                    <label for="txtName">Usuario</label><br>
                     <div class="col-md-12">
-                        <div class="form-group">
-                            <i class="fa fa-landmark"></i>
-                            <label for="">Consultoría</label><br>
-                            <div class="col-md-12">
-                                @Html.DropDownListFor(model => model.ClientID, Model.Clients, new { @class = "form-control", @id = "clientID" })
-                                @Html.ValidationMessageFor(model => model.ClientID, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @id = "txtName", @placeholder = "Ingresa nombre de usuario", autofocus = true } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                     </div>
-                </div>
-            </div>
-            <div class="tabOrganization">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <i class="fa fa-landmark"></i>
-                            <label for="">Organización</label><br>
-                            <div class="col-md-12">
-                                <select name="orgID" class="form-control form-control-lg" id="orgID">
-                                    <option selected="selected" value="0">Seleccione una organización ...</option>
-                                </select>
-                                <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="orgID"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <p id="txtLogin" style="color:red; text-align:center; padding:1%"></p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-2">
-                </div>
-                <div class="col-md-8">
-                    <br /><button type="button" class="btn btn-info btn-lg btn-block" onclick="AddUser()">Registrar usuario</button>
-                    <button type="button" class="btn btn-info btn-lg btn-block" onclick="LoginUser()">Iniciar sesión</button>
-                </div>
-                <div class="col-md-2">
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                    <label for="">Correo</label><br>
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @id = "txtEmail", @placeholder = "Ingresa correo electrónico" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <i class="fa fa-key"></i>
+                    <label for="">Contraseña</label><br>
+                    <div class="col-md-12">
+                        <input type="password" name="txtPassword" id="txtPassword" class="form-control" placeholder="Ingresa contraseña" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tabClients">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <i class="fa fa-landmark"></i>
+                        <label for="">Consultoría</label><br>
+                        <div class="col-md-12">
+                            @Html.DropDownListFor(model => model.ClientID, Model.Clients, new { @class = "form-control", @id = "clientID" })
+                            @Html.ValidationMessageFor(model => model.ClientID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tabOrganization">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <i class="fa fa-landmark"></i>
+                        <label for="">Organización</label><br>
+                        <div class="col-md-12">
+                            <select name="orgID" class="form-control form-control-lg" id="orgID">
+                                <option selected="selected" value="0">Seleccione una organización ...</option>
+                            </select>
+                            <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="orgID"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p id="txtLogin" style="color:red; text-align:center; padding:1%"></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-8">
+                <br /><button type="button" class="btn btn-info btn-lg btn-block" onclick="AddUser()">Registrar usuario</button>
+                <button type="button" class="btn btn-info btn-lg btn-block" onclick="LoginUser()">Iniciar sesión</button>
+            </div>
+            <div class="col-md-2">
+            </div>
+        </div>
+    </div>
     }
 
     <div class="container">
@@ -139,11 +129,10 @@
     </div>
 
     @section Scripts
-{
+    {
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")
         @RenderSection("scripts", required: false)
     }
 </body>
 </html>
-

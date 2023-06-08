@@ -537,7 +537,9 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Chart.css" />
     <Content Include="Content\Chart.min.css" />
+    <Content Include="Content\custom-style.css" />
     <Content Include="Content\Funciones.js" />
+    <Content Include="Content\Site - Copy.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -892,10 +894,13 @@
     <Content Include="Views\Workers\Edit.cshtml" />
     <Content Include="Views\Workers\Index.cshtml" />
     <Content Include="Views\Shared\_EditTrabajador.cshtml" />
-    <Content Include="Views\Accounts\Login - Copy.cshtml" />
     <Content Include="Views\Shared\_EvalRiesgo - Copy.cshtml" />
     <Content Include="Views\Shared\_EditTrabajador - Copy.cshtml" />
     <Content Include="Views\Workers\GetAll.cshtml" />
+    <Content Include="Views\Home\Index - Copy.cshtml" />
+    <Content Include="Views\Accounts\Login - Copy.cshtml" />
+    <Content Include="Views\Shared\_Layout - Copy.cshtml" />
+    <Content Include="Views\Shared\_EditarInfoBasic - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

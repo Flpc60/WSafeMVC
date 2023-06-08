@@ -5,9 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<br />
-<br />
-<br />
 <h4>GESTIÓN TRABAJADORES: @Session["organization"].ToString().Trim()</h4>
 <div class="container" style="margin-left:6%">
     @Html.ActionLink("Nuevo Trabajador", "Create", new { @class = "glyphicon glyphicon-plus" },
