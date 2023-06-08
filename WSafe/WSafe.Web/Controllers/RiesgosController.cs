@@ -145,6 +145,7 @@ namespace WSafe.Web.Controllers
                 var message = "";
                 model.ClientID = (int)Session["clientID"];
                 model.OrganizationID = (int)Session["orgID"];
+
                 if (ModelState.IsValid)
                 {
                     if (model.ID == 0)
@@ -208,6 +209,12 @@ namespace WSafe.Web.Controllers
                 var message = "";
                 model.ClientID = (int)Session["clientID"];
                 model.OrganizationID = (int)Session["orgID"];
+
+                if (!ValidateModel(model))
+                {
+                    return View(model);
+                }
+
                 if (ModelState.IsValid)
                 {
                     var consulta = new RiesgoService(new RiesgoRepository(_empresaContext));
@@ -552,6 +559,34 @@ namespace WSafe.Web.Controllers
                 _empresaContext.Dispose();
             }
             base.Dispose(disposing);
+        }
+        public static bool ValidateModel(RiesgoViewModel model)
+        {
+            var properties = typeof(RiesgoViewModel).GetProperties();
+
+            foreach (var property in properties)
+            {
+                var value = property.GetValue(model);
+
+                if (property.Name != "ID" && property.Name != "FuenteControls" && property.Name != "MedioControls" && property.Name != "IndividuoControls" && property.Name != "Rutinaria" && property.Name != "RequisitoLegal")
+                {
+                    if (value is int intValue && intValue == 0)
+                    {
+                        return false;
+                    }
+                    else if (value is DateTime dateTimeValue && dateTimeValue == DateTime.MinValue)
+                    {
+                        return false;
+                    }
+                    else if (value == null || string.IsNullOrEmpty(value.ToString()))
+                    {
+                        return false;
+                    }
+                }
+
+            }
+
+            return true;
         }
     }
 }

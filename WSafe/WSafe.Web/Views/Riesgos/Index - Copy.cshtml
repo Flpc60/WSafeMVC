@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<WSafe.Web.Models.ListaRiesgosVM>
+
 @{
     ViewBag.Title = "WSafe";
 }
@@ -10,47 +11,33 @@
 </style>
 
 <h4>GESTIÓN DE LOS RIESGOS : @Session["organization"].ToString().Trim()</h4>
-<hr />
-<div class="container">
-    <div class="row align-items-center">
-        <div class="col-md-2">
-            NÚMERO TRABAJADORES : @Session["numeroTrabajadores"].ToString().Trim()
-        </div>
-        <div class="col-md-2">
-            CLASE RIESGO : @Session["riesgo"].ToString().Trim()
-        </div>
-        <div class="col-md-3">
-            HORARIO : @Session["turnoOperativo"].ToString().Trim()
-        </div>
-        <div class="col-md-2">
-            PERIODO : @Session["year"].ToString().Trim()
-        </div>
-        <div class="col-md-3">
-            RESPONSABLE SG-SST : @Session["responsable"].ToString().Trim()
+<div class="container" style="margin-left:6%">
+    @Html.ActionLink("Nuevo Riesgo", "Create", new { @class = "glyphicon glyphicon-plus" },
+    new { @class = "btn btn-info btn-lg active" })
+    @Html.ActionLink("Generar PDF", "PrintRiesgosToPdf", new { @class = "glyphicon glyphicon-download-alt" },
+    new { @class = "btn btn-info btn-lg active" })
+    <div class="pull-right" style="display:block; margin-right:3%">
+        <div class="btn-group">
+            <div style="background-color: red">RIESGO RESIDUAL</div>
+            <div style="background-color: orange">RIESGO TRATADO</div>
+            <div style="background-color: green">RIESGO CONTROLADO</div>
         </div>
     </div>
 </div>
-<hr />
+<br />
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-4">
-            @Html.ActionLink("Nuevo riesgo", "Create", null, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-plus" })
-        </div>
-        <div class="col-md-4">
-            @Html.ActionLink("Generar matriz de riesgos", "PrintRiesgosToPdf", null, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-download-alt" })
-        </div>
-        <div class="col-md-4">
-            <div class="pull-right" style="display:block; margin-right:3%">
-                <div class="btn-group">
-                    <div style="background-color: red">RIESGO RESIDUAL</div>
-                    <div style="background-color: orange">RIESGO TRATADO</div>
-                    <div style="background-color: green">RIESGO CONTROLADO</div>
-                </div>
-            </div>
-        </div>
+<div class="row" style="margin-left:6%">
+    <div class="col-md-4">
+        NÚMERO TRABAJADORES : @Session["numeroTrabajadores"].ToString().Trim()
+    </div>
+    <div class="col-md-4">
+        HORARIO DE TRABAJO : @Session["turnoOperativo"].ToString().Trim()
+    </div>
+    <div class="col-md-4">
+        <input type="search" id="myInput" placeholder="Escriba un nombre de elemento para filtrar" style="width:350px">
     </div>
 </div>
+
 <br />
 <div class="table-responsive" style="background-color: azure; width:100%; margin-right:0px">
     <table class="table table-bordered">
