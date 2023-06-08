@@ -75,10 +75,12 @@ namespace WSafe.Web.Controllers
                 model.ClientID = (int)Session["clientID"];
                 model.OrganizationID = (int)Session["orgID"];
                 model.UserID = (int)Session["userID"];
+
                 if (!ValidateModel(model))
                 {
                     return View(model);
                 }
+
                 if (ModelState.IsValid)
                 {
                     Trabajador trabajador = await _converterHelper.ToTrabajadorAsync(model, true);
@@ -123,9 +125,9 @@ namespace WSafe.Web.Controllers
         {
             try
             {
+                model.Cargos = _comboHelper.GetCargosAll();
                 if (!ValidateModel(model))
                 {
-                    model.Cargos = _comboHelper.GetCargosAll();
                     return View(model);
                 }
 
@@ -263,7 +265,7 @@ namespace WSafe.Web.Controllers
             {
                 var value = property.GetValue(model);
 
-                if(property.Name != "ID" && property.Name != "NumberHijos" && property.Name != "SegundoApellido" && property.Name != "Conyuge" && property.Name != "Email")
+                if(property.Name != "ID" && property.Name != "NumberHijos" && property.Name != "SegundoApellido" && property.Name != "Conyuge")
                 {
                     if (value is int intValue && intValue == 0)
                     {
