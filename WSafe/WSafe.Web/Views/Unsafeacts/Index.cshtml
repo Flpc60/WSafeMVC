@@ -1,0 +1,136 @@
+﻿@model IEnumerable<WSafe.Web.Models.UnsafeactVM>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ZonaID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProcesoID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActividadID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TareaID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActCategory)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Antecedentes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaAntecednte)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoriaPeligroID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PeligroID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProbableConsecuencia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Recomendations)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkerID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Worker1ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Worker2ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MovimientID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrganizationID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClientID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ZonaID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProcesoID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActividadID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TareaID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActCategory)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Antecedentes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaAntecednte)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CategoriaPeligroID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PeligroID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProbableConsecuencia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Recomendations)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkerID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Worker1ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Worker2ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MovimientID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrganizationID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClientID)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
