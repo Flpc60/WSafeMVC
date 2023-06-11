@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Data.Entities.Auditor;
 using WSafe.Domain.Data.Entities.ICAM;
@@ -57,6 +58,7 @@ namespace WSafe.Web.Models
         public DbSet<PlanActivity> PlanActivities { get; set; }
         public DbSet<Dashboard> Dashboards { get; set; }
         public DbSet<Client> Clients { get; set; }
+        public DbSet<Unsafeact> Unsafeacts { get; set; }
         public System.Data.Entity.DbSet<WSafe.Web.Models.UserViewModel> UserViewModels { get; set; }
         public System.Data.Entity.DbSet<WSafe.Web.Models.RoleUserVM> RoleUserVMs { get; set; }
 
@@ -70,5 +72,7 @@ namespace WSafe.Web.Models
         public System.Data.Entity.DbSet<WSafe.Web.Models.OrganizationVM> OrganizationVMs { get; set; }
 
         public System.Data.Entity.DbSet<WSafe.Web.Models.WorkersVM> WorkersVMs { get; set; }
+
+        public System.Data.Entity.DbSet<WSafe.Web.Models.UnsafeactVM> UnsafeactVMs { get; set; }
     }
 }

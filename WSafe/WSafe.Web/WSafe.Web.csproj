@@ -345,6 +345,7 @@
     <Compile Include="Controllers\MovimientosController.cs" />
     <Compile Include="Controllers\OrganizationsController.cs" />
     <Compile Include="Controllers\RiesgosController.cs" />
+    <Compile Include="Controllers\UnsafeactsController.cs" />
     <Compile Include="Controllers\WorkersController.cs" />
     <Compile Include="Data\Entities\Accidentado.cs" />
     <Compile Include="Data\Entities\Accion.cs" />
@@ -504,6 +505,7 @@
     <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Models\SeguimientoAccionVM.cs" />
     <Compile Include="Models\SocioDemographicVM.cs" />
+    <Compile Include="Models\UnsafeactVM.cs" />
     <Compile Include="Models\UserListVM.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\WorkersVM.cs" />
@@ -905,6 +907,11 @@
     <Content Include="Views\Workers\Index - Copy.cshtml" />
     <Content Include="Views\Shared\_EvalRiesgo - Copy.cshtml" />
     <Content Include="Views\Riesgos\Index - Copy.cshtml" />
+    <Content Include="Views\Unsafeacts\Create.cshtml" />
+    <Content Include="Views\Unsafeacts\Delete.cshtml" />
+    <Content Include="Views\Unsafeacts\Details.cshtml" />
+    <Content Include="Views\Unsafeacts\Edit.cshtml" />
+    <Content Include="Views\Unsafeacts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

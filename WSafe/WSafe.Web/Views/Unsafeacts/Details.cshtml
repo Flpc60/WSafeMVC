@@ -1,0 +1,163 @@
+﻿@model WSafe.Web.Models.UnsafeactVM
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>UnsafeactVM</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ZonaID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ZonaID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProcesoID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProcesoID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActividadID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActividadID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TareaID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TareaID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActCategory)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActCategory)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Antecedentes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Antecedentes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaAntecednte)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaAntecednte)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoriaPeligroID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoriaPeligroID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PeligroID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PeligroID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProbableConsecuencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProbableConsecuencia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Recomendations)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Recomendations)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkerID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkerID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Worker1ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Worker1ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Worker2ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Worker2ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MovimientID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MovimientID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OrganizationID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrganizationID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClientID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClientID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

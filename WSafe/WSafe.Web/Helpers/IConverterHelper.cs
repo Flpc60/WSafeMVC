@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
 using WSafe.Web.Models;
 
@@ -50,5 +51,6 @@ namespace WSafe.Domain.Helpers
         Task<Trabajador> ToTrabajadorAsync(WorkersVM model, bool isNew);
         WorkersVM ToTrabajadorVM(Trabajador model);
         IEnumerable<SocioDemographicVM> ToWorkersVM(IEnumerable<Trabajador> trabajador);
+        IEnumerable<UnsafeactVM> ToUnsafeactVM(IEnumerable<Unsafeact> unsafeact);
     }   
 }

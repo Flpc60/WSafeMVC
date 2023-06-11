@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
 using WSafe.Web.Models;
 
@@ -1625,6 +1626,19 @@ namespace WSafe.Domain.Helpers.Implements
                     Enfermedad = item.Enfermedad,
                     Tratamiento = item.Tratamiento,
                     SpecialRecomendations = item.SpecialRecomendations
+                });
+            }
+            return model;
+        }
+        // Crea nueva lista de UnsafeactVM
+        public IEnumerable<UnsafeactVM> ToUnsafeactVM(IEnumerable<Unsafeact> unsafeact)
+        {
+            var model = new List<UnsafeactVM>();
+            foreach (var item in unsafeact)
+            {
+                model.Add(new UnsafeactVM
+                {
+                    ID = item.ID,
                 });
             }
             return model;
