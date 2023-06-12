@@ -133,7 +133,7 @@ namespace WSafe.Domain.Helpers.Implements
                 Actividades = _comboHelper.GetComboActividades(),
                 Tareas = _comboHelper.GetComboTareas(),
                 CategoriasPeligros = _comboHelper.GetComboCategoriaPeligros(),
-                Peligros = _comboHelper.GetComboPeligros(1),
+                Peligros = _comboHelper.GetComboPeligros(1)
             };
             return model;
         }
@@ -1707,6 +1707,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Procesos = _comboHelper.GetComboProcesos(),
                 Actividades = _comboHelper.GetComboActividades(),
                 Tareas = _comboHelper.GetComboTareas(),
+                CategoriasPeligro = _comboHelper.GetComboCategoriaPeligros(),
+                Peligros = _comboHelper.GetComboPeligros(1),
                 Workers = _comboHelper.GetComboTrabajadores()
             };
             return model;

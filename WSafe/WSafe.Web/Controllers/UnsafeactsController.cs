@@ -140,5 +140,16 @@ namespace WSafe.Web.Controllers
             }
             base.Dispose(disposing);
         }
+
+        [HttpGet]
+        public ActionResult GetPeligros(int id)
+        {
+            if (id != null)
+            {
+                var peligros = _comboHelper.GetComboPeligros(id);
+                return Json(peligros, JsonRequestBehavior.AllowGet);
+            }
+            return null;
+        }
     }
 }
