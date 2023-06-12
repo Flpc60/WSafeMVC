@@ -467,9 +467,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202306070042048_UpdateAllTables.cs" />
-    <Compile Include="Migrations\202306070042048_UpdateAllTables.Designer.cs">
-      <DependentUpon>202306070042048_UpdateAllTables.cs</DependentUpon>
+    <Compile Include="Migrations\202306121126052_UpdateUnsafeacts.cs" />
+    <Compile Include="Migrations\202306121126052_UpdateUnsafeacts.Designer.cs">
+      <DependentUpon>202306121126052_UpdateUnsafeacts.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
@@ -505,6 +505,7 @@
     <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Models\SeguimientoAccionVM.cs" />
     <Compile Include="Models\SocioDemographicVM.cs" />
+    <Compile Include="Models\UnsafeactsListVM.cs" />
     <Compile Include="Models\UnsafeactVM.cs" />
     <Compile Include="Models\UserListVM.cs" />
     <Compile Include="Models\UserViewModel.cs" />
@@ -898,7 +899,6 @@
     <Content Include="Views\Workers\Edit.cshtml" />
     <Content Include="Views\Workers\Index.cshtml" />
     <Content Include="Views\Shared\_EditTrabajador.cshtml" />
-    <Content Include="Views\Shared\_EditTrabajador - Copy.cshtml" />
     <Content Include="Views\Workers\GetAll.cshtml" />
     <Content Include="Views\Home\Index - Copy.cshtml" />
     <Content Include="Views\Accounts\Login - Copy.cshtml" />
@@ -912,6 +912,7 @@
     <Content Include="Views\Unsafeacts\Details.cshtml" />
     <Content Include="Views\Unsafeacts\Edit.cshtml" />
     <Content Include="Views\Unsafeacts\Index.cshtml" />
+    <Content Include="Views\Shared\_EditUnsafeact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1168,8 +1169,8 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202306070042048_UpdateAllTables.resx">
-      <DependentUpon>202306070042048_UpdateAllTables.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202306121126052_UpdateUnsafeacts.resx">
+      <DependentUpon>202306121126052_UpdateUnsafeacts.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

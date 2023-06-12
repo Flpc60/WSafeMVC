@@ -51,6 +51,9 @@ namespace WSafe.Domain.Helpers
         Task<Trabajador> ToTrabajadorAsync(WorkersVM model, bool isNew);
         WorkersVM ToTrabajadorVM(Trabajador model);
         IEnumerable<SocioDemographicVM> ToWorkersVM(IEnumerable<Trabajador> trabajador);
-        IEnumerable<UnsafeactVM> ToUnsafeactVM(IEnumerable<Unsafeact> unsafeact);
+        UnsafeactVM ToUnsafeactVM(Unsafeact unsafeact);
+        IEnumerable<UnsafeactsListVM> ToUnsafeactsListVM(IEnumerable<Unsafeact> unsafeact);
+        UnsafeactVM ToUnsafeactsVMNew();
+        Task<Unsafeact> ToUnsafeactAsync(UnsafeactVM model, bool isNew);
     }   
 }

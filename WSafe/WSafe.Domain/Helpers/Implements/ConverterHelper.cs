@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
 using WSafe.Web.Models;
 
@@ -1628,6 +1629,114 @@ namespace WSafe.Domain.Helpers.Implements
                 });
             }
             return model;
+        }
+        public UnsafeactVM ToUnsafeactVM(Unsafeact unsafeact)
+        {
+            var model = new UnsafeactVM
+            {
+                ID = unsafeact.ID,
+                ZonaID = unsafeact.ZonaID,
+                Zonas = _comboHelper.GetComboZonas(),
+                ProcesoID = unsafeact.ProcesoID,
+                Procesos = _comboHelper.GetComboProcesos(),
+                ActividadID = unsafeact.ActividadID,
+                Actividades = _comboHelper.GetComboActividades(),
+                TareaID = unsafeact.TareaID,
+                Tareas = _comboHelper.GetComboTareas(),
+                FechaReporte = unsafeact.FechaReporte,
+                ActCategory = unsafeact.ActCategory,
+                Antecedentes = unsafeact.Antecedentes,
+                FechaAntecedente = unsafeact.FechaAntecedente,
+                CategoriaPeligroID = unsafeact.CategoriaPeligroID,
+                CategoriasPeligro = _comboHelper.GetComboCategoriaPeligros(),
+                PeligroID = unsafeact.PeligroID,
+                Peligros = _comboHelper.GetComboPeligros(unsafeact.CategoriaPeligroID),
+                ActDescription = unsafeact.ActDescription,
+                ProbableConsecuencia = unsafeact.ProbableConsecuencia,
+                Recomendations = unsafeact.Recomendations,
+                WorkerID = unsafeact.WorkerID,
+                Workers = _comboHelper.GetComboTrabajadores(),
+                Worker1ID = unsafeact.Worker1ID,
+                Worker2ID = unsafeact.Worker2ID,
+                MovimientID = unsafeact.MovimientID,
+                OrganizationID = unsafeact.OrganizationID,
+                ClientID = unsafeact.ClientID
+            };
+
+            return model;
+        }
+
+        // Crea una lista de UnsafeactVM
+        public IEnumerable<UnsafeactsListVM> ToUnsafeactsListVM(IEnumerable<Unsafeact> unsafeact)
+        {
+            var objeto = "";
+            var model = new List<UnsafeactsListVM>();
+            foreach (var item in unsafeact)
+            {
+                if (item.ActCategory.Equals(1)) { objeto = "Acto inseguro"; }
+                else
+                {
+                    objeto = "Condición insegura";
+                }
+
+                model.Add(new UnsafeactsListVM
+                {
+                    ID = item.ID,
+                    Zona = _empresaContext.Zonas.Find(item.ZonaID).Descripcion,
+                    Proceso = _empresaContext.Procesos.Find(item.ProcesoID).Descripcion,
+                    Actividad = _empresaContext.Actividades.Find(item.ActividadID).Descripcion,
+                    Tarea = _empresaContext.Tareas.Find(item.TareaID).Descripcion,
+                    ActCategory = objeto,
+                    Antecedentes = item.Antecedentes,
+                    FechaAntecedente = item.FechaAntecedente,
+                    CategoriaPeligro = _empresaContext.CategoriasPeligros.Find(item.CategoriaPeligroID).Descripcion,
+                    Peligro = _empresaContext.Peligros.Find(item.PeligroID).Descripcion,
+                    ActDescription = item.ActDescription,
+                    ProbableConsecuencia = item.ProbableConsecuencia,
+                    Recomendations = item.Recomendations,
+                    Worker = _empresaContext.Trabajadores.Find(item.WorkerID).NombreCompleto
+                }); ;
+            }
+            return model;
+        }
+        public UnsafeactVM ToUnsafeactsVMNew()
+        {
+            var model = new UnsafeactVM
+            {
+                Zonas = _comboHelper.GetComboZonas(),
+                Procesos = _comboHelper.GetComboProcesos(),
+                Actividades = _comboHelper.GetComboActividades(),
+                Tareas = _comboHelper.GetComboTareas(),
+                Workers = _comboHelper.GetComboTrabajadores()
+            };
+            return model;
+        }
+        public async Task<Unsafeact> ToUnsafeactAsync(UnsafeactVM model, bool isNew)
+        {
+            var result = new Unsafeact
+            {
+                ID = isNew ? 0 : model.ID,
+                ZonaID = model.ZonaID,
+                ProcesoID = model.ProcesoID,
+                ActividadID = model.ActividadID,
+                TareaID = model.TareaID,
+                FechaReporte = model.FechaReporte,
+                ActCategory = model.ActCategory,
+                Antecedentes = model.Antecedentes,
+                FechaAntecedente = model.FechaAntecedente,
+                CategoriaPeligroID = model.CategoriaPeligroID,
+                PeligroID = model.PeligroID,
+                ActDescription = model.ActDescription,
+                ProbableConsecuencia = model.ProbableConsecuencia,
+                Recomendations = model.Recomendations,
+                WorkerID = model.WorkerID,
+                Worker1ID = model.Worker1ID,
+                Worker2ID = model.Worker2ID,
+                MovimientID = model.MovimientID,
+                OrganizationID = model.OrganizationID,
+                ClientID = model.ClientID
+            };
+            return result;
         }
     }
 }
