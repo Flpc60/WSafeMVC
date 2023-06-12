@@ -115,6 +115,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Entities\ActCategories.cs" />
     <Compile Include="Data\Entities\Action.cs" />
     <Compile Include="Data\Entities\Accidentado.cs" />
     <Compile Include="Data\Entities\Accion.cs" />
@@ -218,6 +219,7 @@
     <Compile Include="Data\Entities\ValorationCategory.cs" />
     <Compile Include="Data\Entities\WorkAreas.cs" />
     <Compile Include="Data\Entities\Zona.cs" />
+    <Compile Include="Data\Unsafeact.cs" />
     <Compile Include="Helpers\IChartHelper.cs" />
     <Compile Include="Helpers\IComboHelper.cs" />
     <Compile Include="Helpers\IConverterHelper.cs" />
@@ -261,6 +263,8 @@
     <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Models\SeguimientoAccionVM.cs" />
     <Compile Include="Models\SocioDemographicVM.cs" />
+    <Compile Include="Models\UnsafeactsListVM.cs" />
+    <Compile Include="Models\UnsafeactVM.cs" />
     <Compile Include="Models\UserListVM.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\WorkersVM.cs" />
