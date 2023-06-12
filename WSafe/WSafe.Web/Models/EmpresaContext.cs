@@ -74,5 +74,7 @@ namespace WSafe.Web.Models
         public System.Data.Entity.DbSet<WSafe.Web.Models.WorkersVM> WorkersVMs { get; set; }
 
         public System.Data.Entity.DbSet<WSafe.Web.Models.UnsafeactVM> UnsafeactVMs { get; set; }
+
+        public System.Data.Entity.DbSet<WSafe.Web.Models.UnsafeactsListVM> UnsafeactsListVMs { get; set; }
     }
 }

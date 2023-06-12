@@ -1,136 +1,130 @@
-﻿@model IEnumerable<WSafe.Web.Models.UnsafeactVM>
+﻿@model IEnumerable<WSafe.Web.Models.UnsafeactsListVM>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h4>GESTIÓN ACTOS Y CONDICIONES INSEGURAS: @Session["organization"].ToString().Trim()</h4>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            @Html.ActionLink("Nuevo Acto inseguro", "Create", null, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-plus" })
+        </div>
+    </div>
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ZonaID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProcesoID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ActividadID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TareaID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ActCategory)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Antecedentes)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FechaAntecednte)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CategoriaPeligroID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PeligroID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ActDescription)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProbableConsecuencia)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Recomendations)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.WorkerID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Worker1ID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Worker2ID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MovimientID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OrganizationID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ClientID)
-        </th>
-        <th></th>
-    </tr>
+<br />
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ZonaID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProcesoID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ActividadID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TareaID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ActCategory)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Antecedentes)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaAntecednte)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CategoriaPeligroID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PeligroID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ActDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProbableConsecuencia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Recomendations)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.WorkerID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Worker1ID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Worker2ID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MovimientID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OrganizationID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ClientID)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+<div class="row">
+    <div class="col-md-4">
+        NÚMERO TRABAJADORES: @Session["numeroTrabajadores"].ToString().Trim()
+    </div>
+    <div class="col-md-4">
+        HORARIO DE TRABAJO: @Session["turnoOperativo"].ToString().Trim()
+    </div>
+    <div class="col-md-4">
+        <input type="search" id="myInput" placeholder="Escriba un nombre de elemento para filtrar" style="width:100%">
+    </div>
+</div>
 
-</table>
+<br />
+
+<div class="table-responsive">
+
+    <table class="table table-bordered">
+        <tr class="table-header">
+            <th>
+                @Html.DisplayNameFor(model => model.Zona)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Proceso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Actividad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tarea)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActCategory)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Antecedentes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaAntecedente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoriaPeligro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Peligro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProbableConsecuencia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Recomendations)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Worker)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Zona)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Proceso)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Actividad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tarea)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ActCategory)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Antecedentes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaAntecedente)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoriaPeligro)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Peligro)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ActDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProbableConsecuencia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Recomendations)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Worker)
+                </td>
+                <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" })
+                    @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "glyphicon glyphicon-trash" })
+                    <a href="#" onclick="attachFile('@item.ID')"><span class="glyphicon glyphicon-camera"></span></a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
