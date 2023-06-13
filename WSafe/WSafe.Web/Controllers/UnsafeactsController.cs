@@ -58,10 +58,12 @@ namespace WSafe.Web.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,ZonaID,ProcesoID,ActividadID,TareaID,FechaReporte,ActCategory,Antecedentes,FechaAntecedente,CategoriaPeligroID,PeligroID,ActDescription,ProbableConsecuencia,Recomendations,WorkerID,Worker1ID,Worker2ID,MovimientID,OrganizationID,ClientID")] UnsafeactVM model)
+        public async Task<ActionResult> Create([Bind(Include = "ID,ZonaID,ProcesoID,ActividadID,TareaID,FechaReporte,ActCategory,Antecedentes,FechaAntecedente,CategoriaPeligroID,PeligroID,ActDescription,ProbableConsecuencia,Recomendations,WorkerID,Worker1ID,Worker2ID,MovimientID,OrganizationID,ClientID,UserID")] UnsafeactVM model)
         {
             model.ClientID = (int)Session["clientID"];
             model.OrganizationID = (int)Session["orgID"];
+            model.MovimientID = 0;
+            model.UserID = (int)Session["userID"];
 
             if (ModelState.IsValid)
             {
@@ -71,7 +73,14 @@ namespace WSafe.Web.Controllers
                 await _empresaContext.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-
+            model.Zonas = _comboHelper.GetComboZonas();
+            model.Procesos = _comboHelper.GetComboProcesos();
+            model.Actividades = _comboHelper.GetComboActividades();
+            model.Tareas = _comboHelper.GetComboTareas();
+            model.CategoriasPeligro = _comboHelper.GetComboCategoriaPeligros();
+            model.Peligros = _comboHelper.GetComboPeligros(1);
+            model.Workers = _comboHelper.GetComboTrabajadores();
+            ViewBag.message = "Faltan campos del formulario por diligenciar !!";
             return View(model);
         }
 
