@@ -1709,7 +1709,9 @@ namespace WSafe.Domain.Helpers.Implements
                 Tareas = _comboHelper.GetComboTareas(),
                 CategoriasPeligro = _comboHelper.GetComboCategoriaPeligros(),
                 Peligros = _comboHelper.GetComboPeligros(1),
-                Workers = _comboHelper.GetComboTrabajadores()
+                Workers = _comboHelper.GetComboTrabajadores(),
+                FechaReporte = DateTime.Now,
+                FechaAntecedente = DateTime.Now
             };
             return model;
         }

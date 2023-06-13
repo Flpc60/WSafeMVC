@@ -25,7 +25,6 @@ namespace WSafe.Web.Models
         public int TareaID { get; set; }
         [Display(Name = "TAREA")]
         public IEnumerable<SelectListItem> Tareas { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaReporte { get; set; }
@@ -74,5 +73,6 @@ namespace WSafe.Web.Models
         public int OrganizationID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ClientID { get; set; }
+        public int UserID { get; set; }
     }
 }
