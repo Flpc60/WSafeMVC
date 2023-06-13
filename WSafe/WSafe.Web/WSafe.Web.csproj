@@ -467,9 +467,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202306121126052_UpdateUnsafeacts.cs" />
-    <Compile Include="Migrations\202306121126052_UpdateUnsafeacts.Designer.cs">
-      <DependentUpon>202306121126052_UpdateUnsafeacts.cs</DependentUpon>
+    <Compile Include="Migrations\202306130005319_UpUnsafeactVM.cs" />
+    <Compile Include="Migrations\202306130005319_UpUnsafeactVM.Designer.cs">
+      <DependentUpon>202306130005319_UpUnsafeactVM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202306130029492_UpUnsafeactVM1.cs" />
+    <Compile Include="Migrations\202306130029492_UpUnsafeactVM1.Designer.cs">
+      <DependentUpon>202306130029492_UpUnsafeactVM1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202306130035386_UpUnsafeactVM2.cs" />
+    <Compile Include="Migrations\202306130035386_UpUnsafeactVM2.Designer.cs">
+      <DependentUpon>202306130035386_UpUnsafeactVM2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
@@ -1169,8 +1177,14 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202306121126052_UpdateUnsafeacts.resx">
-      <DependentUpon>202306121126052_UpdateUnsafeacts.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202306130005319_UpUnsafeactVM.resx">
+      <DependentUpon>202306130005319_UpUnsafeactVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202306130029492_UpUnsafeactVM1.resx">
+      <DependentUpon>202306130029492_UpUnsafeactVM1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202306130035386_UpUnsafeactVM2.resx">
+      <DependentUpon>202306130035386_UpUnsafeactVM2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
