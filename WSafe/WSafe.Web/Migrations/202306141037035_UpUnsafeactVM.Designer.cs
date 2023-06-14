@@ -13,7 +13,7 @@ namespace WSafe.Web.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202306130005319_UpUnsafeactVM"; }
+            get { return "202306141037035_UpUnsafeactVM"; }
         }
         
         string IMigrationMetadata.Source
