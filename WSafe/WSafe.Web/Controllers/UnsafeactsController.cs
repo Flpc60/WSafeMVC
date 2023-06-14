@@ -80,7 +80,7 @@ namespace WSafe.Web.Controllers
             model.CategoriasPeligro = _comboHelper.GetComboCategoriaPeligros();
             model.Peligros = _comboHelper.GetComboPeligros(1);
             model.Workers = _comboHelper.GetComboTrabajadores();
-            ViewBag.message = "Faltan campos del formulario por diligenciar !!";
+            ViewBag.message = "Faltan campos por diligenciar del formulario !!";
             return View(model);
         }
 
@@ -104,7 +104,7 @@ namespace WSafe.Web.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,ZonaID,ProcesoID,ActividadID,TareaID,ActCategory,Antecedentes,FechaAntecednte,CategoriaPeligroID,PeligroID,ActDescription,ProbableConsecuencia,Recomendations,WorkerID,Worker1ID,Worker2ID,MovimientID,OrganizationID,ClientID")] UnsafeactVM model)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,ZonaID,ProcesoID,ActividadID,TareaID,FechaReporte,ActCategory,Antecedentes,FechaAntecedente,CategoriaPeligroID,PeligroID,ActDescription,ProbableConsecuencia,Recomendations,WorkerID,Worker1ID,Worker2ID,MovimientID,OrganizationID,ClientID,UserID")] UnsafeactVM model)
         {
             if (ModelState.IsValid)
             {
@@ -113,6 +113,14 @@ namespace WSafe.Web.Controllers
                 await _empresaContext.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            model.Zonas = _comboHelper.GetComboZonas();
+            model.Procesos = _comboHelper.GetComboProcesos();
+            model.Actividades = _comboHelper.GetComboActividades();
+            model.Tareas = _comboHelper.GetComboTareas();
+            model.CategoriasPeligro = _comboHelper.GetComboCategoriaPeligros();
+            model.Peligros = _comboHelper.GetComboPeligros(model.CategoriaPeligroID);
+            model.Workers = _comboHelper.GetComboTrabajadores();
+            ViewBag.message = "Faltan campos por diligenciar del formulario !!";
             return View(model);
         }
 
