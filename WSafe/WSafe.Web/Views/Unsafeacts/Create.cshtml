@@ -54,9 +54,10 @@
 
         function AddNewMovimient() {
             // Crea un nuevo movimiento
-            var selectedFile = ($("#fileLoad"))[0].files[0];
+            var fileInput = document.getElementById('fileLoad');
+            var selectedFile = fileInput.files[0];
             if (!selectedFile) {
-                alert("No se ha seleccionado ningún archivo para subir !!" + selectedFile);
+                alert("No ha seleccionado ningún archivo para subir !!");
                 return false;
             }
 
