@@ -4,20 +4,20 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "Unsafeacts", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-<div class="form-horizontal">
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.FechaReporte)
-    @Html.HiddenFor(model => model.MovimientID)
-    @Html.HiddenFor(model => model.ID)
-    @Html.HiddenFor(model => model.OrganizationID)
-    @Html.HiddenFor(model => model.ClientID)
-    @Html.HiddenFor(model => model.UserID)
-    <input type="hidden" id="movimientID" name="movimientID" />
-    @Html.Partial("_EditUnsafeact")
-</div>
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.FechaReporte)
+        @Html.HiddenFor(model => model.MovimientID)
+        @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.OrganizationID)
+        @Html.HiddenFor(model => model.ClientID)
+        @Html.HiddenFor(model => model.UserID)
+        <input type="hidden" id="movimientID" name="movimientID"/>
+        @Html.Partial("_EditUnsafeact")
+    </div>
 
 }
 
@@ -53,7 +53,7 @@
             $(".tabAddInterven").css("display", "none");
         }
 
-        function AddNewMovimient() {
+        $('#fileLoad').click(function () {
             // Crea un nuevo movimiento
             var fileInput = document.getElementById('fileLoad');
             var selectedFile = fileInput.files[0];
