@@ -56,5 +56,7 @@ namespace WSafe.Domain.Data
         public int OrganizationID { get; set; }
         public int ClientID { get; set; }
         public int UserID { get; set; }
+        [MaxLength(100)]
+        public string FileName { get; set; }
     }
 }

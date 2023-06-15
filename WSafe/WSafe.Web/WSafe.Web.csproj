@@ -471,6 +471,10 @@
     <Compile Include="Migrations\202306141037035_UpUnsafeactVM.Designer.cs">
       <DependentUpon>202306141037035_UpUnsafeactVM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202306151714317_UpUnsafeactVM1.cs" />
+    <Compile Include="Migrations\202306151714317_UpUnsafeactVM1.Designer.cs">
+      <DependentUpon>202306151714317_UpUnsafeactVM1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -1171,6 +1175,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202306141037035_UpUnsafeactVM.resx">
       <DependentUpon>202306141037035_UpUnsafeactVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202306151714317_UpUnsafeactVM1.resx">
+      <DependentUpon>202306151714317_UpUnsafeactVM1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
