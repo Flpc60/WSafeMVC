@@ -266,11 +266,11 @@ namespace WSafe.Web.Controllers
                 _year = (string)Session["year"];
                 _path = (string)Session["path"];
                 var data = _empresaContext.Movimientos
-                    .Where(m => m.Ciclo == ciclo && m.NormaID == item && m.Year == _year && m.OrganizationID ==_orgID)
+                    .Where(m => m.Ciclo == ciclo && m.NormaID == item && m.Year == _year && m.OrganizationID == _orgID)
                     .OrderBy(m => m.Item)
                     .ToList();
                 var result = _converterHelper.ToListMovimientos(data);
-                return Json(new {data=result}, JsonRequestBehavior.AllowGet);
+                return Json(new { data = result }, JsonRequestBehavior.AllowGet);
             }
             return Json(null, JsonRequestBehavior.AllowGet);
         }
