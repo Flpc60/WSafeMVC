@@ -54,6 +54,42 @@
             $(".tabAddInterven").css("display", "none");
         }
 
+        function AddNewMovimient() {
+            // Crea un nuevo movimiento
+            var fileInput = document.getElementById('fileLoad');
+            var selectedFile = fileInput.files[0];
+            if (!selectedFile) {
+                alert("No ha seleccionado ningún archivo para subir !!");
+                return false;
+            }
+
+            var normaID = 57;
+            var description = "Evidencia de actos y condiciones inseguras";
+            var dataFile = new FormData();
+            dataFile.append("fileLoad", selectedFile);
+            dataFile.append("NormaID", normaID);
+            dataFile.append("Descripcion", description);
+
+            $.ajax({
+                url: '@Url.Action("CreateMovimient","Movimientos")',
+                type: "POST",
+                data: dataFile,
+                contentType: false,
+                processData: false,
+                async: false,
+                success: function (response) {
+                    $("#btnAddMovimient").hide();
+                    $("#btnCanMovimient").hide();
+                    alert(response.mensaj);
+                    //ShowMovimientos(ciclo);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+        }
+
     </script>
 }
 
