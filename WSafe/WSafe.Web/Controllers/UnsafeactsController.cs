@@ -74,9 +74,8 @@ namespace WSafe.Web.Controllers
 
             if (fileLoad != null)
             {
-                var temp = $"{_path}/1. PLANEAR/2.8.1/{fileLoad.FileName}";
-                var url = Server.MapPath(temp);
-                model.FileName = url;
+                var url = $"{_path}/1. PLANEAR/2.8.1/{fileLoad.FileName}";
+                model.FileName = url.Substring(1);
             }
 
             if (ModelState.IsValid)
@@ -152,7 +151,7 @@ namespace WSafe.Web.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,ZonaID,ProcesoID,ActividadID,TareaID,FechaReporte,ActCategory,Antecedentes,FechaAntecedente,CategoriaPeligroID,PeligroID,ActDescription,ProbableConsecuencia,Recomendations,WorkerID,Worker1ID,Worker2ID,MovimientID,OrganizationID,ClientID,UserID")] UnsafeactVM model)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,ZonaID,ProcesoID,ActividadID,TareaID,FechaReporte,ActCategory,Antecedentes,FechaAntecedente,CategoriaPeligroID,PeligroID,ActDescription,ProbableConsecuencia,Recomendations,WorkerID,Worker1ID,Worker2ID,MovimientID,OrganizationID,ClientID,UserID,FileName")] UnsafeactVM model, HttpPostedFileBase fileLoad)
         {
             if (ModelState.IsValid)
             {
@@ -215,6 +214,48 @@ namespace WSafe.Web.Controllers
                 return Json(peligros, JsonRequestBehavior.AllowGet);
             }
             return null;
+        }
+
+        // POST: Unsafeacts/CreateRisk
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateRisk([Bind(Include = "ID,ZonaID,ProcesoID,ActividadID,TareaID,FechaReporte,ActCategory,Antecedentes,FechaAntecedente,CategoriaPeligroID,PeligroID,ActDescription,ProbableConsecuencia,Recomendations,WorkerID,Worker1ID,Worker2ID,MovimientID,OrganizationID,ClientID,UserID,FileName")] UnsafeactVM model)
+        {
+            _clientID = (int)Session["clientID"];
+            _orgID = (int)Session["orgID"];
+            _year = (string)Session["year"];
+            _path = (string)Session["path"];
+            model.ClientID = (int)Session["clientID"];
+            model.OrganizationID = (int)Session["orgID"];
+            model.MovimientID = 0;
+            model.UserID = (int)Session["userID"];
+            model.FechaReporte = DateTime.Now;
+            var riskVM = new RiesgoViewModel
+            {
+                ID = 0,
+                ZonaID = model.ZonaID,
+                ProcesoID = model.ProcesoID,
+                ActividadID = model.ActividadID,
+                TareaID = model.TareaID,
+                Rutinaria = false,
+                CategoriaPeligroID = model.CategoriaPeligroID,
+                PeligroID = model.PeligroID,
+                EfectosPosibles = EfectosPosibles.Daño_Leve,
+                NivelDeficiencia = 4,
+                NivelExposicion = 4,
+                NivelConsecuencia = 4,
+                NroExpuestos = 1,
+                DangerCategory = DangerCategories.Seguridad,
+                OrganizationID = model.OrganizationID,
+                ClientID = model.ClientID
+            };
+
+            Riesgo risk = await _converterHelper.ToRiesgoAsync(riskVM, true);
+            _empresaContext.Riesgos.Add(risk);
+            _empresaContext.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }
