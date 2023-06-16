@@ -1740,7 +1740,8 @@ namespace WSafe.Domain.Helpers.Implements
                 MovimientID = model.MovimientID,
                 OrganizationID = model.OrganizationID,
                 ClientID = model.ClientID,
-                FileName = model.FileName
+                FileName = model.FileName,
+                UserID = model.UserID
             };
             return result;
         }

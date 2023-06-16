@@ -3,6 +3,9 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    string url = Request.Url.ToString();
+    Uri uri = new Uri(url);
+    string origen = uri.GetLeftPart(UriPartial.Authority);
 }
 
 <h4>GESTIÓN ACTOS Y CONDICIONES INSEGURAS: @Session["organization"].ToString().Trim()</h4>
@@ -67,15 +70,13 @@
             <th>
                 @Html.DisplayNameFor(model => model.ProbableConsecuencia)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Recomendations)
-            </th>
             <th></th>
         </tr>
 
         @foreach (var item in Model)
         {
-            var fileUrl = Url.Content(item.FileName);
+            var fileUrl = origen + item.FileName;
+
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Zona)
@@ -110,16 +111,38 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.ProbableConsecuencia)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Recomendations)
-                </td>
                 <td style="margin:initial; background-color:deepskyblue; text-align:left">
                     @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" })
                     @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "glyphicon glyphicon-trash" })
-                    <a href="@fileUrl" download=""><span class="glyphicon glyphicon-camera"></span></a>
+                    <a href="@fileUrl"><span class="glyphicon glyphicon-camera"></span></a>
+                    <a href="#" onclick="CreateRisk()"><span class="glyphicon glyphicon-upload"></span></a>
                 </td>
             </tr>
         }
 
     </table>
 </div>
+
+@section Scripts
+{
+
+    <script type="text/javascript">
+        function CreateRisk() {
+            var formData = $(this).serialize();
+            alert(formData);
+            $.ajax({
+                url: '@Url.Action("CreateRisk", "Unsafeacts")',
+                type: 'POST',
+                data: formData,
+                success: function(result) {
+                    // Handle the success response from the controller
+                },
+                error: function(xhr, status, error) {
+                    // Handle any error that occurred during the request
+                }
+            });
+        }
+
+    </script>
+
+}
