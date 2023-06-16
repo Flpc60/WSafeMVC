@@ -74,7 +74,9 @@ namespace WSafe.Web.Controllers
 
             if (fileLoad != null)
             {
-                model.FileName = $"{_path}/1. PLANEAR/2.8.1/{fileLoad.FileName}";
+                var temp = $"{_path}/1. PLANEAR/2.8.1/{fileLoad.FileName}";
+                var url = Server.MapPath(temp);
+                model.FileName = url;
             }
 
             if (ModelState.IsValid)
@@ -82,11 +84,11 @@ namespace WSafe.Web.Controllers
                 model.FechaReporte = DateTime.Now;
                 Unsafeact unsafeact = await _converterHelper.ToUnsafeactAsync(model, true);
                 _empresaContext.Unsafeacts.Add(unsafeact);
-                await _empresaContext.SaveChangesAsync();
-
-                var item = "2.8.1";
-                var normaID = 57;
-                var fullPath = $"{_path}/1. PLANEAR/2.8.1/";
+                _empresaContext.SaveChanges();
+                var organization = _empresaContext.Organizations.Find(_orgID);
+                var normaID = organization.StandardUnsafeacts;
+                var item = _empresaContext.Normas.Find(normaID).Item;
+                var fullPath = $"{_path}/1. PLANEAR/{item}/";
                 var path = Server.MapPath(fullPath);
                 if (!Directory.Exists(path))
                 {
