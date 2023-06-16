@@ -70,14 +70,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Recomendations)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Worker)
-            </th>
             <th></th>
         </tr>
 
         @foreach (var item in Model)
         {
+            var fileUrl = Url.Content(item.FileName);
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Zona)
@@ -115,13 +113,10 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Recomendations)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Worker)
-                </td>
                 <td style="margin:initial; background-color:deepskyblue; text-align:left">
                     @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" })
                     @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "glyphicon glyphicon-trash" })
-                    <a href="#" onclick="attachFile('@item.ID')"><span class="glyphicon glyphicon-camera"></span></a>
+                    <a href="@fileUrl" download=""><span class="glyphicon glyphicon-camera"></span></a>
                 </td>
             </tr>
         }

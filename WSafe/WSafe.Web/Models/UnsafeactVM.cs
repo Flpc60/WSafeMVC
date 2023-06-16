@@ -75,7 +75,7 @@ namespace WSafe.Web.Models
         public int ClientID { get; set; }
         public int UserID { get; set; }
         [Display(Name = "SUBIR EVIENCIA")]
-        [MaxLength(100)]
+        [MaxLength(200)]
         public string FileName { get; set; }
     }
 }

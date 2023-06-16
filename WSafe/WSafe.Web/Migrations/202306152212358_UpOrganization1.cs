@@ -3,7 +3,7 @@ namespace WSafe.Web.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class UpUnsafeactVM : DbMigration
+    public partial class UpOrganization1 : DbMigration
     {
         public override void Up()
         {

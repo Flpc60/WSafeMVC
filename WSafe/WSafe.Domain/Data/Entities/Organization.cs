@@ -129,5 +129,6 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ClientID { get; set; }
         public int StandardSocioDemographic { get; set; }
+        public int StandardUnsafeacts { get; set; }
     }
 }

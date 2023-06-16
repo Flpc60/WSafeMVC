@@ -1694,7 +1694,8 @@ namespace WSafe.Domain.Helpers.Implements
                     ActDescription = item.ActDescription,
                     ProbableConsecuencia = item.ProbableConsecuencia,
                     Recomendations = item.Recomendations,
-                    Worker = _empresaContext.Trabajadores.Find(item.WorkerID).NombreCompleto
+                    Worker = _empresaContext.Trabajadores.Find(item.WorkerID).NombreCompleto,
+                    FileName = item.FileName
                 }); ;
             }
             return model;
@@ -1738,7 +1739,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Worker2ID = model.Worker2ID,
                 MovimientID = model.MovimientID,
                 OrganizationID = model.OrganizationID,
-                ClientID = model.ClientID
+                ClientID = model.ClientID,
+                FileName = model.FileName
             };
             return result;
         }
