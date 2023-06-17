@@ -216,12 +216,8 @@ namespace WSafe.Web.Controllers
             return null;
         }
 
-        // POST: Unsafeacts/CreateRisk
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateRisk([Bind(Include = "ID,ZonaID,ProcesoID,ActividadID,TareaID,FechaReporte,ActCategory,Antecedentes,FechaAntecedente,CategoriaPeligroID,PeligroID,ActDescription,ProbableConsecuencia,Recomendations,WorkerID,Worker1ID,Worker2ID,MovimientID,OrganizationID,ClientID,UserID,FileName")] UnsafeactVM model)
+        public async Task<ActionResult> CreateRisk(UnsafeactVM model)
         {
             _clientID = (int)Session["clientID"];
             _orgID = (int)Session["orgID"];
@@ -255,7 +251,22 @@ namespace WSafe.Web.Controllers
             Riesgo risk = await _converterHelper.ToRiesgoAsync(riskVM, true);
             _empresaContext.Riesgos.Add(risk);
             _empresaContext.SaveChanges();
-            return RedirectToAction("Index");
+            return Json(new { result = "", url = Url.Action("Index", "Unsafeacts") }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> CreateRisk(int id)
+        {
+            try
+            {
+                Unsafeact unsafeact = await _empresaContext.Unsafeacts.FindAsync(id);
+                var model = _converterHelper.ToUnsafeactVM(unsafeact);
+                return Json(model, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Unsafeacts", "Edit"));
+            }
         }
     }
 }

@@ -1660,7 +1660,9 @@ namespace WSafe.Domain.Helpers.Implements
                 Worker2ID = unsafeact.Worker2ID,
                 MovimientID = unsafeact.MovimientID,
                 OrganizationID = unsafeact.OrganizationID,
-                ClientID = unsafeact.ClientID
+                ClientID = unsafeact.ClientID,
+                FileName = unsafeact.FileName,
+                UserID = unsafeact.UserID
             };
 
             return model;
