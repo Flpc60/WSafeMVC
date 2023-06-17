@@ -127,6 +127,26 @@
 {
 
     <script type="text/javascript">
+
+        $('#categoria').click(function () {
+            var selectedCategoria = $("#categoria").val();
+            var peligroSelect = $('#peligro');
+            peligroSelect.empty();
+            if (selectedCategoria != null && selectedCategoria != '') {
+                $.getJSON('@Url.Action("GetPeligros")', { ID: selectedCategoria }, function (peligros) {
+                    if (peligros != null && !jQuery.isEmptyObject(peligros)) {
+                        $.each(peligros, function (index, item) {
+                            peligroSelect.append($('<option />',
+                                {
+                                    value: item.Value,
+                                    text: item.Text
+                                }));
+                        });
+                    };
+                });
+            }
+        });
+
     </script>
 
 }

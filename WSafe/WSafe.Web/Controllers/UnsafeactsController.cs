@@ -40,19 +40,27 @@ namespace WSafe.Web.Controllers
         // GET: Unsafeacts
         public async Task<ActionResult> Index()
         {
-            _orgID = (int)Session["orgID"];
-            var list = await _empresaContext.Unsafeacts
-                    .Where(u => u.OrganizationID == _orgID)
-                .OrderByDescending(u => u.FechaAntecedente)
-                .ToListAsync();
-            var modelo = _converterHelper.ToUnsafeactsListVM(list);
-            return View(modelo);
+            try
+            {
+                _orgID = (int)Session["orgID"];
+                var list = await _empresaContext.Unsafeacts
+                        .Where(u => u.OrganizationID == _orgID)
+                    .OrderByDescending(u => u.FechaAntecedente)
+                    .ToListAsync();
+                var modelo = _converterHelper.ToUnsafeactsListVM(list);
+                return View(modelo);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Unsafeacts", "Index"));
+            }
         }
 
         // GET: Unsafeacts/Create
         public ActionResult Create()
         {
             var model = _converterHelper.ToUnsafeactsVMNew();
+            ViewBag.loadImage = true;
             return View(model);
         }
 
@@ -63,72 +71,81 @@ namespace WSafe.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "ID,ZonaID,ProcesoID,ActividadID,TareaID,FechaReporte,ActCategory,Antecedentes,FechaAntecedente,CategoriaPeligroID,PeligroID,ActDescription,ProbableConsecuencia,Recomendations,WorkerID,Worker1ID,Worker2ID,MovimientID,OrganizationID,ClientID,UserID,FileName")] UnsafeactVM model, HttpPostedFileBase fileLoad)
         {
-            _clientID = (int)Session["clientID"];
-            _orgID = (int)Session["orgID"];
-            _year = (string)Session["year"];
-            _path = (string)Session["path"];
-            model.ClientID = (int)Session["clientID"];
-            model.OrganizationID = (int)Session["orgID"];
-            model.MovimientID = 0;
-            model.UserID = (int)Session["userID"];
-
-            if (fileLoad != null)
+            try
             {
-                var url = $"{_path}/1. PLANEAR/2.8.1/{fileLoad.FileName}";
-                model.FileName = url.Substring(1);
-            }
 
-            if (ModelState.IsValid)
-            {
-                model.FechaReporte = DateTime.Now;
-                Unsafeact unsafeact = await _converterHelper.ToUnsafeactAsync(model, true);
-                _empresaContext.Unsafeacts.Add(unsafeact);
-                _empresaContext.SaveChanges();
-                var organization = _empresaContext.Organizations.Find(_orgID);
-                var normaID = organization.StandardUnsafeacts;
-                var item = _empresaContext.Normas.Find(normaID).Item;
-                var fullPath = $"{_path}/1. PLANEAR/{item}/";
-                var path = Server.MapPath(fullPath);
-                if (!Directory.Exists(path))
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
+                _path = (string)Session["path"];
+                model.ClientID = (int)Session["clientID"];
+                model.OrganizationID = (int)Session["orgID"];
+                model.MovimientID = 0;
+                model.UserID = (int)Session["userID"];
+
+                if (fileLoad != null)
                 {
-                    Directory.CreateDirectory(path);
+                    var url = $"{_path}/1. PLANEAR/2.8.1/{fileLoad.FileName}";
+                    model.FileName = url.Substring(1);
                 }
-                fileLoad.SaveAs(path + Path.GetFileName(fileLoad.FileName));
-                var fullName = fileLoad.FileName;
-                var type = Path.GetExtension(fileLoad.FileName).ToUpper();
 
-                //Generar archivo de movimiento
-                var descript = "Notificación de actos y condiciones inseguras";
-                var userID = (int)Session["userID"];
-                Movimient movimient = new Movimient()
+                if (ModelState.IsValid)
                 {
-                    ID = 0,
-                    OrganizationID = _orgID,
-                    NormaID = normaID,
-                    UserID = userID,
-                    Descripcion = descript,
-                    Document = fileLoad.FileName,
-                    Year = _year,
-                    Item = item,
-                    Ciclo = "P",
-                    Type = type,
-                    Path = path,
-                    ClientID = _clientID
-                };
+                    model.FechaReporte = DateTime.Now;
+                    Unsafeact unsafeact = await _converterHelper.ToUnsafeactAsync(model, true);
+                    _empresaContext.Unsafeacts.Add(unsafeact);
+                    _empresaContext.SaveChanges();
+                    var organization = _empresaContext.Organizations.Find(_orgID);
+                    var normaID = organization.StandardUnsafeacts;
+                    var item = _empresaContext.Normas.Find(normaID).Item;
+                    var fullPath = $"{_path}/1. PLANEAR/{item}/";
+                    var path = Server.MapPath(fullPath);
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    fileLoad.SaveAs(path + Path.GetFileName(fileLoad.FileName));
+                    var fullName = fileLoad.FileName;
+                    var type = Path.GetExtension(fileLoad.FileName).ToUpper();
 
-                _empresaContext.Movimientos.Add(movimient);
-                _empresaContext.SaveChanges();
-                return RedirectToAction("Index");
+                    //Generar archivo de movimiento
+                    var descript = "Notificación de actos y condiciones inseguras";
+                    var userID = (int)Session["userID"];
+                    Movimient movimient = new Movimient()
+                    {
+                        ID = 0,
+                        OrganizationID = _orgID,
+                        NormaID = normaID,
+                        UserID = userID,
+                        Descripcion = descript,
+                        Document = fileLoad.FileName,
+                        Year = _year,
+                        Item = item,
+                        Ciclo = "P",
+                        Type = type,
+                        Path = path,
+                        ClientID = _clientID
+                    };
+
+                    _empresaContext.Movimientos.Add(movimient);
+                    _empresaContext.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                model.Zonas = _comboHelper.GetComboZonas();
+                model.Procesos = _comboHelper.GetComboProcesos();
+                model.Actividades = _comboHelper.GetComboActividades();
+                model.Tareas = _comboHelper.GetComboTareas();
+                model.CategoriasPeligro = _comboHelper.GetComboCategoriaPeligros();
+                model.Peligros = _comboHelper.GetComboPeligros(1);
+                model.Workers = _comboHelper.GetComboTrabajadores();
+                ViewBag.message = "Faltan campos por diligenciar del formulario !!";
+                ViewBag.loadImage = true;
+                return View(model);
             }
-            model.Zonas = _comboHelper.GetComboZonas();
-            model.Procesos = _comboHelper.GetComboProcesos();
-            model.Actividades = _comboHelper.GetComboActividades();
-            model.Tareas = _comboHelper.GetComboTareas();
-            model.CategoriasPeligro = _comboHelper.GetComboCategoriaPeligros();
-            model.Peligros = _comboHelper.GetComboPeligros(1);
-            model.Workers = _comboHelper.GetComboTrabajadores();
-            ViewBag.message = "Faltan campos por diligenciar del formulario !!";
-            return View(model);
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Unsafeacts", "Create"));
+            }
         }
 
         // GET: Unsafeacts/Edit/5
@@ -138,6 +155,15 @@ namespace WSafe.Web.Controllers
             {
                 Unsafeact unsafeact = await _empresaContext.Unsafeacts.FindAsync(id);
                 var model = _converterHelper.ToUnsafeactVM(unsafeact);
+                if (model.FileName == null)
+                {
+                    ViewBag.loadImage = true;
+                }
+                else
+                {
+                    ViewBag.loadImage = false;
+                }
+
                 return View(model);
             }
             catch (Exception ex)
