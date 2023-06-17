@@ -389,7 +389,6 @@ namespace WSafe.Web.Controllers
                 _year = (string)Session["year"];
                 _path = (string)Session["path"];
 
-
                 model.ControlDate = DateTime.Now;
                 model.RenovacionCurso = DateTime.Now;
                 model.ResolucionLicencia = DateTime.Now;
@@ -401,9 +400,9 @@ namespace WSafe.Web.Controllers
                     await _empresaContext.SaveChangesAsync();
                     var id = _empresaContext.Organizations.OrderByDescending(o => o.ID)
                         .Select(o => o.ID).First();
+
                     var path = $"~/ORG{id}/SG-SST/{_year}";
                     var directory = Server.MapPath(path);
-
                     _gestorHelper.CreateFolder(directory);
                     return RedirectToAction("Index","Home");
                 }
@@ -423,6 +422,10 @@ namespace WSafe.Web.Controllers
                 var message = "";
                 if (ModelState.IsValid)
                 {
+                    var path = $"~/ORG{model.ID}/SG-SST/{model.Year}";
+                    var directory = Server.MapPath(path);
+                    _gestorHelper.CreateFolder(directory);
+
                     _empresaContext.Entry(model).State = EntityState.Modified;
                     await _empresaContext.SaveChangesAsync();
                     message = "La Organización ha sido actualizada correctamente!!";

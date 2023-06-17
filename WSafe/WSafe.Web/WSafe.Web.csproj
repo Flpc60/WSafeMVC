@@ -467,17 +467,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202306152212358_UpOrganization1.cs" />
-    <Compile Include="Migrations\202306152212358_UpOrganization1.Designer.cs">
-      <DependentUpon>202306152212358_UpOrganization1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202306152250190_UpOrganization2.cs" />
-    <Compile Include="Migrations\202306152250190_UpOrganization2.Designer.cs">
-      <DependentUpon>202306152250190_UpOrganization2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202306171209091_UpUnsafeactsVM.cs" />
-    <Compile Include="Migrations\202306171209091_UpUnsafeactsVM.Designer.cs">
-      <DependentUpon>202306171209091_UpUnsafeactsVM.cs</DependentUpon>
+    <Compile Include="Migrations\202306171856493_UpdDBHost.cs" />
+    <Compile Include="Migrations\202306171856493_UpdDBHost.Designer.cs">
+      <DependentUpon>202306171856493_UpdDBHost.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
@@ -1177,14 +1169,8 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202306152212358_UpOrganization1.resx">
-      <DependentUpon>202306152212358_UpOrganization1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202306152250190_UpOrganization2.resx">
-      <DependentUpon>202306152250190_UpOrganization2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202306171209091_UpUnsafeactsVM.resx">
-      <DependentUpon>202306171209091_UpUnsafeactsVM.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202306171856493_UpdDBHost.resx">
+      <DependentUpon>202306171856493_UpdDBHost.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
