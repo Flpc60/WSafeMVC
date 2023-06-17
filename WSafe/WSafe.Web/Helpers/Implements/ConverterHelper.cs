@@ -1698,7 +1698,7 @@ namespace WSafe.Domain.Helpers.Implements
                     Recomendations = item.Recomendations,
                     Worker = _empresaContext.Trabajadores.Find(item.WorkerID).NombreCompleto,
                     FileName = item.FileName
-                }); ;
+                });
             }
             return model;
         }

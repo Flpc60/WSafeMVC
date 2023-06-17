@@ -149,18 +149,26 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                @Html.LabelFor(model => model.FileName, htmlAttributes: new { @class = "control-label col-md-3" })
-                <div class="col-md-10 col-sm-10">
-                    <input type="file" name="fileLoad" id="fileLoad" accept="image/*, video/*">
-                    @Html.ValidationMessageFor(model => model.FileName, "", new { @class = "text-danger" })
+
+    @if (ViewBag.loadImage)
+    {
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FileName, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-10 col-sm-10">
+                        <input type="file" name="fileLoad" id="fileLoad" accept="image/*, video/*">
+                        @Html.ValidationMessageFor(model => model.FileName, "", new { @class = "text-danger" })
+                    </div>
                 </div>
             </div>
+            <div class="col-md-6"></div>
         </div>
-        <div class="col-md-6"></div>
-    </div>
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.FileName)
+    }
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
