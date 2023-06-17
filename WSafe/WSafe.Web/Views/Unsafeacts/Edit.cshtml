@@ -8,18 +8,19 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.FechaReporte)
-        @Html.HiddenFor(model => model.MovimientID)
-        @Html.HiddenFor(model => model.ID)
-        @Html.HiddenFor(model => model.OrganizationID)
-        @Html.HiddenFor(model => model.ClientID)
-        @Html.HiddenFor(model => model.UserID)
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.FechaReporte)
+    @Html.HiddenFor(model => model.MovimientID)
+    @Html.HiddenFor(model => model.ID)
+    @Html.HiddenFor(model => model.OrganizationID)
+    @Html.HiddenFor(model => model.ClientID)
+    @Html.HiddenFor(model => model.UserID)
+    @Html.HiddenFor(model => model.FileName)
 
-        @Html.Partial("_EditUnsafeact")
+    @Html.Partial("_EditUnsafeact")
 
-    </div>
+</div>
 }
 
 @section Scripts

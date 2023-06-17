@@ -7121,3 +7121,42 @@ function chartEfectiveActions() {
         }
     });
 }
+
+function CreateRisk(unsafeactID) {
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: "/Unsafeacts/CreateRisk",
+        data: { id: unsafeactID },
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        success: function (data) {
+            var riesgoVM = {
+                ID: "0",
+                ZonaID: data.ZonaID,
+                ProcesoID: data.ProcesoID,
+                ActividadID: data.ActividadID,
+                TareaID: data.TareaID,
+                Rutinaria: false,
+                CategoriaPeligroID: data.ZonaID,
+                PeligroID: data.ZonaID
+            }
+            $.ajax({
+                type: "POST",
+                url: "/Unsafeacts/CreateRisk",
+                data: { model: riesgoVM },
+                dataType: "json",
+                success: function (response) {
+                    window.location = response.url;
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
