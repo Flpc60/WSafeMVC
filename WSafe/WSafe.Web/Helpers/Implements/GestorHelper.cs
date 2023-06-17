@@ -576,7 +576,8 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public void CreateFolder(string path)
         {
-            // create nodo ORG
+
+            // create nodo ORG/SG-SST/YEAR
             var directory = path;
             if (!Directory.Exists(path))
             {
