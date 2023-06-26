@@ -129,7 +129,16 @@ namespace WSafe.Web.Controllers
 
                     _empresaContext.Movimientos.Add(movimient);
                     _empresaContext.SaveChanges();
-                    return RedirectToAction("Index");
+                    var userRole = Session["UserRole"];
+                    userRole = userRole.ToString().Trim();
+                    if (userRole.Equals("ADMIN"))
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index","Home");
+                    }
                 }
                 model.Zonas = _comboHelper.GetComboZonas();
                 model.Procesos = _comboHelper.GetComboProcesos();
