@@ -10,6 +10,12 @@
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.ClientID)
+    @Html.HiddenFor(model => model.StandardActions)
+    @Html.HiddenFor(model => model.StandardEvaluation)
+    @Html.HiddenFor(model => model.StandardIncidents)
+    @Html.HiddenFor(model => model.StandardMatrixRisk)
+    @Html.HiddenFor(model => model.StandardSocioDemographic)
+    @Html.HiddenFor(model => model.StandardUnsafeacts)
     <div class="container" style="background-color:azure">
         <hr />
         <h5 style="text-align:center"> <strong>REGISTRAR INFORMACIÓN DE LA EMPRESA</strong></h5>

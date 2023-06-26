@@ -1561,6 +1561,8 @@ function UpdateOrganization(id) {
         StandardMatrixRisk: $("#sdMatrixRisk").val(),
         StandardActions: $("#sdActions").val(),
         StandardIncidents: $("#sdIncidents").val(),
+        StandardSocioDemographic: $("#sdSociodemographic").val(),
+        StandardUnsafeacts: $("#sdUnsafeacts").val(),
         ControlDate: $("#controlDate").val(),
         ClientID: $("#clientID").val()
     };
