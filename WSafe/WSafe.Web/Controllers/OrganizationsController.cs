@@ -373,7 +373,13 @@ namespace WSafe.Web.Controllers
             var model = new Organization()
             {
                 ClientID = _clientID,
-                ControlDate = DateTime.Now
+                ControlDate = DateTime.Now,
+                StandardActions = 43,
+                StandardEvaluation = 52,
+                StandardIncidents = 18,
+                StandardMatrixRisk = 28,
+                StandardSocioDemographic = 9,
+                StandardUnsafeacts = 57
             };
             return View(model);
         }
