@@ -86,7 +86,16 @@ namespace WSafe.Web.Controllers
                     Trabajador trabajador = await _converterHelper.ToTrabajadorAsync(model, true);
                     _empresaContext.Trabajadores.Add(trabajador);
                     await _empresaContext.SaveChangesAsync();
-                    return RedirectToAction("Index");
+                    var userRole = Session["UserRole"];
+                    userRole = userRole.ToString().Trim();
+                    if (userRole.Equals("ADMIN"))
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 else
                 {

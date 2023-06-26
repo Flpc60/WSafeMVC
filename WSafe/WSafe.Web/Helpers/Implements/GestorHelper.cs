@@ -436,32 +436,38 @@ namespace WSafe.Domain.Helpers.Implements
         {
             switch (component)
             {
-                case (int)Components.Organización:
-                    return "Organización";
+                case (int)Components.ENTIDAD:
+                    return "ENTIDAD";
 
-                case (int)Components.Riesgos:
-                    return "Riesgos";
+                case (int)Components.RIESGOS:
+                    return "RIESGOS";
 
-                case (int)Components.Incidentes:
-                    return "Incidentes";
+                case (int)Components.INCIDENTES:
+                    return "INCIDENTES";
 
-                case (int)Components.Acciones:
-                    return "Acciones";
+                case (int)Components.ACCIONES:
+                    return "ACCIONES";
 
-                case (int)Components.Indicadores:
-                    return "Indicadores";
+                case (int)Components.INDICADORES:
+                    return "INDICADORES";
 
-                case (int)Components.Usuarios:
-                    return "Usuarios";
+                case (int)Components.USUARIOS:
+                    return "USUARIOS";
 
                 case (int)Components.SGSST:
                     return "SG-SST";
 
-                case (int)Components.Eval_Estándares:
-                    return "Eval.Estándares";
+                case (int)Components.EVALUACIÓN:
+                    return "EVALUACIÓN";
+
+                case (int)Components.TRABAJADORES:
+                    return "TRABAJADORES";
+
+                case (int)Components.ACTOS_INSEGUROS:
+                    return "ACTOS_INSEGUROS";
 
                 default:
-                    return "Riesgos";
+                    return "ACTOS_INSEGUROS";
             }
         }
         public string GetOperation(int operation)

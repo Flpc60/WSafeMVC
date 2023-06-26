@@ -2,6 +2,7 @@
     var title = "GESTIÓN AUTORIZACIONES";
     var roles = ViewBag.roles;
 }
+
 <style>
     .tabGesRoles, .tabGesAuthorize, .tabAddRoles, .tabAddAuthorize
     {
@@ -9,8 +10,6 @@
     }
 </style>
 
-<hr />
-<hr />
 <h4>@title</h4>
 <div class="row">
     <div class="col-md-4">
@@ -80,14 +79,16 @@
                 <div class="form-group" style="font-size:18px;width:auto">
                     <label>Componente : </label>
                     <select id="txtComponent">
-                        <option value="1">Organización</option>
-                        <option value="2">Riesgos</option>
-                        <option value="3">Incidentes</option>
-                        <option value="4">Acciones</option>
-                        <option value="5">Indicadores</option>
-                        <option value="6">Usuarios</option>
+                        <option value="1">ENTIDAD</option>
+                        <option value="2">RIESGOS</option>
+                        <option value="3">INCIDENTES</option>
+                        <option value="4">ACCIONES</option>
+                        <option value="5">INDICADORES</option>
+                        <option value="6">USUARIOS</option>
                         <option value="7">SG-SST</option>
-                        <option value="8">Evaluación estándares</option>
+                        <option value="8">EVALUACIÓN</option>
+                        <option value="9">TRABAJADORES</option>
+                        <option value="10">ACTOS_INSEGUROS</option>
                     </select>
                 </div>
             </div>

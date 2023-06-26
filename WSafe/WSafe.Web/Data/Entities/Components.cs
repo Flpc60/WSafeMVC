@@ -2,13 +2,15 @@
 {
     public enum Components
     {
-        Organización = 1,
-        Riesgos = 2,
-        Incidentes = 3,
-        Acciones = 4,
-        Indicadores = 5,
-        Usuarios = 6,
+        ENTIDAD = 1,
+        RIESGOS = 2,
+        INCIDENTES = 3,
+        ACCIONES = 4,
+        INDICADORES = 5,
+        USUARIOS = 6,
         SGSST = 7,
-        Eval_Estándares = 8
+        EVALUACIÓN = 8,
+        TRABAJADORES = 9,
+        ACTOS_INSEGUROS = 10
     }
 }
