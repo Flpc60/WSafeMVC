@@ -125,9 +125,6 @@ namespace WSafe.Web.Controllers
             }
         }
 
-        // POST: Workers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "ID,PrimerApellido,SegundoApellido,Nombres,DocumentType,Documento,FechaNacimiento,Genero,EstadoCivil,Direccion,Telefonos,FechaIngreso,TipoVinculacion,CargoID,EPS,AFP,ARL,FechaRetiro,OrganizationID,ClientID,UserID,DocumentType,Profesion,WorkArea,TipoJornada,TipoSangre,Conyuge,NumberHijos,StratumCategory,Email,TenenciaVivienda,Enfermedad,Tratamiento,SpecialRecomendations,Escolaridad")] WorkersVM model)
@@ -145,7 +142,16 @@ namespace WSafe.Web.Controllers
                     Trabajador trabajador = await _converterHelper.ToTrabajadorAsync(model, false);
                     _empresaContext.Entry(trabajador).State = EntityState.Modified;
                     await _empresaContext.SaveChangesAsync();
-                    return RedirectToAction("Index");
+                    var userRole = Session["UserRole"];
+                    userRole = userRole.ToString().Trim();
+                    if (userRole.Equals("ADMIN"))
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 else
                 {
@@ -301,6 +307,33 @@ namespace WSafe.Web.Controllers
                 _empresaContext.Dispose();
             }
             base.Dispose(disposing);
+        }
+        [HttpPost]
+        public ActionResult EditWorker(string document)
+        {
+            try
+            {
+                Trabajador trabajador = _empresaContext.Trabajadores.FirstOrDefault(t =>t.Documento ==  document);
+                if (trabajador != null)
+                {
+                    var model = _converterHelper.ToTrabajadorVM(trabajador);
+                    return RedirectToAction("Edit", model);
+                }
+                else
+                {
+                    return RedirectToAction("Index","Home");
+                }
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Trabajadores", "Edit"));
+            }
+        }
+
+        // GET: Workers/Edit/5
+        public ActionResult GetWorker()
+        {
+            return View("EditWorker");
         }
     }
 }

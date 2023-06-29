@@ -913,6 +913,9 @@
     <Content Include="Views\Unsafeacts\Edit.cshtml" />
     <Content Include="Views\Unsafeacts\Index.cshtml" />
     <Content Include="Views\Shared\_EditUnsafeact.cshtml" />
+    <Content Include="Views\Workers\EditWorker.cshtml" />
+    <Content Include="Views\Shared\UpdateWorker.cshtml" />
+    <Content Include="Views\Shared\_EditWorkers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
