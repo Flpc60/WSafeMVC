@@ -34,6 +34,7 @@
             <div class="navbar-collapse collapse navbar-menu">
                 <ul class="nav navbar-nav" style="font-size:9px">
                     @{
+                        var userID = Session["userID"];
                         var userRole = Session["UserRole"];
                         userRole = userRole.ToString().Trim();
                         if (userRole.Equals("ADMIN"))
@@ -70,7 +71,7 @@
                                 {
                                     if (userRole.Equals("TRABAJADOR"))
                                     {
-                                        <li>@Html.ActionLink("TRABAJADORES", "Create", "Workers")</li>
+                                        <li>@Html.ActionLink("TRABAJADORES", "GetWorker", "Workers")</li>
                                         <li>@Html.ActionLink("ACTOS_INSEGUROS", "Create", "Unsafeacts")</li>
                                     }
                                     else
@@ -80,7 +81,7 @@
                                 }
                             }
                         }
-                     }
+                    }
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (Session["userName"] != null)
