@@ -208,8 +208,6 @@ namespace WSafe.Web.Controllers
                     var result = _empresaContext.Users.Where(u => u.Name == model.Name.Trim() && u.Email == model.Email.Trim() && u.Password == password.Trim()).FirstOrDefault();
                     if (result == null)
                     {
-                        _clientID = (int)Session["clientID"];
-                        model.ClientID = _clientID;
                         model.Password = password;
                         _empresaContext.Users.Add(model);
                         await _empresaContext.SaveChangesAsync();
