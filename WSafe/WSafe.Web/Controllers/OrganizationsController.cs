@@ -49,7 +49,8 @@ namespace WSafe.Web.Controllers
         }
         public ActionResult GetAllCargos()
         {
-            var cargos = _comboHelper.GetAllCargos();
+            _orgID = (int)Session["orgID"];
+            var cargos = _comboHelper.GetAllCargos().Where(c => c.OrganizationID ==_orgID);
             return Json(cargos, JsonRequestBehavior.AllowGet);
         }
 
@@ -61,9 +62,13 @@ namespace WSafe.Web.Controllers
                 var message = "";
                 if (ModelState.IsValid)
                 {
-                    message = "El cargo fué ingresado correctamente!!";
+                    _orgID = (int)Session["orgID"];
+                    _clientID = (int)Session["clientID"];
+                    model.OrganizationID = _orgID;
+                    model.ClientID = _clientID;
                     _empresaContext.Cargos.Add(model);
                     await _empresaContext.SaveChangesAsync();
+                    message = "El cargo fué ingresado correctamente!!";
                     return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
                 message = "El cargo NO fué ingresado correctamente!!";
@@ -103,7 +108,8 @@ namespace WSafe.Web.Controllers
         }
         public ActionResult GetAllZonas()
         {
-            var zonas = _comboHelper.GetAllZonas();
+            _orgID = (int)Session["orgID"];
+            var zonas = _comboHelper.GetAllZonas().Where(z =>z.OrganizationID ==_orgID );
             return Json(zonas, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
@@ -114,9 +120,13 @@ namespace WSafe.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    message = "La zona fue ingresada correctamente !!";
+                    _orgID = (int)Session["orgID"];
+                    _clientID = (int)Session["clientID"];
+                    model.OrganizationID = _orgID;
+                    model.ClientID = _clientID;
                     _empresaContext.Zonas.Add(model);
                     await _empresaContext.SaveChangesAsync();
+                    message = "La zona fue ingresada correctamente !!";
                     return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
                 message = "La zona NO fue ingresada correctamente !!";
@@ -168,7 +178,8 @@ namespace WSafe.Web.Controllers
         }
         public ActionResult GetAllProcess()
         {
-            var process = _comboHelper.GetAllProcess();
+            _orgID = (int)Session["orgID"];
+            var process = _comboHelper.GetAllProcess().Where(p => p.OrganizationID == _orgID);
             return Json(process, JsonRequestBehavior.AllowGet);
         }
 
@@ -180,9 +191,13 @@ namespace WSafe.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    message = "El proceso fué ingresado correctamente !!";
+                    _orgID = (int)Session["orgID"];
+                    _clientID = (int)Session["clientID"];
+                    model.OrganizationID = _orgID;
+                    model.ClientID = _clientID;
                     _empresaContext.Procesos.Add(model);
                     await _empresaContext.SaveChangesAsync();
+                    message = "El proceso fué ingresado correctamente !!";
                     return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
                 message = "El proceso NO fué ingresado correctamente !!";
@@ -235,7 +250,8 @@ namespace WSafe.Web.Controllers
         }
         public ActionResult GetAllActivitys()
         {
-            var activitys = _comboHelper.GetAllActivitys();
+            _orgID = (int)Session["orgID"];
+            var activitys = _comboHelper.GetAllActivitys().Where(a => a.OrganizationID == _orgID);
             return Json(activitys, JsonRequestBehavior.AllowGet);
         }
 
@@ -247,9 +263,13 @@ namespace WSafe.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    message = "La actividad fué imgresada correctamente !!";
+                    _orgID = (int)Session["orgID"];
+                    _clientID = (int)Session["clientID"];
+                    model.OrganizationID = _orgID;
+                    model.ClientID = _clientID;
                     _empresaContext.Actividades.Add(model);
                     await _empresaContext.SaveChangesAsync();
+                    message = "La actividad fué imgresada correctamente !!";
                     return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
                 message = "La actividad NO fué imgresada correctamente !!";
@@ -302,7 +322,8 @@ namespace WSafe.Web.Controllers
         }
         public ActionResult GetAllTasks()
         {
-            var tasks = _comboHelper.GetAllTareas();
+            _orgID = (int)Session["orgID"];
+            var tasks = _comboHelper.GetAllTareas().Where(t => t.OrganizationID == _orgID);
             return Json(tasks, JsonRequestBehavior.AllowGet);
         }
 
@@ -314,9 +335,13 @@ namespace WSafe.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    message = "La tarea fué ingresada correctamente !!";
+                    _orgID = (int)Session["orgID"];
+                    _clientID = (int)Session["clientID"];
+                    model.OrganizationID = _orgID;
+                    model.ClientID = _clientID;
                     _empresaContext.Tareas.Add(model);
                     await _empresaContext.SaveChangesAsync();
+                    message = "La tarea fué ingresada correctamente !!";
                     return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
                 message = "La tarea NO fué ingresada correctamente !!";

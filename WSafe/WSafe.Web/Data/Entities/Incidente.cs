@@ -126,5 +126,6 @@ namespace WSafe.Domain.Data.Entities
         public CategoriasAfectacion CategoriaAfectacion { get; set; }
         public int OrganizationID { get; set; }
         public int ClientID { get; set; }
+        public int UserID { get; set; }
     }
 }
