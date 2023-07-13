@@ -625,7 +625,7 @@ validarFechaIni = function (item) {
     var fecha = Date.now();
     var date = Date.parse(item);
     if (date > fecha) {
-        alert("Fecha inicial incorrecta !!");
+        alert("Fecha incorrecta !!");
         return false;
     };
 }
