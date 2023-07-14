@@ -65,7 +65,8 @@ namespace WSafe.Web.Controllers
         [AuthorizeUser(operation: 2, component: 3)]
         public ActionResult Create()
         {
-            var incidenteView = _converterHelper.ToIncidenteViewModelNew();
+            _orgID = (int)Session["orgID"];
+            var incidenteView = _converterHelper.ToIncidenteViewModelNew(_orgID);
             ViewBag.fechaReporte = DateTime.Now;
             ViewBag.fechaIncidente = incidenteView.FechaIncidente;
             return View(incidenteView);
@@ -110,7 +111,8 @@ namespace WSafe.Web.Controllers
                 .Include(l => l.Lesionados)
                 .FirstOrDefaultAsync(i => i.ID == id.Value);
 
-            var model = _converterHelper.ToIncidenteViewModel(result);
+            _orgID = (int)Session["orgID"];
+            var model = _converterHelper.ToIncidenteViewModel(result, _orgID);
 
             if (model == null)
             {
@@ -203,7 +205,8 @@ namespace WSafe.Web.Controllers
                 return View("EditRiesgo");
             }
 
-            var riesgoView = _converterHelper.ToRiesgoViewModelNew();
+            _orgID = (int)Session["orgID"];
+            var riesgoView = _converterHelper.ToRiesgoViewModelNew(_orgID);
             riesgoView.IncidenteID = id;
             return View(riesgoView);
         }
@@ -243,7 +246,8 @@ namespace WSafe.Web.Controllers
 
             var result = await _empresaContext.Riesgos.FirstOrDefaultAsync(i => i.IncidenteID == id.Value);
 
-            var riesgoViewModel = _converterHelper.ToRiesgoViewModel(result);
+            _orgID = (int)Session["orgID"];
+            var riesgoViewModel = _converterHelper.ToRiesgoViewModel(result, _orgID);
 
             if (riesgoViewModel == null)
             {
@@ -354,7 +358,8 @@ namespace WSafe.Web.Controllers
             var message = "";
             Incidente incidente = await _empresaContext.Incidentes.FindAsync(id);
 
-            var model = _converterHelper.ToIncidenteViewModel(incidente);
+            _orgID = (int)Session["orgID"];
+            var model = _converterHelper.ToIncidenteViewModel(incidente, _orgID);
             return Json(new { data = model, error = message }, JsonRequestBehavior.AllowGet);
         }
 

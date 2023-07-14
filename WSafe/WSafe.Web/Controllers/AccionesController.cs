@@ -49,14 +49,15 @@ namespace WSafe.Web.Controllers
                     .Where(r => r.OrganizationID == _orgID)
                 .OrderByDescending(a => a.FechaSolicitud)
                 .ToListAsync();
-            var modelo = _converterHelper.ToAccionVMList(list);
+            var modelo = _converterHelper.ToAccionVMList(list, _orgID);
             return View(modelo);
         }
 
         [AuthorizeUser(operation: 2, component: 4)]
         public ActionResult Create()
         {
-            var model = _converterHelper.ToAccionViewModelNew();
+            _orgID = (int)Session["orgID"];
+            var model = _converterHelper.ToAccionViewModelNew(_orgID);
             ViewBag.Categorias = _comboHelper.GetAllCausas();
             ViewBag.fechaSolicitud = DateTime.Now;
             ViewBag.fechaCierre = DateTime.Now;
@@ -77,9 +78,9 @@ namespace WSafe.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
+            _orgID = (int)Session["orgID"];
             var result = await _empresaContext.Acciones.FirstOrDefaultAsync(i => i.ID == id.Value);
-            var model = _converterHelper.ToAccionViewModel(result);
+            var model = _converterHelper.ToAccionViewModel(result, _orgID);
             if (model == null)
             {
                 return HttpNotFound();
@@ -95,7 +96,7 @@ namespace WSafe.Web.Controllers
 
         [HttpPost]
         public async Task<ActionResult> UpdateAccion([Bind(Include="ID, ZonaID, ProcesoID, ActividadID, TareaID, FechaSolicitud, Categoria, TrabajadorID, " +
-            "FuenteAccion, Descripcion, EficaciaAntes, EficaciaDespues, FechaCierre, Efectiva, ActionCategory")] Accion model)
+            "FuenteAccion, Descripcion, EficaciaAntes, EficaciaDespues, FechaCierre, Efectiva, ActionCategory, UserID")] Accion model)
         {
             var message = "";
             try
@@ -144,7 +145,8 @@ namespace WSafe.Web.Controllers
                 return Json(new { data = false, error = message }, JsonRequestBehavior.AllowGet);
             }
 
-            var model = _converterHelper.ToAccionViewModel(accion);
+            _orgID = (int)Session["orgID"];
+            var model = _converterHelper.ToAccionViewModel(accion, _orgID);
             return Json(new { data = model, error = message }, JsonRequestBehavior.AllowGet);
         }
 
@@ -255,6 +257,8 @@ namespace WSafe.Web.Controllers
             {
                 model.ClientID = (int)Session["clientID"];
                 model.OrganizationID = (int)Session["orgID"];
+                model.UserID = (int)Session["userID"];
+
                 if (ModelState.IsValid)
                 {
                     var result = await _converterHelper.ToAccionAsync(model, true);

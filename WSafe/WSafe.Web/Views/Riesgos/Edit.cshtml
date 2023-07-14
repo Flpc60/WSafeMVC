@@ -4,6 +4,7 @@
     ViewBag.Title = "GESTIONAR LOS RIESGOS";
     var trabajadores = @ViewBag.trabajadores;
     var riesgoID = @ViewBag.riesgoID;
+    var userID = Model.UserID;
 }
 <style>
     .tabInterven, .capInterven, .tabPeligros, .tabEvalRiesgos, .tabMediAplica, .consInterven, .tabIntervencion,
@@ -14,10 +15,7 @@
 
 </style>
 
-<hr />
-<hr />
 <h4>GESTIÓN DE LOS RIESGOS</h4>
-
 <div class="pull-left">
     <div class="btn-group">
         <button type="button" class="btn btn-info" id="idPeligros" title="doble click para cerrar la ventana">
@@ -38,6 +36,8 @@
 
 <div class="form-horizontal">
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <input type="hidden" id="userID" name="userID" value="@userID" />
+
     <div class="tabPeligros">
         <hr />
         @Html.Partial("_EditarPeligros")

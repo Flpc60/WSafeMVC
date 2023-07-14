@@ -1454,7 +1454,8 @@ function UpdateAccion(id) {
         EficaciaDespues: $("#idEficaciaDesp").val(),
         FechaCierre: $("#FechaCierre").val(),
         Efectiva: $("#idEfectiva").val(),
-        ActionCategory: $("#txtActionCategory").val()
+        ActionCategory: $("#txtActionCategory").val(),
+        UserID: $("#userID").val()
     };
 
     $.ajax({
@@ -1912,7 +1913,8 @@ function UpdateRiesgo() {
         DangerCategory: $("#txtDanger").val(),
         FuenteControls: $("#fuenteControls").val(),
         MedioControls: $("#medioControls").val(),
-        IndividuoControls: $("#individuoControls").val()
+        IndividuoControls: $("#individuoControls").val(),
+        UserID: $("#userID").val()
     };
 
     $.ajax({

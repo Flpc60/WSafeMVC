@@ -69,5 +69,6 @@ namespace WSafe.Web.Models
         public string ActionState { get; set; }
         public int OrganizationID { get; set; }
         public int ClientID { get; set; }
+        public int UserID { get; set; }
     }
 }

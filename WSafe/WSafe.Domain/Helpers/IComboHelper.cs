@@ -6,12 +6,12 @@ namespace WSafe.Domain.Helpers
 {
     public interface IComboHelper
     {
-        IEnumerable<SelectListItem> GetComboTrabajadores();
+        IEnumerable<SelectListItem> GetComboTrabajadores(int org);
         IEnumerable<SelectListItem> GetComboUsers();
-        IEnumerable<SelectListItem> GetComboProcesos();
-        IEnumerable<SelectListItem> GetComboZonas();
-        IEnumerable<SelectListItem> GetComboActividades();
-        IEnumerable<SelectListItem> GetComboTareas();
+        IEnumerable<SelectListItem> GetComboProcesos(int org);
+        IEnumerable<SelectListItem> GetComboZonas(int org);
+        IEnumerable<SelectListItem> GetComboActividades(int org);
+        IEnumerable<SelectListItem> GetComboTareas(int org);
         IEnumerable<SelectListItem> GetComboCategoriaPeligros();
         IEnumerable<SelectListItem> GetComboPeligros(int id);
         IEnumerable<SelectListItem> GetComboIndicadores();

@@ -59,7 +59,8 @@ namespace WSafe.Web.Controllers
         // GET: Unsafeacts/Create
         public ActionResult Create()
         {
-            var model = _converterHelper.ToUnsafeactsVMNew();
+            _orgID = (int)Session["orgID"];
+            var model = _converterHelper.ToUnsafeactsVMNew(_orgID);
             ViewBag.loadImage = true;
             return View(model);
         }
@@ -140,13 +141,13 @@ namespace WSafe.Web.Controllers
                         return RedirectToAction("Index","Home");
                     }
                 }
-                model.Zonas = _comboHelper.GetComboZonas();
-                model.Procesos = _comboHelper.GetComboProcesos();
-                model.Actividades = _comboHelper.GetComboActividades();
-                model.Tareas = _comboHelper.GetComboTareas();
+                model.Zonas = _comboHelper.GetComboZonas(_orgID);
+                model.Procesos = _comboHelper.GetComboProcesos(_orgID);
+                model.Actividades = _comboHelper.GetComboActividades(_orgID);
+                model.Tareas = _comboHelper.GetComboTareas(_orgID);
                 model.CategoriasPeligro = _comboHelper.GetComboCategoriaPeligros();
                 model.Peligros = _comboHelper.GetComboPeligros(1);
-                model.Workers = _comboHelper.GetComboTrabajadores();
+                model.Workers = _comboHelper.GetComboTrabajadores(_orgID);
                 ViewBag.message = "Faltan campos por diligenciar del formulario !!";
                 ViewBag.loadImage = true;
                 return View(model);
@@ -163,7 +164,8 @@ namespace WSafe.Web.Controllers
             try
             {
                 Unsafeact unsafeact = await _empresaContext.Unsafeacts.FindAsync(id);
-                var model = _converterHelper.ToUnsafeactVM(unsafeact);
+                _orgID = (int)Session["orgID"];
+                var model = _converterHelper.ToUnsafeactVM(unsafeact, _orgID);
                 if (model.FileName == null)
                 {
                     ViewBag.loadImage = true;
@@ -195,13 +197,14 @@ namespace WSafe.Web.Controllers
                 await _empresaContext.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            model.Zonas = _comboHelper.GetComboZonas();
-            model.Procesos = _comboHelper.GetComboProcesos();
-            model.Actividades = _comboHelper.GetComboActividades();
-            model.Tareas = _comboHelper.GetComboTareas();
+            _orgID = (int)Session["orgID"];
+            model.Zonas = _comboHelper.GetComboZonas(_orgID);
+            model.Procesos = _comboHelper.GetComboProcesos(_orgID);
+            model.Actividades = _comboHelper.GetComboActividades(_orgID);
+            model.Tareas = _comboHelper.GetComboTareas(_orgID);
             model.CategoriasPeligro = _comboHelper.GetComboCategoriaPeligros();
             model.Peligros = _comboHelper.GetComboPeligros(model.CategoriaPeligroID);
-            model.Workers = _comboHelper.GetComboTrabajadores();
+            model.Workers = _comboHelper.GetComboTrabajadores(_orgID);
             ViewBag.message = "Faltan campos por diligenciar del formulario !!";
             return View(model);
         }
@@ -295,7 +298,8 @@ namespace WSafe.Web.Controllers
             try
             {
                 Unsafeact unsafeact = await _empresaContext.Unsafeacts.FindAsync(id);
-                var model = _converterHelper.ToUnsafeactVM(unsafeact);
+                _orgID = (int)Session["orgID"];
+                var model = _converterHelper.ToUnsafeactVM(unsafeact, _orgID);
                 return Json(model, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

@@ -178,8 +178,9 @@ namespace WSafe.Web.Controllers
         }
         public ActionResult DetailsPDF(string periodo, int year, string image, string titulo, int id)
         {
+            _orgID = (int)Session["orgID"];
             var result = _empresaContext.Incidentes.FirstOrDefault(i => i.ID == id);
-            var modelo = _converterHelper.ToIncidenteViewModel(result);
+            var modelo = _converterHelper.ToIncidenteViewModel(result, _orgID);
             var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == id);
             ViewBag.formato = document.Formato;
             ViewBag.estandar = document.Estandar;
