@@ -132,8 +132,9 @@ namespace WSafe.Web.Controllers
         [AuthorizeUser(operation: 2, component: 2)]
         public ActionResult Create()
         {
-            var model = _converterHelper.ToRiesgoViewModelNew();
-            ViewBag.trabajadores = _comboHelper.GetComboTrabajadores();
+            _orgID = (int)Session["orgID"];
+            var model = _converterHelper.ToRiesgoViewModelNew(_orgID);
+            ViewBag.trabajadores = _comboHelper.GetComboTrabajadores(_orgID);
             return View(model);
         }
 
@@ -145,6 +146,7 @@ namespace WSafe.Web.Controllers
                 var message = "";
                 model.ClientID = (int)Session["clientID"];
                 model.OrganizationID = (int)Session["orgID"];
+                model.UserID = (int)Session["userID"];
 
                 if (ModelState.IsValid)
                 {
@@ -190,13 +192,14 @@ namespace WSafe.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            _orgID = (int)Session["orgID"];
             var result = await _empresaContext.Riesgos.FirstOrDefaultAsync(i => i.ID == id.Value);
-            var model = _converterHelper.ToRiesgoViewModel(result);
+            var model = _converterHelper.ToRiesgoViewModel(result, _orgID);
             if (model == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.trabajadores = _comboHelper.GetComboTrabajadores();
+            ViewBag.trabajadores = _comboHelper.GetComboTrabajadores(_orgID);
             ViewBag.riesgoID = id;
             return View(model);
         }
@@ -209,11 +212,6 @@ namespace WSafe.Web.Controllers
                 var message = "";
                 model.ClientID = (int)Session["clientID"];
                 model.OrganizationID = (int)Session["orgID"];
-
-                if (!ValidateModel(model))
-                {
-                    return View(model);
-                }
 
                 if (ModelState.IsValid)
                 {
@@ -262,35 +260,40 @@ namespace WSafe.Web.Controllers
         [HttpGet]
         public ActionResult GetZonas()
         {
-            var zonas = _comboHelper.GetComboZonas();
+            _orgID = (int)Session["orgID"];
+            var zonas = _comboHelper.GetComboZonas(_orgID);
             return Json(zonas, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
         public ActionResult GetProcesos()
         {
-            var procesos = _comboHelper.GetComboProcesos();
+            _orgID = (int)Session["orgID"];
+            var procesos = _comboHelper.GetComboProcesos(_orgID);
             return Json(procesos, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
         public ActionResult GetActivities()
         {
-            var activities = _comboHelper.GetComboActividades();
+            _orgID = (int)Session["orgID"];
+            var activities = _comboHelper.GetComboActividades(_orgID);
             return Json(activities, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
         public ActionResult GetTareas()
         {
-            var tareas = _comboHelper.GetComboTareas();
+            _orgID = (int)Session["orgID"];
+            var tareas = _comboHelper.GetComboTareas(_orgID);
             return Json(tareas, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
         public ActionResult GetTrabajadores()
         {
-            var works = _comboHelper.GetComboTrabajadores();
+            _orgID = (int)Session["orgID"];
+            var works = _comboHelper.GetComboTrabajadores(_orgID);
             return Json(works, JsonRequestBehavior.AllowGet);
         }
 

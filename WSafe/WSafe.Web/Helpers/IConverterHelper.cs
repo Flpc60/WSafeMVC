@@ -9,16 +9,16 @@ namespace WSafe.Domain.Helpers
     public interface IConverterHelper
     {
         Task<Riesgo> ToRiesgoAsync(RiesgoViewModel model, bool isNew);
-        RiesgoViewModel ToRiesgoViewModel(Riesgo riesgo);
-        RiesgoViewModel ToRiesgoViewModelNew();
-        AccionViewModel ToAccionViewModel(Accion accion);
+        RiesgoViewModel ToRiesgoViewModel(Riesgo riesgo, int org);
+        RiesgoViewModel ToRiesgoViewModelNew(int org);
+        AccionViewModel ToAccionViewModel(Accion accion, int org);
         IEnumerable<MatrizRiesgosVM> ToRiesgoViewModelFul(IEnumerable<Riesgo> riesgo);
         IEnumerable<ListaRiesgosVM> ToRiesgoViewModelList(IEnumerable<Riesgo> riesgo);
         Task<Accion> ToAccionAsync(Accion model, bool isNew);
-        AccionViewModel ToAccionViewModelNew();
+        AccionViewModel ToAccionViewModelNew(int org);
         Task<Incidente> ToIncidenteAsync(IncidenteViewModel model, bool isNew);
-        IncidenteViewModel ToIncidenteViewModel(Incidente incidente);
-        IncidenteViewModel ToIncidenteViewModelNew();
+        IncidenteViewModel ToIncidenteViewModel(Incidente incidente, int org);
+        IncidenteViewModel ToIncidenteViewModelNew(int org);
         IndicadorViewModel ToIndicadorViewModel(Indicador indicador);
         IndicadorViewModel ToIndicadorViewModelNew(Indicador indicador, int[] periodo, int year);
         AccidentadoVM ToLesionadoViewModel(Trabajador lesionado);
@@ -31,7 +31,7 @@ namespace WSafe.Domain.Helpers
         Task<SeguimientoAccion> ToSeguimientoAccionAsync(SeguimientoAccion model);
         IEnumerable<PlanAccionVM> ToPlanAccionVMList(IEnumerable<PlanAction> plan);
         IEnumerable<SeguimientoAccionVM> ToSeguimientoAccionVMList(IEnumerable<SeguimientoAccion> accion);
-        IEnumerable<AccionViewModel> ToAccionVMList(IEnumerable<Accion> accion);
+        IEnumerable<AccionViewModel> ToAccionVMList(IEnumerable<Accion> accion, int org);
         _DetailsAccionVM ToAccionVMFull(Accion accion, int id);
         MatrizRiesgosVM ToRiesgoVMUnit(Riesgo riesgo);
         IEnumerable<AccidentadoVM> ToListLesionadosVM(IEnumerable<Accidentado> lesionados);
@@ -51,9 +51,9 @@ namespace WSafe.Domain.Helpers
         Task<Trabajador> ToTrabajadorAsync(WorkersVM model, bool isNew);
         WorkersVM ToTrabajadorVM(Trabajador model);
         IEnumerable<SocioDemographicVM> ToWorkersVM(IEnumerable<Trabajador> trabajador);
-        UnsafeactVM ToUnsafeactVM(Unsafeact unsafeact);
+        UnsafeactVM ToUnsafeactVM(Unsafeact unsafeact, int org);
         IEnumerable<UnsafeactsListVM> ToUnsafeactsListVM(IEnumerable<Unsafeact> unsafeact);
-        UnsafeactVM ToUnsafeactsVMNew();
+        UnsafeactVM ToUnsafeactsVMNew(int org);
         Task<Unsafeact> ToUnsafeactAsync(UnsafeactVM model, bool isNew);
     }   
 }
