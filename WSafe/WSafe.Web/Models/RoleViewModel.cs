@@ -12,5 +12,6 @@ namespace WSafe.Web.Models
         [Display(Name = "Rol usuario")]
         public string Name { get; set; }
         public IEnumerable<SelectListItem> Roles { get; set; }
+        public int UserID { get; set; }
     }
 }

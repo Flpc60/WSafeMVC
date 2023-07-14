@@ -14,9 +14,10 @@ namespace WSafe.Domain.Helpers.Implements
             _empresaContext = empresaContext;
         }
 
-        public IEnumerable<SelectListItem> GetComboActividades()
+        public IEnumerable<SelectListItem> GetComboActividades(int org)
         {
-            var list = _empresaContext.Actividades.Select(a => new SelectListItem
+            var list = _empresaContext.Actividades
+                .Where(a =>a.OrganizationID == org).Select(a => new SelectListItem
             {
                 Text = a.Descripcion,
                 Value = a.ID.ToString()
@@ -157,9 +158,10 @@ namespace WSafe.Domain.Helpers.Implements
         }
 
 
-        public IEnumerable<SelectListItem> GetComboProcesos()
+        public IEnumerable<SelectListItem> GetComboProcesos(int org)
         {
-            var list = _empresaContext.Procesos.Select(p => new SelectListItem
+            var list = _empresaContext.Procesos
+                .Where(p =>p.OrganizationID == org).Select(p => new SelectListItem
             {
                 Text = p.Descripcion,
                 Value = p.ID.ToString()
@@ -176,9 +178,9 @@ namespace WSafe.Domain.Helpers.Implements
             return list;
         }
 
-        public IEnumerable<SelectListItem> GetComboTareas()
+        public IEnumerable<SelectListItem> GetComboTareas(int org)
         {
-            var list = _empresaContext.Tareas.Select(t => new SelectListItem
+            var list = _empresaContext.Tareas.Where(t =>t.OrganizationID == org).Select(t => new SelectListItem
             {
                 Text = t.Descripcion,
                 Value = t.ID.ToString()
@@ -195,9 +197,9 @@ namespace WSafe.Domain.Helpers.Implements
             return list;
         }
 
-        public IEnumerable<SelectListItem> GetComboZonas()
+        public IEnumerable<SelectListItem> GetComboZonas(int org)
         {
-            var list = _empresaContext.Zonas.Select(z => new SelectListItem
+            var list = _empresaContext.Zonas.Where(z =>z.OrganizationID == org).Select(z => new SelectListItem
             {
                 Text = z.Descripcion,
                 Value = z.ID.ToString()
@@ -213,9 +215,9 @@ namespace WSafe.Domain.Helpers.Implements
 
             return list;
         }
-        public IEnumerable<SelectListItem> GetComboTrabajadores()
+        public IEnumerable<SelectListItem> GetComboTrabajadores(int org)
         {
-            var list = _empresaContext.Trabajadores.Select(t => new SelectListItem
+            var list = _empresaContext.Trabajadores.Where(t =>t.OrganizationID == org).Select(t => new SelectListItem
             {
                 Text = t.Nombres + " " + t.PrimerApellido + " " + t.Documento,
                 Value = t.ID.ToString()

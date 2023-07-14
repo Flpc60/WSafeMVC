@@ -81,11 +81,12 @@ namespace WSafe.Domain.Helpers.Implements
                 MedioControls = model.MedioControls,
                 IndividuoControls = model.IndividuoControls,
                 OrganizationID = model.OrganizationID,
-                ClientID = model.ClientID
+                ClientID = model.ClientID,
+                UserID = model.UserID
             };
             return result;
         }
-        public RiesgoViewModel ToRiesgoViewModel(Riesgo riesgo)
+        public RiesgoViewModel ToRiesgoViewModel(Riesgo riesgo, int org)
         {
             var model = new RiesgoViewModel
             {
@@ -110,42 +111,43 @@ namespace WSafe.Domain.Helpers.Implements
                 NroExpuestos = riesgo.NroExpuestos,
                 RequisitoLegal = riesgo.RequisitoLegal,
                 IncidenteID = riesgo.IncidenteID,
-                Zonas = _comboHelper.GetComboZonas(),
-                Procesos = _comboHelper.GetComboProcesos(),
-                Actividades = _comboHelper.GetComboActividades(),
-                Tareas = _comboHelper.GetComboTareas(),
+                Zonas = _comboHelper.GetComboZonas(org),
+                Procesos = _comboHelper.GetComboProcesos(org),
+                Actividades = _comboHelper.GetComboActividades(org),
+                Tareas = _comboHelper.GetComboTareas(org),
                 DangerCategory = riesgo.DangerCategory,
                 FuenteControls = riesgo.FuenteControls,
                 MedioControls = riesgo.MedioControls,
                 IndividuoControls = riesgo.IndividuoControls,
                 OrganizationID = riesgo.OrganizationID,
-                ClientID = riesgo.ClientID
+                ClientID = riesgo.ClientID,
+                UserID = riesgo.UserID
             };
 
             return model;
         }
-        public RiesgoViewModel ToRiesgoViewModelNew()
+        public RiesgoViewModel ToRiesgoViewModelNew(int org)
         {
             var model = new RiesgoViewModel
             {
-                Zonas = _comboHelper.GetComboZonas(),
-                Procesos = _comboHelper.GetComboProcesos(),
-                Actividades = _comboHelper.GetComboActividades(),
-                Tareas = _comboHelper.GetComboTareas(),
+                Zonas = _comboHelper.GetComboZonas(org),
+                Procesos = _comboHelper.GetComboProcesos(org),
+                Actividades = _comboHelper.GetComboActividades(org),
+                Tareas = _comboHelper.GetComboTareas(org),
                 CategoriasPeligros = _comboHelper.GetComboCategoriaPeligros(),
                 Peligros = _comboHelper.GetComboPeligros(1)
             };
             return model;
         }
-        public AccionViewModel ToAccionViewModelNew()
+        public AccionViewModel ToAccionViewModelNew(int org)
         {
             var model = new AccionViewModel
             {
-                Zonas = _comboHelper.GetComboZonas(),
-                Procesos = _comboHelper.GetComboProcesos(),
-                Actividades = _comboHelper.GetComboActividades(),
-                Tareas = _comboHelper.GetComboTareas(),
-                Trabajadores = _comboHelper.GetComboTrabajadores(),
+                Zonas = _comboHelper.GetComboZonas(org),
+                Procesos = _comboHelper.GetComboProcesos(org),
+                Actividades = _comboHelper.GetComboActividades(org),
+                Tareas = _comboHelper.GetComboTareas(org),
+                Trabajadores = _comboHelper.GetComboTrabajadores(org),
                 Planes = new List<PlanAction>(),
                 Seguimientos = new List<Seguimiento>()
             };
@@ -154,23 +156,23 @@ namespace WSafe.Domain.Helpers.Implements
             model.Seguimientos.Add(new Seguimiento());
             return model;
         }
-        public AccionViewModel ToAccionViewModel(Accion accion)
+        public AccionViewModel ToAccionViewModel(Accion accion, int org)
         {
             var model = new AccionViewModel
             {
                 ID = accion.ID,
                 ZonaID = accion.ZonaID,
-                Zonas = _comboHelper.GetComboZonas(),
+                Zonas = _comboHelper.GetComboZonas(org),
                 ProcesoID = accion.ProcesoID,
-                Procesos = _comboHelper.GetComboProcesos(),
+                Procesos = _comboHelper.GetComboProcesos(org),
                 ActividadID = accion.ActividadID,
-                Actividades = _comboHelper.GetComboActividades(),
+                Actividades = _comboHelper.GetComboActividades(org),
                 TareaID = accion.TareaID,
-                Tareas = _comboHelper.GetComboTareas(),
+                Tareas = _comboHelper.GetComboTareas(org),
                 FechaSolicitud = accion.FechaSolicitud.ToString("yyyy-MM-dd"),
                 Categoria = accion.Categoria,
                 TrabajadorID = accion.TrabajadorID,
-                Trabajadores = _comboHelper.GetComboTrabajadores(),
+                Trabajadores = _comboHelper.GetComboTrabajadores(org),
                 FuenteAccion = accion.FuenteAccion,
                 Origen = _gestorHelper.GetFuenteAccion(accion.FuenteAccion).ToUpper(),
                 Descripcion = accion.Descripcion,
@@ -185,7 +187,8 @@ namespace WSafe.Domain.Helpers.Implements
                 FechaCierreStr = accion.FechaCierre.ToString("yyyy-MM-dd"),
                 ActionState = _gestorHelper.GetActionCategory((int)accion.ActionCategory),
                 OrganizationID = accion.OrganizationID,
-                ClientID = accion.ClientID
+                ClientID = accion.ClientID,
+                UserID = accion.UserID
             };
             return model;
         }
@@ -209,7 +212,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Efectiva = model.Efectiva,
                 ActionCategory = model.ActionCategory,
                 OrganizationID = model.OrganizationID,
-                ClientID = model.ClientID
+                ClientID = model.ClientID,
+                UserID = model.UserID
             };
             return result;
         }
@@ -264,41 +268,41 @@ namespace WSafe.Domain.Helpers.Implements
             };
             return result;
         }
-        public IncidenteViewModel ToIncidenteViewModelNew()
+        public IncidenteViewModel ToIncidenteViewModelNew(int org)
         {
             var model = new IncidenteViewModel
             {
-                Zonas = _comboHelper.GetComboZonas(),
-                Procesos = _comboHelper.GetComboProcesos(),
-                Actividades = _comboHelper.GetComboActividades(),
-                Tareas = _comboHelper.GetComboTareas(),
-                Trabajadores = _comboHelper.GetComboTrabajadores(),
+                Zonas = _comboHelper.GetComboZonas(org),
+                Procesos = _comboHelper.GetComboProcesos(org),
+                Actividades = _comboHelper.GetComboActividades(org),
+                Tareas = _comboHelper.GetComboTareas(org),
+                Trabajadores = _comboHelper.GetComboTrabajadores(org),
                 Lesionados = new List<AccidentadoVM>()
             };
 
             return model;
         }
 
-        public IncidenteViewModel ToIncidenteViewModel(Incidente incidente)
+        public IncidenteViewModel ToIncidenteViewModel(Incidente incidente, int org)
         {
             var model = new IncidenteViewModel
             {
                 ID = incidente.ID,
                 ZonaID = incidente.ZonaID,
-                Zonas = _comboHelper.GetComboZonas(),
+                Zonas = _comboHelper.GetComboZonas(org),
                 ProcesoID = incidente.ProcesoID,
-                Procesos = _comboHelper.GetComboProcesos(),
+                Procesos = _comboHelper.GetComboProcesos(org),
                 ActividadID = incidente.ActividadID,
-                Actividades = _comboHelper.GetComboActividades(),
+                Actividades = _comboHelper.GetComboActividades(org),
                 TareaID = incidente.TareaID,
-                Tareas = _comboHelper.GetComboTareas(),
+                Tareas = _comboHelper.GetComboTareas(org),
                 FechaReporte = incidente.FechaReporte.ToString("yyyy-MM-dd"),
                 FechaIncidente = incidente.FechaIncidente.ToString("yyyy-MM-dd"),
                 CategoriasIncidente = incidente.CategoriasIncidente,
                 IncapacidadMedica = incidente.IncapacidadMedica,
                 DiasIncapacidad = incidente.DiasIncapacidad,
                 TrabajadorID = incidente.TrabajadorID,
-                Trabajadores = _comboHelper.GetComboTrabajadores(),
+                Trabajadores = _comboHelper.GetComboTrabajadores(org),
                 NaturalezaLesion = incidente.NaturalezaLesion,
                 PartesAfectadas = incidente.PartesAfectadas,
                 TipoIncidente = incidente.TipoIncidente,
@@ -682,7 +686,7 @@ namespace WSafe.Domain.Helpers.Implements
             return model;
         }
         // Crea nueva lista de AccionViewModel
-        public IEnumerable<AccionViewModel> ToAccionVMList(IEnumerable<Accion> accion)
+        public IEnumerable<AccionViewModel> ToAccionVMList(IEnumerable<Accion> accion, int org)
         {
             var model = new List<AccionViewModel>();
             foreach (var item in accion)
@@ -693,7 +697,7 @@ namespace WSafe.Domain.Helpers.Implements
                     FechaSolicitud = item.FechaSolicitud.ToString("yyyy-MM-dd"),
                     Categoria = item.Categoria,
                     TrabajadorID = item.TrabajadorID,
-                    Trabajadores = _comboHelper.GetComboTrabajadores(),
+                    Trabajadores = _comboHelper.GetComboTrabajadores(org),
                     FuenteAccion = item.FuenteAccion,
                     Origen = _gestorHelper.GetFuenteAccion(item.FuenteAccion).ToUpper(),
                     Descripcion = item.Descripcion.ToUpper(),
@@ -1630,19 +1634,19 @@ namespace WSafe.Domain.Helpers.Implements
             }
             return model;
         }
-        public UnsafeactVM ToUnsafeactVM(Unsafeact unsafeact)
+        public UnsafeactVM ToUnsafeactVM(Unsafeact unsafeact, int org)
         {
             var model = new UnsafeactVM
             {
                 ID = unsafeact.ID,
                 ZonaID = unsafeact.ZonaID,
-                Zonas = _comboHelper.GetComboZonas(),
+                Zonas = _comboHelper.GetComboZonas(org),
                 ProcesoID = unsafeact.ProcesoID,
-                Procesos = _comboHelper.GetComboProcesos(),
+                Procesos = _comboHelper.GetComboProcesos(org),
                 ActividadID = unsafeact.ActividadID,
-                Actividades = _comboHelper.GetComboActividades(),
+                Actividades = _comboHelper.GetComboActividades(org),
                 TareaID = unsafeact.TareaID,
-                Tareas = _comboHelper.GetComboTareas(),
+                Tareas = _comboHelper.GetComboTareas(org),
                 FechaReporte = unsafeact.FechaReporte,
                 ActCategory = unsafeact.ActCategory,
                 Antecedentes = unsafeact.Antecedentes,
@@ -1655,7 +1659,7 @@ namespace WSafe.Domain.Helpers.Implements
                 ProbableConsecuencia = unsafeact.ProbableConsecuencia,
                 Recomendations = unsafeact.Recomendations,
                 WorkerID = unsafeact.WorkerID,
-                Workers = _comboHelper.GetComboTrabajadores(),
+                Workers = _comboHelper.GetComboTrabajadores(org),
                 Worker1ID = unsafeact.Worker1ID,
                 Worker2ID = unsafeact.Worker2ID,
                 MovimientID = unsafeact.MovimientID,
@@ -1702,17 +1706,17 @@ namespace WSafe.Domain.Helpers.Implements
             }
             return model;
         }
-        public UnsafeactVM ToUnsafeactsVMNew()
+        public UnsafeactVM ToUnsafeactsVMNew(int org)
         {
             var model = new UnsafeactVM
             {
-                Zonas = _comboHelper.GetComboZonas(),
-                Procesos = _comboHelper.GetComboProcesos(),
-                Actividades = _comboHelper.GetComboActividades(),
-                Tareas = _comboHelper.GetComboTareas(),
+                Zonas = _comboHelper.GetComboZonas(org),
+                Procesos = _comboHelper.GetComboProcesos(org),
+                Actividades = _comboHelper.GetComboActividades(org),
+                Tareas = _comboHelper.GetComboTareas(org),
                 CategoriasPeligro = _comboHelper.GetComboCategoriaPeligros(),
                 Peligros = _comboHelper.GetComboPeligros(1),
-                Workers = _comboHelper.GetComboTrabajadores(),
+                Workers = _comboHelper.GetComboTrabajadores(org),
                 FechaReporte = DateTime.Now,
                 FechaAntecedente = DateTime.Now
             };

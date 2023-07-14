@@ -70,7 +70,8 @@ namespace WSafe.Web.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            ViewBag.trabajadores = _comboHelper.GetComboTrabajadores();
+            _orgID = (int)Session["orgID"];
+            ViewBag.trabajadores = _comboHelper.GetComboTrabajadores(_orgID);
             return View();
         }
 
@@ -143,7 +144,8 @@ namespace WSafe.Web.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.trabajadores = _comboHelper.GetComboTrabajadores();
+            _orgID = (int)Session["orgID"];
+            ViewBag.trabajadores = _comboHelper.GetComboTrabajadores(_orgID);
             ViewBag.ID = result.ID;
             return View();
         }
