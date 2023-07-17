@@ -264,7 +264,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Probabilidad = model.Probabilidad,
                 TrabajadorID = model.TrabajadorID,
                 OrganizationID = model.OrganizationID,
-                ClientID = model.ClientID
+                ClientID = model.ClientID,
+                UserID = model.UserID
             };
             return result;
         }
