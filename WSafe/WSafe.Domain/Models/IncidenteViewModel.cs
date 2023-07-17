@@ -150,5 +150,6 @@ namespace WSafe.Web.Models
         public IEnumerable<AccidentadoVM> Lesionados { get; set; }
         public int OrganizationID { get; set; }
         public int ClientID { get; set; }
+        public int UserID { get; set; }
     }
 }

@@ -92,6 +92,7 @@ namespace WSafe.Web.Controllers
 
                 if (ModelState.IsValid)
                 {
+                    model.UserID = (int)Session["userID"];
                     model.FechaReporte = DateTime.Now;
                     Unsafeact unsafeact = await _converterHelper.ToUnsafeactAsync(model, true);
                     _empresaContext.Unsafeacts.Add(unsafeact);
@@ -192,6 +193,7 @@ namespace WSafe.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                model.ClientID = (int)Session["clientID"];
                 Unsafeact unsafeact = await _converterHelper.ToUnsafeactAsync(model, false);
                 _empresaContext.Entry(unsafeact).State = EntityState.Modified;
                 await _empresaContext.SaveChangesAsync();
