@@ -1,7 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using WSafe.Domain.Data.Entities;
 
-namespace WSafe.Domain.Data.Entities
+namespace WSafe.Domain.Data
 {
     public class Unsafeact
     {

@@ -451,7 +451,7 @@
     <Compile Include="Data\Entities\ValorationCategory.cs" />
     <Compile Include="Data\Entities\WorkAreas.cs" />
     <Compile Include="Data\Entities\Zona.cs" />
-    <Compile Include="Data\Unsafeact.cs" />
+    <Compile Include="Data\Entities\Unsafeact.cs" />
     <Compile Include="Filters\AuthorizeUser.cs" />
     <Compile Include="Filters\VerificaSession.cs" />
     <Compile Include="Helpers\IChartHelper.cs" />
@@ -474,6 +474,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
+    <Compile Include="Models\ActionsMatrixVM.cs" />
     <Compile Include="Models\AplicacionVM.cs" />
     <Compile Include="Models\AplicationsViewModel.cs" />
     <Compile Include="Models\AthorizationVM.cs" />
