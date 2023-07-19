@@ -81,7 +81,6 @@ namespace WSafe.Web.Controllers
                 _path = (string)Session["path"];
                 model.ClientID = (int)Session["clientID"];
                 model.OrganizationID = (int)Session["orgID"];
-                model.MovimientID = 0;
                 model.UserID = (int)Session["userID"];
 
                 if (fileLoad != null)
@@ -92,11 +91,6 @@ namespace WSafe.Web.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    model.UserID = (int)Session["userID"];
-                    model.FechaReporte = DateTime.Now;
-                    Unsafeact unsafeact = await _converterHelper.ToUnsafeactAsync(model, true);
-                    _empresaContext.Unsafeacts.Add(unsafeact);
-                    _empresaContext.SaveChanges();
                     var organization = _empresaContext.Organizations.Find(_orgID);
                     var normaID = organization.StandardUnsafeacts;
                     var item = _empresaContext.Normas.Find(normaID).Item;
@@ -130,6 +124,13 @@ namespace WSafe.Web.Controllers
                     };
 
                     _empresaContext.Movimientos.Add(movimient);
+                    _empresaContext.SaveChanges();
+                    var id = _empresaContext.Movimientos.OrderByDescending(x => x.ID).First().ID;
+
+                    model.FechaReporte = DateTime.Now;
+                    model.MovimientID = id;
+                    Unsafeact unsafeact = await _converterHelper.ToUnsafeactAsync(model, true);
+                    _empresaContext.Unsafeacts.Add(unsafeact);
                     _empresaContext.SaveChanges();
                     var userRole = Session["UserRole"];
                     userRole = userRole.ToString().Trim();
@@ -265,7 +266,6 @@ namespace WSafe.Web.Controllers
             _path = (string)Session["path"];
             model.ClientID = (int)Session["clientID"];
             model.OrganizationID = (int)Session["orgID"];
-            model.MovimientID = 0;
             model.UserID = (int)Session["userID"];
             model.FechaReporte = DateTime.Now;
             var riskVM = new RiesgoViewModel
@@ -285,11 +285,14 @@ namespace WSafe.Web.Controllers
                 NroExpuestos = 1,
                 DangerCategory = DangerCategories.Seguridad,
                 OrganizationID = model.OrganizationID,
-                ClientID = model.ClientID
+                ClientID = model.ClientID,
+                UserID = model.UserID
             };
 
             Riesgo risk = await _converterHelper.ToRiesgoAsync(riskVM, true);
             _empresaContext.Riesgos.Add(risk);
+            Unsafeact unsafeact = _empresaContext.Unsafeacts.Find(model.ID);
+            _empresaContext.Unsafeacts.Remove(unsafeact);
             _empresaContext.SaveChanges();
             return Json(new { result = "", url = Url.Action("Index", "Unsafeacts") }, JsonRequestBehavior.AllowGet);
         }

@@ -7136,7 +7136,7 @@ function CreateRisk(unsafeactID) {
         contentType: "application/json;charset=UTF-8",
         success: function (data) {
             var riesgoVM = {
-                ID: "0",
+                ID: unsafeactID,
                 ZonaID: data.ZonaID,
                 ProcesoID: data.ProcesoID,
                 ActividadID: data.ActividadID,
