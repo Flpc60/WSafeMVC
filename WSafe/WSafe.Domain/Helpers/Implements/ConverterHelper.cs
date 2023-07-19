@@ -8,7 +8,7 @@ using WSafe.Web.Models;
 
 namespace WSafe.Domain.Helpers.Implements
 {
-    //Conversión de async / sync
+    //Procesos para la conversión de async / sync
     public class ConverterHelper : IConverterHelper
     {
         private readonly EmpresaContext _empresaContext;
@@ -1635,7 +1635,7 @@ namespace WSafe.Domain.Helpers.Implements
             }
             return model;
         }
-        public UnsafeactVM ToUnsafeactVM(Unsafeact unsafeact, int org)
+        public UnsafeactVM ToUnsafeactVM(Data.Entities.Unsafeact unsafeact, int org)
         {
             var model = new UnsafeactVM
             {
@@ -1674,7 +1674,7 @@ namespace WSafe.Domain.Helpers.Implements
         }
 
         // Crea una lista de UnsafeactVM
-        public IEnumerable<UnsafeactsListVM> ToUnsafeactsListVM(IEnumerable<Unsafeact> unsafeact)
+        public IEnumerable<UnsafeactsListVM> ToUnsafeactsListVM(IEnumerable<Data.Entities.Unsafeact> unsafeact)
         {
             var objeto = "";
             var model = new List<UnsafeactsListVM>();
@@ -1723,9 +1723,9 @@ namespace WSafe.Domain.Helpers.Implements
             };
             return model;
         }
-        public async Task<Unsafeact> ToUnsafeactAsync(UnsafeactVM model, bool isNew)
+        public async Task<Data.Entities.Unsafeact> ToUnsafeactAsync(UnsafeactVM model, bool isNew)
         {
-            var result = new Unsafeact
+            var result = new Data.Entities.Unsafeact
             {
                 ID = isNew ? 0 : model.ID,
                 ZonaID = model.ZonaID,
@@ -1751,6 +1751,60 @@ namespace WSafe.Domain.Helpers.Implements
                 UserID = model.UserID
             };
             return result;
+        }
+        public IEnumerable<ActionsMatrixVM> ToActionsMatrixVM(IEnumerable<Accion> lista)
+        {
+            var model = new List<ActionsMatrixVM>();
+  
+            foreach (var item in lista)
+            {
+                var plansAction = "";
+                var causa = "";
+                var efectivities = 0;
+                var total = 0;
+                decimal efectivity = 0;
+                foreach (var plan in item.Planes)
+                {
+                    if (plan.Accion != null)
+                    {
+                        plansAction += plan.Accion + "\n";
+                        causa = _gestorHelper.GetCausaAccion(plan.Causa);
+                        if (plan.ActionCategory == ActionCategories.Finalizada)
+                        {
+                            efectivities++;
+                        }
+                        total++;
+                    }
+                }
+
+                if (total > 0)
+                {
+                    efectivity = Convert.ToDecimal(efectivities / total * 100);
+                }
+
+                model.Add(new ActionsMatrixVM
+                {
+                    ID = item.ID,
+                    FechaSolicitud = item.FechaSolicitud.ToString("yyyy-MM-dd"),
+                    Zona = _empresaContext.Zonas.Find(item.ZonaID).Descripcion,
+                    Proceso = _empresaContext.Procesos.Find(item.ProcesoID).Descripcion,
+                    Actividad = _empresaContext.Actividades.Find(item.ActividadID).Descripcion,
+                    FuenteAccion = _gestorHelper.GetFuenteAccion(item.FuenteAccion),
+                    Categoria = _gestorHelper.GetActionType((int)item.Categoria).ToUpper(),
+                    Descripcion = item.Descripcion,
+                    CategoriaCausa = causa,
+                    Planes = plansAction,
+                    FechaCierre = item.FechaCierre.ToString("yyyy-MM-dd"),
+                    Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto,
+                    ActionState = _gestorHelper.GetActionCategory((int)item.ActionCategory),
+                    Efectiva = item.Efectiva,
+                    Eficacia = efectivity,
+                    OrganizationID = item.OrganizationID,
+                    ClientID = item.ClientID,
+                    UserID = item.UserID
+                });
+            }
+            return model;
         }
     }
 }
