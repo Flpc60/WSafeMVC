@@ -822,5 +822,22 @@ namespace WSafe.Domain.Helpers.Implements
                     return "Propia";
             }
         }
+        public string GetActionType(int categoria)
+        {
+            switch (categoria)
+            {
+                case 1:
+                    return "Preventiva";
+
+                case 2:
+                    return "Correctiva";
+
+                case 3:
+                    return "Mejora";
+
+                default:
+                    return "Preventiva";
+            }
+        }
     }
 }

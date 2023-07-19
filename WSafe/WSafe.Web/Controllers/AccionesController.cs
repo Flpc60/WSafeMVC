@@ -16,7 +16,7 @@ using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
 {
-    // Getionar todas las acciones correctvas, preventivas y de mejora de la organización
+    // Procesos para Getionar todas las acciones correctvas, preventivas y de mejora de la organización
     public class AccionesController : Controller
     {
         private int _clientID;
@@ -598,6 +598,79 @@ namespace WSafe.Web.Controllers
                 var datos = _chartHelper.GetAllEfectiveActions(year, _orgID);
                 var image = "/Images/" + filename;
                 return Json(datos, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> ActionsMatrixPdf()
+        {
+            try
+            {
+                // Configuración nombre archivo pdf
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
+                _path = (string)Session["path"];
+                var organization = _empresaContext.Organizations.Find(_orgID);
+                var year = _year;
+                var item = _empresaContext.Normas.Find(organization.StandardActions).Item;
+                var fullPath = $"{_path}/2. ACTUAR/{item}/";
+                var path = Server.MapPath(fullPath);
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                Random random = new Random();
+                var filename = "ActionsMatrix" + random.Next(1, 100) + ".Pdf";
+                var filePathName = path + filename;
+                var list = await _empresaContext.Acciones
+                    .Where(a => a.OrganizationID == _orgID)
+                    .Include(pa => pa.Planes)
+                    .OrderByDescending(a => a.FechaSolicitud)
+                    .ToListAsync();
+                var modelo = _converterHelper.ToActionsMatrixVM(list);
+                var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == 10);
+                ViewBag.formato = document.Formato;
+                ViewBag.estandar = document.Estandar;
+                ViewBag.titulo = document.Titulo;
+                ViewBag.version = document.Version;
+                ViewBag.fecha = DateTime.Now;
+                var report = new ViewAsPdf("GetAll");
+                report.Model = modelo;
+                report.FileName = filePathName;
+                report.PageSize = Rotativa.Options.Size.A4;
+                report.PageOrientation = Rotativa.Options.Orientation.Landscape;
+                report.PageWidth = 399;
+                report.PageHeight = 399;
+                report.SaveOnServerPath = filePathName;
+
+                //Generar archivo de movimiento
+                var fullName = filename;
+                var type = Path.GetExtension(filename).ToUpper();
+                var descript = "Matriz de riesgos";
+                var userID = (int)Session["userID"];
+                Movimient movimient = new Movimient()
+                {
+                    ID = 0,
+                    OrganizationID = _orgID,
+                    NormaID = organization.StandardMatrixRisk,
+                    UserID = userID,
+                    Descripcion = descript,
+                    Document = fullName,
+                    Year = year,
+                    Item = item,
+                    Ciclo = "H",
+                    Type = type,
+                    Path = path,
+                    ClientID = _clientID
+                };
+                _empresaContext.Movimientos.Add(movimient);
+                _empresaContext.SaveChanges();
+                return report;
             }
             catch (Exception ex)
             {

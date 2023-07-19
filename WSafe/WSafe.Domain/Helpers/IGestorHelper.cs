@@ -40,5 +40,6 @@ namespace WSafe.Domain.Helpers
         string GetBloodType(TiposSangre blood);
         string GetStratum(EstratoCategories stratum);
         string GetTenenciaVivienda(TenenciasVivienda tenencia);
+        string GetActionType(int categoria);
     }
 }
