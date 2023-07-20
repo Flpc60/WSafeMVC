@@ -1,0 +1,118 @@
+﻿@model IEnumerable<WSafe.Web.Models.ActionsMatrixVM>
+
+@{
+    ViewBag.Title = "Sistema de Gestión de la Seguridad y Salud en el Trabajo";
+    Layout = null;
+}
+
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryunobtrusive")
+
+@Html.Partial("_CabezoteFormat")
+
+<div class="container">
+
+    <table class="table table-bordered table-hover">
+        <tr style="background-color:gainsboro">
+            <th>
+                @Html.DisplayNameFor(model => model.FechaSolicitud)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Zona)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Proceso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Actividad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FuenteAccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Categoria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoriaCausa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Planes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaCierre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Responsable)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActionState)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Efectiva)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Eficacia)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaSolicitud)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Zona)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Proceso)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Actividad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FuenteAccion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Categoria)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoriaCausa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Planes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaCierre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Responsable)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ActionState)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Efectiva)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Eficacia)
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<div class="container body-content">
+    <hr />
+    <footer>
+        <p>&copy; @DateTime.Now.Year - FLPCSoft</p>
+    </footer>
+</div>

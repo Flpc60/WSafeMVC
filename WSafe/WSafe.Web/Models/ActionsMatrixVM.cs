@@ -1,12 +1,9 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using WSafe.Domain.Data.Entities;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace WSafe.Web.Models
 {
     public class ActionsMatrixVM
     {
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ID { get; set; }
         [Display(Name = "FECHA SOLICITUD")]
         public string FechaSolicitud { get; set; }

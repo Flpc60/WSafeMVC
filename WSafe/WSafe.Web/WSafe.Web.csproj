@@ -471,6 +471,10 @@
     <Compile Include="Migrations\202307131756084_updateOrganization1.Designer.cs">
       <DependentUpon>202307131756084_updateOrganization1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202307192308530_UpdateActionVM.cs" />
+    <Compile Include="Migrations\202307192308530_UpdateActionVM.Designer.cs">
+      <DependentUpon>202307192308530_UpdateActionVM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -917,6 +921,7 @@
     <Content Include="Views\Workers\EditWorker.cshtml" />
     <Content Include="Views\Shared\UpdateWorker.cshtml" />
     <Content Include="Views\Shared\_EditWorkers.cshtml" />
+    <Content Include="Views\Acciones\CreateActionsMatrix.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1175,6 +1180,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202307131756084_updateOrganization1.resx">
       <DependentUpon>202307131756084_updateOrganization1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202307192308530_UpdateActionVM.resx">
+      <DependentUpon>202307192308530_UpdateActionVM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

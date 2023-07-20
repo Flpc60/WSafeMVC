@@ -1635,7 +1635,7 @@ namespace WSafe.Domain.Helpers.Implements
             }
             return model;
         }
-        public UnsafeactVM ToUnsafeactVM(Data.Entities.Unsafeact unsafeact, int org)
+        public UnsafeactVM ToUnsafeactVM(Unsafeact unsafeact, int org)
         {
             var model = new UnsafeactVM
             {
@@ -1674,7 +1674,7 @@ namespace WSafe.Domain.Helpers.Implements
         }
 
         // Crea una lista de UnsafeactVM
-        public IEnumerable<UnsafeactsListVM> ToUnsafeactsListVM(IEnumerable<Data.Entities.Unsafeact> unsafeact)
+        public IEnumerable<UnsafeactsListVM> ToUnsafeactsListVM(IEnumerable<Unsafeact> unsafeact)
         {
             var objeto = "";
             var model = new List<UnsafeactsListVM>();
@@ -1723,9 +1723,9 @@ namespace WSafe.Domain.Helpers.Implements
             };
             return model;
         }
-        public async Task<Data.Entities.Unsafeact> ToUnsafeactAsync(UnsafeactVM model, bool isNew)
+        public async Task<Unsafeact> ToUnsafeactAsync(UnsafeactVM model, bool isNew)
         {
-            var result = new Data.Entities.Unsafeact
+            var result = new Unsafeact
             {
                 ID = isNew ? 0 : model.ID,
                 ZonaID = model.ZonaID,
