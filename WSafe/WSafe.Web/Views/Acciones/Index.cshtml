@@ -34,14 +34,16 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
             @Html.ActionLink("Nueva acción", "Create", null, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-plus" })
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
+            @Html.ActionLink("Generar matriz de acciones", "ActionsMatrixPdf", null, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-download-alt" })
+        </div>
+        <div class="col-md-3">
             <button class="btn btn-success btn-lg active glyphicon glyphicon-search" onclick="FindActions()">Consultar Acciones</button><br>
         </div>
-        <div class="col-md-4">
-        </div>
+        <div class="col-md-3"></div>
     </div>
 </div>
 <br />

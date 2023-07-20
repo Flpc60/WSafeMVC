@@ -618,7 +618,7 @@ namespace WSafe.Web.Controllers
                 var organization = _empresaContext.Organizations.Find(_orgID);
                 var year = _year;
                 var item = _empresaContext.Normas.Find(organization.StandardActions).Item;
-                var fullPath = $"{_path}/2. ACTUAR/{item}/";
+                var fullPath = $"{_path}/4. ACTUAR/{item}/";
                 var path = Server.MapPath(fullPath);
                 if (!Directory.Exists(path))
                 {
@@ -639,7 +639,7 @@ namespace WSafe.Web.Controllers
                 ViewBag.titulo = document.Titulo;
                 ViewBag.version = document.Version;
                 ViewBag.fecha = DateTime.Now;
-                var report = new ViewAsPdf("GetAll");
+                var report = new ViewAsPdf("CreateActionsMatrix");
                 report.Model = modelo;
                 report.FileName = filePathName;
                 report.PageSize = Rotativa.Options.Size.A4;
@@ -651,19 +651,19 @@ namespace WSafe.Web.Controllers
                 //Generar archivo de movimiento
                 var fullName = filename;
                 var type = Path.GetExtension(filename).ToUpper();
-                var descript = "Matriz de riesgos";
+                var descript = "Matriz de acciones correctivas, preventivas y de mejora";
                 var userID = (int)Session["userID"];
                 Movimient movimient = new Movimient()
                 {
                     ID = 0,
                     OrganizationID = _orgID,
-                    NormaID = organization.StandardMatrixRisk,
+                    NormaID = organization.StandardActions,
                     UserID = userID,
                     Descripcion = descript,
                     Document = fullName,
                     Year = year,
                     Item = item,
-                    Ciclo = "H",
+                    Ciclo = "A",
                     Type = type,
                     Path = path,
                     ClientID = _clientID
@@ -674,7 +674,7 @@ namespace WSafe.Web.Controllers
             }
             catch (Exception ex)
             {
-                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
+                return View("Error", new HandleErrorInfo(ex, "Acciones", "Index"));
             }
         }
     }

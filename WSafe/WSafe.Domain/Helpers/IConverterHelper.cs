@@ -51,10 +51,10 @@ namespace WSafe.Domain.Helpers
         Task<Trabajador> ToTrabajadorAsync(WorkersVM model, bool isNew);
         WorkersVM ToTrabajadorVM(Trabajador model);
         IEnumerable<SocioDemographicVM> ToWorkersVM(IEnumerable<Trabajador> trabajador);
-        UnsafeactVM ToUnsafeactVM(Data.Entities.Unsafeact unsafeact, int org);
-        IEnumerable<UnsafeactsListVM> ToUnsafeactsListVM(IEnumerable<Data.Entities.Unsafeact> unsafeact);
+        UnsafeactVM ToUnsafeactVM(Unsafeact unsafeact, int org);
+        IEnumerable<UnsafeactsListVM> ToUnsafeactsListVM(IEnumerable<Unsafeact> unsafeact);
         UnsafeactVM ToUnsafeactsVMNew(int org);
-        Task<Data.Entities.Unsafeact> ToUnsafeactAsync(UnsafeactVM model, bool isNew);
+        Task<Unsafeact> ToUnsafeactAsync(UnsafeactVM model, bool isNew);
         IEnumerable<ActionsMatrixVM> ToActionsMatrixVM(IEnumerable<Accion> lista);
     }   
 }
