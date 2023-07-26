@@ -1,4 +1,4 @@
-﻿// Agregar funcionlidad principal del lado del cliente...
+﻿// Agregar funcionlidad principal del lado del cliente
 
 function viewHistory() {
     //    $(".tabMediAplica").css("display", "none");
@@ -426,11 +426,13 @@ function getAbsolutePath() {
 function ShowMovimientos(phva) {
     // Mostrar todos los movimientos
     var Item = $("#txtStandardID").val();
+    var periodo = $("#periodo").val();
     $.ajax({
         url: "/Movimientos/GetMovimientos",
         data: {
             ciclo: phva,
-            item: Item
+            item: Item,
+            year: periodo
         },
         type: "GET",
         contentType: "application/json;charset=utf-8",
