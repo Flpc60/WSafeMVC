@@ -18,6 +18,7 @@ namespace WSafe.Web.Controllers
 {
     public class MovimientosController : Controller
     {
+        // Gestionar carpetas SG-SST apoyo auditoría
         private int _clientID;
         private int _orgID;
         private string _year;
@@ -258,13 +259,13 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> GetMovimientos(string ciclo, int item)
+        public async Task<JsonResult> GetMovimientos(string ciclo, int item, string year)
         {
             if (ciclo != null)
             {
                 _clientID = (int)Session["clientID"];
                 _orgID = (int)Session["orgID"];
-                _year = (string)Session["year"];
+                var _year = year;
                 _path = (string)Session["path"];
                 var data = _empresaContext.Movimientos
                     .Where(m => m.Ciclo == ciclo && m.NormaID == item && m.Year == _year && m.OrganizationID == _orgID)
