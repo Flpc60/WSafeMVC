@@ -926,7 +926,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Documents\" />
-    <Folder Include="obj\" />
     <Folder Include="ORG1\SG-SST\2022\1. PLANEAR\1.1.1\" />
     <Folder Include="ORG1\SG-SST\2022\1. PLANEAR\1.1.2\" />
     <Folder Include="ORG1\SG-SST\2022\1. PLANEAR\1.1.3\" />

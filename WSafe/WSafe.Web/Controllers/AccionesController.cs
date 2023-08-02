@@ -169,9 +169,9 @@ namespace WSafe.Web.Controllers
         [HttpGet]
         public ActionResult CreatePlanAccion(int idAccion)
         {
-            if (idAccion == null)
+            if (idAccion == 0)
             {
-                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
             var model = new PlanAccionVM
@@ -209,7 +209,7 @@ namespace WSafe.Web.Controllers
         [HttpGet]
         public ActionResult CreateSeguimientoPlan(int idAccion)
         {
-            if (idAccion == null)
+            if (idAccion == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -280,9 +280,9 @@ namespace WSafe.Web.Controllers
 
         // GET: Plan acción/ListarPlanAction
         [HttpGet]
-        public async Task<ActionResult> ListarPlanAccion(int idAccion)
+        public ActionResult ListarPlanAccion(int idAccion)
         {
-            if (idAccion == null)
+            if (idAccion == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -295,9 +295,9 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> ListarSeguimientoAccion(int idAccion)
+        public ActionResult ListarSeguimientoAccion(int idAccion)
         {
-            if (idAccion == null)
+            if (idAccion == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -466,7 +466,7 @@ namespace WSafe.Web.Controllers
                 report.Copies = 1;
                 report.PageOrientation.GetValueOrDefault();
                 report.FormsAuthenticationCookieName = FormsAuthentication.FormsCookieName;
-                report.SaveOnServerPath = filePathName;
+                //report.SaveOnServerPath = filePathName;
 
                 //Generar archivo de movimiento
                 var fullName = filename;
@@ -499,7 +499,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetAllPlans()
+        public ActionResult GetAllPlans()
         {
             _clientID = (int)Session["clientID"];
             _orgID = (int)Session["orgID"];
@@ -646,7 +646,7 @@ namespace WSafe.Web.Controllers
                 report.PageOrientation = Rotativa.Options.Orientation.Landscape;
                 report.PageWidth = 399;
                 report.PageHeight = 399;
-                report.SaveOnServerPath = filePathName;
+                //report.SaveOnServerPath = filePathName;
 
                 //Generar archivo de movimiento
                 var fullName = filename;
