@@ -1,7 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using Rotativa;
+﻿using Rotativa;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
@@ -280,7 +278,7 @@ namespace WSafe.Web.Controllers
             {
                 var value = property.GetValue(model);
 
-                if(property.Name != "ID" && property.Name != "NumberHijos" && property.Name != "SegundoApellido" && property.Name != "Conyuge")
+                if (property.Name != "ID" && property.Name != "NumberHijos" && property.Name != "SegundoApellido" && property.Name != "Conyuge")
                 {
                     if (value is int intValue && intValue == 0)
                     {
@@ -313,7 +311,7 @@ namespace WSafe.Web.Controllers
         {
             try
             {
-                Trabajador trabajador = _empresaContext.Trabajadores.FirstOrDefault(t =>t.Documento ==  document);
+                Trabajador trabajador = _empresaContext.Trabajadores.FirstOrDefault(t => t.Documento == document);
                 if (trabajador != null)
                 {
                     var model = _converterHelper.ToTrabajadorVM(trabajador);
@@ -321,7 +319,7 @@ namespace WSafe.Web.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Index","Home");
+                    return RedirectToAction("Index", "Home");
                 }
             }
             catch (Exception ex)
