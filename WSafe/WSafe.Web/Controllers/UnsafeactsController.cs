@@ -249,7 +249,7 @@ namespace WSafe.Web.Controllers
         [HttpGet]
         public ActionResult GetPeligros(int id)
         {
-            if (id != null)
+            if (id != 0)
             {
                 var peligros = _comboHelper.GetComboPeligros(id);
                 return Json(peligros, JsonRequestBehavior.AllowGet);

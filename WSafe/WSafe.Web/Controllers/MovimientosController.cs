@@ -39,7 +39,7 @@ namespace WSafe.Web.Controllers
 
         // GET: Movimientos
         [AuthorizeUser(operation: 1, component: 2)]
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
             ViewBag.Users = _comboHelper.GetComboUsers();
             return View();
@@ -259,7 +259,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> GetMovimientos(string ciclo, int item, string year)
+        public JsonResult GetMovimientos(string ciclo, int item, string year)
         {
             if (ciclo != null)
             {
@@ -359,7 +359,7 @@ namespace WSafe.Web.Controllers
             }
         }
         [HttpPost]
-        public async Task<ActionResult> Download(int id)
+        public ActionResult Download(int id)
         {
             try
             {
