@@ -241,7 +241,7 @@ namespace WSafe.Web.Controllers
                 report.PageOrientation = Rotativa.Options.Orientation.Landscape;
                 report.PageWidth = 399;
                 report.PageHeight = 399;
-                report.SaveOnServerPath = filePathName;
+                //report.SaveOnServerPath = filePathName;
 
                 //Generar archivo de movimiento
                 var fullName = filename;

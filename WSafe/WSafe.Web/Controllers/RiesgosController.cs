@@ -97,7 +97,7 @@ namespace WSafe.Web.Controllers
                 report.PageOrientation = Rotativa.Options.Orientation.Landscape;
                 report.PageWidth = 399;
                 report.PageHeight = 399;
-                report.SaveOnServerPath = filePathName;
+                //report.SaveOnServerPath = filePathName;
 
                 //Generar archivo de movimiento
                 var fullName = filename;
@@ -249,7 +249,7 @@ namespace WSafe.Web.Controllers
         [HttpGet]
         public ActionResult GetPeligros(int id)
         {
-            if (id != null)
+            if (id != 0)
             {
                 var peligros = _comboHelper.GetComboPeligros(id);
                 return Json(peligros, JsonRequestBehavior.AllowGet);
@@ -316,7 +316,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> UpdateIntervencion(int id)
+        public ActionResult UpdateIntervencion(int id)
         {
             try
             {
@@ -346,7 +346,7 @@ namespace WSafe.Web.Controllers
                 message = "El registro NO ha sido actualizado correctamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception ex)
+            catch
             {
                 message = "El registro NO ha sido actualizado correctamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
@@ -371,7 +371,7 @@ namespace WSafe.Web.Controllers
                 message = "El registro NO ha sido ingresado correctamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception ex)
+            catch
             {
                 message = "La transacción NO ha sido realizada correctamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
@@ -379,7 +379,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> DeleteIntervencion(int? id)
+        public ActionResult DeleteIntervencion(int? id)
         {
             var message = "";
             try
@@ -388,7 +388,7 @@ namespace WSafe.Web.Controllers
                 var model = _converterHelper.ToAplicationVM(result);
                 return Json(new { data = model, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception ex)
+            catch
             {
                 message = "No fué posible realizar esta transacción !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
@@ -412,7 +412,7 @@ namespace WSafe.Web.Controllers
                 message = "El registro NO fué borrado correctamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception ex)
+            catch
             {
                 message = "El registro NO fué borrado correctamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);

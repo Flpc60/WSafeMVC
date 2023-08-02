@@ -63,7 +63,7 @@ namespace WSafe.Web.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult> GetAllIndicators(int year)
+        public ActionResult GetAllIndicators(int year)
         {
             try
             {
@@ -93,7 +93,7 @@ namespace WSafe.Web.Controllers
             //TODO
             try
             {
-                if (year != null)
+                if (year != 0)
                 {
                     var month = 12;
                     if (year == DateTime.Now.Year)

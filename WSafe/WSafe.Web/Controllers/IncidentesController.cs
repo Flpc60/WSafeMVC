@@ -193,7 +193,7 @@ namespace WSafe.Web.Controllers
         // GET: Riesgos/Create
         public async Task<ActionResult> CreateRiesgo(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -290,9 +290,9 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> GetAllLesionados(int idIncidente)
+        public JsonResult GetAllLesionados(int idIncidente)
         {
-            if (idIncidente == null)
+            if (idIncidente == 0)
             {
                 //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -382,7 +382,7 @@ namespace WSafe.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> Details(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -425,7 +425,7 @@ namespace WSafe.Web.Controllers
             report.Copies = 1;
             report.PageOrientation.GetValueOrDefault();
             report.FormsAuthenticationCookieName = FormsAuthentication.FormsCookieName;
-            report.SaveOnServerPath = filePathName;
+            //report.SaveOnServerPath = filePathName;
 
             //Generar archivo de movimiento
             var fullName = filename;
@@ -455,7 +455,7 @@ namespace WSafe.Web.Controllers
         [HttpGet]
         public ActionResult GetEvents(int id)
         {
-            if (id != null)
+            if (id != 0)
             {
                 var events = from e in _empresaContext.Events
                              where e.IncidentID == id
@@ -475,7 +475,7 @@ namespace WSafe.Web.Controllers
         [HttpGet]
         public ActionResult GetMainCauses(int id)
         {
-            if (id != null)
+            if (id != 0)
             {
                 var result = _comboHelper.GetRootCauses(id);
                 return Json(result, JsonRequestBehavior.AllowGet);
@@ -486,7 +486,7 @@ namespace WSafe.Web.Controllers
         [HttpGet]
         public ActionResult GetCauses(int id)
         {
-            if (id != null)
+            if (id != 0)
             {
                 var result =
                     from c in _empresaContext.CausalAnalysis
@@ -508,7 +508,7 @@ namespace WSafe.Web.Controllers
         [HttpGet]
         public ActionResult GetBarriers(int id)
         {
-            if (id != null)
+            if (id != 0)
             {
                 var result =
                     from b in _empresaContext.BarrierAnalysis
@@ -529,7 +529,7 @@ namespace WSafe.Web.Controllers
         [HttpGet]
         public ActionResult GetRootCauses(int id)
         {
-            if (id != null)
+            if (id != 0)
             {
                 var result =
                     from r in _empresaContext.Reasons
@@ -551,7 +551,7 @@ namespace WSafe.Web.Controllers
         [HttpGet]
         public ActionResult GetRecomendations(int id)
         {
-            if (id != null)
+            if (id != 0)
             {
                 var result =
                     from r in _empresaContext.Recomendations
@@ -716,7 +716,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> DeleteEvent(int? id)
+        public ActionResult DeleteEvent(int? id)
         {
             var message = "";
             try
@@ -724,7 +724,7 @@ namespace WSafe.Web.Controllers
                 var result = _empresaContext.Events.Find(id);
                 return Json(new { data = result, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception ex)
+            catch
             {
                 message = "No fué posible realizar esta transacción !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
@@ -837,7 +837,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> DeleteCause(int? id)
+        public ActionResult DeleteCause(int? id)
         {
             var message = "";
             try
@@ -924,7 +924,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> DeleteBarrier(int? id)
+        public ActionResult DeleteBarrier(int? id)
         {
             var message = "";
             try
@@ -1014,7 +1014,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> DeleteRootCause(int? id)
+        public ActionResult DeleteRootCause(int? id)
         {
             var message = "";
             try
@@ -1103,7 +1103,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> DeleteRecomendation(int? id)
+        public ActionResult DeleteRecomendation(int? id)
         {
             var message = "";
             try
