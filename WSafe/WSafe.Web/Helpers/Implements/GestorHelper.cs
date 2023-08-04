@@ -7,6 +7,7 @@ using WSafe.Web.Models;
 
 namespace WSafe.Domain.Helpers.Implements
 {
+    //Procesos Gestor riesgos
     public class GestorHelper : IGestorHelper
     {
         private readonly EmpresaContext _empresaContext;

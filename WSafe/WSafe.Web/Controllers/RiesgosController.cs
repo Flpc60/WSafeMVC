@@ -16,7 +16,7 @@ using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
 {
-    // Controlador riesgos Gestión de riesgos en el SG-SST
+    //  Controlador riesgos Gestión de riesgos en el SG-SST
     public class RiesgosController : Controller
     {
         private int _clientID;
@@ -97,7 +97,7 @@ namespace WSafe.Web.Controllers
                 report.PageOrientation = Rotativa.Options.Orientation.Landscape;
                 report.PageWidth = 399;
                 report.PageHeight = 399;
-                //report.SaveOnServerPath = filePathName;
+                report.SaveOnServerPath = filePathName;
 
                 //Generar archivo de movimiento
                 var fullName = filename;
