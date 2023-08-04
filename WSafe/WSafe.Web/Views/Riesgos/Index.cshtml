@@ -7,9 +7,12 @@
     .CommonActivitys, .ClassDangers, .EfectosPosibles {
         display: none
     }
+    .centerText{
+        text-align:center
+    }
 </style>
 
-<h4>GESTIÓN DE LOS RIESGOS : @Session["organization"].ToString().Trim()</h4>
+<h4 class="centerText">GESTIÓN DE LOS RIESGOS : @Session["organization"].ToString().Trim()</h4>
 <hr />
 <div class="container">
     <div class="row align-items-center">
@@ -33,15 +36,13 @@
 <hr />
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-4">
+    <div class="row justify-content-between">
+        <div class="col-md-6">
             @Html.ActionLink("Nuevo riesgo", "Create", null, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-plus" })
+            @Html.ActionLink("Generar matriz de riesgos", "PrintRiesgosToPdf", null, new { @class = "btn btn-success btn-lg active glyphicon glyphicon-download-alt" })
         </div>
-        <div class="col-md-4">
-            @Html.ActionLink("Generar matriz de riesgos", "PrintRiesgosToPdf", null, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-download-alt" })
-        </div>
-        <div class="col-md-4">
-            <div class="pull-right" style="display:block; margin-right:3%">
+        <div class="col-md-6">
+            <div class="text-right">
                 <div class="btn-group">
                     <div style="background-color: red">RIESGO RESIDUAL</div>
                     <div style="background-color: orange">RIESGO TRATADO</div>
@@ -102,6 +103,8 @@
             </th>
             <th>
             </th>
+            <th>
+            </th>
         </tr>
         <tbody id="myTable">
 
@@ -126,57 +129,59 @@
                         strStyle = "background-color:green;";
                         break;
                 }
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Proceso)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Zona)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Actividad)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Tarea)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TextRutinaria)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Clasificacion)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Peligro)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EfectosPosibles)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NivelDeficiencia)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NivelExposicion)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NivelProbabilidad)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NivelConsecuencia)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NivelRiesgo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CategoriaRiesgo)
-                    </td>
-                    <td style="@strStyle">
-                        @Html.DisplayFor(modelItem => item.Aceptability)
-                    </td>
-                    <td style="margin:initial; background-color:deepskyblue; text-align:left">
-                        @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" })
-                        <a href="#" onclick="DeleteRiesgo('@item.ID')" class="glyphicon glyphicon-trash"></a>
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Proceso)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Zona)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Actividad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tarea)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TextRutinaria)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Clasificacion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Peligro)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EfectosPosibles)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NivelDeficiencia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NivelExposicion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NivelProbabilidad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NivelConsecuencia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NivelRiesgo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoriaRiesgo)
+                </td>
+                <td style="@strStyle">
+                    @Html.DisplayFor(modelItem => item.Aceptability)
+                </td>
+                <td style="margin:initial; background-color:deepskyblue; text-align:left;">
+                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit", @title="Actualizar riesgo"})
+                </td>
+                <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                    <a href="#" onclick="DeleteRiesgo('@item.ID')" class="glyphicon glyphicon-trash" title="Descartar riesgo"></a>
+                </td>
+            </tr>
 
             }
 

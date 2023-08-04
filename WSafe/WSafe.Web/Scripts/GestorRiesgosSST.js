@@ -1,4 +1,5 @@
-﻿// Agregar funcionlidad principal del lado del cliente
+﻿// Agregar funcionlidad del lado del cliente,
+// Implementar UI
 
 function viewHistory() {
     //    $(".tabMediAplica").css("display", "none");
@@ -3772,7 +3773,7 @@ function calcularProbabilidad() {
             break;
     }
     $('#interpretaNP').val(interpretaNP);
-    $('#interpretaNP').css({ "backgroundColor": colorStyle, "font-size": "100%"});
+    $('#interpretaNP').css({ "backgroundColor": colorStyle, "font-size": "100%", "color":"white"});
 }
 
 function calcularRiesgo() {
@@ -3818,8 +3819,8 @@ function calcularRiesgo() {
 
     $('#txtAceptabilidad').val(aceptability);
     $('#interpretaNR').val(interpretaNR);
-    $('#interpretaNR').css({ "backgroundColor": colorStyle, "font-size": "100%" });
-    $('#txtAceptabilidad').css({ "backgroundColor": colorStyle, "font-size": "100%"});
+    $('#interpretaNR').css({ "backgroundColor": colorStyle, "font-size": "100%", "color": "white"});
+    $('#txtAceptabilidad').css({ "backgroundColor": colorStyle, "font-size": "100%", "color": "white"});
 }
 
 function FindActions() {
