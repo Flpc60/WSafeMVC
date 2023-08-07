@@ -11,7 +11,7 @@ namespace WSafe.Domain.Helpers.Implements
 {
     public class ChartHelper : IChartHelper
     {
-        // Construir gráficas
+        // Construir gráficas e indicadores
         private readonly EmpresaContext _empresaContext;
         private readonly IndicadorHelper _indicadorHelper;
         private readonly GestorHelper _gestorHelper;

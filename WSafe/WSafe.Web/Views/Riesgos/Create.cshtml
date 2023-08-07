@@ -1,4 +1,5 @@
 ﻿@model WSafe.Web.Models.RiesgoViewModel
+
 @{
     ViewBag.Title = "Create";
     var trabajadores = ViewBag.trabajadores;
@@ -24,6 +25,7 @@
     @Html.AntiForgeryToken()
 <div class="form-horizontal">
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
     <div class="tabPeligros">
         <hr />
         @Html.Partial("_EditarPeligros")
