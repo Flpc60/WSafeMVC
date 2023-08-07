@@ -3431,8 +3431,10 @@ function chartClassDangers() {
                     datasets: [
                         {
                             label: "CATEGORÍAS",
-                            backgroundColor: 'rgb(255, 205, 86)',
-                            data: arrayData1
+                            data: arrayData1,
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderColor: 'rgba(54, 162, 235)',
+                            borderWidth: 1
                         },
                     ]
                 },
@@ -3445,12 +3447,13 @@ function chartClassDangers() {
                                 display: true
                             }
                         },
-                        y: {
+                        y: [{
                             display: true,
                             title: {
                                 display: true
-                            }
-                        }
+                            },
+                            min: 0
+                        }]
                     },
                     title: {
                         display: true,
