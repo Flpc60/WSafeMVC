@@ -1,15 +1,22 @@
 ﻿@model IEnumerable<WSafe.Web.Models.AccionViewModel>
+
 @{
     ViewBag.Title = "Index";
 }
 
 <style>
+
     .tabConsActions {
         display: none
     }
+
+    .centerText{
+        text-align:center;
+    }
+
 </style>
 
-<h4>GESTIÓN DE ACCIONES CPM</h4>
+<h4 class="centerText">GESTIÓN DE ACCIONES CPM</h4>
 <hr />
 <div class="container">
     <div class="row align-items-center">
@@ -33,17 +40,12 @@
 <hr />
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-3">
-            @Html.ActionLink("Nueva acción", "Create", null, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-plus" })
+    <div class="row justify-content-between">
+        <div class="col-md-8">
+            @Html.ActionLink(" Nueva acción", "Create", null, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-plus" })
+            @Html.ActionLink(" Generar matriz de acciones", "ActionsMatrixPdf", null, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-download-alt" })
+            <button class="btn btn-success btn-lg active glyphicon glyphicon-search" onclick="FindActions()"> Indicadores</button><br>
         </div>
-        <div class="col-md-3">
-            @Html.ActionLink("Generar matriz de acciones", "ActionsMatrixPdf", null, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-download-alt" })
-        </div>
-        <div class="col-md-3">
-            <button class="btn btn-success btn-lg active glyphicon glyphicon-search" onclick="FindActions()">Consultar Acciones</button><br>
-        </div>
-        <div class="col-md-3"></div>
     </div>
 </div>
 <br />
@@ -80,6 +82,10 @@
             </th>
             <th>
             </th>
+            <th>
+            </th>
+            <th>
+            </th>
         </tr>
         <tbody id="myTable">
             @foreach (var item in Model)
@@ -100,40 +106,44 @@
                         break;
                 }
 
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FechaSolicitud)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Categoria)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Origen)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Descripcion)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EficaciaAntes)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EficaciaDespues)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FechaCierre)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Efectiva)
-                    </td>
-                    <td style="@txtColor">
-                        @Html.DisplayFor(modelItem => item.ActionState)
-                    </td>
-                    <td style="margin:initial; background-color:deepskyblue; text-align:left">
-                        @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" })
-                        @Html.ActionLink(" ", "PrintAccionesToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt" })
-                        <a href="#" onclick="DeleteAccion('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaSolicitud)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Categoria)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Origen)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EficaciaAntes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EficaciaDespues)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaCierre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Efectiva)
+                </td>
+                <td style="@txtColor">
+                    @Html.DisplayFor(modelItem => item.ActionState)
+                </td>
+                <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit", @title="Actualizar"})
+                </td>
+                <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                    @Html.ActionLink(" ", "PrintAccionesToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt", @title = "Imprimir" })
+                </td>
+                <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                    <a href="#" title="Descartar" onclick="DeleteAccion('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
+                </td>
+            </tr>
             }
         </tbody>
     </table>

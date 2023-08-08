@@ -16,7 +16,7 @@ using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
 {
-    // Procesos para Getionar todas las acciones correctvas, preventivas y de mejora de la organización
+    // Procesos para Getionar todas las acciones correctvas, preventivas y de mejora.
     public class AccionesController : Controller
     {
         private int _clientID;
