@@ -1,59 +1,64 @@
 ﻿@model WSafe.Web.Models.AccionViewModel
+
 @{
     var categorias = ViewBag.Categorias;
 }
-<div class="container" style="background-color:mediumaquamarine">
 
+<div class="container" style="background-color:mediumaquamarine">
     <div id="_EditarPlanAcc">
-        <div class="form-row">
+        <div class="row">
             <hr />
-            <div class="col-md-4 mb-3">
-                <label for="idFechaIni">Fecha inicial :</label>
+            <div class="col-md-4 col-sm-6">
+                <label for="idFechaIni">FECHA INICIAL:</label>
                 <input type="date" class="form-control" id="idFechaIni" required autofocus>
             </div>
-            <div class="col-md-4 mb-3">
-                <label for="idFechaFin">Fecha cierre :</label>
+            <div class="col-md-4 col-sm-6">
+                <label for="idFechaFin">FECHA CIERRE:</label>
                 <input type="date" class="form-control" id="idFechaFin" required>
             </div>
-            <div class="col-md-4 mb-3">
-                <label for="causa">Causa :</label>
-                @Html.DropDownList("Categorias", categorias as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "txtCausa" })
+            <div class="col-md-4 col-sm-6">
+                <label for="causa">CAUSA:</label>
+                @Html.DropDownList("Categorias", categorias as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "txtCausa"})
             </div>
         </div>
-        <hr />
-        <div class="form-row">
-            <div class="col-md-8">
-                <label for="accion">Actividad</label>
-                <textarea id="accion" style="resize:none;" class="form-control" rows=3 cols=70 required></textarea>
+        <div class="row">
+            <hr />
+            <div class="col-md-12">
+                <label for="accion">ACTIVIDAD:</label>
+                <textarea id="accion" style="resize:none;" class="form-control" rows=3 required></textarea>
             </div>
+        </div>
+        <div class="row">
             <hr />
-            <hr />
-            <div class="col-md-4">
+            <div class="col-md-4 col-sm-6">
                 <div class="form-group">
-                    @Html.LabelFor(model => model.ActionCategory, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-8">
+                    <div class="col-md-12 col-sm-10">
+                        <label for="Respons">FUNCIONARIO RESPONSABLE:</label>
+                        @Html.DropDownListFor(model => model.TrabajadorID, Model.Trabajadores, new { @class = "form-control", @id = "idRespons" })
+                        @Html.ValidationMessageFor(model => model.TrabajadorID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <label for="prioritaria">PRIORITARIA:</label>
+                <input class="form-check-input" type="checkbox" id="idPrioritaria" name="idPrioritaria">
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <label for="idCostos">COSTOS:</label>
+                <input type="number" class="form-control" id="idCostos" onchange="validarCostos()">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-10">
+                <div class="form-group">
+                    <div class="col-md-8 col-sm-10">
+                        <label for="accion">ESTADO:</label>
                         @Html.EnumDropDownListFor(model => model.ActionCategory, htmlAttributes: new { @class = "form-control", @id = "txtPlanCategory" })
                         @Html.ValidationMessageFor(model => model.ActionCategory, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
         </div>
-        <div class="form-row">
-            <hr />
-            <div class="col-md-3 mb-4">
-                <label for="Respons">Funcionario responsable :</label>
-                @Html.DropDownListFor(model => model.TrabajadorID, Model.Trabajadores, new { @class = "form-control", @id = "idRespons" })
-                @Html.ValidationMessageFor(model => model.TrabajadorID, "", new { @class = "text-danger" })
-            </div>
-            <div class="col-md-3 mb-4">
-                <label for="prioritaria">Prioritaria :</label>
-                <input class="form-check-input" type="checkbox" id="idPrioritaria" name="idPrioritaria">
-            </div>
-            <div class="col-md-3 mb-4">
-                <label for="idCostos">Costos :</label>
-                <input type="number" class="form-control" id="idCostos" onchange="validarCostos()">
-            </div>
-            <hr />
-        </div>
+        <hr />
     </div>
 </div>

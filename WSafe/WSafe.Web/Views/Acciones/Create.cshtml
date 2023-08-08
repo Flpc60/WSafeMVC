@@ -7,13 +7,21 @@
     .tabIdCausas, .tabGesPlanAcc, .tabGesSeguiPlanAcc, .tabPlanAcc, .tabSeguimAcc, .tabSeguimPlanAcc, .tabAddPlanAcc, .tabAddSeguimAcc {
         display: none;
     }
+
+    .centerText {
+        text-align: center
+    }
+
 </style>
 
-<h4>@title</h4>
-<div class="pull-left">
-    <div class="btn-group">
-        <button type="button" class="btn btn-info" id="idCausas" title="doble click para cerrar la ventana"> 1. IDENTIFICAR NO CONFORMIDAD</button>
-        <button type="button" class="btn btn-info" id="planAcc" title="doble click para cerrar la ventana"> 2. PLANES DE ACCIÓN</button>
+<h4 class="centerText">@title</h4>
+<hr />
+<div class="container">
+    <div class="row justify-content-between">
+        <div class="col-md-8">
+            <button type="button" class="btn btn-warning btn-lg" id="idCausas" title="doble click para cerrar la ventana"><i class="fa fa-warning"></i> 1. IDENTIFICAR NO CONFORMIDAD</button>
+            <button type="button" class="btn btn-success btn-lg" id="planAcc" title="doble click para cerrar la ventana"><i class="fa fa-tasks"></i>  2. PLANES DE ACCIÓN</button>
+        </div>
     </div>
 </div>
 
