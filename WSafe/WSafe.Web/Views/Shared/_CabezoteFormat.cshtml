@@ -1,26 +1,16 @@
-﻿<div class="container"style="background-color: lightgray">
+﻿<div class="container" style="background-color: lightgray">
     <div class="row">
         <div class="col-md-2">
-            <img src="@Server.MapPath("~/Images/LogoEntidad.jpg")" style="width:200px; height:200px"><img/>
+            <img src="@Server.MapPath("~/Images/LogoEntidad.jpg")" style="width:100px; height:100px" alt="Logo">
         </div>
         <div class="col-md-10">
-            <div style="text-align:center">
-                <h4>@ViewBag.Title</h4>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div style="text-align:center">
+            <h4 style="text-align: center;">@ViewBag.Title</h4>
+            <div style="text-align: center;">
                 <p>
                     <strong><b>@Session["organization"].ToString()</b></strong>
                 </p>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div style="text-align:center">
+            <div style="text-align: center;">
                 <p>
                     <strong><b>@ViewBag.titulo</b></strong>
                 </p>
@@ -29,14 +19,12 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <div style="text-align:center">
-                <p>
-                    FORMATO N°:  <strong><b>@ViewBag.formato</b></strong>
-                    ESTANDAR :  <strong><b>@ViewBag.estandar</b></strong>
-                    FECHA : <strong><b>@ViewBag.fecha</b></strong>
-                    VERSIÓN : <strong><b>@ViewBag.version</b></strong>
-                </p>
-            </div>
+            <p style="text-align: center;">
+                FORMATO N°: <strong>@ViewBag.formato</strong>
+                ESTANDAR: <strong>@ViewBag.estandar</strong>
+                FECHA: <strong>@ViewBag.fecha</strong>
+                VERSIÓN: <strong>@ViewBag.version</strong>
+            </p>
         </div>
     </div>
 </div>
