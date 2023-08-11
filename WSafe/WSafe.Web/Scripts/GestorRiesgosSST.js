@@ -3225,6 +3225,7 @@ function AddUser() {
         dataType: "json",
         success: function (response) {
             document.getElementById("txtLogin").innerHTML = response.mensaj;
+            $(".tabMessage").css("display", "block");
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -3265,6 +3266,7 @@ function LoginUser() {
                 };
 
                 document.getElementById("txtLogin").innerHTML = response.mensaj;
+                $(".tabMessage").css("display", "block");
             }
         },
         error: function (xhr, ajaxOptions, thrownError) {
