@@ -33,12 +33,12 @@
     .img-responsive {
         display: block;
         max-width: 100%;
-        height: auto;
-        margin: 0 auto;
+        height: 100%;
+        margin: 0;
     }
 
     .content {
-        background: #3D74B0;
+        background: white;
         color: #f1f1f1;
         padding: 20px;
         border-radius: 15px;
@@ -50,6 +50,11 @@
         margin: 10px 0;
     }
 
+    p {
+        color:darkblue;
+        padding:2%;
+    }
+
     </style>
 
 </head>
@@ -57,22 +62,24 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <img class="img-responsive" src="~/Images/wsafe2.jpg">
             </div>
-            <div class="col-md-6">
-                <div class="content">
+            <div class="col-md-4">
+                <div class="card text-bg-primary mb-3" style="max-width: 60rem; font-size:16px;">
                     <h2><strong>WSafe permite:</strong></h2>
-                    <h3>=> Optimizar los procesos del SG-SST</h3>
-                    <h3>=> Realizar evaluaciones y plan de mejoramiento para el cumplimiento de las metas del SG-SST</h3>
-                    <h3>=> Obtener estadísticas e indicadores</h3>
-                    <h3>=> Ingresar a la plataforma a través de un PC, portátil, tablet o celular y desde cualquier lugar con conexión a internet</h3>
-                    <h3>=> Generar una cultura de seguridad integrada con la productividad y mejora continua en el desarrollo del talento humano</h3>
-                    <h3>=> Realizar soporte técnico, mantenimiento y capacitación</h3>
-                    <h3>=> Confidencialidad, integridad y disponibilidad del SG-SST</h3>
+                    <div class="card-body">
+                        <p class="card-text"><i class="fa fa-check"></i> Optimizar los procesos del SG-SST</p>
+                        <p class="card-text"><i class="fa fa-check"></i> Realizar las evaluaciones y plan de mejoramiento del SG-SST</p>
+                        <p class="card-text"><i class="fa fa-check"></i> Obtener estadísticas e indicadores del SG-SST</p>
+                        <p class="card-text"><i class="fa fa-check"></i> Ingresar a la plataforma a través de un PC, portátil, tablet o celular y desde cualquier lugar con conexión a internet</p>
+                        <p class="card-text"><i class="fa fa-check"></i> Crear una cultura de seguridad integrada con la productividad y mejora continua en el desarrollo del talento humano</p>
+                        <p class="card-text"><i class="fa fa-check"></i> Realizar solicitudes de soporte técnico, mantenimiento y capacitación</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
 </body>
 </html>
