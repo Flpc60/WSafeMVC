@@ -1,112 +1,130 @@
 ﻿@model IEnumerable<WSafe.Domain.Data.Entities.Trabajador>
+
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h4>GESTIÓN TRABAJADORES: @Session["organization"].ToString().Trim()</h4>
+<style>
+
+    .tabConsActions {
+        display: none
+    }
+
+    .centerText {
+        text-align: center;
+    }
+</style>
+
+<h4 class="centerText">GESTIÓN DE TRABAJADORES: @Session["organization"].ToString().Trim()</h4>
+<hr />
 <div class="container">
-    <div class="row">
+    <div class="row justify-content-between">
         <div class="col-md-6">
-            @Html.ActionLink("Nuevo Trabajador", "Create", null, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-plus" })
+            @Html.ActionLink(" Nuevo Trabajador", "Create", null, new { @class = "btn btn-info btn-lg glyphicon glyphicon-plus" })
+            @Html.ActionLink(" Imprimir perfíl Sociodemogáfico", "GenerateWorkersPdf", null, new { @class = "btn btn-info btn-lg glyphicon glyphicon-download-alt" })
         </div>
-        <div class="col-md-6">
-            @Html.ActionLink("Generar Perfíl Sociodemogáfico", "GenerateWorkersPdf", null, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-download-alt" })
+    </div>
+    <hr />
+    <div class="row align-items-center">
+        <div class="col-md-2">
+            NÚMERO TRABAJADORES : @Session["numeroTrabajadores"].ToString().Trim()
+        </div>
+        <div class="col-md-2">
+            CLASE RIESGO : @Session["riesgo"].ToString().Trim()
+        </div>
+        <div class="col-md-3">
+            HORARIO : @Session["turnoOperativo"].ToString().Trim()
+        </div>
+        <div class="col-md-2">
+            PERIODO : @Session["year"].ToString().Trim()
+        </div>
+        <div class="col-md-3">
+            RESPONSABLE SG-SST : @Session["responsable"].ToString().Trim()
         </div>
     </div>
 </div>
 
-<br />
-
-<div class="row">
-    <div class="col-md-4">
-        NÚMERO TRABAJADORES: @Session["numeroTrabajadores"].ToString().Trim()
-    </div>
-    <div class="col-md-4">
-        HORARIO DE TRABAJO: @Session["turnoOperativo"].ToString().Trim()
-    </div>
-    <div class="col-md-4">
-        <input type="search" id="myInput" placeholder="Escriba un nombre de elemento para filtrar" style="width:100%">
-    </div>
-</div>
-
-<br />
-
-<div class="table-responsive">
-    <table class="table table-bordered">
-        <tr class="table-header">
-            <th>
-                Primer Apellido
-            </th>
-            <th>
-                Segundo Apellido
-            </th>
-            <th>
-                Nombres
-            </th>
-            <th>
-                Document Type
-            </th>
-            <th>
-                Documento
-            </th>
-            <th>
-                Fecha Nacimiento
-            </th>
-            <th>
-                Género
-            </th>
-            <th>
-                Estado Civil
-            </th>
-            <th>
-                Fecha Ingreso
-            </th>
-            <th>
-                Tipo Vinculación
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PrimerApellido)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SegundoApellido)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nombres)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DocumentType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Documento)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaNacimiento)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Genero)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EstadoCivil)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaIngreso)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TipoVinculacion)
-                </td>
-                <td>
-                    @Html.ActionLink("Editar", "Edit", new { id = item.ID }) |
-                    @Html.ActionLink("Borrar", "Delete", new { id = item.ID })
-                </td>
+<hr />
+<div class="container">
+    <div class="table-responsive" style="background-color: azure; width:100%; margin-right:0px">
+        <table class="table table-bordered table-striped">
+            <tr style="background-color:gainsboro; width:auto">
+                <th>
+                    Primer Apellido
+                </th>
+                <th>
+                    Segundo Apellido
+                </th>
+                <th>
+                    Nombres
+                </th>
+                <th>
+                    Tipo Documento
+                </th>
+                <th>
+                    Documento
+                </th>
+                <th>
+                    Fecha Nacimiento
+                </th>
+                <th>
+                    Género
+                </th>
+                <th>
+                    Estado Civil
+                </th>
+                <th>
+                    Fecha Ingreso
+                </th>
+                <th>
+                    Tipo Vinculación
+                </th>
+                <th></th>
+                <th></th>
             </tr>
-        }
 
-    </table>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PrimerApellido)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SegundoApellido)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombres)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DocumentType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Documento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaNacimiento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Genero)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EstadoCivil)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaIngreso)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TipoVinculacion)
+                    </td>
+                    <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                        @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit", @title = "Actualizar"})
+                    </td>
+                    <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                        @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "glyphicon glyphicon-trash", @title = "Eliminarr"})
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
 </div>

@@ -5,27 +5,52 @@
     var users = ViewBag.userList;
     var orgs = ViewBag.orgList;
 }
+
 <style>
 
-    .tabAuthorize {
-        display: none;
+    .tabConsActions {
+        display: none
     }
+
+    .centerText {
+        text-align: center;
+    }
+
+    .tabAuthorize {
+        display:none;
+    }
+
 </style>
 
-<h2>GESTIÓN DE USUARIOS</h2>
+<h4 class="centerText">GESTIÓN DE USUARIOS: @Session["organization"].ToString().Trim()</h4>
+<hr />
 
-<div class="row">
-    <div class="col-md-2">
-        @Html.ActionLink("Gestionar roles", "Create", new { @class = "glyphicon glyphicon-plus" },
-        new { @class = "btn btn-info" })
+<div class="container">
+    <div class="row justify-content-between">
+        <div class="col-md-6">
+            @Html.ActionLink(" Nuevo rol usuario", "Create", null, new { @class = "btn btn-info btn-lg glyphicon glyphicon-plus"})
+            <button type="button" class="btn btn-info btn-lg" id="authorize"> Autorización usuario</button>
+        </div>
     </div>
-    <div class="col-md-8">
-    </div>
-    <div class="col-md-2">
-        <button type="button" class="btn btn-success" id="authorize">Nueva Autorización</button>
+    <hr />
+    <div class="row align-items-center">
+        <div class="col-md-2">
+            NÚMERO TRABAJADORES : @Session["numeroTrabajadores"].ToString().Trim()
+        </div>
+        <div class="col-md-2">
+            CLASE RIESGO : @Session["riesgo"].ToString().Trim()
+        </div>
+        <div class="col-md-3">
+            HORARIO : @Session["turnoOperativo"].ToString().Trim()
+        </div>
+        <div class="col-md-2">
+            PERIODO : @Session["year"].ToString().Trim()
+        </div>
+        <div class="col-md-3">
+            RESPONSABLE SG-SST : @Session["responsable"].ToString().Trim()
+        </div>
     </div>
 </div>
-<hr />
 
 <div class="tabAuthorize">
     <div class="row">
@@ -51,51 +76,57 @@
         </div>
     </div>
 </div>
+
 <hr />
-<div class="table-responsive" style="background-color: azure">
+<div class="container">
+    <div class="table-responsive" style="background-color: azure; width:100%; margin-right:0px">
+        <table class="table table-bordered table-striped">
+            <tr style="background-color:gainsboro; width:auto">
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Role)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RazonSocial)
+                </th>
+                <th>
+                </th>
+                <th>
+                </th>
+            </tr>
 
-    <table class="table">
-        <tr style="background-color:gainsboro; width:auto">
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Role)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RazonSocial)
-            </th>
-            <th>
-                Acciones
-            </th>
-        </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Role)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RazonSocial)
+                    </td>
+                    <td style="font-size:15px">
+                        @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit"})
+                    </td>
+                    <td style="font-size:15px">
+                        <a href="#" onclick="DeleteUser('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
+                    </td>
+                </tr>
+            }
 
-        @foreach (var item in Model)
-        {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Role)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RazonSocial)
-        </td>
-        <td style="font-size:15px">
-            @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) |
-            <a href="#" onclick="DeleteUser('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
-        </td>
-    </tr>
-        }
+        </table>
+    </div>
 
-    </table>
 </div>
 
 @section Scripts
