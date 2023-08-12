@@ -16,7 +16,7 @@ namespace WSafe.Web.Controllers
 {
     public class AccountsController : Controller
     {
-        // Gestión de cuentas
+        // Gestión de cuentas de usuarios
         private int _clientID;
         private int _orgID;
         private string _year;
@@ -372,7 +372,11 @@ namespace WSafe.Web.Controllers
             {
                 User user = await _empresaContext.Users.FindAsync(id);
                 var role = (int)Session["roleID"];
-                var roleName = _gestorHelper.GetRole(user.RoleID);
+                var roleName = "";
+                if (user.RoleID != 0)
+                {
+                    roleName = _gestorHelper.GetRole(user.RoleID);
+                }
 
                 // Validar retiro de usuario
                 if (user.RoleID == role || roleName == "ADMIN")
