@@ -348,7 +348,7 @@ function ShowRoles() {
                 html += '<tr>';
                 html += '<td>' + item.ID + '</td>';
                 html += '<td>' + item.Name + '</td>';
-                html += '<td><a href = "#" onclick = "DeleteRole(' + item.ID + ')"> Borrar</a></td>';
+                html += '<td><a href="#" onclick="DeleteRole(' + item.ID + ', \'' + item.Name + '\')"> Borrar</a></td>';
                 html += '</tr>';
             });
             $('.tbody').html(html);
@@ -1293,10 +1293,10 @@ function DeleteTask(id) {
     }
 }
 
-function DeleteRole(id) {
+function DeleteRole(id, role) {
     // Eliminar un rol
     var text = "";
-    text += "Esta seguro de querer borrar este rol ? :" + id + "\n\n";
+    text += "Esta seguro de querer borrar el rol: " + role.toUpperCase() + " ?\n\n";
     var respuesta = confirm(text);
     if (respuesta == true) {
         $.ajax({
@@ -1304,9 +1304,10 @@ function DeleteRole(id) {
             type: "POST",
             contentType: "application/json;charset=UTF-8",
             dataType: "json",
-            async: true,                                               // si es asincrónico o no
+            async: true,
             success: function (response) {
-                alert(response.mensaj);
+                document.getElementById("txtLogin").innerHTML = response.mensaj;
+                $(".tabMessage").css("display", "block");
                 ShowRoles();
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -1328,9 +1329,11 @@ function DeleteRoleOperation(id) {
             type: "POST",
             contentType: "application/json;charset=UTF-8",
             dataType: "json",
-            async: true,                                               // si es asincrónico o no
+            async: true,
             success: function (response) {
-                alert(response.mensaj);
+                document.getElementById("txtLogin").innerHTML = response.mensaj;
+                $(".tabMessage").css("display", "block");
+                $("#btnAddAuthorize").hide();
                 ShowAuthorizations();
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -3030,7 +3033,8 @@ function AddRole() {
         data: { model: roleVM },
         dataType: "json",
         success: function (response) {
-            alert(response.mensaj);
+            document.getElementById("txtLogin").innerHTML = response.mensaj;
+            $(".tabMessage").css("display", "block");
             $("#btnAddRole").hide();
             ShowRoles();
         },
@@ -3044,6 +3048,7 @@ function AddRole() {
 function AddAuthorization() {
     // Crea una nueva autorización
     $(".tabAddAuthorize").css("display", "none");
+    $(".tabMessage").css("display", "none");
     var roleVM = {
         ID: "0",
         RoleID: $("#txtRoleID").val(),
@@ -3056,7 +3061,8 @@ function AddAuthorization() {
         data: { model: roleVM },
         dataType: "json",
         success: function (response) {
-            alert(response.mensaj);
+            document.getElementById("txtLogin").innerHTML = response.mensaj;
+            $(".tabMessage").css("display", "block");
             $("#btnAddAuthorize").hide();
             ShowAuthorizations();
         },

@@ -4,7 +4,7 @@
 }
 
 <style>
-    .tabGesRoles, .tabGesAuthorize, .tabAddRoles, .tabAddAuthorize
+    .tabGesRoles, .tabGesAuthorize, .tabAddRoles, .tabAddAuthorize, .tabMessage
     {
         display: none;
     }
@@ -71,7 +71,7 @@
                     <div class="form-group" style="font-size:18px;width:auto">
                         <div class="col-md-8">
                             <label>Roles : </label>
-                            @Html.DropDownList("Roles", roles as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "txtRoleID" })
+                            @Html.DropDownList("Roles", roles as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "txtRoleID"})
                         </div>
                     </div>
                 </div>

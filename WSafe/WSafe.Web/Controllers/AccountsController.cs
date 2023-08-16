@@ -279,11 +279,18 @@ namespace WSafe.Web.Controllers
             var message = "";
             try
             {
-                message = "El registro ha sido borrado correctamente!!";
                 RoleOperation authorization = await _empresaContext.RoleOperations.FindAsync(id);
-                _empresaContext.RoleOperations.Remove(authorization);
-                await _empresaContext.SaveChangesAsync();
-                return Json(new { result = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                var roleName = _gestorHelper.GetRole(authorization.RoleID);
+                if (roleName != "ADMIN")
+                {
+                    message = "El registro ha sido borrado correctamente !!";
+                    _empresaContext.RoleOperations.Remove(authorization);
+                    await _empresaContext.SaveChangesAsync();
+                    return Json(new { result = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+
+                message = "El registro NO ha sido borrado correctamente !!";
+                return Json(new { result = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -320,12 +327,12 @@ namespace WSafe.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    message = "El registro ha sido ingresado correctamente!!";
+                    message = $"El rol {model.Name.ToUpper().Trim()} ha sido ingresado correctamente !!";
                     _empresaContext.Roles.Add(model);
                     await _empresaContext.SaveChangesAsync();
                     return Json(new { result = true, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
-                message = "El registro NO ha sido ingresado correctamente!!";
+                message = $"El rol {model.Name.ToUpper().Trim()} NO ha sido ingresado correctamente !!";
                 return Json(new { result = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -344,14 +351,15 @@ namespace WSafe.Web.Controllers
                 Role role = await _empresaContext.Roles.FindAsync(id);
 
                 // Validar retiro de rol
+                var roleOperations = _empresaContext.RoleOperations.Where(ro => ro.RoleID == id).Count();
                 var users = _empresaContext.Users.Where(t => t.RoleID == id).Count();
-                if (users != 0)
+                if (users != 0 || roleOperations != 0)
                 {
-                    message = "Este rol NO se puede borrar por estar asignado  a un usuario!!";
+                    message = $"El rol {role.Name.ToUpper().Trim()} NO se pudo borrar por estar asignado a un usuario o perfil de usuario !!";
                     return Json(new { result = false, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
 
-                message = "Este rol fué borrado correctamente!!";
+                message = $"El rol {role.Name.ToUpper().Trim()} fué borrado correctamente !!";
                 _empresaContext.Roles.Remove(role);
                 await _empresaContext.SaveChangesAsync();
                 return Json(new { result = true, mensaj = message }, JsonRequestBehavior.AllowGet);
