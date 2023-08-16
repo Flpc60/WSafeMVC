@@ -475,6 +475,10 @@
     <Compile Include="Migrations\202308042029321_UpdateRiesgos11.Designer.cs">
       <DependentUpon>202308042029321_UpdateRiesgos11.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202308161258014_UpdRoleOperation.cs" />
+    <Compile Include="Migrations\202308161258014_UpdRoleOperation.Designer.cs">
+      <DependentUpon>202308161258014_UpdRoleOperation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -1182,6 +1186,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202308042029321_UpdateRiesgos11.resx">
       <DependentUpon>202308042029321_UpdateRiesgos11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308161258014_UpdRoleOperation.resx">
+      <DependentUpon>202308161258014_UpdRoleOperation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
