@@ -1331,9 +1331,10 @@ function DeleteRoleOperation(id) {
             dataType: "json",
             async: true,
             success: function (response) {
-                document.getElementById("txtLogin").innerHTML = response.mensaj;
+                document.getElementById("txtAuthorize").innerHTML = response.mensaj;
                 $(".tabMessage").css("display", "block");
                 $("#btnAddAuthorize").hide();
+                $("#txtAuthorize").focus();
                 ShowAuthorizations();
             },
             error: function (xhr, ajaxOptions, thrownError) {
