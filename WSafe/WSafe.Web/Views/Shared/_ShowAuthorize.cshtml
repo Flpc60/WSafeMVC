@@ -1,26 +1,43 @@
-﻿<div class="col-md-12">
-    <button type="button" class="btn btn-primary" id="addAuthorize">Adicionar una nueva autorización</button>
+﻿
+<style>
+    .tabMessage {
+        display: none;
+    }
+</style>
+
+<div class="container">
+    <div class="col-md-12">
+        <button type="button" class="btn btn-primary" id="addAuthorize" onclick="$('#txtRoleID').focus(); $('.tabMessage').css('display', 'none');">Adicionar autorización</button>
+    </div>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr style="background-color:gainsboro; width:auto">
+                <th>
+                    ID
+                </th>
+                <th>
+                    Nombre Rol
+                </th>
+                <th>
+                    Componente
+                </th>
+                <th>
+                    Operación
+                </th>
+                <th>
+                    Acción
+                </th>
+            </tr>
+        </thead>
+        <tbody class="tbody">
+        </tbody>
+    </table>
+    <hr />
+    <div class="tabMessage">
+        <div class="col-md-12">
+            <div class="alert alert-danger" role="alert">
+                <p id="txtLogin" style="color:red; text-align:center; padding:1%"></p>
+            </div>
+        </div>
+    </div>
 </div>
-<table class="table">
-    <thead>
-        <tr style="background-color:gainsboro; width:auto">
-            <th>
-                ID
-            </th>
-            <th>
-                Nombre Rol
-            </th>
-            <th>
-                Componente
-            </th>
-            <th>
-                Operación
-            </th>
-            <th>
-                Acción
-            </th>
-        </tr>
-    </thead>
-    <tbody class="tbody">
-    </tbody>
-</table>
