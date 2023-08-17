@@ -382,7 +382,7 @@ function ShowAuthorizations() {
             });
             $('.tbody').html(html);
             $('.tabGesAuthorize').css("display", "block");
-            $('#addAuthorize').focus();
+            //$('#addAuthorize').focus();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -3062,10 +3062,11 @@ function AddAuthorization() {
         data: { model: roleVM },
         dataType: "json",
         success: function (response) {
-            document.getElementById("txtLogin").innerHTML = response.mensaj;
+            document.getElementById("txtAuthorize").innerHTML = response.mensaj;
             $(".tabMessage").css("display", "block");
-            $("#btnAddAuthorize").hide();
+            //$("#btnAddAuthorize").hide();
             ShowAuthorizations();
+            $("#txtAuthorize").show();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);

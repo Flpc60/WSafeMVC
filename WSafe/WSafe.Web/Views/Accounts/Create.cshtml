@@ -10,11 +10,11 @@
     }
 </style>
 
-<h4>@title</h4>
+<h5>@title</h5>
 <div class="row">
     <div class="col-md-4">
-        <button type="button" class="btn btn-info" id="roles" title="doble click para cerrar la ventana">ROLES</button>
-        <button type="button" class="btn btn-info" id="authorize" title="doble click para cerrar la ventana">AUTORIZACIONES</button>
+        <button type="button" class="btn btn-success" id="roles" title="doble click para cerrar la ventana"><i class="fa fa-plus"></i> ROLES</button>
+        <button type="button" class="btn btn-success" id="authorize" title="doble click para cerrar la ventana"><i class="fa fa-plus"></i> AUTORIZACIONES</button>
     </div>
     <div class="col-md-8">
     </div>
@@ -24,61 +24,61 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="tabGesRoles">
-            <hr />
-            @Html.Partial("_ShowRoles")
+    <div class="tabGesRoles">
+        <hr />
+        @Html.Partial("_ShowRoles")
+    </div>
+
+    <div class="tabAddRoles">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group" style="font-size:18px;width:auto">
+                    <div class="col-md-8">
+                        <label>Nombre del rol: </label>
+                        <input type="text" id="txtName" name="txtName" placeholder="Ingrese nombre del rol"
+                               class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+            </div>
         </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-8">
+                <hr />
+                <button type="button" id="btnAddRole" class="btn btn-primary" onclick="AddRole()">Adicionar</button>
+                <button type="button" id="btnCanRole" class="btn btn-primary" onclick="CancelRole()">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                </button>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
 
-        <div class="tabAddRoles">
+    <div class="tabGesAuthorize">
+        <hr />
+        @Html.Partial("_ShowAuthorize")
+    </div>
+
+    <hr class="mt-4">
+    <div class="tabAddAuthorize">
+        <div class="container" style="background-color:azure;">
             <div class="row">
-                <div class="col-md-8">
-                    <div class="form-group" style="font-size:18px;width:auto">
-                        <div class="col-md-8">
-                            <label>Nombre del rol : </label>
-                            <input type="text" id="txtName" name="txtName" placeholder="Ingrese nombre del rol"
-                                   class="form-control"/>
-                        </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="txtRoleID" class="control-label col-md-2">Rol:</label>
+                        @Html.DropDownList("Roles", roles as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "txtRoleID" })
                     </div>
                 </div>
                 <div class="col-md-4">
-                </div>
-            </div>
-            <hr />
-            <div class="row">
-                <div class="col-md-8">
-                    <hr />
-                    <button type="button" id="btnAddRole" class="btn btn-primary" onclick="AddRole()">Adicionar</button>
-                    <button type="button" id="btnCanRole" class="btn btn-primary" onclick="CancelRole()">
-                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
-                    </button>
-                </div>
-                <div class="col-md-4">
-                </div>
-            </div>
-        </div>
-
-        <div class="tabGesAuthorize">
-            <hr />
-            @Html.Partial("_ShowAuthorize")
-        </div>
-
-        <div class="tabAddAuthorize">
-            <div class="row">
-                <div class="col-md-5">
-                    <div class="form-group" style="font-size:18px;width:auto">
-                        <div class="col-md-8">
-                            <label>Roles : </label>
-                            @Html.DropDownList("Roles", roles as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "txtRoleID"})
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group" style="font-size:18px;width:auto">
-                        <label>Componente : </label>
-                        <select id="txtComponent">
+                    <div class="form-group">
+                        <label for="txtComponent" class="control-label col-md-2">Componente:</label>
+                        <select id="txtComponent" class="form-control">
                             <option value="1">ENTIDAD</option>
                             <option value="2">RIESGOS</option>
                             <option value="3">INCIDENTES</option>
@@ -92,10 +92,10 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="form-group" style="font-size:18px;width:auto">
-                        <label>Acción : </label>
-                        <select id="txtOperation">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="txtOperation" class="control-label col-md-2">Acción: </label>
+                        <select id="txtOperation" class="form-control">
                             <option value="1">Consultar</option>
                             <option value="2">Adicionar</option>
                             <option value="3">Modificar</option>
@@ -104,12 +104,11 @@
                     </div>
                 </div>
             </div>
-            <hr />
+            <hr class="mt-4">
             <div class="row">
                 <div class="col-md-8">
-                    <hr />
                     <button type="button" id="btnAddAthorize" class="btn btn-primary" onclick="AddAuthorization()">Adicionar</button>
-                    <button type="button" id="btnCanAuthorize" class="btn btn-primary" onclick="CancelAuthorize()">
+                    <button type="button" id="btnCanAuthorize" class="btn btn-secondary" onclick="CancelAuthorize()">
                         <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
                     </button>
                 </div>
@@ -117,8 +116,9 @@
                 </div>
             </div>
         </div>
-
     </div>
+
+</div>
 }
 
 @section Scripts
@@ -131,8 +131,10 @@
         }
 
         function CancelAuthorize() {
-            $(".tabAddRoles").css("display", "none");
-            $("#txtName").val("");
+            $(".tabAddAuthorize").css("display", "none");
+            $("#txtRoleID").val("");
+            $("#txtComponent").val("");
+            $("#txtOperation").val("");
         }
 
         $(document).ready(function () {
