@@ -257,14 +257,14 @@ namespace WSafe.Web.Controllers
                 var message = "";
                 if (ModelState.IsValid)
                 {
-                    message = "El registro ha sido ingresado exitosamente!!";
+                    message = "El registro ha sido ingresado exitosamente !!";
                     _empresaContext.RoleOperations.Add(model);
                     await _empresaContext.SaveChangesAsync();
                     return Json(new { result = model, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    message = "El registro NO ha sido ingresado exitosamente!!";
+                    message = "El registro NO ha sido ingresado exitosamente !!";
                     return Json(new { result = model, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -273,6 +273,7 @@ namespace WSafe.Web.Controllers
                 return View("Error", new HandleErrorInfo(ex, "Accounts", "Index"));
             }
         }
+
         [HttpPost]
         public async Task<ActionResult> DeleteAuthorization(int id)
         {
