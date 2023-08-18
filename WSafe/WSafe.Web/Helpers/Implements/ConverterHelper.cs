@@ -338,7 +338,8 @@ namespace WSafe.Domain.Helpers.Implements
                 FechaIncidentStr = incidente.FechaIncidente.ToString("yyyy-MM-dd"),
                 FechaReportStr = incidente.FechaReporte.ToString("yyyy-MM-dd"),
                 OrganizationID = incidente.OrganizationID,
-                ClientID = incidente.ClientID
+                ClientID = incidente.ClientID,
+                UserID = incidente.UserID
             };
 
             return model;

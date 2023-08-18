@@ -1,45 +1,24 @@
 ﻿@model WSafe.Web.Models.DetailsIncidentVM
 
 @{
-    var title = "Sistema de Gestión de la Seguridad y Salud en el Trabajo";
+    ViewBag.Title = "Sistema de Gestión de Seguridad y Salud en el Trabajo";
     var fecha = DateTime.Today;
     var year = ViewBag.Year;
     var ahora = DateTime.Now;
     var id = ViewBag.id;
+    Layout = null;
 }
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-2">
-            <img src="~/Images/LogoEntidad.png" class="img-responsive" alt="Cinque Terre" width="80" height="80"><img />
-        </div>
-        <div class="col-md-10">
-            <div style="display:block">
-                <div style="text-align:center">
-                    <h4>@title</h4>
-                </div>
-                <div style="text-align:center">
-                    <p>
-                        <strong><b>@Session["organization"].ToString()</b></strong>
-                    </p>
-                </div>
-                <div style="text-align:center">
-                    <p>
-                        <strong><b>@Html.DisplayFor(model => model.Titulo)</b></strong>
-                    </p>
-                </div>
-                <div style="text-align:center">
-                    <p>
-                        FORMATO N°:  <strong><b>@Html.DisplayFor(model => model.Formato)</b></strong>
-                        ESTANDAR :  <strong><b>@Html.DisplayFor(model => model.Estandar)</b></strong>
-                        FECHA : <strong><b>@fecha</b></strong>
-                        VERSIÓN : <strong><b>@Html.DisplayFor(model => model.Version)</b></strong>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryunobtrusive")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryui")
+@Scripts.Render("~/bundles/bootstrap")
+
+@Html.Partial("_CabezoteFormat")
+
 <div class="container">
     <div style="display:inline-flex">
         <p>
@@ -170,29 +149,29 @@
             <tbody class="tbody">
                 @foreach (var item in Model.Lesionados)
                 {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Documento)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NombreCompleto)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FechaNacimiento)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Genero)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EstadoCivil)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TipoVinculacion)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Cargo)
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Documento)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NombreCompleto)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FechaNacimiento)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Genero)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EstadoCivil)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TipoVinculacion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cargo)
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>
