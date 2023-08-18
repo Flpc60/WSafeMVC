@@ -18,7 +18,7 @@ using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
 {
-    // Controlador de incidentes / accidentes laborales
+    // Procesos de incidentes / accidentes laborales
     public class IncidentesController : Controller
     {
         private int _clientID;
@@ -80,6 +80,8 @@ namespace WSafe.Web.Controllers
             {
                 model.ClientID = (int)Session["clientID"];
                 model.OrganizationID = (int)Session["orgID"];
+                model.UserID = (int)Session["userID"];
+
                 if (ModelState.IsValid)
                 {
                     var consulta = new IncidenteService(new IncidenteRepository(_empresaContext));

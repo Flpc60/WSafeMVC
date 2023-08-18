@@ -3,84 +3,94 @@
 @{
     var title = "GESTIONAR INCIDENTES Y ACCIDENTES DE TRABAJO";
     var incidenteID = ViewBag.incidenteID;
+    var userID = Model.UserID;
 }
+
 <style>
     .detal, .tabGeneral, .tabLesionados, .tabDescrip, .tabAcciones, .tabMatriz, .tabAddLesionado {
         display: none;
     }
+
+    .centerText {
+        text-align: center
+    }
 </style>
 
-<h4>@title</h4>
-<div class="pull-left">
-    <div class="btn-group">
-        <button type="button" class="btn btn-info" id="general" title="doble click para cerrar la ventana">GENERAL</button>
-        <button type="button" class="btn btn-info" id="detalles" title="doble click para cerrar la ventana">DETALLES</button>
-        <button type="button" class="btn btn-info" id="descripcion" title="doble click para cerrar la ventana">DESCRIPCIÓN</button>
-        <button type="button" class="btn btn-info" id="acciones" title="doble click para cerrar la ventana">ACCIONES</button>
-        <button type="button" class="btn btn-info" id="matriz" title="doble click para cerrar la ventana">MATRIZ POTENCIAL</button>
-        <button type="button" class="btn btn-info" id="lesionados" title="doble click para cerrar la ventana">LESIONADOS</button>
-        <button type="button" class="btn btn-info" id="investigate" title="doble click para cerrar la ventana">INVESTIGACIÓN</button>
+<hr class="mt-4">
+<h4 class="centerText">@title</h4>
+<hr class="mt-4">
+<div class="container">
+    <div class="row justify-content-between">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-success" id="general" title="doble click para cerrar la ventana">GENERAL</button>
+            <button type="button" class="btn btn-success" id="detalles" title="doble click para cerrar la ventana">DETALLES</button>
+            <button type="button" class="btn btn-success" id="acciones" title="doble click para cerrar la ventana">ACCIONES</button>
+            <button type="button" class="btn btn-success" id="matriz" title="doble click para cerrar la ventana">MATRIZ POTENCIAL</button>
+            <button type="button" class="btn btn-success" id="lesionados" title="doble click para cerrar la ventana">LESIONADOS</button>
+        </div>
     </div>
 </div>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    <div class="form-horizontal">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="tabGeneral">
-            <hr />
-            @Html.Partial("_EditarInfoIncidente")
-            <input type="hidden" id="txtIncidenteID" name="txtIncidenteID" />
-        </div>
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <input type="hidden" id="userID" name="userID" value="@userID" />
 
-        <div class="detal">
-            @Html.Partial("_DetalleIncidente")
-        </div>
+    <div class="tabGeneral">
+        <hr />
+        @Html.Partial("_EditarInfoIncidente")
+        <input type="hidden" id="txtIncidenteID" name="txtIncidenteID" />
+    </div>
 
-        <div class="tabDescrip">
-            <hr />
-            <div class="form-group">
-                @Html.LabelFor(model => model.DescripcionIncidente, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.DescripcionIncidente, new { htmlAttributes = new { @class = "form-control", @id = "txtDescripcion" } })
-                    @Html.ValidationMessageFor(model => model.DescripcionIncidente, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
+    <div class="detal">
+        @Html.Partial("_DetalleIncidente")
+    </div>
 
-        <div class="tabAcciones">
-            @Html.Partial("_AccionesIncidente")
-        </div>
-
-        <div class="tabMatriz">
-            @Html.Partial("_MatrizIncidente")
-            <div class="row">
-                <div class="col-md-8">
-                    <button type="button" id="btnAddIncidente" class="btn btn-info" onclick="UpdateIncidente()">Actualizar</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="tabLesionados">
-            <hr />
-            @Html.Partial("_ConsultarLesionados")
-        </div>
-
-        <div class="tabAddLesionado">
-            @Html.Partial("_ModificaLesion")
-            <div class="row">
-                <div class="col-md-8">
-                    <button type="button" id="btnAddLesion" class="btn btn-info" onclick="AddLesionados()">Agregar</button>
-                    <button type="button" id="btnCanLesion" class="btn btn-primary" onclick="CancelLesion()">
-                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
-                    </button>
-                </div>
-                <div class="col-md-4">
-                </div>
+    <div class="tabDescrip">
+        <hr />
+        <div class="form-group">
+            @Html.LabelFor(model => model.DescripcionIncidente, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DescripcionIncidente, new { htmlAttributes = new { @class = "form-control", @id = "txtDescripcion" } })
+                @Html.ValidationMessageFor(model => model.DescripcionIncidente, "", new { @class = "text-danger" })
             </div>
         </div>
     </div>
+
+    <div class="tabAcciones">
+        @Html.Partial("_AccionesIncidente")
+    </div>
+
+    <div class="tabMatriz">
+        @Html.Partial("_MatrizIncidente")
+        <div class="row">
+            <div class="col-md-8">
+                <button type="button" id="btnAddIncidente" class="btn btn-info" onclick="UpdateIncidente()">Actualizar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="tabLesionados">
+        <hr />
+        @Html.Partial("_ConsultarLesionados")
+    </div>
+
+    <div class="tabAddLesionado">
+        @Html.Partial("_ModificaLesion")
+        <div class="row">
+            <div class="col-md-8">
+                <button type="button" id="btnAddLesion" class="btn btn-info" onclick="AddLesionados()">Agregar</button>
+                <button type="button" id="btnCanLesion" class="btn btn-primary" onclick="CancelLesion()">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                </button>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
 }
 
 @section Scripts {

@@ -2974,7 +2974,8 @@ function UpdateIncidente() {
         MedioAmbiente: $("#txtAmbiente").val(),
         Imagen: $("#txtImagen").val(),
         RequiereInvestigacion: $("#txtInvestiga").val(),
-        TrabajadorID: $("#txtInformante").val()
+        TrabajadorID: $("#txtInformante").val(),
+        UserID: $("#userID").val()
     };
 
     $.ajax({

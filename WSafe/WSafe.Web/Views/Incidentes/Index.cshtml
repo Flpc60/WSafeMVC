@@ -3,16 +3,53 @@
 @{
     ViewBag.Title = "WSafe";
 }
-<br />
-<br />
-<br />
-<h4>GESTIÓN DE INCIDENTES Y ACCIDENTES DE TRABAJO</h4>
 
-<p>
-    @Html.ActionLink("Nuevo incidente", "Create", new { @class = "glyphicon glyphicon-plus" },
-    new { @class = "btn btn-info btn-lg active" })
-</p>
+<style>
 
+    .tabConsActions {
+        display: none
+    }
+
+    .centerText {
+        text-align: center;
+    }
+
+    .tabAuthorize {
+        display: none;
+    }
+</style>
+
+<hr class="mt-4">
+<h4 class="centerText">GESTIÓN DE INCIDENTES: @Session["organization"].ToString().Trim()</h4>
+<hr class="mt-4">
+
+<div class="container">
+    <div class="row justify-content-between">
+        <div class="col-md-6">
+            @Html.ActionLink(" Nuevo incidente", "Create", null, new { @class = "btn btn-info btn-lg glyphicon glyphicon-plus" })
+        </div>
+    </div>
+    <hr class="mt-4">
+    <div class="row align-items-center">
+        <div class="col-md-2">
+            NÚMERO TRABAJADORES : @Session["numeroTrabajadores"].ToString().Trim()
+        </div>
+        <div class="col-md-2">
+            CLASE RIESGO : @Session["riesgo"].ToString().Trim()
+        </div>
+        <div class="col-md-3">
+            HORARIO : @Session["turnoOperativo"].ToString().Trim()
+        </div>
+        <div class="col-md-2">
+            PERIODO : @Session["year"].ToString().Trim()
+        </div>
+        <div class="col-md-3">
+            RESPONSABLE SG-SST : @Session["responsable"].ToString().Trim()
+        </div>
+    </div>
+</div>
+
+<hr class="mt-4">
 <div class="table-responsive" style="background-color:azure">
     <table class="table table-bordered">
         <thead>
@@ -52,6 +89,10 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.RequiereInvestigacion)
+                </th>
+                <th>
+                </th>
+                <th>
                 </th>
                 <th>
                 </th>
@@ -113,9 +154,13 @@
                     @Html.DisplayFor(modelItem => item.RequiereInvestigacion)
                 </td>
                 <td style="margin:initial; background-color:deepskyblue; text-align:left">
-                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" })
-                    @Html.ActionLink(" ", "PrintIncidentsToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt" })
-                    <a href="#" onclick="DeleteIncident('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
+                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit", @title = "Actualizar" })
+                </td>
+                <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                    @Html.ActionLink(" ", "PrintIncidentsToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt", @title = "Imprimir" })
+                </td>
+                <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                    <a href="#" title="Descartar" onclick="DeleteIncident('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
                 </td>
             </tr>
         }
