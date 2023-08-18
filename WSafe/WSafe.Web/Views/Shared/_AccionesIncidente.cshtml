@@ -1,11 +1,12 @@
 ﻿@model WSafe.Web.Models.IncidenteViewModel
-<hr />
-<div class="container" style="background-color:mediumaquamarine; padding:20px">
+
+<hr class="mt-4">
+<div class="container" style="background-color:azure; padding:20px">
     <div class="row">
         <div class="col-md-12">
             <div class="form-group" id="detal">
                 @Html.LabelFor(model => model.EvitarIncidente, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <div class="col-md-10 col-sm-10">
                     @Html.TextAreaFor(model => model.EvitarIncidente, new { @class = "form-control", @id = "txtEvitar", cols = "70", rows = "2" })
                     @Html.ValidationMessageFor(model => model.EvitarIncidente, "", new { @class = "text-danger" })
                 </div>
@@ -16,7 +17,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 @Html.LabelFor(model => model.AccionesInmediatas, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <div class="col-md-10 col-sm-10">
                     @Html.TextAreaFor(model => model.AccionesInmediatas, new { @class = "form-control", @id = "txtAcciones", cols = "70", rows = "2" })
                     @Html.ValidationMessageFor(model => model.AccionesInmediatas, "", new { @class = "text-danger" })
                 </div>
@@ -27,7 +28,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 @Html.LabelFor(model => model.ComentariosAdicionales, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <div class="col-md-10 col-sm-10">
                     @Html.TextAreaFor(model => model.ComentariosAdicionales, new { @class = "form-control", @id = "txtComentarios", cols = "70", rows = "2" })
                     @Html.ValidationMessageFor(model => model.ComentariosAdicionales, "", new { @class = "text-danger" })
                 </div>
@@ -38,7 +39,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 @Html.LabelFor(model => model.AtencionBrindada, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <div class="col-md-10 col-sm-10">
                     @Html.TextAreaFor(model => model.AtencionBrindada, new { @class = "form-control", @id = "txtAtencion", cols = "70", rows = "2" })
                     @Html.ValidationMessageFor(model => model.AtencionBrindada, "", new { @class = "text-danger" })
                 </div>
