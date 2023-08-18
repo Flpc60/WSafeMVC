@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<WSafe.Web.Models.MovimientVM>
-
 @{
     var title = "INFORMACIÓN BÁSICA DE LA EMPRESA";
     var perMin = DateTime.Now.Year - 10;
@@ -8,14 +7,14 @@
 }
 
 <style>
-    .tabGesMovimientos, .tabAddMovimientos, .tabSendEmail
-    {
+    .tabGesMovimientos, .tabAddMovimientos, .tabSendEmail {
         display: none;
     }
 </style>
 
+<hr class="mt-4">
 <h4 style="text-align:center"><strong>@Session["organization"].ToString().Trim()</strong></h4>
-<hr />
+<hr class="mt-4">
 <div class="row" style="text-align:center">
     <div class="col-md-2">
         NÚMERO TRABAJADORES : @Session["numeroTrabajadores"].ToString().Trim()
@@ -57,53 +56,53 @@
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
+    <div class="form-horizontal">
 
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="tabAddMovimientos">
-        @Html.Partial("_EditMovimient")
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="tabAddMovimientos">
+            @Html.Partial("_EditMovimient")
 
-        <div class="row">
-            <div class="col-md-8">
-                <hr />
-                <button type="button" id="btnAddMovimient" class="btn btn-primary" onclick="AddNewMovimient()">Subir archivo</button>
-                <button type="button" id="btnCanMovimient" class="btn btn-primary" onclick="CancelMovimient()">
-                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
-                </button>
-            </div>
-            <div class="col-md-4">
-            </div>
-        </div>
-    </div>
-
-    <div class="tabSendEmail">
-        <input type="hidden" id="txtMovimientID" name="txtMovimientID"/>
-        @Html.Partial("_EditEmailForm")
-    </div>
-
-    <div class="tabGesMovimientos">
-        <hr />
-        <div class="container">
             <div class="row">
-                <div class="col-md-9">
-                    <div class="form-outline">
-                        <select name="txtStandardID" class="form-control" id="txtStandardID">
-                            <option selected="selected">Seleccione estándar a consultar</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <button type="button" class="btn btn-success" id="selectMovimient" title="Buscar">
-                        <i class="fa fa-search"></i>
+                <div class="col-md-8">
+                    <hr class="mt-4">
+                    <button type="button" id="btnAddMovimient" class="btn btn-primary" onclick="AddNewMovimient()">Subir archivo</button>
+                    <button type="button" id="btnCanMovimient" class="btn btn-primary" onclick="CancelMovimient()">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
                     </button>
                 </div>
+                <div class="col-md-4">
+                </div>
             </div>
         </div>
 
-        @Html.Partial("_ShowMovimientos")
-    </div>
+        <div class="tabSendEmail">
+            <input type="hidden" id="txtMovimientID" name="txtMovimientID" />
+            @Html.Partial("_EditEmailForm")
+        </div>
 
-</div>
+        <div class="tabGesMovimientos">
+            <hr />
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="form-outline">
+                            <select name="txtStandardID" class="form-control" id="txtStandardID">
+                                <option selected="selected">Seleccione estándar a consultar</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="button" class="btn btn-success" id="selectMovimient" title="Buscar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            @Html.Partial("_ShowMovimientos")
+        </div>
+
+    </div>
 }
 
 @section Scripts

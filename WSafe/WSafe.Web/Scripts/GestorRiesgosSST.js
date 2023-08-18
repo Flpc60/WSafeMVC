@@ -467,9 +467,9 @@ function ShowMovimientos(phva) {
                 html += '<td>' + item.Name + '</td>';
                 html += '<td>' + item.Descripcion + '</td>';
                 html += '<td>' + item.Type + '</td>';
-                html += '<td><a href = "' + url + '" class="btn btn-primary">Abrir</a></td>';
-                html += '<td><a href = "' + url + '" download="' + fileName + '" class="btn btn-success">Descargar</a ></td>';
-                html += '<td><a href = "#" onclick="DeleteMovimient(' + item.ID + ')" class="btn btn-danger">Eliminar</a></td>';
+                html += '<td><a href = "' + url + '" class="btn btn-info">Abrir</a></td>';
+                html += '<td><a href = "' + url + '" download="' + fileName + '" class="btn btn-info">Descargar</a ></td>';
+                html += '<td><a href = "#" onclick="DeleteMovimient(' + item.ID + ')" class="btn btn-info">Eliminar</a></td>';
                 html += '<td><a href = "#" onclick="OpenEmail(' + item.ID + ')" class="btn btn-info">Enviar</a></td>';
                 html += '</tr>';
             });
