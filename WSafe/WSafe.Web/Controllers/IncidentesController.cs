@@ -427,7 +427,7 @@ namespace WSafe.Web.Controllers
             report.Copies = 1;
             report.PageOrientation.GetValueOrDefault();
             report.FormsAuthenticationCookieName = FormsAuthentication.FormsCookieName;
-            //report.SaveOnServerPath = filePathName;
+            report.SaveOnServerPath = filePathName;
 
             //Generar archivo de movimiento
             var fullName = filename;
