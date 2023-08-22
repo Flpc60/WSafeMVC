@@ -483,6 +483,10 @@
     <Compile Include="Migrations\202308162223284_UpdRoleOperation1.Designer.cs">
       <DependentUpon>202308162223284_UpdRoleOperation1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202308212322511_UpdTrabajador.cs" />
+    <Compile Include="Migrations\202308212322511_UpdTrabajador.Designer.cs">
+      <DependentUpon>202308212322511_UpdTrabajador.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -1196,6 +1200,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202308162223284_UpdRoleOperation1.resx">
       <DependentUpon>202308162223284_UpdRoleOperation1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308212322511_UpdTrabajador.resx">
+      <DependentUpon>202308212322511_UpdTrabajador.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

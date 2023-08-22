@@ -175,10 +175,9 @@ namespace WSafe.Domain.Helpers.Implements
         {
             try
             {
-                var trabajadores = _indicadorHelper.NumeroTrabajadoresMes(periodo, year);
                 var result = from at in _empresaContext.Incidentes
                              where (at.FechaIncidente.Year == year && periodo.Contains(at.FechaIncidente.Month)) && at.IncapacidadMedica == true
-                             group at by new { at.FechaIncidente.Year, at.FechaIncidente.Month } into datosAgrupados
+                             group at by new { at.FechaIncidente.Year, at.FechaIncidente.Month } into           datosAgrupados
                              orderby datosAgrupados.Key
                              select new
                              {
@@ -190,13 +189,19 @@ namespace WSafe.Domain.Helpers.Implements
                 var viewModel = new List<IndicadorDetallesViewModel>();
                 foreach (var grupo in result)
                 {
+                    var denominador = _indicadorHelper.NumeroDiasTrabajadosMes(grupo.Clave.Month, year);
+                    decimal resultado = 0;
+                    if (denominador > 0)
+                    {
+                        resultado = Convert.ToDecimal((decimal)grupo.Dias / denominador * 100);
+                        resultado = decimal.Round(resultado, 2);
+                    }
+
                     viewModel.Add(new IndicadorDetallesViewModel
                     {
                         MesAnn = (grupo.Clave.Month + "-" + grupo.Clave.Year).ToString(),
                         Numerador = grupo.Dias,
-                        Denominador = _indicadorHelper.NumeroDiasTrabajadosMes(grupo.Clave.Month, year),
-                        Resultado = Convert.ToDecimal((double)grupo.Dias /
-                        (double)_indicadorHelper.NumeroDiasTrabajadosMes(grupo.Clave.Month, year) * 100)
+                        Resultado = resultado
                     });
                 }
                 return viewModel;
