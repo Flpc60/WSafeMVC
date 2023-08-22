@@ -105,5 +105,6 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Nivel estudios")]
         public NivelesEscolaridad Escolaridad { get; set; }
+        public bool Activo { get; set; }
     }
 }

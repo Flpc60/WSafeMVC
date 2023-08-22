@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<WSafe.Web.Models.AccionViewModel>
+
 @{
     ViewBag.Title = "Index";
 }
@@ -9,14 +10,14 @@
         display: none
     }
 
-    .centerText{
-        text-align:center;
+    .centerText {
+        text-align: center;
     }
-
 </style>
 
+<hr class="mt-4">
 <h4 class="centerText">GESTIÓN DE ACCIONES CPM</h4>
-<hr />
+<hr class="mt-4">
 <div class="container">
     <div class="row align-items-center">
         <div class="col-md-2">
@@ -36,19 +37,19 @@
         </div>
     </div>
 </div>
-<hr />
 
+<hr class="mt-4">
 <div class="container">
     <div class="row justify-content-between">
         <div class="col-md-8">
-            @Html.ActionLink(" Nueva acción", "Create", null, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-plus"})
-            @Html.ActionLink(" Generar Matriz de acciones", "ActionsMatrixPdf", null, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-download-alt"})
+            @Html.ActionLink(" Nueva acción", "Create", null, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-plus" })
+            @Html.ActionLink(" Generar Matriz de acciones", "ActionsMatrixPdf", null, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-download-alt" })
             <button class="btn btn-info btn-lg active glyphicon glyphicon-search" onclick="FindActions()"> Indicadores</button><br>
         </div>
     </div>
 </div>
-<br />
 
+<hr class="mt-4">
 <div class="table-responsive" style="background-color: azure; width:100%; margin-right:0px">
     <table class="table table-bordered">
         <tr style="background-color:gainsboro; width:auto">
@@ -105,44 +106,44 @@
                         break;
                 }
 
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaSolicitud)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Categoria)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Origen)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Descripcion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EficaciaAntes)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EficaciaDespues)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaCierre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Efectiva)
-                </td>
-                <td style="@txtColor">
-                    @Html.DisplayFor(modelItem => item.ActionState)
-                </td>
-                <td style="margin:initial; background-color:deepskyblue; text-align:left">
-                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit", @title="Actualizar"})
-                </td>
-                <td style="margin:initial; background-color:deepskyblue; text-align:left">
-                    @Html.ActionLink(" ", "PrintAccionesToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt", @title = "Imprimir" })
-                </td>
-                <td style="margin:initial; background-color:deepskyblue; text-align:left">
-                    <a href="#" title="Descartar" onclick="DeleteAccion('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaSolicitud)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Categoria)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Origen)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descripcion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EficaciaAntes)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EficaciaDespues)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaCierre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Efectiva)
+                    </td>
+                    <td style="@txtColor">
+                        @Html.DisplayFor(modelItem => item.ActionState)
+                    </td>
+                    <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                        @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit", @title = "Actualizar" })
+                    </td>
+                    <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                        @Html.ActionLink(" ", "PrintAccionesToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt", @title = "Imprimir" })
+                    </td>
+                    <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                        <a href="#" title="Descartar" onclick="DeleteAccion('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
@@ -154,7 +155,7 @@
         <button type="button" id="numActions" class="btn btn-success btn-lg active glyphicon glyphicon-search" onclick="chartActions()"></button>
         <button type="button" id="numCorrective" class="btn btn-success btn-lg active glyphicon glyphicon-search" onclick="chartCorrectiveActions()"></button>
         <button type="button" id="numEfectives" class="btn btn-success btn-lg active glyphicon glyphicon-search" onclick="chartEfectiveActions()"></button>
-        <hr />
+        <hr class="mt-4">
         <div class="row">
             <div class="col-md-6">
                 <div><canvas id="NoConformance" width="200" height="100"></canvas></div>
@@ -163,7 +164,7 @@
                 <div><canvas id="NumActions" width="200" height="100"></canvas></div>
             </div>
         </div>
-        <hr />
+        <hr class="mt-4">
         <div class="row">
             <div class="col-md-6">
                 <div><canvas id="NumCorrective" width="200" height="100"></canvas></div>

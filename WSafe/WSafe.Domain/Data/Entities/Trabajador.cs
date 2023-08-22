@@ -109,5 +109,6 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Nivel estudios")]
         public NivelesEscolaridad Escolaridad { get; set; }
+        public bool Activo { get; set; }
     }
 }
