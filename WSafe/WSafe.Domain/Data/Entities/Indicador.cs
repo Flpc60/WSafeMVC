@@ -20,10 +20,12 @@ namespace WSafe.Domain.Data.Entities
         public string Interpretacion { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string Periodicidad { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string TipoChart { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public decimal Meta { get; set; }
-        public string Fuente { get; set; }
-        public string Tipo { get; set; }
-        public string Responsable { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [MaxLength(10)]
+        public string Standard { get; set; }
     }
 }
