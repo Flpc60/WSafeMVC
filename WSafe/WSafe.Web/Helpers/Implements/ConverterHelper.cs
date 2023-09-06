@@ -8,7 +8,7 @@ using WSafe.Web.Models;
 
 namespace WSafe.Domain.Helpers.Implements
 {
-    //  Procesos para la conversión de async / sync
+    //  Procesos para la conversión de async / sync del SG-SST
     public class ConverterHelper : IConverterHelper
     {
         private readonly EmpresaContext _empresaContext;

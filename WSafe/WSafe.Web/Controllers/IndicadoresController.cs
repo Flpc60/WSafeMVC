@@ -1,8 +1,12 @@
 ﻿using Rotativa;
 using System;
+using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.Security;
+using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Helpers;
 using WSafe.Domain.Helpers.Implements;
 using WSafe.Web.Filters;
@@ -12,7 +16,7 @@ namespace WSafe.Web.Controllers
 {
     public class IndicadoresController : Controller
     {
-        // Gestión Indicadores del SG-SST
+        // Sistema de Gestión de Indicadores del SG-SST
         private int _clientID;
         private int _orgID;
         private string _year;
@@ -23,7 +27,6 @@ namespace WSafe.Web.Controllers
         private readonly IChartHelper _chartHelper;
         private readonly IIndicadorHelper _indicadorHelper;
         private readonly IGestorHelper _gestorHelper;
-
         public IndicadoresController
             (
                 EmpresaContext empresaContext,
@@ -42,6 +45,7 @@ namespace WSafe.Web.Controllers
             _gestorHelper = gestorHelper;
 
         }
+
         [AuthorizeUser(operation: 1, component: 5)]
         public ActionResult Index()
         {
@@ -84,42 +88,6 @@ namespace WSafe.Web.Controllers
             catch (Exception ex)
             {
                 return View("Error", new HandleErrorInfo(ex, "Indicadores", "Index"));
-            }
-        }
-
-        [HttpGet]
-        public ActionResult Details(int id, int year)
-        {
-            //TODO
-            try
-            {
-                if (year != 0)
-                {
-                    var month = 12;
-                    if (year == DateTime.Now.Year)
-                    {
-                        month = DateTime.Now.Month;
-                    }
-                    int[] periodo = new int[month];
-                    for (int i = 0; i < month; i++)
-                    {
-                        periodo[i] = i + 1;
-                    }
-
-                    var indicador = _empresaContext.Indicadores.FirstOrDefault(i => i.ID == id);
-                    var result = _converterHelper.ToIndicadorViewModelNew(indicador, periodo, year);
-                    ViewBag.Titulo = result.Titulo;
-                    ViewBag.txtPeriodo = _gestorHelper.GetPeriodo(periodo);
-                    ViewBag.Year = year.ToString();
-                    ViewBag.id = result.ID;
-                    return View(result);
-                }
-                return Json(new { error = "No hay información" }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception)
-            {
-
-                throw;
             }
         }
         public ActionResult FrecuenciaAccidentalidad(string periodo, int year)
@@ -193,16 +161,6 @@ namespace WSafe.Web.Controllers
             ViewBag.Year = year;
             return View(modelo);
         }
-        public ActionResult GenerateIndicadorToPdf(int id, int year, string pdf)
-        {
-            var report = new ActionAsPdf("Details", new { id = id, year = year });
-            report.FileName = pdf;
-            report.PageSize = Rotativa.Options.Size.A4;
-            report.PageOrientation = Rotativa.Options.Orientation.Landscape;
-            report.PageWidth = 199;
-            report.PageHeight = 199;
-            return report;
-        }
 
         [HttpGet]
         public ActionResult FrecuenciaAccidentalidad(int year)
@@ -227,7 +185,7 @@ namespace WSafe.Web.Controllers
                 }
 
                 var datos = _chartHelper.GetFrecuenciaAccidentes(periodo, year, _orgID);
-                var image = "/Images/" + filename;
+
                 return Json(datos, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -535,6 +493,93 @@ namespace WSafe.Web.Controllers
                 var datos = _chartHelper.GetAllNumeroHijos(year, _orgID);
                 var image = "/Images/" + filename;
                 return Json(datos, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Indicadores", "Index"));
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> PrintIndicatorToPdf(int id, int Year)
+        {
+            try
+            {
+                // Configuración nombre archivo pdf
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
+                _path = (string)Session["path"];
+                var indicador = _empresaContext.Indicadores.FirstOrDefault(d => d.ID == id);
+                var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == id);
+                var item = indicador.Standard.Trim();
+                var organization = _empresaContext.Organizations.Find(_orgID);
+                var year = _year;
+                var fullPath = $"{_path}/2. HACER/{item}/";
+                var path = Server.MapPath(fullPath);
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                if (Year != 0)
+                {
+                    var month = 12;
+                    if (Year == DateTime.Now.Year)
+                    {
+                        month = DateTime.Now.Month;
+                    }
+                    int[] periodo = new int[month];
+                    for (int i = 0; i < month; i++)
+                    {
+                        periodo[i] = i + 1;
+                    }
+
+                    var result = _converterHelper.ToIndicadorViewModelNew(indicador, periodo, Year);
+                    ViewBag.txtPeriodo = _gestorHelper.GetPeriodo(periodo);
+                    ViewBag.Year = year.ToString();
+                    ViewBag.id = result.ID;
+                    Random random = new Random();
+                    var filename = indicador.Nombre.Trim() + random.Next(1, 100) + ".Pdf";
+                    var filePathName = path + filename;
+                    ViewBag.formato = document.Formato;
+                    ViewBag.estandar = indicador.Standard;
+                    ViewBag.Titulo = result.Titulo;
+                    ViewBag.version = document.Version;
+                    ViewBag.fecha = DateTime.Now;
+                    var report = new ViewAsPdf("Details");
+                    report.Model = result;
+                    report.FileName = filePathName;
+                    report.PageSize = Rotativa.Options.Size.A4;
+                    report.Copies = 1;
+                    report.PageOrientation.GetValueOrDefault();
+                    report.FormsAuthenticationCookieName = FormsAuthentication.FormsCookieName;
+                    report.SaveOnServerPath = filePathName;
+
+                    //Generar archivo de movimiento
+                    var fullName = filename;
+                    var type = Path.GetExtension(filename).ToUpper();
+                    var descript = "Reporte Indicadores";
+                    var userID = (int)Session["userID"];
+                    Movimient movimient = new Movimient()
+                    {
+                        ID = 0,
+                        OrganizationID = _orgID,
+                        NormaID = organization.StandardActions,
+                        UserID = userID,
+                        Descripcion = descript,
+                        Document = fullName,
+                        Year = year,
+                        Item = item,
+                        Ciclo = "H",
+                        Type = type,
+                        Path = path,
+                        ClientID = _clientID
+                    };
+                    _empresaContext.Movimientos.Add(movimient);
+                    await _empresaContext.SaveChangesAsync();
+                    return report;
+                }
+                return View("Index");
             }
             catch (Exception ex)
             {
