@@ -130,5 +130,6 @@ namespace WSafe.Domain.Data.Entities
         public int ClientID { get; set; }
         public int StandardSocioDemographic { get; set; }
         public int StandardUnsafeacts { get; set; }
+        public int StandardIndicators { get; set; }
     }
 }

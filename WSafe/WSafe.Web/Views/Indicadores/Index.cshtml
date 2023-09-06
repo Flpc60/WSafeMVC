@@ -1,7 +1,10 @@
 ﻿@model WSafe.Web.Models.DashboardVM
+
 @{
     ViewBag.Title = "Sistema de Gestión de la Seguridad y Salud en el Trabajo";
     var ahora = DateTime.Now.Year;
+    var year = DateTime.Now.Year;
+
 }
 
 <style>
@@ -101,6 +104,7 @@
 <hr class="mt-4">
 <div class="container" style="margin-left:6%">
     <button type="button" id="btnFRecuencia" class="btn btn-success" onclick="frecuenciaAccidentalidad()"><i class="fa fa-search"></i> FRECUENCIA ACCIDENTALIDAD</button>
+    @Html.ActionLink(" ", "PrintIndicatorToPdf", new { id = 1, year = year}, new { @class = "glyphicon glyphicon-download-alt", @title = "Descargar Pdf"})
     <button type="button" id="btnSeveridad" class="btn btn-success" onclick="severidadAccidentalidad()"><i class="fa fa-search"></i> SEVERIDAD ACCIDENTALIDAD</button>
     <button type="button" id="btnMortality" class="btn btn-success" onclick="mortalityProportion()"><i class="fa fa-search"></i> PROPORCIÓN AT MORTALES</button>
     <button type="button" id="btnPrevalence" class="btn btn-success" onclick="prevalenceIndicator()"><i class="fa fa-search"></i> PREVALENCIA ENFERMEDAD LABORAL</button>
@@ -196,17 +200,7 @@
 @section Scripts
 {
     <script type="text/javascript">
-/*
-        $(document).on('click', '.frecuencia', function (e) {
-            e.preventDefault();
-            var year = $("#txtYear").val();
-            var periodo = [];
-            $("input[name='month']:checked").each(function () {
-                periodo.push(this.value);
-            });
-            $("#txtPeriodo").val(Periodo);
-        });
-*/
+        year = $("#txtYear").val();
         var model = @Model;
         model.ID = 1;
         model.Year = year;

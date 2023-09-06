@@ -7,78 +7,103 @@
     var year = ViewBag.Year;
     var ahora = DateTime.Now;
     var nombre = Model.Nombre;
-    var file = nombre.Replace(" ", String.Empty).ToUpper()+ ".PDF";
+    var file = nombre.Replace(" ", String.Empty).ToUpper() + ".PDF";
     var id = ViewBag.id;
+    Layout = null;
+
 }
 
-<hr />
-<div class="container" style="background-color: lightgray">
-    <br />
-    <div style="text-align:center">
-        <p>
-            <strong><b>@Session["organization"].ToString()</b></strong>
-        </p>
-    </div>
-    <hr />
-    <h4 style="background-color: grey; color: white; text-align:center">@titulo</h4>
-    <hr />
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryunobtrusive")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryui")
+@Scripts.Render("~/bundles/bootstrap")
+
+@Html.Partial("_CabezoteFormat")
+
+<hr class="mt-4">
+<div class="container">
+    <hr class="mt-4">
     <div class="form-group">
         <label>FECHA REPORTE : @ahora</label>
         <label>PERIODO : @periodo AÑO : @year</label>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-3"})
+                <div class="col-md-9 col-sm-10">
+                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control"}})
+                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger"})
+                </div>
+            </div>
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.Definicion, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Definicion, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Definicion, "", new { @class = "text-danger" })
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Definicion, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Definicion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Definicion, "", new { @class = "text-danger" })
+                </div>
+            </div>
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.Formula, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Formula, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Formula, "", new { @class = "text-danger" })
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Formula, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Formula, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Formula, "", new { @class = "text-danger" })
+                </div>
+            </div>
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.Interpretacion, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Interpretacion, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Interpretacion, "", new { @class = "text-danger" })
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Interpretacion, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Interpretacion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Interpretacion, "", new { @class = "text-danger" })
+                </div>
+            </div>
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.Periodicidad, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Periodicidad, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Periodicidad, "", new { @class = "text-danger" })
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Periodicidad, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Periodicidad, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Periodicidad, "", new { @class = "text-danger" })
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<hr />
+
+<hr class="mt-4">
 <div style="display:inline-flex">
 
     <div>
-        <table class="table" data-width="100">
+        <table class="table">
             <thead class="thead-dark">
                 <tr>
-                    <th data-width="100">
+                    <th>
                         Periodo
                     </th>
-                    <th data-width="100">
+                    <th>
                         Numerador
                     </th>
-                    <th data-width="100">
+                    <th>
                         Denominador
                     </th>
-                    <th data-width="100">
+                    <th>
                         Resultado
                     </th>
                     <th></th>
@@ -109,12 +134,4 @@
         <img src="@Url.Content(@image)" alt="Sample Image" width="500" />
     </div>
 
-</div>
-<hr />
-
-<div class="row">
-    <div class="col-md-12">
-        @Html.ActionLink("Descargar PDF", "GenerateIndicadorToPdf", new { id = id, year = year, pdf = file},
-        new { @class = "btn btn-info btn-lg active" })
-    </div>
 </div>
