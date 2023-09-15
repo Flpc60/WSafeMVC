@@ -9,6 +9,6 @@ namespace WSafe.Domain.Data.Entities.Incidentes
         [Display(Name = "Accidente de Trabajo")]
         Accidente = 2,
         [Display(Name = "Accidente Mortal")]
-        Enfermedad = 3
+        Mortal = 3
     }
 }

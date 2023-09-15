@@ -103,17 +103,19 @@
             string strStyle = String.Empty;
             switch (Convert.ToInt32(item.CategoriasIncidente))
             {
-                case 2:
-                    strStyle = "background-color:red;";
-                    break;
 
                 case 1:
                     strStyle = "background-color:yellow;";
                     break;
 
-                default:
-                    strStyle = "background-color:green;";
+                case 2:
+                    strStyle = "background-color:orange;";
                     break;
+
+                case 3:
+                    strStyle = "background-color:red;";
+                    break;
+
             }
 
             <tr>
