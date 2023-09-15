@@ -364,37 +364,40 @@ namespace WSafe.Domain.Helpers.Implements
             };
             return model;
         }
-        public IndicadorViewModel ToIndicadorViewModelNew(Indicador indicador, int[] periodo, int year)
+        public IndicadorViewModel ToIndicadorViewModelNew(
+            Indicador indicador, int[] periodo, int year, int orgID, string imagePathName)
         {
-            Random random = new Random();
-            var filename = "chart" + random.Next(1, 100) + ".jpg";
-            var filePathName = "~/Images/" + filename;
 
             var datos = new List<IndicadorDetallesViewModel>();
             switch (indicador.ID)
             {
                 case 1:
-                    //datos = (List<IndicadorDetallesViewModel>)_chartHelper.GetFrecuenciaAccidentes(periodo, year);
+                    datos = (List<IndicadorDetallesViewModel>)_chartHelper.GetFrecuenciaAccidentes(
+                        periodo, year, orgID);
                     break;
 
                 case 2:
-                    //datos = (List<IndicadorDetallesViewModel>)_chartHelper.GetSeveridadAccidentalidad(periodo, year);
+                    datos = (List<IndicadorDetallesViewModel>)_chartHelper.GetSeveridadAccidentalidad(
+                        periodo, year, orgID);
                     break;
 
                 case 3:
-                    //datos = (List<IndicadorDetallesViewModel>)_chartHelper.GetAccidentesTrabajoMortales(periodo, year);
+                    datos = (List<IndicadorDetallesViewModel>)_chartHelper.GetAccidentesTrabajoMortales(
+                        periodo, year, orgID);
                     break;
 
                 case 4:
-                    //datos = (List<IndicadorDetallesViewModel>)_chartHelper.GetAccidentesTrabajoMortales(periodo, year);
+                    datos = (List<IndicadorDetallesViewModel>)_chartHelper.GetAccidentesTrabajoMortales(
+                        periodo, year, orgID);
                     break;
 
                 case 5:
-                    //datos = (List<IndicadorDetallesViewModel>)_chartHelper.GetAccidentesTrabajoMortales(periodo, year);
+                    datos = (List<IndicadorDetallesViewModel>)_chartHelper.GetAccidentesTrabajoMortales(
+                        periodo, year, orgID);
                     break;
 
                 case 6:
-                    datos = (List<IndicadorDetallesViewModel>)_chartHelper.GetAusentismoCausaMedica(periodo, year);
+                    //datos = (List<IndicadorDetallesViewModel>)_chartHelper.GetAusentismoCausaMedica(periodo, year, orgID);
                     break;
 
                 case 7:
@@ -402,7 +405,7 @@ namespace WSafe.Domain.Helpers.Implements
                     break;
             }
 
-            _chartHelper.DrawImagen(filePathName, indicador.TipoChart, indicador.Nombre, datos);
+            _chartHelper.DrawImagen(imagePathName, indicador.TipoChart, indicador.Nombre, datos);
             var model = new IndicadorViewModel
             {
                 ID = indicador.ID,
@@ -416,8 +419,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Interpretacion = indicador.Interpretacion,
                 Periodicidad = indicador.Periodicidad,
                 Datos = datos,
-                Imagen = filePathName,
-                Titulo = ("Ficha tecnica indicador " + indicador.Nombre).ToUpper()
+                Imagen = imagePathName,
+                Titulo = ("Ficha técnica indicador " + indicador.Nombre).ToUpper()
             };
             return model;
         }
