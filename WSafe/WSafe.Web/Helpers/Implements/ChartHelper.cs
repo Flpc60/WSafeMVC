@@ -78,8 +78,7 @@ namespace WSafe.Domain.Helpers.Implements
             try
             {
                 var result = from at in _empresaContext.Incidentes
-                             where (at.FechaIncidente.Year == year && periodo.Contains(at.FechaIncidente.Month) && at.CategoriasIncidente == CategoriasIncidente.Accidente
-                             && at.ConsecuenciasLesion == ConsecuenciasLesion.fatalidadMultiple && at.OrganizationID == _orgID)
+                             where (at.FechaIncidente.Year == year && periodo.Contains(at.FechaIncidente.Month) && at.CategoriasIncidente == CategoriasIncidente.Mortal && at.OrganizationID == _orgID)
                              group at by new { at.FechaIncidente.Year, at.FechaIncidente.Month } into datosAgrupados
                              orderby datosAgrupados.Key
                              select new { Clave = datosAgrupados.Key, Datos = datosAgrupados };
@@ -91,7 +90,7 @@ namespace WSafe.Domain.Helpers.Implements
                     {
                         MesAnn = (grupo.Clave.Month + "-" + grupo.Clave.Year).ToString(),
                         Numerador = grupo.Datos.Count(),
-                        Denominador = _indicadorHelper.AccidentesTrabajo(year, grupo.Clave.Month)
+                        Denominador = _indicadorHelper.AccidentesTrabajo(grupo.Clave.Year, grupo.Clave.Month)
                 });
                 }
 

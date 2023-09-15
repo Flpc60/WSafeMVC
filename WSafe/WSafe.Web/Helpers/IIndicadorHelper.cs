@@ -6,9 +6,8 @@ namespace WSafe.Domain.Helpers.Implements
 {
     public interface IIndicadorHelper
     {
-        int AccidentesTrabajo(int year);
+        int AccidentesTrabajo(int year, int month);
         int AccidentesTrabajoMortales(int year);
-        decimal ProporcionAccidentesInvestigados(int year);
         int IncidentesInvestigados(int year);
         int GetIncidentes(int year);
         decimal ProporcionIncidentesInvestigados(int year);
@@ -21,15 +20,12 @@ namespace WSafe.Domain.Helpers.Implements
         int NumeroTrabajadoresMes(DateTime fechaInicial, DateTime fechaFinal);
         decimal PromedioTrabajadores(int year, int _orgID);
         int NumeroDiasTrabajadosMes(int month, int year);
-        decimal FrecuenciaAccidentalidad(DateTime fechaInicial, DateTime fechaFinal);
         decimal SeveridadAccidentalidad(DateTime fechaInicial, DateTime fechaFinal);
-        decimal ProporcionAccidentesMortales(DateTime fechaInicial, DateTime fechaFinal);
         decimal PrevalenciaEnfermedad(DateTime fechaInicial, DateTime fechaFinal);
         decimal IncidenciaEnfermedad(DateTime fechaInicial, DateTime fechaFinal);
         int NumeroACPAccidentes(DateTime fechaInicial, DateTime fechaFinal);
         int NumeroACP(DateTime fechaInicial, DateTime fechaFinal);
         decimal ProporcionACPAccidentes(DateTime fechaInicial, DateTime fechaFinal);
         DashboardVM GetIndicators(int year, int month, int _orgID);
-        int AccidentesTrabajo(int year, int month);
     }
 }
