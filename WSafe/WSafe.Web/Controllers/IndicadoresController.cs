@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.UI.WebControls;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Helpers;
 using WSafe.Domain.Helpers.Implements;
@@ -534,13 +535,16 @@ namespace WSafe.Web.Controllers
                         periodo[i] = i + 1;
                     }
 
-                    var result = _converterHelper.ToIndicadorViewModelNew(indicador, periodo, Year);
-                    ViewBag.txtPeriodo = _gestorHelper.GetPeriodo(periodo);
-                    ViewBag.Year = year.ToString();
-                    ViewBag.id = result.ID;
                     Random random = new Random();
                     var filename = indicador.Nombre.Trim() + random.Next(1, 100) + ".Pdf";
                     var filePathName = path + filename;
+                    var imagePathName = "~/Images/" + filename;
+                    var imageName = Server.MapPath(imagePathName);
+                    var result = _converterHelper.ToIndicadorViewModelNew(
+                        indicador, periodo, Year, _orgID, imageName);
+                    ViewBag.txtPeriodo = _gestorHelper.GetPeriodo(periodo);
+                    ViewBag.Year = year.ToString();
+                    ViewBag.id = result.ID;
                     ViewBag.formato = document.Formato;
                     ViewBag.estandar = indicador.Standard;
                     ViewBag.Titulo = result.Titulo;
