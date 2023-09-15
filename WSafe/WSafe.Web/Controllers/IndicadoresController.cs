@@ -511,9 +511,10 @@ namespace WSafe.Web.Controllers
                 _orgID = (int)Session["orgID"];
                 _year = (string)Session["year"];
                 _path = (string)Session["path"];
-                var indicador = _empresaContext.Indicadores.FirstOrDefault(d => d.ID == id);
-                var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == id);
+                var indicador = await _empresaContext.Indicadores.FirstOrDefaultAsync(d => d.ID == id);
+                var document = await _empresaContext.Documents.FirstOrDefaultAsync(d => d.ID == id);
                 var item = indicador.Standard.Trim();
+                var norma = await _empresaContext.Normas.FirstOrDefaultAsync(n => n.Item == item);
                 var organization = _empresaContext.Organizations.Find(_orgID);
                 var year = _year;
                 var fullPath = $"{_path}/2. HACER/{item}/";
@@ -568,7 +569,7 @@ namespace WSafe.Web.Controllers
                     {
                         ID = 0,
                         OrganizationID = _orgID,
-                        NormaID = organization.StandardActions,
+                        NormaID = norma.ID,
                         UserID = userID,
                         Descripcion = descript,
                         Document = fullName,
