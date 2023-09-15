@@ -8,6 +8,7 @@ namespace WSafe.Domain.Helpers.Implements
 {
     public class IndicadorHelper : IIndicadorHelper
     {
+        // Construcción indicadores SG-SST
         private readonly EmpresaContext _empresaContext;
         public IndicadorHelper(EmpresaContext empresaContext)
         {
@@ -157,11 +158,12 @@ namespace WSafe.Domain.Helpers.Implements
 
         public int NumeroDiasTrabajadosMes(int month, int year)
         {
-            var diasPago = 1;
-            var result = from t in _empresaContext.Trabajadores where t.FechaIngreso.Year == year && t.FechaIngreso.Month == month select t;
+            var diasMes = DateTime.DaysInMonth(year, month);
+            var diasPago = 0;
+            var result = from t in _empresaContext.Trabajadores where t.Activo == true && t.FechaIngreso.Year == year && t.FechaIngreso.Month == month select t;
             if (result.Count() > 0)
             {
-                diasPago = result.Sum(dp => dp.DiasPago);
+                diasPago = result.Sum(dp => diasMes - dp.FechaIngreso.Day);
             }
             return diasPago;
         }

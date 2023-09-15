@@ -11,7 +11,7 @@ namespace WSafe.Domain.Helpers.Implements
 {
     public class ChartHelper : IChartHelper
     {
-        // Construir gráficas e indicadores
+        // Construir gráficas e indicadores para el SG-SST
         private readonly EmpresaContext _empresaContext;
         private readonly IndicadorHelper _indicadorHelper;
         private readonly GestorHelper _gestorHelper;
@@ -193,8 +193,8 @@ namespace WSafe.Domain.Helpers.Implements
                     decimal resultado = 0;
                     if (denominador > 0)
                     {
-                        resultado = Convert.ToDecimal((double)grupo.Dias /
-                        (double)_indicadorHelper.NumeroDiasTrabajadosMes(grupo.Clave.Month, year) * 100);
+                        resultado = Convert.ToDecimal((decimal)grupo.Dias / denominador * 100);
+                        resultado = decimal.Round(resultado, 2);
                     }
 
                     viewModel.Add(new IndicadorDetallesViewModel
