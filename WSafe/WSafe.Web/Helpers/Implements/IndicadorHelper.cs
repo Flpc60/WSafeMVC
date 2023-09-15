@@ -8,16 +8,16 @@ namespace WSafe.Domain.Helpers.Implements
 {
     public class IndicadorHelper : IIndicadorHelper
     {
-        // Construcción indicadores SG-SST
+        // Construcción indicadores para SG-SST
         private readonly EmpresaContext _empresaContext;
         public IndicadorHelper(EmpresaContext empresaContext)
         {
             _empresaContext = empresaContext;
         }
-        public int AccidentesTrabajo(int year)
+        public int AccidentesTrabajo(int year, int month)
         {
             return (from at in _empresaContext.Incidentes
-                    where at.FechaIncidente.Year == year && at.CategoriasIncidente == CategoriasIncidente.Accidente
+                    where at.FechaIncidente.Year == year && at.FechaIncidente.Month == month
                     select at).Count();
         }
         public int AccidentesTrabajoInvestigados(int year)
@@ -63,11 +63,6 @@ namespace WSafe.Domain.Helpers.Implements
             throw new System.NotImplementedException();
         }
 
-        public decimal FrecuenciaAccidentalidad(int[] periodo, int year)
-        {
-            return Convert.ToDecimal(AccidentesTrabajo(year))
-                / Convert.ToDecimal(NumeroTrabajadoresMes(periodo, year)) * 100;
-        }
         public decimal IncidenciaEnfermedad(int[] periodo)
         {
             //TODO
@@ -97,11 +92,6 @@ namespace WSafe.Domain.Helpers.Implements
                     select t).Count();
         }
 
-        public decimal ProporcionAccidentesMortales(int year)
-        {
-            return Convert.ToDecimal(AccidentesTrabajoMortales(year))
-                / Convert.ToDecimal(AccidentesTrabajo(year)) * 100;
-        }
         public decimal SeveridadAccidentalidad(int[] periodo, int year)
         {
             return Convert.ToDecimal(DiasIncapacidadAccidentesTrabajo(year))
@@ -125,12 +115,6 @@ namespace WSafe.Domain.Helpers.Implements
             return Convert.ToDecimal(NumeroACPAccidentes(fechaInicial, fechaFinal))
                 / Convert.ToDecimal(NumeroACP(fechaInicial, fechaFinal)) * 100;
         }
-        public decimal ProporcionAccidentesInvestigados(int year)
-        {
-            return Convert.ToDecimal(AccidentesTrabajoInvestigados(year))
-                / Convert.ToDecimal(AccidentesTrabajo(year)) * 100;
-        }
-
         public int IncidentesInvestigados(int year)
         {
             return _empresaContext.Incidentes
@@ -292,12 +276,6 @@ namespace WSafe.Domain.Helpers.Implements
             {
                 throw ex;
             }
-        }
-        public int AccidentesTrabajo(int year, int month)
-        {
-            return (from at in _empresaContext.Incidentes
-                    where at.FechaIncidente.Year == year && at.FechaIncidente.Month == month && at.CategoriasIncidente == CategoriasIncidente.Accidente
-                    select at).Count();
         }
     }
 }
