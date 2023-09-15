@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Sistema de Gestión de la Seguridad y Salud en el Trabajo";
     var ahora = DateTime.Now.Year;
-    var year = DateTime.Now.Year;
+    var year = @Session["year"].ToString().Trim();
 
 }
 
@@ -104,9 +104,11 @@
 <hr class="mt-4">
 <div class="container" style="margin-left:6%">
     <button type="button" id="btnFRecuencia" class="btn btn-success" onclick="frecuenciaAccidentalidad()"><i class="fa fa-search"></i> FRECUENCIA ACCIDENTALIDAD</button>
-    @Html.ActionLink(" ", "PrintIndicatorToPdf", new { id = 1, year = year}, new { @class = "glyphicon glyphicon-download-alt", @title = "Descargar Pdf"})
+    @Html.ActionLink(" ", "PrintIndicatorToPdf", new { id = 1, year = year }, new { @class = "glyphicon glyphicon-download-alt", @title = "Descargar Pdf" })
     <button type="button" id="btnSeveridad" class="btn btn-success" onclick="severidadAccidentalidad()"><i class="fa fa-search"></i> SEVERIDAD ACCIDENTALIDAD</button>
+    @Html.ActionLink(" ", "PrintIndicatorToPdf", new { id = 2, year = year }, new { @class = "glyphicon glyphicon-download-alt", @title = "Descargar Pdf" })
     <button type="button" id="btnMortality" class="btn btn-success" onclick="mortalityProportion()"><i class="fa fa-search"></i> PROPORCIÓN AT MORTALES</button>
+    @Html.ActionLink(" ", "PrintIndicatorToPdf", new { id = 3, year = year }, new { @class = "glyphicon glyphicon-download-alt", @title = "Descargar Pdf" })
     <button type="button" id="btnPrevalence" class="btn btn-success" onclick="prevalenceIndicator()"><i class="fa fa-search"></i> PREVALENCIA ENFERMEDAD LABORAL</button>
     <hr class="mt-4">
     <button type="button" id="btnIncidencia" class="btn btn-success" onclick="incidenceIndicator()"><i class="fa fa-search"></i> INCIDENCIA ENFERMEDAD LABORAL</button>
@@ -199,9 +201,11 @@
 
 @section Scripts
 {
+
     <script type="text/javascript">
         year = $("#txtYear").val();
-        var model = @Model;
+
+        @*var model = @Model;
         model.ID = 1;
         model.Year = year;
         model.Periodo = periodo;
@@ -216,6 +220,8 @@
                 alert(xhr.status);
                 alert(thrownError);
             }
-        });
+        });*@
+
     </script>
+
 }

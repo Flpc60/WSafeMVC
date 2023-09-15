@@ -18,7 +18,7 @@ namespace WSafe.Web.Controllers
 {
     public class MovimientosController : Controller
     {
-        // Gestionar explorador carpetas SG-SST para auditorías
+        // Gestionar explorador carpetas SG-SST para auditorías internas
         private int _clientID;
         private int _orgID;
         private string _year;
