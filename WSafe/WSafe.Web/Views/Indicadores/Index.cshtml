@@ -103,7 +103,7 @@
 </div>
 <hr class="mt-4">
 <div class="container" style="margin-left:6%">
-    <button type="button" id="btnFRecuencia" class="btn btn-success" onclick="frecuenciaAccidentalidad()"><i class="fa fa-search"></i> FRECUENCIA ACCIDENTALIDAD</button>
+    <button type="button" id="btnFRecuencia" class="btn btn-success img-rounded" onclick="frecuenciaAccidentalidad()"><i class="fa fa-search"></i> FRECUENCIA ACCIDENTALIDAD</button>
     @Html.ActionLink(" ", "PrintIndicatorToPdf", new { id = 1, year = year }, new { @class = "glyphicon glyphicon-download-alt", @title = "Descargar Pdf" })
     <button type="button" id="btnSeveridad" class="btn btn-success" onclick="severidadAccidentalidad()"><i class="fa fa-search"></i> SEVERIDAD ACCIDENTALIDAD</button>
     @Html.ActionLink(" ", "PrintIndicatorToPdf", new { id = 2, year = year }, new { @class = "glyphicon glyphicon-download-alt", @title = "Descargar Pdf" })
@@ -125,6 +125,21 @@
     <button type="button" id="btntipoVivienda" class="btn btn-success" onclick="tipoViviendaIndicator()"><i class="fa fa-search"></i> TENENCIA VIVIENDA</button>
     <button type="button" id="btntipoJornada" class="btn btn-success" onclick="tipoJornadaIndicator()"><i class="fa fa-search"></i> TIPO JORNADA</button>
     <button type="button" id="btnnumeroHijos()" class="btn btn-success" onclick="numeroHijosIndicator()"><i class="fa fa-search"></i> NÚMERO HIJOS</button>
+    <hr class="mt-4">
+    <div class="row">
+        <div class="col-md-3">
+            <div><canvas id="atFrecuencia" width="200" height="300"></canvas></div>
+        </div>
+        <div class="col-md-3">
+            <div><canvas id="atIF" width="200" height="300"></canvas></div>
+        </div>
+        <div class="col-md-3">
+            <div><canvas id="atIG" width="200" height="300"></canvas></div>
+        </div>
+        <div class="col-md-3">
+            <div><canvas id="atILI" width="200" height="300"></canvas></div>
+        </div>
+    </div>
     <hr class="mt-4">
     <div class="row">
         <div class="col-md-6">
