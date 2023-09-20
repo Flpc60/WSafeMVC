@@ -27,5 +27,11 @@ namespace WSafe.Web.Models
         public int AcumuladoResultado { get; set; }
         public string MesAnn1 { get; set; }
         public decimal Resultado1 { get; set; }
+        public decimal IF { get; set; }
+        public decimal IG { get; set; }
+        public decimal ILI { get; set; }
+        public int HHT { get; set; }
+        public int Ausentismos { get; set; }
+        public int Accidentes { get; set; }
     }
 }

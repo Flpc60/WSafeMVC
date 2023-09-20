@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web.Helpers;
+using System.Web.UI.WebControls;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Data.Entities.Incidentes;
 using WSafe.Web.Models;
@@ -39,14 +40,17 @@ namespace WSafe.Domain.Helpers.Implements
         {
             try
             {
-                var denominador = _indicadorHelper.PromedioTrabajadores(year, _orgID);
+                var workerMain = _indicadorHelper.PromedioTrabajadores(year, _orgID);
+                var HHT = workerMain * 8 * 23;
 
                 var result = (from at in _empresaContext.Incidentes
-                             where (at.FechaIncidente.Year == year && periodo.Contains(at.FechaIncidente.Month) && at.CategoriasIncidente == CategoriasIncidente.Accidente)
+                             where (at.FechaIncidente.Year == year && periodo.Contains(at.FechaIncidente.Month) && at.CategoriasIncidente == CategoriasIncidente.Accidente || at.CategoriasIncidente == CategoriasIncidente.Mortal)
                              group at by new { at.FechaIncidente.Year, at.FechaIncidente.Month } into datosAgrupados
                              orderby datosAgrupados.Key
                              select new { 
-                                 Clave = datosAgrupados.Key, Datos = datosAgrupados
+                                 Clave = datosAgrupados.Key,
+                                 Datos = datosAgrupados,
+                                 Dias = datosAgrupados.Sum(di => di.DiasIncapacidad)
                              }).ToList();
 
                 var viewModel = new List<IndicadorDetallesViewModel>();
@@ -56,10 +60,24 @@ namespace WSafe.Domain.Helpers.Implements
                     {
                         MesAnn = (grupo.Clave.Month + "-" + grupo.Clave.Year).ToString(),
                         Numerador = grupo.Datos.Count(),
-                        Denominador = (int)denominador,
-                        Resultado = Convert.ToDecimal((double)grupo.Datos.Count() / (double)denominador * 100),
+                        Accidentes = grupo.Datos.Count(),
+                        Ausentismos = grupo.Dias,
+                        HHT = (int)HHT,
+                        Denominador = (int)workerMain,
+                        Resultado = Convert.ToDecimal((double)grupo.Datos.Count() / (double)workerMain * 100),
                     });
                 }
+
+                foreach (var item in viewModel)
+                {
+                    if (item.HHT > 0)
+                    {
+                        item.IF = Convert.ToDecimal((double)item.Accidentes / (double)item.HHT * 20000);
+                        item.IG = Convert.ToDecimal((double)item.Ausentismos / (double)item.HHT * 20000);
+                        item.ILI = item.IF * item.IG / 1000;
+                    }
+                }
+
                 return viewModel;
             }
             catch (DbEntityValidationException ex)

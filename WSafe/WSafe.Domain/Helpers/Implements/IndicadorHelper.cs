@@ -277,5 +277,10 @@ namespace WSafe.Domain.Helpers.Implements
                 throw ex;
             }
         }
+
+        public int NumeroHorasTrabajadasMes(int year, int month, int orgID)
+        {
+            return (from t in _empresaContext.Trabajadores where (t.FechaIngreso.Year == year && t.FechaIngreso.Month == month && t.OrganizationID == orgID) select t).Count() * 8 * 23;
+        }
     }
 }
