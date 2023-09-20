@@ -6165,6 +6165,195 @@ function frecuenciaAccidentalidad() {
         success: function (data) {
             var arrayLabel = [];
             var arrayData1 = [];
+            var arrayData2 = [];
+            var arrayData3 = [];
+            var arrayData4 = [];
+            for (var i = 0; i < data.length; i++) {
+                arrayLabel.push(data[i].MesAnn);
+                arrayData1.push(data[i].Resultado);
+                arrayData2.push(data[i].IF);
+                arrayData3.push(data[i].IG);
+                arrayData4.push(data[i].ILI);
+            }
+
+            // Gráfica frecuencia accidentes
+            const ctx = document.getElementById("atFrecuencia").getContext('2d');
+            const chartF = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: arrayLabel,
+                    datasets: [
+                        {
+                            label: "PERIODOS",
+                            data: arrayData1,
+                            fill: false,
+                            borderColor: 'rgb(75, 192, 192)',
+                            tension: 0.1,
+                        },
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'FRECUENCIA ACCIDENTALIDAD'
+                    }
+                }
+            });
+
+            // Gráfica indice frecuencia accidentes
+            const ctxIF = document.getElementById("atIF").getContext('2d');
+            const chartIF = new Chart(ctxIF, {
+                type: 'line',
+                data: {
+                    labels: arrayLabel,
+                    datasets: [
+                        {
+                            label: "PERIODOS",
+                            data: arrayData2,
+                            fill: false,
+                            borderColor: 'rgb(75, 192, 192)',
+                            tension: 0.1,
+                        },
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'INDICE DE FRECUENCIA DE ACCIDENTES'
+                    }
+                }
+            });
+
+            // Gráfica indice severidad accidentes
+            const ctxIG = document.getElementById("atIG").getContext('2d');
+            const chartIG = new Chart(ctxIG, {
+                type: 'line',
+                data: {
+                    labels: arrayLabel,
+                    datasets: [
+                        {
+                            label: "PERIODOS",
+                            data: arrayData3,
+                            fill: false,
+                            borderColor: 'rgb(75, 192, 192)',
+                            tension: 0.1,
+                        },
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'INDICE DE GRAVEDAD DE ACCIDENTES'
+                    }
+                }
+            });
+
+            // Gráfica indice de lesiones incapacitantes
+            const ctxILI = document.getElementById("atILI").getContext('2d');
+            const chartILI = new Chart(ctxILI, {
+                type: 'line',
+                data: {
+                    labels: arrayLabel,
+                    datasets: [
+                        {
+                            label: "PERIODOS",
+                            data: arrayData4,
+                            fill: false,
+                            borderColor: 'rgb(75, 192, 192)',
+                            tension: 0.1,
+                        },
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'INDICE DE LESIONES INCAPACITANTES'
+                    }
+                }
+            });
+
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function indiceFrecuenciaAccidentes() {
+    // Gráficar indice frecuencia accidentes
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: "/Indicadores/IndiceFrecuenciaAccidentes",
+        data: {
+            year: $("#txtYear").val()
+        },
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (data) {
+            var arrayLabel = [];
+            var arrayData1 = [];
             for (var i = 0; i < data.length; i++) {
                 arrayLabel.push(data[i].MesAnn);
                 arrayData1.push(data[i].Resultado);
@@ -6202,7 +6391,7 @@ function frecuenciaAccidentalidad() {
                     },
                     title: {
                         display: true,
-                        text: 'FRECUENCIA ACCIDENTALIDAD'
+                        text: 'INDICE FRECUENCIA ACCIDENTES'
                     }
                 }
             });
