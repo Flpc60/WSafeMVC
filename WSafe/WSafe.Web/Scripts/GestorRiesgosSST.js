@@ -6177,6 +6177,7 @@ function frecuenciaAccidentalidad() {
             }
 
             // Gráfica frecuencia accidentes
+            var text = 'FRECUENCIA ACCIDENTALIDAD ' + $("#txtYear").val();
             const ctx = document.getElementById("atFrecuencia").getContext('2d');
             const chartF = new Chart(ctx, {
                 type: 'line',
@@ -6210,12 +6211,13 @@ function frecuenciaAccidentalidad() {
                     },
                     title: {
                         display: true,
-                        text: 'FRECUENCIA ACCIDENTALIDAD'
+                        text: text
                     }
                 }
             });
 
             // Gráfica indice frecuencia accidentes
+            var text = 'INDICE DE FRECUENCIA DE ACCIDENTES ' + $("#txtYear").val();
             const ctxIF = document.getElementById("atIF").getContext('2d');
             const chartIF = new Chart(ctxIF, {
                 type: 'line',
@@ -6249,12 +6251,13 @@ function frecuenciaAccidentalidad() {
                     },
                     title: {
                         display: true,
-                        text: 'INDICE DE FRECUENCIA DE ACCIDENTES'
+                        text: text
                     }
                 }
             });
 
             // Gráfica indice severidad accidentes
+            var text = 'INDICE DE GRAVEDAD DE ACCIDENTES ' + $("#txtYear").val();
             const ctxIG = document.getElementById("atIG").getContext('2d');
             const chartIG = new Chart(ctxIG, {
                 type: 'line',
@@ -6288,12 +6291,13 @@ function frecuenciaAccidentalidad() {
                     },
                     title: {
                         display: true,
-                        text: 'INDICE DE GRAVEDAD DE ACCIDENTES'
+                        text: text
                     }
                 }
             });
 
             // Gráfica indice de lesiones incapacitantes
+            var text = 'INDICE DE LESIONES INCAPACITANTES ' + $("#txtYear").val();
             const ctxILI = document.getElementById("atILI").getContext('2d');
             const chartILI = new Chart(ctxILI, {
                 type: 'line',
@@ -6327,7 +6331,7 @@ function frecuenciaAccidentalidad() {
                     },
                     title: {
                         display: true,
-                        text: 'INDICE DE LESIONES INCAPACITANTES'
+                        text: text
                     }
                 }
             });
@@ -6421,18 +6425,19 @@ function severidadAccidentalidad() {
                 arrayLabel.push(data[i].MesAnn);
                 arrayData1.push(data[i].Resultado);
             }
+            var text = 'SEVERIDAD ACCIDENTALIDAD ' + $("#txtYear").val();
             const ctx = document.getElementById("atSeveridad").getContext('2d');
             const chart = new Chart(ctx, {
-                type: 'bar',
+                type: 'line',
                 data: {
                     labels: arrayLabel,
                     datasets: [
                         {
                             label: "PERIODOS",
                             data: arrayData1,
-                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            fill: false,
                             borderColor: 'rgba(54, 162, 235)',
-                            borderWidth: 1
+                            tension: 0.1,
                         },
                     ]
                 },
@@ -6454,7 +6459,7 @@ function severidadAccidentalidad() {
                     },
                     title: {
                         display: true,
-                        text: 'SEVERIDAD ACCIDENTALIDAD'
+                        text: text
                     }
                 }
             });
@@ -6484,6 +6489,7 @@ function mortalityProportion() {
                 arrayLabel.push(data[i].MesAnn);
                 arrayData1.push(data[i].Resultado);
             }
+            var text = 'PROPORCIÓN ACCIDENTES DE TRABAJO MORTALES ' + $("#txtYear").val();
             const ctx = document.getElementById("Mortality").getContext('2d');
             const chart = new Chart(ctx, {
                 type: 'bar',
@@ -6517,7 +6523,7 @@ function mortalityProportion() {
                     },
                     title: {
                         display: true,
-                        text: 'PROPORCIÓN ACCIDENTES DE TRABAJO MORTALES'
+                        text: text
                     }
                 }
             });
@@ -6547,6 +6553,7 @@ function ausentismoIndicator() {
                 arrayLabel.push(data[i].MesAnn);
                 arrayData1.push(data[i].Resultado);
             }
+            var text = 'AUSENTISMO POR CAUSA MÉDICA ' + $("#txtYear").val();
             const ctx = document.getElementById("Ausentismo").getContext('2d');
             const chart = new Chart(ctx, {
                 type: 'line',
@@ -6580,7 +6587,7 @@ function ausentismoIndicator() {
                     },
                     title: {
                         display: true,
-                        text: 'AUSENTISMO POR CAUSA MÉDICA'
+                        text: text
                     }
                 }
             });
@@ -6610,6 +6617,7 @@ function factorRisk() {
                 arrayLabel.push(data[i].MesAnn);
                 arrayData1.push(data[i].Resultado);
             }
+            var text = 'FACTOR RIESGO OCUPACIONAL ' + $("#txtYear").val();
             const ctx = document.getElementById("FactorRisk").getContext('2d');
             const chart = new Chart(ctx, {
                 type: 'doughnut',
@@ -6649,7 +6657,7 @@ function factorRisk() {
                     },
                     title: {
                         display: true,
-                        text: 'FACTOR RIESGO OCUPACIONAL'
+                        text: text
                     }
                 }
             });

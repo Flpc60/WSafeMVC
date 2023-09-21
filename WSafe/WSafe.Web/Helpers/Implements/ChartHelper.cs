@@ -96,10 +96,13 @@ namespace WSafe.Domain.Helpers.Implements
             try
             {
                 var result = from at in _empresaContext.Incidentes
-                             where (at.FechaIncidente.Year == year && periodo.Contains(at.FechaIncidente.Month) && at.CategoriasIncidente == CategoriasIncidente.Mortal && at.OrganizationID == _orgID)
+                             where (at.FechaIncidente.Year == year && periodo.Contains(at.FechaIncidente.Month) && at.CategoriasIncidente == CategoriasIncidente.Accidente || at.CategoriasIncidente == CategoriasIncidente.Mortal && at.OrganizationID == _orgID)
                              group at by new { at.FechaIncidente.Year, at.FechaIncidente.Month } into datosAgrupados
                              orderby datosAgrupados.Key
-                             select new { Clave = datosAgrupados.Key, Datos = datosAgrupados };
+                             select new { Clave = datosAgrupados.Key,
+                                 Datos = datosAgrupados,
+                                 Mortality = datosAgrupados.Where(m => m.CategoriasIncidente == CategoriasIncidente.Mortal).Count()
+                             };
 
                 var viewModel = new List<IndicadorDetallesViewModel>();
                 foreach (var grupo in result)
@@ -107,9 +110,9 @@ namespace WSafe.Domain.Helpers.Implements
                     viewModel.Add(new IndicadorDetallesViewModel
                     {
                         MesAnn = (grupo.Clave.Month + "-" + grupo.Clave.Year).ToString(),
-                        Numerador = grupo.Datos.Count(),
-                        Denominador = _indicadorHelper.AccidentesTrabajo(grupo.Clave.Year, grupo.Clave.Month)
-                });
+                        Numerador = grupo.Mortality,
+                        Denominador = grupo.Datos.Count()
+                    });
                 }
 
                 foreach (var item in viewModel)
@@ -158,9 +161,8 @@ namespace WSafe.Domain.Helpers.Implements
             try
             {
                 var denominador = _indicadorHelper.PromedioTrabajadores(year, _orgID);
-
                 var result = from at in _empresaContext.Incidentes
-                             where (at.FechaIncidente.Year == year && periodo.Contains(at.FechaIncidente.Month) && at.CategoriasIncidente == CategoriasIncidente.Accidente && at.OrganizationID == _orgID)
+                             where (at.FechaIncidente.Year == year && periodo.Contains(at.FechaIncidente.Month) && at.CategoriasIncidente == CategoriasIncidente.Accidente || at.CategoriasIncidente == CategoriasIncidente.Mortal && at.OrganizationID == _orgID)
                              group at by new { at.FechaIncidente.Year, at.FechaIncidente.Month } into datosAgrupados
                              orderby datosAgrupados.Key
                              select new
