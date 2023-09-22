@@ -29,44 +29,44 @@ namespace WSafe.Web.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaReporte { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "OBJETO DEL REPORTE")]
+        [Display(Name = "OBJETO REPORTE")]
         public ActCategories ActCategory { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "ANTECEDENTES")]
         [MaxLength(100)]
         public string Antecedentes { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "FECHA DEL ANTECEDENTE")]
+        [Display(Name = "FECHA ANTECEDENTE")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaAntecedente { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int CategoriaPeligroID { get; set; }
-        [Display(Name = "TIPO PELIGRO")]
+        [Display(Name = "PELIGRO")]
         public IEnumerable<SelectListItem> CategoriasPeligro { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int PeligroID { get; set; }
-        [Display(Name = "FACTOR RIESGO")]
+        [Display(Name = "RIESGO")]
         public IEnumerable<SelectListItem> Peligros { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "DESCRIPCIÓN EVENTO")]
+        [Display(Name = "DESCRIPCIÓN")]
         [MaxLength(100)]
         public string ActDescription { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "PROBABLES CONSECUENCIAS")]
+        [Display(Name = "CONSECUENCIAS")]
         public string ProbableConsecuencia { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "RECOMENDACIONES")]
         public string Recomendations { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int WorkerID { get; set; }
-        [Display(Name = "NOMBRE QUIEN IDENTIFICA")]
+        [Display(Name = "NOMBRE IDENTIFICA")]
         public IEnumerable<SelectListItem> Workers { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "NOMBRE QUIEN REPORTA")]
+        [Display(Name = "NOMBRE REPORTA")]
         public int Worker1ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "NOMBRE QUIEN RECIBE")]
+        [Display(Name = "NOMBRE RECIBE")]
         public int Worker2ID { get; set; }
         public int MovimientID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]

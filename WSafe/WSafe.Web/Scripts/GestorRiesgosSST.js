@@ -6518,6 +6518,9 @@ function mortalityProportion() {
                             display: true,
                             title: {
                                 display: true
+                            },
+                            ticks: {
+                                beginAtZero: true
                             }
                         }
                     },
@@ -6527,6 +6530,7 @@ function mortalityProportion() {
                     }
                 }
             });
+            document.getElementById("Mortality").focus();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
