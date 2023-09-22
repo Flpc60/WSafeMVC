@@ -7,18 +7,18 @@ namespace WSafe.Web.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class UpdateIndicators : IMigrationMetadata
+    public sealed partial class UpdateRemoteDB : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateIndicators));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateRemoteDB));
         
         string IMigrationMetadata.Id
         {
-            get { return "202309052223052_UpdateIndicators"; }
+            get { return "202309221737244_UpdateRemoteDB"; }
         }
         
         string IMigrationMetadata.Source
         {
-            get { return Resources.GetString("Source"); }
+            get { return null; }
         }
         
         string IMigrationMetadata.Target
