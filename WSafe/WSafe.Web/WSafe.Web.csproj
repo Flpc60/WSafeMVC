@@ -345,6 +345,7 @@
     <Compile Include="Controllers\IndicadoresController.cs" />
     <Compile Include="Controllers\MovimientosController.cs" />
     <Compile Include="Controllers\OrganizationsController.cs" />
+    <Compile Include="Controllers\RecomendationsController.cs" />
     <Compile Include="Controllers\RiesgosController.cs" />
     <Compile Include="Controllers\UnsafeactsController.cs" />
     <Compile Include="Controllers\WorkersController.cs" />
@@ -375,12 +376,14 @@
     <Compile Include="Data\Entities\Components.cs" />
     <Compile Include="Data\Entities\CondicionSalud.cs" />
     <Compile Include="Data\Entities\Consecuencia.cs" />
+    <Compile Include="Data\Entities\Contingencias.cs" />
     <Compile Include="Data\Entities\Control.cs" />
     <Compile Include="Data\Entities\DangerCategories.cs" />
     <Compile Include="Data\Entities\Dashboard.cs" />
     <Compile Include="Data\Entities\Document.cs" />
     <Compile Include="Data\Entities\DocumentTypes.cs" />
     <Compile Include="Data\Entities\EfectosPosibles.cs" />
+    <Compile Include="Data\Entities\Emissions.cs" />
     <Compile Include="Data\Entities\EstadosCivil.cs" />
     <Compile Include="Data\Entities\EstratoCategories.cs" />
     <Compile Include="Data\Entities\Evaluation.cs" />
@@ -394,7 +397,7 @@
     <Compile Include="Data\Entities\ICAM\EventsOrder.cs" />
     <Compile Include="Data\Entities\ICAM\PotencialCausalFactors.cs" />
     <Compile Include="Data\Entities\ICAM\Reason.cs" />
-    <Compile Include="Data\Entities\ICAM\Recomendation.cs" />
+    <Compile Include="Data\Entities\ICAM\IncidenteRecomendation.cs" />
     <Compile Include="Data\Entities\ICAM\RootCause.cs" />
     <Compile Include="Data\Entities\Incidente.cs" />
     <Compile Include="Data\Entities\Incidentes\AccidenteProbabilidad.cs" />
@@ -422,11 +425,14 @@
     <Compile Include="Data\Entities\Operation.cs" />
     <Compile Include="Data\Entities\Operations.cs" />
     <Compile Include="Data\Entities\Organization.cs" />
+    <Compile Include="Data\Entities\Patology.cs" />
     <Compile Include="Data\Entities\Peligro.cs" />
     <Compile Include="Data\Entities\PlanAccion.cs" />
     <Compile Include="Data\Entities\PlanAction.cs" />
     <Compile Include="Data\Entities\PlanActivity.cs" />
     <Compile Include="Data\Entities\Proceso.cs" />
+    <Compile Include="Data\Entities\Recomendation.cs" />
+    <Compile Include="Data\Entities\RecomendationTypes.cs" />
     <Compile Include="Data\Entities\RecursosCategory.cs" />
     <Compile Include="Data\Entities\Riesgo.cs" />
     <Compile Include="Data\Entities\Role.cs" />
@@ -434,6 +440,7 @@
     <Compile Include="Data\Entities\Seguimiento.cs" />
     <Compile Include="Data\Entities\SeguimientoAccion.cs" />
     <Compile Include="Data\Entities\SeguimientoAction.cs" />
+    <Compile Include="Data\Entities\SigueRecomendation.cs" />
     <Compile Include="Data\Entities\SocioDemografico.cs" />
     <Compile Include="Data\Entities\Tarea.cs" />
     <Compile Include="Data\Entities\TenenciasVivienda.cs" />
@@ -444,6 +451,7 @@
     <Compile Include="Data\Entities\TiposJornada.cs" />
     <Compile Include="Data\Entities\TiposLesion.cs" />
     <Compile Include="Data\Entities\TiposPeriodicidad.cs" />
+    <Compile Include="Data\Entities\TiposReintegro.cs" />
     <Compile Include="Data\Entities\TiposSangre.cs" />
     <Compile Include="Data\Entities\TiposVinculacion.cs" />
     <Compile Include="Data\Entities\Trabajador.cs" />
@@ -468,9 +476,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202309221737244_UpdateRemoteDB.cs" />
-    <Compile Include="Migrations\202309221737244_UpdateRemoteDB.designer.cs">
-      <DependentUpon>202309221737244_UpdateRemoteDB.cs</DependentUpon>
+    <Compile Include="Migrations\202309280007143_CreateRecomendation.cs" />
+    <Compile Include="Migrations\202309280007143_CreateRecomendation.designer.cs">
+      <DependentUpon>202309280007143_CreateRecomendation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202309280020095_CreatePatology.cs" />
+    <Compile Include="Migrations\202309280020095_CreatePatology.designer.cs">
+      <DependentUpon>202309280020095_CreatePatology.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
@@ -501,6 +513,8 @@
     <Compile Include="Models\OrganizationVM.cs" />
     <Compile Include="Models\PlanAccionVM.cs" />
     <Compile Include="Models\PlanActivityVM.cs" />
+    <Compile Include="Models\RecomendationListVM.cs" />
+    <Compile Include="Models\RecomendationVM.cs" />
     <Compile Include="Models\RiesgoViewModel.cs" />
     <Compile Include="Models\RoleOperationVM.cs" />
     <Compile Include="Models\RoleUserVM.cs" />
@@ -522,6 +536,8 @@
     <Compile Include="Repositories\Implements\AplicationRepository.cs" />
     <Compile Include="Repositories\Implements\GenericRepository.cs" />
     <Compile Include="Repositories\Implements\IncidenteRepository.cs" />
+    <Compile Include="Repositories\Implements\RecomendationRepository.cs" />
+    <Compile Include="Repositories\IRecomendationRepository.cs" />
     <Compile Include="Repositories\Implements\RiesgoRepository.cs" />
     <Compile Include="Repositories\IRiesgoRepository.cs" />
     <Compile Include="Services\IAccionService.cs" />
@@ -532,7 +548,9 @@
     <Compile Include="Services\Implements\AplicationService.cs" />
     <Compile Include="Services\Implements\GenericService.cs" />
     <Compile Include="Services\Implements\IncidenteService.cs" />
+    <Compile Include="Services\Implements\RecomendationService.cs" />
     <Compile Include="Services\Implements\RiesgoService.cs" />
+    <Compile Include="Services\IRecomendationService.cs" />
     <Compile Include="Services\IRiesgoService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -919,6 +937,11 @@
     <Content Include="Views\Shared\UpdateWorker.cshtml" />
     <Content Include="Views\Shared\_EditWorkers.cshtml" />
     <Content Include="Views\Acciones\CreateActionsMatrix.cshtml" />
+    <Content Include="Views\Recomendations\Create.cshtml" />
+    <Content Include="Views\Recomendations\Delete.cshtml" />
+    <Content Include="Views\Recomendations\Details.cshtml" />
+    <Content Include="Views\Recomendations\Edit.cshtml" />
+    <Content Include="Views\Recomendations\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1174,8 +1197,11 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202309221737244_UpdateRemoteDB.resx">
-      <DependentUpon>202309221737244_UpdateRemoteDB.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202309280007143_CreateRecomendation.resx">
+      <DependentUpon>202309280007143_CreateRecomendation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202309280020095_CreatePatology.resx">
+      <DependentUpon>202309280020095_CreatePatology.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
