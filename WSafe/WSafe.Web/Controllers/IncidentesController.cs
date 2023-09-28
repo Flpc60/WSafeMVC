@@ -556,7 +556,7 @@ namespace WSafe.Web.Controllers
             if (id != 0)
             {
                 var result =
-                    from r in _empresaContext.Recomendations
+                    from r in _empresaContext.IncidenteRecomendations
                     join rc in _empresaContext.RootCauses on r.RootCauseID equals rc.ID
                     where r.IncidentID == id
                     select new
@@ -1064,7 +1064,7 @@ namespace WSafe.Web.Controllers
         public JsonResult UpdateRecomendation(int id)
         {
             var recomendation =
-                from r in _empresaContext.Recomendations
+                from r in _empresaContext.IncidenteRecomendations
                 join rc in _empresaContext.RootCauses on r.RootCauseID equals rc.ID
                 where r.ID == id
                 select new

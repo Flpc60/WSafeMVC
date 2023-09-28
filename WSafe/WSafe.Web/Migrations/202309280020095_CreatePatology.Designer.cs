@@ -7,13 +7,13 @@ namespace WSafe.Web.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class UpdateRemoteDB : IMigrationMetadata
+    public sealed partial class CreatePatology : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateRemoteDB));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CreatePatology));
         
         string IMigrationMetadata.Id
         {
-            get { return "202309221737244_UpdateRemoteDB"; }
+            get { return "202309280020095_CreatePatology"; }
         }
         
         string IMigrationMetadata.Source

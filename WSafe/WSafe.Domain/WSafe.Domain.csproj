@@ -135,10 +135,12 @@
     <Compile Include="Data\Entities\Client.cs" />
     <Compile Include="Data\Entities\Components.cs" />
     <Compile Include="Data\Entities\CondicionSalud.cs" />
+    <Compile Include="Data\Entities\Contingencias.cs" />
     <Compile Include="Data\Entities\DangerCategories.cs" />
     <Compile Include="Data\Entities\Dashboard.cs" />
     <Compile Include="Data\Entities\Document.cs" />
     <Compile Include="Data\Entities\DocumentTypes.cs" />
+    <Compile Include="Data\Entities\Emissions.cs" />
     <Compile Include="Data\Entities\EstratoCategories.cs" />
     <Compile Include="Data\Entities\Evaluation.cs" />
     <Compile Include="Data\Entities\FuentesAccion.cs" />
@@ -149,6 +151,7 @@
     <Compile Include="Data\Entities\ICAM\CausalFactors.cs" />
     <Compile Include="Data\Entities\ICAM\Event.cs" />
     <Compile Include="Data\Entities\ICAM\EventsOrder.cs" />
+    <Compile Include="Data\Entities\ICAM\IncidenteRecomendation.cs" />
     <Compile Include="Data\Entities\ICAM\PotencialCausalFactors.cs" />
     <Compile Include="Data\Entities\ICAM\Reason.cs" />
     <Compile Include="Data\Entities\ICAM\Recomendation.cs" />
@@ -189,11 +192,14 @@
     <Compile Include="Data\Entities\Operation.cs" />
     <Compile Include="Data\Entities\Operations.cs" />
     <Compile Include="Data\Entities\Organization.cs" />
+    <Compile Include="Data\Entities\Patology.cs" />
     <Compile Include="Data\Entities\Peligro.cs" />
     <Compile Include="Data\Entities\PlanAccion.cs" />
     <Compile Include="Data\Entities\PlanAction.cs" />
     <Compile Include="Data\Entities\PlanActivity.cs" />
     <Compile Include="Data\Entities\Proceso.cs" />
+    <Compile Include="Data\Entities\Recomendation.cs" />
+    <Compile Include="Data\Entities\RecomendationTypes.cs" />
     <Compile Include="Data\Entities\RecursosCategory.cs" />
     <Compile Include="Data\Entities\Riesgo.cs" />
     <Compile Include="Data\Entities\Role.cs" />
@@ -201,6 +207,7 @@
     <Compile Include="Data\Entities\Seguimiento.cs" />
     <Compile Include="Data\Entities\SeguimientoAccion.cs" />
     <Compile Include="Data\Entities\SeguimientoAction.cs" />
+    <Compile Include="Data\Entities\SigueRecomendation.cs" />
     <Compile Include="Data\Entities\SocioDemografico.cs" />
     <Compile Include="Data\Entities\Tarea.cs" />
     <Compile Include="Data\Entities\TenenciasVivienda.cs" />
@@ -211,6 +218,7 @@
     <Compile Include="Data\Entities\TiposJornada.cs" />
     <Compile Include="Data\Entities\TiposLesion.cs" />
     <Compile Include="Data\Entities\TiposPeriodicidad.cs" />
+    <Compile Include="Data\Entities\TiposReintegro.cs" />
     <Compile Include="Data\Entities\TiposSangre.cs" />
     <Compile Include="Data\Entities\TiposVinculacion.cs" />
     <Compile Include="Data\Entities\Trabajador.cs" />
@@ -258,6 +266,8 @@
     <Compile Include="Models\OrganizationVM.cs" />
     <Compile Include="Models\PlanAccionVM.cs" />
     <Compile Include="Models\PlanActivityVM.cs" />
+    <Compile Include="Models\RecomendationListVM.cs" />
+    <Compile Include="Models\RecomendationVM.cs" />
     <Compile Include="Models\RiesgoViewModel.cs" />
     <Compile Include="Models\RoleOperationVM.cs" />
     <Compile Include="Models\RoleUserVM.cs" />
@@ -279,7 +289,9 @@
     <Compile Include="Repositories\Implements\GenericRepository.cs" />
     <Compile Include="Repositories\IGenericRepository.cs" />
     <Compile Include="Repositories\Implements\IncidenteRepository.cs" />
+    <Compile Include="Repositories\Implements\RecomendationRepository.cs" />
     <Compile Include="Repositories\Implements\RiesgoRepository.cs" />
+    <Compile Include="Repositories\IRecomendationRepository.cs" />
     <Compile Include="Repositories\IRiesgoRepository.cs" />
     <Compile Include="Services\IAccionService.cs" />
     <Compile Include="Services\IAplicationService.cs" />
@@ -289,7 +301,9 @@
     <Compile Include="Services\Implements\AplicationService.cs" />
     <Compile Include="Services\Implements\GenericService.cs" />
     <Compile Include="Services\Implements\IncidenteService.cs" />
+    <Compile Include="Services\Implements\RecomendationService.cs" />
     <Compile Include="Services\Implements\RiesgoService.cs" />
+    <Compile Include="Services\IRecomendationService.cs" />
     <Compile Include="Services\IRiesgoService.cs" />
   </ItemGroup>
   <ItemGroup>
