@@ -1,0 +1,170 @@
+﻿@model WSafe.Web.Models.RecomendationListVM
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>RecomendationListVM</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Trabajador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Trabajador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Contingencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Contingencia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoReintegro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoReintegro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cargo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cargo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Patology)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Patology)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmisionDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmisionDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Emision)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Emision)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Entity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Entity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReceptionDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReceptionDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InitialDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InitialDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FinalDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FinalDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Duration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Duration)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Compromise)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Compromise)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Controls)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Controls)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EPP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EPP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tasks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tasks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkerCompromise)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkerCompromise)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Observation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Observation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Coordinador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Coordinador)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

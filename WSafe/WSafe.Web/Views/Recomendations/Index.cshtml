@@ -1,0 +1,141 @@
+﻿@model IEnumerable<WSafe.Web.Models.RecomendationListVM>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Trabajador)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Contingencia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TipoReintegro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cargo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Patology)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmisionDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Emision)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Entity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReceptionDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InitialDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FinalDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Duration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Compromise)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Controls)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EPP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tasks)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkerCompromise)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Observation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Coordinador)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Trabajador)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Contingencia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TipoReintegro)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cargo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Patology)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmisionDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Emision)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Entity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReceptionDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InitialDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FinalDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Duration)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Compromise)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Controls)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EPP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tasks)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkerCompromise)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Observation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Coordinador)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
