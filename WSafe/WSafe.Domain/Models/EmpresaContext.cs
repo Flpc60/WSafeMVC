@@ -44,8 +44,7 @@ namespace WSafe.Web.Models
         public DbSet<Role> Roles { get; set; }
         public DbSet<RoleOperation> RoleOperations { get; set; }
         public DbSet<Document> Documents { get; set; }
-        public DbSet<Domain.Data.Entities.Recomendation> Recomendations { get; set; }
-        public DbSet<IncidenteRecomendation> IncidenteRecomendations { get; set; }
+        public DbSet<Recomendation> Recomendations { get; set; }
         public DbSet<RootCause> RootCauses { get; set; }
         public DbSet<BarrierAnalice> BarrierAnalysis { get; set; }
         public DbSet<CausalAnalice> CausalAnalysis { get; set; }
@@ -62,6 +61,7 @@ namespace WSafe.Web.Models
         public DbSet<Unsafeact> Unsafeacts { get; set; }
         public DbSet<SigueRecomendation> SigueRecomendations { get; set; }
         public DbSet<Patology> Patologies { get; set; }
+        public DbSet<Suggestion> Suggestions { get; set; }
         public System.Data.Entity.DbSet<WSafe.Web.Models.UserViewModel> UserViewModels { get; set; }
         public System.Data.Entity.DbSet<WSafe.Web.Models.RoleUserVM> RoleUserVMs { get; set; }
 
@@ -81,5 +81,7 @@ namespace WSafe.Web.Models
         public System.Data.Entity.DbSet<WSafe.Web.Models.UnsafeactsListVM> UnsafeactsListVMs { get; set; }
 
         public System.Data.Entity.DbSet<WSafe.Web.Models.ActionsMatrixVM> ActionsMatrixVMs { get; set; }
+
+        public System.Data.Entity.DbSet<WSafe.Web.Models.RecomendationListVM> RecomendationListVMs { get; set; }
     }
 }

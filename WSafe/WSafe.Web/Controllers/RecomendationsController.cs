@@ -1,24 +1,53 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
+using WSafe.Domain.Helpers;
+using WSafe.Web.Filters;
 using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
 {
     public class RecomendationsController : Controller
     {
-        private EmpresaContext db = new EmpresaContext();
+        //  Recomendaciones médicas en el SG-SST
+        private int _clientID;
+        private int _orgID;
+        private string _year;
+        private string _path;
+        private int _operation;
+        private int _roleID;
+        private readonly EmpresaContext _empresaContext;
+        private readonly IComboHelper _comboHelper;
+        private readonly IConverterHelper _converterHelper;
+        private readonly IChartHelper _chartHelper;
+        public RecomendationsController(EmpresaContext empresaContext, IComboHelper comboHelper, IConverterHelper converterHelper, IChartHelper chartHelper)
+        {
+            _empresaContext = empresaContext;
+            _comboHelper = comboHelper;
+            _converterHelper = converterHelper;
+            _chartHelper = chartHelper;
+        }
 
-        // GET: Recomendations
+        [AuthorizeUser(operation: 1, component: 2)]
         public async Task<ActionResult> Index()
         {
-            return View(await db.RecomendationListVMs.ToListAsync());
+            try
+            {
+                _orgID = (int)Session["orgID"];
+                var list = await _empresaContext.Recomendations
+                    .Where(r => r.OrganizationID == _orgID)
+                    .OrderByDescending(r => r.InitialDate)
+                    .ToListAsync();
+                var model = _converterHelper.ToRecomendationListVM(list);
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Recomnedation", "Index"));
+            }
         }
 
         // GET: Recomendations/Details/5
@@ -28,7 +57,7 @@ namespace WSafe.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            RecomendationListVM recomendationListVM = await db.RecomendationListVMs.FindAsync(id);
+            RecomendationListVM recomendationListVM = await _empresaContext.RecomendationListVMs.FindAsync(id);
             if (recomendationListVM == null)
             {
                 return HttpNotFound();
@@ -51,8 +80,8 @@ namespace WSafe.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.RecomendationListVMs.Add(recomendationListVM);
-                await db.SaveChangesAsync();
+                _empresaContext.RecomendationListVMs.Add(recomendationListVM);
+                await _empresaContext.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
@@ -66,7 +95,7 @@ namespace WSafe.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            RecomendationListVM recomendationListVM = await db.RecomendationListVMs.FindAsync(id);
+            RecomendationListVM recomendationListVM = await _empresaContext.RecomendationListVMs.FindAsync(id);
             if (recomendationListVM == null)
             {
                 return HttpNotFound();
@@ -83,8 +112,8 @@ namespace WSafe.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(recomendationListVM).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                _empresaContext.Entry(recomendationListVM).State = EntityState.Modified;
+                await _empresaContext.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             return View(recomendationListVM);
@@ -97,7 +126,7 @@ namespace WSafe.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            RecomendationListVM recomendationListVM = await db.RecomendationListVMs.FindAsync(id);
+            RecomendationListVM recomendationListVM = await _empresaContext.RecomendationListVMs.FindAsync(id);
             if (recomendationListVM == null)
             {
                 return HttpNotFound();
@@ -110,9 +139,9 @@ namespace WSafe.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            RecomendationListVM recomendationListVM = await db.RecomendationListVMs.FindAsync(id);
-            db.RecomendationListVMs.Remove(recomendationListVM);
-            await db.SaveChangesAsync();
+            RecomendationListVM recomendationListVM = await _empresaContext.RecomendationListVMs.FindAsync(id);
+            _empresaContext.RecomendationListVMs.Remove(recomendationListVM);
+            await _empresaContext.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
@@ -120,7 +149,7 @@ namespace WSafe.Web.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _empresaContext.Dispose();
             }
             base.Dispose(disposing);
         }

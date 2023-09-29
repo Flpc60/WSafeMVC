@@ -154,8 +154,8 @@
     <Compile Include="Data\Entities\ICAM\IncidenteRecomendation.cs" />
     <Compile Include="Data\Entities\ICAM\PotencialCausalFactors.cs" />
     <Compile Include="Data\Entities\ICAM\Reason.cs" />
-    <Compile Include="Data\Entities\ICAM\Recomendation.cs" />
     <Compile Include="Data\Entities\ICAM\RootCause.cs" />
+    <Compile Include="Data\Entities\ICAM\Suggestion.cs" />
     <Compile Include="Data\Entities\Incidente.cs" />
     <Compile Include="Data\Entities\Incidentes\AccidenteProbabilidad.cs" />
     <Compile Include="Data\Entities\Incidentes\CalificacionesEquipo.cs" />
