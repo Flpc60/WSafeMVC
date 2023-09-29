@@ -41,5 +41,7 @@ namespace WSafe.Domain.Helpers
         string GetStratum(EstratoCategories stratum);
         string GetTenenciaVivienda(TenenciasVivienda tenencia);
         string GetActionType(int categoria);
-    }
+        string GetContingencia(Contingencias contingencia);
+        string GetTipoReintegro(TiposReintegro type);
+        string GetEmission(Emissions emission);    }
 }

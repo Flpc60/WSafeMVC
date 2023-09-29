@@ -12,6 +12,6 @@ namespace WSafe.Domain.Data.Entities.ICAM
         [MaxLength(50)]
         public string Name { get; set; }
         public IEnumerable<Reason> Reasons { get; set; }
-        public IEnumerable<IncidenteRecomendation> Recomendations { get; set; }
+        public IEnumerable<Suggestion> Recomendations { get; set; }
     }
 }

@@ -32,7 +32,7 @@
                 </a>
             </div>
             <div class="navbar-collapse collapse navbar-menu">
-                <ul class="nav navbar-nav" style="font-size:10px; color:blue;">
+                <ul class="nav navbar-nav" style="font-size:9px; color:blue;">
                     @{
                         var userID = Session["userID"];
                         var userRole = Session["UserRole"];
@@ -49,6 +49,7 @@
                             <li>@Html.ActionLink("USUARIOS", "Index", "Accounts")</li>
                             <li>@Html.ActionLink("TRABAJADORES", "Index", "Workers")</li>
                             <li>@Html.ActionLink("ACTOS_INSEGUROS", "Index", "Unsafeacts")</li>
+                            <li>@Html.ActionLink("RECOMENDACIONES", "Index", "Recomendations")</li>
                         }
                         else
                         {
@@ -58,6 +59,7 @@
                                 <li>@Html.ActionLink("INCIDENTES", "Index", "Incidentes")</li>
                                 <li>@Html.ActionLink("ACCIONES", "Index", "Acciones")</li>
                                 <li>@Html.ActionLink("ACTOS_INSEGUROS", "Index", "Unsafeacts")</li>
+                                <li>@Html.ActionLink("RECOMENDACIONES", "Index", "Recomendations")</li>
                             }
                             else
                             {

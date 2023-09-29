@@ -840,5 +840,56 @@ namespace WSafe.Domain.Helpers.Implements
                     return "Preventiva";
             }
         }
+        public string GetContingencia(Contingencias contingencia)
+        {
+            switch (contingencia)
+            {
+                case Contingencias.EG:
+                    return "EG";
+
+                case Contingencias.AT:
+                    return "AT";
+
+                case Contingencias.EL:
+                    return "EL";
+
+                default:
+                    return "EG";
+            }
+        }
+        public string GetTipoReintegro(TiposReintegro type)
+        {
+            switch (type)
+            {
+                case TiposReintegro.Directo:
+                    return "Directo";
+
+                case TiposReintegro.Adaptación:
+                    return "Adaptación";
+
+                case TiposReintegro.Reubicación:
+                    return "Reubicación";
+
+                default:
+                    return "Directo";
+            }
+        }
+        public string GetEmission(Emissions emission)
+        {
+            switch (emission)
+            {
+                case Emissions.EMPRESA:
+                    return "Empresa";
+
+                case Emissions.ARL:
+                    return "ARL";
+
+                case Emissions.EPS:
+                    return "EPS";
+
+                default:
+                    return "Empresa";
+            }
+        }
     }
 }

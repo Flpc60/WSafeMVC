@@ -4,138 +4,194 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<style>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Trabajador)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Contingencia)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TipoReintegro)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cargo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Patology)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EmisionDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Emision)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Entity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ReceptionDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.InitialDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FinalDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Duration)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Compromise)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Controls)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EPP)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tasks)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.WorkerCompromise)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Observation)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Coordinador)
-        </th>
-        <th></th>
-    </tr>
+    .tabConsActions {
+        display: none
+    }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Trabajador)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Contingencia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TipoReintegro)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cargo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Patology)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmisionDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Emision)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Entity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReceptionDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.InitialDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FinalDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Duration)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Compromise)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Controls)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EPP)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tasks)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.WorkerCompromise)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Observation)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Coordinador)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    .centerText {
+        text-align: center;
+    }
+</style>
 
-</table>
+
+<hr class="mt-4">
+<h4 class="centerText">GESTIÓN RECOMENDACIONES MÉDICAS: @Session["organization"].ToString().Trim()</h4>
+<hr class="mt-4">
+
+<div class="container">
+    <div class="row align-items-center">
+        <div class="col-md-2">
+            NÚMERO TRABAJADORES : @Session["numeroTrabajadores"].ToString().Trim()
+        </div>
+        <div class="col-md-2">
+            CLASE RIESGO : @Session["riesgo"].ToString().Trim()
+        </div>
+        <div class="col-md-3">
+            HORARIO : @Session["turnoOperativo"].ToString().Trim()
+        </div>
+        <div class="col-md-2">
+            PERIODO : @Session["year"].ToString().Trim()
+        </div>
+        <div class="col-md-3">
+            RESPONSABLE SG-SST : @Session["responsable"].ToString().Trim()
+        </div>
+    </div>
+</div>
+
+<hr class="mt-4">
+<div class="container">
+    <div class="row justify-content-between">
+        <div class="col-md-6">
+            @Html.ActionLink(" Recomendaciones médicas", "Create", null, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-plus" })
+        </div>
+        <div class="col-md-6">
+            <a href="@Url.Action("Create", "Acciones")" class="btn btn-info btn-lg active">
+                <span class="glyphicon glyphicon-plus"></span> Crear una nueva acción
+            </a>
+            <a href="@Url.Action("Create", "Riesgos")" class="btn btn-info btn-lg active">
+                <span class="glyphicon glyphicon-plus"></span> Crear un nuevo riesgo
+            </a>
+        </div>
+    </div>
+</div>
+
+<hr class="mt-4">
+<div class="table-responsive" style="background-color: azure; width:100%; margin-right:0px">
+    <table class="table table-bordered">
+        <tr style="background-color:gainsboro; width:auto">
+            <th>
+                @Html.DisplayNameFor(model => model.Trabajador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Contingencia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoReintegro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cargo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Patology)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmisionDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Emision)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Entity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReceptionDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InitialDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FinalDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Duration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Compromise)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Controls)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EPP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tasks)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkerCompromise)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Observation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Coordinador)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Trabajador)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contingencia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoReintegro)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cargo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Patology)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmisionDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Emision)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Entity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReceptionDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InitialDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FinalDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duration)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Compromise)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Controls)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EPP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tasks)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WorkerCompromise)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Observation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Coordinador)
+                </td>
+                <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit", @title = "Actualizar" })
+                </td>
+                <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                    @Html.ActionLink(" ", "PrintAccionesToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt", @title = "Imprimir" })
+                </td>
+                <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                    <a href="#" title="Descartar" onclick="DeleteAccion('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

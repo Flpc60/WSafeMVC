@@ -6,17 +6,33 @@ namespace WSafe.Domain.Data.Entities
     public class SigueRecomendation
     {
         public int ID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int RecomendationID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public DateTime Seguimient { get; set; }
+        [Display(Name = "FECHA")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime SeguimientDate { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [MaxLength(200)]
-        public string SupervisorConcept { get; set; }
+        [Display(Name = "REPORTE SUPERVISOR")]
+        public string SupervisorReport { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [MaxLength(200)]
-        public string WorkerConcept { get; set; }
+        [Display(Name = "REPORTE TRABAJADOR")]
+        public string WorkerReport { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [MaxLength(200)]
-        public string SSTConcept { get; set; }
+        [Display(Name = "REPORTE SST")]
+        public string SSTReport { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [MaxLength(200)]
+        [Display(Name = "OBSERVACIONES")]
         public string Observations { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "FECHA SEGUIMIENTO")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime NewSeguimient { get; set; }
     }
 }
