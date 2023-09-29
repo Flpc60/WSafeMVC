@@ -2,7 +2,7 @@
 
 namespace WSafe.Domain.Data.Entities.ICAM
 {
-    public class IncidenteRecomendation
+    public class Suggestion
     {
         public int ID { get; set; }
         public int IncidentID { get; set; }

@@ -57,5 +57,6 @@ namespace WSafe.Domain.Helpers
         UnsafeactVM ToUnsafeactsVMNew(int org);
         Task<Unsafeact> ToUnsafeactAsync(UnsafeactVM model, bool isNew);
         IEnumerable<ActionsMatrixVM> ToActionsMatrixVM(IEnumerable<Accion> lista);
+        IEnumerable<RecomendationListVM> ToRecomendationListVM(IEnumerable<Recomendation> listRecomendation);
     }   
 }

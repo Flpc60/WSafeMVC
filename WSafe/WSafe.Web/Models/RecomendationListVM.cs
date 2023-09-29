@@ -51,7 +51,7 @@ namespace WSafe.Web.Models
         public short Duration { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "COMPROMISO DE LA EMPRESA")]
-        public bool Compromise { get; set; }
+        public string Compromise { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "CONTROLES ADMINISTRATIVOS")]
         [MaxLength(200)]
@@ -65,7 +65,7 @@ namespace WSafe.Web.Models
         public string Tasks { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "COMPROMISO DE LA EMPRESA")]
-        public bool WorkerCompromise { get; set; }
+        public string WorkerCompromise { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "OBSERVACIONES")]
         [MaxLength(200)]
@@ -73,6 +73,5 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "COORDINADOR AREA")]
         public string Coordinador { get; set; }
-        public ICollection<SigueRecomendation> Seguimients { get; set; }
     }
 }
