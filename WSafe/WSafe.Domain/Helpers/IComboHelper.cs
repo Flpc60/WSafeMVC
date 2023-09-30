@@ -32,5 +32,6 @@ namespace WSafe.Domain.Helpers
         IEnumerable<SelectListItem> GetClients();
         IEnumerable<SelectListItem> GetCargosAll(int orgID);
         IEnumerable<SelectListItem> GetPatologiesAll();
+        IEnumerable<SelectListItem> GetWorkersFull(int orgID);
     }
 }

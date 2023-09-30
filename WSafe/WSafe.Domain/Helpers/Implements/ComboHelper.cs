@@ -484,5 +484,33 @@ namespace WSafe.Domain.Helpers.Implements
 
             return list;
         }
+        public IEnumerable<SelectListItem> GetWorkersFull(int orgID)
+        {
+            var list1 = (from t in _empresaContext.Trabajadores
+                         join c in _empresaContext.Cargos on t.CargoID equals c.ID
+                         where t.OrganizationID == orgID
+                         orderby t.Nombres, t.PrimerApellido, t.SegundoApellido
+                         select new
+                         {
+                             ID = t.ID,
+                             Text = t.Nombres + " " + t.PrimerApellido + " " + t.SegundoApellido + " " + t.Documento + " - " + c.Descripcion
+                         }).ToList();
+
+            var list = list1.Select(c => new SelectListItem
+            {
+                Text = c.Text.ToUpper(),
+                Value = c.ID.ToString()
+            })
+                .OrderBy(c => c.Text)
+                .ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione un trabajador...)",
+                Value = "0"
+            });
+
+            return list;
+        }
     }
 }
