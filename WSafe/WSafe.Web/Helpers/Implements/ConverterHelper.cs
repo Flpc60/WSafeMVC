@@ -1581,7 +1581,7 @@ namespace WSafe.Domain.Helpers.Implements
                 ClientID = model.ClientID,
                 UserID = model.UserID,
                 DocumentType = model.DocumentType,
-                Cargos = _comboHelper.GetCargosAll(),
+                Cargos = _comboHelper.GetCargosAll(model.OrganizationID),
                 Profesion = model.Profesion,
                 WorkArea = model.WorkArea,
                 TipoJornada = model.TipoJornada,
@@ -1862,6 +1862,16 @@ namespace WSafe.Domain.Helpers.Implements
                 });
             }
 
+            return model;
+        }
+        public RecomendationVM ToRecomendationVMNew(int org)
+        {
+            var model = new RecomendationVM
+            {
+                Workers = _comboHelper.GetComboTrabajadores(org),
+                Cargos = _comboHelper.GetCargosAll(org),
+                Patologies = _comboHelper.GetPatologiesAll()
+            };
             return model;
         }
     }

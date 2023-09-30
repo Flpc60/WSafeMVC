@@ -30,6 +30,7 @@ namespace WSafe.Domain.Helpers
         IEnumerable<Role> GetNameRoles();
         IEnumerable<SelectListItem> GetRootCauses(int incidentID);
         IEnumerable<SelectListItem> GetClients();
-        IEnumerable<SelectListItem> GetCargosAll();
+        IEnumerable<SelectListItem> GetCargosAll(int orgID);
+        IEnumerable<SelectListItem> GetPatologiesAll();
     }
 }
