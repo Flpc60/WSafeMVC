@@ -66,9 +66,6 @@ namespace WSafe.Web.Controllers
             return View(model);
         }
 
-        // POST: Unsafeacts/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "ID,ZonaID,ProcesoID,ActividadID,TareaID,FechaReporte,ActCategory,Antecedentes,FechaAntecedente,CategoriaPeligroID,PeligroID,ActDescription,ProbableConsecuencia,Recomendations,WorkerID,Worker1ID,Worker2ID,MovimientID,OrganizationID,ClientID,UserID,FileName")] UnsafeactVM model, HttpPostedFileBase fileLoad)
