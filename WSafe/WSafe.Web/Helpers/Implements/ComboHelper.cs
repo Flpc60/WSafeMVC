@@ -447,19 +447,38 @@ namespace WSafe.Domain.Helpers.Implements
 
             return list;
         }
-        public IEnumerable<SelectListItem> GetCargosAll()
+        public IEnumerable<SelectListItem> GetCargosAll(int orgID)
         {
-            var list = _empresaContext.Cargos.Select(r => new SelectListItem
+            var list = _empresaContext.Cargos.Where(c => c.OrganizationID == orgID).Select(c => new SelectListItem
             {
-                Text = r.Descripcion,
-                Value = r.ID.ToString()
+                Text = c.Descripcion,
+                Value = c.ID.ToString()
             })
-                .OrderBy(t => t.Text)
+                .OrderBy(c => c.Text)
                 .ToList();
 
             list.Insert(0, new SelectListItem
             {
                 Text = "(Seleccione un cargo...)",
+                Value = "0"
+            });
+
+            return list;
+        }
+
+        public IEnumerable<SelectListItem> GetPatologiesAll()
+        {
+            var list = _empresaContext.Patologies.Select(p => new SelectListItem
+            {
+                Text = p.Name.Trim(),
+                Value = p.ID.ToString()
+            })
+                .OrderBy(p => p.Text)
+                .ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione una enfermedad...)",
                 Value = "0"
             });
 

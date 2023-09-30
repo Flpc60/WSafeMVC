@@ -54,8 +54,9 @@ namespace WSafe.Web.Controllers
         // GET: Workers/Create
         public ActionResult Create()
         {
+            _orgID = (int)Session["orgID"];
             var model = new WorkersVM();
-            model.Cargos = _comboHelper.GetCargosAll();
+            model.Cargos = _comboHelper.GetCargosAll(_orgID);
             return View(model);
         }
 
@@ -68,7 +69,8 @@ namespace WSafe.Web.Controllers
         {
             try
             {
-                model.Cargos = _comboHelper.GetCargosAll();
+                _orgID = (int)Session["orgID"];
+                model.Cargos = _comboHelper.GetCargosAll(_orgID);
                 model.FechaRetiro = Convert.ToDateTime("01/01/2090");
                 model.ClientID = (int)Session["clientID"];
                 model.OrganizationID = (int)Session["orgID"];
@@ -97,7 +99,7 @@ namespace WSafe.Web.Controllers
                 }
                 else
                 {
-                    model.Cargos = _comboHelper.GetCargosAll();
+                    model.Cargos = _comboHelper.GetCargosAll(_orgID);
                     return View(model);
                 }
             }
@@ -129,7 +131,8 @@ namespace WSafe.Web.Controllers
         {
             try
             {
-                model.Cargos = _comboHelper.GetCargosAll();
+                _orgID = (int)Session["orgID"];
+                model.Cargos = _comboHelper.GetCargosAll(_orgID);
                 if (!ValidateModel(model))
                 {
                     return View(model);
@@ -153,7 +156,7 @@ namespace WSafe.Web.Controllers
                 }
                 else
                 {
-                    model.Cargos = _comboHelper.GetCargosAll();
+                    model.Cargos = _comboHelper.GetCargosAll(_orgID);
                     return View(model);
                 }
             }

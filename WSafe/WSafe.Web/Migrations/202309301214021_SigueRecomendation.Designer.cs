@@ -7,13 +7,13 @@ namespace WSafe.Web.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class CreatePatology : IMigrationMetadata
+    public sealed partial class SigueRecomendation : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CreatePatology));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(SigueRecomendation));
         
         string IMigrationMetadata.Id
         {
-            get { return "202309280020095_CreatePatology"; }
+            get { return "202309301214021_SigueRecomendation"; }
         }
         
         string IMigrationMetadata.Source
