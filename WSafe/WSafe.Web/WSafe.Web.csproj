@@ -463,6 +463,9 @@
     <Compile Include="Data\Entities\Unsafeact.cs" />
     <Compile Include="Filters\AuthorizeUser.cs" />
     <Compile Include="Filters\VerificaSession.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\IChartHelper.cs" />
     <Compile Include="Helpers\IComboHelper.cs" />
     <Compile Include="Helpers\IConverterHelper.cs" />
@@ -473,9 +476,6 @@
     <Compile Include="Helpers\Implements\ConverterHelper.cs" />
     <Compile Include="Helpers\Implements\GestorHelper.cs" />
     <Compile Include="Helpers\Implements\IndicadorHelper.cs" />
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\202309301214021_SigueRecomendation.cs" />
     <Compile Include="Migrations\202309301214021_SigueRecomendation.designer.cs">
       <DependentUpon>202309301214021_SigueRecomendation.cs</DependentUpon>

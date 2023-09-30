@@ -1868,7 +1868,7 @@ namespace WSafe.Domain.Helpers.Implements
         {
             var model = new RecomendationVM
             {
-                Workers = _comboHelper.GetComboTrabajadores(org),
+                Workers = _comboHelper.GetWorkersFull(org),
                 Cargos = _comboHelper.GetCargosAll(org),
                 Patologies = _comboHelper.GetPatologiesAll()
             };
