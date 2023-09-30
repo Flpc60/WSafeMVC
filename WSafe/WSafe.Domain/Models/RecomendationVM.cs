@@ -10,12 +10,7 @@ namespace WSafe.Web.Models
     {
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "FECHA")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime RecomendationDate { get; set; } = DateTime.Now;
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "NOMBRE TRABAJADOR")]
+        [Display(Name = "TRABAJADOR")]
         public int WorkerID { get; set; }
         public IEnumerable<SelectListItem> Workers { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
@@ -25,10 +20,10 @@ namespace WSafe.Web.Models
         [Display(Name = "TIPO REINTEGRO")]
         public TiposReintegro TipoReintegro { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "CARGO NUEVO")]
+        [Display(Name = "NUEVO CARGO")]
         public int CargoID { get; set; }
         public IEnumerable<SelectListItem> Cargos { get; set; }
-        [Display(Name = "ENFERMEDAD")]
+        [Display(Name = "DIAGNÓSTICO")]
         public int PatologyID { get; set; }
         public IEnumerable<SelectListItem> Patologies { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
@@ -49,6 +44,7 @@ namespace WSafe.Web.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime ReceptionDate { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "DESCRIPCIÓN")]
         [MaxLength(200)]
         public string Description { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
@@ -87,7 +83,7 @@ namespace WSafe.Web.Models
         [MaxLength(200)]
         public string Tasks { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "COMPROMISO DE LA EMPRESA")]
+        [Display(Name = "COMPROMISO DEL TRABAJADOR")]
         public bool WorkerCompromise { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "OBSERVACIONES")]
@@ -96,12 +92,12 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "COORDINADOR AREA")]
         public int CoordinadorID { get; set; }
+        public IEnumerable<SelectListItem> Coordinators { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int OrganizationID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ClientID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int UserID { get; set; }
-        public IEnumerable<SelectListItem> Coordinadores { get; set; }
     }
 }

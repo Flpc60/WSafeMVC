@@ -50,30 +50,15 @@ namespace WSafe.Web.Controllers
             }
         }
 
-        // GET: Recomendations/Details/5
-        public async Task<ActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            RecomendationListVM recomendationListVM = await _empresaContext.RecomendationListVMs.FindAsync(id);
-            if (recomendationListVM == null)
-            {
-                return HttpNotFound();
-            }
-            return View(recomendationListVM);
-        }
-
-        // GET: Recomendations/Create
+        [AuthorizeUser(operation: 2, component: 2)]
         public ActionResult Create()
         {
-            return View();
+            _orgID = (int)Session["orgID"];
+            var model = _converterHelper.ToRecomendationVMNew(_orgID);
+
+            return View(model);
         }
 
-        // POST: Recomendations/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "ID,Trabajador,Contingencia,TipoReintegro,Cargo,Patology,EmisionDate,Emision,Entity,ReceptionDate,InitialDate,FinalDate,Duration,Compromise,Controls,EPP,Tasks,WorkerCompromise,Observation,Coordinador")] RecomendationListVM recomendationListVM)
