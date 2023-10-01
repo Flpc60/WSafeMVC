@@ -1870,7 +1870,11 @@ namespace WSafe.Domain.Helpers.Implements
             {
                 Workers = _comboHelper.GetWorkersFull(org),
                 Cargos = _comboHelper.GetCargosAll(org),
-                Patologies = _comboHelper.GetPatologiesAll()
+                Patologies = _comboHelper.GetPatologiesAll(),
+                EmisionDate = DateTime.Now,
+                ReceptionDate = DateTime.Now,
+                InitialDate = DateTime.Now,
+                FinalDate = DateTime.Now
             };
             return model;
         }

@@ -17,7 +17,7 @@ namespace WSafe.Web.Models
         [Display(Name = "CONTINGENCIA")]
         public Contingencias Contingencia { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "TIPO REINTEGRO")]
+        [Display(Name = "REINTEGRO")]
         public TiposReintegro TipoReintegro { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "NUEVO CARGO")]
@@ -32,10 +32,10 @@ namespace WSafe.Web.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime EmisionDate { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "EMITIDA POR")]
+        [Display(Name = "EMITE")]
         public Emissions Emision { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "ENTIDAD QUE EXPIDE")]
+        [Display(Name = "ENTIDAD")]
         [MaxLength(20)]
         public string Entity { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
@@ -48,7 +48,7 @@ namespace WSafe.Web.Models
         [MaxLength(200)]
         public string Description { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "TIPO RECOMENDACIÓN")]
+        [Display(Name = "TIPO")]
         public RecomendationTypes Type { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "DURACIÓN")]
@@ -64,7 +64,7 @@ namespace WSafe.Web.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FinalDate { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "COMPROMISO DE LA EMPRESA")]
+        [Display(Name = "COMPROMISO EMPRESA")]
         public bool Compromise { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "CONTROLES ADMINISTRATIVOS")]
@@ -83,7 +83,7 @@ namespace WSafe.Web.Models
         [MaxLength(200)]
         public string Tasks { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "COMPROMISO DEL TRABAJADOR")]
+        [Display(Name = "COMPROMISO TRABAJADOR")]
         public bool WorkerCompromise { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "OBSERVACIONES")]
