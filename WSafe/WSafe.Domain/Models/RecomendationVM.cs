@@ -17,7 +17,7 @@ namespace WSafe.Web.Models
         [Display(Name = "CONTINGENCIA")]
         public Contingencias Contingencia { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "TIPO REINTEGRO")]
+        [Display(Name = "REINTEGRO")]
         public TiposReintegro TipoReintegro { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "NUEVO CARGO")]

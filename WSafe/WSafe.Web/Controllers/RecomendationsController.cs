@@ -61,16 +61,16 @@ namespace WSafe.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,Trabajador,Contingencia,TipoReintegro,Cargo,Patology,EmisionDate,Emision,Entity,ReceptionDate,InitialDate,FinalDate,Duration,Compromise,Controls,EPP,Tasks,WorkerCompromise,Observation,Coordinador")] RecomendationListVM recomendationListVM)
+        public async Task<ActionResult> Create([Bind(Include = "ID,Trabajador,Contingencia,TipoReintegro,Cargo,Patology,EmisionDate,Emision,Entity,ReceptionDate,InitialDate,FinalDate,Duration,Compromise,Controls,EPP,Tasks,WorkerCompromise,Observation,Coordinador")] RecomendationListVM model)
         {
             if (ModelState.IsValid)
             {
-                _empresaContext.RecomendationListVMs.Add(recomendationListVM);
+                _empresaContext.RecomendationListVMs.Add(model);
                 await _empresaContext.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            return View(recomendationListVM);
+            return View(model);
         }
 
         // GET: Recomendations/Edit/5
