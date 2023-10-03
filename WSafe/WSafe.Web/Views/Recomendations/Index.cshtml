@@ -186,7 +186,7 @@
                 <td style="margin:initial; background-color:deepskyblue; text-align:left">
                     @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit", @title = "Actualizar" })
                     @Html.ActionLink(" ", "PrintRecomendationToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt", @title = "Imprimir" })
-                    <a href="#" title="Descartar" onclick="DeleteAccion('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
+                    @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "glyphicon glyphicon-trash", @title = "Descartar"})
                 </td>
             </tr>
         }
