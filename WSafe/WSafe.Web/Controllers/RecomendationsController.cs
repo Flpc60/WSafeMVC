@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Rotativa;
+using System;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -192,6 +194,79 @@ namespace WSafe.Web.Controllers
                 _empresaContext.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> RecomendationsListPdf()
+        {
+            try
+            {
+                // Configuración nombre archivo pdf
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
+                _path = (string)Session["path"];
+                var organization = _empresaContext.Organizations.Find(_orgID);
+                var year = _year;
+                var item = _empresaContext.Normas.Find(organization.StandardRecomendations).Item;
+                var fullPath = $"{_path}/2. HACER/{item}/";
+                var path = Server.MapPath(fullPath);
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                Random random = new Random();
+                var filename = "Recomendaciones médicas" + random.Next(1, 100) + ".Pdf";
+                var filePathName = path + filename;
+                var list = await _empresaContext.Recomendations
+                    .Where(r => r.OrganizationID == _orgID)
+                    .Include(s => s.Seguimients)
+                    .OrderByDescending(a => a.ReceptionDate)
+                    .ToListAsync();
+                var modelo = _converterHelper.ToActionsMatrixVM(list);
+                var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == 10);
+                ViewBag.formato = document.Formato;
+                ViewBag.estandar = document.Estandar;
+                ViewBag.titulo = document.Titulo;
+                ViewBag.version = document.Version;
+                ViewBag.fecha = DateTime.Now;
+                var report = new ViewAsPdf("CreateActionsMatrix");
+                report.Model = modelo;
+                report.FileName = filePathName;
+                report.PageSize = Rotativa.Options.Size.A4;
+                report.PageOrientation = Rotativa.Options.Orientation.Landscape;
+                report.PageWidth = 399;
+                report.PageHeight = 399;
+                report.SaveOnServerPath = filePathName;
+
+                //Generar archivo de movimiento
+                var fullName = filename;
+                var type = Path.GetExtension(filename).ToUpper();
+                var descript = "Matriz de acciones correctivas, preventivas y de mejora";
+                var userID = (int)Session["userID"];
+                Movimient movimient = new Movimient()
+                {
+                    ID = 0,
+                    OrganizationID = _orgID,
+                    NormaID = organization.StandardActions,
+                    UserID = userID,
+                    Descripcion = descript,
+                    Document = fullName,
+                    Year = year,
+                    Item = item,
+                    Ciclo = "A",
+                    Type = type,
+                    Path = path,
+                    ClientID = _clientID
+                };
+                _empresaContext.Movimientos.Add(movimient);
+                _empresaContext.SaveChanges();
+                return report;
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Acciones", "Index"));
+            }
         }
     }
 }
