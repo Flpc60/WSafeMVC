@@ -938,6 +938,7 @@
     <Content Include="Views\Recomendations\Details.cshtml" />
     <Content Include="Views\Recomendations\Edit.cshtml" />
     <Content Include="Views\Recomendations\Index.cshtml" />
+    <Content Include="Views\Shared\_EditarRecomendation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
