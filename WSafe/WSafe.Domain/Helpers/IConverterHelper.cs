@@ -59,5 +59,6 @@ namespace WSafe.Domain.Helpers
         IEnumerable<ActionsMatrixVM> ToActionsMatrixVM(IEnumerable<Accion> lista);
         IEnumerable<RecomendationListVM> ToRecomendationListVM(IEnumerable<Recomendation> listRecomendation);
         RecomendationVM ToRecomendationVMNew(int org);
+        Task<Recomendation> ToRecomendationAsync(RecomendationVM model, bool isNew);
     }   
 }

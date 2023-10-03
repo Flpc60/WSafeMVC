@@ -1870,9 +1870,46 @@ namespace WSafe.Domain.Helpers.Implements
             {
                 Workers = _comboHelper.GetWorkersFull(org),
                 Cargos = _comboHelper.GetCargosAll(org),
-                Patologies = _comboHelper.GetPatologiesAll()
+                Patologies = _comboHelper.GetPatologiesAll(),
+                EmisionDate = DateTime.Now,
+                ReceptionDate = DateTime.Now,
+                InitialDate = DateTime.Now,
+                FinalDate= DateTime.Now
             };
             return model;
+        }
+        public async Task<Recomendation> ToRecomendationAsync(RecomendationVM model, bool isNew)
+        {
+            var result = new Recomendation
+            {
+                ID = isNew ? 0 : model.ID,
+                RecomendationDate = DateTime.Now,
+                TrabajadorID = model.WorkerID,
+                Contingencia = model.Contingencia,
+                TipoReintegro = model.TipoReintegro,
+                CargoID = model.CargoID,
+                PatologyID = model.PatologyID,
+                EmisionDate = model.EmisionDate,
+                Emision = model.Emision,
+                Entity = model.Entity,
+                ReceptionDate = model.ReceptionDate,
+                Description = model.Description,
+                Duration = model.Duration,
+                InitialDate = model.InitialDate,
+                FinalDate = model.FinalDate,
+                Compromise = model.Compromise,
+                Controls = model.Controls,
+                Investigation = model.Investigation,
+                EPP = model.EPP,
+                Tasks = model.Tasks,
+                WorkerCompromise = model.WorkerCompromise,
+                Observation = model.Observation,
+                CoordinadorID = model.CoordinadorID,
+                OrganizationID = model.OrganizationID,
+                ClientID = model.ClientID,
+                UserID = model.UserID
+            };
+            return result;
         }
     }
 }

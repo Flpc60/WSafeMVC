@@ -5,8 +5,11 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using WSafe.Domain.Helpers;
+using WSafe.Domain.Repositories.Implements;
+using WSafe.Domain.Services.Implements;
 using WSafe.Web.Filters;
 using WSafe.Web.Models;
+using static Antlr4.Runtime.Atn.SemanticContext;
 
 namespace WSafe.Web.Controllers
 {
@@ -61,15 +64,37 @@ namespace WSafe.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,Trabajador,Contingencia,TipoReintegro,Cargo,Patology,EmisionDate,Emision,Entity,ReceptionDate,InitialDate,FinalDate,Duration,Compromise,Controls,EPP,Tasks,WorkerCompromise,Observation,Coordinador")] RecomendationListVM model)
+        public async Task<ActionResult> Create([Bind(Include = "ID,WorkerID,Contingencia,TipoReintegro,CargoID,PatologyID,EmisionDate,Emision,Entity,ReceptionDate,Description,Type,Duration,InitialDate,FinalDate,Compromise,Controls,Investigation,EPP,Tasks,WorkerCompromise,Observation,CoordinadorID")] RecomendationVM model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _empresaContext.RecomendationListVMs.Add(model);
-                await _empresaContext.SaveChangesAsync();
-                return RedirectToAction("Index");
+                model.ClientID = (int)Session["clientID"];
+                model.OrganizationID = (int)Session["orgID"];
+                model.UserID = (int)Session["userID"];
+
+                if (ModelState.IsValid)
+                {
+                    if (model.ID == 0)
+                    {
+                        var consulta = new RecomendationService(new RecomendationRepository(_empresaContext));
+                        var recomendation = await _converterHelper.ToRecomendationAsync(model, true);
+                        var saved = await consulta.Insert(recomendation);
+                        if (saved != null)
+                        {
+                            return RedirectToAction("Index");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Recomendation", "Index"));
             }
 
+            model.Workers = _comboHelper.GetWorkersFull(_orgID);
+            model.Cargos = _comboHelper.GetCargosAll(_orgID);
+            model.Patologies = _comboHelper.GetPatologiesAll();
+            ViewBag.message = "Faltan campos por diligenciar del formulario !!";
             return View(model);
         }
 
