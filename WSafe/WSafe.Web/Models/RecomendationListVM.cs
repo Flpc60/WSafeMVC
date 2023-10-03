@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using WSafe.Domain.Data.Entities;
 
 namespace WSafe.Web.Models
 {
