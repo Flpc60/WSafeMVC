@@ -43,16 +43,18 @@
 <hr class="mt-4">
 <div class="container">
     <div class="row justify-content-between">
-        <div class="col-md-6">
-            @Html.ActionLink(" Recomendaciones médicas", "Create", null, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-plus" })
-        </div>
-        <div class="col-md-6">
+        <div class="col-md-10">
+            <a href="@Url.Action("Create", "Recomendations")" class="btn btn-info btn-lg active">
+                <span class="glyphicon glyphicon-plus"></span> Crear una nueva recomendación médica
+            </a>
             <a href="@Url.Action("Create", "Acciones")" class="btn btn-info btn-lg active">
                 <span class="glyphicon glyphicon-plus"></span> Crear una nueva acción
             </a>
             <a href="@Url.Action("Create", "Riesgos")" class="btn btn-info btn-lg active">
                 <span class="glyphicon glyphicon-plus"></span> Crear un nuevo riesgo
             </a>
+        </div>
+        <div class="col-md-2">
         </div>
     </div>
 </div>
@@ -183,11 +185,7 @@
                 </td>
                 <td style="margin:initial; background-color:deepskyblue; text-align:left">
                     @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit", @title = "Actualizar" })
-                </td>
-                <td style="margin:initial; background-color:deepskyblue; text-align:left">
-                    @Html.ActionLink(" ", "PrintAccionesToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt", @title = "Imprimir" })
-                </td>
-                <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                    @Html.ActionLink(" ", "PrintRecomendationToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt", @title = "Imprimir" })
                     <a href="#" title="Descartar" onclick="DeleteAccion('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
                 </td>
             </tr>
