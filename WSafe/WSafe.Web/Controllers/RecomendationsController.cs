@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Helpers;
 using WSafe.Domain.Repositories.Implements;
 using WSafe.Domain.Services.Implements;
@@ -104,58 +105,84 @@ namespace WSafe.Web.Controllers
 
         public async Task<ActionResult> Edit(int? id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                Recomendation recomendation = await _empresaContext.Recomendations.FindAsync(id);
+                _orgID = (int)Session["orgID"];
+                var model = _converterHelper.ToRecomendationVM(recomendation, _orgID);
+
+                return View(model);
             }
-            RecomendationListVM recomendationListVM = await _empresaContext.RecomendationListVMs.FindAsync(id);
-            if (recomendationListVM == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+                return View("Error", new HandleErrorInfo(ex, "Recomendations", "Edit"));
             }
-            return View(recomendationListVM);
         }
 
-        // POST: Recomendations/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,Trabajador,Contingencia,TipoReintegro,Cargo,Patology,EmisionDate,Emision,Entity,ReceptionDate,InitialDate,FinalDate,Duration,Compromise,Controls,EPP,Tasks,WorkerCompromise,Observation,Coordinador")] RecomendationListVM recomendationListVM)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,WorkerID,Contingencia,TipoReintegro,CargoID,PatologyID,EmisionDate,Emision,Entity,ReceptionDate,Description,Type,Duration,InitialDate,FinalDate,Compromise,Controls,Investigation,EPP,Tasks,WorkerCompromise,Observation,CoordinadorID,OrganizationID,ClientID,UserID")] RecomendationVM model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _empresaContext.Entry(recomendationListVM).State = EntityState.Modified;
-                await _empresaContext.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    if (model.CoordinadorID != 0)
+                    {
+                        Recomendation recomendation = await _converterHelper.ToRecomendationAsync(model, false);
+                        _empresaContext.Entry(recomendation).State = EntityState.Modified;
+                        await _empresaContext.SaveChangesAsync();
+                        return RedirectToAction("Index");
+                    }
+                }
             }
-            return View(recomendationListVM);
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Recomendations", "Edit"));
+            }
+
+            _orgID = model.OrganizationID;
+            model.Workers = _comboHelper.GetWorkersFull(_orgID);
+            model.Cargos = _comboHelper.GetCargosAll(_orgID);
+            model.Patologies = _comboHelper.GetPatologiesAll();
+            ViewBag.message = "Faltan campos por diligenciar del formulario !!";
+
+            return View(model);
         }
 
         // GET: Recomendations/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                Recomendation recomendation = await _empresaContext.Recomendations.FindAsync(id);
+                _orgID = (int)Session["orgID"];
+                var model = _converterHelper.ToRecomendationVM(recomendation, _orgID);
+                ViewBag.trabajador = _empresaContext.Trabajadores.Find(model.WorkerID).NombreCompleto;
+
+                return View(model);
             }
-            RecomendationListVM recomendationListVM = await _empresaContext.RecomendationListVMs.FindAsync(id);
-            if (recomendationListVM == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+                return View("Error", new HandleErrorInfo(ex, "Recomendations", "Edit"));
             }
-            return View(recomendationListVM);
         }
 
-        // POST: Recomendations/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            RecomendationListVM recomendationListVM = await _empresaContext.RecomendationListVMs.FindAsync(id);
-            _empresaContext.RecomendationListVMs.Remove(recomendationListVM);
-            await _empresaContext.SaveChangesAsync();
-            return RedirectToAction("Index");
+            try
+            {
+                Recomendation recomendation = await _empresaContext.Recomendations.FindAsync(id);
+                _empresaContext.Recomendations.Remove(recomendation);
+                await _empresaContext.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Recomendations", "Delete"));
+            }
         }
 
         protected override void Dispose(bool disposing)
