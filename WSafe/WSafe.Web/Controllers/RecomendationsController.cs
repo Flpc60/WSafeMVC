@@ -68,13 +68,17 @@ namespace WSafe.Web.Controllers
         {
             try
             {
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
+                _path = (string)Session["path"];
                 model.ClientID = (int)Session["clientID"];
                 model.OrganizationID = (int)Session["orgID"];
                 model.UserID = (int)Session["userID"];
 
                 if (ModelState.IsValid)
                 {
-                    if (model.ID == 0)
+                    if (model.ID == 0 && model.CoordinadorID != 0)
                     {
                         var consulta = new RecomendationService(new RecomendationRepository(_empresaContext));
                         var recomendation = await _converterHelper.ToRecomendationAsync(model, true);
@@ -88,7 +92,7 @@ namespace WSafe.Web.Controllers
             }
             catch (Exception ex)
             {
-                return View("Error", new HandleErrorInfo(ex, "Recomendation", "Index"));
+                return View("Error", new HandleErrorInfo(ex, "Recomendations", "Index"));
             }
 
             model.Workers = _comboHelper.GetWorkersFull(_orgID);
@@ -98,7 +102,6 @@ namespace WSafe.Web.Controllers
             return View(model);
         }
 
-        // GET: Recomendations/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
