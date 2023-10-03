@@ -1,22 +1,19 @@
-﻿@model WSafe.Web.Models.RecomendationListVM
+﻿@model WSafe.Web.Models.RecomendationVM
 
 @{
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>RecomendationListVM</h4>
+<div class="container" style="background-color:antiquewhite;width:50%">
+    <h3>Desea borrar esta recomendación médica laboral ?</h3>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Trabajador)
+            TRABAJADOR
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Trabajador)
+            @ViewBag.trabajador
         </dd>
 
         <dt>
@@ -36,19 +33,19 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Cargo)
+            @Html.DisplayNameFor(model => model.CargoID)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Cargo)
+            @Html.DisplayFor(model => model.CargoID)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Patology)
+            @Html.DisplayNameFor(model => model.PatologyID)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Patology)
+            @Html.DisplayFor(model => model.PatologyID)
         </dd>
 
         <dt>
@@ -155,22 +152,16 @@
             @Html.DisplayFor(model => model.Observation)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Coordinador)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Coordinador)
-        </dd>
-
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Borrar" class="btn btn-danger"/>
+            @Html.ActionLink("Listado", "Index", new { @class = "glyphicon glyphicon-plus" },
+            new { @class = "btn btn-info" })
         </div>
     }
 </div>
