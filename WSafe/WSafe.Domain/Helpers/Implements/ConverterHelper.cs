@@ -1946,5 +1946,59 @@ namespace WSafe.Domain.Helpers.Implements
             };
             return result;
         }
+        public IEnumerable<RecomendationListVM> ToRecomendationMatrixVM(IEnumerable<Recomendation> lista)
+        {
+            var model = new List<RecomendationListVM>();
+            var compromise = "";
+            var workerCompromise = "";
+
+            foreach (var item in lista)
+            {
+
+                if (item.Compromise)
+                {
+                    compromise = "Si";
+                }
+                else
+                {
+                    compromise = "No";
+                }
+
+                if (item.WorkerCompromise)
+                {
+                    workerCompromise = "Si";
+                }
+                else
+                {
+                    workerCompromise = "No";
+                }
+
+                model.Add(new RecomendationListVM
+                {
+                    ID = item.ID,
+                    Trabajador = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto,
+                    Contingencia = _gestorHelper.GetContingencia(item.Contingencia),
+                    TipoReintegro = _gestorHelper.GetTipoReintegro(item.TipoReintegro),
+                    Cargo = _empresaContext.Cargos.Find(item.CargoID).Descripcion,
+                    Patology = _empresaContext.Patologies.Find(item.PatologyID).Name.Trim(),
+                    EmisionDate = item.EmisionDate,
+                    Emision = _gestorHelper.GetEmission(item.Emision),
+                    Entity = item.Entity,
+                    ReceptionDate = item.ReceptionDate,
+                    InitialDate = item.InitialDate,
+                    FinalDate = item.FinalDate,
+                    Duration = item.Duration,
+                    Compromise = compromise,
+                    Controls = item.Controls,
+                    EPP = item.EPP,
+                    Tasks = item.Tasks,
+                    WorkerCompromise = workerCompromise,
+                    Observation = item.Observation,
+                    Coordinador = _empresaContext.Trabajadores.Find(item.CoordinadorID).NombreCompleto,
+                });
+            }
+
+            return model;
+        }
     }
 }
