@@ -480,6 +480,10 @@
     <Compile Include="Migrations\202309301214021_SigueRecomendation.designer.cs">
       <DependentUpon>202309301214021_SigueRecomendation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202310032245529_UpdateOrganization.cs" />
+    <Compile Include="Migrations\202310032245529_UpdateOrganization.designer.cs">
+      <DependentUpon>202310032245529_UpdateOrganization.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -939,6 +943,7 @@
     <Content Include="Views\Recomendations\Edit.cshtml" />
     <Content Include="Views\Recomendations\Index.cshtml" />
     <Content Include="Views\Shared\_EditarRecomendation.cshtml" />
+    <Content Include="Views\Recomendations\CreateRecomendationsList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1196,6 +1201,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202309301214021_SigueRecomendation.resx">
       <DependentUpon>202309301214021_SigueRecomendation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310032245529_UpdateOrganization.resx">
+      <DependentUpon>202310032245529_UpdateOrganization.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
