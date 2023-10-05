@@ -292,7 +292,7 @@ namespace WSafe.Web.Controllers
                 Random random = new Random();
                 var filename = "Reporte recomendaciones médicas" + random.Next(1, 100) + ".Pdf";
                 var filePathName = path + filename;
-                var result = await _empresaContext.Recomendations.FirstOrDefaultAsync(i => i.ID == id);
+                var result = await _empresaContext.Recomendations.Include(sr => sr.Seguimients).FirstOrDefaultAsync(i => i.ID == id);
                 var model = _converterHelper.ToRecomendationVMFull(result, 12);
                 var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == 12);
                 ViewBag.formato = document.Formato;
