@@ -62,5 +62,6 @@ namespace WSafe.Domain.Helpers
         Task<Recomendation> ToRecomendationAsync(RecomendationVM model, bool isNew);
         RecomendationVM ToRecomendationVM(Recomendation model, int org);
         IEnumerable<RecomendationListVM> ToRecomendationMatrixVM(IEnumerable<Recomendation> lista);
+        _DetailsRecomendationVM ToRecomendationVMFull(Recomendation recomendation, int id);
     }   
 }

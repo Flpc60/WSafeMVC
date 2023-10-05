@@ -280,6 +280,7 @@
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\WorkersVM.cs" />
     <Compile Include="Models\_DetailsAccionVM.cs" />
+    <Compile Include="Models\_DetailsRecomendationVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IAccionRepository.cs" />
     <Compile Include="Repositories\IAplicationRepository.cs" />

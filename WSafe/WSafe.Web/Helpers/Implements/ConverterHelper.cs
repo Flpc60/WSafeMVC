@@ -1054,19 +1054,19 @@ namespace WSafe.Domain.Helpers.Implements
         public IEnumerable<UserViewModel> ToUsersVM(int _clientID)
         {
             var list1 = (from u in _empresaContext.Users
-                        join r in _empresaContext.Roles on u.RoleID equals r.ID
-                        join o in _empresaContext.Organizations on u.OrganizationID equals o.ID
-                        where u.ClientID == _clientID
-                        orderby u.Name
-                        select new
-                        {
-                            ID = u.ID,
-                            Name = u.Name,
-                            Email = u.Email,
-                            RoleID = r.ID,
-                            Role = r.Name,
-                            RazonSocial = o.RazonSocial.Trim().ToUpper()
-                        }).ToList();
+                         join r in _empresaContext.Roles on u.RoleID equals r.ID
+                         join o in _empresaContext.Organizations on u.OrganizationID equals o.ID
+                         where u.ClientID == _clientID
+                         orderby u.Name
+                         select new
+                         {
+                             ID = u.ID,
+                             Name = u.Name,
+                             Email = u.Email,
+                             RoleID = r.ID,
+                             Role = r.Name,
+                             RazonSocial = o.RazonSocial.Trim().ToUpper()
+                         }).ToList();
 
             var list2 = (from u in _empresaContext.Users
                          where (u.ClientID == _clientID && u.RoleID == 0)
@@ -1205,7 +1205,7 @@ namespace WSafe.Domain.Helpers.Implements
             {
                 var activitiesQuery = _empresaContext.PlanActivities.Where(pa => pa.EvaluationID == item.ID);
                 var activitys = activitiesQuery.Count();
-                var ejecutadas = activitiesQuery.Count(pa =>pa.ActionCategory == ActionCategories.Finalizada);
+                var ejecutadas = activitiesQuery.Count(pa => pa.ActionCategory == ActionCategories.Finalizada);
                 var category = "";
                 var color = "";
                 decimal avance = activitys > 0 ? (decimal)ejecutadas / activitys * 100 : 0;
@@ -1553,7 +1553,7 @@ namespace WSafe.Domain.Helpers.Implements
                 Tratamiento = model.Tratamiento,
                 SpecialRecomendations = model.SpecialRecomendations,
                 Escolaridad = model.Escolaridad
-        };
+            };
             return result;
         }
         public WorkersVM ToTrabajadorVM(Trabajador model)
@@ -1759,7 +1759,7 @@ namespace WSafe.Domain.Helpers.Implements
         public IEnumerable<ActionsMatrixVM> ToActionsMatrixVM(IEnumerable<Accion> lista)
         {
             var model = new List<ActionsMatrixVM>();
-  
+
             foreach (var item in lista)
             {
                 var plansAction = "";
@@ -1874,7 +1874,7 @@ namespace WSafe.Domain.Helpers.Implements
                 EmisionDate = DateTime.Now,
                 ReceptionDate = DateTime.Now,
                 InitialDate = DateTime.Now,
-                FinalDate= DateTime.Now
+                FinalDate = DateTime.Now
             };
             return model;
         }
@@ -1894,6 +1894,7 @@ namespace WSafe.Domain.Helpers.Implements
                 Entity = model.Entity,
                 ReceptionDate = model.ReceptionDate,
                 Description = model.Description,
+                Type = model.Type,
                 Duration = model.Duration,
                 InitialDate = model.InitialDate,
                 FinalDate = model.FinalDate,
@@ -1926,6 +1927,7 @@ namespace WSafe.Domain.Helpers.Implements
                 Entity = model.Entity,
                 ReceptionDate = model.ReceptionDate,
                 Description = model.Description,
+                Type = model.Type,
                 Duration = model.Duration,
                 InitialDate = model.InitialDate,
                 FinalDate = model.FinalDate,
@@ -1985,6 +1987,8 @@ namespace WSafe.Domain.Helpers.Implements
                     Emision = _gestorHelper.GetEmission(item.Emision),
                     Entity = item.Entity,
                     ReceptionDate = item.ReceptionDate,
+                    Description = item.Description,
+                    Type = _gestorHelper.GetRecomendationType(item.Type).ToUpperInvariant(),
                     InitialDate = item.InitialDate,
                     FinalDate = item.FinalDate,
                     Duration = item.Duration,
@@ -1998,6 +2002,59 @@ namespace WSafe.Domain.Helpers.Implements
                 });
             }
 
+            return model;
+        }
+        public _DetailsRecomendationVM ToRecomendationVMFull(Recomendation recomendation, int id)
+        {
+            var responsable = _empresaContext.Trabajadores.FirstOrDefault(t => t.ID == recomendation.TrabajadorID);
+            var patology = _empresaContext.Patologies.FirstOrDefault(p => p.ID == recomendation.PatologyID);
+            var diagnostic = patology.Code + " - " + patology.Name;
+            var workerFull = responsable.Documento + " - " + responsable.NombreCompleto;
+            var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == id);
+            var compromise = "SI";
+            if (!recomendation.Compromise) { compromise = "NO"; }
+            var workerCompromise = "SI";
+            if (!recomendation.WorkerCompromise) { workerCompromise = "NO"; }
+            var model = new _DetailsRecomendationVM
+            {
+                ID = recomendation.ID,
+                Seguimients = recomendation.Seguimients.ToList(),
+                Formato = document?.Formato,
+                Estandar = document?.Estandar,
+                Titulo = document?.Titulo,
+                Version = document?.Version,
+                FechaRecomendation = recomendation.RecomendationDate.ToString("dd-MM-yyyy"),
+                WorkerFull = workerFull,
+                Cargo = _empresaContext.Cargos.FirstOrDefault(t => t.ID == responsable.CargoID).Descripcion.ToUpperInvariant(),
+                WorkArea = _gestorHelper.GetWorkArea(responsable.WorkArea).ToUpperInvariant(),
+                Contingencia = _gestorHelper.GetContingencia(recomendation.Contingencia).ToUpperInvariant(),
+                TipoReintegro = _gestorHelper.GetTipoReintegro(recomendation.TipoReintegro).ToUpperInvariant(),
+                NewPosition = _empresaContext.Cargos.FirstOrDefault(t => t.ID == recomendation.CargoID).Descripcion.ToUpperInvariant(),
+                Patology = diagnostic,
+                EmisionDate = recomendation.EmisionDate.ToString("dd-MM-yyyy"),
+                Emision = _gestorHelper.GetEmission(recomendation.Emision).ToUpperInvariant(),
+                Entity = recomendation.Entity,
+                ReceptionDate = recomendation.ReceptionDate.ToString("dd-MM-yyyy"),
+                Description = recomendation.Description,
+                Type = _gestorHelper.GetRecomendationType(recomendation.Type).ToUpperInvariant(),
+                Duration = recomendation.Duration,
+                InitialDate = recomendation.InitialDate.ToString("dd-MM-yyyy"),
+                FinalDate = recomendation.FinalDate.ToString("dd-MM-yyyy"),
+                Compromise = compromise,
+                Controls = recomendation.Controls,
+                Investigation = recomendation.Investigation,
+                EPP = recomendation.EPP,
+                Tasks = recomendation.Tasks,
+                WorkerCompromise = workerCompromise,
+                Observation = recomendation.Observation,
+                Coordinador = _empresaContext.Trabajadores.FirstOrDefault(t => t.ID == recomendation.CoordinadorID).NombreCompleto
+        };
+
+            foreach (var item in model.Seguimients)
+            {
+                item.SeguimientDate.ToString("dd-MM-yyyy");
+                item.NewSeguimient.ToString("dd-MM-yyyy");
+            }
             return model;
         }
     }

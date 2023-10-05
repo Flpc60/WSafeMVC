@@ -1,170 +1,181 @@
-﻿@model WSafe.Web.Models.RecomendationListVM
+﻿@model WSafe.Web.Models._DetailsRecomendationVM
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Sistema de Gestión de la Seguridad y Salud en el Trabajo";
+    var fecha = DateTime.Today;
+    Layout = null;
 }
 
-<h2>Details</h2>
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryunobtrusive")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryui")
+@Scripts.Render("~/bundles/bootstrap")
 
-<div>
-    <h4>RecomendationListVM</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Trabajador)
-        </dt>
+@Html.Partial("_CabezoteFormat")
 
-        <dd>
-            @Html.DisplayFor(model => model.Trabajador)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Contingencia)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Contingencia)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TipoReintegro)
-        </dt>
-
-        <dd>
+<div class="container" style="display:flex">
+    <div>
+        <p style="text-align:center; background-color:grey">
+            <strong><b>ACTA INICIAL DE RECOMENACIONES MÉDICO LABORALES: @Html.DisplayFor(model => model.FechaRecomendation)</b></strong>
+        </p>
+        <p style="text-align:center">
+            TRABAJADOR: @Html.DisplayFor(model => model.WorkerFull)  CONTINGENCIA: @Html.DisplayFor(model => model.Contingencia)
+            CARGO: @Html.DisplayFor(model => model.Cargo)  AREA: @Html.DisplayFor(model => model.WorkArea)
+        </p>
+    </div>
+    <div>
+        <p style="text-align:center; background-color:grey">
+            <strong><b>TIPO REINTEGRO LABORAL</b></strong>
+        </p>
+        <p>
             @Html.DisplayFor(model => model.TipoReintegro)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Cargo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Cargo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Patology)
-        </dt>
-
-        <dd>
+        </p>
+        <p style="text-align:center">
+            NUEVO CARGO: @Html.DisplayFor(model => model.NewPosition)
+        </p>
+    </div>
+    <div>
+        <p style="text-align:center; background-color:grey">
+            <strong><b>DIAGNÓSTICO</b></strong>
+        </p>
+        <p>
             @Html.DisplayFor(model => model.Patology)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EmisionDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EmisionDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Emision)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Emision)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Entity)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Entity)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ReceptionDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ReceptionDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.InitialDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.InitialDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FinalDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FinalDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Duration)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Duration)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Compromise)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Compromise)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Controls)
-        </dt>
-
-        <dd>
+        </p>
+    </div>
+    <div>
+        <p style="text-align:center; background-color:grey">
+            <strong><b>RECOMENDACIONES</b></strong>
+        </p>
+        <p>
+            FECHA: @Html.DisplayFor(model => model.EmisionDate)  EMITIDA POR: @Html.DisplayFor(model => model.Emision)
+        </p>
+        <p>
+            ENTIDAD QUE EXPIDE: @Html.DisplayFor(model => model.Entity)  FECHA RECEPCIÓN: @Html.DisplayFor(model => model.ReceptionDate)
+        </p>
+    </div>
+    <div>
+        <p style="text-align:center; background-color:grey">
+            <strong><b>DETALLE RECOMENDACIONES</b></strong>
+        </p>
+        <p>
+            FECHA: @Html.DisplayFor(model => model.Description)
+        </p>
+        <p>
+            TIPO: @Html.DisplayFor(model => model.Type)  DURACIÓN: @Html.DisplayFor(model => model.Duration)
+        </p>
+        <p>
+            FECHA INICIO: @Html.DisplayFor(model => model.InitialDate)  FECHA FINAL: @Html.DisplayFor(model => model.FinalDate)
+        </p>
+        <p>
+            LA EMPRESA SE COMPROMETE A CUMPLIR LAS RECOMENDACIONES ?: @Html.DisplayFor(model => model.Compromise)
+        </p>
+    </div>
+    <div>
+        <p style="text-align:center; background-color:grey">
+            <strong><b>OBSERVACIONES</b></strong>
+        </p>
+        <p>
             @Html.DisplayFor(model => model.Controls)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EPP)
-        </dt>
-
-        <dd>
+        </p>
+        <p>
+            @Html.DisplayFor(model => model.Investigation)
+        </p>
+        <p>
             @Html.DisplayFor(model => model.EPP)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Tasks)
-        </dt>
-
-        <dd>
+        </p>
+    </div>
+    <div>
+        <p style="text-align:center; background-color:grey">
+            <strong><b>OBSERVACIONES PUESTO DE TRABAJO</b></strong>
+        </p>
+        <p>
             @Html.DisplayFor(model => model.Tasks)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.WorkerCompromise)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.WorkerCompromise)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Observation)
-        </dt>
-
-        <dd>
+        </p>
+        <p>
+            EL TRABAJADOR SE COMPROMETE A CUMPLIR LAS RECOMENDACIONES ?: @Html.DisplayFor(model => model.WorkerCompromise)
+        </p>
+    </div>
+    <div>
+        <p style="text-align:center; background-color:grey">
+            <strong><b>OBSERVACIONES GENERALES</b></strong>
+        </p>
+        <p>
             @Html.DisplayFor(model => model.Observation)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Coordinador)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Coordinador)
-        </dd>
-
-    </dl>
+        </p>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+@{
+    if (Model.Seguimients.Count() > 0)
+    {
+        <div>
+            <p style="text-align:center; background-color:grey">
+                <strong><b>SEGUIMIENTOS A LAS RECOMENDACIONES MÉDICO LABORALES</b></strong>
+            </p>
+        </div>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        FECHA
+                    </th>
+                    <th>
+                        REPORTE SUPERVISOR
+                    </th>
+                    <th>
+                        REPORTE TRABAJADOR
+                    </th>
+                    <th>
+                        REPORTE RESPONSABLE SST
+                    </th>
+                    <th>
+                        OBSERVACIONES
+                    </th>
+                    <th>
+                        FECHA PRÓXIMO SEGUIMIENTO
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="tbody">
+                @foreach (var item in Model.Seguimients)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SeguimientDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SupervisorReport)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WorkerReport)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SSTReport)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Observations)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NewSeguimient)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
+
+
+<div class="container">
+    <div>
+        <p style="text-align:center; background-color:grey">
+            <strong><b>COORDINADOR</b></strong>
+        </p>
+        <p>
+            @Html.DisplayFor(model => model.Coordinador)
+        </p>
+    </div>
+</div>
