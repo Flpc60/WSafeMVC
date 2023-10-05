@@ -293,7 +293,7 @@ namespace WSafe.Web.Controllers
                 var filename = "Reporte recomendaciones médicas" + random.Next(1, 100) + ".Pdf";
                 var filePathName = path + filename;
                 var result = await _empresaContext.Recomendations.FirstOrDefaultAsync(i => i.ID == id);
-                var model = _converterHelper.ToAccionVMFull(result, 1);
+                var model = _converterHelper.ToRecomendationVMFull(result, 12);
                 var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == 12);
                 ViewBag.formato = document.Formato;
                 ViewBag.estandar = document.Estandar;
@@ -312,19 +312,19 @@ namespace WSafe.Web.Controllers
                 //Generar archivo de movimiento
                 var fullName = filename;
                 var type = Path.GetExtension(filename).ToUpper();
-                var descript = "Reporte Acciones CPM";
+                var descript = "Reporte recomendaciones médico laborales";
                 var userID = (int)Session["userID"];
                 Movimient movimient = new Movimient()
                 {
                     ID = 0,
                     OrganizationID = _orgID,
-                    NormaID = organization.StandardActions,
+                    NormaID = organization.StandardRecomendations,
                     UserID = userID,
                     Descripcion = descript,
                     Document = fullName,
                     Year = year,
                     Item = item,
-                    Ciclo = "A",
+                    Ciclo = "H",
                     Type = type,
                     Path = path,
                     ClientID = _clientID
@@ -335,7 +335,7 @@ namespace WSafe.Web.Controllers
             }
             catch (Exception ex)
             {
-                return View("Error", new HandleErrorInfo(ex, "Acciones", "Index"));
+                return View("Error", new HandleErrorInfo(ex, "Recomendations", "Index"));
             }
         }
     }

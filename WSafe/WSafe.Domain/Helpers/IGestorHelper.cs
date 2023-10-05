@@ -43,5 +43,7 @@ namespace WSafe.Domain.Helpers
         string GetActionType(int categoria);
         string GetContingencia(Contingencias contingencia);
         string GetTipoReintegro(TiposReintegro type);
-        string GetEmission(Emissions emission);    }
+        string GetEmission(Emissions emission);
+        string GetRecomendationType(RecomendationTypes type);
+    }
 }

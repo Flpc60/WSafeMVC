@@ -891,5 +891,19 @@ namespace WSafe.Domain.Helpers.Implements
                     return "Empresa";
             }
         }
+        public string GetRecomendationType(RecomendationTypes type)
+        {
+            switch (type)
+            {
+                case RecomendationTypes.Temporal:
+                    return "Temporal";
+
+                case RecomendationTypes.Permanente:
+                    return "Permanente";
+
+                default:
+                    return "Temporal";
+            }
+        }
     }
 }
