@@ -22,8 +22,8 @@
             <strong><b>ACTA INICIAL DE RECOMENACIONES MÉDICO LABORALES: @Html.DisplayFor(model => model.FechaRecomendation)</b></strong>
         </p>
         <p style="text-align:center">
-            TRABAJADOR: @Html.DisplayFor(model => model.WorkerFull)  CONTINGENCIA: @Html.DisplayFor(model => model.Contingencia)
-            CARGO: @Html.DisplayFor(model => model.Cargo)  AREA: @Html.DisplayFor(model => model.WorkArea)
+            TRABAJADOR: @Html.DisplayFor(model => model.WorkerFull)    CONTINGENCIA: @Html.DisplayFor(model => model.Contingencia)
+            <br />CARGO: @Html.DisplayFor(model => model.Cargo)  AREA: @Html.DisplayFor(model => model.WorkArea)
         </p>
     </div>
     <div>
@@ -61,10 +61,10 @@
             <strong><b>DETALLE RECOMENDACIONES</b></strong>
         </p>
         <p>
-            FECHA: @Html.DisplayFor(model => model.Description)
+            @Html.DisplayFor(model => model.Description)
         </p>
         <p>
-            TIPO: @Html.DisplayFor(model => model.Type)  DURACIÓN: @Html.DisplayFor(model => model.Duration)
+            TIPO: @Html.DisplayFor(model => model.Type)    DURACIÓN: @Html.DisplayFor(model => model.Duration) DIAS
         </p>
         <p>
             FECHA INICIO: @Html.DisplayFor(model => model.InitialDate)  FECHA FINAL: @Html.DisplayFor(model => model.FinalDate)
