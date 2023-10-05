@@ -484,6 +484,10 @@
     <Compile Include="Migrations\202310032245529_UpdateOrganization.designer.cs">
       <DependentUpon>202310032245529_UpdateOrganization.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202310051856332_CreateDetailRecomendation.cs" />
+    <Compile Include="Migrations\202310051856332_CreateDetailRecomendation.designer.cs">
+      <DependentUpon>202310051856332_CreateDetailRecomendation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -526,6 +530,7 @@
     <Compile Include="Models\UserListVM.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\WorkersVM.cs" />
+    <Compile Include="Models\_DetailsRecomendationVM.cs" />
     <Compile Include="Models\_DetailsAccionVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IAccionRepository.cs" />
@@ -1204,6 +1209,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202310032245529_UpdateOrganization.resx">
       <DependentUpon>202310032245529_UpdateOrganization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310051856332_CreateDetailRecomendation.resx">
+      <DependentUpon>202310051856332_CreateDetailRecomendation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

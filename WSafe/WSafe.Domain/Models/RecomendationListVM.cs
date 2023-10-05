@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using WSafe.Domain.Data.Entities;
 
 namespace WSafe.Web.Models
 {
@@ -36,6 +34,8 @@ namespace WSafe.Web.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime ReceptionDate { get; set; }
+        public string Description { get; set; }
+        public string Type{ get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "FECHA INICIAL")]
         [DataType(DataType.Date)]
