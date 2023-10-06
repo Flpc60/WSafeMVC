@@ -62,6 +62,11 @@ namespace WSafe.Web.Models
         public DbSet<SigueRecomendation> SigueRecomendations { get; set; }
         public DbSet<Patology> Patologies { get; set; }
         public DbSet<Suggestion> Suggestions { get; set; }
+        public DbSet<Audit> Audits { get; set; }
+        public DbSet<AuditedResult> AuditedResults { get; set; }
+        public DbSet<Auditer> Auditers { get; set; }
+        public DbSet<AuditItem> AuditItems { get; set; }
+        public DbSet<AuditAction> AuditActions { get; set; }
         public System.Data.Entity.DbSet<WSafe.Web.Models.UserViewModel> UserViewModels { get; set; }
         public System.Data.Entity.DbSet<WSafe.Web.Models.RoleUserVM> RoleUserVMs { get; set; }
 
