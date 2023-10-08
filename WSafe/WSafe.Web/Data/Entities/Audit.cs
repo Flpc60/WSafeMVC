@@ -15,15 +15,22 @@ namespace WSafe.Domain.Data.Entities
         public DateTime AuditDate { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "PROCESO AUDITADO")]
-        [MaxLength(50)]
-        public string Process { get; set; }
+        public WorkAreas Process { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "RESPONSABLE AUDITORÍA")]
+        [Display(Name = "RESPONSABLE PROCESO AUDITADO")]
         public int WorkerID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "DOCUMENTO RESPONSABLE")]
-        [MaxLength(20)]
+        [Display(Name = "INFORME AUDITORÍA")]
+        [MaxLength(100)]
         public string AuditDocument { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public int OrganizationID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public int ClientID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public int UserID { get; set; }
+        public ICollection<SigueAudit> Seguimients { get; set; }
+        public ICollection<Auditer> Auditers { get; set; }
         public ICollection<AuditAction> AuditActions { get; set; }
         public ICollection<AuditedResult> AuditedResults { get; set; }
     }

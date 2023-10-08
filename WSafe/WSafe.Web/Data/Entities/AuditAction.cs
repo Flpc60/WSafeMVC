@@ -22,7 +22,7 @@ namespace WSafe.Domain.Data.Entities
         [MaxLength(100)]
         public string CorrectiveAction { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "RESPONSABLE ACCIÓN")]
+        [Display(Name = "RESPONSABLE ACCIÓN CORRECTIVA")]
         public int WorkerID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "FECHA EJECUCIÓN")]
@@ -30,6 +30,7 @@ namespace WSafe.Domain.Data.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime ExecutionDate { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "ESTADO ACCIÓN CORRECTIVA")]
         public AuditStates AuditState { get; set; }
     }
 }

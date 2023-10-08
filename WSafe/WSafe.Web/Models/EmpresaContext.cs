@@ -90,5 +90,7 @@ namespace WSafe.Web.Models
         public System.Data.Entity.DbSet<WSafe.Web.Models.RecomendationListVM> RecomendationListVMs { get; set; }
 
         public System.Data.Entity.DbSet<WSafe.Web.Models.RecomendationVM> RecomendationVMs { get; set; }
+
+        public System.Data.Entity.DbSet<WSafe.Web.Models.AuditListVM> AuditListVMs { get; set; }
     }
 }
