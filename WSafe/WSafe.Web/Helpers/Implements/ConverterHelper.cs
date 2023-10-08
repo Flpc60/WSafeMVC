@@ -2057,5 +2057,32 @@ namespace WSafe.Domain.Helpers.Implements
             }
             return model;
         }
+        public IEnumerable<AuditListVM> ToAuditListVM(IEnumerable<Audit> listAudit)
+        {
+            var auditers = "";
+            var workerCompromise = "";
+            var model = new List<AuditListVM>();
+            foreach (var item in listAudit)
+            {
+                foreach (var audit in item.Auditers)
+                {
+                    auditers += audit.FirstName.ToString() + " " + audit.LastName.ToString() + " ";
+                }
+
+                model.Add(new AuditListVM
+                {
+                    ID = item.ID,
+                    AuditDate = item.AuditDate.ToString("dd-MM-yyyy"),
+                    Process = _gestorHelper.GetWorkArea(item.Process),
+                    Responsable = _empresaContext.Trabajadores.Find(item.WorkerID).NombreCompleto,
+                    Auditers = auditers,
+                    AuditActions = item.AuditActions,
+                    AuditedResults = item.AuditedResults,
+                    Seguimients = item.Seguimients,
+                });
+            }
+
+            return model;
+        }
     }
 }

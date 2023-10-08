@@ -1,0 +1,118 @@
+﻿@model IEnumerable<WSafe.Web.Models.AuditListVM>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+
+    .tabConsActions {
+        display: none
+    }
+
+    .centerText {
+        text-align: center;
+    }
+</style>
+
+
+<hr class="mt-4">
+<h4 class="centerText">GESTIÓN AUDITORIAS INTERNAS: @Session["organization"].ToString().Trim()</h4>
+<hr class="mt-4">
+
+<div class="container">
+    <div class="row align-items-center">
+        <div class="col-md-2">
+            NÚMERO TRABAJADORES : @Session["numeroTrabajadores"].ToString().Trim()
+        </div>
+        <div class="col-md-2">
+            CLASE RIESGO : @Session["riesgo"].ToString().Trim()
+        </div>
+        <div class="col-md-3">
+            HORARIO : @Session["turnoOperativo"].ToString().Trim()
+        </div>
+        <div class="col-md-2">
+            PERIODO : @Session["year"].ToString().Trim()
+        </div>
+        <div class="col-md-3">
+            RESPONSABLE SG-SST : @Session["responsable"].ToString().Trim()
+        </div>
+    </div>
+</div>
+
+<hr class="mt-4">
+<div class="container">
+    <div class="row justify-content-between">
+        <div class="col-md-12">
+            <a href="@Url.Action("Create", "Audits")" class="btn btn-info btn-lg active">
+                <span class="glyphicon glyphicon-plus"></span> Crear nueva recomendación médica
+            </a>
+            <a href="@Url.Action("AuditsListPdf", "Recomendations")" class="btn btn-info btn-lg active">
+                <span class="glyphicon glyphicon-download"></span> Generar auditorias internas
+            </a>
+        </div>
+    </div>
+</div>
+
+<hr class="mt-4">
+<div class="table-responsive" style="background-color: azure; width:100%; margin-right:0px">
+    <table class="table table-bordered">
+        <tr style="background-color:gainsboro; width:auto">
+            <th>
+                @Html.DisplayNameFor(model => model.AuditDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Process)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Responsable)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Auditers)
+            </th>
+            <th>
+                RESULTADOS
+            </th>
+            <th>
+                ACCIONES
+            </th>
+            <th>
+                SEGUIMIENTOS
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AuditDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Process)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Responsable)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Auditers)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AuditedResults)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AuditActions)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Seguimients)
+                </td>
+                <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit", @title = "Actualizar" })
+                    @Html.ActionLink(" ", "PrintAuditToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt", @title = "Imprimir" })
+                    @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "glyphicon glyphicon-trash", @title = "Descartar" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

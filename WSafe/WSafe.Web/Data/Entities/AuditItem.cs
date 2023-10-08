@@ -11,6 +11,8 @@ namespace WSafe.Domain.Data.Entities
         public string Name { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int NormaID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "PROCESO SG-SST")]
         public AuditChapters AuditChapter { get; set; }
     }
 }

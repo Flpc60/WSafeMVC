@@ -1,27 +1,27 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 using WSafe.Domain.Data.Entities;
 
 namespace WSafe.Web.Models
 {
-    public class AuditReportVM
+    public class AuditedCreateVM
     {
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "FECHA AUDITORÍA")]
-        public string AuditDate { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime AuditDate { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "RESPONSABLE PROCESO AUDITADO")]
-        public string Responsable { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "PROCESO AUDITADO")]
-        public string Process { get; set; }
+        public int AuditerID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "AUDITORES")]
-        public ICollection<Auditer> Auditers { get; set; }
+        public IEnumerable<SelectListItem> Auditers { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "ACCIONES CPM AUDITORÍA")]
-        public ICollection<AuditAction> AuditActions { get; set; }
+        [Display(Name = "PROCESOS / AREAS A AUDITAR")]
+        public WorkAreas AuditProcess { get; set; }
     }
 }

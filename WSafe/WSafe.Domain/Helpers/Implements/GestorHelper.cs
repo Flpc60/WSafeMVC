@@ -686,17 +686,17 @@ namespace WSafe.Domain.Helpers.Implements
         {
             switch (area)
             {
-                case WorkAreas.Administrativa:
+                case WorkAreas.ADMINISTRATIVA:
                     return "Administrativa";
 
-                case WorkAreas.Contratista:
-                    return "Contratista";
+                case WorkAreas.CONTRATISTAS:
+                    return "Contratistas";
 
-                case WorkAreas.Operativa:
+                case WorkAreas.OPERATIVA:
                     return "Operativa";
 
-                case WorkAreas.Practicante:
-                    return "Practicante";
+                case WorkAreas.PRACTICANTES:
+                    return "Practicantes";
 
                 default:
                     return "Administrativa";

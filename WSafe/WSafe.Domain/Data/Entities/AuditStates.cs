@@ -2,6 +2,6 @@
 {
     public enum AuditStates
     {
-        Realizada, Pendiente, Ejecución
+        REALIZADA, PENDIENTE, EJECUCIÓN
     }
 }
