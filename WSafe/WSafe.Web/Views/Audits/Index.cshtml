@@ -68,16 +68,22 @@
                 @Html.DisplayNameFor(model => model.Responsable)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Auditers)
+                @Html.DisplayNameFor(model => model.Auditer)
             </th>
             <th>
-                RESULTADOS
+                @Html.DisplayNameFor(model => model.NoConformance)
             </th>
             <th>
-                ACCIONES
+                @Html.DisplayNameFor(model => model.Cause)
             </th>
             <th>
-                SEGUIMIENTOS
+                @Html.DisplayNameFor(model => model.CorrectiveAction)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResponsableAction)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExecutionDate)
             </th>
             <th></th>
         </tr>
@@ -95,16 +101,22 @@
                     @Html.DisplayFor(modelItem => item.Responsable)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Auditers)
+                    @Html.DisplayFor(modelItem => item.Auditer)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.AuditedResults)
+                    @Html.DisplayFor(modelItem => item.NoConformance)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.AuditActions)
+                    @Html.DisplayFor(modelItem => item.Cause)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Seguimients)
+                    @Html.DisplayFor(modelItem => item.CorrectiveAction)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ResponsableAction)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExecutionDate)
                 </td>
                 <td style="margin:initial; background-color:deepskyblue; text-align:left">
                     @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit", @title = "Actualizar" })

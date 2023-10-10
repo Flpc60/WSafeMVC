@@ -44,7 +44,6 @@ namespace WSafe.Web.Controllers
                 _orgID = (int)Session["orgID"];
                 var list = await _empresaContext.Audits
                     .Where(a => a.OrganizationID == _orgID)
-                    .Include(au => au.Auditers)
                     .Include(aa => aa.AuditActions)
                     .Include(ar => ar.AuditedResults)
                     .Include(s => s.Seguimients)
