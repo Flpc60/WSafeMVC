@@ -126,6 +126,7 @@
     <Compile Include="Data\Entities\AuditAction.cs" />
     <Compile Include="Data\Entities\AuditCalifications.cs" />
     <Compile Include="Data\Entities\AuditChapters.cs" />
+    <Compile Include="Data\Entities\AuditedAction.cs" />
     <Compile Include="Data\Entities\AuditedResult.cs" />
     <Compile Include="Data\Entities\Auditer.cs" />
     <Compile Include="Data\Entities\AuditItem.cs" />

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using WSafe.Domain.Data.Entities;
 
@@ -39,7 +38,7 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "FECHA EJECUCIÓN")]
         public string ExecutionDate { get; set; }
-        public ICollection<AuditAction> AuditActions { get; set; }
+        public ICollection<AuditedAction> AuditActions { get; set; }
         public ICollection<AuditedResult> AuditedResults { get; set; }
         public ICollection<SigueAudit> Seguimients { get; set; }
     }

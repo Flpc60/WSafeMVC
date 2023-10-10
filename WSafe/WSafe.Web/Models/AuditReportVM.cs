@@ -22,6 +22,6 @@ namespace WSafe.Web.Models
         public ICollection<Auditer> Auditers { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "ACCIONES CPM AUDITORÍA")]
-        public ICollection<AuditAction> AuditActions { get; set; }
+        public ICollection<AuditedAction> AuditActions { get; set; }
     }
 }
