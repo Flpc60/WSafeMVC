@@ -46,7 +46,7 @@ namespace WSafe.Web.Controllers
         {
             _orgID = (int)Session["orgID"];
             var list = await _empresaContext.Acciones
-                    .Where(r => r.OrganizationID == _orgID)
+                    .Where(a => a.OrganizationID == _orgID)
                 .OrderByDescending(a => a.FechaSolicitud)
                 .ToListAsync();
             var modelo = _converterHelper.ToAccionVMList(list, _orgID);
