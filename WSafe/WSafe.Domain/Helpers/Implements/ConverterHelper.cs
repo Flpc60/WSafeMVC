@@ -2059,14 +2059,22 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public IEnumerable<AuditListVM> ToAuditListVM(IEnumerable<Audit> listAudit)
         {
-            var auditers = "";
-            var workerCompromise = "";
+            var noconformance = "";
+            var cause = "";
+            var corrective = "";
+            var responsable = "";
+            var execution = "";
             var model = new List<AuditListVM>();
             foreach (var item in listAudit)
             {
-                foreach (var audit in item.Auditers)
+                var auditer = _empresaContext.Auditers.Find(item.AuditerID);
+                foreach (var audit in item.AuditActions)
                 {
-                    auditers += audit.FirstName.ToString() + " " + audit.LastName.ToString() + " ";
+                    noconformance += audit.NoConformance.ToString() + " ";
+                    cause += audit.Cause.ToString() + " ";
+                    corrective += audit.CorrectiveAction.ToString() + " ";
+                    responsable += _empresaContext.Trabajadores.Find(audit.WorkerID).NombreCompleto + " ";
+                    execution = audit.ExecutionDate.ToString("dd-MM-yyyy") + " ";
                 }
 
                 model.Add(new AuditListVM
@@ -2075,10 +2083,11 @@ namespace WSafe.Domain.Helpers.Implements
                     AuditDate = item.AuditDate.ToString("dd-MM-yyyy"),
                     Process = _gestorHelper.GetWorkArea(item.Process),
                     Responsable = _empresaContext.Trabajadores.Find(item.WorkerID).NombreCompleto,
-                    Auditers = auditers,
-                    AuditActions = item.AuditActions,
-                    AuditedResults = item.AuditedResults,
-                    Seguimients = item.Seguimients,
+                    Auditer = auditer.FirstName.ToString() + " " + auditer.LastName.ToString(),
+                    NoConformance = noconformance,
+                    Cause = cause,
+                    ResponsableAction = responsable,
+                    ExecutionDate = execution
                 });
             }
 
