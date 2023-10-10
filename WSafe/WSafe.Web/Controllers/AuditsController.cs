@@ -1,6 +1,8 @@
 ﻿using Rotativa;
 using System;
+using System.Data.Common;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -44,17 +46,16 @@ namespace WSafe.Web.Controllers
                 _orgID = (int)Session["orgID"];
                 var list = await _empresaContext.Audits
                     .Where(a => a.OrganizationID == _orgID)
-                    .Include(aa => aa.AuditActions)
-                    .Include(ar => ar.AuditedResults)
-                    .Include(s => s.Seguimients)
-                    .OrderByDescending(r => r.AuditDate)
+                    .OrderByDescending(a => a.AuditDate)
                     .ToListAsync();
+
                 var model = _converterHelper.ToAuditListVM(list);
                 return View(model);
             }
             catch (Exception ex)
             {
-                return View("Error", new HandleErrorInfo(ex, "Recomnedation", "Index"));
+                Trace.TraceError($"Error en la acción Index: {ex.Message}");
+                return View("Error", new HandleErrorInfo(ex, "Audits", "Index"));
             }
         }
 

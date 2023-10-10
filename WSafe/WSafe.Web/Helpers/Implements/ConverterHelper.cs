@@ -2059,22 +2059,33 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public IEnumerable<AuditListVM> ToAuditListVM(IEnumerable<Audit> listAudit)
         {
-            var noconformance = "";
-            var cause = "";
-            var corrective = "";
-            var responsable = "";
-            var execution = "";
             var model = new List<AuditListVM>();
             foreach (var item in listAudit)
             {
+                var noconformance = "";
+                var cause = "";
+                var corrective = "";
+                var responsable = "";
+                var execution = "";
                 var auditer = _empresaContext.Auditers.Find(item.AuditerID);
-                foreach (var audit in item.AuditActions)
+                var list = (from aa in _empresaContext.AuditedActions
+                            where aa.AuditID == item.ID
+                            select new
+                            {
+                                NoConformance = aa.NoConformance,
+                                Cause = aa.Cause,
+                                CorrectiveAction = aa.CorrectiveAction,
+                                WorkerID = aa.WorkerID,
+                                ExecutionDate = aa.ExecutionDate
+                            })
+                    .ToList();
+                foreach (var audited in list)
                 {
-                    noconformance += audit.NoConformance.ToString() + " ";
-                    cause += audit.Cause.ToString() + " ";
-                    corrective += audit.CorrectiveAction.ToString() + " ";
-                    responsable += _empresaContext.Trabajadores.Find(audit.WorkerID).NombreCompleto + " ";
-                    execution = audit.ExecutionDate.ToString("dd-MM-yyyy") + " ";
+                    noconformance += audited.NoConformance.ToString() + " ";
+                    cause += audited.Cause.ToString() + " ";
+                    corrective += audited.CorrectiveAction.ToString() + " ";
+                    responsable += _empresaContext.Trabajadores.Find(audited.WorkerID).NombreCompleto + " ";
+                    execution = audited.ExecutionDate.ToString("dd-MM-yyyy") + " ";
                 }
 
                 model.Add(new AuditListVM

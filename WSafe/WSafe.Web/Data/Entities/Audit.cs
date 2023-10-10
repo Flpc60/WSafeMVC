@@ -30,7 +30,7 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int UserID { get; set; }
         public int AuditerID { get; set; }
-        public ICollection<AuditAction> AuditActions { get; set; }
+        public ICollection<AuditedAction> AuditedActions { get; set; }
         public ICollection<AuditedResult> AuditedResults { get; set; }
         public ICollection<SigueAudit> Seguimients { get; set; }
     }
