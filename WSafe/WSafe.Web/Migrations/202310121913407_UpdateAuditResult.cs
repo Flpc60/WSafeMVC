@@ -3,16 +3,16 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class UpdateAuditAction : DbMigration
+    public partial class UpdateAuditResult : DbMigration
     {
         public override void Up()
         {
-            RenameTable(name: "dbo.AuditActions", newName: "AuditedActions");
+            AddColumn("dbo.Organizations", "StandardAudits", c => c.Short(nullable: false));
         }
         
         public override void Down()
         {
-            RenameTable(name: "dbo.AuditedActions", newName: "AuditActions");
+            DropColumn("dbo.Organizations", "StandardAudits");
         }
     }
 }

@@ -132,5 +132,6 @@ namespace WSafe.Domain.Data.Entities
         public int StandardUnsafeacts { get; set; }
         public int StandardIndicators { get; set; }
         public short StandardRecomendations { get; set; }
+        public short StandardAudits { get; set; }
     }
 }

@@ -120,7 +120,8 @@
                 </td>
                 <td style="margin:initial; background-color:deepskyblue; text-align:left">
                     @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit", @title = "Actualizar" })
-                    @Html.ActionLink(" ", "PrintAuditToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt", @title = "Imprimir" })
+                    @Html.ActionLink(" ", "PrintAuditResultToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt", @title = "Auditoría interna"})
+                    @Html.ActionLink(" ", "PrintAuditToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt", @title = "Informe Auditor"})
                     @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "glyphicon glyphicon-trash", @title = "Descartar" })
                 </td>
             </tr>
