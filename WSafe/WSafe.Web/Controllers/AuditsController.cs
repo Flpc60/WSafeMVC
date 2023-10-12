@@ -340,5 +340,76 @@ namespace WSafe.Web.Controllers
                 return View("Error", new HandleErrorInfo(ex, "Recomendations", "Index"));
             }
         }
+
+        [HttpGet]
+        public async Task<ActionResult> PrintAuditResultToPdf(int id)
+        {
+            try
+            {
+                // Configuración nombre archivo pdf
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
+                _path = (string)Session["path"];
+                var organization = _empresaContext.Organizations.Find(_orgID);
+                var year = _year;
+                var item = _empresaContext.Normas.Find(organization.StandardAudits).Item;
+                var fullPath = $"{_path}/3. VERIFICAR/{item}/";
+                var path = Server.MapPath(fullPath);
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                Random random = new Random();
+                var filename = "Reporte auditoría interna" + random.Next(1, 100) + ".Pdf";
+                var filePathName = path + filename;
+                var result = await _empresaContext.Audits
+                    .Include(ar => ar.AuditedResults)
+                    .FirstOrDefaultAsync(i => i.ID == id);
+                var model = _converterHelper.ToAuditedResultVM(result, 12);
+                var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == 13);
+                ViewBag.formato = document.Formato;
+                ViewBag.estandar = document.Estandar;
+                ViewBag.titulo = document.Titulo;
+                ViewBag.version = document.Version;
+                ViewBag.fecha = DateTime.Now;
+                var report = new ViewAsPdf("Details");
+                report.Model = model;
+                report.FileName = filePathName;
+                report.PageSize = Rotativa.Options.Size.A4;
+                report.Copies = 1;
+                report.PageOrientation.GetValueOrDefault();
+                report.FormsAuthenticationCookieName = FormsAuthentication.FormsCookieName;
+                report.SaveOnServerPath = filePathName;
+
+                //Generar archivo de movimiento
+                var fullName = filename;
+                var type = Path.GetExtension(filename).ToUpper();
+                var descript = "Reporte recomendaciones médico laborales";
+                var userID = (int)Session["userID"];
+                Movimient movimient = new Movimient()
+                {
+                    ID = 0,
+                    OrganizationID = _orgID,
+                    NormaID = organization.StandardRecomendations,
+                    UserID = userID,
+                    Descripcion = descript,
+                    Document = fullName,
+                    Year = year,
+                    Item = item,
+                    Ciclo = "H",
+                    Type = type,
+                    Path = path,
+                    ClientID = _clientID
+                };
+                _empresaContext.Movimientos.Add(movimient);
+                _empresaContext.SaveChanges();
+                return report;
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Recomendations", "Index"));
+            }
+        }
     }
 }

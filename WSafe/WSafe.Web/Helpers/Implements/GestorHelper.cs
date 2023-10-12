@@ -905,5 +905,78 @@ namespace WSafe.Domain.Helpers.Implements
                     return "Temporal";
             }
         }
+        public string GetAuditChapter(AuditChapters chapter)
+        {
+            switch (chapter)
+            {
+                case AuditChapters.Auditoría:
+                    return "VERIFICACIÓN - AUDITORÍA INTERNA";
+                case AuditChapters.Capacitación:
+                    return "PROGRAMAS DE CAPACITACIÓN Y FORMACIÓN";
+
+                case AuditChapters.Competencia:
+                    return "IMPLEMENTACIÓN - COMPETENCIA, FORMACIÓN Y TOMA DE CONCIENCIA";
+
+                case AuditChapters.Comunicación:
+                    return "IMPLEMENTACIÓN - COMUNICACIÓN, PARTICIPACIÓN Y CONSULTA";
+
+                case AuditChapters.ControlDocumentos:
+                    return "IMPLEMENTACIÓN - CONTROL DOCUMENTOS";
+
+                case AuditChapters.ControlOperativo:
+                    return "IMPLEMENTACIÓN - CONTROL OPERATIVO";
+
+                case AuditChapters.ControlRegistros:
+                    return "VERIFICACIÓN - CONTROL DE REGISTROS";
+
+                case AuditChapters.Cumplimiento:
+                    return "VERIFICACIÓN - EVALUACIÓN CUMPLIMIENTO LEGAL";
+
+                case AuditChapters.Documentación:
+                    return "IMPLEMENTACIÓN - DOCUMENTACIÓN DEL SG-SST";
+
+                case AuditChapters.Emergencias:
+                    return "IMPLEMENTACIÓN - PREPARACIÓN Y RESPUESTA A EMERGENCIAS";
+
+                case AuditChapters.Investigación:
+                    return "VERIFICACIÓN - INVESTIGACIÓN DE INCODENTES Y ACCIONES CPM";
+
+                case AuditChapters.Liderazgo:
+                    return "LIDERAZGO Y COMPROMISO";
+
+                case AuditChapters.Medición:
+                    return "VERIFICACIÓN - MONITOREO Y MEDICIÓN DEL DESEMPEÑO";
+
+                case AuditChapters.Mejora:
+                    return "MEJORA CONTINUA";
+
+                case AuditChapters.Objetivos:
+                    return "PLANIFICACIÓN DE OBJETIVOS Y PROGRAMAS";
+
+                case AuditChapters.Participación:
+                    return "PARTICIPACIÓN Y CONSULTA DE LOS TRABAJADORES";
+
+                case AuditChapters.Politica:
+                    return "POLÍTICA DE SST";
+
+                case AuditChapters.Recursos:
+                    return "IMPLEMENTACIÓN - RECURSOS, FUNCIONES, RESPONSABILIDAD, RENDICIÓN DE CUENTAS Y AUTORIDAD";
+
+                case AuditChapters.Requisitos:
+                    return "PLANIFICACIÓN PARA EL CUMPLIMIENTO DE REQUISITOS LEGALES";
+
+                case AuditChapters.Revisión:
+                    return "REVISIÓN POR LA DIRECCIÓN";
+
+                case AuditChapters.Riesgos:
+                    return "PLANIFICACIÓN PARA LA IDENTIFICACIÓN DE PELIGROS, EVALUACIÓN Y VALORACIÓN DE RIESGOS";
+
+                case AuditChapters.Salud:
+                    return "GESTIÓN DE LA SALUD";
+
+                default:
+                    return "VERIFICACIÓN - AUDITORÍA INTERNA";
+            }
+        }
     }
 }

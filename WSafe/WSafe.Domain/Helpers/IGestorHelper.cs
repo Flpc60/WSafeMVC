@@ -45,5 +45,6 @@ namespace WSafe.Domain.Helpers
         string GetTipoReintegro(TiposReintegro type);
         string GetEmission(Emissions emission);
         string GetRecomendationType(RecomendationTypes type);
+        string GetAuditChapter(AuditChapters chapter);
     }
 }
