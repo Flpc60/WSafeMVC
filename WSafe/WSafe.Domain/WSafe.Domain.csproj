@@ -256,6 +256,7 @@
     <Compile Include="Models\AthorizationVM.cs" />
     <Compile Include="Models\AuditDetailsVM.cs" />
     <Compile Include="Models\AuditedCreateVM.cs" />
+    <Compile Include="Models\AuditedResultVM.cs" />
     <Compile Include="Models\AuditListVM.cs" />
     <Compile Include="Models\AuditReportVM.cs" />
     <Compile Include="Models\AuthorizationVM.cs" />

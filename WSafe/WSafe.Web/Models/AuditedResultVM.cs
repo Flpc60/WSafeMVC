@@ -1,18 +1,18 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WSafe.Domain.Data.Entities
+namespace WSafe.Web.Models
 {
-    public class AuditItem
+    public class AuditedResultVM
     {
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [MaxLength(400)]
-        public string Name { get; set; }
+        public string Chapter { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public int NormaID { get; set; }
+        public string Requisite { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "PROCESO SG-SST")]
-        public AuditChapters AuditChapter { get; set; }
+        public string RequisiteItem { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public string Result { get; set; }
     }
 }

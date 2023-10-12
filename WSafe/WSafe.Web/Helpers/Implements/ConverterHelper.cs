@@ -2104,5 +2104,20 @@ namespace WSafe.Domain.Helpers.Implements
 
             return model;
         }
+        public IEnumerable<AuditedResultVM> ToAuditedResultVM(Audit audit, int id)
+        {
+            var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == id);
+            var model = new List<AuditedResultVM>();
+
+            foreach (var item in audit.AuditedResults)
+            {
+                model.Add(new AuditedResultVM
+                {
+                    ID = item.ID,
+                    //Chapter = _gestorHelper.GetAuditChapter(item.)
+                });
+            }
+            return model;
+        }
     }
 }

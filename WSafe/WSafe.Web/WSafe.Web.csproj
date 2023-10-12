@@ -487,9 +487,9 @@
     <Compile Include="Helpers\Implements\ConverterHelper.cs" />
     <Compile Include="Helpers\Implements\GestorHelper.cs" />
     <Compile Include="Helpers\Implements\IndicadorHelper.cs" />
-    <Compile Include="Migrations\202310101451513_UpdateAuditAction.cs" />
-    <Compile Include="Migrations\202310101451513_UpdateAuditAction.designer.cs">
-      <DependentUpon>202310101451513_UpdateAuditAction.cs</DependentUpon>
+    <Compile Include="Migrations\202310121913407_UpdateAuditResult.cs" />
+    <Compile Include="Migrations\202310121913407_UpdateAuditResult.designer.cs">
+      <DependentUpon>202310121913407_UpdateAuditResult.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
@@ -500,6 +500,7 @@
     <Compile Include="Models\AthorizationVM.cs" />
     <Compile Include="Models\AuditDetailsVM.cs" />
     <Compile Include="Models\AuditedCreateVM.cs" />
+    <Compile Include="Models\AuditedResultVM.cs" />
     <Compile Include="Models\AuditListVM.cs" />
     <Compile Include="Models\AuditReportVM.cs" />
     <Compile Include="Models\AuthorizationVM.cs" />
@@ -1220,8 +1221,8 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202310101451513_UpdateAuditAction.resx">
-      <DependentUpon>202310101451513_UpdateAuditAction.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202310121913407_UpdateAuditResult.resx">
+      <DependentUpon>202310121913407_UpdateAuditResult.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
