@@ -9,7 +9,7 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int AuditID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public int AuditItemID { get; set; }
+        public AuditItem AuditItem { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "CONCEPTO AUDITORÍA")]
         public AuditCalifications Result { get; set; }

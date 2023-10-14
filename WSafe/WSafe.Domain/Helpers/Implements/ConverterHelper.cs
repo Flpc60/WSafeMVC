@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
 using WSafe.Web.Models;
+using static iTextSharp.tool.xml.html.HTML;
 
 namespace WSafe.Domain.Helpers.Implements
 {
@@ -2111,10 +2112,42 @@ namespace WSafe.Domain.Helpers.Implements
 
             foreach (var item in audit.AuditedResults)
             {
+                var nc = "   ";
+                var cp = " X ";
+                var cyd = "   ";
+
+                switch (item.Result)
+                {
+
+                    case AuditCalifications.NoCumple:
+                        nc  = " X ";
+                        cp  = "   ";
+                        cyd = "   ";
+                        break;
+
+                    case AuditCalifications.Cumple:
+                        nc  = "   ";
+                        cp  = " X ";
+                        cyd = "   ";
+                        break;
+
+                    case AuditCalifications.CumpleYDocumenta:
+                        nc  = "   ";
+                        cp  = "   ";
+                        cyd = " X ";
+                        break;
+
+                }
+
                 model.Add(new AuditedResultVM
                 {
                     ID = item.ID,
-                    //Chapter = _gestorHelper.GetAuditChapter(item.)
+                    Chapter = _gestorHelper.GetAuditChapter(item.AuditItem.AuditChapter),
+                    Requisite = _empresaContext.Normas.Find(item.AuditItem.NormaID).Verification.ToUpper(),
+                    RequisiteItem = item.AuditItem.Name,
+                    NC = nc,
+                    CP = cp,
+                    CYD = cyd
                 });
             }
             return model;
