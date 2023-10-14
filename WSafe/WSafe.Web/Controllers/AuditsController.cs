@@ -366,7 +366,7 @@ namespace WSafe.Web.Controllers
                 var result = await _empresaContext.Audits
                     .Include(ar => ar.AuditedResults)
                     .FirstOrDefaultAsync(i => i.ID == id);
-                var model = _converterHelper.ToAuditedResultVM(result, 12);
+                var model = _converterHelper.ToAuditedResultVM(result);
                 var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == 13);
                 ViewBag.formato = document.Formato;
                 ViewBag.estandar = document.Estandar;
@@ -385,19 +385,19 @@ namespace WSafe.Web.Controllers
                 //Generar archivo de movimiento
                 var fullName = filename;
                 var type = Path.GetExtension(filename).ToUpper();
-                var descript = "Reporte recomendaciones médico laborales";
+                var descript = "Reporte auditoría interna";
                 var userID = (int)Session["userID"];
                 Movimient movimient = new Movimient()
                 {
                     ID = 0,
                     OrganizationID = _orgID,
-                    NormaID = organization.StandardRecomendations,
+                    NormaID = organization.StandardAudits,
                     UserID = userID,
                     Descripcion = descript,
                     Document = fullName,
                     Year = year,
                     Item = item,
-                    Ciclo = "H",
+                    Ciclo = "V",
                     Type = type,
                     Path = path,
                     ClientID = _clientID

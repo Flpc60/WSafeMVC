@@ -1,10 +1,12 @@
-﻿using System;
+﻿using iTextSharp.text;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
 using WSafe.Web.Models;
+using static iTextSharp.tool.xml.html.HTML;
 
 namespace WSafe.Domain.Helpers.Implements
 {
@@ -2104,18 +2106,57 @@ namespace WSafe.Domain.Helpers.Implements
 
             return model;
         }
-        public IEnumerable<AuditedResultVM> ToAuditedResultVM(Audit audit, int id)
+        public IEnumerable<AuditedResultVM> ToAuditedResultVM(Audit audit)
         {
-            var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == id);
             var model = new List<AuditedResultVM>();
 
             foreach (var item in audit.AuditedResults)
             {
-                model.Add(new AuditedResultVM
+                // TODO
+                int order = 0;
+                var chapter = item.AuditItem.AuditChapter;
+                while (item.AuditItem.AuditChapter == chapter)
                 {
-                    ID = item.ID,
-                    //Chapter = _gestorHelper.GetAuditChapter(item.)
-                });
+                    order++;
+
+                    var nc = "   ";
+                    var cp = " X ";
+                    var cyd = "   ";
+
+                    switch (item.Result)
+                    {
+
+                        case AuditCalifications.NoCumple:
+                            nc = " X ";
+                            cp = "   ";
+                            cyd = "   ";
+                            break;
+
+                        case AuditCalifications.Cumple:
+                            nc = "   ";
+                            cp = " X ";
+                            cyd = "   ";
+                            break;
+
+                        case AuditCalifications.CumpleYDocumenta:
+                            nc = "   ";
+                            cp = "   ";
+                            cyd = " X ";
+                            break;
+
+                    }
+
+                    model.Add(new AuditedResultVM
+                    {
+                        ID = item.ID,
+                        Chapter = _gestorHelper.GetAuditChapter(item.AuditItem.AuditChapter),
+                        Requisite = _empresaContext.Normas.Find(item.AuditItem.NormaID).Verification.ToUpper(),
+                        RequisiteItem = ($"{order}. {item.AuditItem.Name}").Trim(),
+                        NC = nc,
+                        CP = cp,
+                        CYD = cyd
+                    });
+                }
             }
             return model;
         }
