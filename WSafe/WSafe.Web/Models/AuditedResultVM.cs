@@ -16,5 +16,6 @@ namespace WSafe.Web.Models
         public string NC { get; set; }
         public string CP { get; set; }
         public string CYD { get; set; }
+        public int OrderResult { get; set; }
     }
 }

@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -363,10 +364,17 @@ namespace WSafe.Web.Controllers
                 Random random = new Random();
                 var filename = "Reporte auditoría interna" + random.Next(1, 100) + ".Pdf";
                 var filePathName = path + filename;
-                var result = await _empresaContext.Audits
-                    .Include(ar => ar.AuditedResults)
-                    .FirstOrDefaultAsync(i => i.ID == id);
-                var model = _converterHelper.ToAuditedResultVM(result);
+                var list = (from a in _empresaContext.AuditedResults
+                    where a.AuditID == id
+                    orderby a.AuditItem.ID
+                    select new AuditedResult
+                    {
+                        ID = a.ID,
+                        AuditID = a.AuditID,
+                        AuditItem = a.AuditItem,
+                        Result = a.Result
+                    }).ToList();
+                var model = _converterHelper.ToAuditedResultVM(list);
                 var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == 13);
                 ViewBag.formato = document.Formato;
                 ViewBag.estandar = document.Estandar;
@@ -408,7 +416,7 @@ namespace WSafe.Web.Controllers
             }
             catch (Exception ex)
             {
-                return View("Error", new HandleErrorInfo(ex, "Recomendations", "Index"));
+                return View("Error", new HandleErrorInfo(ex, "Audits", "Index"));
             }
         }
     }
