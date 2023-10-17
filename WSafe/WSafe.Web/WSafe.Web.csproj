@@ -487,9 +487,9 @@
     <Compile Include="Helpers\Implements\ConverterHelper.cs" />
     <Compile Include="Helpers\Implements\GestorHelper.cs" />
     <Compile Include="Helpers\Implements\IndicadorHelper.cs" />
-    <Compile Include="Migrations\202310121913407_UpdateAuditResult.cs" />
-    <Compile Include="Migrations\202310121913407_UpdateAuditResult.designer.cs">
-      <DependentUpon>202310121913407_UpdateAuditResult.cs</DependentUpon>
+    <Compile Include="Migrations\202310172221390_UpdatedDB2.cs" />
+    <Compile Include="Migrations\202310172221390_UpdatedDB2.designer.cs">
+      <DependentUpon>202310172221390_UpdatedDB2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
@@ -1221,8 +1221,8 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202310121913407_UpdateAuditResult.resx">
-      <DependentUpon>202310121913407_UpdateAuditResult.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202310172221390_UpdatedDB2.resx">
+      <DependentUpon>202310172221390_UpdatedDB2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

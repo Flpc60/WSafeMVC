@@ -2106,19 +2106,18 @@ namespace WSafe.Domain.Helpers.Implements
 
             return model;
         }
-        public IEnumerable<AuditedResultVM> ToAuditedResultVM(Audit audit)
+        public IEnumerable<AuditedResultVM> ToAuditedResultVM(IEnumerable<AuditedResult> audit)
         {
             var model = new List<AuditedResultVM>();
 
-            foreach (var item in audit.AuditedResults)
+            foreach (var audited in audit)
             {
                 // TODO
                 int order = 0;
-                var chapter = item.AuditItem.AuditChapter;
-                while (item.AuditItem.AuditChapter == chapter)
+                var chapter = audited.AuditItem.AuditChapter;
+                foreach (var item in audit.Where(ch => ch.AuditItem.AuditChapter == chapter))
                 {
                     order++;
-
                     var nc = "   ";
                     var cp = " X ";
                     var cyd = "   ";
@@ -2154,7 +2153,8 @@ namespace WSafe.Domain.Helpers.Implements
                         RequisiteItem = ($"{order}. {item.AuditItem.Name}").Trim(),
                         NC = nc,
                         CP = cp,
-                        CYD = cyd
+                        CYD = cyd,
+                        OrderResult = order
                     });
                 }
             }
