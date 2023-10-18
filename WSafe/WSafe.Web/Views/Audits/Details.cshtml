@@ -1,42 +1,96 @@
-﻿@model WSafe.Web.Models.AuditListVM
+﻿@model IEnumerable<WSafe.Web.Models.AuditedResultVM>
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Sistema de Gestión de la Seguridad y Salud en el Trabajo";
+    var fecha = DateTime.Today;
+    Layout = null;
 }
 
-<h2>Details</h2>
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryunobtrusive")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryui")
+@Scripts.Render("~/bundles/bootstrap")
+
+@Html.Partial("_CabezoteFormat")
+
+<div class="container" style="display:flex">
+    <div>
+        <p style="text-align:center; background-color:grey">
+            <strong><b>REPORTE DE RESULTADOS DE LA AUDITORÍA INTERNA : @ViewBag.auditFecha</b></strong>
+        </p>
+        <p style="text-align:center">
+            TRABAJADOR RESPONSABLE: @ViewBag.responsable    PROCESO: @ViewBag.process
+        </p>
+    </div>
+</div>
 
 <div>
-    <h4>AuditListVM</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.AuditDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AuditDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Process)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Process)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Responsable)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Responsable)
-        </dd>
-
-    </dl>
+    <p style="text-align:center; background-color:grey">
+        <strong><b>REQUISITOS DEL SISTEMA DE GESTIÓN DE LA SEGURIDAD Y SALUD EN EL TRABAJO    NC    CP    CYD</b></strong>
+    </p>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<div class="container">
+
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>
+                    DETALLE AUDITORÍA
+                </th>
+                <th>
+                    RESULTADOS
+                </th>
+            </tr>
+        </thead>
+        <tbody class="tbody">
+            @foreach (var item in Model)
+            {
+                if (item.OrderResult == 1)
+                {
+
+                    <div>
+                        <p style="text-align:center; background-color:grey">
+                            <strong><b>@Html.DisplayFor(modelItem => item.Chapter)</b></strong>
+                        </p>
+                        <p></p>
+                    </div>
+                    <div>
+                        <p style="text-align:center">
+                            <strong><b>@Html.DisplayFor(modelItem => item.Requisite):</b></strong>
+                        </p>
+                    </div>
+                }
+                else
+                {
+                    <tr>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RequisiteItem)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NC)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CP)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CYD)
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="container">
+    <div>
+        <p style="text-align:center; background-color:grey">
+            AUDITOR: @ViewBag.auditer
+        </p>
+    </div>
+</div>

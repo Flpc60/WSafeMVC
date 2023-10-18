@@ -1,8 +1,10 @@
 ﻿using Rotativa;
 using System;
+using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.Entity;
 using System.Diagnostics;
+using System.IdentityModel.Configuration;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -31,12 +33,14 @@ namespace WSafe.Web.Controllers
         private readonly IComboHelper _comboHelper;
         private readonly IConverterHelper _converterHelper;
         private readonly IChartHelper _chartHelper;
-        public AuditsController(EmpresaContext empresaContext, IComboHelper comboHelper, IConverterHelper converterHelper, IChartHelper chartHelper)
+        private readonly IGestorHelper _gestorHelper;
+        public AuditsController(EmpresaContext empresaContext, IComboHelper comboHelper, IConverterHelper converterHelper, IChartHelper chartHelper, IGestorHelper gestorHelper)
         {
             _empresaContext = empresaContext;
             _comboHelper = comboHelper;
             _converterHelper = converterHelper;
             _chartHelper = chartHelper;
+            _gestorHelper = gestorHelper;
         }
 
         [AuthorizeUser(operation: 1, component: 2)]
@@ -369,13 +373,20 @@ namespace WSafe.Web.Controllers
                     .Include(a => a.AuditItem)
                     .OrderBy(a => a.AuditItem.AuditChapter)
                     .ToListAsync();
-                var model = _converterHelper.ToAuditedResultVM(list);
+                IEnumerable<AuditedResultVM> model = _converterHelper.ToAuditedResultVM(list);
+
                 var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == 13);
                 ViewBag.formato = document.Formato;
                 ViewBag.estandar = document.Estandar;
                 ViewBag.titulo = document.Titulo;
                 ViewBag.version = document.Version;
                 ViewBag.fecha = DateTime.Now;
+                var audit = await _empresaContext.Audits.FindAsync(id);
+                ViewBag.auditFecha = audit.AuditDate;
+                ViewBag.process = _gestorHelper.GetWorkArea(audit.Process);
+                ViewBag.responsable = _empresaContext.Trabajadores.Find(audit.WorkerID).NombreCompleto;
+                var auditer = _empresaContext.Auditers.Find(audit.AuditerID);
+                ViewBag.auditer = auditer.FirstName.ToString() + " " + auditer.LastName.ToString();
                 var report = new ViewAsPdf("Details");
                 report.Model = model;
                 report.FileName = filePathName;
