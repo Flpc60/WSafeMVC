@@ -364,16 +364,11 @@ namespace WSafe.Web.Controllers
                 Random random = new Random();
                 var filename = "Reporte auditoría interna" + random.Next(1, 100) + ".Pdf";
                 var filePathName = path + filename;
-                var list = (from a in _empresaContext.AuditedResults
-                    where a.AuditID == id
-                    orderby a.AuditItem.ID
-                    select new AuditedResult
-                    {
-                        ID = a.ID,
-                        AuditID = a.AuditID,
-                        AuditItem = a.AuditItem,
-                        Result = a.Result
-                    }).ToList();
+                var list = await _empresaContext.AuditedResults
+                    .Where(a => a.AuditID == id)
+                    .Include(a => a.AuditItem)
+                    .OrderBy(a => a.AuditItem.AuditChapter)
+                    .ToListAsync();
                 var model = _converterHelper.ToAuditedResultVM(list);
                 var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == 13);
                 ViewBag.formato = document.Formato;
