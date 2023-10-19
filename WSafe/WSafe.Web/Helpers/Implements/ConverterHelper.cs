@@ -2118,24 +2118,35 @@ namespace WSafe.Domain.Helpers.Implements
                 int order = 0;
                 var chapter = group.Key;
                 var nameChapter = _gestorHelper.GetAuditChapter(chapter);
+                var calification = "NC";
 
                 foreach (var audited in group)
                 {
                     order++;
                     var requisite = _empresaContext.Normas.Find(audited.AuditItem.NormaID).Verification.ToUpper();
-                    var nc = (audited.Result == AuditCalifications.NoCumple) ? " X " : "   ";
-                    var cp = (audited.Result == AuditCalifications.Cumple) ? " X " : "   ";
-                    var cyd = (audited.Result == AuditCalifications.CumpleYDocumenta) ? " X " : "   ";
+
+                    switch (audited.Result)
+                    {
+                        case AuditCalifications.NoCumple:
+                            calification = "NC";
+                            break;
+                        case AuditCalifications.Cumple:
+                            calification = "CP";
+                            break;
+                        case AuditCalifications.CumpleYDocumenta:
+                            calification = "CYD";
+                            break;
+                        default:
+                            break;
+                    }
 
                     model.Add(new AuditedResultVM
                     {
                         ID = audited.ID,
                         Chapter = nameChapter,
                         Requisite = requisite,
-                        RequisiteItem = $"{order}. {audited.AuditItem.Name}".Trim(),
-                        NC = nc,
-                        CP = cp,
-                        CYD = cyd,
+                        RequisiteItem = $"{order}. {audited.AuditItem.Name} ?: ",
+                        Calification = calification,
                         OrderResult = order
                     });
                 }
