@@ -28,63 +28,49 @@
 </div>
 
 <div>
-    <p style="text-align:center; background-color:grey">
-        <strong><b>REQUISITOS DEL SISTEMA DE GESTIÓN DE LA SEGURIDAD Y SALUD EN EL TRABAJO    NC    CP    CYD</b></strong>
+    <p style="text-align:right; background-color:grey">
+        <strong><b>REQUISITOS DEL SISTEMA DE GESTIÓN DE LA SEGURIDAD Y SALUD EN EL TRABAJO    | NC |   | CP |  | CYD |</b></strong>
     </p>
 </div>
 
 <div class="container">
 
-    <table class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>
-                    DETALLE AUDITORÍA
-                </th>
-                <th>
-                    RESULTADOS
-                </th>
-            </tr>
-        </thead>
-        <tbody class="tbody">
-            @foreach (var item in Model)
-            {
-                if (item.OrderResult == 1)
-                {
+    @foreach (var item in Model)
+    {
+        if (item.OrderResult == 1)
+        {
+            <div>
+                <p style="text-align:center; background-color:grey">
+                    <strong><b> @Html.DisplayFor(modelItem => item.Chapter) </b></strong>
+                </p>
+                <p></p>
+            </div>
+            <div>
+                <p style="text-align:center">
+                    <strong><b> @Html.DisplayFor(modelItem => item.Requisite):</b></strong>
+                </p>
+            </div>
+        }
 
-                    <div>
-                        <p style="text-align:center; background-color:grey">
-                            <strong><b>@Html.DisplayFor(modelItem => item.Chapter)</b></strong>
-                        </p>
-                        <p></p>
-                    </div>
-                    <div>
-                        <p style="text-align:center">
-                            <strong><b>@Html.DisplayFor(modelItem => item.Requisite):</b></strong>
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <tr>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.RequisiteItem)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.NC)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CP)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CYD)
-                        </td>
-                    </tr>
-                }
-            }
-        </tbody>
-    </table>
+        <table class="table table-bordered table-hover">
+            <tbody class="tbody">
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RequisiteItem)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NC)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CP)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CYD)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }
 </div>
 
 <div class="container">
