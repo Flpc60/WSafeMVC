@@ -314,6 +314,8 @@ namespace WSafe.Web.Controllers
                 decimal standardResult = 0;
                 decimal aplicationResult = 0;
                 decimal noAplicaResult = 0;
+                decimal standardValor = 0;
+
                 var list1 = (from c in _empresaContext.Califications
                              join n in _empresaContext.Normas on c.NormaID equals n.ID
                              where c.EvaluationID == id
@@ -341,6 +343,7 @@ namespace WSafe.Web.Controllers
                 foreach (var item in list1)
                 {
                     standardResult += item.Valoration;
+                    standardValor += item.Valor;
                     if (item.Justify) { noAplicaResult += item.Valoration; }
                     list2.Add(new CalificationVM
                     {
@@ -371,8 +374,10 @@ namespace WSafe.Web.Controllers
                 var aplica = total - noAplica;
                 aplicationResult = standardResult - noAplicaResult;
                 ValorationCategory category = ValorationCategory.ACEPTABLE;
+                decimal standardValoration = standardResult / standardValor * 100;
+                decimal aplicationValoration = aplicationResult / standardValor * 100;
 
-                switch (standardResult)
+                switch (standardValoration)
                 {
                     case decimal v when (v > 85):
                         category = ValorationCategory.ACEPTABLE;
@@ -382,7 +387,7 @@ namespace WSafe.Web.Controllers
                         category = ValorationCategory.MODERADAMENTE_ACEPTABLE;
                         break;
 
-                    case decimal v when (v < 60):
+                    case decimal v when (v <= 60):
                         category = ValorationCategory.CRITICO;
                         break;
                 }
@@ -392,8 +397,8 @@ namespace WSafe.Web.Controllers
                 model.Cumple = cumple;
                 model.NoCumple = noCumple;
                 model.NoAplica = noAplica;
-                model.StandarsResult = standardResult;
-                model.AplicationsResult = aplicationResult;
+                model.StandarsResult = standardValoration;
+                model.AplicationsResult = aplicationValoration;
                 model.Category = category;
                 model.ClientID = (int)Session["clientID"];
                 model.OrganizationID = (int)Session["orgID"];
