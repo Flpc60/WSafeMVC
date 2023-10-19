@@ -31,6 +31,9 @@
     <p style="text-align:right; background-color:grey">
         <strong><b>REQUISITOS DEL SISTEMA DE GESTIÓN DE LA SEGURIDAD Y SALUD EN EL TRABAJO    | NC |   | CP |  | CYD |</b></strong>
     </p>
+    <p style="text-align:right; background-color:grey">
+        <strong><b>| NC: NO CUMPLE |    | CP: CUMPLE PARCIALMENTE |     | CYD: CUMPLE Y DOCUMENTA |</b></strong>
+    </p>
 </div>
 
 <div class="container">
@@ -58,14 +61,8 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.RequisiteItem)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NC)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CP)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CYD)
+                    <td style="text-align:left">
+                        <strong><b> @Html.DisplayFor(modelItem => item.Calification)</b></strong>
                     </td>
                 </tr>
             </tbody>

@@ -13,9 +13,7 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string RequisiteItem { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public string NC { get; set; }
-        public string CP { get; set; }
-        public string CYD { get; set; }
+        public string Calification { get; set; }
         public int OrderResult { get; set; }
     }
 }
