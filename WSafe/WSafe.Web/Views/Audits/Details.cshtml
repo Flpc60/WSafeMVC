@@ -6,6 +6,15 @@
     Layout = null;
 }
 
+<style>
+
+    .requisite-cell
+    {
+        white-space: nowrap; /* Evita que el texto se divida en múltiples líneas */
+    }
+
+</style>
+
 @Styles.Render("~/Content/css")
 @Scripts.Render("~/bundles/modernizr")
 @Scripts.Render("~/bundles/jqueryval")
@@ -22,16 +31,16 @@
             <strong><b>REPORTE DE RESULTADOS DE LA AUDITORÍA INTERNA : @ViewBag.auditFecha</b></strong>
         </p>
         <p style="text-align:center">
-            TRABAJADOR RESPONSABLE: @ViewBag.responsable    PROCESO: @ViewBag.process
+            TRABAJADOR RESPONSABLE: @ViewBag.responsable                             PROCESO: @ViewBag.process
         </p>
     </div>
 </div>
 
 <div>
-    <p style="text-align:right; background-color:grey">
+    <p style="text-align:center; background-color:grey">
         <strong><b>REQUISITOS DEL SISTEMA DE GESTIÓN DE LA SEGURIDAD Y SALUD EN EL TRABAJO    | NC |   | CP |  | CYD |</b></strong>
     </p>
-    <p style="text-align:right; background-color:grey">
+    <p style="text-align:center; background-color:grey">
         <strong><b>| NC: NO CUMPLE |    | CP: CUMPLE PARCIALMENTE |     | CYD: CUMPLE Y DOCUMENTA |</b></strong>
     </p>
 </div>
@@ -58,11 +67,18 @@
         <table class="table table-bordered table-hover">
             <tbody class="tbody">
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.RequisiteItem)
-                    </td>
-                    <td style="text-align:left">
-                        <strong><b> @Html.DisplayFor(modelItem => item.Calification)</b></strong>
+                    <td class="requisite-cell">
+                        @{
+                            var requisiteItem = Html.DisplayFor(modelItem => item.RequisiteItem).ToString().Trim();
+                            var calification = Html.DisplayFor(modelItem => item.Calification).ToString();
+
+                            if (requisiteItem.Length > 176)
+                            {
+                                requisiteItem = requisiteItem.Substring(0, 176);
+                            }
+
+                            @Html.Raw(requisiteItem)  <strong><b>@calification</b></strong>
+                        }
                     </td>
                 </tr>
             </tbody>
