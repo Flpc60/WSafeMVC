@@ -22,7 +22,8 @@ namespace WSafe.Web.Controllers
 {
     public class AuditsController : Controller
     {
-        //  Recomendaciones médicas en el SG-SST
+        // auditorías internas en el SG-SST
+
         private int _clientID;
         private int _orgID;
         private string _year;
