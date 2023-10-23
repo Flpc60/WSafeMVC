@@ -91,5 +91,6 @@ namespace WSafe.Web.Models
 
         public System.Data.Entity.DbSet<WSafe.Web.Models.RecomendationVM> RecomendationVMs { get; set; }
 
+        public System.Data.Entity.DbSet<WSafe.Web.Models.AuditedCreateVM> AuditedCreateVMs { get; set; }
     }
 }

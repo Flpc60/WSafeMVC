@@ -26,5 +26,9 @@ namespace WSafe.Domain.Data.Entities
         [Display(Name = "IDONEIDAD")]
         [MaxLength(100)]
         public string Idoneidad { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public int OrganizationID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public int ClientID { get; set; }
     }
 }

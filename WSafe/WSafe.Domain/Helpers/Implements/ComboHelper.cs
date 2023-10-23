@@ -512,5 +512,23 @@ namespace WSafe.Domain.Helpers.Implements
 
             return list;
         }
+        public IEnumerable<SelectListItem> GetComboAuditers(int org)
+        {
+            var list = _empresaContext.Trabajadores.Where(t => t.OrganizationID == org).Select(t => new SelectListItem
+            {
+                Text = t.Nombres + " " + t.PrimerApellido + " " + t.Documento,
+                Value = t.ID.ToString()
+            })
+                .OrderBy(t => t.Text)
+                .ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione un trabajador...)",
+                Value = "0"
+            });
+
+            return list;
+        }
     }
 }

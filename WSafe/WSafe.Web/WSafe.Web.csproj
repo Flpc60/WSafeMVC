@@ -491,6 +491,10 @@
     <Compile Include="Migrations\202310172221390_UpdatedDB2.designer.cs">
       <DependentUpon>202310172221390_UpdatedDB2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202310232026433_UpdateAuditer.cs" />
+    <Compile Include="Migrations\202310232026433_UpdateAuditer.designer.cs">
+      <DependentUpon>202310232026433_UpdateAuditer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -1223,6 +1227,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202310172221390_UpdatedDB2.resx">
       <DependentUpon>202310172221390_UpdatedDB2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310232026433_UpdateAuditer.resx">
+      <DependentUpon>202310232026433_UpdateAuditer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

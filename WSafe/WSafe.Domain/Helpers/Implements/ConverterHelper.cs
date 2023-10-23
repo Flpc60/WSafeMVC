@@ -2106,58 +2106,61 @@ namespace WSafe.Domain.Helpers.Implements
 
             return model;
         }
-        public IEnumerable<AuditedResultVM> ToAuditedResultVM(IEnumerable<AuditedResult> audit)
+
+        public IEnumerable<AuditedResultVM> ToAuditedResultVM(IEnumerable<AuditedResult> auditedResult)
         {
             var model = new List<AuditedResultVM>();
 
-            foreach (var audited in audit)
+            var groupedResults = auditedResult.GroupBy(a => a.AuditItem.AuditChapter);
+
+            foreach (var group in groupedResults)
             {
-                // TODO
                 int order = 0;
-                var chapter = audited.AuditItem.AuditChapter;
-                foreach (var item in audit.Where(ch => ch.AuditItem.AuditChapter == chapter))
+                var chapter = group.Key;
+                var nameChapter = _gestorHelper.GetAuditChapter(chapter);
+                var calification = "NC";
+
+                foreach (var audited in group)
                 {
                     order++;
-                    var nc = "   ";
-                    var cp = " X ";
-                    var cyd = "   ";
+                    var requisite = _empresaContext.Normas.Find(audited.AuditItem.NormaID).Verification.ToUpper();
 
-                    switch (item.Result)
+                    switch (audited.Result)
                     {
-
                         case AuditCalifications.NoCumple:
-                            nc = " X ";
-                            cp = "   ";
-                            cyd = "   ";
+                            calification = "NC";
                             break;
-
                         case AuditCalifications.Cumple:
-                            nc = "   ";
-                            cp = " X ";
-                            cyd = "   ";
+                            calification = "CP";
                             break;
-
                         case AuditCalifications.CumpleYDocumenta:
-                            nc = "   ";
-                            cp = "   ";
-                            cyd = " X ";
+                            calification = "CYD";
                             break;
-
+                        default:
+                            break;
                     }
 
                     model.Add(new AuditedResultVM
                     {
-                        ID = item.ID,
-                        Chapter = _gestorHelper.GetAuditChapter(item.AuditItem.AuditChapter),
-                        Requisite = _empresaContext.Normas.Find(item.AuditItem.NormaID).Verification.ToUpper(),
-                        RequisiteItem = ($"{order}. {item.AuditItem.Name}").Trim(),
-                        NC = nc,
-                        CP = cp,
-                        CYD = cyd,
+                        ID = audited.ID,
+                        Chapter = nameChapter,
+                        Requisite = requisite,
+                        RequisiteItem = $"{order}. {audited.AuditItem.Name} ?: ",
+                        Calification = calification,
                         OrderResult = order
                     });
                 }
             }
+
+            return model;
+        }
+        public AuditedCreateVM ToAuditedCreateVMNew(int org)
+        {
+            var model = new AuditedCreateVM
+            {
+                Workers = _comboHelper.GetWorkersFull(org),
+                AuditDate = DateTime.Now,
+            };
             return model;
         }
     }

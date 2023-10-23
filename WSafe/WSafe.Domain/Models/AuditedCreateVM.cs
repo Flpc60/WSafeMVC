@@ -18,10 +18,16 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int AuditerID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "AUDITORES")]
+        [Display(Name = "AUDITOR")]
         public IEnumerable<SelectListItem> Auditers { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "PROCESOS / AREAS A AUDITAR")]
         public WorkAreas AuditProcess { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "RESPONSABLE PROCESO AUDITADO")]
+        public int WorkerID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "RESPONSABLE")]
+        public IEnumerable<SelectListItem> Workers { get; set; }
     }
 }
