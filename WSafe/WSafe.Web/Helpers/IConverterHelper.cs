@@ -65,5 +65,6 @@ namespace WSafe.Domain.Helpers
         _DetailsRecomendationVM ToRecomendationVMFull(Recomendation recomendation, int id);
         IEnumerable<AuditListVM> ToAuditListVM(IEnumerable<Audit> listAudit);
         IEnumerable<AuditedResultVM> ToAuditedResultVM(IEnumerable<AuditedResult> auditedResult);
+        AuditedCreateVM ToAuditedCreateVMNew(int org);
     }   
 }

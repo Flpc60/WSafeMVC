@@ -2154,5 +2154,15 @@ namespace WSafe.Domain.Helpers.Implements
 
             return model;
         }
+        public AuditedCreateVM ToAuditedCreateVMNew(int org)
+        {
+            var model = new AuditedCreateVM
+            {
+                Workers = _comboHelper.GetWorkersFull(org),
+                Auditers = _comboHelper.GetComboAuditers(org),
+                AuditDate = DateTime.Now,
+            };
+            return model;
+        }
     }
 }

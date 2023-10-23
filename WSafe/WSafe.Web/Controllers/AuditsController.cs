@@ -69,7 +69,7 @@ namespace WSafe.Web.Controllers
         public ActionResult Create()
         {
             _orgID = (int)Session["orgID"];
-            var model = _converterHelper.ToRecomendationVMNew(_orgID);
+            var model = _converterHelper.ToAuditedCreateVMNew(_orgID);
 
             return View(model);
         }

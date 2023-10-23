@@ -1,54 +1,80 @@
-﻿@model WSafe.Web.Models.AuditListVM
+﻿@model WSafe.Web.Models.AuditedCreateVM
 
 @{
-    ViewBag.Title = "Create";
+    var title = "GESTIONAR AUDITORIAS INTERNAS";
 }
 
-<h2>Create</h2>
+<style>
+    .centerText {
+        text-align: center
+    }
+</style>
 
+<div class="container mt-5">
+    <h4 class="centerText">@title</h4>
+    <hr />
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>AuditListVM</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.AuditDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.AuditDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AuditDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Process, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Process, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Process, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Responsable, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Responsable, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Responsable, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+    <div class="row justify-content-between">
+        <div class="col-md-8">
+            <div class="btn-group">
+                <button type="button" class="btn btn-success btn-lg" id="prepare" title="doble click para cerrar la ventana">
+                    <i class="fas fa-list-check"></i> PREPARACIÓN
+                </button>
+                <button type="button" class="btn btn-success btn-lg" id="execute" title="doble click para cerrar la ventana">
+                    <i class="fas fa-tasks"></i> EJECUCIÓN
+                </button>
+                <button type="button" class="btn btn-success btn-lg" id="reporte" title="doble click para cerrar la ventana">
+                    <i class="fas fa-file-chart-column"></i> INFORME
+                </button>
+                <button type="button" class="btn btn-success btn-lg" id="actions" title="doble click para cerrar la ventana">
+                    <i class="fas fa-message-captions"></i> ACCIONES
+                </button>
+                <button type="button" class="btn btn-success btn-lg" id="seguimients" title="doble click para cerrar la ventana">
+                    <i class="fas fa-user-magnifying-glass"></i> SEGUIMIENTO
+                </button>
             </div>
         </div>
     </div>
-}
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    <div class="row mt-5">
+        <div class="col-md-8">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <h4 class="mb-3">PREPARACIÓN AUDITORÍA INTERNA</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.AuditDate, htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.AuditDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AuditDate, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.AuditerID, htmlAttributes: new { @class = "form-label" })
+                    @Html.DropDownListFor(model => model.AuditerID, Model.Auditers, new { @class = "form-select" })
+                    @Html.ValidationMessageFor(model => model.AuditerID, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.AuditProcess, htmlAttributes: new { @class = "form-label" })
+                    @Html.EnumDropDownListFor(model => model.AuditProcess, htmlAttributes: new { @class = "form-select" })
+                    @Html.ValidationMessageFor(model => model.AuditProcess, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.WorkerID, htmlAttributes: new { @class = "form-label" })
+                    @Html.DropDownListFor(model => model.WorkerID, Model.Workers, new { @class = "form-select" })
+                    @Html.ValidationMessageFor(model => model.WorkerID, "", new { @class = "text-danger" })
+                </div>
+
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                @Html.ActionLink("Listar", "Index", null, new { @class = "btn btn-secondary" })
+            }
+        </div>
+    </div>
 </div>
 
 @section Scripts {
