@@ -19,7 +19,6 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "RESPONSABLE PROCESO AUDITADO")]
         public int WorkerID { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "INFORME AUDITORÍA")]
         [MaxLength(100)]
         public string AuditDocument { get; set; }

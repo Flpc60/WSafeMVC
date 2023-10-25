@@ -29,5 +29,11 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "RESPONSABLE")]
         public IEnumerable<SelectListItem> Workers { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public int OrganizationID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public int ClientID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public int UserID { get; set; }
     }
 }

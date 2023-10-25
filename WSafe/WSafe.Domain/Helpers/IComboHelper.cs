@@ -33,6 +33,6 @@ namespace WSafe.Domain.Helpers
         IEnumerable<SelectListItem> GetCargosAll(int orgID);
         IEnumerable<SelectListItem> GetPatologiesAll();
         IEnumerable<SelectListItem> GetWorkersFull(int orgID);
-
+        IEnumerable<SelectListItem> GetComboAuditers(int org);
     }
 }

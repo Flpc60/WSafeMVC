@@ -17,6 +17,7 @@ using WSafe.Domain.Repositories.Implements;
 using WSafe.Domain.Services.Implements;
 using WSafe.Web.Filters;
 using WSafe.Web.Models;
+using static Antlr4.Runtime.Atn.SemanticContext;
 
 namespace WSafe.Web.Controllers
 {
@@ -76,7 +77,7 @@ namespace WSafe.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,WorkerID,Contingencia,TipoReintegro,CargoID,PatologyID,EmisionDate,Emision,Entity,ReceptionDate,Description,Type,Duration,InitialDate,FinalDate,Compromise,Controls,Investigation,EPP,Tasks,WorkerCompromise,Observation,CoordinadorID")] RecomendationVM model)
+        public async Task<ActionResult> Create([Bind(Include = "ID,AuditDate,AuditerID,AuditProcess,WorkerID,")] AuditedCreateVM model)
         {
             try
             {
@@ -90,26 +91,25 @@ namespace WSafe.Web.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    if (model.ID == 0 && model.CoordinadorID != 0)
+                    if (model.ID == 0)
                     {
-                        var consulta = new RecomendationService(new RecomendationRepository(_empresaContext));
-                        var recomendation = await _converterHelper.ToRecomendationAsync(model, true);
+                        var consulta = new AuditService(new AuditRepository(_empresaContext));
+                        var recomendation = await _converterHelper.ToAuditAsync(model, true);
                         var saved = await consulta.Insert(recomendation);
                         if (saved != null)
                         {
-                            return RedirectToAction("Index");
+                            return View("Create");
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                return View("Error", new HandleErrorInfo(ex, "Recomendations", "Index"));
+                return View("Error", new HandleErrorInfo(ex, "Audits", "Index"));
             }
 
             model.Workers = _comboHelper.GetWorkersFull(_orgID);
-            model.Cargos = _comboHelper.GetCargosAll(_orgID);
-            model.Patologies = _comboHelper.GetPatologiesAll();
+            model.Auditers = _comboHelper.GetComboAuditers(_orgID);
             ViewBag.message = "Faltan campos por diligenciar del formulario !!";
             return View(model);
         }
