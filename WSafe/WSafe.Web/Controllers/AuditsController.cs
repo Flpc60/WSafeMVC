@@ -71,7 +71,7 @@ namespace WSafe.Web.Controllers
         {
             _orgID = (int)Session["orgID"];
             var model = _converterHelper.ToAuditedCreateVMNew(_orgID);
-
+            ViewBag.AuditID = model.ID;
             return View(model);
         }
 
@@ -88,6 +88,8 @@ namespace WSafe.Web.Controllers
                 model.ClientID = (int)Session["clientID"];
                 model.OrganizationID = (int)Session["orgID"];
                 model.UserID = (int)Session["userID"];
+                model.Workers = _comboHelper.GetWorkersFull(_orgID);
+                model.Auditers = _comboHelper.GetComboAuditers(_orgID);
 
                 if (ModelState.IsValid)
                 {
@@ -98,7 +100,8 @@ namespace WSafe.Web.Controllers
                         var saved = await consulta.Insert(recomendation);
                         if (saved != null)
                         {
-                            return View("Create");
+                            ViewBag.AuditID = _empresaContext.Audits.OrderByDescending(a => a.ID).First().ID;
+                            return View(model);
                         }
                     }
                 }
@@ -108,8 +111,6 @@ namespace WSafe.Web.Controllers
                 return View("Error", new HandleErrorInfo(ex, "Audits", "Index"));
             }
 
-            model.Workers = _comboHelper.GetWorkersFull(_orgID);
-            model.Auditers = _comboHelper.GetComboAuditers(_orgID);
             ViewBag.message = "Faltan campos por diligenciar del formulario !!";
             return View(model);
         }
@@ -424,6 +425,57 @@ namespace WSafe.Web.Controllers
             catch (Exception ex)
             {
                 return View("Error", new HandleErrorInfo(ex, "Audits", "Index"));
+            }
+        }
+
+        public JsonResult GetQuestionsChapter(int chapter)
+        {
+            try
+            {
+                var list = (from a in _empresaContext.AuditItems
+                            join n in _empresaContext.Normas on a.NormaID equals n.ID
+                            where (int)a.AuditChapter == chapter
+                            select new
+                            {
+                                ID = a.ID,
+                                Name = a.Name,
+                                Standard = n.Name,
+                                Chapter = a.AuditChapter
+                            }
+                ).ToList();
+
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                var message = "La consulta NO se ha realizado exitosamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CreateAuditedResult(IEnumerable<AuditedResult> model)
+        {
+            try
+            {
+
+                // Actualizar la BD
+                //PlanActivity plan = await _empresaContext.PlanActivities.FindAsync(model.ID);
+                if (ModelState.IsValid)
+                {
+                    foreach (var item in model)
+                    {
+                    }
+                }
+                _empresaContext.Entry(model).State = EntityState.Modified;
+                await _empresaContext.SaveChangesAsync();
+                var message = "La actualización se ha realizado exitosamente !!";
+                return Json(new { data = model, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                var message = "La actualización NO se ha realizado exitosamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
     }

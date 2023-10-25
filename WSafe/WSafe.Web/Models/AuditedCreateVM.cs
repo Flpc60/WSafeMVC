@@ -23,7 +23,7 @@ namespace WSafe.Web.Models
         [Display(Name = "PROCESOS / AREAS A AUDITAR")]
         public WorkAreas AuditProcess { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "RESPONSABLE PROCESO AUDITADO")]
+        [Display(Name = "RESPONSABLE")]
         public int WorkerID { get; set; }
         public IEnumerable<SelectListItem> Workers { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
