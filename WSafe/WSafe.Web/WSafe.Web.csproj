@@ -495,6 +495,10 @@
     <Compile Include="Migrations\202310232026433_UpdateAuditer.designer.cs">
       <DependentUpon>202310232026433_UpdateAuditer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202310242134571_Updateuser.cs" />
+    <Compile Include="Migrations\202310242134571_Updateuser.designer.cs">
+      <DependentUpon>202310242134571_Updateuser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -970,6 +974,7 @@
     <Content Include="Views\Audits\Details.cshtml" />
     <Content Include="Views\Audits\Edit.cshtml" />
     <Content Include="Views\Audits\Index.cshtml" />
+    <Content Include="Views\Shared\_EditAudit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1230,6 +1235,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202310232026433_UpdateAuditer.resx">
       <DependentUpon>202310232026433_UpdateAuditer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310242134571_Updateuser.resx">
+      <DependentUpon>202310242134571_Updateuser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

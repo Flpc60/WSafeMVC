@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace WSafe.Domain.Data.Entities
 {
@@ -22,5 +23,8 @@ namespace WSafe.Domain.Data.Entities
         public int OrganizationID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         public int ClientID { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime RegisterDate { get; set; }
     }
 }

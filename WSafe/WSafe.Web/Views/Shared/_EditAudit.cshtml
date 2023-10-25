@@ -1,0 +1,67 @@
+﻿@model WSafe.Web.Models.AuditedCreateVM
+
+<div class="container" style="background-color:azure; padding:20px;">
+
+    <div class="row">
+
+        <hr class="mt-4">
+        <h4 style="text-align:center">PREPARACIÓN DE AUDITORIAS INTERNAS</h4>
+        <hr class="mt-4">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.AuditDate, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-7 col-sm-10">
+                    @Html.EditorFor(model => model.AuditDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AuditDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.AuditerID, htmlAttributes: new { @class = "form-label" })
+                <div class="col-md-9 col-sm-10">
+                    @Html.DropDownListFor(model => model.AuditerID, Model.Auditers, new { @class = "form-select" })
+                    @Html.ValidationMessageFor(model => model.AuditerID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.AuditProcess, htmlAttributes: new { @class = "form-label" })
+                <div class="col-md-7 col-sm-10">
+                    @Html.EnumDropDownListFor(model => model.AuditProcess, htmlAttributes: new { @class = "form-select" })
+                    @Html.ValidationMessageFor(model => model.AuditProcess, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="form-group">
+                @Html.LabelFor(model => model.WorkerID, htmlAttributes: new { @class = "form-label" })
+                <div class="col-md-8 col-sm-10">
+                    @Html.DropDownListFor(model => model.WorkerID, Model.Workers, new { @class = "form-select" })
+                    @Html.ValidationMessageFor(model => model.WorkerID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <div class="container">
+                    <input type="submit" value="Guardar" class="btn btn-success" />
+                    @Html.ActionLink("Listado auditorías", "Index", new { @class = "glyphicon glyphicon-plus" },
+                    new { @class = "btn btn-info" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <p style="color:red;font-size:18px;text-align:center"><strong>@ViewBag.message</strong></p>
+            </div>
+        </div>
+    </div>
+</div>

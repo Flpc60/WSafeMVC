@@ -514,9 +514,9 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public IEnumerable<SelectListItem> GetComboAuditers(int org)
         {
-            var list = _empresaContext.Trabajadores.Where(t => t.OrganizationID == org).Select(t => new SelectListItem
+            var list = _empresaContext.Auditers.Where(t => t.OrganizationID == org).Select(t => new SelectListItem
             {
-                Text = t.Nombres + " " + t.PrimerApellido + " " + t.Documento,
+                Text = $"{t.FirstName} {t.LastName} CC. {t.Document}",
                 Value = t.ID.ToString()
             })
                 .OrderBy(t => t.Text)
@@ -524,7 +524,7 @@ namespace WSafe.Domain.Helpers.Implements
 
             list.Insert(0, new SelectListItem
             {
-                Text = "(Seleccione un trabajador...)",
+                Text = "(Seleccione un auditor ...)",
                 Value = "0"
             });
 

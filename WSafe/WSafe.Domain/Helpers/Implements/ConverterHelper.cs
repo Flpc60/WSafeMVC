@@ -2159,9 +2159,25 @@ namespace WSafe.Domain.Helpers.Implements
             var model = new AuditedCreateVM
             {
                 Workers = _comboHelper.GetWorkersFull(org),
+                Auditers = _comboHelper.GetComboAuditers(org),
                 AuditDate = DateTime.Now,
             };
             return model;
+        }
+        public async Task<Audit> ToAuditAsync(AuditedCreateVM model, bool isNew)
+        {
+            var result = new Audit
+            {
+                ID = isNew ? 0 : model.ID,
+                AuditDate = DateTime.Now,
+                AuditerID = model.AuditerID,
+                Process = model.AuditProcess,
+                WorkerID = model.WorkerID,
+                OrganizationID = model.OrganizationID,
+                ClientID = model.ClientID,
+                UserID = model.UserID
+            };
+            return result;
         }
     }
 }

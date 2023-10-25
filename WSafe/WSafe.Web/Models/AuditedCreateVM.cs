@@ -16,9 +16,8 @@ namespace WSafe.Web.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime AuditDate { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public int AuditerID { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "AUDITOR")]
+        public int AuditerID { get; set; }
         public IEnumerable<SelectListItem> Auditers { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "PROCESOS / AREAS A AUDITAR")]
@@ -26,8 +25,12 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "RESPONSABLE PROCESO AUDITADO")]
         public int WorkerID { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "RESPONSABLE")]
         public IEnumerable<SelectListItem> Workers { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public int OrganizationID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public int ClientID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public int UserID { get; set; }
     }
 }
