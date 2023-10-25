@@ -7381,3 +7381,46 @@ function CreateRisk(unsafeactID) {
         }
     });
 }
+
+function auditedResult() {
+    $(document).ready(function () {
+        $('#auditChapter').change(function () {
+            var auditChapter = $(this).val();
+            $.ajax({
+                url: '/Audits/GetQuestionsChapter',
+                type: 'GET',
+                data: { chapter: auditChapter },
+                success: function (response) {
+                    response.forEach(function (response) {
+                        var html = '<div>' + response.Name + '</div>' +
+                            '<select class="respuesta">' +
+                            '<option value="NC">NC</option>' +
+                            '<option value="CP">CP</option>' +
+                            '<option value="CYD">CYD</option>' +
+                            '</select>';
+                        $('#auditContainer').append(html);
+                    });
+                }
+            });
+        });
+
+        $('#guardarRespuestas').click(function () {
+            // Aquí debes recopilar las respuestas del usuario y enviarlas al servidor para su almacenamiento
+            var respuestas = [];
+            $('.respuesta').each(function () {
+                respuestas.push($(this).val());
+            });
+
+            // Enviar respuestas al servidor usando Ajax
+            $.ajax({
+                url: '/Audits/CreateAuditedResult',
+                type: 'POST',
+                data: { respuestas: respuestas },
+                success: function (resultado) {
+                    // Manejar el resultado si es necesario
+                }
+            });
+        });
+    });
+
+}
