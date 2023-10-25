@@ -2,6 +2,7 @@
 
 @{
     var title = "GESTIONAR AUDITORIAS INTERNAS";
+    var auditID = ViewBag.AuditID;
 }
 
 <style>
@@ -23,19 +24,19 @@
         <div class="col-md-8">
             <div class="btn-group">
                 <button type="button" class="btn btn-success btn-lg" id="prepare" title="doble click para cerrar la ventana">
-                    <i class="fas fa-list-check"></i> PREPARACIÓN
+                    <i class="fa fa-list-check"></i> PREPARACIÓN
                 </button>
-                <button type="button" class="btn btn-success btn-lg" id="execute" title="doble click para cerrar la ventana">
-                    <i class="fas fa-tasks"></i> EJECUCIÓN
+                <button type="button" class="btn btn-success btn-lg" id="execute" title="doble click para cerrar la ventana" onclick="auditedResult()">
+                    <i class="fa fa-tasks"></i> EJECUCIÓN
                 </button>
                 <button type="button" class="btn btn-success btn-lg" id="report" title="doble click para cerrar la ventana">
-                    <i class="fas fa-file-chart-column"></i> INFORME
+                    <i class="fa fa-file-chart-column"></i> INFORME
                 </button>
                 <button type="button" class="btn btn-success btn-lg" id="actions" title="doble click para cerrar la ventana">
-                    <i class="fas fa-message-captions"></i> ACCIONES
+                    <i class="fa fa-message-captions"></i> ACCIONES
                 </button>
                 <button type="button" class="btn btn-success btn-lg" id="seguimients" title="doble click para cerrar la ventana">
-                    <i class="fas fa-user-magnifying-glass"></i> SEGUIMIENTO
+                    <i class="fa fa-user-magnifying-glass"></i> SEGUIMIENTO
                 </button>
             </div>
         </div>
@@ -47,14 +48,15 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <input type="hidden" id="auditID" name="auditID" value="@auditID"/>
 
-        <div class="tabPrepare">
-            @Html.Partial("_EditAudit")
-        </div>
-
+    <div class="tabPrepare">
+        @Html.Partial("_EditAudit")
     </div>
+
+</div>
 }
 
 @section Scripts {
@@ -64,6 +66,12 @@
 
         jQuery.noConflict();
         jQuery(document).ready(function ($) {
+
+            if (@auditID > 0) {
+                $("#btnSaveAudit").hide();
+            } else {
+                $("#btnSaveAudit").show();
+            }
 
             $('#prepare').click(function () {
                 $('.tabPrepare').css("display", "block");
