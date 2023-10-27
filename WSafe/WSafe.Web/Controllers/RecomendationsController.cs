@@ -3,7 +3,6 @@ using System;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -13,7 +12,6 @@ using WSafe.Domain.Repositories.Implements;
 using WSafe.Domain.Services.Implements;
 using WSafe.Web.Filters;
 using WSafe.Web.Models;
-using static Antlr4.Runtime.Atn.SemanticContext;
 
 namespace WSafe.Web.Controllers
 {
