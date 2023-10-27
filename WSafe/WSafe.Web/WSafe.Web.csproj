@@ -487,9 +487,9 @@
     <Compile Include="Helpers\Implements\ConverterHelper.cs" />
     <Compile Include="Helpers\Implements\GestorHelper.cs" />
     <Compile Include="Helpers\Implements\IndicadorHelper.cs" />
-    <Compile Include="Migrations\202310262303315_UpdateAuditedResult.cs" />
-    <Compile Include="Migrations\202310262303315_UpdateAuditedResult.designer.cs">
-      <DependentUpon>202310262303315_UpdateAuditedResult.cs</DependentUpon>
+    <Compile Include="Migrations\202310272124517_UpdateAuditedResult.cs" />
+    <Compile Include="Migrations\202310272124517_UpdateAuditedResult.designer.cs">
+      <DependentUpon>202310272124517_UpdateAuditedResult.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
@@ -695,6 +695,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\Chart.min.js" />
+    <Content Include="Scripts\ChatGPTAsistence.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -1222,8 +1223,8 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202310262303315_UpdateAuditedResult.resx">
-      <DependentUpon>202310262303315_UpdateAuditedResult.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202310272124517_UpdateAuditedResult.resx">
+      <DependentUpon>202310272124517_UpdateAuditedResult.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -31,7 +31,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.AuditProcess, htmlAttributes: new { @class = "control-label col-md-7" })
                 <div class="col-md-5 col-sm-10">
-                    @Html.EnumDropDownListFor(model => model.AuditProcess, htmlAttributes: new { @class = "form-control" })
+                    @Html.EnumDropDownListFor(model => model.AuditProcess, htmlAttributes: new { @class = "form-control",@id = "auditProcess"})
                     @Html.ValidationMessageFor(model => model.AuditProcess, "", new { @class = "text-danger" })
                 </div>
             </div>

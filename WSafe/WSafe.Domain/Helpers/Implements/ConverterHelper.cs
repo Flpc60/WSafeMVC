@@ -2127,13 +2127,13 @@ namespace WSafe.Domain.Helpers.Implements
 
                     switch (audited.Result)
                     {
-                        case AuditCalifications.NoCumple:
+                        case AuditCalifications.NC:
                             calification = "NC";
                             break;
-                        case AuditCalifications.Cumple:
+                        case AuditCalifications.CP:
                             calification = "CP";
                             break;
-                        case AuditCalifications.CumpleYDocumenta:
+                        case AuditCalifications.CYD:
                             calification = "CYD";
                             break;
                         default:
