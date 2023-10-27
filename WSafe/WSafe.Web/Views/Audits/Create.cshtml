@@ -3,6 +3,16 @@
 @{
     var title = "GESTIONAR AUDITORIAS INTERNAS";
     var auditID = ViewBag.AuditID;
+    var enumValues = Enum.GetValues(typeof(WSafe.Domain.Data.Entities.AuditChapters)).Cast<WSafe.Domain.Data.Entities.AuditChapters>();
+    var selectListItems = new List<SelectListItem>();
+    foreach (var value in enumValues)
+    {
+        selectListItems.Add(new SelectListItem
+        {
+            Text = value.ToString(),
+            Value = ((int)value).ToString()
+        });
+    }
 }
 
 <style>
@@ -48,15 +58,46 @@
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <input type="hidden" id="auditID" name="auditID" value="@auditID"/>
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <input type="hidden" id="auditID" name="auditID" value="@auditID"/>
 
-    <div class="tabPrepare">
-        @Html.Partial("_EditAudit")
+        <div class="tabPrepare">
+            @Html.Partial("_EditAudit")
+        </div>
+
+        <div class="tabExecute">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AuditChapter, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.AuditChapter, selectListItems, "Seleccione un capítulo", new { @class = "form-control", @id= "auditChapter"})
+                                @Html.ValidationMessageFor(model => model.AuditChapter, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="auditContainer">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-info" id="asistent" title="Utiliza un asistente para diligenciar la auditoría" onclick="auditedAsistent()">
+                            <i class="fa fa-life-ring"></i> Obtener asistencia
+                        </button>
+                      <button type="button" class="btn btn-success" id="saveAuditedResult" onclick="auditedSave()">
+                            <i class="fa fa-save"></i> Guardar resultados
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
-
-</div>
 }
 
 @section Scripts {

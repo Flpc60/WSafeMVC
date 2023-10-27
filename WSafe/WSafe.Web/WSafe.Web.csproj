@@ -487,17 +487,9 @@
     <Compile Include="Helpers\Implements\ConverterHelper.cs" />
     <Compile Include="Helpers\Implements\GestorHelper.cs" />
     <Compile Include="Helpers\Implements\IndicadorHelper.cs" />
-    <Compile Include="Migrations\202310172221390_UpdatedDB2.cs" />
-    <Compile Include="Migrations\202310172221390_UpdatedDB2.designer.cs">
-      <DependentUpon>202310172221390_UpdatedDB2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202310232026433_UpdateAuditer.cs" />
-    <Compile Include="Migrations\202310232026433_UpdateAuditer.designer.cs">
-      <DependentUpon>202310232026433_UpdateAuditer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202310242134571_Updateuser.cs" />
-    <Compile Include="Migrations\202310242134571_Updateuser.designer.cs">
-      <DependentUpon>202310242134571_Updateuser.cs</DependentUpon>
+    <Compile Include="Migrations\202310262303315_UpdateAuditedResult.cs" />
+    <Compile Include="Migrations\202310262303315_UpdateAuditedResult.designer.cs">
+      <DependentUpon>202310262303315_UpdateAuditedResult.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
@@ -1230,14 +1222,8 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202310172221390_UpdatedDB2.resx">
-      <DependentUpon>202310172221390_UpdatedDB2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202310232026433_UpdateAuditer.resx">
-      <DependentUpon>202310232026433_UpdateAuditer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202310242134571_Updateuser.resx">
-      <DependentUpon>202310242134571_Updateuser.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202310262303315_UpdateAuditedResult.resx">
+      <DependentUpon>202310262303315_UpdateAuditedResult.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

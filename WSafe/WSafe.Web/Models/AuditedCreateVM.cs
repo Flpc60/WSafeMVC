@@ -32,5 +32,7 @@ namespace WSafe.Web.Models
         public int ClientID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int UserID { get; set; }
+        [Display(Name = "REQUISITO A AUDITAR")]
+        public IEnumerable<SelectListItem> AuditChapter { get; set; }
     }
 }

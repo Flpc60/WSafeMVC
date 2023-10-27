@@ -1,13 +1,10 @@
 ﻿using Rotativa;
 using System;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.Data.Entity;
 using System.Diagnostics;
-using System.IdentityModel.Configuration;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -17,7 +14,6 @@ using WSafe.Domain.Repositories.Implements;
 using WSafe.Domain.Services.Implements;
 using WSafe.Web.Filters;
 using WSafe.Web.Models;
-using static Antlr4.Runtime.Atn.SemanticContext;
 
 namespace WSafe.Web.Controllers
 {
@@ -251,7 +247,7 @@ namespace WSafe.Web.Controllers
 
                 //Generar archivo de movimiento
                 var fullName = filename;
-                var type = Path.GetExtension(filename).ToUpper();
+                var type = System.IO.Path.GetExtension(filename).ToUpper();
                 var descript = "RESTRICCIÓNES Y RECOMENDACIONES MÉDICO-LABORALES";
                 var userID = (int)Session["userID"];
                 Movimient movimient = new Movimient()
@@ -320,7 +316,7 @@ namespace WSafe.Web.Controllers
 
                 //Generar archivo de movimiento
                 var fullName = filename;
-                var type = Path.GetExtension(filename).ToUpper();
+                var type = System.IO.Path.GetExtension(filename).ToUpper();
                 var descript = "Reporte recomendaciones médico laborales";
                 var userID = (int)Session["userID"];
                 Movimient movimient = new Movimient()
@@ -400,7 +396,7 @@ namespace WSafe.Web.Controllers
 
                 //Generar archivo de movimiento
                 var fullName = filename;
-                var type = Path.GetExtension(filename).ToUpper();
+                var type = System.IO.Path.GetExtension(filename).ToUpper();
                 var descript = "Reporte auditoría interna";
                 var userID = (int)Session["userID"];
                 Movimient movimient = new Movimient()
@@ -428,6 +424,7 @@ namespace WSafe.Web.Controllers
             }
         }
 
+        [HttpGet]
         public JsonResult GetQuestionsChapter(int chapter)
         {
             try
@@ -454,22 +451,34 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateAuditedResult(IEnumerable<AuditedResult> model)
+        public async Task<ActionResult> CreateAuditedResult(List<AuditedResult> model)
         {
             try
             {
 
                 // Actualizar la BD
-                //PlanActivity plan = await _empresaContext.PlanActivities.FindAsync(model.ID);
                 if (ModelState.IsValid)
                 {
                     foreach (var item in model)
                     {
+                        Audit audit = await _empresaContext.Audits.FindAsync(item.AuditID);
+                        AuditItem auditItem = await _empresaContext.AuditItems.FindAsync(item.AuditItemID);
+                        AuditedResult audited = new AuditedResult()
+                        {
+                            ID = 0,
+                            AuditID = item.AuditID,
+                            AuditItemID = item.AuditItemID,
+                            AuditItem = auditItem,
+                            Result = item.Result,
+                            Process = audit.Process,
+                            AuditChapter = auditItem.AuditChapter
+                        };
+                        _empresaContext.AuditedResults.Add(audited);
                     }
+                    await _empresaContext.SaveChangesAsync();
+                    return Json(new { data = model, mensaj = "La actualización se ha realizado exitosamente !!" }, JsonRequestBehavior.AllowGet);
                 }
-                _empresaContext.Entry(model).State = EntityState.Modified;
-                await _empresaContext.SaveChangesAsync();
-                var message = "La actualización se ha realizado exitosamente !!";
+                var message = "La actualización NO se ha realizado exitosamente !!";
                 return Json(new { data = model, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch

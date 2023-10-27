@@ -7391,36 +7391,51 @@ function auditedResult() {
                 type: 'GET',
                 data: { chapter: auditChapter },
                 success: function (response) {
-                    response.forEach(function (response) {
-                        var html = '<div>' + response.Name + '</div>' +
-                            '<select class="respuesta">' +
+                    response.forEach(function (item) {
+                        var html = '<div>' + item.Name + '</div>' +
+                            '<select class="requisite" data-auditItemID="' + item.ID + '">' +
                             '<option value="NC">NC</option>' +
                             '<option value="CP">CP</option>' +
                             '<option value="CYD">CYD</option>' +
                             '</select>';
-                        $('#auditContainer').append(html);
+                        $('.auditContainer').append(html);
                     });
                 }
             });
         });
+    });
+}
 
-        $('#guardarRespuestas').click(function () {
-            // Aquí debes recopilar las respuestas del usuario y enviarlas al servidor para su almacenamiento
-            var respuestas = [];
-            $('.respuesta').each(function () {
-                respuestas.push($(this).val());
+function auditedSave() {
+    $(document).ready(function () {
+        $('#saveAuditedResult').click(function () {
+            var model = [];
+            $('.requisite').each(function () {
+                var auditItemID = $(this).data('auditItemID'); // Obtén el valor de AuditItemID del atributo data
+                var respuesta = {
+                    ID: 0,
+                    AuditID: $('#auditID').val(),
+                    AuditItemID: auditItemID, // Utiliza el valor de AuditItemID obtenido
+                    Result: $(this).val(),
+                    AuditItem: null,
+                    Process: null,
+                    AuditChapter: $('#auditChapter').val()
+                    // Otras propiedades que necesites enviar
+                };
+                model.push(respuesta);
             });
 
             // Enviar respuestas al servidor usando Ajax
             $.ajax({
                 url: '/Audits/CreateAuditedResult',
                 type: 'POST',
-                data: { respuestas: respuestas },
-                success: function (resultado) {
+                contentType: 'application/json',
+                data: JSON.stringify(model),
+                success: function (response) {
                     // Manejar el resultado si es necesario
+                    alert(response.mensaj);
                 }
             });
         });
     });
-
 }
