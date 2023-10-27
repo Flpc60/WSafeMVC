@@ -516,7 +516,7 @@ namespace WSafe.Domain.Helpers.Implements
         {
             var list = _empresaContext.Auditers.Where(t => t.OrganizationID == org).Select(t => new SelectListItem
             {
-                Text = $"{t.FirstName} {t.LastName} CC. {t.Document}",
+                Text = t.FirstName + " " + " " + t.LastName + "CC. " +t.Document,
                 Value = t.ID.ToString()
             })
                 .OrderBy(t => t.Text)
