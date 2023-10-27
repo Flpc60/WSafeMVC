@@ -7384,6 +7384,7 @@ function CreateRisk(unsafeactID) {
 
 function auditedResult() {
     $(document).ready(function () {
+
         $('#auditChapter').change(function () {
             var auditChapter = $(this).val();
             $.ajax({
@@ -7392,12 +7393,15 @@ function auditedResult() {
                 data: { chapter: auditChapter },
                 success: function (response) {
                     response.forEach(function (item) {
+                        var auditItemID = item.ID;
                         var html = '<div>' + item.Name + '</div>' +
-                            '<select class="requisite" data-auditItemID="' + item.ID + '">' +
+                            '<input type="hidden" class="auditItemID" name="auditItemID" value="' + auditItemID + '">' +
+                            '<select class="requisite">' +
                             '<option value="NC">NC</option>' +
                             '<option value="CP">CP</option>' +
                             '<option value="CYD">CYD</option>' +
                             '</select>';
+
                         $('.auditContainer').append(html);
                     });
                 }
@@ -7408,17 +7412,20 @@ function auditedResult() {
 
 function auditedSave() {
     $(document).ready(function () {
+
         $('#saveAuditedResult').click(function () {
             var model = [];
             $('.requisite').each(function () {
-                var auditItemID = $(this).data('auditItemID'); // Obtén el valor de AuditItemID del atributo data
+                //var auditedItemID = $(this).data('auditItemID'); // Obtén el valor de AuditItemID del atributo data
+                var auditedItemID = $(this).siblings('.auditItemID').val(); // Obtén el valor de AuditItemID del campo oculto
+                var selectedValue = $(this).find('option:selected').val(); // Obtén el valor del elemento <option> seleccionado
                 var respuesta = {
                     ID: 0,
                     AuditID: $('#auditID').val(),
-                    AuditItemID: auditItemID, // Utiliza el valor de AuditItemID obtenido
-                    Result: $(this).val(),
-                    AuditItem: null,
-                    Process: null,
+                    AuditItemID: auditedItemID, // Utiliza el valor de AuditItemID obtenido
+                    Result: selectedValue,
+                    AuditItem: {},
+                    Process: $('#auditProcess').val(),
                     AuditChapter: $('#auditChapter').val()
                     // Otras propiedades que necesites enviar
                 };

@@ -8,13 +8,10 @@ namespace WSafe.Domain.Data.Entities
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int AuditID { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int AuditItemID { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public AuditItem AuditItem { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public AuditCalifications Result { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public WorkAreas Process { get; set; }
         public AuditChapters AuditChapter { get; set; }
     }
