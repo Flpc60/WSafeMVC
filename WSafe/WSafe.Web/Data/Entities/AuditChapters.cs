@@ -1,4 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
+using System.Linq;
 
 namespace WSafe.Domain.Data.Entities
 {
@@ -49,4 +53,31 @@ namespace WSafe.Domain.Data.Entities
         [Display(Name = "GESTIÓN DE LA SALUD")]
         Salud = 22
     }
+    public static class EnumHelper
+    {
+        public static List<SelectListItem> GetEnumSelectList<AuditChapters>()
+        {
+            var enumValues = Enum.GetValues(typeof(AuditChapters)).Cast<AuditChapters>();
+            var selectListItems = new List<SelectListItem>();
+
+            foreach (var value in enumValues)
+            {
+                var displayAttribute = value.GetType()
+                    .GetField(value.ToString())
+                    .GetCustomAttributes(typeof(DisplayAttribute), false)
+                    as DisplayAttribute[];
+
+                var displayName = displayAttribute?[0]?.Name ?? value.ToString();
+
+                selectListItems.Add(new SelectListItem
+                {
+                    Text = displayName,
+                    Value = ((int)Convert.ChangeType(value, typeof(int))).ToString()
+                });
+            }
+
+            return selectListItems;
+        }
+    }
 }
+
