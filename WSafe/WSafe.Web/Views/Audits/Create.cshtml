@@ -3,16 +3,7 @@
 @{
     var title = "GESTIONAR AUDITORIAS INTERNAS";
     var auditID = ViewBag.AuditID;
-    var enumValues = Enum.GetValues(typeof(WSafe.Domain.Data.Entities.AuditChapters)).Cast<WSafe.Domain.Data.Entities.AuditChapters>();
-    var selectListItems = new List<SelectListItem>();
-    foreach (var value in enumValues)
-    {
-        selectListItems.Add(new SelectListItem
-        {
-            Text = value.ToString(),
-            Value = ((int)value).ToString()
-        });
-    }
+    var selectListItems = WSafe.Domain.Data.Entities.EnumHelper.GetEnumSelectList<WSafe.Domain.Data.Entities.AuditChapters>();
 }
 
 <style>
