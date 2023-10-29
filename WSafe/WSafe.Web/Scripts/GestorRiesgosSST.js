@@ -7393,8 +7393,9 @@ function auditedResult() {
                 data: { chapter: auditChapter },
                 success: function (response) {
                     var model = []; // Crear el modelo aquí
-                    response.forEach(function (item) {
+                    response.forEach(function (item,index) {
                         var auditItemID = item.ID;
+                        var name = index + 1 + ". " + item.Name + " ?:";
                         var respuesta = {
                             ID: 0,
                             AuditID: $('#auditID').val(),
@@ -7406,12 +7407,12 @@ function auditedResult() {
                         };
                         model.push(respuesta);
 
-                        var html = '<div>' + item.Name + '</div>' +
+                        var html = '<div>' + name + '</div>' +
                             '<select class="requisite">' +
                             '<option value="NC">NC</option>' +
                             '<option value="CP">CP</option>' +
                             '<option value="CYD">CYD</option>' +
-                            '</select>';
+                            '</select>' + '<hr />';
 
                         $('.auditContainer').append(html);
                     });
@@ -7444,6 +7445,7 @@ function auditedSave() {
             data: JSON.stringify(model),
             success: function (response) {
                 // Manejar el resultado si es necesario
+                $('.tabExecute').css('display', 'none');
                 alert(response.mensaj);
             }
         });
