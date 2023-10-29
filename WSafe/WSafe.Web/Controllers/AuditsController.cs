@@ -1,4 +1,6 @@
-﻿using Rotativa;
+﻿using iTextSharp.text;
+using iTextSharp.text.log;
+using Rotativa;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -191,15 +193,6 @@ namespace WSafe.Web.Controllers
             {
                 return View("Error", new HandleErrorInfo(ex, "Recomendations", "Delete"));
             }
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _empresaContext.Dispose();
-            }
-            base.Dispose(disposing);
         }
 
         [HttpGet]
@@ -459,24 +452,34 @@ namespace WSafe.Web.Controllers
                 // Actualizar la BD
                 if (ModelState.IsValid)
                 {
-                    foreach (var item in model)
+                    var id = model[0].AuditID;
+                    var chapter = model[0].AuditChapter;
+                    var existingRecordsCount = await _empresaContext.AuditedResults
+                        .Where(a => a.AuditID == id && a.AuditChapter == chapter)
+                        .CountAsync();
+
+                    if (existingRecordsCount == 0)
                     {
-                        Audit audit = await _empresaContext.Audits.FindAsync(item.AuditID);
-                        AuditItem auditItem = await _empresaContext.AuditItems.FindAsync(item.AuditItemID);
-                        AuditedResult audited = new AuditedResult()
+                        Audit audit = await _empresaContext.Audits.FindAsync(model[0].AuditID);
+                        foreach (var item in model)
                         {
-                            ID = 0,
-                            AuditID = item.AuditID,
-                            AuditItemID = item.AuditItemID,
-                            AuditItem = auditItem,
-                            Result = item.Result,
-                            Process = audit.Process,
-                            AuditChapter = auditItem.AuditChapter
-                        };
-                        _empresaContext.AuditedResults.Add(audited);
+                            AuditItem auditItem = await _empresaContext.AuditItems.FindAsync(item.AuditItemID);
+                            AuditedResult audited = new AuditedResult()
+                            {
+                                ID = 0,
+                                AuditID = item.AuditID,
+                                AuditItemID = item.AuditItemID,
+                                AuditItem = auditItem,
+                                Result = item.Result,
+                                Process = audit.Process,
+                                AuditChapter = auditItem.AuditChapter
+                            };
+                            _empresaContext.AuditedResults.Add(audited);
+                        }
+                        await _empresaContext.SaveChangesAsync();
+                        return Json(new { data = model, mensaj = "La actualización se ha realizado exitosamente !!" }, JsonRequestBehavior.AllowGet);
                     }
-                    await _empresaContext.SaveChangesAsync();
-                    return Json(new { data = model, mensaj = "La actualización se ha realizado exitosamente !!" }, JsonRequestBehavior.AllowGet);
+                    return Json(new { data =false, mensaj = "La actualización No se ha realizado exitosamente !!" }, JsonRequestBehavior.AllowGet);
                 }
                 var message = "La actualización NO se ha realizado exitosamente !!";
                 return Json(new { data = model, mensaj = message }, JsonRequestBehavior.AllowGet);
@@ -486,6 +489,15 @@ namespace WSafe.Web.Controllers
                 var message = "La actualización NO se ha realizado exitosamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _empresaContext.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }
