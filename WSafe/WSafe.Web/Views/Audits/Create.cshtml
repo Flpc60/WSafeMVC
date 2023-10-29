@@ -18,25 +18,26 @@
 </style>
 
 <div class="container">
+    <hr />
     <h4 class="centerText">@title</h4>
     <hr />
 
     <div class="row justify-content-between">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="btn-group">
-                <button type="button" class="btn btn-success btn-lg" id="prepare" title="doble click para cerrar la ventana">
-                    <i class="fa fa-list-check"></i> PREPARACIÓN
+                <button type="button" class="btn btn-info btn-lg mr-2" id="prepare" title="doble click para cerrar la ventana">
+                    <i class="fas fa-list-check"></i> PREPARACIÓN
                 </button>
-                <button type="button" class="btn btn-success btn-lg" id="execute" title="doble click para cerrar la ventana" onclick="auditedResult()">
-                    <i class="fa fa-tasks"></i> EJECUCIÓN
+                <button type="button" class="btn btn-primary btn-lg mr-2" id="execute" title="doble click para cerrar la ventana" onclick="auditedResult()">
+                    <i class="fas fa-tasks"></i> EJECUCIÓN
                 </button>
-                <button type="button" class="btn btn-success btn-lg" id="report" title="doble click para cerrar la ventana">
+                <button type="button" class="btn btn-warning btn-lg mr-2" id="report" title="doble click para cerrar la ventana">
                     <i class="fa fa-file-chart-column"></i> INFORME
                 </button>
-                <button type="button" class="btn btn-success btn-lg" id="actions" title="doble click para cerrar la ventana">
-                    <i class="fa fa-message-captions"></i> ACCIONES
+                <button type="button" class="btn btn-secondary btn-lg mr-2" id="actions" title="doble click para cerrar la ventana">
+                    <i class="far fa-message-captions"></i> ACCIONES
                 </button>
-                <button type="button" class="btn btn-success btn-lg" id="seguimients" title="doble click para cerrar la ventana">
+                <button type="button" class="btn btn-success btn-lg mr-2" id="seguimients" title="doble click para cerrar la ventana">
                     <i class="fa fa-user-magnifying-glass"></i> SEGUIMIENTO
                 </button>
             </div>
@@ -51,7 +52,7 @@
 
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <input type="hidden" id="auditID" name="auditID" value="@auditID"/>
+        <input type="hidden" id="auditID" name="auditID" value="@auditID" />
 
         <div class="tabPrepare">
             @Html.Partial("_EditAudit")
@@ -64,7 +65,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.AuditChapter, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-10">
-                                @Html.DropDownListFor(model => model.AuditChapter, selectListItems, "Seleccione un capítulo", new { @class = "form-control", @id= "auditChapter"})
+                                @Html.DropDownListFor(model => model.AuditChapter, selectListItems, "Seleccione un capítulo", new { @class = "form-control", @id = "auditChapter" })
                                 @Html.ValidationMessageFor(model => model.AuditChapter, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -72,7 +73,7 @@
                 </div>
                 <hr />
                 <div class="row">
-                    <div class="auditContainer">
+                    <div class="auditContainer" style="display:inline-block; background-color:azure; font-size:17px; font-family:Georgia">
                     </div>
                 </div>
                 <div class="row">
@@ -80,7 +81,7 @@
                         <button type="button" class="btn btn-info" id="asistent" title="Utiliza un asistente para diligenciar la auditoría" onclick="auditedAsistent()">
                             <i class="fa fa-life-ring"></i> Obtener asistencia
                         </button>
-                      <button type="button" class="btn btn-success" id="saveAuditedResult" onclick="auditedSave()">
+                        <button type="button" class="btn btn-success" id="saveAuditedResult">
                             <i class="fa fa-save"></i> Guardar resultados
                         </button>
                     </div>
@@ -96,8 +97,13 @@
 
     <script type="text/javascript">
 
+        $('#saveAuditedResult').click(function () {
+            auditedSave();
+        });
+
         jQuery.noConflict();
         jQuery(document).ready(function ($) {
+            $('[data-toggle="tooltip"]').tooltip();
 
             if (@auditID > 0) {
                 $("#btnSaveAudit").hide();
