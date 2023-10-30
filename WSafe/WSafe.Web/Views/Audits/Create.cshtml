@@ -28,7 +28,7 @@
                 <button type="button" class="btn btn-info btn-lg mr-2" id="prepare" title="doble click para cerrar la ventana">
                     <i class="fas fa-list-check"></i> PREPARACIÓN
                 </button>
-                <button type="button" class="btn btn-primary btn-lg mr-2" id="execute" title="doble click para cerrar la ventana" onclick="auditedResult()">
+                <button type="button" class="btn btn-primary btn-lg mr-2" id="execute" title="doble click para cerrar la ventana">
                     <i class="fas fa-tasks"></i> EJECUCIÓN
                 </button>
                 <button type="button" class="btn btn-warning btn-lg mr-2" id="report" title="doble click para cerrar la ventana">
@@ -61,6 +61,16 @@
         <div class="tabExecute">
             <div class="container">
                 <div class="row">
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-info" id="asistentAudited" title="Utiliza un asistente para diligenciar la auditoría">
+                            <i class="fa fa-life-ring"></i> Obtener asistencia
+                        </button>
+                        <button type="button" class="btn btn-success" id="saveAuditedResult">
+                            <i class="fa fa-save"></i> Guardar resultados
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
                             @Html.LabelFor(model => model.AuditChapter, htmlAttributes: new { @class = "control-label col-md-4" })
@@ -76,16 +86,6 @@
                     <div class="auditContainer" style="display:inline-block; background-color:azure; font-size:17px; font-family:Georgia">
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <button type="button" class="btn btn-info" id="asistent" title="Utiliza un asistente para diligenciar la auditoría" onclick="auditedAsistent()">
-                            <i class="fa fa-life-ring"></i> Obtener asistencia
-                        </button>
-                        <button type="button" class="btn btn-success" id="saveAuditedResult">
-                            <i class="fa fa-save"></i> Guardar resultados
-                        </button>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -96,10 +96,6 @@
     @Scripts.Render("~/bundles/jqueryval")
 
     <script type="text/javascript">
-
-        $('#saveAuditedResult').click(function () {
-            auditedSave();
-        });
 
         jQuery.noConflict();
         jQuery(document).ready(function ($) {
@@ -151,6 +147,17 @@
                 $('.tabSeguimient').css("display", "block");
             });
 
+            $('#auditChapter').click(function () {
+                if (('#asistentAudited').data('clicked')) {
+                    asistenceAuditedResult();
+                } else {
+                    auditedResult();
+                }
+            });
+
+            $('#saveAuditedResult').click(function () {
+                auditedSave();
+            });
         });
 
     </script>
