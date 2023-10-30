@@ -190,3 +190,49 @@ function auditedSave() {
         });
     });
 }
+
+function asistenceAuditedResult() {
+    $(document).ready(function () {
+        $('#auditChapter').change(function () {
+            var auditChapter = $(this).val();
+
+            $.ajax({
+                url: '/Audits/GetAsistenceAuditedResult',
+                type: 'GET',
+                data: {
+                    chapter: auditChapter,
+                    process: $('#auditProcess').val(),
+                },
+                success: function (response) {
+                    var model = []; // Crear el modelo aquí
+                    response.forEach(function (item, index) {
+                        var auditItemID = item.ID;
+                        var name = index + 1 + ". " + item.Name + " ?:";
+                        var respuesta = {
+                            ID: 0,
+                            AuditID: $('#auditID').val(),
+                            AuditItemID: auditItemID, // Utiliza el valor de AuditItemID obtenido
+                            Result: item.Result,
+                            AuditItem: {},
+                            Process: $('#auditProcess').val(),
+                            AuditChapter: $('#auditChapter').val()
+                        };
+                        model.push(respuesta);
+
+                        var html = '<div>' + name + '</div>' +
+                            '<select class="requisite">' +
+                            '<option value="NC" ' + (item.Result === 'NC' ? 'selected' : '') + '>NC</option>' +
+                            '<option value="CP" ' + (item.Result === 'CP' ? 'selected' : '') + '>CP</option>' +
+                            '<option value="CYD" ' + (item.Result === 'CYD' ? 'selected' : '') + '>CYD</option>' +
+                            '</select>' + '<hr />';
+
+                        $('.auditContainer').append(html);
+                    });
+
+                    // Almacena el modelo en un atributo de datos para usarlo posteriormente
+                    $('.auditContainer').data('model', model);
+                }
+            });
+        });
+    });
+}

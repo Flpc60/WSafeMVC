@@ -499,5 +499,32 @@ namespace WSafe.Web.Controllers
             }
             base.Dispose(disposing);
         }
+
+        [HttpGet]
+        public JsonResult GetAsistenceAuditedResult(int chapter, int process)
+        {
+            try
+            {
+                var list = (from a in _empresaContext.AuditedResults
+                            join ai in _empresaContext.AuditItems on a.AuditItemID equals ai.ID
+                            where (int)a.Process == (int)process && (int)a.AuditChapter == (int)chapter
+                            orderby a.AuditItem
+                            group new { a, ai } by a.Result into audited
+                            select new
+                            {
+                                ID = audited.Key,
+                                Name = audited.FirstOrDefault().ai.Name,
+                                Result = audited.FirstOrDefault().a.Result
+                            }).ToList();
+
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                var message = "La consulta NO se ha realizado exitosamente !!";
+                ViewBag.ErrorMessage = message; // Usar ViewBag para pasar mensajes a la vista
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
