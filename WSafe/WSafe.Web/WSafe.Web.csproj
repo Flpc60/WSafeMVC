@@ -700,6 +700,7 @@
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
     <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\GestorAudits.js" />
     <Content Include="Scripts\GestorRiesgosSST.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
