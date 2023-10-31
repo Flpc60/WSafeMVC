@@ -508,14 +508,17 @@ namespace WSafe.Web.Controllers
                 var list = (from a in _empresaContext.AuditedResults
                             join ai in _empresaContext.AuditItems on a.AuditItemID equals ai.ID
                             where (int)a.Process == (int)process && (int)a.AuditChapter == (int)chapter
-                            orderby a.AuditItem
-                            group new { a, ai } by a.Result into audited
+                            group ai by new { a.AuditItemID, a.Result } into audited
                             select new
                             {
-                                ID = audited.Key,
-                                Name = audited.FirstOrDefault().ai.Name,
-                                Result = audited.FirstOrDefault().a.Result
-                            }).ToList();
+                                ID = audited.Key.AuditItemID,
+                                Name = audited.OrderByDescending(x => x.ID).FirstOrDefault().Name,
+                                Result = audited.Key.Result,
+                                Count = audited.Count()
+                            })
+                            .GroupBy(x => x.ID)
+                            .Select(group => group.OrderByDescending(x => x.Count).FirstOrDefault())
+                            .ToList();
 
                 return Json(list, JsonRequestBehavior.AllowGet);
             }

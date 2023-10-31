@@ -6,6 +6,8 @@
     var selectListItems = WSafe.Domain.Data.Entities.EnumHelper.GetEnumSelectList<WSafe.Domain.Data.Entities.AuditChapters>();
 }
 
+<script src="~/Scripts/GestorRiesgosSST.js" type="text/javascript"></script>
+
 <style>
 
     .tabPrepare, .tabExecute, .tabReport, .tabActions, .tabSeguimient {
@@ -61,19 +63,13 @@
         <div class="tabExecute">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-6">
-                        <button type="button" class="btn btn-info" id="asistentAudited" title="Utiliza un asistente para diligenciar la auditoría">
-                            <i class="fa fa-life-ring"></i> Obtener asistencia
-                        </button>
-                        <button type="button" class="btn btn-success" id="saveAuditedResult">
-                            <i class="fa fa-save"></i> Guardar resultados
-                        </button>
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            @Html.LabelFor(model => model.AuditChapter, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <hr />
+                            <button type="button" class="btn btn-info" id="asistentAudited" title="Utiliza un asistente para diligenciar la auditoría">
+                                <i class="fa fa-life-ring"></i> Obtener asistencia
+                            </button>
+                            @Html.LabelFor(model => model.AuditChapter, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
                                 @Html.DropDownListFor(model => model.AuditChapter, selectListItems, "Seleccione un capítulo", new { @class = "form-control", @id = "auditChapter" })
                                 @Html.ValidationMessageFor(model => model.AuditChapter, "", new { @class = "text-danger" })
@@ -85,6 +81,11 @@
                 <div class="row">
                     <div class="auditContainer" style="display:inline-block; background-color:azure; font-size:17px; font-family:Georgia">
                     </div>
+                </div>
+                <div class="row">
+                    <button type="button" class="btn btn-success" id="saveAuditedResult">
+                        <i class="fa fa-save"></i> Guardar resultados
+                    </button>
                 </div>
             </div>
         </div>
@@ -99,6 +100,7 @@
 
         jQuery.noConflict();
         jQuery(document).ready(function ($) {
+            $("#saveAuditedResult").hide();
             $('[data-toggle="tooltip"]').tooltip();
 
             if (@auditID > 0) {
@@ -147,11 +149,12 @@
                 $('.tabSeguimient').css("display", "block");
             });
 
-            $('#auditChapter').click(function () {
-                if (('#asistentAudited').data('clicked')) {
+            $('#auditChapter').change(function () {
+                asistenceAuditedResult();
+                if ($("#asistentAudited").is(':checked')) {
                     asistenceAuditedResult();
                 } else {
-                    auditedResult();
+                    //auditedResult();
                 }
             });
 
