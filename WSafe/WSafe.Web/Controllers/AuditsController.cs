@@ -442,6 +442,7 @@ namespace WSafe.Web.Controllers
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
+        /*
 
         [HttpPost]
         public async Task<ActionResult> CreateAuditedResult(List<AuditedResult> model)
@@ -488,6 +489,55 @@ namespace WSafe.Web.Controllers
             {
                 var message = "La actualización NO se ha realizado exitosamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        */
+        [HttpPost]
+        public async Task<ActionResult> CreateAuditedResult(List<AuditedResult> model)
+        {
+            try
+            {
+                // Actualizar la BD
+                if (ModelState.IsValid)
+                {
+                    var id = model[0].AuditID;
+                    var chapter = model[0].AuditChapter;
+                    var existingRecordsCount = await _empresaContext.AuditedResults
+                        .Where(a => a.AuditID == id && a.AuditChapter == chapter)
+                        .CountAsync();
+
+                    if (existingRecordsCount == 0)
+                    {
+                        Audit audit = await _empresaContext.Audits.FindAsync(model[0].AuditID);
+                        foreach (var item in model)
+                        {
+                            AuditItem auditItem = await _empresaContext.AuditItems.FindAsync(item.AuditItemID);
+                            AuditedResult audited = new AuditedResult()
+                            {
+                                ID = 0,
+                                AuditID = item.AuditID,
+                                AuditItemID = item.AuditItemID,
+                                AuditItem = auditItem,
+                                Result = item.Result,
+                                Process = audit.Process,
+                                AuditChapter = auditItem.AuditChapter
+                            };
+                            _empresaContext.AuditedResults.Add(audited);
+                        }
+                        await _empresaContext.SaveChangesAsync();
+                        return Json(new { success = true, message = "La actualización se ha realizado exitosamente !!" });
+                    }
+
+                    return Json(new { success = false, message = "La actualización No se ha realizado exitosamente !!" });
+                }
+
+                var message = "La actualización NO se ha realizado exitosamente !!";
+                return Json(new { success = false, message = message });
+            }
+            catch (Exception ex)
+            {
+                var message = "La actualización NO se ha realizado exitosamente !!";
+                return Json(new { success = false, message = message, error = ex.Message });
             }
         }
 
