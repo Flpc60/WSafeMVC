@@ -699,7 +699,7 @@ namespace WSafe.Domain.Helpers.Implements
                     return "Practicantes";
 
                 default:
-                    return "Administrativa";
+                    return "General";
             }
         }
         public string GetTipoJornada(TiposJornada jornada)
