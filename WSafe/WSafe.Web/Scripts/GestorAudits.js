@@ -1422,6 +1422,7 @@ function CreateRisk(unsafeactID) {
 
 function auditedResult() {
     var auditChapter = $('#auditChapter').val();
+    $('.auditContainer').empty();
     $.ajax({
         url: '/Audits/GetQuestionsChapter',
         type: 'GET',
@@ -1443,7 +1444,7 @@ function auditedResult() {
                 model.push(respuesta);
 
                 var html = '<div>' + name + '</div>' +
-                    '<select class="requisite">' +
+                    '<select class="requisite-select">' +
                     '<option value="NC">NC</option>' +
                     '<option value="CP">CP</option>' +
                     '<option value="CYD">CYD</option>' +
@@ -1455,7 +1456,6 @@ function auditedResult() {
             // Almacena el modelo en un atributo de datos para usarlo posteriormente
             $('.auditContainer').data('model', model);
             $("#saveAuditedResult").show();
-            $("#asistentAudited").hide();
         }
     });
 }
@@ -1463,11 +1463,12 @@ function auditedResult() {
 function auditedSave() {
 
     $('#saveAuditedResult').click(function () {
+        $(this).prop('disabled', true);
         // Obtiene el modelo desde el atributo de datos
         var model = $('.auditContainer').data('model');
 
         // Actualiza el valor de Result en el modelo
-        $('.requisite').each(function (index) {
+        $('.requisite-select').each(function (index) {
             var selectedValue = $(this).find('option:selected').val();
             model[index].Result = selectedValue;
         });
@@ -1481,10 +1482,12 @@ function auditedSave() {
             success: function (response) {
                 // Manejar el resultado si es necesario
                 $('.tabExecute').css('display', 'none');
-                $("#asistentAudited").show();
-                alert(response.mensaj);
+                $('.auditContainer').empty();
+                $('.auditContainer').css('display', 'none');
+                alert(response.message);
             }
         });
+        $(this).prop('disabled', false);
     });
 }
 

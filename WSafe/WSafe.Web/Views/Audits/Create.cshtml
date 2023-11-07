@@ -66,9 +66,6 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <hr />
-                            <button type="button" class="btn btn-info" id="asistentAudited" title="Utiliza un asistente para diligenciar la auditoría">
-                                <i class="fa fa-life-ring"></i> Obtener asistencia
-                            </button>
                             @Html.LabelFor(model => model.AuditChapter, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
                                 @Html.DropDownListFor(model => model.AuditChapter, selectListItems, "Seleccione un capítulo", new { @class = "form-control", @id = "auditChapter" })
@@ -150,12 +147,7 @@
             });
 
             $('#auditChapter').change(function () {
-                asistenceAuditedResult();
-                if ($("#asistentAudited").is(':checked')) {
-                    asistenceAuditedResult();
-                } else {
-                    //auditedResult();
-                }
+                auditedResult();
             });
 
             $('#saveAuditedResult').click(function () {

@@ -624,11 +624,6 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Images\actions.jpg" />
-    <Content Include="Images\fondo1.jpg" />
-    <Content Include="Images\fondosst.jpg" />
-    <Content Include="Images\gestion.jpg" />
-    <Content Include="Images\LogoEntidad.jpg" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -644,11 +639,6 @@
     <None Include="Properties\PublishProfiles\FolderProfile3.pubxml" />
     <None Include="Properties\PublishProfiles\FTPProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\FTPProfile2.pubxml" />
-    <Content Include="Images\phva.jpg" />
-    <Content Include="Images\products.jpg" />
-    <Content Include="Images\risk.png" />
-    <Content Include="Images\risk1.jpg" />
-    <Content Include="Images\technology.jpg" />
     <Content Include="Images\wsafe.jpg" />
     <Content Include="Images\wsafe2.jpg" />
     <Content Include="Rotativa\help-wkhtmltoimage.txt" />
