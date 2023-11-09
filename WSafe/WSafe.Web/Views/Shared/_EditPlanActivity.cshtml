@@ -1,8 +1,7 @@
-﻿@{
+﻿@{ 
     var trabajadores = Model.Workers;
 }
-
-<br />
+<hr />
 <div class="container" style="background-color: azure; width: 50%; padding: 3%; border-style: double">
     <div class="row">
         <div class="col-md-4">
@@ -43,7 +42,7 @@
             <div class="form-group">
                 <label class="control-label col-md-4" for="Respons">Funcionario responsable</label>
                 <div class="col-md-8">
-                    @Html.DropDownList("Trabajadores", trabajadores as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "txtResponsable" })
+                    @Html.DropDownList("trabajadores", trabajadores as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "txtResponsable"})
                 </div>
             </div>
         </div>

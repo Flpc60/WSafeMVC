@@ -5739,6 +5739,21 @@ function GestorEvaluations() {
         $("#txtFundamentos").val("");
     });
 
+    if ($("#txtNoCumple").prop("checked")) {
+        $("#btnPlanActivity").show();
+        $(".tabAddPlanAcc").css("display", "block");
+        $("#txtObservation").focus();
+        $(".tabCerrar").css("display", "none");
+        $("#btnAddPlanActivity").show();
+        $("#btnUpdPlanActivity").hide();
+        $("#txtResponsable").val("");
+        $("#txtFechaFinal").val("");
+        $("#txtActivity").val("");
+        $("#txtRecursos").val("");
+        $("#txtActionCategory").val("");
+        $("#txtObservation").val("");
+        $("#txtFundamentos").val("");
+    }
     $("#txtNoCumple").click(function () {
         ResetTab();
         $("#btnPlanActivity").show();
