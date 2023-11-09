@@ -1455,14 +1455,15 @@ function auditedResult() {
 
             // Almacena el modelo en un atributo de datos para usarlo posteriormente
             $('.auditContainer').data('model', model);
-            $("#saveAuditedResult").show();
         }
     });
+    $("#saveAuditedResult").show();
 }
 
 function auditedSave() {
 
     $('#saveAuditedResult').click(function () {
+        alert("Ejecutándose: saveAuditedResult");
         $(this).prop('disabled', true);
         // Obtiene el modelo desde el atributo de datos
         var model = $('.auditContainer').data('model');
@@ -1470,10 +1471,10 @@ function auditedSave() {
         // Actualiza el valor de Result en el modelo
         $('.requisite-select').each(function (index) {
             var selectedValue = $(this).find('option:selected').val();
-            model[index].Result = selectedValue;
             if (selectedValue == "NC" || selectedValue == "CP") {
                 $("#txtNoCumple").prop('checked', true);
             }
+            model[index].Result = selectedValue;
         });
 
         // Enviar respuestas al servidor usando Ajax
