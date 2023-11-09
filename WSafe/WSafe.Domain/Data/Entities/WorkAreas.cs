@@ -2,9 +2,6 @@
 {
     public enum WorkAreas
     {
-        ADMINISTRATIVA = 1, 
-        OPERATIVA = 2, 
-        CONTRATISTAS = 3,
-        PRACTICANTES = 4
+        GENERAL, ADMINISTRATIVA, OPERATIVA, CONTRATISTAS, PRACTICANTES
     }
 }

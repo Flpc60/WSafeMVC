@@ -10,7 +10,8 @@
 
 <style>
 
-    .tabPrepare, .tabExecute, .tabReport, .tabActions, .tabSeguimient {
+    .tabPrepare, .tabExecute, .tabReport, .tabActions, .tabSeguimient, .tabGesPlanAcc, .tabAddPlanAcc
+    {
         display: none;
     }
 
@@ -28,22 +29,30 @@
         <div class="col-md-10">
             <div class="btn-group">
                 <button type="button" class="btn btn-info btn-lg mr-2" id="prepare" title="doble click para cerrar la ventana">
-                    <i class="fas fa-list-check"></i> PREPARACIÓN
+                    <i class="fas fa-list-check"></i> 1. PREPARACIÓN
                 </button>
                 <button type="button" class="btn btn-primary btn-lg mr-2" id="execute" title="doble click para cerrar la ventana">
-                    <i class="fas fa-tasks"></i> EJECUCIÓN
-                </button>
-                <button type="button" class="btn btn-warning btn-lg mr-2" id="report" title="doble click para cerrar la ventana">
-                    <i class="fa fa-file-chart-column"></i> INFORME
+                    <i class="fas fa-tasks"></i> 2. EJECUCIÓN
                 </button>
                 <button type="button" class="btn btn-secondary btn-lg mr-2" id="actions" title="doble click para cerrar la ventana">
-                    <i class="far fa-message-captions"></i> ACCIONES
+                    <i class="far fa-message-captions"></i> 3. PLAN DE MEJORAMIENTO
                 </button>
-                <button type="button" class="btn btn-success btn-lg mr-2" id="seguimients" title="doble click para cerrar la ventana">
-                    <i class="fa fa-user-magnifying-glass"></i> SEGUIMIENTO
+                <button type="button" class="btn btn-warning btn-lg mr-2" id="report" title="doble click para cerrar la ventana">
+                    <i class="fa fa-file-chart-column"></i> 4. INFORME
                 </button>
             </div>
         </div>
+    </div>
+
+    <div class="tabGesPlanAcc">
+        <div class="container-fluid">
+            @Html.Partial("_ShowPlanActivity")
+        </div>
+    </div>
+    <div class="tabAddPlanAcc">
+        <input type="hidden" id="txtPlanActivityID" name="txtPlanActivityID" />
+        <input type="hidden" id="txtNoCumple" name="txtNoCumple"/>
+        @Html.Partial("_EditPlanActivity")
     </div>
 
 </div>
@@ -54,7 +63,7 @@
 
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <input type="hidden" id="auditID" name="auditID" value="@auditID" />
+        <input type="hidden" id="auditID" name="auditID" value="@auditID"/>
 
         <div class="tabPrepare">
             @Html.Partial("_EditAudit")
@@ -93,7 +102,7 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
         jQuery.noConflict();
         jQuery(document).ready(function ($) {
@@ -153,8 +162,14 @@
             $('#saveAuditedResult').click(function () {
                 auditedSave();
             });
+
+            GestorEvaluations();
+
+            var evaluationID = @auditID;
+            var auditID = @auditID;
+
         });
 
-    </script>
+</script>
 
 }
