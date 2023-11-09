@@ -6,11 +6,9 @@
     var selectListItems = WSafe.Domain.Data.Entities.EnumHelper.GetEnumSelectList<WSafe.Domain.Data.Entities.AuditChapters>();
 }
 
-<script src="~/Scripts/GestorRiesgosSST.js" type="text/javascript"></script>
-
 <style>
 
-    .tabPrepare, .tabExecute, .tabReport, .tabActions, .tabSeguimient, .tabGesPlanAcc, .tabAddPlanAcc
+    .tabPrepare, .tabExecute, .tabReport, .tabActions, .tabSeguimient, .tabGesPlanAcc, .tabAddPlanAcc, #saveAuditedResult
     {
         display: none;
     }
@@ -102,12 +100,11 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
-<script type="text/javascript">
+    <script type="text/javascript">
 
         jQuery.noConflict();
-        jQuery(document).ready(function ($) {
-            $("#saveAuditedResult").hide();
-            $('[data-toggle="tooltip"]').tooltip();
+        $(document).ready(function () {
+            //$('[data-toggle="tooltip"]').tooltip();
 
             if (@auditID > 0) {
                 $("#btnSaveAudit").hide();
@@ -120,7 +117,6 @@
                 $('.tabExecute').css("display", "none");
                 $('.tabReport').css("display", "none");
                 $('.tabActions').css("display", "none");
-                $('.tabSeguimient').css("display", "none");
             });
 
             $('#execute').click(function () {
@@ -128,7 +124,6 @@
                 $('.tabExecute').css("display", "block");
                 $('.tabReport').css("display", "none");
                 $('.tabActions').css("display", "none");
-                $('.tabSeguimient').css("display", "none");
             });
 
             $('#report').click(function () {
@@ -136,7 +131,6 @@
                 $('.tabExecute').css("display", "none");
                 $('.tabReport').css("display", "block");
                 $('.tabActions').css("display", "none");
-                $('.tabSeguimient').css("display", "none");
             });
 
             $('#actions').click(function () {
@@ -144,24 +138,18 @@
                 $('.tabExecute').css("display", "none");
                 $('.tabReport').css("display", "none");
                 $('.tabActions').css("display", "block");
-                $('.tabSeguimient').css("display", "none");
-            });
-
-            $('#seguimients').click(function () {
-                $('.tabPrepare').css("display", "none");
-                $('.tabExecute').css("display", "none");
-                $('.tabReport').css("display", "none");
-                $('.tabActions').css("display", "none");
-                $('.tabSeguimient').css("display", "block");
             });
 
             $('#auditChapter').change(function () {
+                $('#saveAuditedResult').css("display", "block");
                 auditedResult();
+
+                $(document).on('click', '#saveAuditedResult', function () {
+                    $('#saveAuditedResult').css("display", "none");
+                    auditedSave();
+                });
             });
 
-            $('#saveAuditedResult').click(function () {
-                auditedSave();
-            });
 
             GestorEvaluations();
 
@@ -170,6 +158,6 @@
 
         });
 
-</script>
+    </script>
 
 }
