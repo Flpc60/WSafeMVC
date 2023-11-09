@@ -70,6 +70,7 @@ namespace WSafe.Web.Controllers
             _orgID = (int)Session["orgID"];
             var model = _converterHelper.ToAuditedCreateVMNew(_orgID);
             ViewBag.AuditID = model.ID;
+            ViewBag.trabajadores = _comboHelper.GetComboTrabajadores(_orgID);
             return View(model);
         }
 
