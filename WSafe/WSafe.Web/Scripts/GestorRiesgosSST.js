@@ -1,4 +1,4 @@
-﻿// Agregar funcionlidad del lado del cliente,
+﻿// Agregar funcionlidad del lado del cliente
 // Implementar UI
 function viewHistory() {
     //    $(".tabMediAplica").css("display", "none");
@@ -5162,6 +5162,7 @@ function AddEvaluation() {
     //$('.tabGesCalifications').css("display", "none");
     $(".tabGesCiclo").css("display", "block");
     var minimos = true;
+
     if ($("#txtEstandares").is(':checked')) {
         minimos = false;
     }
@@ -5211,7 +5212,8 @@ function AddPlanActivity() {
         Humanos: humanos,
         ActionCategory: $("#txtActionCategory").val(),
         Observation: $("#txtObservation").val(),
-        Fundamentos: $("#txtFundamentos").val()
+        Fundamentos: $("#txtFundamentos").val(),
+        AuditID: auditID
     };
     $.ajax({
         type: "POST",
@@ -5585,7 +5587,8 @@ function UpdatePlanActivity() {
         Humanos: humanos,
         ActionCategory: $("#txtActionCategory").val(),
         Observation: $("#txtObservation").val(),
-        Fundamentos: $("#txtFundamentos").val()
+        Fundamentos: $("#txtFundamentos").val(),
+        AuditID: auditID
     };
 
     $.ajax({

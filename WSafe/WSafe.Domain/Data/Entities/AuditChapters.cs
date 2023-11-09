@@ -55,9 +55,9 @@ namespace WSafe.Domain.Data.Entities
     }
     public static class EnumHelper
     {
-        public static List<SelectListItem> GetEnumSelectList<TEnum>()
+        public static List<SelectListItem> GetEnumSelectList<AuditChapters>()
         {
-            var enumValues = Enum.GetValues(typeof(TEnum)).Cast<TEnum>();
+            var enumValues = Enum.GetValues(typeof(AuditChapters)).Cast<AuditChapters>();
             var selectListItems = new List<SelectListItem>();
 
             foreach (var value in enumValues)

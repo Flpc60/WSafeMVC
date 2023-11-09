@@ -1445,9 +1445,9 @@ function auditedResult() {
 
                 var html = '<div>' + name + '</div>' +
                     '<select class="requisite-select">' +
-                    '<option value="NC">NC</option>' +
-                    '<option value="CP">CP</option>' +
-                    '<option value="CYD">CYD</option>' +
+                    '<option value="NC">No cumple</option>' +
+                    '<option value="CP">Cumple parcialmente</option>' +
+                    '<option value="CYD">Cumple y documenta</option>' +
                     '</select>' + '<hr />';
 
                 $('.auditContainer').append(html);
@@ -1471,6 +1471,9 @@ function auditedSave() {
         $('.requisite-select').each(function (index) {
             var selectedValue = $(this).find('option:selected').val();
             model[index].Result = selectedValue;
+            if (selectedValue == "NC" || selectedValue == "CP") {
+                $("#txtNoCumple").prop('checked', true);
+            }
         });
 
         // Enviar respuestas al servidor usando Ajax

@@ -18,6 +18,7 @@ namespace WSafe.Web.Controllers
 {
     public class EvaluationsController : Controller
     {
+        // Evaluación del SG-SST
         private int _clientID;
         private int _orgID;
         private string _year;
@@ -432,7 +433,8 @@ namespace WSafe.Web.Controllers
                     Humanos = model.Humanos,
                     ActionCategory = model.ActionCategory,
                     Observation = model.Observation,
-                    Fundamentos = model.Fundamentos
+                    Fundamentos = model.Fundamentos,
+                    AuditID = model.AuditID
                 };
                 _empresaContext.PlanActivities.Add(planActivity);
                 await _empresaContext.SaveChangesAsync();
