@@ -87,7 +87,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <button type="button" class="btn btn-success" id="saveAuditedResult">
+                    <button type="button" class="btn btn-success" id="saveAuditedResult" onclick="auditedSave();">
                         <i class="fa fa-save"></i> Guardar resultados
                     </button>
                 </div>
@@ -102,7 +102,8 @@
 
     <script type="text/javascript">
 
-        jQuery.noConflict();
+        //$.ajaxSetup({ cache: false });
+        //jQuery.noConflict();
         $(document).ready(function () {
             //$('[data-toggle="tooltip"]').tooltip();
 
@@ -144,12 +145,11 @@
                 $('#saveAuditedResult').css("display", "block");
                 auditedResult();
 
-                $(document).on('click', '#saveAuditedResult', function () {
-                    $('#saveAuditedResult').css("display", "none");
-                    auditedSave();
-                });
             });
 
+            $(document).on('click', '#saveAuditedResult', function () {
+                $('#saveAuditedResult').css("display", "none");
+            });
 
             GestorEvaluations();
 
