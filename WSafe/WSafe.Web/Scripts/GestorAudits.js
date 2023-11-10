@@ -1426,9 +1426,11 @@ function auditedResult() {
     $.ajax({
         url: '/Audits/GetQuestionsChapter',
         type: 'GET',
-        data: { chapter: auditChapter },
+        data: {
+            chapter: auditChapter
+        },
         success: function (response) {
-            var model = []; // Crear el modelo aquí
+            var list = []; // Crear el modelo aquí
             response.forEach(function (item, index) {
                 var auditItemID = item.ID;
                 var name = index + 1 + ". " + item.Name + " ?:";
@@ -1441,7 +1443,7 @@ function auditedResult() {
                     Process: $('#auditProcess').val(),
                     AuditChapter: $('#auditChapter').val()
                 };
-                model.push(respuesta);
+                list.push(respuesta);
 
                 var html = '<div>' + name + '</div>' +
                     '<select class="requisite-select">' +
@@ -1454,19 +1456,24 @@ function auditedResult() {
             });
 
             // Almacena el modelo en un atributo de datos para usarlo posteriormente
-            $('.auditContainer').data('model', model);
+            $('.auditContainer').data('model', list);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
         }
     });
+
     $("#saveAuditedResult").show();
+
 }
 
 function auditedSave() {
 
     $('#saveAuditedResult').click(function () {
-        alert("Ejecutándose: saveAuditedResult");
         $(this).prop('disabled', true);
         // Obtiene el modelo desde el atributo de datos
-        var model = $('.auditContainer').data('model');
+        var modelo = $('.auditContainer').data('model');
 
         // Actualiza el valor de Result en el modelo
         $('.requisite-select').each(function (index) {
@@ -1474,7 +1481,7 @@ function auditedSave() {
             if (selectedValue == "NC" || selectedValue == "CP") {
                 $("#txtNoCumple").prop('checked', true);
             }
-            model[index].Result = selectedValue;
+            modelo[index].Result = selectedValue;
         });
 
         // Enviar respuestas al servidor usando Ajax
@@ -1482,16 +1489,22 @@ function auditedSave() {
             url: '/Audits/CreateAuditedResult',
             type: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify(model),
+            data: JSON.stringify(modelo),
             success: function (response) {
                 // Manejar el resultado si es necesario
                 $('.tabExecute').css('display', 'none');
                 $('.auditContainer').empty();
                 $('.auditContainer').css('display', 'none');
                 alert(response.message);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
             }
         });
+
         $(this).prop('disabled', false);
+
     });
 }
 
