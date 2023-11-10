@@ -1463,49 +1463,42 @@ function auditedResult() {
             alert(thrownError);
         }
     });
-
-    $("#saveAuditedResult").show();
-
 }
 
 function auditedSave() {
+    $(this).prop('disabled', true);
+    // Obtiene el modelo desde el atributo de datos
+    var modelo = $('.auditContainer').data('model');
 
-    $('#saveAuditedResult').click(function () {
-        $(this).prop('disabled', true);
-        // Obtiene el modelo desde el atributo de datos
-        var modelo = $('.auditContainer').data('model');
-
-        // Actualiza el valor de Result en el modelo
-        $('.requisite-select').each(function (index) {
-            var selectedValue = $(this).find('option:selected').val();
-            if (selectedValue == "NC" || selectedValue == "CP") {
-                $("#txtNoCumple").prop('checked', true);
-            }
-            modelo[index].Result = selectedValue;
-        });
-
-        // Enviar respuestas al servidor usando Ajax
-        $.ajax({
-            url: '/Audits/CreateAuditedResult',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(modelo),
-            success: function (response) {
-                // Manejar el resultado si es necesario
-                $('.tabExecute').css('display', 'none');
-                $('.auditContainer').empty();
-                $('.auditContainer').css('display', 'none');
-                alert(response.message);
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                alert(xhr.status);
-                alert(thrownError);
-            }
-        });
-
-        $(this).prop('disabled', false);
-
+    // Actualiza el valor de Result en el modelo
+    $('.requisite-select').each(function (index) {
+        var selectedValue = $(this).find('option:selected').val();
+        if (selectedValue == "NC" || selectedValue == "CP") {
+            $("#txtNoCumple").prop('checked', true);
+        }
+        modelo[index].Result = selectedValue;
     });
+
+    // Enviar respuestas al servidor usando Ajax
+    $.ajax({
+        url: '/Audits/CreateAuditedResult',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(modelo),
+        success: function (response) {
+            // Manejar el resultado si es necesario
+            $('.tabExecute').css('display', 'none');
+            $('.auditContainer').empty();
+            $('.auditContainer').css('display', 'none');
+            $('#saveAuditedResult').css("display", "none");
+            alert(response.message);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+
 }
 
 function asistenceAuditedResult() {

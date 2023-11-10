@@ -100,7 +100,7 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
         //$.ajaxSetup({ cache: false });
         //jQuery.noConflict();
@@ -144,20 +144,12 @@
             $('#auditChapter').change(function () {
                 $('#saveAuditedResult').css("display", "block");
                 auditedResult();
-
+                GestorEvaluations();
+                var evaluationID = @auditID;
+                var auditID = @auditID;
             });
-
-            $(document).on('click', '#saveAuditedResult', function () {
-                $('#saveAuditedResult').css("display", "none");
-            });
-
-            GestorEvaluations();
-
-            var evaluationID = @auditID;
-            var auditID = @auditID;
-
         });
 
-    </script>
+</script>
 
 }
