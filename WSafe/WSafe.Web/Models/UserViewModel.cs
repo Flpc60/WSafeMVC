@@ -17,5 +17,8 @@ namespace WSafe.Web.Models
         [Display(Name = "ORGANIZACIÓN")]
         [MaxLength(50)]
         public string RazonSocial { get; set; }
+        [Display(Name = "FECHA REGISTRO")]
+        [MaxLength(10)]
+        public string RegisterDate { get; set; }
     }
 }

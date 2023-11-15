@@ -95,6 +95,9 @@
                     @Html.DisplayNameFor(model => model.RazonSocial)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.RegisterDate)
+                </th>
+                <th>
                 </th>
                 <th>
                 </th>
@@ -115,8 +118,11 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.RazonSocial)
                     </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RegisterDate)
+                    </td>
                     <td style="font-size:15px">
-                        @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit"})
+                        @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" })
                     </td>
                     <td style="font-size:15px">
                         <a href="#" onclick="DeleteUser('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>

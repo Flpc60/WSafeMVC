@@ -215,6 +215,7 @@ namespace WSafe.Domain.Helpers.Implements
 
             return list;
         }
+        /*
         public IEnumerable<SelectListItem> GetComboTrabajadores(int org)
         {
             var list = _empresaContext.Trabajadores.Where(t =>t.OrganizationID == org).Select(t => new SelectListItem
@@ -232,6 +233,36 @@ namespace WSafe.Domain.Helpers.Implements
             });
 
             return list;
+        }
+        */
+
+        public IEnumerable<SelectListItem> GetComboTrabajadores(int org)
+        {
+            var trabajadores = _empresaContext.Trabajadores.Where(t => t.OrganizationID == org).ToList();
+            if (trabajadores != null && trabajadores.Any())
+            {
+                var list = trabajadores.Select(t => new SelectListItem
+                {
+                    Text = t.Nombres + " " + t.PrimerApellido + " " + t.Documento,
+                    Value = t.ID.ToString()
+                }).OrderBy(t => t.Text).ToList();
+
+                list.Insert(0, new SelectListItem
+                {
+                    Text = "(Seleccione un trabajador...)",
+                    Value = "0"
+                });
+
+                return list;
+            }
+            else
+            {
+                // Manejar el caso donde no hay trabajadores disponibles para la organización.
+                // Puedes retornar una lista vacía o null según sea apropiado para tu aplicación.
+                return new List<SelectListItem>();
+                // o
+                // return null;
+            }
         }
         public IEnumerable<SelectListItem> GetComboIndicadores()
         {

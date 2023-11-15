@@ -35,8 +35,7 @@ namespace WSafe.Domain.Data.Entities
         public string ARL { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Clase Riesgo")]
-        [MaxLength(10)]
-        public string ClaseRiesgo { get; set; }
+        public RiskClasses ClaseRiesgo { get; set; }
         public DocumentTypes DocumentType { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Documento Represente Legal")]
@@ -82,8 +81,8 @@ namespace WSafe.Domain.Data.Entities
         public string TurnosOperativo { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Año del periodo : ")]
-        [MaxLength(4)]
-        public string Year { get; set; }
+        [Range(typeof(short), "2000", "9999", ErrorMessage = "Por favor ingrese un año válido.")]
+        public short Year { get; set; }
         [Display(Name = "Producción Agropecuaria")]
         public bool Agropecuaria { get; set; }
         [Display(Name = "Responsable SG-SST")]
@@ -128,9 +127,9 @@ namespace WSafe.Domain.Data.Entities
         public DateTime ControlDate { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int ClientID { get; set; }
-        public int StandardSocioDemographic { get; set; }
-        public int StandardUnsafeacts { get; set; }
-        public int StandardIndicators { get; set; }
+        public short StandardSocioDemographic { get; set; }
+        public short StandardUnsafeacts { get; set; }
+        public short StandardIndicators { get; set; }
         public short StandardRecomendations { get; set; }
         public short StandardAudits { get; set; }
     }

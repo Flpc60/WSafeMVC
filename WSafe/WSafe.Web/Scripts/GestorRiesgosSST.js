@@ -1497,9 +1497,9 @@ function UpdateOrganization(id) {
         $("#txtAgropecuaria").val(false)
     }
 
-    var char = ($("#txtClaseRiesgo").val()).trim();
+    var char = ($("#txtClaseRiesgo").val());
     if (($("#txtNumero").val() <= 10)) {
-        var input = "I,II,III";
+        var input = "1,2,3";
         var pos = input.indexOf(char);
         if (pos >= 0) {
             range = 1;
@@ -1507,7 +1507,7 @@ function UpdateOrganization(id) {
     }
 
     if (($("#txtNumero").val() > 10) && ($("#txtNumero").val() <= 50)) {
-        var input = "I,II,III";
+        var input = "1,2,3";
         var pos = input.indexOf(char);
         if (pos >= 0) {
             range = 2;
@@ -1519,7 +1519,7 @@ function UpdateOrganization(id) {
     }
 
     if (($("#txtNumero").val() <= 50)) {
-        input = "IV,V";
+        input = "4,5";
         var pos = input.indexOf(char);
         if (pos >= 0) {
             range = 3;

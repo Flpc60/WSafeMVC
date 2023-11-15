@@ -211,6 +211,7 @@
     <Compile Include="Data\Entities\RecomendationTypes.cs" />
     <Compile Include="Data\Entities\RecursosCategory.cs" />
     <Compile Include="Data\Entities\Riesgo.cs" />
+    <Compile Include="Data\Entities\RiskClasses.cs" />
     <Compile Include="Data\Entities\Role.cs" />
     <Compile Include="Data\Entities\RoleOperation.cs" />
     <Compile Include="Data\Entities\Seguimiento.cs" />

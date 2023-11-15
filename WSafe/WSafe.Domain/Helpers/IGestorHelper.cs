@@ -46,5 +46,6 @@ namespace WSafe.Domain.Helpers
         string GetEmission(Emissions emission);
         string GetRecomendationType(RecomendationTypes type);
         string GetAuditChapter(AuditChapters chapter);
+        string GetRiskClass(int riskClass);
     }
 }

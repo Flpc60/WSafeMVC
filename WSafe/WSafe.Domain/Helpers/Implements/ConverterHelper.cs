@@ -1067,7 +1067,8 @@ namespace WSafe.Domain.Helpers.Implements
                              Email = u.Email,
                              RoleID = r.ID,
                              Role = r.Name,
-                             RazonSocial = o.RazonSocial.Trim().ToUpper()
+                             RazonSocial = o.RazonSocial.Trim().ToUpper(),
+                             RegisterDate = u.RegisterDate
                          }).ToList();
 
             var list2 = (from u in _empresaContext.Users
@@ -1078,7 +1079,8 @@ namespace WSafe.Domain.Helpers.Implements
                              ID = u.ID,
                              Name = u.Name,
                              Email = u.Email,
-                             RoleID = u.RoleID
+                             RoleID = u.RoleID,
+                             RegisterDate = u.RegisterDate
                          }).ToList();
 
             var modelo = new List<UserViewModel>();
@@ -1101,7 +1103,8 @@ namespace WSafe.Domain.Helpers.Implements
                     Email = item.Email,
                     RoleID = item.RoleID,
                     Role = role,
-                    RazonSocial = item.RazonSocial.Trim().ToUpper()
+                    RazonSocial = item.RazonSocial.Trim().ToUpper(),
+                    RegisterDate = item.RegisterDate.ToString("yyyy-MM-dd")
                 });
             }
             foreach (var item in list2)
@@ -1113,7 +1116,8 @@ namespace WSafe.Domain.Helpers.Implements
                     Email = item.Email,
                     RoleID = item.RoleID,
                     Role = "No tiene permisos",
-                    RazonSocial = "No tiene Organización"
+                    RazonSocial = "No tiene Organización",
+                    RegisterDate = item.RegisterDate.ToString("yyyy-MM-dd")
                 });
             }
 
@@ -1159,7 +1163,8 @@ namespace WSafe.Domain.Helpers.Implements
                 RoleID = user.RoleID,
                 Roles = _comboHelper.GetAllRoles(),
                 OrganizationID = user.OrganizationID,
-                ClientID = user.ClientID
+                ClientID = user.ClientID,
+                RegisterDate = user.RegisterDate
             };
             return modelo;
         }
@@ -1173,7 +1178,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Password = user.Password,
                 RoleID = user.RoleID,
                 OrganizationID = user.OrganizationID,
-                ClientID = user.ClientID
+                ClientID = user.ClientID,
+                RegisterDate = user.RegisterDate
             };
             return result;
         }

@@ -699,7 +699,7 @@ namespace WSafe.Domain.Helpers.Implements
                     return "Practicantes";
 
                 default:
-                    return "Administrativa";
+                    return "General";
             }
         }
         public string GetTipoJornada(TiposJornada jornada)
@@ -976,6 +976,29 @@ namespace WSafe.Domain.Helpers.Implements
 
                 default:
                     return "VERIFICACIÓN - AUDITORÍA INTERNA";
+            }
+        }
+        public string GetRiskClass(int riskClass)
+        {
+            switch (riskClass)
+            {
+                case 1:
+                    return "I";
+
+                case 2:
+                    return "II";
+
+                case 3:
+                    return "III";
+
+                case 4:
+                    return "IV";
+
+                case 5:
+                    return "V";
+
+                default:
+                    return "I";
             }
         }
     }
