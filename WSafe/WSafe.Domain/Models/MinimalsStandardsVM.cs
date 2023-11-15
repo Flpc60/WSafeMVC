@@ -13,7 +13,7 @@ namespace WSafe.Web.Models
         public string Direccion { get; set; }
         public string Municip { get; set; }
         public string Department { get; set; }
-        public string ClaseRiesgo { get; set; }
+        public RiskClasses ClaseRiesgo { get; set; }
         public string EconomicActivity { get; set; }
         public int NumeroTrabajadores { get; set; }
         public string ResponsableSGSST { get; set; }

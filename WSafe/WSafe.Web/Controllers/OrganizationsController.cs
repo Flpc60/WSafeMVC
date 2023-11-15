@@ -404,7 +404,9 @@ namespace WSafe.Web.Controllers
                 StandardIncidents = 18,
                 StandardMatrixRisk = 28,
                 StandardSocioDemographic = 9,
-                StandardUnsafeacts = 57
+                StandardUnsafeacts = 57,
+                StandardRecomendations = 14,
+                StandardAudits = 40
             };
             return View(model);
         }

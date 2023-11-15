@@ -122,6 +122,7 @@ namespace WSafe.Web.Controllers
                 }
 
                 var roleUser = _gestorHelper.GetRole(result.RoleID);
+                var classRisk = _gestorHelper.GetRiskClass((int)empresa.ClaseRiesgo);
                 Session["UserRole"] = roleUser;
                 Session["User"] = result;
                 Session["userName"] = result.Name;
@@ -130,8 +131,8 @@ namespace WSafe.Web.Controllers
                 Session["organization"] = empresa.RazonSocial.Trim() + " NIT : " + empresa.NIT + "     Agropecuaria : " + agropecuaria;
                 Session["numeroTrabajadores"] = empresa.NumeroTrabajadores;
                 Session["turnoOperativo"] = empresa.TurnosOperativo;
-                Session["year"] = empresa.Year.Trim();
-                Session["riesgo"] = empresa.ClaseRiesgo;
+                Session["year"] = empresa.Year.ToString();
+                Session["riesgo"] = classRisk;
                 Session["responsable"] = empresa.ResponsableSGSST;
                 Session["clientID"] = empresa.ClientID;
                 Session["orgID"] = empresa.ID;
@@ -213,6 +214,7 @@ namespace WSafe.Web.Controllers
                             model.ClientID = 1;
                         }
                         model.Password = password;
+                        model.RegisterDate = DateTime.Now;
                         _empresaContext.Users.Add(model);
                         await _empresaContext.SaveChangesAsync();
                         message = "El Usuario se ha registrado correctamente !!";
