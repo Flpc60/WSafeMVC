@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
@@ -29,5 +30,8 @@ namespace WSafe.Web.Models
         [Display(Name = "Consultoría")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una consultoría !!")]
         public int ClientID { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime RegisterDate { get; set; }
     }
 }
