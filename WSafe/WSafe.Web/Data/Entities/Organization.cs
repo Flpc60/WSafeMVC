@@ -50,8 +50,8 @@ namespace WSafe.Domain.Data.Entities
         [MaxLength(100)]
         public string EconomicActivity { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Range(1, int.MaxValue, ErrorMessage = "Debes ingresar número trabajadores")]
-        public int NumeroTrabajadores { get; set; }
+        [Range(typeof(short), "1", "9999", ErrorMessage = "Por favor ingrese un número de trabajadores válido.")]
+        public short NumeroTrabajadores { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Política")]
         [MaxLength(150)]

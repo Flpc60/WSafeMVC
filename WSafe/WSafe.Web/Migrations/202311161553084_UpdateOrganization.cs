@@ -7,10 +7,12 @@
     {
         public override void Up()
         {
+            AlterColumn("dbo.Organizations", "NumeroTrabajadores", c => c.Short(nullable: false));
         }
         
         public override void Down()
         {
+            AlterColumn("dbo.Organizations", "NumeroTrabajadores", c => c.Int(nullable: false));
         }
     }
 }
