@@ -13,12 +13,12 @@ namespace WSafe.Web.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202311152306543_UpdateOrganization"; }
+            get { return "202311161553084_UpdateOrganization"; }
         }
         
         string IMigrationMetadata.Source
         {
-            get { return Resources.GetString("Source"); }
+            get { return null; }
         }
         
         string IMigrationMetadata.Target
