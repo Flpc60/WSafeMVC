@@ -1497,7 +1497,8 @@ function UpdateOrganization(id) {
         $("#txtAgropecuaria").val(false)
     }
 
-    var char = ($("#txtClaseRiesgo").val());
+    var char = $("#txtClaseRiesgo").val();
+    alert("Clase riesgo:" + $("#txtClaseRiesgo").val());
     if (($("#txtNumero").val() <= 10)) {
         var input = "1,2,3";
         var pos = input.indexOf(char);
@@ -1570,6 +1571,8 @@ function UpdateOrganization(id) {
         StandardIncidents: $("#sdIncidents").val(),
         StandardSocioDemographic: $("#sdSociodemographic").val(),
         StandardUnsafeacts: $("#sdUnsafeacts").val(),
+        StandardRecomendations: $("#sdRecomendations").val(),
+        StandardAudits: $("#sdAudits").val(),
         ControlDate: $("#controlDate").val(),
         ClientID: $("#clientID").val()
     };
@@ -1618,7 +1621,7 @@ function validateOrganization() {
         var field = fields[i];
         var value = $("#" + field.id).val();
 
-        if (value == "") {
+        if (value == "" || value == 0) {
             document.getElementById("txtInfoBasic").innerHTML = field.message;
             $("#" + field.id).focus();
             return false;
