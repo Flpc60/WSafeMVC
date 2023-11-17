@@ -648,6 +648,7 @@
     <None Include="Properties\PublishProfiles\FolderProfile3.pubxml" />
     <None Include="Properties\PublishProfiles\FTPProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\FTPProfile2.pubxml" />
+    <Content Include="Images\logo1.jpg" />
     <Content Include="Images\wsafe.jpg" />
     <Content Include="Images\wsafe2.jpg" />
     <Content Include="Rotativa\help-wkhtmltoimage.txt" />

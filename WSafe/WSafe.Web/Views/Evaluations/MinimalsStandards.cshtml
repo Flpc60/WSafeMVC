@@ -6,6 +6,8 @@
     var fecha = DateTime.Today;
     Layout = null;
     var strStyle = "background-color:" + Model.Color.Trim() + ";";
+    var logo = @Session["logo"].ToString();
+
 }
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -22,7 +24,7 @@
     <div class="row">
         <div style="display:inline-block">
             <div class="col-md-12">
-                <img src="@Server.MapPath("~/Images/LogoEntidad.jpg")" style="width:200px; height:200px"><img />
+                <img src="@Server.MapPath(@logo)" style="width:200px; height:200px"><img />
                 <p><strong><b>@ViewBag.Title</b></strong></p>
             </div>
         </div>

@@ -1497,8 +1497,8 @@ function UpdateOrganization(id) {
         $("#txtAgropecuaria").val(false)
     }
 
-    var char = $("#txtClaseRiesgo").val();
-    alert("Clase riesgo:" + $("#txtClaseRiesgo").val());
+    var claseRiesgo = $("#txtClaseRiesgo").val();
+    var char = claseRiesgo;
     if (($("#txtNumero").val() <= 10)) {
         var input = "1,2,3";
         var pos = input.indexOf(char);
