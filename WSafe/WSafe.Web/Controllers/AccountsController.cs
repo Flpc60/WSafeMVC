@@ -137,6 +137,7 @@ namespace WSafe.Web.Controllers
                 Session["clientID"] = empresa.ClientID;
                 Session["orgID"] = empresa.ID;
                 Session["path"] = $"~/ORG{empresa.ID}/SG-SST/{empresa.Year}";
+                Session["logo"] = $"~/Images/logo{empresa.ID}.jpg";
                 return Json(new { result = "Redirect", url = Url.Action("Index", "Home"), mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
