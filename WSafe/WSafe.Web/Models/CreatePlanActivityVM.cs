@@ -1,14 +1,29 @@
-﻿using System;
+﻿using System.ComponentModel.DataAnnotations;
+using System;
+using WSafe.Domain.Data.Entities;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
-namespace WSafe.Domain.Data.Entities
+namespace WSafe.Web.Models
 {
-    public class PlanActivity
+    public class CreatePlanActivityVM
     {
         public int ID { get; set; }
         public int EvaluationID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "ESTÁNDAR MÍNIMO")]
         public int NormaID { get; set; }
+        public IEnumerable<SelectListItem> Normas { get; set; }
+        public string Ciclo { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatotio")]
+        [Display(Name = "ITEM")]
+        [MaxLength(6)]
+        public string Item { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatotio")]
+        [Display(Name = "ESTÁNDAR")]
+        [MaxLength(200)]
+        public string Name { get; set; }
+
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "FECHA CUMPLIMIENTO")]
         [DataType(DataType.Date)]
@@ -18,9 +33,10 @@ namespace WSafe.Domain.Data.Entities
         [Display(Name = "ACTIVIDAD")]
         [MaxLength(100)]
         public string Activity { get; set; }
-        [Display(Name = "TRABAJADOR RESPONSABLE")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "RESPONSABLE")]
         public int TrabajadorID { get; set; }
+        public IEnumerable<SelectListItem> Workers { get; set; }
         [Display(Name = "FINANCIEROS")]
         public bool Financieros { get; set; }
         [Display(Name = "ADMINISTRATIVO")]
@@ -49,6 +65,5 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Range(typeof(short), "1", "9999", ErrorMessage = "Por favor ingrese un número de actividades programadas válido.")]
         public short Programed { get; set; }
-        public ICollection<SiguePlanAnual> SiguePlanAnual { get; set; }
     }
 }
