@@ -507,6 +507,7 @@
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
     <Compile Include="Models\ActionsMatrixVM.cs" />
+    <Compile Include="Models\AnnualPlanVM.cs" />
     <Compile Include="Models\AplicacionVM.cs" />
     <Compile Include="Models\AplicationsViewModel.cs" />
     <Compile Include="Models\AthorizationVM.cs" />
@@ -545,6 +546,7 @@
     <Compile Include="Models\RoleUserVM.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Models\SeguimientoAccionVM.cs" />
+    <Compile Include="Models\SiguePlanAnualVM.cs" />
     <Compile Include="Models\SocioDemographicVM.cs" />
     <Compile Include="Models\UnsafeactsListVM.cs" />
     <Compile Include="Models\UnsafeactVM.cs" />
@@ -555,11 +557,13 @@
     <Compile Include="Models\_DetailsAccionVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IAccionRepository.cs" />
+    <Compile Include="Repositories\IAnnualPlanRepository.cs" />
     <Compile Include="Repositories\IAplicationRepository.cs" />
     <Compile Include="Repositories\IAuditRepository.cs" />
     <Compile Include="Repositories\IGenericRepository.cs" />
     <Compile Include="Repositories\IIncidenteRepository.cs" />
     <Compile Include="Repositories\Implements\AccionRepository.cs" />
+    <Compile Include="Repositories\Implements\AnnualPlanRepository.cs" />
     <Compile Include="Repositories\Implements\AplicationRepository.cs" />
     <Compile Include="Repositories\Implements\AuditRepository.cs" />
     <Compile Include="Repositories\Implements\GenericRepository.cs" />
@@ -569,11 +573,13 @@
     <Compile Include="Repositories\Implements\RiesgoRepository.cs" />
     <Compile Include="Repositories\IRiesgoRepository.cs" />
     <Compile Include="Services\IAccionService.cs" />
+    <Compile Include="Services\IAnnualPlanService.cs" />
     <Compile Include="Services\IAplicationService.cs" />
     <Compile Include="Services\IAuditService.cs" />
     <Compile Include="Services\IGenericService.cs" />
     <Compile Include="Services\IIncidenteService.cs" />
     <Compile Include="Services\Implements\AccionService.cs" />
+    <Compile Include="Services\Implements\AnnualPlanService.cs" />
     <Compile Include="Services\Implements\AplicationService.cs" />
     <Compile Include="Services\Implements\AuditService.cs" />
     <Compile Include="Services\Implements\GenericService.cs" />
