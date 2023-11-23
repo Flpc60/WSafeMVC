@@ -28,7 +28,7 @@ namespace WSafe.Web.Models
         public short Programed { get; set; }
         [Display(Name = "EJECUTADAS")]
         public short Executed { get; set; }
-        [Display(Name = "% CUMPLIMIENT")]
-        public decimal PorcentajeCumplimiento { get; set; }
+        [Display(Name = "% CUMPLIMIENTO")]
+        public string PorcentajeCumplimiento { get; set; }
     }
 }

@@ -121,6 +121,7 @@
     <Compile Include="Data\Entities\Accion.cs" />
     <Compile Include="Data\Entities\ActionCategories.cs" />
     <Compile Include="Data\Entities\Actividad.cs" />
+    <Compile Include="Data\Entities\ActivitiesFrequency.cs" />
     <Compile Include="Data\Entities\Aplicacion.cs" />
     <Compile Include="Data\Entities\Audit.cs" />
     <Compile Include="Data\Entities\AuditAction.cs" />
@@ -191,6 +192,7 @@
     <Compile Include="Data\Entities\EstadosCivil.cs" />
     <Compile Include="Data\Entities\MedidasControl.cs" />
     <Compile Include="Data\Entities\Movimient.cs" />
+    <Compile Include="Data\Entities\NamesMonth.cs" />
     <Compile Include="Data\Entities\NivelesConsecuencia.cs" />
     <Compile Include="Data\Entities\NivelesDeficiencia.cs" />
     <Compile Include="Data\Entities\NivelesEscolaridad.cs" />

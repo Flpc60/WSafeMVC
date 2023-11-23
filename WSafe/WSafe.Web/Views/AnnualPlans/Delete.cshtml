@@ -1,0 +1,96 @@
+﻿@model WSafe.Web.Models.AnnualPlanVM
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>AnnualPlanVM</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Cycle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cycle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Activity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Activity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Entregables)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Entregables)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Recursos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Recursos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Responsable)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Responsable)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Observation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Observation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StateActivity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StateActivity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Programed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Programed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Executed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Executed)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

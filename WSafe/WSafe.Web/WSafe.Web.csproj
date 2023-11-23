@@ -338,6 +338,7 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Controllers\AccionesController.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
+    <Compile Include="Controllers\AnnualPlansController.cs" />
     <Compile Include="Controllers\AplicacionesController.cs" />
     <Compile Include="Controllers\AuditsController.cs" />
     <Compile Include="Controllers\EvaluationsController.cs" />
@@ -356,6 +357,7 @@
     <Compile Include="Data\Entities\Action.cs" />
     <Compile Include="Data\Entities\ActionCategories.cs" />
     <Compile Include="Data\Entities\Actividad.cs" />
+    <Compile Include="Data\Entities\ActivitiesFrequency.cs" />
     <Compile Include="Data\Entities\Aplicacion.cs" />
     <Compile Include="Data\Entities\Audit.cs" />
     <Compile Include="Data\Entities\AuditAction.cs" />
@@ -425,6 +427,7 @@
     <Compile Include="Data\Entities\JerarquiaControles.cs" />
     <Compile Include="Data\Entities\MedidasControl.cs" />
     <Compile Include="Data\Entities\Movimient.cs" />
+    <Compile Include="Data\Entities\NamesMonth.cs" />
     <Compile Include="Data\Entities\NivelesConsecuencia.cs" />
     <Compile Include="Data\Entities\NivelesDeficiencia.cs" />
     <Compile Include="Data\Entities\NivelesEscolaridad.cs" />
@@ -502,6 +505,14 @@
     <Compile Include="Migrations\202311161553084_UpdateOrganization.cs" />
     <Compile Include="Migrations\202311161553084_UpdateOrganization.designer.cs">
       <DependentUpon>202311161553084_UpdateOrganization.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202311232101598_CreateAnnualPlan.cs" />
+    <Compile Include="Migrations\202311232101598_CreateAnnualPlan.designer.cs">
+      <DependentUpon>202311232101598_CreateAnnualPlan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202311232245115_UpdateAnnualPlan.cs" />
+    <Compile Include="Migrations\202311232245115_UpdateAnnualPlan.designer.cs">
+      <DependentUpon>202311232245115_UpdateAnnualPlan.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
@@ -978,6 +989,11 @@
     <Content Include="Views\Audits\Edit.cshtml" />
     <Content Include="Views\Audits\Index.cshtml" />
     <Content Include="Views\Shared\_EditAudit.cshtml" />
+    <Content Include="Views\AnnualPlans\Create.cshtml" />
+    <Content Include="Views\AnnualPlans\Delete.cshtml" />
+    <Content Include="Views\AnnualPlans\Details.cshtml" />
+    <Content Include="Views\AnnualPlans\Edit.cshtml" />
+    <Content Include="Views\AnnualPlans\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1241,6 +1257,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202311161553084_UpdateOrganization.resx">
       <DependentUpon>202311161553084_UpdateOrganization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202311232101598_CreateAnnualPlan.resx">
+      <DependentUpon>202311232101598_CreateAnnualPlan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202311232245115_UpdateAnnualPlan.resx">
+      <DependentUpon>202311232245115_UpdateAnnualPlan.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

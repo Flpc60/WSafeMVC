@@ -49,6 +49,12 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Range(typeof(short), "1", "9999", ErrorMessage = "Por favor ingrese un número de actividades programadas válido.")]
         public short Programed { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "FECHA INICIAL")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
+        public DateTime InitialDate { get; set; }
+        public ActivitiesFrequency ActivityFrequency { get; set; }
         public ICollection<SiguePlanAnual> SiguePlanAnual { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace WSafe.Web.Controllers
 {
     public class RecomendationsController : Controller
     {
-        //  Recomendaciones médicas en el SG-SST
+        //  Recomendaciones y restricciones médicas en el SG-SST
         private int _clientID;
         private int _orgID;
         private string _year;
