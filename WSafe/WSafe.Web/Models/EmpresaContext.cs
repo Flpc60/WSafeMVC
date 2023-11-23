@@ -67,6 +67,7 @@ namespace WSafe.Web.Models
         public DbSet<Auditer> Auditers { get; set; }
         public DbSet<AuditItem> AuditItems { get; set; }
         public DbSet<AuditedAction> AuditedActions { get; set; }
+        public DbSet<SiguePlanAnual> SigueAnnualPlans { get; set; }
         public System.Data.Entity.DbSet<WSafe.Web.Models.UserViewModel> UserViewModels { get; set; }
         public System.Data.Entity.DbSet<WSafe.Web.Models.RoleUserVM> RoleUserVMs { get; set; }
 
@@ -92,5 +93,7 @@ namespace WSafe.Web.Models
         public System.Data.Entity.DbSet<WSafe.Web.Models.RecomendationVM> RecomendationVMs { get; set; }
 
         public System.Data.Entity.DbSet<WSafe.Web.Models.AuditedCreateVM> AuditedCreateVMs { get; set; }
+
+        public System.Data.Entity.DbSet<WSafe.Web.Models.AnnualPlanVM> AnnualPlanVMs { get; set; }
     }
 }

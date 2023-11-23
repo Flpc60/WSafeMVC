@@ -1001,5 +1001,28 @@ namespace WSafe.Domain.Helpers.Implements
                     return "I";
             }
         }
+        public string GetStateActivity(StatesActivity state)
+        {
+            switch (state)
+            {
+                case StatesActivity.Actualizar:
+                    return "ACTUALIZAR";
+
+                case StatesActivity.Diseñar:
+                    return "DISEÑAR";
+
+                case StatesActivity.Mejorar:
+                    return "MEJORAR";
+
+                case StatesActivity.Validar:
+                    return "VALIDAR";
+
+                case StatesActivity.Divulgar:
+                    return "ACTUALIZAR";
+
+                default:
+                    return "ACTUALIZAR";
+            }
+        }
     }
 }

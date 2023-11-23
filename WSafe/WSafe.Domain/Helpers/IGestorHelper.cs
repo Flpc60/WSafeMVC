@@ -47,5 +47,6 @@ namespace WSafe.Domain.Helpers
         string GetRecomendationType(RecomendationTypes type);
         string GetAuditChapter(AuditChapters chapter);
         string GetRiskClass(int riskClass);
+        string GetStateActivity(StatesActivity state);
     }
 }

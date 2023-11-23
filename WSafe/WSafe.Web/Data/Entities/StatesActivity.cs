@@ -5,6 +5,7 @@
         Actualizar = 1,
         Diseñar = 2,
         Mejorar = 3,
-        Divulgar = 4
+        Validar = 4,
+        Divulgar = 5
     }
 }

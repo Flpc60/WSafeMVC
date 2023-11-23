@@ -1,4 +1,5 @@
 ﻿using iTextSharp.text;
+using Jint.Expressions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -2184,6 +2185,60 @@ namespace WSafe.Domain.Helpers.Implements
                 UserID = model.UserID
             };
             return result;
+        }
+        public IEnumerable<AnnualPlanVM> ToAnnualPlanVM(IEnumerable<PlanActivity> list)
+        {
+            var compromise = "";
+            var workerCompromise = "";
+            var model = new List<AnnualPlanVM>();
+            foreach (var item in list)
+            {
+                var programed = item.SiguePlanAnual
+                    .Where(pa => pa.StateCronogram == StatesCronogram.Programada)
+                    .Count();
+
+                var executed = item.SiguePlanAnual
+                    .Where(pa => pa.StateCronogram == StatesCronogram.Ejecutada)
+                    .Count();
+
+                var recursos = "";
+                if (item.Financieros)
+                {
+                    recursos += "Financieros, ";
+                }
+
+                if (item.Administrativos)
+                {
+                    recursos += "Administrativos, ";
+                }
+
+                if (item.Tecnicos)
+                {
+                    recursos += "Técnicos, ";
+                }
+
+                if (item.Humanos)
+                {
+                    recursos += "Humanos";
+                }
+
+                model.Add(new AnnualPlanVM
+                {
+                    ID = item.ID,
+                    Cycle = _empresaContext.Normas.Find(item.NormaID).Ciclo,
+                    Activity = item.Activity,
+                    Entregables = item.Entregables,
+                    Recursos = recursos,
+                    Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto,
+                    Observation = item.Observation,
+                    StateActivity = _gestorHelper.GetStateActivity(item.StateActivity),
+                    Programed = (short)programed,
+                    Executed = (short)executed,
+                    PorcentajeCumplimiento = (executed / programed * 100).ToString("0.00")
+                });
+            }
+
+            return model;
         }
     }
 }

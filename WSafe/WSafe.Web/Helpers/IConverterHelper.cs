@@ -67,5 +67,6 @@ namespace WSafe.Domain.Helpers
         IEnumerable<AuditedResultVM> ToAuditedResultVM(IEnumerable<AuditedResult> auditedResult);
         AuditedCreateVM ToAuditedCreateVMNew(int org);
         Task<Audit> ToAuditAsync(AuditedCreateVM model, bool isNew);
+        IEnumerable<AnnualPlanVM> ToAnnualPlanVM(IEnumerable<PlanActivity> list);
     }   
 }
