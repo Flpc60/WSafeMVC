@@ -452,8 +452,11 @@
     <Compile Include="Data\Entities\SeguimientoAccion.cs" />
     <Compile Include="Data\Entities\SeguimientoAction.cs" />
     <Compile Include="Data\Entities\SigueAudit.cs" />
+    <Compile Include="Data\Entities\SiguePlanAnual.cs" />
     <Compile Include="Data\Entities\SigueRecomendation.cs" />
     <Compile Include="Data\Entities\SocioDemografico.cs" />
+    <Compile Include="Data\Entities\StatesActivity.cs" />
+    <Compile Include="Data\Entities\StatesCronogram.cs" />
     <Compile Include="Data\Entities\Tarea.cs" />
     <Compile Include="Data\Entities\TenenciasVivienda.cs" />
     <Compile Include="Data\Entities\TiposAgente.cs" />
@@ -516,6 +519,7 @@
     <Compile Include="Models\CalificationVM.cs" />
     <Compile Include="Models\ControlViewModel.cs" />
     <Compile Include="Models\CreateIndicatorsViewModel.cs" />
+    <Compile Include="Models\CreatePlanActivityVM.cs" />
     <Compile Include="Models\DashboardVM.cs" />
     <Compile Include="Models\DetailsIncidentVM.cs" />
     <Compile Include="Models\EmpresaContext.cs" />
