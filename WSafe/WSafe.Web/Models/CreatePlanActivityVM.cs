@@ -1,8 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System;
-using WSafe.Domain.Data.Entities;
+﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using WSafe.Domain.Data.Entities;
 
 namespace WSafe.Web.Models
 {

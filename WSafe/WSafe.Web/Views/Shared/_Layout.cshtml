@@ -29,7 +29,7 @@
 
         .navbar {
             background-color: #343a40; /* Set your desired background color */
-            padding: 5px 5px; /* Adjusted padding */
+            padding: 1px 1px; /* Adjusted padding */
         }
 
         .navbar-brand-logo {
@@ -43,7 +43,7 @@
         }
 
             .navbar-nav li {
-                margin-right: 3px; /* Adjusted margin between menu items */
+                margin-right: 1px; /* Adjusted margin between menu items */
                 transition: background-color 0.3s; /* Added transition for smooth hover effect */
             }
 
@@ -52,7 +52,7 @@
         }
 
         .navbar-right {
-            margin-right: 5px; /* Adjusted margin for right-aligned items */
+            margin-right: 1px; /* Adjusted margin for right-aligned items */
         }
 
         .navbar-collapse {
@@ -60,7 +60,7 @@
         }
 
         .navbar-toggler {
-            margin-right: 5px; /* Adjusted margin for the toggler button */
+            margin-right: 1px; /* Adjusted margin for the toggler button */
         }
 
         .body-content {
@@ -103,6 +103,7 @@
                             <li>@Html.ActionLink("ACTOS_INSEGUROS", "Index", "Unsafeacts")</li>
                             <li>@Html.ActionLink("RECOMENDACIONES", "Index", "Recomendations")</li>
                             <li>@Html.ActionLink("AUDITORIAS", "Index", "Audits")</li>
+                            <li>@Html.ActionLink("PLAN_ANUAL", "Index", "AnnualPlans")</li>
                         }
                         else
                         {
@@ -114,6 +115,7 @@
                                 <li>@Html.ActionLink("ACTOS_INSEGUROS", "Index", "Unsafeacts")</li>
                                 <li>@Html.ActionLink("RECOMENDACIONES", "Index", "Recomendations")</li>
                                 <li>@Html.ActionLink("AUDITORIAS", "Index", "Audits")</li>
+                                <li>@Html.ActionLink("PLAN_ANUAL", "Index", "AnnualPlans")</li>
                             }
                             else
                             {
@@ -123,6 +125,7 @@
                                     <li>@Html.ActionLink("SG-SST", "Index", "Movimientos")</li>
                                     <li>@Html.ActionLink("EVALUACIÓN", "Index", "Evaluations")</li>
                                     <li>@Html.ActionLink("AUDITORIAS", "Index", "Audits")</li>
+                                    <li>@Html.ActionLink("PLAN_ANUAL", "Index", "AnnualPlans")</li>
                                 }
                                 else
                                 {

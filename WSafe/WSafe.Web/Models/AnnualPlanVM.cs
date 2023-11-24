@@ -17,7 +17,7 @@ namespace WSafe.Web.Models
         public string Entregables { get; set; }
         [Display(Name = "RECURSOS")]
         public string Recursos { get; set; }
-        [Display(Name = "TRABAJADOR RESPONSABLE")]
+        [Display(Name = "RESPONSABLE")]
         public string Responsable { get; set; }
         [MaxLength(100)]
         [Display(Name = "OBSERVACIONES")]
@@ -28,7 +28,7 @@ namespace WSafe.Web.Models
         public short Programed { get; set; }
         [Display(Name = "EJECUTADAS")]
         public short Executed { get; set; }
-        [Display(Name = "% CUMPLIMIENTO")]
+        [Display(Name = "CUMPLIMIENTO")]
         public string PorcentajeCumplimiento { get; set; }
     }
 }

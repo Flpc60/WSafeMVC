@@ -21,9 +21,9 @@ namespace WSafe.Web.Models
         public DateTime DateSigue { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "ACTIVIDAD")]
-        [MaxLength(100)]
+        [MaxLength(200)]
         public string Activity { get; set; }
-        [MaxLength(100)]
+        [MaxLength(200)]
         [Display(Name = "ENTREGABLES")]
         public string Entregables { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
@@ -45,6 +45,7 @@ namespace WSafe.Web.Models
         [Range(typeof(short), "1", "9999", ErrorMessage = "Por favor ingrese un número de actividades ejecutadas válido.")]
         [Display(Name = "EJECUTADAS")]
         public short Executed { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "ACCIÓN")]
         public ActionCategories ActionCategory { get; set; }
         [Display(Name = "SUBIR EVIENCIA")]

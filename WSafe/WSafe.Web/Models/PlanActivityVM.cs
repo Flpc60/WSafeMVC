@@ -33,5 +33,9 @@ namespace WSafe.Web.Models
         public string Item { get; set; }
         public string Name { get; set; }
         public string Fundamentos { get; set; }
+        public int AuditID { get; set; }
+        public int OrganizationID { get; set; }
+        public int ClientID { get; set; }
+        public int UserID { get; set; }
     }
 }

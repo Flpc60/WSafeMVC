@@ -16,9 +16,9 @@ namespace WSafe.Domain.Data.Entities
         public DateTime FechaFinal { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "ACTIVIDAD")]
-        [MaxLength(100)]
+        [MaxLength(200)]
         public string Activity { get; set; }
-        [MaxLength(100)]
+        [MaxLength(200)]
         [Display(Name = "ENTREGABLES")]
         public string Entregables { get; set; }
         [Display(Name = "FINANCIEROS")]
@@ -41,7 +41,6 @@ namespace WSafe.Domain.Data.Entities
         [Display(Name = "FUNDAMENTOS")]
         public string Fundamentos { get; set; }
         public int AuditID { get; set; }
-        public short Year { get; set; }
         public int OrganizationID { get; set; }
         public int ClientID { get; set; }
         public int UserID { get; set; }

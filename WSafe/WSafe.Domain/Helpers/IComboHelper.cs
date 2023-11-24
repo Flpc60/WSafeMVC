@@ -34,5 +34,6 @@ namespace WSafe.Domain.Helpers
         IEnumerable<SelectListItem> GetPatologiesAll();
         IEnumerable<SelectListItem> GetWorkersFull(int orgID);
         IEnumerable<SelectListItem> GetComboAuditers(int org);
+        IEnumerable<SelectListItem> GetNormasAll();
     }
 }
