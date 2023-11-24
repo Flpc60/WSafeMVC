@@ -2193,13 +2193,17 @@ namespace WSafe.Domain.Helpers.Implements
             var model = new List<AnnualPlanVM>();
             foreach (var item in list)
             {
-                var programed = item.SiguePlanAnual
-                    .Where(pa => pa.StateCronogram == StatesCronogram.Programada)
-                    .Count();
+                decimal programed = item.SiguePlanAnual
+                    .Where(pa => pa.StateCronogram == StatesCronogram.Programada && pa.PlanActivityID == item.ID)
+                    .Sum(pa => pa.Programed);
+                if (programed <= 0)
+                {
+                    programed = 1;
+                }
 
-                var executed = item.SiguePlanAnual
-                    .Where(pa => pa.StateCronogram == StatesCronogram.Ejecutada)
-                    .Count();
+                decimal executed = item.SiguePlanAnual
+                    .Where(pa => pa.StateCronogram == StatesCronogram.Ejecutada && pa.PlanActivityID == item.ID)
+                    .Sum(pa => pa.Executed);
 
                 var recursos = "";
                 if (item.Financieros)
@@ -2234,11 +2238,49 @@ namespace WSafe.Domain.Helpers.Implements
                     StateActivity = _gestorHelper.GetStateActivity(item.StateActivity),
                     Programed = (short)programed,
                     Executed = (short)executed,
-                    PorcentajeCumplimiento = (executed / programed * 100).ToString("0.00")
+                    PorcentajeCumplimiento = (executed / programed).ToString("#0.##%")
                 });
             }
 
             return model;
+        }
+        public CreatePlanActivityVM ToCreatePlanActivityVM(int org)
+        {
+            var model = new CreatePlanActivityVM
+            {
+                Normas = _comboHelper.GetNormasAll(),
+                Workers = _comboHelper.GetWorkersFull(org),
+                InitialDate = DateTime.Now,
+                FechaFinal = DateTime.Now
+            };
+            return model;
+        }
+        public async Task<PlanActivity> ToPlanActivityAsync(CreatePlanActivityVM model, bool isNew)
+        {
+            var result = new PlanActivity
+            {
+                ID = isNew ? 0 : model.ID,
+                NormaID = model.NormaID,
+                FechaFinal = model.FechaFinal,
+                Activity = model.Activity,
+                Entregables = model.Entregables,
+                Financieros = model.Financieros,
+                Administrativos = model.Administrativos,
+                Tecnicos = model.Tecnicos,
+                Humanos = model.Humanos,
+                TrabajadorID = model.TrabajadorID,
+                ActionCategory = model.ActionCategory,
+                Observation = model.Observation,
+                StateActivity = model.StateActivity,
+                StateCronogram = (StatesCronogram)1,
+                Programed = model.Programed,
+                InitialDate = model.InitialDate,
+                ActivityFrequency = model.ActivityFrequency,
+                OrganizationID = model.OrganizationID,
+                ClientID = model.ClientID,
+                UserID = model.UserID
+            };
+            return result;
         }
     }
 }

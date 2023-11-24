@@ -41,7 +41,6 @@ namespace WSafe.Domain.Data.Entities
         [Display(Name = "FUNDAMENTOS")]
         public string Fundamentos { get; set; }
         public int AuditID { get; set; }
-        public short Year { get; set; }
         public int OrganizationID { get; set; }
         public int ClientID { get; set; }
         public int UserID { get; set; }

@@ -561,5 +561,23 @@ namespace WSafe.Domain.Helpers.Implements
 
             return list;
         }
+        public IEnumerable<SelectListItem> GetNormasAll()
+        {
+            var list = _empresaContext.Normas.Select(n => new SelectListItem
+            {
+                Text = n.Name + " " + n.Item,
+                Value = n.ID.ToString()
+            })
+                .OrderBy(t => t.Text)
+                .ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione un estándard ...)",
+                Value = "0"
+            });
+
+            return list;
+        }
     }
 }
