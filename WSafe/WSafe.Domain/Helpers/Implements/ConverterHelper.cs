@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
 using WSafe.Web.Models;
+using static Antlr4.Runtime.Atn.SemanticContext;
 using static iTextSharp.tool.xml.html.HTML;
 
 namespace WSafe.Domain.Helpers.Implements
@@ -2250,8 +2251,8 @@ namespace WSafe.Domain.Helpers.Implements
             {
                 Normas = _comboHelper.GetNormasAll(),
                 Workers = _comboHelper.GetWorkersFull(org),
-                InitialDate = DateTime.Now,
-                FechaFinal = DateTime.Now
+                InitialDate = DateTime.Now.ToString("yyyy-MM-dd"),
+                FechaFinal = DateTime.Now.ToString("yyyy-MM-dd")
             };
             return model;
         }
@@ -2261,7 +2262,7 @@ namespace WSafe.Domain.Helpers.Implements
             {
                 ID = isNew ? 0 : model.ID,
                 NormaID = model.NormaID,
-                FechaFinal = model.FechaFinal,
+                FechaFinal = Convert.ToDateTime(model.FechaFinal),
                 Activity = model.Activity,
                 Entregables = model.Entregables,
                 Financieros = model.Financieros,
@@ -2274,7 +2275,35 @@ namespace WSafe.Domain.Helpers.Implements
                 StateActivity = model.StateActivity,
                 StateCronogram = (StatesCronogram)1,
                 Programed = model.Programed,
-                InitialDate = model.InitialDate,
+                InitialDate = Convert.ToDateTime(model.InitialDate),
+                ActivityFrequency = model.ActivityFrequency,
+                OrganizationID = model.OrganizationID,
+                ClientID = model.ClientID,
+                UserID = model.UserID
+            };
+            return result;
+        }
+        public CreatePlanActivityVM ToUpdatePlanActivityVM(PlanActivity model, int org)
+        {
+            var result = new CreatePlanActivityVM
+            {
+                ID = model.ID,
+                NormaID = model.NormaID,
+                Normas = _comboHelper.GetNormasAll(),
+                Workers = _comboHelper.GetWorkersFull(org),
+                FechaFinal = model.FechaFinal.ToString("yyyy-MM-dd"),
+                Activity = model.Activity,
+                Entregables = model.Entregables,
+                Financieros = model.Financieros,
+                Administrativos = model.Administrativos,
+                Tecnicos = model.Tecnicos,
+                Humanos = model.Humanos,
+                TrabajadorID = model.TrabajadorID,
+                ActionCategory = model.ActionCategory,
+                Observation = model.Observation,
+                StateActivity = model.StateActivity,
+                Programed = model.Programed,
+                InitialDate = model.InitialDate.ToString("yyyy-MM-dd"),
                 ActivityFrequency = model.ActivityFrequency,
                 OrganizationID = model.OrganizationID,
                 ClientID = model.ClientID,
