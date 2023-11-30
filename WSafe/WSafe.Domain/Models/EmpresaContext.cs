@@ -95,5 +95,7 @@ namespace WSafe.Web.Models
         public System.Data.Entity.DbSet<WSafe.Web.Models.AuditedCreateVM> AuditedCreateVMs { get; set; }
 
         public System.Data.Entity.DbSet<WSafe.Web.Models.AnnualPlanVM> AnnualPlanVMs { get; set; }
+
+        public System.Data.Entity.DbSet<WSafe.Web.Models.CreatePlanActivityVM> CreatePlanActivityVMs { get; set; }
     }
 }

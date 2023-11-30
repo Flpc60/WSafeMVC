@@ -1,8 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System;
-using WSafe.Domain.Data.Entities;
+﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using WSafe.Domain.Data.Entities;
 
 namespace WSafe.Web.Models
 {
@@ -37,14 +37,10 @@ namespace WSafe.Web.Models
         public string Observation { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "FECHA INICIAL")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
-        public DateTime InitialDate { get; set; }
+        public string InitialDate { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "FECHA CUMPLIMIENTO")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
-        public DateTime FechaFinal { get; set; }
+        public string FechaFinal { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Range(typeof(short), "1", "9999", ErrorMessage = "Por favor ingrese un número de actividades programadas válido.")]
         [Display(Name = "TAREAS")]

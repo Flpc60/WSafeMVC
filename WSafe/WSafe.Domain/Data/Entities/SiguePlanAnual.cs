@@ -20,7 +20,7 @@ namespace WSafe.Domain.Data.Entities
         public StatesActivity StateActivity { get; set; }
         public StatesCronogram StateCronogram { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Range(typeof(short), "1", "9999", ErrorMessage = "Por favor ingrese un número de actividades ejecutadas válido.")]
+        [Range(typeof(short), "0", "9999", ErrorMessage = "Por favor ingrese un número de actividades ejecutadas válido.")]
         public short Executed { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Range(typeof(short), "1", "9999", ErrorMessage = "Por favor ingrese un número de actividades ejecutadas válido.")]
