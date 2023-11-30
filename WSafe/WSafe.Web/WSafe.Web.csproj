@@ -522,6 +522,10 @@
     <Compile Include="Migrations\202311241516274_UpdateSiguePlanAnual1.designer.cs">
       <DependentUpon>202311241516274_UpdateSiguePlanAnual1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202311301713164_UpdateSiguePlanAnnual2.cs" />
+    <Compile Include="Migrations\202311301713164_UpdateSiguePlanAnnual2.designer.cs">
+      <DependentUpon>202311301713164_UpdateSiguePlanAnnual2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -1278,6 +1282,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202311241516274_UpdateSiguePlanAnual1.resx">
       <DependentUpon>202311241516274_UpdateSiguePlanAnual1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202311301713164_UpdateSiguePlanAnnual2.resx">
+      <DependentUpon>202311301713164_UpdateSiguePlanAnnual2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

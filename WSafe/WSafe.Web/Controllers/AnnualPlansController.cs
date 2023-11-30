@@ -87,11 +87,13 @@ namespace WSafe.Web.Controllers
                     var saved = await consulta.Insert(planActivity);
                     if (saved != null)
                     {
+                        // Generar registros de seguimiento del plan anual acorde con la programación de actividades
+
                         var id = _empresaContext.PlanActivities.OrderByDescending(pa => pa.ID)
                             .Select(pa => pa.ID).First();
 
                         // Calcular la diferencia en días
-                        TimeSpan diferencia = model.FechaFinal - model.InitialDate;
+                        TimeSpan diferencia = Convert.ToDateTime(model.FechaFinal) - Convert.ToDateTime(model.InitialDate);
                         int factor = diferencia.Days;
                         var sumar = 1;
                         short numActivities = 0;
@@ -137,13 +139,13 @@ namespace WSafe.Web.Controllers
                                 break;
                         }
 
-                        // Generar registros de seguimiento del plan anual acorde con la programación
-                        DateTime fecha = model.InitialDate;
-                        while (model.FechaFinal >= fecha)
+                        DateTime fecha = Convert.ToDateTime(model.InitialDate);
+                        while (Convert.ToDateTime(model.FechaFinal) >= fecha)
                         {
                             var siguePlan = new SiguePlanAnual
                             {
-                                FechaFinal = model.FechaFinal,
+                                ID = 0,
+                                FechaFinal = Convert.ToDateTime(model.FechaFinal),
                                 DateSigue = fecha,
                                 TrabajadorID = model.TrabajadorID,
                                 StateActivity = model.StateActivity,
@@ -152,7 +154,8 @@ namespace WSafe.Web.Controllers
                                 Programed = numActivities,
                                 Observation = model.Observation,
                                 ActionCategory = model.ActionCategory,
-                                PlanActivityID = id
+                                PlanActivityID = id,
+                                FileName = ""
                             };
                             _empresaContext.SigueAnnualPlans.Add(siguePlan);
 
@@ -166,49 +169,64 @@ namespace WSafe.Web.Controllers
             }
             catch (Exception ex)
             {
-                return View("Error", new HandleErrorInfo(ex, "Recomendations", "Index"));
+                return View("Error", new HandleErrorInfo(ex, "AnnualPlans", "Index"));
             }
 
             model.Normas = _comboHelper.GetNormasAll();
             model.Workers = _comboHelper.GetWorkersFull(_orgID);
-            model.InitialDate = DateTime.Now;
-            model.FechaFinal = DateTime.Now;
+            model.InitialDate = DateTime.Now.ToString("yyyy-MM-dd");
+            model.FechaFinal = DateTime.Now.ToString("yyyy-MM-dd");
             ViewBag.message = "Faltan campos por diligenciar del formulario !!";
 
             return View(model);
         }
-        /*
+
         // GET: AnnualPlans/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
+                PlanActivity planActivity = await _empresaContext.PlanActivities.FindAsync(id);
+                var model = _converterHelper.ToUpdatePlanActivityVM(planActivity, _orgID);
+
+                return View(model);
             }
-            AnnualPlanVM annualPlanVM = await db.AnnualPlanVMs.FindAsync(id);
-            if (annualPlanVM == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+                return View("Error", new HandleErrorInfo(ex, "AnnualPlans", "Index"));
             }
-            return View(annualPlanVM);
         }
 
-        // POST: AnnualPlans/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,Cycle,Activity,Entregables,Recursos,Responsable,Observation,StateActivity,Programed,Executed")] AnnualPlanVM annualPlanVM)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,NormaID,Activity,Entregables,Financieros,Administrativos,Tecnicos,Humanos,TrabajadorID,Observation,InitialDate,FechaFinal,Programed,ActivityFrequency,StateActivity,ActionCategory")] CreatePlanActivityVM model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(annualPlanVM).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    PlanActivity planActivity = await _converterHelper.ToPlanActivityAsync(model, false);
+                    _empresaContext.Entry(planActivity).State = EntityState.Modified;
+                    await _empresaContext.SaveChangesAsync();
+                    return View(model);
+                }
             }
-            return View(annualPlanVM);
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "AnnualPlans", "Index"));
+            }
+
+            _orgID = model.OrganizationID;
+            model.Workers = _comboHelper.GetWorkersFull(_orgID);
+            model.Normas = _comboHelper.GetNormasAll();
+            ViewBag.message = "Faltan campos por diligenciar del formulario !!";
+
+            return View(model);
         }
 
+        /*
         // GET: AnnualPlans/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
