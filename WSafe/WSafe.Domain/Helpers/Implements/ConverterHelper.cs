@@ -2251,8 +2251,8 @@ namespace WSafe.Domain.Helpers.Implements
             {
                 Normas = _comboHelper.GetNormasAll(),
                 Workers = _comboHelper.GetWorkersFull(org),
-                InitialDate = DateTime.Now.ToString("yyyy-MM-dd"),
-                FechaFinal = DateTime.Now.ToString("yyyy-MM-dd")
+                InitialDate = DateTime.Now,
+                FechaFinal = DateTime.Now
             };
             return model;
         }
@@ -2291,7 +2291,7 @@ namespace WSafe.Domain.Helpers.Implements
                 NormaID = model.NormaID,
                 Normas = _comboHelper.GetNormasAll(),
                 Workers = _comboHelper.GetWorkersFull(org),
-                FechaFinal = model.FechaFinal.ToString("yyyy-MM-dd"),
+                FechaFinal = model.FechaFinal,
                 Activity = model.Activity,
                 Entregables = model.Entregables,
                 Financieros = model.Financieros,
@@ -2303,7 +2303,7 @@ namespace WSafe.Domain.Helpers.Implements
                 Observation = model.Observation,
                 StateActivity = model.StateActivity,
                 Programed = model.Programed,
-                InitialDate = model.InitialDate.ToString("yyyy-MM-dd"),
+                InitialDate = model.InitialDate,
                 ActivityFrequency = model.ActivityFrequency,
                 OrganizationID = model.OrganizationID,
                 ClientID = model.ClientID,

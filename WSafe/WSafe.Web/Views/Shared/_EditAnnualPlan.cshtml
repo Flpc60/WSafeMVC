@@ -162,7 +162,11 @@
         <div class="col-md-12">
             <div class="form-group">
                 <div class="container">
-                    <input type="submit" value="Guardar" class="btn btn-success" />
+                    @if (ViewBag.guardar)
+                    {
+                        <input type="submit" value="Guardar" class="btn btn-success" />
+                    }
+                    <button type="button" id="btnSigue" class="btn btn-warning" onclick="seguimientos()">Seguimientos</button>
                     @Html.ActionLink("Listado actividades", "Index", new { @class = "glyphicon glyphicon-plus" },
                     new { @class = "btn btn-info" })
                 </div>
