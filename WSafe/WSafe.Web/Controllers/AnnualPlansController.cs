@@ -174,8 +174,8 @@ namespace WSafe.Web.Controllers
 
             model.Normas = _comboHelper.GetNormasAll();
             model.Workers = _comboHelper.GetWorkersFull(_orgID);
-            model.InitialDate = DateTime.Now.ToString("yyyy-MM-dd");
-            model.FechaFinal = DateTime.Now.ToString("yyyy-MM-dd");
+            model.InitialDate = DateTime.Now;
+            model.FechaFinal = DateTime.Now;
             ViewBag.message = "Faltan campos por diligenciar del formulario !!";
 
             return View(model);
@@ -190,6 +190,7 @@ namespace WSafe.Web.Controllers
                 _year = (string)Session["year"];
                 PlanActivity planActivity = await _empresaContext.PlanActivities.FindAsync(id);
                 var model = _converterHelper.ToUpdatePlanActivityVM(planActivity, _orgID);
+                ViewBag.guardar = true;
 
                 return View(model);
             }
@@ -201,7 +202,7 @@ namespace WSafe.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,NormaID,Activity,Entregables,Financieros,Administrativos,Tecnicos,Humanos,TrabajadorID,Observation,InitialDate,FechaFinal,Programed,ActivityFrequency,StateActivity,ActionCategory")] CreatePlanActivityVM model)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,NormaID,Activity,Entregables,Financieros,Administrativos,Tecnicos,Humanos,TrabajadorID,Observation,InitialDate,FechaFinal,Programed,ActivityFrequency,StateActivity,ActionCategory,OrganizationID,ClientID,UserID ")] CreatePlanActivityVM model)
         {
             try
             {
@@ -210,6 +211,11 @@ namespace WSafe.Web.Controllers
                     PlanActivity planActivity = await _converterHelper.ToPlanActivityAsync(model, false);
                     _empresaContext.Entry(planActivity).State = EntityState.Modified;
                     await _empresaContext.SaveChangesAsync();
+                    _orgID = (int)Session["orgID"];
+                    model.Normas = _comboHelper.GetNormasAll();
+                    model.Workers = _comboHelper.GetWorkersFull(_orgID);
+
+                    ViewBag.guardar = false;
                     return View(model);
                 }
             }
