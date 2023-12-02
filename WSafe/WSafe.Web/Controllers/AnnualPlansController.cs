@@ -1,5 +1,6 @@
 ﻿using Rotativa;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
@@ -29,12 +30,14 @@ namespace WSafe.Web.Controllers
         private readonly IComboHelper _comboHelper;
         private readonly IConverterHelper _converterHelper;
         private readonly IChartHelper _chartHelper;
-        public AnnualPlansController(EmpresaContext empresaContext, IComboHelper comboHelper, IConverterHelper converterHelper, IChartHelper chartHelper)
+        private readonly IGestorHelper _gestorHelper;
+        public AnnualPlansController(EmpresaContext empresaContext, IComboHelper comboHelper, IConverterHelper converterHelper, IChartHelper chartHelper, IGestorHelper gestorHelper)
         {
             _empresaContext = empresaContext;
             _comboHelper = comboHelper;
             _converterHelper = converterHelper;
             _chartHelper = chartHelper;
+            _gestorHelper = gestorHelper;
         }
 
         [AuthorizeUser(operation: 1, component: 2)]
@@ -259,6 +262,60 @@ namespace WSafe.Web.Controllers
             return RedirectToAction("Index");
         }
         */
+
+        [HttpGet]
+        public ActionResult GetPlanActivities(int id)
+        {
+            try
+            {
+                var list =
+                    from p in _empresaContext.SigueAnnualPlans
+                    where (p.ID == id)
+                    orderby p.DateSigue
+                    select new
+                    {
+                        ID = p.ID,
+                        DateSigue = p.DateSigue,
+                        TrabajadorID = p.TrabajadorID,
+                        TxtActionCategory = p.ActionCategory,
+                        TxtStateActivity = p.StateActivity,
+                        TxtStateCronogram = p.StateCronogram,
+                        Programed = p.Programed,
+                        Executed = p.Executed,
+                        FileName = p.FileName,
+                        Observation = p.Observation,
+                        Responsable = ""
+                    };
+
+                var model = new List<SiguePlanAnualVM>();
+                foreach (var item in list)
+                {
+                    model.Add(new SiguePlanAnualVM
+                    {
+                        ID = item.ID,
+                        TrabajadorID = item.TrabajadorID,
+                        DateSigue = item.DateSigue,
+                        TxtActionCategory = _gestorHelper.GetActionCategory((int)item.TxtActionCategory),
+                        TxtStateActivity = _gestorHelper.GetActionCategory((int)item.TxtStateActivity),
+                        TxtStateCronogram = _gestorHelper.GetActionCategory((int)item.TxtStateCronogram),
+                        Observation = item.Observation,
+                    });
+                }
+
+                foreach (var item in model)
+                {
+                    item.Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpper();
+                }
+
+                return Json(model, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+
+                var message = "La conslta NO ser ha realizado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -55,10 +55,13 @@ namespace WSafe.Web.Models
         public StatesActivity StateActivity { get; set; }
         [Display(Name = "ACCIÓN")]
         public ActionCategories ActionCategory { get; set; }
+        [Display(Name = "CRONOGRAMA")]
+        public StatesCronogram StateCronogram { get; set; }
         public int EvaluationID { get; set; }
         public int AuditID { get; set; }
         public int OrganizationID { get; set; }
         public int ClientID { get; set; }
         public int UserID { get; set; }
+        public string FileName { get; set; }
     }
 }

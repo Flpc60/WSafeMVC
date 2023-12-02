@@ -1011,6 +1011,7 @@
     <Content Include="Views\AnnualPlans\Edit.cshtml" />
     <Content Include="Views\AnnualPlans\Index.cshtml" />
     <Content Include="Views\Shared\_EditAnnualPlan.cshtml" />
+    <Content Include="Views\Shared\_EditSigueAnnualPlan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

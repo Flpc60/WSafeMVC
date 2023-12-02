@@ -5,6 +5,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<style>
+
+    .tabAnnualPlan, .tabAddSigue
+    {
+        display: none;
+    }
+
+    .centerText {
+        text-align: center
+    }
+</style>
+
 @using (Html.BeginForm("Edit", "AnnualPlans", FormMethod.Post))
 {
 
@@ -18,6 +30,32 @@
         @Html.HiddenFor(model => model.UserID)
 
         @Html.Partial("_EditAnnualPlan")
+
+        <div class="tabAnnualPlan">
+            <hr />
+            <input type="hidden" id="planActivityID" name="planActivityID" />
+            <div class="container">
+                <button type="button" class="btn btn-primary" id="addPlanAcc">Adicionar nuevo seguimiento</button>
+            </div>
+            <div class="gestSeguimients">
+            </div>
+        </div>
+        <div class="tabAddSigue">
+            <input type="hidden" id="txtPlanAccionID" name="txtPlanAccionID" />
+            @Html.Partial("_ModificaPlan")
+            <div class="row">
+                <div class="col-md-8">
+                    <button type="button" id="btnAddPlan" class="btn btn-primary" onclick="AddPlanAccion()">Adicionar</button>
+                    <button type="button" id="btnUpdPlan" class="btn btn-primary" onclick="UpdatePlanAcc()">Actualizar</button>
+                    <button type="button" id="btnCanPlan" class="btn btn-primary" onclick="CancelPlan()">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                    </button>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+        </div>
+
     </div>
 
 }
