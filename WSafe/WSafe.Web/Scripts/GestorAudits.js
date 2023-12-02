@@ -1544,3 +1544,39 @@ function asistenceAuditedResult() {
         }
     });
 }
+
+function ShowAnnualPlan(planActivityID) {
+    // Mostrar todos las actividades
+    $.ajax({
+        url: "/AnnualPlans/GetPlanActivities",
+        data: { id: planActivityID },
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (response) {
+            var html = '';
+            $.each(response, function (key, item) {
+                html += '<tr>';
+                html += '<td>' + item.DateSigue + '</td>';
+                html += '<td>' + item.Responsable + '</td>';
+                html += '<td>' + item.Observation + '</td>';
+                html += '<td>' + item.TxtStateActivity + '</td>';
+                html += '<td>' + item.TxtStateCronogram + '</td>';
+                html += '<td>' + item.TxtActionCategory + '</td>';
+                html += '<td>' + item.Programed + '</td>';
+                html += '<td>' + item.Executed + '</td>';
+                html += '<td>' + item.FileName + '</td>';
+                html += '<td><a href="#" onclick="return getPlanActivityByID(' + item.ID + ')">Editar</a></td>';
+                html += '<hr />';
+                html += '</tr>';
+            });
+            $('.gestSeguimients').html(html);
+            $('.tabAnnualPlan').css("display", "block");
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
