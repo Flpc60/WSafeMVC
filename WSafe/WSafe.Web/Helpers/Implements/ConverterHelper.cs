@@ -2307,7 +2307,8 @@ namespace WSafe.Domain.Helpers.Implements
                 ActivityFrequency = model.ActivityFrequency,
                 OrganizationID = model.OrganizationID,
                 ClientID = model.ClientID,
-                UserID = model.UserID
+                UserID = model.UserID,
+                DateSigue = DateTime.Now
             };
             return result;
         }
