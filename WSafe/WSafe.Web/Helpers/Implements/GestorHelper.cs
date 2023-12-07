@@ -1024,5 +1024,22 @@ namespace WSafe.Domain.Helpers.Implements
                     return "ACTUALIZAR";
             }
         }
+        public string GetStateCronogram(StatesCronogram state)
+        {
+            switch (state)
+            {
+                case StatesCronogram.Programada:
+                    return "PROGRAMADA";
+
+                case StatesCronogram.Ejecutada:
+                    return "EJECUTADA";
+
+                case StatesCronogram.Reprogramada:
+                    return "REPROGRAMADA";
+
+                default:
+                    return "PROGRAMADA";
+            }
+        }
     }
 }

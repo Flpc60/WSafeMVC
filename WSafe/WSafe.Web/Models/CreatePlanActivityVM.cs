@@ -47,7 +47,7 @@ namespace WSafe.Web.Models
         public DateTime FechaFinal { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Range(typeof(short), "1", "9999", ErrorMessage = "Por favor ingrese un número de actividades programadas válido.")]
-        [Display(Name = "TAREAS")]
+        [Display(Name = "PROGRAMADAS")]
         public short Programed { get; set; }
         [Display(Name = "FRECUENCIA")]
         public ActivitiesFrequency ActivityFrequency { get; set; }
@@ -64,13 +64,13 @@ namespace WSafe.Web.Models
         public int UserID { get; set; }
         public string FileName { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "FECHA SEGUIMIENTO")]
+        [Display(Name = "FECHA")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DateSigue { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Range(typeof(short), "1", "9999", ErrorMessage = "Por favor ingrese un número de actividades programadas válido.")]
-        [Display(Name = "TAREAS")]
+        [Display(Name = "EJECUTADAS")]
         public short Executed { get; set; }
     }
 }

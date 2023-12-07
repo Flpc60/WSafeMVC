@@ -100,56 +100,56 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
-<script type="text/javascript">
+    <script type="text/javascript">
 
-        //$.ajaxSetup({ cache: false });
-        //jQuery.noConflict();
-        $(document).ready(function () {
-            //$('[data-toggle="tooltip"]').tooltip();
+            //$.ajaxSetup({ cache: false });
+            //jQuery.noConflict();
+            $(document).ready(function () {
+                //$('[data-toggle="tooltip"]').tooltip();
 
-            if (@auditID > 0) {
-                $("#btnSaveAudit").hide();
-            } else {
-                $("#btnSaveAudit").show();
-            }
+                if (@auditID > 0) {
+                    $("#btnSaveAudit").hide();
+                } else {
+                    $("#btnSaveAudit").show();
+                }
 
-            $('#prepare').click(function () {
-                $('.tabPrepare').css("display", "block");
-                $('.tabExecute').css("display", "none");
-                $('.tabReport').css("display", "none");
-                $('.tabActions').css("display", "none");
+                $('#prepare').click(function () {
+                    $('.tabPrepare').css("display", "block");
+                    $('.tabExecute').css("display", "none");
+                    $('.tabReport').css("display", "none");
+                    $('.tabActions').css("display", "none");
+                });
+
+                $('#execute').click(function () {
+                    $('.tabPrepare').css("display", "none");
+                    $('.tabExecute').css("display", "block");
+                    $('.tabReport').css("display", "none");
+                    $('.tabActions').css("display", "none");
+                });
+
+                $('#report').click(function () {
+                    $('.tabPrepare').css("display", "none");
+                    $('.tabExecute').css("display", "none");
+                    $('.tabReport').css("display", "block");
+                    $('.tabActions').css("display", "none");
+                });
+
+                $('#actions').click(function () {
+                    $('.tabPrepare').css("display", "none");
+                    $('.tabExecute').css("display", "none");
+                    $('.tabReport').css("display", "none");
+                    $('.tabActions').css("display", "block");
+                });
+
+                $('#auditChapter').change(function () {
+                    $('#saveAuditedResult').css("display", "block");
+                    auditedResult();
+                    GestorEvaluations();
+                    var evaluationID = @auditID;
+                    var auditID = @auditID;
+                });
             });
 
-            $('#execute').click(function () {
-                $('.tabPrepare').css("display", "none");
-                $('.tabExecute').css("display", "block");
-                $('.tabReport').css("display", "none");
-                $('.tabActions').css("display", "none");
-            });
-
-            $('#report').click(function () {
-                $('.tabPrepare').css("display", "none");
-                $('.tabExecute').css("display", "none");
-                $('.tabReport').css("display", "block");
-                $('.tabActions').css("display", "none");
-            });
-
-            $('#actions').click(function () {
-                $('.tabPrepare').css("display", "none");
-                $('.tabExecute').css("display", "none");
-                $('.tabReport').css("display", "none");
-                $('.tabActions').css("display", "block");
-            });
-
-            $('#auditChapter').change(function () {
-                $('#saveAuditedResult').css("display", "block");
-                auditedResult();
-                GestorEvaluations();
-                var evaluationID = @auditID;
-                var auditID = @auditID;
-            });
-        });
-
-</script>
+    </script>
 
 }

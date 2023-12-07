@@ -48,5 +48,6 @@ namespace WSafe.Domain.Helpers
         string GetAuditChapter(AuditChapters chapter);
         string GetRiskClass(int riskClass);
         string GetStateActivity(StatesActivity state);
+        string GetStateCronogram(StatesCronogram state);
     }
 }

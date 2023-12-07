@@ -164,9 +164,9 @@
                 <div class="container">
                     @if (ViewBag.guardar)
                     {
-                        <input type="submit" value="Guardar" class="btn btn-success" />
+                        <input type="submit" value="Guardar" class="btn btn-primary" />
                     }
-                    <button type="button" id="btnSigue" class="btn btn-warning" onclick="ShowAnnualPlan(@Model.ID);">Seguimientos</button>
+                    <button type="button" id="btnSigue" class="btn btn-success" onclick="ShowAnnualPlan(@Model.ID);">Seguimientos</button>
                     @Html.ActionLink("Listado actividades", "Index", new { @class = "glyphicon glyphicon-plus" },
                     new { @class = "btn btn-info" })
                 </div>

@@ -1556,13 +1556,29 @@ function ShowAnnualPlan(planActivityID) {
         async: true,
         success: function (response) {
             var html = '';
-            $.each(response, function (key, item) {
+            response.forEach(function (item, index) {
+                switch (item.TxtStateCronogram)
+                {
+                    case "PROGRAMADA":
+                        var color = "yellow";
+                        break;
+
+                    case "EJECUTADA":
+                        var color = "green";
+                        break;
+
+                    case "REPROGRAMADA":
+                        var color = "red";
+                        break;
+
+                    default:
+                        break;
+                }
                 html += '<tr>';
-                html += '<td>' + item.DateSigue + '</td>';
+                html += '<td>' + item.TextDateSigue + '</td>';
                 html += '<td>' + item.Responsable + '</td>';
                 html += '<td>' + item.Observation + '</td>';
-                html += '<td>' + item.TxtStateActivity + '</td>';
-                html += '<td>' + item.TxtStateCronogram + '</td>';
+                html += '<td style="background-color:' + color + ';">' + item.TxtStateCronogram + '</td>';
                 html += '<td>' + item.TxtActionCategory + '</td>';
                 html += '<td>' + item.Programed + '</td>';
                 html += '<td>' + item.Executed + '</td>';
@@ -1722,27 +1738,32 @@ function DeleteSegui(id) {
     });
 }
 
-function addTrazability() {
+function addTraceability(planActivityID) {
     // Crea una nueva trazabilidad
-    $('.tabAddRecomendations').css("display", "none");
+    $('.tabAddSigue').css("display", "none");
     var recomendationVM = {
         ID: "0",
-        IncidentID: $("#txtIncidenteID").val(),
-        RootCauseID: $("#txtMainCause").val(),
-        Name: $("#txtRecomendation").val()
+        DateSigue: $("#dateSigue").val(),
+        TrabajadorID: $("#workerID").val(),
+        StateActivity: $("#stateActivity").val(),
+        StateCronogram: $("#stateCronogram").val(),
+        Programed: $("#programed").val(),
+        Executed: $("#executed").val(),
+        PlanActivityID: planActivityID,
+        Observation: $("#observation").val(),
+        FileName: $("#fileName").val(),
+        ActionCategory: $("#actionCategory").val()
     };
     $.ajax({
         type: "POST",
-        url: "/Incidentes/CreateRecomendation",
+        url: "/AnnualPlans/CreateTraceability",
         data: { model: recomendationVM },
         dataType: "json",
         success: function (response) {
-            $("#txtRecomendation").val("");
-            $("#btnAddRecomendation").hide();
-            $("#btnCanRecomendation").hide();
+            $("#btnAddTraceability").hide();
+            $("#btnUpdTraceability").hide();
             alert(response.mensaj);
-            ShowRecomendations();
-        },
+            ShowAnnualPlan(planActivityID);        },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
             alert(thrownError);

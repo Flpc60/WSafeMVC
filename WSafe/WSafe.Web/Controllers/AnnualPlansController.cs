@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -268,22 +269,23 @@ namespace WSafe.Web.Controllers
             try
             {
                 var list =
-                    from p in _empresaContext.SigueAnnualPlans
-                    where (p.ID == id)
-                    orderby p.DateSigue
+                    from sp in _empresaContext.SigueAnnualPlans
+                    where (sp.PlanActivityID == id)
+                    orderby sp.DateSigue
                     select new
                     {
-                        ID = p.ID,
-                        DateSigue = p.DateSigue,
-                        TrabajadorID = p.TrabajadorID,
-                        TxtActionCategory = p.ActionCategory,
-                        TxtStateActivity = p.StateActivity,
-                        TxtStateCronogram = p.StateCronogram,
-                        Programed = p.Programed,
-                        Executed = p.Executed,
-                        FileName = p.FileName,
-                        Observation = p.Observation,
-                        Responsable = ""
+                        ID = sp.PlanActivityID,
+                        DateSigue = sp.DateSigue,
+                        TrabajadorID = sp.TrabajadorID,
+                        TxtActionCategory = sp.ActionCategory,
+                        TxtStateActivity = sp.StateActivity,
+                        TxtStateCronogram = sp.StateCronogram,
+                        Programed = sp.Programed,
+                        Executed = sp.Executed,
+                        FileName = sp.FileName,
+                        Observation = sp.Observation,
+                        Responsable = "",
+                        PlanActivityID = sp.PlanActivityID
                     };
 
                 var model = new List<SiguePlanAnualVM>();
@@ -293,11 +295,15 @@ namespace WSafe.Web.Controllers
                     {
                         ID = item.ID,
                         TrabajadorID = item.TrabajadorID,
-                        DateSigue = item.DateSigue,
+                        TextDateSigue = item.DateSigue.ToString("yyy-MM-dd"),
                         TxtActionCategory = _gestorHelper.GetActionCategory((int)item.TxtActionCategory),
-                        TxtStateActivity = _gestorHelper.GetActionCategory((int)item.TxtStateActivity),
-                        TxtStateCronogram = _gestorHelper.GetActionCategory((int)item.TxtStateCronogram),
+                        TxtStateActivity = _gestorHelper.GetStateActivity(item.TxtStateActivity),
+                        TxtStateCronogram = _gestorHelper.GetStateCronogram(item.TxtStateCronogram),
                         Observation = item.Observation,
+                        Programed=item.Programed,
+                        Executed = item.Executed,
+                        FileName = item.FileName,
+                        PlanActivityID=item.PlanActivityID
                     });
                 }
 
@@ -312,6 +318,53 @@ namespace WSafe.Web.Controllers
             {
 
                 var message = "La conslta NO ser ha realizado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult CreateTraceability(int id)
+        {
+            if (id == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            _orgID = (int)Session["orgID"];
+            _year = (string)Session["year"];
+
+            var model = new SiguePlanAnualVM
+            {
+                DateSigue = DateTime.Now,
+                Workers = _comboHelper.GetWorkersFull(_orgID),
+                PlanActivityID = id,
+
+            };
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CreateTraceability(SiguePlanAnual model)
+        {
+            if (model.PlanActivityID == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var message = "";
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _empresaContext.SigueAnnualPlans.Add(model);
+                    await _empresaContext.SaveChangesAsync();
+                    message = "El registro ha sido ingresado correctamente !!";
+                    return Json(new { data = model, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                message = "El registro ha sido ingresado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                message = "El registro ha sido ingresado correctamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
