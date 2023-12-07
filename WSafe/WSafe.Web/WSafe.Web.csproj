@@ -494,41 +494,9 @@
     <Compile Include="Helpers\Implements\ConverterHelper.cs" />
     <Compile Include="Helpers\Implements\GestorHelper.cs" />
     <Compile Include="Helpers\Implements\IndicadorHelper.cs" />
-    <Compile Include="Migrations\202310272124517_UpdateAuditedResult.cs" />
-    <Compile Include="Migrations\202310272124517_UpdateAuditedResult.designer.cs">
-      <DependentUpon>202310272124517_UpdateAuditedResult.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202311082221078_UpdatePlanActivity.cs" />
-    <Compile Include="Migrations\202311082221078_UpdatePlanActivity.designer.cs">
-      <DependentUpon>202311082221078_UpdatePlanActivity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202311161553084_UpdateOrganization.cs" />
-    <Compile Include="Migrations\202311161553084_UpdateOrganization.designer.cs">
-      <DependentUpon>202311161553084_UpdateOrganization.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202311232101598_CreateAnnualPlan.cs" />
-    <Compile Include="Migrations\202311232101598_CreateAnnualPlan.designer.cs">
-      <DependentUpon>202311232101598_CreateAnnualPlan.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202311232245115_UpdateAnnualPlan.cs" />
-    <Compile Include="Migrations\202311232245115_UpdateAnnualPlan.designer.cs">
-      <DependentUpon>202311232245115_UpdateAnnualPlan.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202311241511124_UpdateSiguePlanAnual.cs" />
-    <Compile Include="Migrations\202311241511124_UpdateSiguePlanAnual.designer.cs">
-      <DependentUpon>202311241511124_UpdateSiguePlanAnual.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202311241516274_UpdateSiguePlanAnual1.cs" />
-    <Compile Include="Migrations\202311241516274_UpdateSiguePlanAnual1.designer.cs">
-      <DependentUpon>202311241516274_UpdateSiguePlanAnual1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202311301713164_UpdateSiguePlanAnnual2.cs" />
-    <Compile Include="Migrations\202311301713164_UpdateSiguePlanAnnual2.designer.cs">
-      <DependentUpon>202311301713164_UpdateSiguePlanAnnual2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202312011543591_UpdateAnnualPlan1.cs" />
-    <Compile Include="Migrations\202312011543591_UpdateAnnualPlan1.designer.cs">
-      <DependentUpon>202312011543591_UpdateAnnualPlan1.cs</DependentUpon>
+    <Compile Include="Migrations\202312062317376_UpdSigueAnnualPlan.cs" />
+    <Compile Include="Migrations\202312062317376_UpdSigueAnnualPlan.designer.cs">
+      <DependentUpon>202312062317376_UpdSigueAnnualPlan.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
@@ -1267,32 +1235,8 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202310272124517_UpdateAuditedResult.resx">
-      <DependentUpon>202310272124517_UpdateAuditedResult.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202311082221078_UpdatePlanActivity.resx">
-      <DependentUpon>202311082221078_UpdatePlanActivity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202311161553084_UpdateOrganization.resx">
-      <DependentUpon>202311161553084_UpdateOrganization.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202311232101598_CreateAnnualPlan.resx">
-      <DependentUpon>202311232101598_CreateAnnualPlan.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202311232245115_UpdateAnnualPlan.resx">
-      <DependentUpon>202311232245115_UpdateAnnualPlan.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202311241511124_UpdateSiguePlanAnual.resx">
-      <DependentUpon>202311241511124_UpdateSiguePlanAnual.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202311241516274_UpdateSiguePlanAnual1.resx">
-      <DependentUpon>202311241516274_UpdateSiguePlanAnual1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202311301713164_UpdateSiguePlanAnnual2.resx">
-      <DependentUpon>202311301713164_UpdateSiguePlanAnnual2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202312011543591_UpdateAnnualPlan1.resx">
-      <DependentUpon>202312011543591_UpdateAnnualPlan1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202312062317376_UpdSigueAnnualPlan.resx">
+      <DependentUpon>202312062317376_UpdSigueAnnualPlan.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,39 +1,36 @@
 ﻿@model WSafe.Web.Models.CreatePlanActivityVM
 
-@{
-    var categorias = ViewBag.Categorias;
-}
-
 <div class="container" style="background-color:floralwhite">
     <hr />
     <p>
-        ACTIVIDAD: <strong><b>@Html.DisplayFor(model => model.Activity)</b></strong>
+        ACTIVIDAD: <strong><b>SEGUIMIENTOS:  @Html.DisplayFor(model => model.Activity)</b></strong>
     </p>
     <hr />
 
     <div id="_EditarPlanAcc">
         <hr />
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-group">
-                    <div class="col-md-4 col-sm-6">
-                        <label for="dateSigue">FECHA ACTIVIDAD:</label>
-                        <input type="date" class="form-control" id="dateSigue" required>
+                    @Html.LabelFor(model => model.DateSigue, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-7 col-sm-10">
+                        @Html.EditorFor(model => model.DateSigue, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DateSigue, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <div class="col-md-12 col-sm-10">
-                        <label for="Respons">FUNCIONARIO RESPONSABLE:</label>
-                        @Html.DropDownListFor(model => model.TrabajadorID, Model.Workers, new { @class = "form-control", @id = "wokerID" })
+                    @Html.LabelFor(model => model.TrabajadorID, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-9 col-sm-10">
+                        @Html.DropDownListFor(model => model.TrabajadorID, Model.Workers, new { @class = "form-control", @id = "workerID" })
                         @Html.ValidationMessageFor(model => model.TrabajadorID, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="form-group">
                     @Html.LabelFor(model => model.StateActivity, htmlAttributes: new { @class = "control-label col-md-4" })
                     <div class="col-md-7 col-sm-10">
@@ -42,12 +39,21 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="form-group">
                     @Html.LabelFor(model => model.StateCronogram, htmlAttributes: new { @class = "control-label col-md-4" })
                     <div class="col-md-7 col-sm-10">
-                        @Html.EnumDropDownListFor(model => model.StateCronogram, htmlAttributes: new { @class = "form-control", @id = "stateCronogram" })
+                        @Html.EnumDropDownListFor(model => model.StateCronogram, htmlAttributes: new { @class = "form-control", @id = "stateCronogram"})
                         @Html.ValidationMessageFor(model => model.StateCronogram, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Executed, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-5 col-sm-10">
+                        @Html.EditorFor(model => model.Executed, new { htmlAttributes = new { @class = "form-control", @id = "executed"} })
+                        @Html.ValidationMessageFor(model => model.Executed, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
