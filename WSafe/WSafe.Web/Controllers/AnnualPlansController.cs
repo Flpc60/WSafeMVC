@@ -148,7 +148,6 @@ namespace WSafe.Web.Controllers
                             var siguePlan = new SiguePlanAnual
                             {
                                 ID = 0,
-                                FechaFinal = Convert.ToDateTime(model.FechaFinal),
                                 DateSigue = fecha,
                                 TrabajadorID = model.TrabajadorID,
                                 StateActivity = model.StateActivity,
@@ -313,6 +312,34 @@ namespace WSafe.Web.Controllers
             {
 
                 var message = "La conslta NO ser ha realizado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> UpdatePlanActivity(int id)
+        {
+            PlanActivity plan = await _empresaContext.PlanActivities.FindAsync(id);
+            var model = _converterHelper.ToPlanActivityVM(plan);
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UpdatePlanActivity(PlanActivity model)
+        {
+            var message = "";
+            try
+            {
+                // Actualizar la BD
+                //PlanActivity plan = await _empresaContext.PlanActivities.FindAsync(model.ID);
+                _empresaContext.Entry(model).State = EntityState.Modified;
+                await _empresaContext.SaveChangesAsync();
+                message = "La actualización se ha realizado exitosamente !!";
+                return Json(new { data = model.EvaluationID, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                message = "La actualización NO se ha realizado exitosamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }

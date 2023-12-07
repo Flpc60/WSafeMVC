@@ -63,5 +63,14 @@ namespace WSafe.Web.Models
         public int ClientID { get; set; }
         public int UserID { get; set; }
         public string FileName { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "FECHA SEGUIMIENTO")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime DateSigue { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Range(typeof(short), "1", "9999", ErrorMessage = "Por favor ingrese un número de actividades programadas válido.")]
+        [Display(Name = "TAREAS")]
+        public short Executed { get; set; }
     }
 }
