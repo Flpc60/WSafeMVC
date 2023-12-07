@@ -10,22 +10,10 @@ namespace WSafe.Web.Models
     {
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "FECHA CUMPLIMIENTO")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime FechaFinal { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "FECHA SEGUIMIENTO")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DateSigue { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "ACTIVIDAD")]
-        [MaxLength(200)]
-        public string Activity { get; set; }
-        [MaxLength(200)]
-        [Display(Name = "ENTREGABLES")]
-        public string Entregables { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "RESPONSABLE")]
         public int TrabajadorID { get; set; }
