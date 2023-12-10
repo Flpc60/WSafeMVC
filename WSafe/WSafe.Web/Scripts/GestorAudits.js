@@ -1575,7 +1575,7 @@ function ShowAnnualPlan(planActivityID) {
                         break;
                 }
                 html += '<tr>';
-                html += '<td>' + item.TextDateSigue + '</td>';
+                html += '<td style="white-space: nowrap;">' + item.TextDateSigue + '</td>';
                 html += '<td>' + item.Responsable + '</td>';
                 html += '<td>' + item.Observation + '</td>';
                 html += '<td style="background-color:' + color + ';">' + item.TxtStateCronogram + '</td>';
@@ -1598,13 +1598,13 @@ function ShowAnnualPlan(planActivityID) {
     });
 }
 
-function getSeguiByID(planActivityID) {
+function getSeguiByID(id) {
     $.ajax({
         async: true,
         type: 'GET',
-        url: "/Evaluations/UpdatePlanActivity",
+        url: "/AnnualPlans/UpdateSiguePlanAnual",
         data: {
-            id: planActivityID
+            id: id
         },
         dataType: "json",
         contentType: "application/json;charset=UTF-8",
@@ -1762,6 +1762,7 @@ function addTraceability(planActivityID) {
         success: function (response) {
             $("#btnAddTraceability").hide();
             $("#btnUpdTraceability").hide();
+            $(".tabAddSigue").css("display", "none");
             alert(response.mensaj);
             ShowAnnualPlan(planActivityID);        },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -1771,11 +1772,10 @@ function addTraceability(planActivityID) {
     });
 }
 
-function updateTrazability() {
-    // Actualiza una recomendación, captura la incidenteID de id = txtIncidenteID
-    $(".tabGesRecomendations").css("display", "none");
-    $(".tabAddRecomendations").css("display", "none");
-    var recomendationVM = {
+function updateTraceability(planActivityID) {
+    // Actualiza una trazabilidad
+    $('.tabAddSigue').css("display", "none");
+    var siguePlanAnualVM = {
         ID: $("#txtRecomendationID").val(),
         IncidentID: $("#txtIncidenteID").val(),
         RootCauseID: $("#txtRootCauseID").val(),

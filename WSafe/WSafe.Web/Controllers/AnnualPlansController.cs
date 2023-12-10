@@ -370,15 +370,18 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> UpdatePlanActivity(int id)
+        public async Task<ActionResult> UpdateSiguePlanAnual(int id)
         {
-            PlanActivity plan = await _empresaContext.PlanActivities.FindAsync(id);
-            var model = _converterHelper.ToPlanActivityVM(plan);
+            _orgID = (int)Session["orgID"];
+            _year = (string)Session["year"];
+
+            SiguePlanAnual siquePlan = await _empresaContext.SigueAnnualPlans.FindAsync(id);
+            var model = _converterHelper.ToUpdateSiguePlanAnual(siquePlan, _orgID);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public async Task<ActionResult> UpdatePlanActivity(PlanActivity model)
+        public async Task<ActionResult> UpdateSiguePlanAnual(PlanActivity model)
         {
             var message = "";
             try
