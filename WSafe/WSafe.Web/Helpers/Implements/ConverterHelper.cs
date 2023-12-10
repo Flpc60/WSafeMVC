@@ -2312,5 +2312,23 @@ namespace WSafe.Domain.Helpers.Implements
             };
             return result;
         }
+        public CreatePlanActivityVM ToUpdateSiguePlanAnual(SiguePlanAnual model, int org)
+        {
+            var result = new CreatePlanActivityVM
+            {
+                ID = model.ID,
+                Workers = _comboHelper.GetWorkersFull(org),
+                TrabajadorID = model.TrabajadorID,
+                ActionCategory = model.ActionCategory,
+                Observation = model.Observation,
+                StateActivity = model.StateActivity,
+                StateCronogram = model.StateCronogram,
+                Programed = model.Programed,
+                Executed = model.Executed,
+                FileName = model.FileName,
+                DateSigue = model.DateSigue
+            };
+            return result;
+        }
     }
 }

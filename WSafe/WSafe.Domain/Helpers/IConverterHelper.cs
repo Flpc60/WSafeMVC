@@ -71,5 +71,6 @@ namespace WSafe.Domain.Helpers
         CreatePlanActivityVM ToCreatePlanActivityVM(int org);
         Task<PlanActivity> ToPlanActivityAsync(CreatePlanActivityVM model, bool isNew);
         CreatePlanActivityVM ToUpdatePlanActivityVM(PlanActivity model, int org);
+        CreatePlanActivityVM ToUpdateSiguePlanAnual(SiguePlanAnual model, int org);
     }   
 }
