@@ -2,7 +2,7 @@
 
 <div class="container" style="background-color:floralwhite">
     <hr />
-    <p>
+    <p id="activity">
         ACTIVIDAD: <strong><b>@Html.DisplayFor(model => model.Activity)</b></strong>
     </p>
 
@@ -11,16 +11,16 @@
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(model => model.DateSigue, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-7 col-sm-10">
-                    @Html.EditorFor(model => model.DateSigue, new { htmlAttributes = new { @class = "form-control", @id = "dateSigue" } })
+                <div class="col-md-5 col-sm-10">
+                    <input type="date" class="form-control" id="dateSigue" value="model.TextDateSigue" required>
                     @Html.ValidationMessageFor(model => model.DateSigue, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
         <div class="col-md-8">
             <div class="form-group">
-                @Html.LabelFor(model => model.TrabajadorID, htmlAttributes: new { @class = "control-label col-md-4" })
-                <div class="col-md-9 col-sm-10">
+                @Html.LabelFor(model => model.TrabajadorID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10 col-sm-10">
                     @Html.DropDownListFor(model => model.TrabajadorID, Model.Workers, new { @class = "form-control", @id = "workerID" })
                     @Html.ValidationMessageFor(model => model.TrabajadorID, "", new { @class = "text-danger" })
                 </div>
@@ -30,8 +30,8 @@
     <div class="row">
         <div class="col-md-3">
             <div class="form-group">
-                @Html.LabelFor(model => model.StateActivity, htmlAttributes: new { @class = "control-label col-md-4" })
-                <div class="col-md-7 col-sm-10">
+                @Html.LabelFor(model => model.StateActivity, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-5 col-sm-10">
                     @Html.EnumDropDownListFor(model => model.StateActivity, htmlAttributes: new { @class = "form-control", @id = "stateActivity" })
                     @Html.ValidationMessageFor(model => model.StateActivity, "", new { @class = "text-danger" })
                 </div>
@@ -39,8 +39,8 @@
         </div>
         <div class="col-md-3">
             <div class="form-group">
-                @Html.LabelFor(model => model.StateCronogram, htmlAttributes: new { @class = "control-label col-md-5" })
-                <div class="col-md-7 col-sm-10">
+                @Html.LabelFor(model => model.StateCronogram, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8 col-sm-10">
                     @Html.EnumDropDownListFor(model => model.StateCronogram, htmlAttributes: new { @class = "form-control", @id = "stateCronogram" })
                     @Html.ValidationMessageFor(model => model.StateCronogram, "", new { @class = "text-danger" })
                 </div>
@@ -87,8 +87,8 @@
         </div>
         <div class="col-md-4">
             <div class="form-group">
-                @Html.LabelFor(model => model.ActionCategory, htmlAttributes: new { @class = "control-label col-md-4" })
-                <div class="col-md-7 col-sm-10">
+                @Html.LabelFor(model => model.ActionCategory, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-5 col-sm-10">
                     @Html.EnumDropDownListFor(model => model.ActionCategory, htmlAttributes: new { @class = "form-control", @id = "actionCategory" })
                     @Html.ValidationMessageFor(model => model.ActionCategory, "", new { @class = "text-danger" })
                 </div>

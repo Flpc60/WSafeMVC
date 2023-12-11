@@ -498,6 +498,14 @@
     <Compile Include="Migrations\202312062317376_UpdSigueAnnualPlan.designer.cs">
       <DependentUpon>202312062317376_UpdSigueAnnualPlan.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202312111211058_UpdCreatePlanActivityVM.cs" />
+    <Compile Include="Migrations\202312111211058_UpdCreatePlanActivityVM.designer.cs">
+      <DependentUpon>202312111211058_UpdCreatePlanActivityVM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202312111705283_UpdSiguePlanAnualVM.cs" />
+    <Compile Include="Migrations\202312111705283_UpdSiguePlanAnualVM.designer.cs">
+      <DependentUpon>202312111705283_UpdSiguePlanAnualVM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -1238,6 +1246,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202312062317376_UpdSigueAnnualPlan.resx">
       <DependentUpon>202312062317376_UpdSigueAnnualPlan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202312111211058_UpdCreatePlanActivityVM.resx">
+      <DependentUpon>202312111211058_UpdCreatePlanActivityVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202312111705283_UpdSiguePlanAnualVM.resx">
+      <DependentUpon>202312111705283_UpdSiguePlanAnualVM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
