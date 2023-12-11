@@ -1584,7 +1584,7 @@ function ShowAnnualPlan(planActivityID) {
                 html += '<td>' + item.Executed + '</td>';
                 html += '<td>' + item.FileName + '</td>';
                 html +=
-                    '<td><a href="#" onclick="return getSeguiByID(' + item.ID + ')">Editar</a> | <a href = "#" onclick = "DeleteSegui(' + item.ID + ')"> Borrar</a></td>';
+                    '<td><a href="#" onclick="return getSeguiByID(' + item.ID + ')">Editar</a> | <a href = "#" onclick = "DeleteSeguiPlan(' + item.ID + ')"> Borrar</a></td>';
                 html += '<hr />';
                 html += '</tr>';
             });
@@ -1608,37 +1608,22 @@ function getSeguiByID(id) {
         },
         dataType: "json",
         contentType: "application/json;charset=UTF-8",
-        success: function (result) {
-            var standard = " ESTÁNDAR : " + result.Standard;
-            var itemStandard = " ITEM ESTÁNDAR : " + result.Item + " " + result.Name;
-            $("#txtFinancieros").prop('checked', false)
-            $("#txtAdministrativos").prop('checked', false)
-            $("#txtTecnicos").prop('checked', false)
-            $("#txtHumanos").prop('checked', false)
-            if (result.Financieros) { $("#txtFinancieros").prop('checked', true) };
-            if (result.Administrativos) { $("#txtAdministrativos").prop('checked', true) };
-            if (result.Tecnicos) { $("#txtTecnicos").prop('checked', true) };
-            if (result.Humanos) { $("#txtHumanos").prop('checked', true) };
-
-            $("#txtActivity").val(result.Activity);
-            $("#txtResponsable").val(result.TrabajadorID);
-            $("#txtFinancieros").val(result.Financieros);
-            $("#txtAdministrativos").val(result.Administrativos);
-            $("#txtTecnicos").val(result.Tecnicos);
-            $("#txtHumanos").val(result.Humanos);
-            $("#txtFechaFinal").val(result.FechaCumplimiento);
-            $("#txtFundamentos").val(result.Fundamentos);
-            $("#txtActionCategory").val(result.ActionCategory);
-            $("#txtObservation").val(result.Observation);
-            $("#txtEvaluationID").val(result.EvaluationID);
-            $("#txtPlanActivityID").val(result.ID);
-            //document.getElementById("txtStandard").innerHTML = standard;
-            document.getElementById("txtItem").innerHTML = itemStandard;
-            $("#btnAddPlanActivity").hide();
-            $("#btnUpdPlanActivity").show();
-            $("#btnCanPlanActivity").show();
-            $(".tabAddPlanAcc").css("display", "block");
-            $("#txtObservation").focus();
+        success: function (response) {
+            $("#dateSigue").val(response.TextDateSigue);
+            $("#workerID").val(response.TrabajadorID);
+            $("#stateActivity").val(response.StateActivity);
+            $("#stateCronogram").val(response.StateCronogram);
+            $("#programed").val(response.Programed);
+            $("#executed").val(response.Executed);
+            $("#fileName").val(response.fileName);
+            $("#observation").val(response.Observation);
+            $("#actionCategory").val(response.ActionCategory);
+            $("#siguePlanID").val(response.ID);
+            $("#btnAddTraceability").hide();
+            $("#btnUpdTraceability").show();
+            $("#btnCanTraceability").show();
+            $(".tabAddSigue").css("display", "block");
+            $("#dateSigue").focus();
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -1697,30 +1682,32 @@ function updateSeguimient() {
     });
 }
 
-function DeleteSegui(id) {
+function DeleteSeguiPlan(id) {
     $.ajax({
-        url: "/Evaluations/DeletePlanActivity/" + id,
+        url: "/AnnualPlans/DeleteSiguePlanAnual/" + id,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         async: true,                                             // si es asincrónico o no
         success: function (result) {
             var text = "";
-            var evaluationID = result.EvaluationID;
-            text += "Esta seguro de querer borrar esta actividad ? :\n\n";
+            text += "Esta seguro de querer borrar este seguimiento ?:\n\n";
+            text += "Fecha: " + result.TextDateSigue + "\n";
             text += "Observación : " + result.Observation + "\n";
-            text += "Actividad : " + result.Activity + "\n";
-            text += "Responsable : " + result.Responsable + "\n";
+            text += "Programadas: " + result.Programed + "\n";
+            text += "Ejecutadas: " + result.Executed + "\n";
             var respuesta = confirm(text);
             if (respuesta == true) {
                 $.ajax({
-                    url: "/Evaluations/DeletePlanActivity/" + id,
+                    url: "/AnnualPlans/DeleteSiguePlanAnual/" + id,
                     type: "POST",
                     contentType: "application/json;charset=UTF-8",
                     dataType: "json",
                     async: true,                                               // si es asincrónico o no
                     success: function (result) {
                         alert(result.mensaj);
+                        var planActivityID = result.data;
+                        ShowAnnualPlan(planActivityID);
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         alert(xhr.status);
@@ -1728,8 +1715,6 @@ function DeleteSegui(id) {
                     }
                 });
             }
-            ClearTextBox();
-            ShowPlanActivities(evaluationID);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -1760,11 +1745,13 @@ function addTraceability(planActivityID) {
         data: { model: recomendationVM },
         dataType: "json",
         success: function (response) {
+            $("#siguePlanID").val(response.ID);
             $("#btnAddTraceability").hide();
             $("#btnUpdTraceability").hide();
             $(".tabAddSigue").css("display", "none");
             alert(response.mensaj);
-            ShowAnnualPlan(planActivityID);        },
+            ShowAnnualPlan(planActivityID);
+        },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
             alert(thrownError);
@@ -1776,20 +1763,27 @@ function updateTraceability(planActivityID) {
     // Actualiza una trazabilidad
     $('.tabAddSigue').css("display", "none");
     var siguePlanAnualVM = {
-        ID: $("#txtRecomendationID").val(),
-        IncidentID: $("#txtIncidenteID").val(),
-        RootCauseID: $("#txtRootCauseID").val(),
-        Name: $("#txtRecomendation").val()
+        ID: $("#siguePlanID").val(),
+        DateSigue: $("#dateSigue").val(),
+        TrabajadorID: $("#workerID").val(),
+        StateActivity: $("#stateActivity").val(),
+        StateCronogram: $("#stateCronogram").val(),
+        Programed: $("#programed").val(),
+        Executed: $("#executed").val(),
+        PlanActivityID: planActivityID,
+        Observation: $("#observation").val(),
+        FileName: $("#fileName").val(),
+        ActionCategory: $("#actionCategory").val()
     };
     $.ajax({
         type: "POST",
-        url: "/Incidentes/UpdateRecomendation",
-        data: { model: recomendationVM },
+        url: "/AnnualPlans/UpdateSiguePlanAnual",
+        data: { model: siguePlanAnualVM },
         dataType: "json",
         success: function (response) {
             alert(response.mensaj);
-            $(".tabGesRecomendations").css("display", "block");
-            ShowRecomendations();
+            $(".tabAnnualPlan").css("display", "block");
+            ShowAnnualPlan(planActivityID);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
