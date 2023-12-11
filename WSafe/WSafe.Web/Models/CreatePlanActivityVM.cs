@@ -62,6 +62,8 @@ namespace WSafe.Web.Models
         public int OrganizationID { get; set; }
         public int ClientID { get; set; }
         public int UserID { get; set; }
+        [Display(Name = "SUBIR EVIENCIA")]
+        [MaxLength(200)]
         public string FileName { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "FECHA")]
@@ -72,5 +74,6 @@ namespace WSafe.Web.Models
         [Range(typeof(short), "1", "9999", ErrorMessage = "Por favor ingrese un número de actividades programadas válido.")]
         [Display(Name = "EJECUTADAS")]
         public short Executed { get; set; }
+        public string TextDateSigue { get; set; }
     }
 }

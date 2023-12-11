@@ -2326,7 +2326,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Programed = model.Programed,
                 Executed = model.Executed,
                 FileName = model.FileName,
-                DateSigue = model.DateSigue
+                DateSigue = model.DateSigue,
+                TextDateSigue = model.DateSigue.ToString("yyyy-MM-dd")
             };
             return result;
         }

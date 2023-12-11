@@ -274,7 +274,7 @@ namespace WSafe.Web.Controllers
                     orderby sp.DateSigue
                     select new
                     {
-                        ID = sp.PlanActivityID,
+                        ID = sp.ID,
                         DateSigue = sp.DateSigue,
                         TrabajadorID = sp.TrabajadorID,
                         TxtActionCategory = sp.ActionCategory,
@@ -295,7 +295,7 @@ namespace WSafe.Web.Controllers
                     {
                         ID = item.ID,
                         TrabajadorID = item.TrabajadorID,
-                        TextDateSigue = item.DateSigue.ToString("yyy-MM-dd"),
+                        TextDateSigue = item.DateSigue.ToString("yyyy-MM-dd"),
                         TxtActionCategory = _gestorHelper.GetActionCategory((int)item.TxtActionCategory),
                         TxtStateActivity = _gestorHelper.GetStateActivity(item.TxtStateActivity),
                         TxtStateCronogram = _gestorHelper.GetStateCronogram(item.TxtStateCronogram),
@@ -381,7 +381,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> UpdateSiguePlanAnual(PlanActivity model)
+        public async Task<ActionResult> UpdateSiguePlanAnual(SiguePlanAnual model)
         {
             var message = "";
             try
@@ -391,13 +391,52 @@ namespace WSafe.Web.Controllers
                 _empresaContext.Entry(model).State = EntityState.Modified;
                 await _empresaContext.SaveChangesAsync();
                 message = "La actualización se ha realizado exitosamente !!";
-                return Json(new { data = model.EvaluationID, mensaj = message }, JsonRequestBehavior.AllowGet);
+                return Json(new { data = model.PlanActivityID, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
                 message = "La actualización NO se ha realizado exitosamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
+        }
+        public async Task<ActionResult> DeleteSiguePlanAnual(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            _orgID = (int)Session["orgID"];
+            _year = (string)Session["year"];
+
+            SiguePlanAnual siquePlan = await _empresaContext.SigueAnnualPlans.FindAsync(id);
+            var model = _converterHelper.ToUpdateSiguePlanAnual(siquePlan, _orgID);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteSiguePlanAnual(int id)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    SiguePlanAnual siquePlan = await _empresaContext.SigueAnnualPlans.FindAsync(id);
+                    _empresaContext.SigueAnnualPlans.Remove(siquePlan);
+                    await _empresaContext.SaveChangesAsync();
+                    var message = "La actualización se ha realizado exitosamente !!";
+                    return Json(new { data = siquePlan.PlanActivityID, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                var message = "La actualización NO se ha realizado exitosamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+            return RedirectToAction("Index");
         }
         protected override void Dispose(bool disposing)
         {
