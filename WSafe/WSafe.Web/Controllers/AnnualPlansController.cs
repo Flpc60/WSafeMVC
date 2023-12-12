@@ -438,6 +438,79 @@ namespace WSafe.Web.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public async Task<ActionResult> AnnualPlansPdf()
+        {
+            try
+            {
+                // Configuración nombre archivo pdf
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
+                _path = (string)Session["path"];
+                var organization = _empresaContext.Organizations.Find(_orgID);
+                var year = _year;
+                var item = _empresaContext.Normas.Find(organization.StandardAnnualPlan).Item;
+                var fullPath = $"{_path}/1. PLANEAR/{item}/";
+                var path = Server.MapPath(fullPath);
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                Random random = new Random();
+                var filename = "Plan de trabajo anual" + random.Next(1, 100) + ".Pdf";
+                var filePathName = path + filename;
+                var list = await _empresaContext.PlanActivities
+                    .Where(pa => pa.OrganizationID == _orgID && pa.FechaFinal.Year.ToString() == _year)
+                    .OrderByDescending(pa => pa.InitialDate)
+                    .Include(s => s.SiguePlanAnual)
+                    .ToListAsync();
+                var model = _converterHelper.ToAnnualPlanMatriz(list);
+                var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == 14);
+                ViewBag.formato = document.Formato;
+                ViewBag.estandar = document.Estandar;
+                ViewBag.titulo = document.Titulo;
+                ViewBag.version = document.Version;
+                ViewBag.fecha = DateTime.Now;
+                var report = new ViewAsPdf("CreateAnnualPlan");
+                report.Model = model;
+                report.FileName = filePathName;
+                report.PageSize = Rotativa.Options.Size.A4;
+                report.PageOrientation = Rotativa.Options.Orientation.Landscape;
+                report.PageWidth = 399;
+                report.PageHeight = 399;
+                report.SaveOnServerPath = filePathName;
+
+                //Generar archivo de movimiento
+                var fullName = filename;
+                var type = Path.GetExtension(filename).ToUpper();
+                var descript = "PLAN DE TRABAJO ANUAL";
+                var userID = (int)Session["userID"];
+                Movimient movimient = new Movimient()
+                {
+                    ID = 0,
+                    OrganizationID = _orgID,
+                    NormaID = organization.StandardAnnualPlan,
+                    UserID = userID,
+                    Descripcion = descript,
+                    Document = fullName,
+                    Year = year,
+                    Item = item,
+                    Ciclo = "P",
+                    Type = type,
+                    Path = path,
+                    ClientID = _clientID
+                };
+                _empresaContext.Movimientos.Add(movimient);
+                _empresaContext.SaveChanges();
+                return report;
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "AnnualPlans", "Index"));
+            }
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
