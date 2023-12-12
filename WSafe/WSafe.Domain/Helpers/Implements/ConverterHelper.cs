@@ -2326,9 +2326,81 @@ namespace WSafe.Domain.Helpers.Implements
                 Programed = model.Programed,
                 Executed = model.Executed,
                 FileName = model.FileName,
-                DateSigue = model.DateSigue
+                DateSigue = model.DateSigue,
+                TextDateSigue = model.DateSigue.ToString("yyyy-MM-dd")
             };
             return result;
+        }
+        public IEnumerable<AnnualPlanVM> ToAnnualPlanMatriz(IEnumerable<PlanActivity> list)
+        {
+            var compromise = "";
+            var workerCompromise = "";
+            var model = new List<AnnualPlanVM>();
+            foreach (var item in list)
+            {
+                var result = item.SiguePlanAnual
+                    .Where(pa => pa.PlanActivityID == item.ID)
+                    .GroupBy(pa => pa.StateCronogram)
+                    .Select(group => new
+                    {
+                        State = group.Key,
+                        Programed = group.Where(pa => pa.StateCronogram == StatesCronogram.Programada).Sum(pa => pa.Programed),
+                        Executed = group.Where(pa => pa.StateCronogram == StatesCronogram.Ejecutada).Sum(pa => pa.Executed),
+                        Observations = group
+                            .Where(pa => pa.StateCronogram == StatesCronogram.Ejecutada && !string.IsNullOrEmpty(pa.Observation))
+                            .Select(pa => pa.Observation)
+                    });
+
+                decimal programed = result.FirstOrDefault(r => r.State == StatesCronogram.Programada)?.Programed ?? 0;
+                decimal executed = result.FirstOrDefault(r => r.State == StatesCronogram.Ejecutada)?.Executed ?? 0;
+                var seguimients = result.FirstOrDefault(r => r.State == StatesCronogram.Ejecutada)?.Observations ?? Enumerable.Empty<string>();
+
+                string observations = string.Join(", ", seguimients);
+
+                if (programed <= 0)
+                {
+                    programed = 1;
+                }
+
+                var recursos = "";
+                if (item.Financieros)
+                {
+                    recursos += "Financieros, ";
+                }
+
+                if (item.Administrativos)
+                {
+                    recursos += "Administrativos, ";
+                }
+
+                if (item.Tecnicos)
+                {
+                    recursos += "Técnicos, ";
+                }
+
+                if (item.Humanos)
+                {
+                    recursos += "Humanos";
+                }
+
+                model.Add(new AnnualPlanVM
+                {
+                    ID = item.ID,
+                    Cycle = _empresaContext.Normas.Find(item.NormaID).Ciclo,
+                    Activity = item.Activity,
+                    Entregables = item.Entregables,
+                    Recursos = recursos,
+                    Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto,
+                    Observation = item.Observation,
+                    StateActivity = _gestorHelper.GetStateActivity(item.StateActivity),
+                    Programed = (short)programed,
+                    Executed = (short)executed,
+                    PorcentajeCumplimiento = (executed / programed).ToString("#0.##%"),
+                    Seguimients = observations
+                });
+            }
+
+            return model;
         }
     }
 }
