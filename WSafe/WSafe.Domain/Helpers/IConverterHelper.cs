@@ -72,5 +72,6 @@ namespace WSafe.Domain.Helpers
         Task<PlanActivity> ToPlanActivityAsync(CreatePlanActivityVM model, bool isNew);
         CreatePlanActivityVM ToUpdatePlanActivityVM(PlanActivity model, int org);
         CreatePlanActivityVM ToUpdateSiguePlanAnual(SiguePlanAnual model, int org);
+        IEnumerable<AnnualPlanVM> ToAnnualPlanMatriz(IEnumerable<PlanActivity> list);
     }   
 }

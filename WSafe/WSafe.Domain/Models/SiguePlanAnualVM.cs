@@ -18,7 +18,7 @@ namespace WSafe.Web.Models
         [Display(Name = "RESPONSABLE")]
         public int TrabajadorID { get; set; }
         public IEnumerable<SelectListItem> Workers { get; set; }
-        [MaxLength(100)]
+        [MaxLength(200)]
         [Display(Name = "OBSERVACIONES")]
         public string Observation { get; set; }
         [Display(Name = "ESTADO")]

@@ -19,7 +19,7 @@ namespace WSafe.Web.Models
         public string Recursos { get; set; }
         [Display(Name = "RESPONSABLE")]
         public string Responsable { get; set; }
-        [MaxLength(100)]
+        [MaxLength(200)]
         [Display(Name = "OBSERVACIONES")]
         public string Observation { get; set; }
         [Display(Name = "ESTADO")]
@@ -30,5 +30,8 @@ namespace WSafe.Web.Models
         public short Executed { get; set; }
         [Display(Name = "CUMPLIMIENTO")]
         public string PorcentajeCumplimiento { get; set; }
+        [MaxLength(200)]
+        [Display(Name = "SEGUIMIENTOS")]
+        public string Seguimients { get; set; }
     }
 }

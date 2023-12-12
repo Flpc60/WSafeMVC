@@ -506,6 +506,14 @@
     <Compile Include="Migrations\202312111705283_UpdSiguePlanAnualVM.designer.cs">
       <DependentUpon>202312111705283_UpdSiguePlanAnualVM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202312121658025_UpdOrganization.cs" />
+    <Compile Include="Migrations\202312121658025_UpdOrganization.designer.cs">
+      <DependentUpon>202312121658025_UpdOrganization.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202312121819006_UpdAnnualPlan.cs" />
+    <Compile Include="Migrations\202312121819006_UpdAnnualPlan.designer.cs">
+      <DependentUpon>202312121819006_UpdAnnualPlan.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -989,6 +997,7 @@
     <Content Include="Views\Shared\_EditAnnualPlan.cshtml" />
     <Content Include="Views\Shared\_EditSigueAnnualPlan.cshtml" />
     <Content Include="Views\Shared\_ShowSeguimients.cshtml" />
+    <Content Include="Views\AnnualPlans\CreateAnnualPlan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1252,6 +1261,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202312111705283_UpdSiguePlanAnualVM.resx">
       <DependentUpon>202312111705283_UpdSiguePlanAnualVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202312121658025_UpdOrganization.resx">
+      <DependentUpon>202312121658025_UpdOrganization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202312121819006_UpdAnnualPlan.resx">
+      <DependentUpon>202312121819006_UpdAnnualPlan.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

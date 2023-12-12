@@ -1,0 +1,100 @@
+﻿@model IEnumerable<WSafe.Web.Models.AnnualPlanVM>
+
+@{
+    ViewBag.Title = "Sistema de Gestión de Seguridad y Salud en el Trabajo";
+    Layout = null;
+}
+
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryunobtrusive")
+
+@Html.Partial("_CabezoteFormat")
+
+<hr class="mt-4">
+<div class="container">
+    <table class="table table-bordered table-hover">
+        <tr style="background-color:gainsboro">
+            <th>
+                @Html.DisplayNameFor(model => model.Cycle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Activity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Entregables)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Recursos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Responsable)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Observation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StateActivity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Programed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Executed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PorcentajeCumplimiento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Seguimients)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cycle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Activity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Entregables)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Recursos)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Responsable)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Observation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StateActivity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Programed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Executed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PorcentajeCumplimiento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Seguimients)
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<div class="container body-content">
+    <hr />
+    <footer>
+        <p>&copy; @DateTime.Now.Year - FLPCSoft</p>
+    </footer>
+</div>
