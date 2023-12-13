@@ -13,6 +13,7 @@ namespace WSafe.Domain.Helpers.Implements
     public class ChartHelper : IChartHelper
     {
         // Construir gráficas e indicadores para el SG-SST
+
         private readonly EmpresaContext _empresaContext;
         private readonly IndicadorHelper _indicadorHelper;
         private readonly GestorHelper _gestorHelper;
@@ -1200,6 +1201,39 @@ namespace WSafe.Domain.Helpers.Implements
                         Numerador = grupo.Datos.Count(),
                         Denominador = 1,
                         Resultado = grupo.Datos.Count()
+                    });
+                }
+                return viewModel;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
+        }
+        public IEnumerable<IndicadorDetallesViewModel> GetAnnualPlanActivitiesAll(int year)
+        {
+            try
+            {
+                var list = _empresaContext.SigueAnnualPlans
+                    .Where(pa => pa.DateSigue.Year == year)
+                    .GroupBy(pa => new { Month = pa.DateSigue.Month, State = pa.StateCronogram })
+                    .Select(group => new
+                    {
+                        Month = group.Key.Month,
+                        State = group.Key.State,
+                        TotalProgramed = group.Sum(pa => pa.StateCronogram == StatesCronogram.Programada ? pa.Programed : 0),
+                        TotalExecuted = group.Sum(pa => pa.StateCronogram == StatesCronogram.Ejecutada ? pa.Executed : 0),
+                    });
+
+                var viewModel = new List<IndicadorDetallesViewModel>();
+                foreach (var item in list)
+                {
+                    viewModel.Add(new IndicadorDetallesViewModel
+                    {
+                        ID = 1,
+                        MesAnn = item.Month.ToString(),
+                        Resultado = item.TotalProgramed,
+                        Resultado1 = item.TotalExecuted
                     });
                 }
                 return viewModel;
