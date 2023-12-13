@@ -1811,6 +1811,9 @@ function chartAnnualPlan(year) {
             var arrayLabel = [];
             var arrayData1 = [];
             var arrayData2 = [];
+            var backgroundColor1 = Array(data.length).fill('rgb(0, 99, 132, 0.6)');
+            var backgroundColor2 = Array(data.length).fill('rgb(99, 132, 0, 0.6)');
+
             for (var i = 0; i < data.length; i++) {
                 arrayLabel.push(data[i].MesAnn);
                 arrayData1.push(data[i].Resultado);
@@ -1823,17 +1826,13 @@ function chartAnnualPlan(year) {
                     labels: arrayLabel,
                     datasets: [
                         {
-                            label: "PROGRAMADAS",
-                            backgroundColor: [
-                                'rgb(75, 192, 192)',
-                            ],
+                            label: "ACTIVIDADES PROGRAMADAS",
+                            backgroundColor: backgroundColor1,
                             data: arrayData1
                         },
                         {
-                            label: "EJECUTADAS",
-                            backgroundColor: [
-                                'rgb(255, 205, 86)',
-                            ],
+                            label: "ACTIVIDADES EJECUTADAS",
+                            backgroundColor: backgroundColor2,
                             data: arrayData2
                         }
                     ]
@@ -1847,12 +1846,15 @@ function chartAnnualPlan(year) {
                                 display: true
                             }
                         },
-                        y: {
+                        yAxes: [{
                             display: true,
                             title: {
                                 display: true
+                            },
+                            ticks: {
+                                beginAtZero: true
                             }
-                        }
+                        }]
                     },
                     title: {
                         display: true,
@@ -1860,7 +1862,10 @@ function chartAnnualPlan(year) {
                     }
                 }
             });
-            $("#annualPlanActivities").show();
+
+            const canvasElement = document.getElementById("annualPlanActivities");
+            canvasElement.tabIndex = 0;
+            canvasElement.focus();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
