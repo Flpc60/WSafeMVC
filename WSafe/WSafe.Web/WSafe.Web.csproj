@@ -494,25 +494,9 @@
     <Compile Include="Helpers\Implements\ConverterHelper.cs" />
     <Compile Include="Helpers\Implements\GestorHelper.cs" />
     <Compile Include="Helpers\Implements\IndicadorHelper.cs" />
-    <Compile Include="Migrations\202312062317376_UpdSigueAnnualPlan.cs" />
-    <Compile Include="Migrations\202312062317376_UpdSigueAnnualPlan.designer.cs">
-      <DependentUpon>202312062317376_UpdSigueAnnualPlan.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202312111211058_UpdCreatePlanActivityVM.cs" />
-    <Compile Include="Migrations\202312111211058_UpdCreatePlanActivityVM.designer.cs">
-      <DependentUpon>202312111211058_UpdCreatePlanActivityVM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202312111705283_UpdSiguePlanAnualVM.cs" />
-    <Compile Include="Migrations\202312111705283_UpdSiguePlanAnualVM.designer.cs">
-      <DependentUpon>202312111705283_UpdSiguePlanAnualVM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202312121658025_UpdOrganization.cs" />
-    <Compile Include="Migrations\202312121658025_UpdOrganization.designer.cs">
-      <DependentUpon>202312121658025_UpdOrganization.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202312121819006_UpdAnnualPlan.cs" />
-    <Compile Include="Migrations\202312121819006_UpdAnnualPlan.designer.cs">
-      <DependentUpon>202312121819006_UpdAnnualPlan.cs</DependentUpon>
+    <Compile Include="Migrations\202312131848431_UpdSiguePlanAnual.cs" />
+    <Compile Include="Migrations\202312131848431_UpdSiguePlanAnual.designer.cs">
+      <DependentUpon>202312131848431_UpdSiguePlanAnual.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
@@ -1253,20 +1237,8 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202312062317376_UpdSigueAnnualPlan.resx">
-      <DependentUpon>202312062317376_UpdSigueAnnualPlan.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202312111211058_UpdCreatePlanActivityVM.resx">
-      <DependentUpon>202312111211058_UpdCreatePlanActivityVM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202312111705283_UpdSiguePlanAnualVM.resx">
-      <DependentUpon>202312111705283_UpdSiguePlanAnualVM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202312121658025_UpdOrganization.resx">
-      <DependentUpon>202312121658025_UpdOrganization.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202312121819006_UpdAnnualPlan.resx">
-      <DependentUpon>202312121819006_UpdAnnualPlan.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202312131848431_UpdSiguePlanAnual.resx">
+      <DependentUpon>202312131848431_UpdSiguePlanAnual.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

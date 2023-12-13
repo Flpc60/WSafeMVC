@@ -525,7 +525,7 @@ namespace WSafe.Web.Controllers
                 Random random = new Random();
                 var filename = "chart" + random.Next(1, 100) + ".jpg";
                 var filePathName = "~/Images/" + filename;
-                var datos = _chartHelper.GetAnnualPlanActivitiesAll(year);
+                var datos = _chartHelper.GetAnnualPlanActivitiesAll(year, _orgID);
                 var image = "/Images/" + filename;
                 return Json(datos, JsonRequestBehavior.AllowGet);
             }

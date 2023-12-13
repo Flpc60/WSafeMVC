@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
+using System.Globalization;
 using System.Linq;
 using System.Web.Helpers;
 using System.Web.UI.WebControls;
@@ -1210,12 +1211,12 @@ namespace WSafe.Domain.Helpers.Implements
                 throw ex;
             }
         }
-        public IEnumerable<IndicadorDetallesViewModel> GetAnnualPlanActivitiesAll(int year)
+        public IEnumerable<IndicadorDetallesViewModel> GetAnnualPlanActivitiesAll(int year, int _orgID)
         {
             try
             {
                 var list = _empresaContext.SigueAnnualPlans
-                    .Where(pa => pa.DateSigue.Year == year)
+                    .Where(pa => pa.DateSigue.Year == year && pa.OrganizationID == _orgID)
                     .GroupBy(pa => new { Month = pa.DateSigue.Month, State = pa.StateCronogram })
                     .Select(group => new
                     {
@@ -1223,19 +1224,46 @@ namespace WSafe.Domain.Helpers.Implements
                         State = group.Key.State,
                         TotalProgramed = group.Sum(pa => pa.StateCronogram == StatesCronogram.Programada ? pa.Programed : 0),
                         TotalExecuted = group.Sum(pa => pa.StateCronogram == StatesCronogram.Ejecutada ? pa.Executed : 0),
+                    })
+                    .GroupBy(result => result.Month) // Agrupa por mes
+                    .Select(monthGroup => new
+                    {
+                        Month = monthGroup.Key,
+                        CombinedRecords = monthGroup.Select(record => new
+                        {
+                            State = record.State,
+                            TotalProgramed = record.TotalProgramed,
+                            TotalExecuted = record.TotalExecuted
+                        }).ToList()
                     });
+
+                // Ahora list contiene los resultados agrupados por mes con una lista combinada de TotalProgramed y TotalExecuted para cada estado.
 
                 var viewModel = new List<IndicadorDetallesViewModel>();
                 foreach (var item in list)
                 {
+                    var month = CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(item.Month).ToUpper();
+
+                    // Inicializar variables para las sumas totales
+                    var totalProgramed = 0;
+                    var totalExecuted = 0;
+
+                    // Iterar sobre CombinedRecords y sumar los valores
+                    foreach (var record in item.CombinedRecords)
+                    {
+                        totalProgramed += record.TotalProgramed;
+                        totalExecuted += record.TotalExecuted;
+                    }
+
                     viewModel.Add(new IndicadorDetallesViewModel
                     {
                         ID = 1,
-                        MesAnn = item.Month.ToString(),
-                        Resultado = item.TotalProgramed,
-                        Resultado1 = item.TotalExecuted
+                        MesAnn = month,
+                        Resultado = totalProgramed,
+                        Resultado1 = totalExecuted
                     });
                 }
+
                 return viewModel;
             }
             catch (DbEntityValidationException ex)

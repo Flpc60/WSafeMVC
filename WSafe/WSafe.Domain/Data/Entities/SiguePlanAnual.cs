@@ -26,5 +26,8 @@ namespace WSafe.Domain.Data.Entities
         [MaxLength(200)]
         public string FileName { get; set; }
         public int PlanActivityID { get; set; }
+        public int OrganizationID { get; set; }
+        public int ClientID { get; set; }
+        public int UserID { get; set; }
     }
 }

@@ -31,7 +31,7 @@ namespace WSafe.Web.Models
         [Display(Name = "CUMPLIMIENTO")]
         public string PorcentajeCumplimiento { get; set; }
         [MaxLength(200)]
-        [Display(Name = "SEGUIMIRNTOS")]
+        [Display(Name = "SEGUIMIENTOS")]
         public string Seguimients { get; set; }
     }
 }

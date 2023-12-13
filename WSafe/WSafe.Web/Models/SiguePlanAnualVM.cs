@@ -45,5 +45,8 @@ namespace WSafe.Web.Models
         public string TxtStateCronogram { get; set; }
         public string Responsable { get; set; }
         public string TextDateSigue { get; set; }
+        public int OrganizationID { get; set; }
+        public int ClientID { get; set; }
+        public int UserID { get; set; }
     }
 }
