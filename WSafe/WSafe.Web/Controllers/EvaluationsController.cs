@@ -18,7 +18,7 @@ namespace WSafe.Web.Controllers
 {
     public class EvaluationsController : Controller
     {
-        // Evaluación del SG-SST
+        // Evaluación inicial del SG-SST
         private int _clientID;
         private int _orgID;
         private string _year;

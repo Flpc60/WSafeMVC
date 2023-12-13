@@ -511,6 +511,29 @@ namespace WSafe.Web.Controllers
                 return View("Error", new HandleErrorInfo(ex, "AnnualPlans", "Index"));
             }
         }
+
+        [HttpGet]
+        public ActionResult AnnualPlanGraphic(int year)
+        {
+            try
+            {
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
+                _path = (string)Session["path"];
+
+                Random random = new Random();
+                var filename = "chart" + random.Next(1, 100) + ".jpg";
+                var filePathName = "~/Images/" + filename;
+                var datos = _chartHelper.GetAnnualPlanActivitiesAll(year);
+                var image = "/Images/" + filename;
+                return Json(datos, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
+            }
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
