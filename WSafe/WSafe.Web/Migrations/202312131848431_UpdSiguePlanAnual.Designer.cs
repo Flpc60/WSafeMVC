@@ -7,18 +7,18 @@ namespace WSafe.Web.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class UpdSiguePlanAnualVM : IMigrationMetadata
+    public sealed partial class UpdSiguePlanAnual : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdSiguePlanAnualVM));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdSiguePlanAnual));
         
         string IMigrationMetadata.Id
         {
-            get { return "202312111705283_UpdSiguePlanAnualVM"; }
+            get { return "202312131848431_UpdSiguePlanAnual"; }
         }
         
         string IMigrationMetadata.Source
         {
-            get { return Resources.GetString("Source"); }
+            get { return null; }
         }
         
         string IMigrationMetadata.Target
