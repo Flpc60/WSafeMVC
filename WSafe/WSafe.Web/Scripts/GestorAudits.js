@@ -1797,3 +1797,74 @@ function cancelTrazability() {
     $(".tabAddRecomendations").css("display", "none");
     $("#txtRecomendation").val("");
 }
+function chartAnnualPlan(year) {
+
+    // Gráficar plan anual
+    $.ajax({
+        url: "/AnnualPlans/AnnualPlanGraphic",
+        type: "GET",
+        data: { year: year },
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (data) {
+            var arrayLabel = [];
+            var arrayData1 = [];
+            var arrayData2 = [];
+            for (var i = 0; i < data.length; i++) {
+                arrayLabel.push(data[i].MesAnn);
+                arrayData1.push(data[i].Resultado);
+                arrayData2.push(data[i].Resultado1);
+            }
+            const ctx = document.getElementById("annualPlanActivities").getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: arrayLabel,
+                    datasets: [
+                        {
+                            label: "PROGRAMADAS",
+                            backgroundColor: [
+                                'rgb(75, 192, 192)',
+                            ],
+                            data: arrayData1
+                        },
+                        {
+                            label: "EJECUTADAS",
+                            backgroundColor: [
+                                'rgb(255, 205, 86)',
+                            ],
+                            data: arrayData2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'PLAN DE TRABAJO ANUAL'
+                    }
+                }
+            });
+            $("#annualPlanActivities").show();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}

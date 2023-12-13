@@ -66,7 +66,6 @@ namespace WSafe.Web.Controllers
             }
         }
 
-
         [HttpGet]
         public ActionResult GetAllIndicators(int year)
         {

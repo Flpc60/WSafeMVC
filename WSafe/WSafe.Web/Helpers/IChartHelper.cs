@@ -35,5 +35,6 @@ namespace WSafe.Domain.Helpers
         IEnumerable<IndicadorDetallesViewModel> GetAllTiposVivienda(int year, int _orgID);
         IEnumerable<IndicadorDetallesViewModel> GetAllTiposJornada(int year, int _orgID);
         IEnumerable<IndicadorDetallesViewModel> GetAllNumeroHijos(int year, int _orgID);
+        IEnumerable<IndicadorDetallesViewModel> GetAnnualPlanActivitiesAll(int year);
     }
 }

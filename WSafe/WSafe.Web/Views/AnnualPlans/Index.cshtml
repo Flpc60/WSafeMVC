@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+    var year = @Session["year"].ToString().Trim();
 }
 
 <style>
@@ -44,14 +45,17 @@
     <div class="row justify-content-between">
         <div class="col-md-12">
             <a href="@Url.Action("Create", "AnnualPlans")" class="btn btn-info btn-lg active">
-                <span class="glyphicon glyphicon-plus"></span> Crear nueva actividad
+                <span class="glyphicon glyphicon-tasks"></span> Crear nueva actividad
             </a>
             <a href="@Url.Action("Create", "Acciones")" class="btn btn-info btn-lg active">
-                <span class="glyphicon glyphicon-plus"></span> Crear nueva acción
+                <span class="glyphicon glyphicon-adjust"></span> Crear nueva acción
             </a>
             <a href="@Url.Action("AnnualPlansPdf", "AnnualPlans")" class="btn btn-info btn-lg active">
                 <span class="glyphicon glyphicon-download"></span> Generar plan anual de trabajo
             </a>
+            <button type="button" id="btnAnnualPlan" class="btn btn-success" onclick="chartAnnualPlan(@year)">
+                <span class="glyphicon glyphicon-picture"></span> Graficar plan anual de trabajo
+            </button>
         </div>
     </div>
 </div>
@@ -127,12 +131,20 @@
                     @Html.DisplayFor(modelItem => item.PorcentajeCumplimiento)
                 </td>
                 <td style="margin:initial; background-color:deepskyblue; text-align:left">
-                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit", @title = "Actualizar"})
-                    @Html.ActionLink(" ", "PrintPlanActivityToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt", @title = "Imprimir"})
-                    @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "glyphicon glyphicon-trash", @title = "Descartar"})
+                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit", @title = "Actualizar" })
+                    @Html.ActionLink(" ", "PrintPlanActivityToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt", @title = "Imprimir" })
+                    @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "glyphicon glyphicon-trash", @title = "Descartar" })
                 </td>
             </tr>
         }
 
     </table>
+</div>
+<hr class="mt-4">
+<div class="container" style="margin-left:6%">
+    <div class="row">
+        <div class="col-md-6">
+            <div><canvas id="annualPlanActivities" width="800" height="800"></canvas></div>
+        </div>
+    </div>
 </div>
