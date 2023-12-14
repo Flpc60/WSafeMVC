@@ -1737,7 +1737,10 @@ function addTraceability(planActivityID) {
         PlanActivityID: planActivityID,
         Observation: $("#observation").val(),
         FileName: $("#fileName").val(),
-        ActionCategory: $("#actionCategory").val()
+        ActionCategory: $("#actionCategory").val(),
+        OrganizationID: 1,
+        ClientID: 1,
+        UserID:1
     };
     $.ajax({
         type: "POST",
@@ -1773,7 +1776,10 @@ function updateTraceability(planActivityID) {
         PlanActivityID: planActivityID,
         Observation: $("#observation").val(),
         FileName: $("#fileName").val(),
-        ActionCategory: $("#actionCategory").val()
+        ActionCategory: $("#actionCategory").val(),
+        OrganizationID: 1,
+        ClientID: 1,
+        UserID: 1
     };
     $.ajax({
         type: "POST",
