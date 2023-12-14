@@ -2252,7 +2252,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Normas = _comboHelper.GetNormasAll(),
                 Workers = _comboHelper.GetWorkersFull(org),
                 InitialDate = DateTime.Now,
-                FechaFinal = DateTime.Now
+                FechaFinal = DateTime.Now,
+                Executed = 1
             };
             return model;
         }
@@ -2308,7 +2309,8 @@ namespace WSafe.Domain.Helpers.Implements
                 OrganizationID = model.OrganizationID,
                 ClientID = model.ClientID,
                 UserID = model.UserID,
-                DateSigue = DateTime.Now
+                DateSigue = DateTime.Now,
+                Executed = 1
             };
             return result;
         }
@@ -2327,7 +2329,10 @@ namespace WSafe.Domain.Helpers.Implements
                 Executed = model.Executed,
                 FileName = model.FileName,
                 DateSigue = model.DateSigue,
-                TextDateSigue = model.DateSigue.ToString("yyyy-MM-dd")
+                TextDateSigue = model.DateSigue.ToString("yyyy-MM-dd"),
+                OrganizationID = model.OrganizationID,
+                ClientID = model.ClientID,
+                UserID = model.UserID
             };
             return result;
         }

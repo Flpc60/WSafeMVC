@@ -565,7 +565,7 @@ namespace WSafe.Domain.Helpers.Implements
         {
             var list = _empresaContext.Normas.Select(n => new SelectListItem
             {
-                Text = n.Name + " " + n.Item,
+                Text = n.Item + " - " + n.Name,
                 Value = n.ID.ToString()
             })
                 .OrderBy(t => t.Text)
