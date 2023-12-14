@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var fechaLimite = Model.FechaFinal;
 }
 
 <style>
@@ -62,15 +63,21 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
             $(document).ready(function () {
                 $('#addTraceabilityID').click(function () {
                     $('.tabAddSigue').css("display", "block");
-                    $('#dateSigue').show();
+                    $('#dateSigue').focus();
+                    $('#btnAddTraceability').show();
+                    $('#btnUpdTraceability').hide();
                 });
+                const dateInput = document.getElementById('dateSigue');
+                if (dateInput > @fechaLimite) {
+                    return false;
+                }
             });
 
-    </script>
+</script>
 
 }
