@@ -1729,7 +1729,7 @@ function addTraceability(planActivityID) {
     var recomendationVM = {
         ID: "0",
         DateSigue: $("#dateSigue").val(),
-        TrabajadorID: $("#workerID").val(),
+        TrabajadorID: $("#sigueWorkerID").val(),
         StateActivity: $("#stateActivity").val(),
         StateCronogram: $("#stateCronogram").val(),
         Programed: $("#programed").val(),
@@ -1768,7 +1768,7 @@ function updateTraceability(planActivityID) {
     var siguePlanAnualVM = {
         ID: $("#siguePlanID").val(),
         DateSigue: $("#dateSigue").val(),
-        TrabajadorID: $("#workerID").val(),
+        TrabajadorID: $("#sigueWorkerID").val(),
         StateActivity: $("#stateActivity").val(),
         StateCronogram: $("#stateCronogram").val(),
         Programed: $("#programed").val(),

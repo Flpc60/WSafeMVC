@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var fechaLimite = Model.FechaFinal;
 }
 
 <style>
@@ -22,61 +21,67 @@
 
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.ID)
-    @Html.HiddenFor(model => model.OrganizationID)
-    @Html.HiddenFor(model => model.ClientID)
-    @Html.HiddenFor(model => model.UserID)
-    @Html.HiddenFor(model => model.Executed)
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.OrganizationID)
+        @Html.HiddenFor(model => model.ClientID)
+        @Html.HiddenFor(model => model.UserID)
+        @Html.HiddenFor(model => model.Executed)
 
-    @Html.Partial("_EditAnnualPlan")
+        @Html.Partial("_EditAnnualPlan")
 
-    <div class="tabAnnualPlan">
-        <input type="hidden" id="planActivityID" name="planActivityID" />
-        <div class="container">
-            <hr />
-            <button type="button" class="btn btn-primary" id="addTraceabilityID">Adicionar nuevo seguimiento</button>
-            @Html.Partial("_ShowSeguimients")
-        </div>
-    </div>
-    <div class="tabAddSigue">
-        <input type="hidden" id="siguePlanID" name="siguePlanID" />
-        @Html.Partial("_EditSigueAnnualPlan")
-        <div class="row">
-            <div class="col-md-8">
-                <button type="button" id="btnAddTraceability" class="btn btn-primary" onclick="addTraceability(@Model.ID);">Adicionar</button>
-                <button type="button" id="btnUpdTraceability" class="btn btn-primary" onclick="updateTraceability(@Model.ID)">Actualizar</button>
-                <button type="button" id="btnCanTraceability" class="btn btn-primary" onclick="cancelTraceability()">
-                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
-                </button>
-            </div>
-            <div class="col-md-4">
+        <div class="tabAnnualPlan">
+            <input type="hidden" id="planActivityID" name="planActivityID" />
+            <div class="container">
+                <hr />
+                <button type="button" class="btn btn-primary" id="addTraceabilityID">Adicionar nuevo seguimiento</button>
+                @Html.Partial("_ShowSeguimients")
             </div>
         </div>
-    </div>
+        <div class="tabAddSigue">
+            <input type="hidden" id="siguePlanID" name="siguePlanID" />
+            @Html.Partial("_EditSigueAnnualPlan")
+            <div class="row">
+                <div class="col-md-8">
+                    <button type="button" id="btnAddTraceability" class="btn btn-primary" onclick="addTraceability(@Model.ID);">Adicionar</button>
+                    <button type="button" id="btnUpdTraceability" class="btn btn-primary" onclick="updateTraceability(@Model.ID)">Actualizar</button>
+                    <button type="button" id="btnCanTraceability" class="btn btn-primary" onclick="cancelTraceability()">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                    </button>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+        </div>
 
-</div>
+    </div>
 
 }
 
 @section Scripts {
+
     @Scripts.Render("~/bundles/jqueryval")
 
 <script type="text/javascript">
 
-            $(document).ready(function () {
-                $('#addTraceabilityID').click(function () {
-                    $('.tabAddSigue').css("display", "block");
-                    $('#dateSigue').focus();
-                    $('#btnAddTraceability').show();
-                    $('#btnUpdTraceability').hide();
-                });
-                const dateInput = document.getElementById('dateSigue');
-                if (dateInput > @fechaLimite) {
-                    return false;
-                }
+        $(document).ready(function () {
+            $('#addTraceabilityID').click(function () {
+                $('.tabAddSigue').css("display", "block");
+                $('#dateSigue').focus();
+                $('#btnAddTraceability').show();
+                $('#btnUpdTraceability').hide();
             });
+            $('#dateSigue').click(function () {
+                var dateInput = $('#dateSigue').val(); // Obtener el valor del campo de fecha
+                var dateControl = $('#dateControl').val(); // Obtener el valor del campo de fecha
+                var fecha = Date.parse(dateInput);
+                var fechaFin = Date.parse(dateControl);
+                if (fecha.getTime() > fechaFin.getTime() || isNaN(fechaFin.getTime())) {
+                    return false;
+                };
+            });
+        });
 
 </script>
 
