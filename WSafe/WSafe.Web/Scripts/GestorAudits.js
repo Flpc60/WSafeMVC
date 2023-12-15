@@ -1547,6 +1547,7 @@ function asistenceAuditedResult() {
 
 function ShowAnnualPlan(planActivityID) {
     // Mostrar todos las actividades
+    $('#btnSigue').hide();
     $.ajax({
         url: "/AnnualPlans/GetPlanActivities",
         data: { id: planActivityID },
@@ -1589,6 +1590,7 @@ function ShowAnnualPlan(planActivityID) {
                 html += '</tr>';
             });
             $('.gestSeguimients').html(html);
+            $('.gestSeguimients').focus();
             $('.tabAnnualPlan').css("display", "block");
         },
         error: function (xhr, ajaxOptions, thrownError) {

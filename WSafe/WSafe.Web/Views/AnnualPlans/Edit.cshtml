@@ -31,29 +31,6 @@
 
         @Html.Partial("_EditAnnualPlan")
 
-        <div class="tabAnnualPlan">
-            <input type="hidden" id="planActivityID" name="planActivityID" />
-            <div class="container">
-                <hr />
-                <button type="button" class="btn btn-primary" id="addTraceabilityID">Adicionar nuevo seguimiento</button>
-                @Html.Partial("_ShowSeguimients")
-            </div>
-        </div>
-        <div class="tabAddSigue">
-            <input type="hidden" id="siguePlanID" name="siguePlanID" />
-            @Html.Partial("_EditSigueAnnualPlan")
-            <div class="row">
-                <div class="col-md-8">
-                    <button type="button" id="btnAddTraceability" class="btn btn-primary" onclick="addTraceability(@Model.ID);">Adicionar</button>
-                    <button type="button" id="btnUpdTraceability" class="btn btn-primary" onclick="updateTraceability(@Model.ID)">Actualizar</button>
-                    <button type="button" id="btnCanTraceability" class="btn btn-primary" onclick="cancelTraceability()">
-                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
-                    </button>
-                </div>
-                <div class="col-md-4">
-                </div>
-            </div>
-        </div>
 
     </div>
 
