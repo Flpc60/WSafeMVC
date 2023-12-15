@@ -106,7 +106,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 @Html.LabelFor(model => model.InitialDate, htmlAttributes: new { @class = "control-label col-md-5" })
-                <div class="col-md-7 col-sm-10">
+                <div class="col-md-5 col-sm-10">
                     @Html.EditorFor(model => model.InitialDate, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.InitialDate, "", new { @class = "text-danger" })
                 </div>
@@ -115,7 +115,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 @Html.LabelFor(model => model.FechaFinal, htmlAttributes: new { @class = "control-label col-md-5" })
-                <div class="col-md-7 col-sm-10">
+                <div class="col-md-5 col-sm-10">
                     @Html.EditorFor(model => model.FechaFinal, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.FechaFinal, "", new { @class = "text-danger" })
                 </div>
@@ -156,6 +156,39 @@
                 <div class="col-md-7 col-sm-10">
                     @Html.EnumDropDownListFor(model => model.ActionCategory, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.ActionCategory, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabAnnualPlan">
+                <input type="hidden" id="planActivityID" name="planActivityID"/>
+                <hr />
+                <div class="container">
+                    <button type="button" class="btn btn-primary" id="addTraceabilityID">Adicionar nuevo seguimiento</button>
+                    @Html.Partial("_ShowSeguimients")
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabAddSigue">
+                <input type="hidden" id="siguePlanID" name="siguePlanID" />
+                @Html.Partial("_EditSigueAnnualPlan")
+                <hr />
+                <div class="row">
+                    <div class="col-md-8">
+                        <button type="button" id="btnAddTraceability" class="btn btn-primary" onclick="addTraceability(@Model.ID);">Adicionar</button>
+                        <button type="button" id="btnUpdTraceability" class="btn btn-primary" onclick="updateTraceability(@Model.ID)">Actualizar</button>
+                        <button type="button" id="btnCanTraceability" class="btn btn-primary" onclick="cancelTraceability()">
+                            <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                        </button>
+                        <hr />
+                    </div>
+                    <div class="col-md-4">
+                    </div>
                 </div>
             </div>
         </div>
