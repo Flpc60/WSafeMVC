@@ -1,7 +1,7 @@
 ﻿@model WSafe.Web.Models.CreatePlanActivityVM
 @{
     var activiti = Model.Activity.ToUpper();
-    var dateSigue = Model.DateSigue.ToString("yyyy-MM-dd");
+    var dateSigue = Model.DateSigue;
     var dateControl = Model.FechaFinal.ToString("yyyy-MM-dd");
 }
 
@@ -102,7 +102,7 @@
                 </div>
             </div>
         </div>
-
+        <hr />
     </div>
 
 </div>
