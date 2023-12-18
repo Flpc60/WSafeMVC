@@ -489,6 +489,10 @@ namespace WSafe.Web.Controllers
                     ClientID = _clientID
                 };
                 _empresaContext.Movimientos.Add(movimient);
+                // Generar trazabilidad 
+                var model1 = _converterHelper.Traceability(organization.StandardActions, year, _orgID, fullName);
+                _empresaContext.SigueAnnualPlans.Add(model1);
+
                 _empresaContext.SaveChanges();
                 return report;
             }
@@ -669,6 +673,10 @@ namespace WSafe.Web.Controllers
                     ClientID = _clientID
                 };
                 _empresaContext.Movimientos.Add(movimient);
+                // Generar trazabilidad 
+                var model1 = _converterHelper.Traceability(organization.StandardActions, year, _orgID, fullName);
+                _empresaContext.SigueAnnualPlans.Add(model1);
+
                 _empresaContext.SaveChanges();
                 return report;
             }

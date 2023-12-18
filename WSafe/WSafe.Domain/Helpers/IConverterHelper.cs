@@ -73,5 +73,6 @@ namespace WSafe.Domain.Helpers
         CreatePlanActivityVM ToUpdatePlanActivityVM(PlanActivity model, int org);
         CreatePlanActivityVM ToUpdateSiguePlanAnual(SiguePlanAnual model, int org);
         IEnumerable<AnnualPlanVM> ToAnnualPlanMatriz(IEnumerable<PlanActivity> list);
+        SiguePlanAnual Traceability(int normaID, string year, int _orgID, string fullName);
     }   
 }
