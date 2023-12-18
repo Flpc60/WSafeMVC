@@ -1728,7 +1728,7 @@ function DeleteSeguiPlan(id) {
 function addTraceability(planActivityID) {
     // Crea una nueva trazabilidad
     $('.tabAddSigue').css("display", "none");
-    var recomendationVM = {
+    var siguePlanAnual = {
         ID: "0",
         DateSigue: $("#dateSigue").val(),
         TrabajadorID: $("#sigueWorkerID").val(),
@@ -1747,7 +1747,7 @@ function addTraceability(planActivityID) {
     $.ajax({
         type: "POST",
         url: "/AnnualPlans/CreateTraceability",
-        data: { model: recomendationVM },
+        data: { model: siguePlanAnual },
         dataType: "json",
         success: function (response) {
             $("#siguePlanID").val(response.ID);

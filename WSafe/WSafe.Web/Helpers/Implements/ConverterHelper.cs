@@ -2407,5 +2407,31 @@ namespace WSafe.Domain.Helpers.Implements
 
             return model;
         }
+        public SiguePlanAnual Traceability(int normaID, string year, int _orgID, string fullName)
+        {
+            // Generar trazabilidad 
+            var planActivity = _empresaContext.PlanActivities
+                .Where(pa => pa.NormaID == normaID && pa.InitialDate.Year.ToString() == year && pa.OrganizationID == _orgID)
+                .First();
+
+            SiguePlanAnual model = new SiguePlanAnual()
+            {
+                ID = 0,
+                OrganizationID = _orgID,
+                UserID = planActivity.UserID,
+                Observation = planActivity.Observation,
+                FileName = fullName,
+                DateSigue = DateTime.Now,
+                TrabajadorID = planActivity.TrabajadorID,
+                StateActivity = StatesActivity.Actualizar,
+                StateCronogram = StatesCronogram.Ejecutada,
+                Executed = 1,
+                Programed = 1,
+                ActionCategory = ActionCategories.En_Proceso,
+                PlanActivityID = planActivity.ID,
+                ClientID = planActivity.ClientID
+            };
+            return model;
+        }
     }
 }

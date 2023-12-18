@@ -1,6 +1,6 @@
 ﻿@model WSafe.Web.Models.CreatePlanActivityVM
 @{
-    var activiti = Model.Activity.ToUpper();
+    var activity = (Model.Activity != null) ? Model.Activity.ToUpper() : string.Empty;
     var dateSigue = Model.DateSigue;
     var dateControl = Model.FechaFinal.ToString("yyyy-MM-dd");
 }
@@ -8,7 +8,7 @@
 <div class="container" style="background-color:floralwhite">
     <hr />
     <p id="activity">
-        ACTIVIDAD: <strong><b>@activiti</b></strong>
+        ACTIVIDAD: <strong><b>@activity</b></strong>
     </p>
 
     <hr />

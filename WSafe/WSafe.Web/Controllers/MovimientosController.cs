@@ -129,9 +129,14 @@ namespace WSafe.Web.Controllers
                     Path = path,
                     ClientID = _clientID
                 };
-
                 _empresaContext.Movimientos.Add(model);
+
+                // Generar trazabilidad 
+                var model1 = _converterHelper.Traceability(norma.ID, year, _orgID, fullName);
+                _empresaContext.SigueAnnualPlans.Add(model1);
+
                 _empresaContext.SaveChanges();
+
                 var idMovimient = _empresaContext.Movimientos.OrderByDescending(x => x.ID).First().ID;
                 message = "El archivo ha sido subido correctamente !!";
                 return Json(new { data = idMovimient, mensaj = message }, JsonRequestBehavior.AllowGet);
