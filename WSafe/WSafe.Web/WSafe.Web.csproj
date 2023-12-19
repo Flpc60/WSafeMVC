@@ -502,6 +502,10 @@
     <Compile Include="Migrations\202312141827360_UpdCrtPlanActivities.designer.cs">
       <DependentUpon>202312141827360_UpdCrtPlanActivities.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202312182134328_UpdCreatePlanActivityVM.cs" />
+    <Compile Include="Migrations\202312182134328_UpdCreatePlanActivityVM.designer.cs">
+      <DependentUpon>202312182134328_UpdCreatePlanActivityVM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -1246,6 +1250,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202312141827360_UpdCrtPlanActivities.resx">
       <DependentUpon>202312141827360_UpdCrtPlanActivities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202312182134328_UpdCreatePlanActivityVM.resx">
+      <DependentUpon>202312182134328_UpdCreatePlanActivityVM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

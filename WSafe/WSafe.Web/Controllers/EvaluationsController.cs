@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IdentityModel.Metadata;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -640,6 +641,10 @@ namespace WSafe.Web.Controllers
                 ClientID = _clientID
             };
             _empresaContext.Movimientos.Add(movimient);
+            // Generar trazabilidad 
+            var model1 = _converterHelper.Traceability(organization.StandardEvaluation, year, _orgID, fullName);
+            _empresaContext.SigueAnnualPlans.Add(model1);
+
             _empresaContext.SaveChanges();
 
             return report;
@@ -725,6 +730,10 @@ namespace WSafe.Web.Controllers
                 };
 
                 _empresaContext.Movimientos.Add(model);
+                // Generar trazabilidad 
+                var model1 = _converterHelper.Traceability(NormaID, year, _orgID, fullName);
+                _empresaContext.SigueAnnualPlans.Add(model1);
+
                 _empresaContext.SaveChanges();
                 message = "El archivo ha sido subido correctamente !!";
                 return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);

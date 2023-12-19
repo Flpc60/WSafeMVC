@@ -17,7 +17,7 @@ namespace WSafe.Web.Models
         [Display(Name = "ACTIVIDAD")]
         [MaxLength(100)]
         public string Activity { get; set; }
-        [MaxLength(100)]
+        [MaxLength(200)]
         [Display(Name = "ENTREGABLES")]
         public string Entregables { get; set; }
         [Display(Name = "FINANCIEROS")]

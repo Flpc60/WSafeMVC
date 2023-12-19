@@ -105,43 +105,53 @@ namespace WSafe.Web.Controllers
                         int factor = diferencia.Days;
                         var sumar = 1;
                         short numActivities = 0;
+                        var denominador = 1;
                         switch (model.ActivityFrequency)
                         {
                             case ActivitiesFrequency.Diaria:
                                 sumar = 1;
-                                numActivities = Convert.ToInt16(model.Programed / (factor / sumar));
+                                denominador = (factor / sumar) <= 0 ? 1 : (factor / sumar);
+                                numActivities = Convert.ToInt16(model.Programed / denominador);
                                 break;
                             case ActivitiesFrequency.Semanal:
                                 sumar = 7;
-                                numActivities = Convert.ToInt16(model.Programed / (factor / sumar));
+                                denominador = (factor / sumar) <= 0 ? 1 : (factor / sumar);
+                                numActivities = Convert.ToInt16(model.Programed / denominador);
                                 break;
                             case ActivitiesFrequency.Quincenal:
                                 sumar = 15;
-                                numActivities = Convert.ToInt16(model.Programed / (factor / sumar));
+                                denominador = (factor / sumar) <= 0 ? 1 : (factor / sumar);
+                                numActivities = Convert.ToInt16(model.Programed / denominador);
                                 break;
                             case ActivitiesFrequency.Mensual:
                                 sumar = 30;
-                                numActivities = Convert.ToInt16(model.Programed / (factor / sumar));
+                                denominador = (factor / sumar) <= 0 ? 1 : (factor / sumar);
+                                numActivities = Convert.ToInt16(model.Programed / denominador);
                                 break;
                             case ActivitiesFrequency.Bimensual:
                                 sumar = 60;
-                                numActivities = Convert.ToInt16(model.Programed / (factor / sumar));
+                                denominador = (factor / sumar) <= 0 ? 1 : (factor / sumar);
+                                numActivities = Convert.ToInt16(model.Programed / denominador);
                                 break;
                             case ActivitiesFrequency.Trimestral:
                                 sumar = 90;
-                                numActivities = Convert.ToInt16(model.Programed / (factor / sumar));
+                                denominador = (factor / sumar) <= 0 ? 1 : (factor / sumar);
+                                numActivities = Convert.ToInt16(model.Programed / denominador);
                                 break;
                             case ActivitiesFrequency.Cuatrimestral:
                                 sumar = 120;
-                                numActivities = Convert.ToInt16(model.Programed / (factor / sumar));
+                                denominador = (factor / sumar) <= 0 ? 1 : (factor / sumar);
+                                numActivities = Convert.ToInt16(model.Programed / denominador);
                                 break;
                             case ActivitiesFrequency.Semestral:
                                 sumar = 180;
-                                numActivities = Convert.ToInt16(model.Programed / (factor / sumar));
+                                denominador = (factor / sumar) <= 0 ? 1 : (factor / sumar);
+                                numActivities = Convert.ToInt16(model.Programed / denominador);
                                 break;
                             case ActivitiesFrequency.Anual:
                                 sumar = 365;
-                                numActivities = Convert.ToInt16(model.Programed / (factor / sumar));
+                                denominador = (factor / sumar) <= 0 ? 1 : (factor / sumar);
+                                numActivities = Convert.ToInt16(model.Programed / denominador);
                                 break;
                             default:
                                 break;
@@ -162,7 +172,10 @@ namespace WSafe.Web.Controllers
                                 Observation = model.Observation,
                                 ActionCategory = model.ActionCategory,
                                 PlanActivityID = id,
-                                FileName = ""
+                                FileName = "",
+                                OrganizationID = model.OrganizationID,
+                                ClientID = model.ClientID,
+                                UserID = model.UserID
                             };
                             _empresaContext.SigueAnnualPlans.Add(siguePlan);
 
