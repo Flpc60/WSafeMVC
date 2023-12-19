@@ -406,7 +406,8 @@ namespace WSafe.Web.Controllers
                 StandardSocioDemographic = 9,
                 StandardUnsafeacts = 57,
                 StandardRecomendations = 14,
-                StandardAudits = 40
+                StandardAudits = 40,
+                StandardAnnualPlan = 53
             };
             return View(model);
         }

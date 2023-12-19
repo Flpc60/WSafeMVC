@@ -1257,7 +1257,7 @@ namespace WSafe.Domain.Helpers.Implements
 
                     viewModel.Add(new IndicadorDetallesViewModel
                     {
-                        ID = 1,
+                        ID = 0,
                         MesAnn = month,
                         Resultado = totalProgramed,
                         Resultado1 = totalExecuted
