@@ -1830,9 +1830,9 @@ function chartAnnualPlan(year) {
                 programed = programed + data[i].Resultado;
                 executed = executed + data[i].Resultado1;
             }
-            var efectivity = (programed) > 0 ? executed / programed : 0;
-            var efectivityFormatted = (efectivity * 100).toFixed(2) + "%";
-            var legend = "% DE CUMPLIMIENTO: " + efectivity;
+            var efectivity = (programed) > 0 ? executed / programed *100 : 0;
+            efectivity = (efectivity).toFixed(1) + "%";
+            var legend = "PORCENTAJE DE CUMPLIMIENTO: " + efectivity;
             const ctx = document.getElementById("annualPlanActivities").getContext('2d');
 
             const chart = new Chart(ctx, {
@@ -1886,7 +1886,7 @@ function chartAnnualPlan(year) {
                     },
                     title: {
                         display: true,
-                        text: 'PLAN DE TRABAJO ANUAL' + legend,
+                        text: 'PLAN DE TRABAJO ANUAL >>   ' + legend,
                         color: backgroundColor2
                     }
                 }
