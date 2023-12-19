@@ -27,7 +27,7 @@
     @Scripts.Render("~/bundles/jqueryunobtrusive")
     @Scripts.Render("~/bundles/bootstrap")
     <script src="~/Scripts/GestorRiesgosSST.js" type="text/javascript"></script>
-    <script src="~/Scripts/GestorAudits.js" type="text/javascript"></script>
+    <script src="~/Scripts/AuditsGestor.js" type="text/javascript"></script>
 </head>
 <body>
     @using (Html.BeginForm(FormMethod.Post))
@@ -139,11 +139,11 @@
         </footer>
     </div>
 
-    @section Scripts
-    {
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @RenderSection("scripts", required: false)
-    }
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/bootstrap-table/bootstrap-table.min.js")
+    @Scripts.Render("~/Scripts/GestorRiesgosSST.js")
+    @Scripts.Render("~/Scripts/AuditsGestor.js")
+
 </body>
 </html>
