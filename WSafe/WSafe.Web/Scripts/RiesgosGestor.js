@@ -5205,7 +5205,6 @@ function AddPlanActivity() {
     if ($("#txtHumanos").is(':checked')) { humanos = true; }
     var planActivity = {
         ID: "0",
-        EvaluationID: evaluationID,
         NormaID: normaID,
         TrabajadorID: $("#txtResponsable").val(),
         FechaFinal: $("#txtFechaFinal").val(),
@@ -5216,8 +5215,7 @@ function AddPlanActivity() {
         Humanos: humanos,
         ActionCategory: $("#txtActionCategory").val(),
         Observation: $("#txtObservation").val(),
-        Fundamentos: $("#txtFundamentos").val(),
-        AuditID: auditID
+        Fundamentos: $("#txtFundamentos").val()
     };
     $.ajax({
         type: "POST",
@@ -5383,48 +5381,50 @@ function getCalificationByID(calificationID) {
         dataType: "json",
         contentType: "application/json;charset=UTF-8",
         success: function (response) {
-            var ciclo = " CICLO : " + response.Ciclo;
-            var standard = " ESTÁNDAR : " + response.Standard;
-            var itemStandard = " ITEM ESTÁNDAR : " + response.response + " " + response.Name;
-            var valorItem = " VALOR : " + response.Valor;
-            valoration = response.Valor;
-            Item = response.Item;
+            $.each(response, function (key, item) {
 
-            $("#txtCumple").prop('checked', false)
-            $("#txtNoCumple").prop('checked', false)
-            $("#txtJustify").prop('checked', false)
-            $("#txtNoJustify").prop('checked', false)
+                var ciclo = " CICLO : " + item.Ciclo;
+                var responseStandard = " ESTÁNDAR : " + item.Standard;
+                var itemStandard = " ITEM ESTÁNDAR : " + item.Item + " " + item.Name;
+                var valorItem = " VALOR : " + item.Valor;
+                valoration = item.Valor;
+                Item = item.Item;
 
-            if (response.Cumple == true) {
-                $("#txtCumple").prop('checked', true)
-            }
-            if (response.NoCumple == true) {
-                $("#txtNoCumple").prop('checked', true)
-            }
-            if (response.Justify == true) {
-                $("#txtJustify").prop('checked', true)
-            }
-            if (response.NoJustify == true) {
-                $("#txtNoJustify").prop('checked', true)
-            }
+                $("#txtCumple").prop('checked', false)
+                $("#txtNoCumple").prop('checked', false)
+                $("#txtJustify").prop('checked', false)
+                $("#txtNoJustify").prop('checked', false)
 
-            $("#txtNormaID").val(response.NormaID);
-            $("#txtValor").val(response.Valor);
-            $("#txtCumple").val(response.Cumple);
-            $("#txtNoCumple").val(response.NoCumple);
-            $("#txtJustify").val(response.Justify);
-            $("#txtNoJustify").val(response.NoJustify);
-            $("#txtValoration").val(response.Valoration);
-            $("#txtObservation").val(response.Observation);
-            $("#txtEvaluationID").val(response.EvaluationID);
-            $("#txtCumple").focus();
-            document.getElementById("txtCiclo").innerHTML = ciclo;
-            document.getElementById("txtItem").innerHTML = responseStandard;
-            document.getElementById("itemStandard").innerHTML = itemStandard;
+                if (item.Cumple == true) {
+                    $("#txtCumple").prop('checked', true)
+                }
+                if (item.NoCumple == true) {
+                    $("#txtNoCumple").prop('checked', true)
+                }
+                if (item.Justify == true) {
+                    $("#txtJustify").prop('checked', true)
+                }
+                if (item.NoJustify == true) {
+                    $("#txtNoJustify").prop('checked', true)
+                }
 
-            $("#btnUpdCalification").show();
-            $("#btnCanCalification").show();
-            $(".tabAddCalifications").css("display", "block");
+                $("#txtNormaID").val(item.NormaID);
+                $("#txtValor").val(item.Valor);
+                $("#txtCumple").val(item.Cumple);
+                $("#txtNoCumple").val(item.NoCumple);
+                $("#txtJustify").val(item.Justify);
+                $("#txtNoJustify").val(item.NoJustify);
+                $("#txtValoration").val(item.Valoration);
+                $("#txtObservation").val(item.Observation);
+                $("#txtEvaluationID").val(item.EvaluationID);
+                $("#txtCumple").focus();
+                document.getElementById("txtCiclo").innerHTML = ciclo;
+                document.getElementById("itemStandard").innerHTML = itemStandard;
+
+                $("#btnUpdCalification").show();
+                $("#btnCanCalification").show();
+                $(".tabAddCalifications").css("display", "block");
+            });
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
