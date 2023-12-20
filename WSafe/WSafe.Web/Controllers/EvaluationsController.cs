@@ -73,8 +73,10 @@ namespace WSafe.Web.Controllers
         public ActionResult Create()
         {
             _orgID = (int)Session["orgID"];
-            ViewBag.trabajadores = _comboHelper.GetComboTrabajadores(_orgID);
-            return View();
+            var model = _converterHelper.ToCreatePlanActivityVM(_orgID);
+            ViewBag.guardar = true;
+
+            return View(model);
         }
 
         [HttpPost]
