@@ -146,7 +146,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     @if (Session["userName"] != null)
                     {
-                        <li><a style="color:white;font-family:Arial"><b>Usuario(a): @Session["userName"].ToString().Trim()</b></a></li>
+                        <li><a style="color:white;font-family:Arial"><b>Hola @Session["userName"].ToString().Trim()</b></a></li>
                     }
                     <li>@Html.ActionLink("Cerrar", "Logout", "Accounts", new { @class = "glyphicon glyphicon-log-out" })</li>
                 </ul>
