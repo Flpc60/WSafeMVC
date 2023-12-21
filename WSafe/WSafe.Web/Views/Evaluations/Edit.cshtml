@@ -9,8 +9,6 @@
     }
 </style>
 
-<hr />
-<hr />
 <h4 style="text-align:center"><strong>@Session["organization"].ToString().Trim()</strong></h4>
 <div class="container-fluid">
     <div class="row align-items-center">
@@ -18,10 +16,10 @@
             <strong>EVALUACIÓN ESTÁNDARES MÍNIMOS</strong>
         </div>
         <div class="col-sm-3">
-            NÚMERO TRABAJADORES : @Session["numeroTrabajadores"].ToString().Trim()
+            NÚMERO TRABAJADORES: @Session["numeroTrabajadores"].ToString().Trim()
         </div>
         <div class="col-sm-2">
-            CLASE RIESGO : @Session["riesgo"].ToString().Trim()
+            CLASE RIESGO: @Session["riesgo"].ToString().Trim()
         </div>
         <div class="col-sm-4">
             <label for="txtMinimos">Estándares Mínimos para esta Empresa ? </label>
@@ -41,17 +39,10 @@
         <input type="hidden" id="txtEvaluationID" name="txtEvaluationID" />
         <div class="container-fluid">
             <button type="button" class="btn btn-success" id="calificar" onclick="UpdateEvaluation()">RESULTADOS</button>
-            <button type="button" class="btn btn-warning" id="btnShowPlanActivitys" title="doble click para cerrar la ventana">PLAN DE ACTIVIDADES</button>
             @Html.ActionLink("Generar PDF", "GeneratePDF", new { id = @ViewBag.ID }, new { @class = "btn btn-info" })
-        </div>
-        <div class="tabGesPlanAcc">
-            <div class="container-fluid">
-                @Html.Partial("_ShowPlanActivity")
-            </div>
         </div>
         <div class="tabAddPlanAcc">
             <input type="hidden" id="txtPlanActivityID" name="txtPlanActivityID" />
-            @Html.Partial("_EditPlanActivity")
         </div>
         <div class="tabGesCiclo">
             <div class="container-fluid" style="margin-left:65%">

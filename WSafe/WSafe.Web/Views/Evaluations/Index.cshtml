@@ -3,30 +3,42 @@
 @{
     ViewBag.Title = "Index";
 }
-<hr />
-<hr />
-<h4 style="text-align:center"><strong>@Session["organization"].ToString().Trim()</strong></h4>
-<hr />
-<div class="container-fluid">
+
+<style>
+
+    .tabConsActions {
+        display: none
+    }
+
+    .centerText {
+        text-align: center;
+    }
+</style>
+
+<h4 class="centerText">GESTIÓN PLAN DE TRABAJO ANUAL: @Session["organization"].ToString().Trim()</h4>
+<hr class="mt-4">
+
+<div class="container">
     <div class="row align-items-center">
         <div class="col-md-2">
-            NÚMERO TRABAJADORES : @Session["numeroTrabajadores"].ToString().Trim()
+            NÚMERO TRABAJADORES: @Session["numeroTrabajadores"].ToString().Trim()
         </div>
         <div class="col-md-2">
-            CLASE RIESGO : @Session["riesgo"].ToString().Trim()
+            CLASE RIESGO: @Session["riesgo"].ToString().Trim()
         </div>
         <div class="col-md-3">
-            HORARIO : @Session["turnoOperativo"].ToString().Trim()
+            HORARIO: @Session["turnoOperativo"].ToString().Trim()
         </div>
         <div class="col-md-2">
-            PERIODO : @Session["year"].ToString().Trim()
+            PERIODO: @Session["year"].ToString().Trim()
         </div>
         <div class="col-md-3">
-            RESPONSABLE SG-SST : @Session["responsable"].ToString().Trim()
+            RESPONSABLE: @Session["responsable"].ToString().Trim().ToUpper()
         </div>
     </div>
 </div>
-<hr />
+
+<hr class="mt-4">
 <div class="container-fluid">
     <div class="pull-left">
         @Html.ActionLink("Nueva Autoevaluación", "Create", new { @class = "glyphicon glyphicon-plus" },
@@ -38,7 +50,7 @@
 <div class="table-responsive" style="background-color: azure">
 
     <table class="table table-bordered">
-        <tr  style="background-color:gainsboro; width:auto">
+        <tr style="background-color:gainsboro; width:auto">
             <th>
                 @Html.DisplayNameFor(model => model.FechaEvaluation)
             </th>
@@ -76,43 +88,43 @@
         {
             string strStyle = string.Empty;
             strStyle = "background-color:" + item.Color.Trim() + ";";
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaEvaluation)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cumple)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NoCumple)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NoAplica)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StandarsResult)
-        </td>
-        <td style="@strStyle">
-            @Html.DisplayFor(modelItem => item.Category)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AplicationsResult)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Activitys)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ejecutadas)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Avance)
-        </td>
-        <td style="margin:initial; background-color:deepskyblue; text-align:left;font-size:15px;display:flex">
-            @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) |
-            @Html.ActionLink(" ", "GeneratePDF", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt" }) |
-            <a href="#" onclick="DeleteEvaluation('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
-        </td>
-    </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaEvaluation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cumple)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NoCumple)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NoAplica)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StandarsResult)
+                </td>
+                <td style="@strStyle">
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AplicationsResult)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Activitys)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ejecutadas)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Avance)
+                </td>
+                <td style="margin:initial; background-color:deepskyblue; text-align:left;font-size:15px;display:flex">
+                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) |
+                    @Html.ActionLink(" ", "GeneratePDF", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt" }) |
+                    <a href="#" onclick="DeleteEvaluation('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
+                </td>
+            </tr>
         }
 
     </table>
