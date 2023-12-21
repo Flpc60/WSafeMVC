@@ -94,6 +94,7 @@
                 @Html.DisplayNameFor(model => model.PorcentajeCumplimiento)
             </th>
             <th></th>
+            <th></th>
         </tr>
 
         @foreach (var item in Model)
@@ -131,8 +132,11 @@
                 </td>
                 <td style="margin:initial; background-color:deepskyblue; text-align:left">
                     @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit", @title = "Actualizar" })
-                    @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "glyphicon glyphicon-trash", @title = "Descartar" })
                 </td>
+                <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                    <a href="#" title="Descartar" onclick="deleteActivityPlan('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
+                </td>
+
             </tr>
         }
 

@@ -559,6 +559,69 @@ namespace WSafe.Web.Controllers
                 return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
             }
         }
+
+        [HttpGet]
+        public async Task<ActionResult> DeleteActivityPlan(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            try
+            {
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
+                _path = (string)Session["path"];
+
+                var message = "";
+                PlanActivity actyvityPlan = await _empresaContext.PlanActivities
+                    .Include(sp => sp.SiguePlanAnual)  // Incluir la propiedad relacionada
+                    .FirstOrDefaultAsync(p => p.ID == id);
+
+                if (actyvityPlan != null)
+                {
+                    var executed = actyvityPlan.SiguePlanAnual
+                        .Where(sp => sp.PlanActivityID == id && sp.StateCronogram == StatesCronogram.Ejecutada)
+                        .Count();
+                    if (executed != 0)
+                    {
+                        message = "Esta actividad ya se está ejecutando !!";
+                        return Json(new { data = false, error = message }, JsonRequestBehavior.AllowGet);
+                    }
+                    var model = _converterHelper.ToUpdatePlanActivityVM(actyvityPlan, _orgID);
+
+                    return Json(new { data = model, error = "" }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    message = "No se encontró la actividad con el ID proporcionado.";
+                    return Json(new { data = false, error = message }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "AnnualPlans", "Index"));
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteActivityPlan(int id)
+        {
+            var consulta = new AnnualPlanService(new AnnualPlanRepository(_empresaContext));
+            try
+            {
+                await consulta.Delete(id);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "AnnualPlans", "Delete"));
+            }
+
+            return Json(new { data = true, message = "El registro ha sido eliminado exitosamente" }, JsonRequestBehavior.AllowGet);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
