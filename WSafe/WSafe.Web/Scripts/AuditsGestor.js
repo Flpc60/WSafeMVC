@@ -1902,3 +1902,54 @@ function chartAnnualPlan(year) {
         }
     });
 }
+
+function formatDate(date) {
+    var dateString = parseInt(date.replace(/\/Date\((\d+)\)\//, '$1'));
+    var jsDate = new Date(dateString);
+    return jsDate.toLocaleDateString('es-ES');
+}
+function deleteActivityPlan(id) {
+    $.ajax({
+        url: "/AnnualPlans/DeleteActivityPlan/" + id,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        async: true,                                               // si es asincrónico o no
+        success: function (result) {
+            if (result.data == false) {
+                alert(result.error);
+            } else {
+                var text = "";
+                text += "Esta seguro de querer borrar esta actividad ?:\n\n";
+                text += "Fecha Inicial: " + formatDate(result.data.InitialDate) + "\n";
+                text += "Fecha Final: " + formatDate(result.data.FechaFinal) + "\n";
+                text += "Actividad: " + result.data.Activity + "\n";
+                text += "Programadas: " + result.data.Programed + "\n";
+                text += "Entregables: " + result.data.Entregables + "\n";
+                var respuesta = confirm(text);
+
+                if (respuesta == true) {
+                    $.ajax({
+                        url: "/AnnualPlans/DeleteActivityPlan/" + id,
+                        type: "POST",
+                        contentType: "application/json;charset=UTF-8",
+                        dataType: "json",
+                        async: true,
+                        success: function (response) {
+                            alert(response.message);
+                            location.reload(true);
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            alert(xhr.status);
+                            alert(thrownError);
+                        }
+                    });
+                }
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}

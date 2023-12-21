@@ -16,7 +16,7 @@ using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
 {
-    // Gestionar todas las acciones correctvas, preventivas y de mejora para el SG-SST.
+    // Gestionar las acciones correctvas, preventivas y de mejora para el SG-SST.
     public class AccionesController : Controller
     {
         private int _clientID;
