@@ -3,32 +3,33 @@
 }
 
 <div class="container" style="background-color: lightgray">
-    <div class="row" style="display: flex; flex-direction: row;">
-        <div class="col-md-6">
+    <div class="row justify-content-between">
+        <div class="col-md-2">
             <img src="@Server.MapPath(@logo)" style="width:100px; height:100px" alt="Logo">
         </div>
-        <div class="col-md-6">
-            <p>
-                <strong><b>@Session["organization"].ToString()</b></strong>
-            </p>
-        </div>
-    </div>
-    <div class="row">
-        <p>
-            <strong><b>@ViewBag.Title</b></strong>
-        </p>
-        <p>
-            <strong><b>@ViewBag.titulo</b></strong>
-        </p>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <p class="text-center">
-                FORMATO N°: <strong>@ViewBag.formato</strong>
-                ESTANDAR: <strong>@ViewBag.estandar</strong>
-                FECHA REPORTE: <strong>@ViewBag.fecha</strong>
-                VERSIÓN: <strong>@ViewBag.version</strong>
-            </p>
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col">
+                    <p class="mb-0">
+                        <strong><b>@Session["organization"].ToString()</b></strong>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p class="mb-0">
+                        <strong><b>@ViewBag.titulo AÑO: @Session["year"].ToString()</b></strong>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p class="mb-0">
+                        ESTANDAR: <strong>@ViewBag.estandar</strong>
+                        FECHA REPORTE: <strong>@ViewBag.fecha</strong>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </div>

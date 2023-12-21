@@ -128,7 +128,7 @@ namespace WSafe.Web.Controllers
                 Session["userName"] = result.Name;
                 Session["roleID"] = result.RoleID;
                 Session["userID"] = result.ID;
-                Session["organization"] = empresa.RazonSocial.Trim() + " NIT : " + empresa.NIT + "     Agropecuaria : " + agropecuaria;
+                Session["organization"] = empresa.RazonSocial.Trim() + " NIT : " + empresa.NIT;
                 Session["numeroTrabajadores"] = empresa.NumeroTrabajadores;
                 Session["turnoOperativo"] = empresa.TurnosOperativo;
                 Session["year"] = empresa.Year.ToString();

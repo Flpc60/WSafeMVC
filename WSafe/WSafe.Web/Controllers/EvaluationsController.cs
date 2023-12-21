@@ -72,11 +72,7 @@ namespace WSafe.Web.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            _orgID = (int)Session["orgID"];
-            var model = _converterHelper.ToCreatePlanActivityVM(_orgID);
-            ViewBag.guardar = true;
-
-            return View(model);
+            return View();
         }
 
         [HttpPost]
@@ -148,8 +144,6 @@ namespace WSafe.Web.Controllers
             {
                 return HttpNotFound();
             }
-            _orgID = (int)Session["orgID"];
-            ViewBag.trabajadores = _comboHelper.GetComboTrabajadores(_orgID);
             ViewBag.ID = result.ID;
             return View();
         }

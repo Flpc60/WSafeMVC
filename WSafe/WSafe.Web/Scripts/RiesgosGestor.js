@@ -5727,7 +5727,6 @@ function GestorEvaluations() {
     $("#btnPlanActivity").click(function () {
         ResetTab();
         $("#btnPlanActivity").focus();
-        $(".tabAddPlanAcc").css("display", "block");
         $("#txtActivity").show();
         $(".tabCerrar").css("display", "none");
         $("#btnAddPlanActivity").show();
@@ -5742,8 +5741,6 @@ function GestorEvaluations() {
     });
 
     if ($("#txtNoCumple").prop("checked")) {
-        $("#btnPlanActivity").show();
-        $(".tabAddPlanAcc").css("display", "block");
         $("#txtObservation").focus();
         $(".tabCerrar").css("display", "none");
         $("#btnAddPlanActivity").show();
@@ -5758,8 +5755,6 @@ function GestorEvaluations() {
     }
     $("#txtNoCumple").click(function () {
         ResetTab();
-        $("#btnPlanActivity").show();
-        $(".tabAddPlanAcc").css("display", "block");
         $("#txtObservation").focus();
         $(".tabCerrar").css("display", "none");
         $("#btnAddPlanActivity").show();

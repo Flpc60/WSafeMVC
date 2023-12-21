@@ -1,6 +1,4 @@
-﻿@model WSafe.Web.Models.CreatePlanActivityVM
-
-@{
+﻿@{
     var title = "GESTIONAR EVALUACIÓN DE ESTÁNDARES";
 }
 
@@ -23,10 +21,10 @@
             <strong>EVALUACIÓN ESTÁNDARES MÍNIMOS</strong>
         </div>
         <div class="col-sm-3">
-            NÚMERO TRABAJADORES : @Session["numeroTrabajadores"].ToString().Trim()
+            NÚMERO TRABAJADORES: @Session["numeroTrabajadores"].ToString().Trim()
         </div>
         <div class="col-sm-2">
-            CLASE RIESGO : @Session["riesgo"].ToString().Trim()
+            CLASE RIESGO: @Session["riesgo"].ToString().Trim()
         </div>
         <div class="col-sm-4">
             <label for="txtMinimos">Estándares Mínimos para esta Empresa ? </label>
@@ -47,16 +45,9 @@
         <div class="container-fluid">
             <button type="button" class="btn btn-primary" id="btnEvaluation" onclick="AddEvaluation()">CALIFICAR ESTÁNDARES</button>
             <button type="button" class="btn btn-success" id="calificar" onclick="UpdateEvaluation()">RESULTADOS</button>
-            <button type="button" class="btn btn-warning" id="btnShowPlanActivitys" title="doble click para cerrar la ventana">PLAN DE ACTIVIDADES</button>
-        </div>
-        <div class="tabGesPlanAcc">
-            <div class="container-fluid">
-                @Html.Partial("_ShowPlanActivity")
-            </div>
         </div>
         <div class="tabAddPlanAcc">
             <input type="hidden" id="txtPlanActivityID" name="txtPlanActivityID" />
-            @Html.Partial("_EditPlanActivity")
         </div>
         <div class="tabGesCiclo">
             <div class="container-fluid" style="margin-left:65%">
