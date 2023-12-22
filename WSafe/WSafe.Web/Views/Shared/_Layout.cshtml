@@ -23,7 +23,7 @@
     <style>
 
         body {
-            margin: 0;
+            margin-top:0;
             padding-top: 0; /* Adjusted to align with the top of the fixed navbar */
         }
 
@@ -32,20 +32,39 @@
             padding: 1px 1px; /* Adjusted padding */
         }
 
+        .navbar-brand {
+            padding:0;
+        }
+
         .navbar-brand-logo {
             margin-top: -15px; /* Adjusted value for vertical alignment with menu */
+            height:50px;
         }
 
         .navbar-nav {
-            font-size: 10px;
+            font-size: 12px;
             color: blue;
-            margin-right: 0; /* Remove default margin */
+            text-align: center; /* Center the menu items */
+            margin: 0; /* Adjusted margin between menu items */
         }
 
-            .navbar-nav li {
-                margin-right: 1px; /* Adjusted margin between menu items */
-                transition: background-color 0.3s; /* Added transition for smooth hover effect */
-            }
+        .navbar-nav .nav-item {
+            margin: 0 10px; /* Adjusted margin between menu items */
+        }
+
+        .navbar-nav .nav-item:hover {
+            background-color: #555; /* Change this color to your desired hover color */
+        }
+
+        .navbar-text {
+            font-size: 12px;
+            color: white;
+        }
+
+        .navbar-nav li {
+            margin-right: 1px; /* Adjusted margin between menu items */
+            transition: background-color 0.3s; /* Added transition for smooth hover effect */
+        }
 
         .navbar-nav li:hover {
             background-color:silver ; /* Change this color to your desired hover color */
@@ -56,7 +75,7 @@
         }
 
         .navbar-collapse {
-            text-align: center; /* Center the menu items */
+            text-align: justify-all; /* Center the menu items */
         }
 
         .navbar-toggler {
@@ -64,8 +83,8 @@
         }
 
         .body-content {
-            margin-top: 0; /* Adjusted margin below the fixed navbar */
-            padding-top: 0; /* Added padding to reduce space below the menu */
+            margin-top: 5px; /* Adjusted margin below the fixed navbar */
+            padding-top: 5px; /* Added padding to reduce space below the menu */
         }
 
         footer {
@@ -84,7 +103,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mr-auto">
+                <ul class="navbar-nav">
                     @{
                         var userID = Session["userID"];
                         var userRole = Session["UserRole"];
@@ -92,17 +111,17 @@
                         if (userRole.Equals("ADMIN"))
                         {
                             <li>@Html.ActionLink("ENTIDAD", "Index", "Organizations")</li>
-                            <li>@Html.ActionLink("SG-SST", "Index", "Movimientos")</li>
+                            <li>@Html.ActionLink("SGSST", "Index", "Movimientos")</li>
                             <li>@Html.ActionLink("EVALUACIÓN", "Index", "Evaluations")</li>
-                            <li>@Html.ActionLink("RIESGOS", "Index", "Riesgos")</li>
-                            <li>@Html.ActionLink("INCIDENTES", "Index", "Incidentes")</li>
-                            <li>@Html.ActionLink("ACCIONES", "Index", "Acciones")</li>
-                            <li>@Html.ActionLink("INDICADORES", "Index", "Indicadores")</li>
-                            <li>@Html.ActionLink("USUARIOS", "Index", "Accounts")</li>
-                            <li>@Html.ActionLink("TRABAJADORES", "Index", "Workers")</li>
-                            <li>@Html.ActionLink("ACTOS_INSEGUROS", "Index", "Unsafeacts")</li>
-                            <li>@Html.ActionLink("RECOMENDACIONES", "Index", "Recomendations")</li>
-                            <li>@Html.ActionLink("AUDITORIAS", "Index", "Audits")</li>
+                            <li>@Html.ActionLink("RIESGO", "Index", "Riesgos")</li>
+                            <li>@Html.ActionLink("INCIDENTE", "Index", "Incidentes")</li>
+                            <li>@Html.ActionLink("ACCIÓN", "Index", "Acciones")</li>
+                            <li>@Html.ActionLink("INDICADOR", "Index", "Indicadores")</li>
+                            <li>@Html.ActionLink("USUARIO", "Index", "Accounts")</li>
+                            <li>@Html.ActionLink("TRABAJADOR", "Index", "Workers")</li>
+                            <li>@Html.ActionLink("ACTO_INSEGURO", "Index", "Unsafeacts")</li>
+                            <li>@Html.ActionLink("RECOMENDACIÓN", "Index", "Recomendations")</li>
+                            <li>@Html.ActionLink("AUDITORIA", "Index", "Audits")</li>
                             <li>@Html.ActionLink("PLAN_ANUAL", "Index", "AnnualPlans")</li>
                         }
                         else
@@ -146,7 +165,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     @if (Session["userName"] != null)
                     {
-                        <li><a style="color:white;font-family:Arial"><b>Hola @Session["userName"].ToString().Trim()</b></a></li>
+                        <li><a style="color:white;font-size:12px"><b>Hola @Session["userName"].ToString().Trim()</b></a></li>
                     }
                     <li>@Html.ActionLink("Cerrar", "Logout", "Accounts", new { @class = "glyphicon glyphicon-log-out" })</li>
                 </ul>
