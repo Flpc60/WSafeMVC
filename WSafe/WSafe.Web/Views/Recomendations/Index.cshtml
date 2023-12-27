@@ -15,7 +15,6 @@
     }
 </style>
 
-<hr class="mt-4">
 <h4 class="centerText">GESTIÓN RECOMENDACIONES MÉDICAS: @Session["organization"].ToString().Trim()</h4>
 <hr class="mt-4">
 
@@ -44,7 +43,7 @@
     <div class="row justify-content-between">
         <div class="col-md-12">
             <a href="@Url.Action("Create", "Recomendations")" class="btn btn-info btn-lg active">
-                <span class="glyphicon glyphicon-plus"></span> Crear nueva recomendación médica
+                <span class="glyphicon glyphicon-plus"></span> Crear nueva recomendación
             </a>
             <a href="@Url.Action("Create", "Acciones")" class="btn btn-info btn-lg active">
                 <span class="glyphicon glyphicon-plus"></span> Crear nueva acción
@@ -53,7 +52,7 @@
                 <span class="glyphicon glyphicon-plus"></span> Crear nuevo riesgo
             </a>
             <a href="@Url.Action("RecomendationsListPdf", "Recomendations")" class="btn btn-info btn-lg active">
-                <span class="glyphicon glyphicon-download"></span> Generar recomendaciones médicas
+                <span class="glyphicon glyphicon-download"></span> Generar recomendaciones
             </a>
         </div>
     </div>
