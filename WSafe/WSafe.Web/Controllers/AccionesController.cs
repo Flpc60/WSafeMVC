@@ -188,6 +188,10 @@ namespace WSafe.Web.Controllers
             try
             {
                 model.FechaActivity = DateTime.Now;
+                model.ClientID = (int)Session["clientID"];
+                model.OrganizationID = (int)Session["orgID"];
+                model.UserID = (int)Session["userID"];
+
                 if (ModelState.IsValid)
                 {
                     PlanAction result = await _converterHelper.ToPlanAccionAsync(model);
@@ -318,11 +322,15 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> UpdatePlanAccion([Bind(Include = "ID, AccionID, FechaInicial, FechaFinal, Causa, Accion, TrabajadorID, Prioritaria, Costos, ActionCategory, Responsable, EvaluationID, NormaID, FechaActivity, Observation")] PlanAction planAccion)
+        public async Task<ActionResult> UpdatePlanAccion(PlanAction planAccion)
         {
             var message = "";
             try
             {
+                planAccion.ClientID = (int)Session["clientID"];
+                planAccion.OrganizationID = (int)Session["orgID"];
+                planAccion.UserID = (int)Session["userID"];
+
                 if (ModelState.IsValid)
                 {
                     PlanAction plan = await _converterHelper.ToPlanAccionAsync(planAccion);

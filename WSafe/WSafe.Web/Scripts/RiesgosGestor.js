@@ -1697,7 +1697,7 @@ function UpdatePlanAcc() {
 
     if ($("#txtCausa").val() == 0) { $("#txtCausa").val(1) };
     if ($("#idPrioritaria").val() == null) { $("#idPrioritaria").val(false) };
-    var planAccionVM = {
+    var model = {
         ID: $("#txtPlanAccionID").val(),
         AccionID: $("#txtAccionID").val(),
         FechaInicial: $("#idFechaIni").val(),
@@ -1717,7 +1717,7 @@ function UpdatePlanAcc() {
     $.ajax({
         type: "POST",
         url: "/Acciones/UpdatePlanAccion",
-        data: { planAccion: planAccionVM },
+        data: { planAction: model },
         dataType: "json",
         success: function (response) {
             alert(response.mensaj);
