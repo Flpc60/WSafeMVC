@@ -2414,24 +2414,36 @@ namespace WSafe.Domain.Helpers.Implements
                 .Where(pa => pa.NormaID == normaID && pa.InitialDate.Year.ToString() == year && pa.OrganizationID == _orgID)
                 .First();
 
-            SiguePlanAnual model = new SiguePlanAnual()
+            var executedActivities = _empresaContext.SigueAnnualPlans
+                .Where(spa => spa.PlanActivityID == planActivity.ID && spa.StateCronogram == StatesCronogram.Ejecutada)
+                .Sum(spa => (short?)(spa.Executed)) ?? 0;
+
+
+            if (planActivity.Programed > executedActivities)
             {
-                ID = 0,
-                OrganizationID = _orgID,
-                UserID = planActivity.UserID,
-                Observation = planActivity.Observation,
-                FileName = fullName,
-                DateSigue = DateTime.Now,
-                TrabajadorID = planActivity.TrabajadorID,
-                StateActivity = StatesActivity.Actualizar,
-                StateCronogram = StatesCronogram.Ejecutada,
-                Executed = 1,
-                Programed = 1,
-                ActionCategory = ActionCategories.En_Proceso,
-                PlanActivityID = planActivity.ID,
-                ClientID = planActivity.ClientID
-            };
-            return model;
+                SiguePlanAnual model = new SiguePlanAnual()
+                {
+                    ID = 0,
+                    OrganizationID = _orgID,
+                    UserID = planActivity.UserID,
+                    Observation = planActivity.Observation,
+                    FileName = fullName,
+                    DateSigue = DateTime.Now,
+                    TrabajadorID = planActivity.TrabajadorID,
+                    StateActivity = StatesActivity.Actualizar,
+                    StateCronogram = StatesCronogram.Ejecutada,
+                    Executed = 1,
+                    Programed = 1,
+                    ActionCategory = ActionCategories.En_Proceso,
+                    PlanActivityID = planActivity.ID,
+                    ClientID = planActivity.ClientID
+                };
+                return model;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }
