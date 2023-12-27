@@ -42,5 +42,8 @@ namespace WSafe.Domain.Data.Entities
         public DateTime FechaActivity { get; set; }
         [MaxLength(100)]
         public string Observation { get; set; }
+        public int OrganizationID { get; set; }
+        public int ClientID { get; set; }
+        public int UserID { get; set; }
     }
 }

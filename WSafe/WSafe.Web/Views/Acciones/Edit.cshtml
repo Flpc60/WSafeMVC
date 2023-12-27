@@ -35,69 +35,74 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <input type="hidden" id="userID" name="userID" value="@userID" />
-        <input type="hidden" id="txtAccionID" name="txtAccionID" />
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.ID)
+    @Html.HiddenFor(model => model.OrganizationID)
+    @Html.HiddenFor(model => model.ClientID)
+    @Html.HiddenFor(model => model.UserID)
 
-        <div class="tabIdCausas">
-            @Html.Partial("_EditarNoConformidad")
-            <div class="row">
-                <div class="col-md-8">
-                    <button type="button" class="btn btn-info" onclick="UpdateAccion(@ViewBag.AccionID)">Guardar</button>
-                    <button type="button" id="btnCanAccc" class="btn btn-info" onclick="CancelAccion()">
-                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
-                    </button>
-                </div>
-                <div class="col-md-4">
-                </div>
+    <input type="hidden" id="userID" name="userID" value="@userID" />
+    <input type="hidden" id="txtAccionID" name="txtAccionID" />
+
+    <div class="tabIdCausas">
+        @Html.Partial("_EditarNoConformidad")
+        <div class="row">
+            <div class="col-md-8">
+                <button type="button" class="btn btn-info" onclick="UpdateAccion(@ViewBag.AccionID)">Guardar</button>
+                <button type="button" id="btnCanAccc" class="btn btn-info" onclick="CancelAccion()">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                </button>
+            </div>
+            <div class="col-md-4">
             </div>
         </div>
-
-        <div class="tabGesPlanAcc">
-            <hr />
-            <input type="hidden" id="planAccionID" name="planAccionID" />
-            @Html.Partial("_BorrarPlanAcc")
-        </div>
-
-        <div class="tabAddPlanAcc">
-            <input type="hidden" id="txtPlanAccionID" name="txtPlanAccionID" />
-            @Html.Partial("_ModificaPlan")
-            <div class="row">
-                <div class="col-md-8">
-                    <button type="button" id="btnAddPlan" class="btn btn-primary" onclick="AddPlanAccion()">Adicionar</button>
-                    <button type="button" id="btnUpdPlan" class="btn btn-primary" onclick="UpdatePlanAcc()">Actualizar</button>
-                    <button type="button" id="btnCanPlan" class="btn btn-primary" onclick="CancelPlan()">
-                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
-                    </button>
-                </div>
-                <div class="col-md-4">
-                </div>
-            </div>
-        </div>
-
-        <div class="tabGesSeguiPlanAcc">
-            <hr />
-            <input type="hidden" id="sigueAccionID" name="sigueAccionID" />
-            @Html.Partial("_BorrarSigue")
-        </div>
-
-        <div class="tabAddSeguimAcc">
-            @Html.Partial("_ModificaSigue")
-            <div class="row">
-                <div class="col-md-8">
-                    <button type="button" id="btnAddSigue" class="btn btn-primary" onclick="AddSeguiAcc()">Adicionar</button>
-                    <button type="button" id="btnUpdSigue" class="btn btn-primary" onclick="UpdateSigueAcc()">Actualizar</button>
-                    <button type="button" id="btnCanSigue" class="btn btn-primary" onclick="CancelSigue()">
-                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
-                    </button>
-                </div>
-                <div class="col-md-4">
-                </div>
-            </div>
-        </div>
-
     </div>
+
+    <div class="tabGesPlanAcc">
+        <hr />
+        <input type="hidden" id="planAccionID" name="planAccionID" />
+        @Html.Partial("_BorrarPlanAcc")
+    </div>
+
+    <div class="tabAddPlanAcc">
+        <input type="hidden" id="txtPlanAccionID" name="txtPlanAccionID" />
+        @Html.Partial("_ModificaPlan")
+        <div class="row">
+            <div class="col-md-8">
+                <button type="button" id="btnAddPlan" class="btn btn-primary" onclick="AddPlanAccion()">Adicionar</button>
+                <button type="button" id="btnUpdPlan" class="btn btn-primary" onclick="UpdatePlanAcc()">Actualizar</button>
+                <button type="button" id="btnCanPlan" class="btn btn-primary" onclick="CancelPlan()">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                </button>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+
+    <div class="tabGesSeguiPlanAcc">
+        <hr />
+        <input type="hidden" id="sigueAccionID" name="sigueAccionID" />
+        @Html.Partial("_BorrarSigue")
+    </div>
+
+    <div class="tabAddSeguimAcc">
+        @Html.Partial("_ModificaSigue")
+        <div class="row">
+            <div class="col-md-8">
+                <button type="button" id="btnAddSigue" class="btn btn-primary" onclick="AddSeguiAcc()">Adicionar</button>
+                <button type="button" id="btnUpdSigue" class="btn btn-primary" onclick="UpdateSigueAcc()">Actualizar</button>
+                <button type="button" id="btnCanSigue" class="btn btn-primary" onclick="CancelSigue()">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                </button>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+
+</div>
 }
 
 @section Scripts
