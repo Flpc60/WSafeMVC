@@ -3,6 +3,7 @@
     var activity = (Model.Activity != null) ? Model.Activity.ToUpper() : string.Empty;
     var dateSigue = Model.DateSigue;
     var dateControl = Model.FechaFinal.ToString("yyyy-MM-dd");
+    var filelName = Model.FileName;
 }
 
 <div class="container" style="background-color:floralwhite">
@@ -77,7 +78,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.FileName, htmlAttributes: new { @class = "control-label col-md-5"})
                 <div class="col-md-7 col-sm-10">
-                    <input type="file" name="fileLoad" id="fileName" accept="image/*, video/*">
+                    <input type="file" name="fileName" id="fileName" value="@filelName" accept="image/*, video/*">
                     @Html.ValidationMessageFor(model => model.FileName, "", new { @class = "text-danger" })
                 </div>
             </div>

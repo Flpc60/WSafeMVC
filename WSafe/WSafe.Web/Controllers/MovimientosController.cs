@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.IdentityModel.Tokens;
+using System;
 using System.ComponentModel;
 using System.Data.Entity;
 using System.Diagnostics;
@@ -133,8 +134,10 @@ namespace WSafe.Web.Controllers
 
                 // Generar trazabilidad 
                 var model1 = _converterHelper.Traceability(norma.ID, year, _orgID, fullName);
-                _empresaContext.SigueAnnualPlans.Add(model1);
-
+                if (model1 != null)
+                {
+                    _empresaContext.SigueAnnualPlans.Add(model1);
+                }
                 _empresaContext.SaveChanges();
 
                 var idMovimient = _empresaContext.Movimientos.OrderByDescending(x => x.ID).First().ID;
