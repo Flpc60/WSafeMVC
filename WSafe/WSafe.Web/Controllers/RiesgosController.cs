@@ -122,7 +122,10 @@ namespace WSafe.Web.Controllers
                 _empresaContext.Movimientos.Add(movimient);
                 // Generar trazabilidad 
                 var model1 = _converterHelper.Traceability(organization.StandardMatrixRisk, year, _orgID, fullName);
-                _empresaContext.SigueAnnualPlans.Add(model1);
+                if (model1 != null)
+                {
+                    _empresaContext.SigueAnnualPlans.Add(model1);
+                }
 
                 _empresaContext.SaveChanges();
                 return report;
