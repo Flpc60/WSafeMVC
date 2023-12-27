@@ -15,16 +15,10 @@
     }
 </style>
 
-<h4 class="centerText">GESTIÓN DE TRABAJADORES: @Session["organization"].ToString().Trim()</h4>
-<hr />
+<h4 class="centerText">GESTIÓN PERFÍL SOCIODEMOGRÁFICO: @Session["organization"].ToString().Trim()</h4>
+<hr class="mt-4">
+
 <div class="container">
-    <div class="row justify-content-between">
-        <div class="col-md-6">
-            @Html.ActionLink(" Nuevo Trabajador", "Create", null, new { @class = "btn btn-info btn-lg glyphicon glyphicon-plus" })
-            @Html.ActionLink(" Imprimir perfíl Sociodemogáfico", "GenerateWorkersPdf", null, new { @class = "btn btn-info btn-lg glyphicon glyphicon-download-alt" })
-        </div>
-    </div>
-    <hr />
     <div class="row align-items-center">
         <div class="col-md-2">
             NÚMERO TRABAJADORES : @Session["numeroTrabajadores"].ToString().Trim()
@@ -43,8 +37,27 @@
         </div>
     </div>
 </div>
+<hr class="mt-4">
+<div class="container">
+    <div class="row justify-content-between">
+        <div class="col-md-12">
+            <a href="@Url.Action("Create", "Workers")" class="btn btn-info btn-lg active">
+                <span class="glyphicon glyphicon-plus"></span> Crear nuevo trabajador
+            </a>
+            <a href="@Url.Action("Create", "Acciones")" class="btn btn-info btn-lg active">
+                <span class="glyphicon glyphicon-plus"></span> Crear nueva acción
+            </a>
+            <a href="@Url.Action("Create", "Riesgos")" class="btn btn-info btn-lg active">
+                <span class="glyphicon glyphicon-plus"></span> Crear nuevo riesgo
+            </a>
+            <a href="@Url.Action("GenerateWorkersPdf", "Workers")" class="btn btn-info btn-lg active">
+                <span class="glyphicon glyphicon-download"></span> Generar perfíl sociodemogeráfico
+            </a>
+        </div>
+    </div>
+</div>
 
-<hr />
+<hr class="mt-4">
 <div class="container">
     <div class="table-responsive" style="background-color: azure; width:100%; margin-right:0px">
         <table class="table table-bordered table-striped">
@@ -117,10 +130,10 @@
                         @Html.DisplayFor(modelItem => item.TipoVinculacion)
                     </td>
                     <td style="margin:initial; background-color:deepskyblue; text-align:left">
-                        @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit", @title = "Actualizar"})
+                        @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit", @title = "Actualizar" })
                     </td>
                     <td style="margin:initial; background-color:deepskyblue; text-align:left">
-                        @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "glyphicon glyphicon-trash", @title = "Eliminarr"})
+                        @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "glyphicon glyphicon-trash", @title = "Eliminarr" })
                     </td>
                 </tr>
             }
