@@ -592,7 +592,10 @@ namespace WSafe.Domain.Helpers.Implements
                 NivelDeficiencia = model.NivelDeficiencia,
                 NivelExposicion = model.NivelExposicion,
                 NivelConsecuencia = model.NivelConsecuencia,
-                Aceptabilidad = model.Aceptabilidad
+                Aceptabilidad = model.Aceptabilidad,
+                OrganizationID = model.OrganizationID,
+                ClientID = model.ClientID,
+                UserID = model.UserID
             };
 
             return result;
@@ -616,7 +619,10 @@ namespace WSafe.Domain.Helpers.Implements
                 EvaluationID = plan.EvaluationID,
                 FechaActivity = plan.FechaActivity.ToString("yyyy-MM-dd"),
                 NormaID = plan.NormaID,
-                Observation = plan.Observation
+                Observation = plan.Observation,
+                OrganizationID = plan.OrganizationID,
+                ClientID = plan.ClientID,
+                UserID = plan.UserID
             };
             return result;
         }
@@ -642,7 +648,10 @@ namespace WSafe.Domain.Helpers.Implements
                 EvaluationID = plan.EvaluationID,
                 FechaActivity = plan.FechaInicial,
                 NormaID = plan.NormaID,
-                Observation = plan.Observation
+                Observation = plan.Observation,
+                OrganizationID = plan.OrganizationID,
+                ClientID = plan.ClientID,
+                UserID = plan.UserID
             };
             return result;
         }
@@ -689,7 +698,10 @@ namespace WSafe.Domain.Helpers.Implements
                     Costos = item.Costos,
                     TrabajadorID = item.TrabajadorID,
                     Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpper(),
-                    ActionCategory = item.ActionCategory
+                    ActionCategory = item.ActionCategory,
+                    OrganizationID = item.OrganizationID,
+                    ClientID = item.ClientID,
+                    UserID = item.UserID
                 });
             }
             return model;

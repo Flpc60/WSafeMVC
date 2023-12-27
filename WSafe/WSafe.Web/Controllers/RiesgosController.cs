@@ -16,7 +16,7 @@ using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
 {
-    //  Procesos controlador riesgos en el SG-SST
+    //  Procesos controlador de riesgos en el SG-SST
     public class RiesgosController : Controller
     {
         private int _clientID;
@@ -216,6 +216,7 @@ namespace WSafe.Web.Controllers
                 var message = "";
                 model.ClientID = (int)Session["clientID"];
                 model.OrganizationID = (int)Session["orgID"];
+                model.UserID = (int)Session["userID"];
 
                 if (ModelState.IsValid)
                 {
@@ -340,6 +341,10 @@ namespace WSafe.Web.Controllers
             var message = "";
             try
             {
+                model.ClientID = (int)Session["clientID"];
+                model.OrganizationID = (int)Session["orgID"];
+                model.UserID = (int)Session["userID"];
+
                 if (ModelState.IsValid)
                 {
                     _empresaContext.Entry(model).State = EntityState.Modified;
@@ -363,6 +368,10 @@ namespace WSafe.Web.Controllers
             var message = "";
             try
             {
+                model.ClientID = (int)Session["clientID"];
+                model.OrganizationID = (int)Session["orgID"];
+                model.UserID = (int)Session["userID"];
+
                 if (ModelState.IsValid)
                 {
                     var result = await _converterHelper.ToAplicacionAsync(model, true);

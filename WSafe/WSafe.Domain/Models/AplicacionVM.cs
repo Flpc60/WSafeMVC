@@ -52,5 +52,8 @@ namespace WSafe.Web.Models
         [Display(Name = "NC")]
         public int NivelConsecuencia { get; set; }
         public CategoriasAceptabilidad Aceptabilidad { get; set; }
+        public int OrganizationID { get; set; }
+        public int ClientID { get; set; }
+        public int UserID { get; set; }
     }
 }

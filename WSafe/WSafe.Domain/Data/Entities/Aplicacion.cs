@@ -47,5 +47,8 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Aceptabilidad")]
         public CategoriasAceptabilidad Aceptabilidad { get; set; }
+        public int OrganizationID { get; set; }
+        public int ClientID { get; set; }
+        public int UserID { get; set; }
     }
 }

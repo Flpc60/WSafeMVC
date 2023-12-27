@@ -4,15 +4,19 @@
     ViewBag.Title = "Create";
     var trabajadores = ViewBag.trabajadores;
 }
+
 <style>
     .tabInterven, .capInterven, .tabPeligros, .tabEvalRiesgos, .tabMediAplica, .consInterven, .tabIntervencion,
     .tabAddInterven, .tabIncidents, .tabAddPlanAcc, .tabGesPlanAcc {
         display: none;
     }
+    .centerText {
+        text-align: justify
+    }
 
 </style>
 
-<h4 class="row align-items-center">GESTIÓN DE LOS RIESGOS</h4>
+<h4 class="centerText">GESTIÓN DE LOS RIESGOS</h4>
 
 <div class="container">
     <button type="button" class="btn btn-info" id="idPeligros" title="doble click para cerrar la ventana">1. IDENTIFICACIÓN PELIGROS</button>
@@ -23,152 +27,152 @@
 @using (Html.BeginForm(FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-<div class="form-horizontal">
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <div class="tabPeligros">
-        <hr />
-        @Html.Partial("_EditarPeligros")
-    </div>
+        <div class="tabPeligros">
+            <hr />
+            @Html.Partial("_EditarPeligros")
+        </div>
 
-    <div class="tabEvalRiesgos">
-        <hr />
-        @Html.Partial("_EvalRiesgo")
-        <div class="pull-left">
-            <div class="btn-group">
-                <button type="button" id="btnAddRiesgo" class="btn btn-primary" onclick="AddNewRiesgo()">Adicionar</button>
-                <button type="button" id="btnCanRisk" class="btn btn-primary" onclick="CancelRisk()">
-                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
-                </button>
+        <div class="tabEvalRiesgos">
+            <hr />
+            @Html.Partial("_EvalRiesgo")
+            <div class="pull-left">
+                <div class="btn-group">
+                    <button type="button" id="btnAddRiesgo" class="btn btn-primary" onclick="AddNewRiesgo()">Adicionar</button>
+                    <button type="button" id="btnCanRisk" class="btn btn-primary" onclick="CancelRisk()">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                    </button>
+                </div>
+            </div>
+            <div class="pull-right">
+                <div class="btn-group">
+                    <button type="button" id="btnIncidents" class="btn btn-primary" onclick="showIncidents()">Incidentes</button>
+                </div>
             </div>
         </div>
-        <div class="pull-right">
-            <div class="btn-group">
-                <button type="button" id="btnIncidents" class="btn btn-primary" onclick="showIncidents()">Incidentes</button>
+
+        <div class="tabMediAplica">
+            <hr />
+            <div class="col-md-12">
+                <button type="button" class="btn btn-primary" id="addIntervencion">Adicionar nueva medida de intervención</button>
+            </div>
+            <div class="table-responsive-xl" style="background-color: mediumaquamarine">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr style="background-color:gainsboro; width:auto">
+                            <th>
+                                DESCRIPCIÓN
+                            </th>
+                            <th>
+                                CONTROL
+                            </th>
+                            <th>
+                                MEDIDA INTERVENCIÓN
+                            </th>
+                            <th>
+                                RESPONSABLE
+                            </th>
+                            <th>
+                                FECHA INICIAL
+                            </th>
+                            <th>
+                                FECHA CIERRE
+                            </th>
+                            <th>
+                                Opciones
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbody">
+                    </tbody>
+                </table>
             </div>
         </div>
-    </div>
 
-    <div class="tabMediAplica">
-        <hr />
-        <div class="col-md-12">
-            <button type="button" class="btn btn-primary" id="addIntervencion">Adicionar nueva medida de intervención</button>
-        </div>
-        <div class="table-responsive-xl" style="background-color: mediumaquamarine">
-            <table class="table table-bordered table-hover">
-                <thead>
-                    <tr style="background-color:gainsboro; width:auto">
-                        <th>
-                            DESCRIPCIÓN
-                        </th>
-                        <th>
-                            CONTROL
-                        </th>
-                        <th>
-                            MEDIDA INTERVENCIÓN
-                        </th>
-                        <th>
-                            RESPONSABLE
-                        </th>
-                        <th>
-                            FECHA INICIAL
-                        </th>
-                        <th>
-                            FECHA CIERRE
-                        </th>
-                        <th>
-                            Opciones
-                        </th>
-                    </tr>
-                </thead>
-                <tbody class="tbody">
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="tabIncidents">
-        <hr />
-        <div class="table-responsive-xl" style="background-color: antiquewhite">
-            <table class="table table-bordered table-hover">
-                <thead>
-                    <tr style="background-color: gainsboro; width: auto">
-                        <th>
-                            FECHA INCIDENTE
-                        </th>
-                        <th>
-                            CATEGORIA INCIDENTE
-                        </th>
-                        <th>
-                            INCAPACIDAD MÉDICA
-                        </th>
-                        <th>
-                            DIAS INCAPACIDAD
-                        </th>
-                        <th>
-                            NATURALEZA LESIÓN
-                        </th>
-                        <th>
-                            PARTES AFECTADAS
-                        </th>
-                        <th>
-                            TIPO INCIDENTE
-                        </th>
-                        <th>
-                            AGENTE LESIÓN
-                        </th>
-                        <th>
-                            ACTOS INSEGUROS
-                        </th>
-                        <th>
-                            CONDICIONES INSEGURAS
-                        </th>
-                    </tr>
-                </thead>
-                <tbody class="tbody">
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="tabAddInterven">
-        <input type="hidden" id="txtIntervenID" name="txtIntervenID"/>
-        <input type="hidden" id="txtAccionID" name="txtAccionID"/>
-        @Html.Partial("_EditarIntervencion")
-        <div class="row">
-            <div class="col-md-8">
-                <button type="button" id="btnAddInterven" class="btn btn-primary" onclick="AddInterven()">Adicionar</button>
-                <button type="button" id="btnUpdInterven" class="btn btn-primary" onclick="UpdateIntervencion()">Guardar</button>
-                <button type="button" id="btnCanInterven" class="btn btn-primary" onclick="CancelInterven()">
-                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
-                </button>
-            </div>
-            <div class="col-md-4">
+        <div class="tabIncidents">
+            <hr />
+            <div class="table-responsive-xl" style="background-color: antiquewhite">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr style="background-color: gainsboro; width: auto">
+                            <th>
+                                FECHA INCIDENTE
+                            </th>
+                            <th>
+                                CATEGORIA INCIDENTE
+                            </th>
+                            <th>
+                                INCAPACIDAD MÉDICA
+                            </th>
+                            <th>
+                                DIAS INCAPACIDAD
+                            </th>
+                            <th>
+                                NATURALEZA LESIÓN
+                            </th>
+                            <th>
+                                PARTES AFECTADAS
+                            </th>
+                            <th>
+                                TIPO INCIDENTE
+                            </th>
+                            <th>
+                                AGENTE LESIÓN
+                            </th>
+                            <th>
+                                ACTOS INSEGUROS
+                            </th>
+                            <th>
+                                CONDICIONES INSEGURAS
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbody">
+                    </tbody>
+                </table>
             </div>
         </div>
-    </div>
 
-    <div class="tabGesPlanAcc">
-        @Html.Partial("_BorrarPlanAcc")
-    </div>
-    <div class="tabAddPlanAcc">
-        <input type="hidden" id="txtPlanAccionID" name="txtPlanAccionID" />
-        @Html.Partial("_EditarIntervencion")
-        <div class="row">
-            <div class="col-md-8">
-                <hr />
-                <button type="button" id="btnAddPlan" class="btn btn-primary" onclick="AddPlanAccion()">Adicionar</button>
-                <button type="button" id="btnUpdPlan" class="btn btn-primary" onclick="UpdatePlanAcc()">Actualizar</button>
-                <button type="button" id="btnCanPlan" class="btn btn-primary" onclick="CancelPlan()">
-                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
-                </button>
-            </div>
-            <div class="col-md-4">
+        <div class="tabAddInterven">
+            <input type="hidden" id="txtIntervenID" name="txtIntervenID" />
+            <input type="hidden" id="txtAccionID" name="txtAccionID" />
+            @Html.Partial("_EditarIntervencion")
+            <div class="row">
+                <div class="col-md-8">
+                    <button type="button" id="btnAddInterven" class="btn btn-primary" onclick="AddInterven()">Adicionar</button>
+                    <button type="button" id="btnUpdInterven" class="btn btn-primary" onclick="UpdateIntervencion()">Guardar</button>
+                    <button type="button" id="btnCanInterven" class="btn btn-primary" onclick="CancelInterven()">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                    </button>
+                </div>
+                <div class="col-md-4">
+                </div>
             </div>
         </div>
-    </div>
 
-</div>
+        <div class="tabGesPlanAcc">
+            @Html.Partial("_BorrarPlanAcc")
+        </div>
+        <div class="tabAddPlanAcc">
+            <input type="hidden" id="txtPlanAccionID" name="txtPlanAccionID" />
+            @Html.Partial("_EditarIntervencion")
+            <div class="row">
+                <div class="col-md-8">
+                    <hr />
+                    <button type="button" id="btnAddPlan" class="btn btn-primary" onclick="AddPlanAccion()">Adicionar</button>
+                    <button type="button" id="btnUpdPlan" class="btn btn-primary" onclick="UpdatePlanAcc()">Actualizar</button>
+                    <button type="button" id="btnCanPlan" class="btn btn-primary" onclick="CancelPlan()">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                    </button>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+        </div>
+
+    </div>
 }
 
 @section Scripts
