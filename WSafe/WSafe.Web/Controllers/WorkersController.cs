@@ -65,7 +65,7 @@ namespace WSafe.Web.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,PrimerApellido,SegundoApellido,Nombres,DocumentType,Documento,FechaNacimiento,Genero,EstadoCivil,Direccion,Telefonos,FechaIngreso,TipoVinculacion,CargoID,EPS,AFP,ARL,FechaRetiro,OrganizationID,ClientID,UserID,DocumentType,Profesion,WorkArea,TipoJornada,TipoSangre,Conyuge,NumberHijos,StratumCategory,Email,TenenciaVivienda,Enfermedad,Tratamiento,SpecialRecomendations,Escolaridad")] WorkersVM model)
+        public async Task<ActionResult> Create([Bind(Include = "ID,PrimerApellido,SegundoApellido,Nombres,DocumentType,Documento,FechaNacimiento,Genero,EstadoCivil,Direccion,Telefonos,FechaIngreso,TipoVinculacion,CargoID,EPS,AFP,ARL,FechaRetiro,OrganizationID,ClientID,UserID,DocumentType,Profesion,WorkArea,TipoJornada,TipoSangre,Conyuge,NumberHijos,StratumCategory,Email,TenenciaVivienda,Enfermedad,Tratamiento,SpecialRecomendations,Escolaridad,FreeTime,IngresoCategory")] WorkersVM model)
         {
             try
             {
@@ -127,7 +127,7 @@ namespace WSafe.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,PrimerApellido,SegundoApellido,Nombres,DocumentType,Documento,FechaNacimiento,Genero,EstadoCivil,Direccion,Telefonos,FechaIngreso,TipoVinculacion,CargoID,EPS,AFP,ARL,FechaRetiro,OrganizationID,ClientID,UserID,DocumentType,Profesion,WorkArea,TipoJornada,TipoSangre,Conyuge,NumberHijos,StratumCategory,Email,TenenciaVivienda,Enfermedad,Tratamiento,SpecialRecomendations,Escolaridad")] WorkersVM model)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,PrimerApellido,SegundoApellido,Nombres,DocumentType,Documento,FechaNacimiento,Genero,EstadoCivil,Direccion,Telefonos,FechaIngreso,TipoVinculacion,CargoID,EPS,AFP,ARL,FechaRetiro,OrganizationID,ClientID,UserID,DocumentType,Profesion,WorkArea,TipoJornada,TipoSangre,Conyuge,NumberHijos,StratumCategory,Email,TenenciaVivienda,Enfermedad,Tratamiento,SpecialRecomendations,Escolaridad,FreeTime,IngresoCategory")] WorkersVM model)
         {
             try
             {
