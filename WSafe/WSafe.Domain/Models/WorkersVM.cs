@@ -44,7 +44,7 @@ namespace WSafe.Web.Models
         [MaxLength(20)]
         public string Telefonos { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Fecha de ingreso")]
+        [Display(Name = "FECHA INGRESO")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaIngreso { get; set; }
@@ -88,7 +88,7 @@ namespace WSafe.Web.Models
         [Display(Name = "CONYUGE")]
         [MaxLength(50)]
         public string Conyuge { get; set; }
-        [Display(Name = "PERSONAS A CARGO")]
+        [Display(Name = "A CARGO")]
         public short NumberHijos { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "ESTRATO")]
