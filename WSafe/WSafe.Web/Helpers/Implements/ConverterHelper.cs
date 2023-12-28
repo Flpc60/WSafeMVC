@@ -1574,7 +1574,9 @@ namespace WSafe.Domain.Helpers.Implements
                 Enfermedad = model.Enfermedad,
                 Tratamiento = model.Tratamiento,
                 SpecialRecomendations = model.SpecialRecomendations,
-                Escolaridad = model.Escolaridad
+                Escolaridad = model.Escolaridad,
+                FreeTime = model.FreeTime,
+                IngresoCategory = model.IngresoCategory
             };
             return result;
         }
@@ -1616,7 +1618,9 @@ namespace WSafe.Domain.Helpers.Implements
                 Enfermedad = model.Enfermedad,
                 Tratamiento = model.Tratamiento,
                 SpecialRecomendations = model.SpecialRecomendations,
-                Escolaridad = model.Escolaridad
+                Escolaridad = model.Escolaridad,
+                FreeTime = model.FreeTime,
+                IngresoCategory = model.IngresoCategory
             };
             return result;
         }

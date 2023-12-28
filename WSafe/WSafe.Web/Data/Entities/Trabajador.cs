@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using WSafe.Web.Data.Entities;
 
 namespace WSafe.Domain.Data.Entities
 {
@@ -50,12 +51,12 @@ namespace WSafe.Domain.Data.Entities
         [MaxLength(20)]
         public string Telefonos { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Fecha de ingreso")]
+        [Display(Name = "Fecha ingreso")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaIngreso { get; set; }
         [Display(Name = "Dias a pagar")]
-        public int DiasPago { get; set; }
+        public short DiasPago { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Tipo vinculación")]
         public TiposVinculacion TipoVinculacion { get; set; }
@@ -80,6 +81,7 @@ namespace WSafe.Domain.Data.Entities
         [Display(Name = "Tipo documento")]
         public DocumentTypes DocumentType { get; set; }
         [Display(Name = "Profesión")]
+        [MaxLength(50)]
         public string Profesion { get; set; }
         [Display(Name = "Area de trabajo")]
         public WorkAreas WorkArea { get; set; }
@@ -89,9 +91,10 @@ namespace WSafe.Domain.Data.Entities
         [Display(Name = "Tipo de sangre")]
         public TiposSangre TipoSangre { get; set; }
         [Display(Name = "Nombre del conyuge")]
+        [MaxLength(50)]
         public string Conyuge { get; set; }
         [Display(Name = "Número de hijos")]
-        public int NumberHijos { get; set; }
+        public short NumberHijos { get; set; }
         [Display(Name = "Estrato socioeconómico")]
         public EstratoCategories StratumCategory { get; set; }
         [Display(Name = "Correo electrónico")]
@@ -101,14 +104,19 @@ namespace WSafe.Domain.Data.Entities
         [Display(Name = "Tipo de vivienda")]
         public TenenciasVivienda TenenciaVivienda { get; set; }
         [Display(Name = "Enfermedad que padece")]
+        [MaxLength(50)]
         public string Enfermedad { get; set; }
         [Display(Name = "Tratamiento que recibe")]
+        [MaxLength(50)]
         public string Tratamiento { get; set; }
         [Display(Name = "Recomendaciones especiales")]
+        [MaxLength(50)]
         public string SpecialRecomendations { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Nivel estudios")]
         public NivelesEscolaridad Escolaridad { get; set; }
         public bool Activo { get; set; }
+        public FreeTimeCategories FreeTime { get; set; }
+        public IngresoCategories IngresoCategory { get; set; }
     }
 }
