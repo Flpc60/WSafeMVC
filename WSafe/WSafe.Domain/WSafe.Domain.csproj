@@ -153,6 +153,7 @@
     <Compile Include="Data\Entities\Emissions.cs" />
     <Compile Include="Data\Entities\EstratoCategories.cs" />
     <Compile Include="Data\Entities\Evaluation.cs" />
+    <Compile Include="Data\Entities\FreeTimeCategories.cs" />
     <Compile Include="Data\Entities\FuentesAccion.cs" />
     <Compile Include="Data\Entities\Hobbies.cs" />
     <Compile Include="Data\Entities\ICAM\BarrierAnalice.cs" />
@@ -179,6 +180,7 @@
     <Compile Include="Data\Entities\Incidentes\IndicadorMes.cs" />
     <Compile Include="Data\Entities\Incidentes\TipoPerdida.cs" />
     <Compile Include="Data\Entities\Indicador.cs" />
+    <Compile Include="Data\Entities\IngresoCategories.cs" />
     <Compile Include="Data\Entities\JerarquiaControles.cs" />
     <Compile Include="Data\Entities\CategoriaPeligro.cs" />
     <Compile Include="Data\Entities\CategoriasAccion.cs" />

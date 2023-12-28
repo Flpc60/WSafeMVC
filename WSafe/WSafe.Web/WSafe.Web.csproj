@@ -399,6 +399,7 @@
     <Compile Include="Data\Entities\EstadosCivil.cs" />
     <Compile Include="Data\Entities\EstratoCategories.cs" />
     <Compile Include="Data\Entities\Evaluation.cs" />
+    <Compile Include="Data\Entities\FreeTimeCategories.cs" />
     <Compile Include="Data\Entities\FuentesAccion.cs" />
     <Compile Include="Data\Entities\Hobbies.cs" />
     <Compile Include="Data\Entities\ICAM\BarrierAnalice.cs" />
@@ -424,6 +425,7 @@
     <Compile Include="Data\Entities\Incidentes\IndicadorMes.cs" />
     <Compile Include="Data\Entities\Incidentes\TipoPerdida.cs" />
     <Compile Include="Data\Entities\Indicador.cs" />
+    <Compile Include="Data\Entities\IngresoCategories.cs" />
     <Compile Include="Data\Entities\JerarquiaControles.cs" />
     <Compile Include="Data\Entities\MedidasControl.cs" />
     <Compile Include="Data\Entities\Movimient.cs" />
@@ -513,6 +515,18 @@
     <Compile Include="Migrations\202312271733186_UpdPlanAction.cs" />
     <Compile Include="Migrations\202312271733186_UpdPlanAction.designer.cs">
       <DependentUpon>202312271733186_UpdPlanAction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202312281745145_UpdWorker.cs" />
+    <Compile Include="Migrations\202312281745145_UpdWorker.designer.cs">
+      <DependentUpon>202312281745145_UpdWorker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202312281828251_UpdWorkerVM.cs" />
+    <Compile Include="Migrations\202312281828251_UpdWorkerVM.designer.cs">
+      <DependentUpon>202312281828251_UpdWorkerVM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202312281902564_UpdWorkerVM1.cs" />
+    <Compile Include="Migrations\202312281902564_UpdWorkerVM1.designer.cs">
+      <DependentUpon>202312281902564_UpdWorkerVM1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
@@ -1269,6 +1283,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202312271733186_UpdPlanAction.resx">
       <DependentUpon>202312271733186_UpdPlanAction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202312281745145_UpdWorker.resx">
+      <DependentUpon>202312281745145_UpdWorker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202312281828251_UpdWorkerVM.resx">
+      <DependentUpon>202312281828251_UpdWorkerVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202312281902564_UpdWorkerVM1.resx">
+      <DependentUpon>202312281902564_UpdWorkerVM1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

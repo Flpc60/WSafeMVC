@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using WSafe.Domain.Data.Entities;
+using WSafe.Web.Data.Entities;
 
 namespace WSafe.Web.Models
 {
@@ -48,12 +49,12 @@ namespace WSafe.Web.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaIngreso { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Tipo vinculación")]
+        [Display(Name = "VINCULACIÓN")]
         public TiposVinculacion TipoVinculacion { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int CargoID { get; set; }
         [MaxLength(20)]
-        [Display(Name = "Cargo")]
+        [Display(Name = "CARGO")]
         public IEnumerable<SelectListItem> Cargos { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string EPS { get; set; }
@@ -74,37 +75,48 @@ namespace WSafe.Web.Models
         [Display(Name = "Tipo documento")]
         public DocumentTypes DocumentType { get; set; }
         [Display(Name = "Profesión")]
+        [MaxLength(50)]
         public string Profesion { get; set; }
-        [Display(Name = "Area de trabajo")]
+        [Display(Name = "ÁREA")]
         public WorkAreas WorkArea { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Tipo jornada")]
+        [Display(Name = "JORNADA")]
         public TiposJornada TipoJornada { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Tipo de sangre")]
+        [Display(Name = "SANGRE")]
         public TiposSangre TipoSangre { get; set; }
-        [Display(Name = "Nombre del conyuge")]
+        [Display(Name = "CONYUGE")]
+        [MaxLength(50)]
         public string Conyuge { get; set; }
-        [Display(Name = "Número de hijos")]
-        public int NumberHijos { get; set; }
+        [Display(Name = "PERSONAS A CARGO")]
+        public short NumberHijos { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Estrato socioeconómico")]
+        [Display(Name = "ESTRATO")]
         public EstratoCategories StratumCategory { get; set; }
-        [Display(Name = "Correo electrónico")]
+        [Display(Name = "EMAIL")]
         [MaxLength(50)]
         public string Email { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "Tipo de vivienda")]
+        [Display(Name = "VIVIENDA")]
         public TenenciasVivienda TenenciaVivienda { get; set; }
-        [Display(Name = "Enfermedad que padece")]
+        [Display(Name = "ENFERMEDAD")]
+        [MaxLength(50)]
         public string Enfermedad { get; set; }
-        [Display(Name = "Tratamiento que recibe")]
+        [Display(Name = "TRATAMIENTO")]
+        [MaxLength(50)]
         public string Tratamiento { get; set; }
-        [Display(Name = "Recomendaciones especiales")]
+        [Display(Name = "RECOMENDACIONES")]
+        [MaxLength(50)]
         public string SpecialRecomendations { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "Nivel estudios")]
+        [Display(Name = "ESTUDIOS")]
         public NivelesEscolaridad Escolaridad { get; set; }
         public bool Activo { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatotio")]
+        [Display(Name = "TIEMPO LIBRE")]
+        public FreeTimeCategories FreeTime { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatotio")]
+        [Display(Name = "INGRESOS")]
+        public IngresoCategories IngresoCategory { get; set; }
     }
 }

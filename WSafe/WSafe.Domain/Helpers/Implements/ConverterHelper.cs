@@ -1574,7 +1574,9 @@ namespace WSafe.Domain.Helpers.Implements
                 Enfermedad = model.Enfermedad,
                 Tratamiento = model.Tratamiento,
                 SpecialRecomendations = model.SpecialRecomendations,
-                Escolaridad = model.Escolaridad
+                Escolaridad = model.Escolaridad,
+                FreeTime = model.FreeTime,
+                IngresoCategory = model.IngresoCategory
             };
             return result;
         }
@@ -1616,7 +1618,9 @@ namespace WSafe.Domain.Helpers.Implements
                 Enfermedad = model.Enfermedad,
                 Tratamiento = model.Tratamiento,
                 SpecialRecomendations = model.SpecialRecomendations,
-                Escolaridad = model.Escolaridad
+                Escolaridad = model.Escolaridad,
+                FreeTime = model.FreeTime,
+                IngresoCategory = model.IngresoCategory
             };
             return result;
         }
@@ -2424,7 +2428,12 @@ namespace WSafe.Domain.Helpers.Implements
             // Generar trazabilidad 
             var planActivity = _empresaContext.PlanActivities
                 .Where(pa => pa.NormaID == normaID && pa.InitialDate.Year.ToString() == year && pa.OrganizationID == _orgID)
-                .First();
+                .FirstOrDefault();
+
+            if (planActivity == null)
+            {
+                return null;
+            }
 
             var executedActivities = _empresaContext.SigueAnnualPlans
                 .Where(spa => spa.PlanActivityID == planActivity.ID && spa.StateCronogram == StatesCronogram.Ejecutada)
