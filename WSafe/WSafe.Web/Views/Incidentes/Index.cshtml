@@ -20,7 +20,6 @@
 
 </style>
 
-<hr class="mt-4">
 <h4 class="centerText">GESTIÓN DE INCIDENTES: @Session["organization"].ToString().Trim()</h4>
 <hr class="mt-4">
 
@@ -38,14 +37,14 @@
         <div class="col-md-2">
             CLASE RIESGO : @Session["riesgo"].ToString().Trim()
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             HORARIO : @Session["turnoOperativo"].ToString().Trim()
         </div>
         <div class="col-md-2">
             PERIODO : @Session["year"].ToString().Trim()
         </div>
-        <div class="col-md-3">
-            RESPONSABLE SG-SST : @Session["responsable"].ToString().Trim()
+        <div class="col-md-4">
+            RESPONSABLE SG-SST : @Session["responsable"].ToString().Trim().ToUpper()
         </div>
     </div>
 </div>

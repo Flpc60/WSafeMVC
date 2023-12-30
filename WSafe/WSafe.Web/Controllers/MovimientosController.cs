@@ -440,6 +440,11 @@ namespace WSafe.Web.Controllers
             var message = "";
             try
             {
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
+                _path = (string)Session["path"];
+
                 Movimient model = await _empresaContext.Movimientos.FindAsync(id);
                 if (model == null)
                 {
@@ -452,17 +457,17 @@ namespace WSafe.Web.Controllers
                 switch (cycle)
                 {
                     case "P":
-                        ruta = "1. PLANEAR/";
+                        ruta = "1. PLANEAR";
                         break;
 
                     case "H":
-                        ruta = "2. HACER/";
+                        ruta = "2. HACER";
                         break;
                     case "V":
-                        ruta = "3. VERIFICAR/";
+                        ruta = "3. VERIFICAR";
                         break;
                     case "A":
-                        ruta = "4. ACTUAR/";
+                        ruta = "4. ACTUAR";
                         break;
                 }
 
@@ -492,6 +497,7 @@ namespace WSafe.Web.Controllers
                 oMailMessage.IsBodyHtml = true;
                 oMailMessage.Attachments.Add(new Attachment(fileLocation));
                 SmtpClient oSmtpClient = new SmtpClient("smtp.gmail.com");
+                oSmtpClient.Host = "smtp.gmail.com";
                 oSmtpClient.EnableSsl = true;
                 oSmtpClient.UseDefaultCredentials = false;
                 oSmtpClient.Port = 587;

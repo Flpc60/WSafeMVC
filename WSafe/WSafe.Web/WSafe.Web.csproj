@@ -496,37 +496,9 @@
     <Compile Include="Helpers\Implements\ConverterHelper.cs" />
     <Compile Include="Helpers\Implements\GestorHelper.cs" />
     <Compile Include="Helpers\Implements\IndicadorHelper.cs" />
-    <Compile Include="Migrations\202312131848431_UpdSiguePlanAnual.cs" />
-    <Compile Include="Migrations\202312131848431_UpdSiguePlanAnual.designer.cs">
-      <DependentUpon>202312131848431_UpdSiguePlanAnual.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202312141827360_UpdCrtPlanActivities.cs" />
-    <Compile Include="Migrations\202312141827360_UpdCrtPlanActivities.designer.cs">
-      <DependentUpon>202312141827360_UpdCrtPlanActivities.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202312182134328_UpdCreatePlanActivityVM.cs" />
-    <Compile Include="Migrations\202312182134328_UpdCreatePlanActivityVM.designer.cs">
-      <DependentUpon>202312182134328_UpdCreatePlanActivityVM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202312271614501_UpdAplication.cs" />
-    <Compile Include="Migrations\202312271614501_UpdAplication.designer.cs">
-      <DependentUpon>202312271614501_UpdAplication.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202312271733186_UpdPlanAction.cs" />
-    <Compile Include="Migrations\202312271733186_UpdPlanAction.designer.cs">
-      <DependentUpon>202312271733186_UpdPlanAction.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202312281745145_UpdWorker.cs" />
-    <Compile Include="Migrations\202312281745145_UpdWorker.designer.cs">
-      <DependentUpon>202312281745145_UpdWorker.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202312281828251_UpdWorkerVM.cs" />
-    <Compile Include="Migrations\202312281828251_UpdWorkerVM.designer.cs">
-      <DependentUpon>202312281828251_UpdWorkerVM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202312281902564_UpdWorkerVM1.cs" />
-    <Compile Include="Migrations\202312281902564_UpdWorkerVM1.designer.cs">
-      <DependentUpon>202312281902564_UpdWorkerVM1.cs</DependentUpon>
+    <Compile Include="Migrations\202312300108451_UpdateDataBase1.cs" />
+    <Compile Include="Migrations\202312300108451_UpdateDataBase1.designer.cs">
+      <DependentUpon>202312300108451_UpdateDataBase1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
@@ -1269,29 +1241,8 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202312131848431_UpdSiguePlanAnual.resx">
-      <DependentUpon>202312131848431_UpdSiguePlanAnual.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202312141827360_UpdCrtPlanActivities.resx">
-      <DependentUpon>202312141827360_UpdCrtPlanActivities.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202312182134328_UpdCreatePlanActivityVM.resx">
-      <DependentUpon>202312182134328_UpdCreatePlanActivityVM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202312271614501_UpdAplication.resx">
-      <DependentUpon>202312271614501_UpdAplication.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202312271733186_UpdPlanAction.resx">
-      <DependentUpon>202312271733186_UpdPlanAction.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202312281745145_UpdWorker.resx">
-      <DependentUpon>202312281745145_UpdWorker.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202312281828251_UpdWorkerVM.resx">
-      <DependentUpon>202312281828251_UpdWorkerVM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202312281902564_UpdWorkerVM1.resx">
-      <DependentUpon>202312281902564_UpdWorkerVM1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202312300108451_UpdateDataBase1.resx">
+      <DependentUpon>202312300108451_UpdateDataBase1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
