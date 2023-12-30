@@ -2263,12 +2263,13 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public CreatePlanActivityVM ToCreatePlanActivityVM(int org)
         {
+            var year = DateTime.Now.Year;
             var model = new CreatePlanActivityVM
             {
                 Normas = _comboHelper.GetNormasAll(),
                 Workers = _comboHelper.GetWorkersFull(org),
-                InitialDate = DateTime.Now,
-                FechaFinal = DateTime.Now,
+                InitialDate = new DateTime(year, 1,2),
+                FechaFinal = new DateTime(year, 12, 30),
                 Executed = 1
             };
             return model;

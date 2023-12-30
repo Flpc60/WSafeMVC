@@ -52,13 +52,7 @@ namespace WSafe.Web.Controllers
         {
             try
             {
-                _clientID = (int)Session["clientID"];
-                _orgID = (int)Session["orgID"];
-                _year = (string)Session["year"];
-                int year = Convert.ToInt32(_year);
-                var month = DateTime.Now.Month;
-                var model = _indicadorHelper.GetIndicators(year, month, _orgID);
-                return View(model);
+                return View(new DashboardVM());
             }
             catch (Exception ex)
             {

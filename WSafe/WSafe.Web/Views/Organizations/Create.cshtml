@@ -1,11 +1,5 @@
 ﻿@model WSafe.Domain.Data.Entities.Organization
 
-@{
-    //var resolucionLicencia = Model.FechaResolucionLicencia;
-    //var renovacionLicencia = Model.FechaRenovacionLicencia;
-    //var renovacionCurso = Model.FechaRenovacionCurso;
-}
-
 @using (Html.BeginForm("Create", "Organizations", FormMethod.Post))
 {
     @Html.AntiForgeryToken()

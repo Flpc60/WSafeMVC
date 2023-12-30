@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Sistema de Gestión de la Seguridad y Salud en el Trabajo";
-    var ahora = DateTime.Now.Year;
+    var ahora = DateTime.Now.Year + 10;
     var year = @Session["year"].ToString().Trim();
 
 }
@@ -123,7 +123,7 @@
     <button type="button" id="btnestadoCivil" class="btn btn-success" onclick="estadoCivilIndicator()"><i class="fa fa-search"></i> ESTADO CIVIL</button>
     <button type="button" id="btntipoVivienda" class="btn btn-success" onclick="tipoViviendaIndicator()"><i class="fa fa-search"></i> TENENCIA VIVIENDA</button>
     <button type="button" id="btntipoJornada" class="btn btn-success" onclick="tipoJornadaIndicator()"><i class="fa fa-search"></i> TIPO JORNADA</button>
-    <button type="button" id="btnnumeroHijos()" class="btn btn-success" onclick="numeroHijosIndicator()"><i class="fa fa-search"></i> NÚMERO HIJOS</button>
+    <button type="button" id="btnnumeroHijos()" class="btn btn-success" onclick="numeroHijosIndicator()"><i class="fa fa-search"></i> PERSONAS A CARGO</button>
     <hr class="mt-4">
     <div class="row">
         <div class="col-md-3">
