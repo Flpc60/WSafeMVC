@@ -11,6 +11,7 @@
     var sdUnsafeacts = Model.StandardUnsafeacts;
     var sdRecomendations = Model.StandardRecomendations;
     var sdAudits = Model.StandardAudits;
+    var sdAnnualPlan = Model.StandardAnnualPlan;
     var controlDate = Model.ControlDate;
     var createOrg = ViewBag.create;
 }
@@ -21,15 +22,18 @@
         display: none;
     }
 </style>
+
 <h4>@title</h4>
+
 <input type="hidden" id="sdEvaluation" name="StandardEvaluation" value="@sdEvaluation" />
 <input type="hidden" id="sdMatrixRisk" name="sdMatrixRisk" value="@sdMatrixRisk" />
 <input type="hidden" id="sdActions" name="sdActions" value="@sdActions" />
 <input type="hidden" id="sdIncidents" name="sdIncidents" value="@sdIncidents" />
 <input type="hidden" id="sdSociodemographic" name="sdSociodemographic" value="@sdSociodemographic" />
 <input type="hidden" id="sdUnsafeacts" name="sdUnsafeacts" value="@sdUnsafeacts" />
-<input type="hidden" id="sdUnsafeacts" name="sdRecomendations" value="@sdRecomendations" />
-<input type="hidden" id="sdUnsafeacts" name="sdAudits" value="@sdAudits" />
+<input type="hidden" id="sdRecomendations" name="sdRecomendations" value="@sdRecomendations" />
+<input type="hidden" id="sdAudits" name="sdAudits" value="@sdAudits" />
+<input type="hidden" id="sdAnnualPlan" name="sdAnnualPlan" value="@sdAnnualPlan" />
 <input type="hidden" id="controlDate" name="controlDate" value="@controlDate" />
 
 @{
