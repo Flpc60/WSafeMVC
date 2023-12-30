@@ -12,29 +12,27 @@
     .queryIncidents {
         display: none;
     }
-
 </style>
 
-<hr class="mt-4">
 <h4 style="text-align:center"><strong>@Session["organization"].ToString().Trim()</strong></h4>
 <hr class="mt-4">
 
-<div class="container-fluid">
+<div class="container">
     <div class="row align-items-center">
         <div class="col-md-2">
-            NÚMERO TRABAJADORES : @Session["numeroTrabajadores"].ToString().Trim()
+            TRABAJADORES : @Session["numeroTrabajadores"].ToString().Trim()
         </div>
         <div class="col-md-2">
             CLASE RIESGO : @Session["riesgo"].ToString().Trim()
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             HORARIO : @Session["turnoOperativo"].ToString().Trim()
         </div>
         <div class="col-md-2">
             PERIODO : @Session["year"].ToString().Trim()
         </div>
-        <div class="col-md-3">
-            RESPONSABLE SG-SST : @Session["responsable"].ToString().Trim()
+        <div class="col-md-4">
+            RESPONSABLE SG-SST : @Session["responsable"].ToString().Trim().ToUpper()
         </div>
     </div>
 </div>
@@ -44,10 +42,10 @@
     <div class="row justify-content-between">
         <div class="col-md-6">
             <a href="@Url.Action("Create", "Acciones")" class="btn btn-info btn-lg active">
-                <span class="glyphicon glyphicon-plus"></span> Crear una nueva acción
+                <span class="glyphicon glyphicon-plus"></span> Crear nueva acción
             </a>
             <a href="@Url.Action("Create", "Riesgos")" class="btn btn-info btn-lg active">
-                <span class="glyphicon glyphicon-plus"></span> Crear un nuevo riesgo
+                <span class="glyphicon glyphicon-plus"></span> Crear nuevo riesgo
             </a>
         </div>
     </div>
