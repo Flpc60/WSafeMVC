@@ -450,6 +450,14 @@ namespace WSafe.Web.Controllers
                 ClientID = _clientID
             };
             _empresaContext.Movimientos.Add(movimient);
+
+            // Generar trazabilidad 
+            var model1 = _converterHelper.Traceability(organization.StandardIncidents, year, _orgID, fullName);
+            if (model1 != null)
+            {
+                _empresaContext.SigueAnnualPlans.Add(model1);
+            }
+
             _empresaContext.SaveChanges();
             return report;
         }
