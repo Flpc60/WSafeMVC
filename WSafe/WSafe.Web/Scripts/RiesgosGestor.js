@@ -1574,6 +1574,7 @@ function UpdateOrganization(id) {
         StandardUnsafeacts: $("#sdUnsafeacts").val(),
         StandardRecomendations: $("#sdRecomendations").val(),
         StandardAudits: $("#sdAudits").val(),
+        StandardAnnualPlan: $("#sdAnnualPlan").val(),
         ControlDate: $("#controlDate").val(),
         ClientID: $("#clientID").val()
     };

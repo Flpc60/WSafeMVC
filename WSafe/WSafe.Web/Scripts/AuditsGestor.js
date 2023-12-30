@@ -180,7 +180,7 @@ function getIndicators() {
             document.getElementById("mortality").innerHTML = "<strong># MUERTES: " + response.data.Mortality + "</strong>";
             document.getElementById("mortalityProportion").innerHTML = "<strong>MORTALIDAD: " + response.data.MortalityProportion + "</strong>";
             document.getElementById("minimalStandardsProportion").innerHTML = "<strong>CUMPLIMIENTO ESTÁNDARES: " + response.data.MinimalStandardsProportion + "</strong>";
-            document.getElementById("activitiesPlanProportion").innerHTML = "<strong>% EJECUCIÓN ACTIVIDADES: " + response.data.ActivitiesPlanProportion + "</strong>";
+            document.getElementById("activitiesPlanProportion").innerHTML = "<strong>% EJECUCIÓN PLAN ANUAL: " + response.data.ActivitiesPlanProportion + "</strong>";
             $('.queryIncidents').css("display", "block");
         },
         error: function (errormessage) {
@@ -1242,7 +1242,7 @@ function numeroHijosIndicator() {
                     },
                     title: {
                         display: true,
-                        text: 'NÚMERO HIJOS'
+                        text: 'PERSONAS A CARGO'
                     }
                 }
             });
@@ -1832,7 +1832,7 @@ function chartAnnualPlan(year) {
             }
             var efectivity = (programed) > 0 ? executed / programed *100 : 0;
             efectivity = (efectivity).toFixed(1) + "%";
-            var legend = "PORCENTAJE DE CUMPLIMIENTO: " + efectivity;
+            var legend = "  => PORCENTAJE DE CUMPLIMIENTO: " + efectivity;
             const ctx = document.getElementById("annualPlanActivities").getContext('2d');
 
             const chart = new Chart(ctx, {
@@ -1886,7 +1886,7 @@ function chartAnnualPlan(year) {
                     },
                     title: {
                         display: true,
-                        text: 'PLAN DE TRABAJO ANUAL >>   ' + legend,
+                        text: 'PLAN DE TRABAJO ANUAL AÑO: ' + year + legend,
                         color: backgroundColor2
                     }
                 }

@@ -940,7 +940,6 @@
     <Content Include="Views\Evaluations\GetEvaluation.cshtml" />
     <Content Include="Views\Evaluations\MinimalsStandards.cshtml" />
     <Content Include="Views\Shared\_EditEmailForm.cshtml" />
-    <Content Include="Views\Organizations\Create - Copy.cshtml" />
     <Content Include="Views\Workers\Create.cshtml" />
     <Content Include="Views\Workers\Delete.cshtml" />
     <Content Include="Views\Workers\Details.cshtml" />

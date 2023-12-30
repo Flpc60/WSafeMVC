@@ -212,17 +212,17 @@ namespace WSafe.Domain.Helpers.Implements
         {
             try
             {
-                var activitiesQuery = from e in _empresaContext.Evaluations
-                                      join p in _empresaContext.PlanActivities on e.ID equals p.EvaluationID
-                                      where (e.OrganizationID == _orgID && e.FechaEvaluation.Year == year)
-                                      select p;
-                decimal activities = activitiesQuery.Count();
-                decimal executed = activitiesQuery.Count(p => p.ActionCategory == ActionCategories.Finalizada);
+                var activitiesQuery = from sap in _empresaContext.SigueAnnualPlans
+                                      where (sap.OrganizationID == _orgID && sap.DateSigue.Year == year)
+                                      select sap;
+                decimal activities = activitiesQuery.Where(spa => spa.StateCronogram == StatesCronogram.Programada).Sum(spa => (short?)(spa.Programed)) ?? 0;
+                decimal executed = activitiesQuery.Where(spa => spa.StateCronogram == StatesCronogram.Ejecutada).Sum(spa => (short?)(spa.Executed)) ?? 0;
                 decimal proporcion = 0;
                 if (activities > 0)
                 {
-                    proporcion = Convert.ToDecimal(executed / activities) * 100;
+                    proporcion = Convert.ToDecimal(executed) / activities * 100;
                 }
+
                 decimal proporcionSM = 0;
                 var evaluation = _empresaContext.Evaluations
                     .Where(r => r.OrganizationID == _orgID)
@@ -267,8 +267,9 @@ namespace WSafe.Domain.Helpers.Implements
                         model.MortalityProportion = Math.Round(Convert.ToDecimal(((decimal)item.Mortality / (decimal)item.Accidents) * 100), 2);
                     }
                     model.MinimalStandardsProportion = item.MinimalStandardsProportion;
-                    model.ActivitiesPlanProportion = Math.Round(item.ActivitiesPlanProportion, 2);
+                    model.ActivitiesPlanProportion = Math.Round(item.ActivitiesPlanProportion, 1);
                 }
+                model.ActivitiesPlanProportion = Math.Round(proporcion, 1);
 
                 return model;
             }
