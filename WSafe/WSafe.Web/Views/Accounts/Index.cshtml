@@ -17,41 +17,12 @@
     }
 
     .tabAuthorize {
-        display:none;
+        display: none;
     }
-
 </style>
 
 <h4 class="centerText">GESTIÓN DE USUARIOS: @Session["organization"].ToString().Trim()</h4>
-<hr />
-
-<div class="container">
-    <div class="row justify-content-between">
-        <div class="col-md-6">
-            @Html.ActionLink(" Nuevo rol usuario", "Create", null, new { @class = "btn btn-info btn-lg glyphicon glyphicon-plus"})
-            <button type="button" class="btn btn-info btn-lg" id="authorize"> Autorización usuario</button>
-        </div>
-    </div>
-    <hr />
-    <div class="row align-items-center">
-        <div class="col-md-2">
-            NÚMERO TRABAJADORES : @Session["numeroTrabajadores"].ToString().Trim()
-        </div>
-        <div class="col-md-2">
-            CLASE RIESGO : @Session["riesgo"].ToString().Trim()
-        </div>
-        <div class="col-md-3">
-            HORARIO : @Session["turnoOperativo"].ToString().Trim()
-        </div>
-        <div class="col-md-2">
-            PERIODO : @Session["year"].ToString().Trim()
-        </div>
-        <div class="col-md-3">
-            RESPONSABLE SG-SST : @Session["responsable"].ToString().Trim()
-        </div>
-    </div>
-</div>
-
+@Html.Partial("_PageHead")
 <div class="tabAuthorize">
     <div class="row">
         <div class="col-md-4">

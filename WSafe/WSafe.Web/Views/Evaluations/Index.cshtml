@@ -15,30 +15,8 @@
     }
 </style>
 
-<h4 class="centerText">GESTIÓN PLAN DE TRABAJO ANUAL: @Session["organization"].ToString().Trim()</h4>
-<hr class="mt-4">
-
-<div class="container">
-    <div class="row align-items-center">
-        <div class="col-md-2">
-            NÚMERO TRABAJADORES: @Session["numeroTrabajadores"].ToString().Trim()
-        </div>
-        <div class="col-md-2">
-            CLASE RIESGO: @Session["riesgo"].ToString().Trim()
-        </div>
-        <div class="col-md-3">
-            HORARIO: @Session["turnoOperativo"].ToString().Trim()
-        </div>
-        <div class="col-md-2">
-            PERIODO: @Session["year"].ToString().Trim()
-        </div>
-        <div class="col-md-3">
-            RESPONSABLE: @Session["responsable"].ToString().Trim().ToUpper()
-        </div>
-    </div>
-</div>
-
-<hr class="mt-4">
+<h4 class="centerText">GESTIÓN AUTOEVALUACIONES: @Session["organization"].ToString().Trim()</h4>
+@Html.Partial("_PageHead")
 <div class="container-fluid">
     <div class="pull-left">
         @Html.ActionLink("Nueva Autoevaluación", "Create", new { @class = "glyphicon glyphicon-plus" },

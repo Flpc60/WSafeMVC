@@ -21,9 +21,14 @@
     .tabGesActivitys, .tabAddActivitys, .tabGesTasks, .tabAddTasks {
         display: none;
     }
+
+    .centerText {
+        text-align: center;
+    }
 </style>
 
-<h4>@title</h4>
+<h4 class="centerText">@title: @Session["organization"].ToString().Trim()</h4>
+<hr class="mt-4">
 
 <input type="hidden" id="sdEvaluation" name="StandardEvaluation" value="@sdEvaluation" />
 <input type="hidden" id="sdMatrixRisk" name="sdMatrixRisk" value="@sdMatrixRisk" />

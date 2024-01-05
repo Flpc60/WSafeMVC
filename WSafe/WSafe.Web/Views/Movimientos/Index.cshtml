@@ -11,28 +11,15 @@
     .tabGesMovimientos, .tabAddMovimientos, .tabSendEmail {
         display: none;
     }
+
+    .centerText {
+        text-align: center;
+    }
+
 </style>
 
-<h4 style="text-align:center"><strong>@Session["organization"].ToString().Trim()</strong></h4>
-<hr class="mt-4">
-<div class="row" style="text-align:center">
-    <div class="col-md-2">
-        NÚMERO TRABAJADORES : @Session["numeroTrabajadores"].ToString().Trim()
-    </div>
-    <div class="col-md-2">
-        HORARIO DE TRABAJO : @Session["turnoOperativo"].ToString().Trim()
-    </div>
-    <div class="col-md-2">
-        PERIODO : @Session["year"].ToString().Trim()
-    </div>
-    <div class="col-md-2">
-        CLASE RIESGO : @Session["riesgo"].ToString().Trim()
-    </div>
-    <div class="col-md-4">
-        RESPONSABLE SG-SST : @Session["responsable"].ToString().Trim().ToUpper()
-    </div>
-</div>
-<hr />
+<h4 class="centerText">GESTIÓN REPOSITORIO SG-SST: @Session["organization"].ToString().Trim()</h4>
+@Html.Partial("_PageHead")
 
 <div class="container">
     <div class="row">
@@ -144,13 +131,13 @@
 
         function AddNewMovimient() {
             // Crea un nuevo movimiento
-            $(".tabAddMovimientos").css("display", "none");
             var selectedFile = ($("#fileLoad"))[0].files[0];
             if (!selectedFile) {
-                alert("No se ha seleccionado ningún archivo para subir !!" + selectedFile);
+                alert("No se ha seleccionado ningún archivo para subir !!");
                 return false;
             }
 
+            $(".tabAddMovimientos").css("display", "none");
             var dataFile = new FormData();
             dataFile.append("fileLoad", selectedFile);
             dataFile.append("NormaID", $("#txtStandardID1").val());
