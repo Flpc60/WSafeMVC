@@ -17,6 +17,7 @@ namespace WSafe.Web.Models
         [Display(Name = "ACTIVIDAD")]
         [MaxLength(100)]
         public string Activity { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [MaxLength(200)]
         [Display(Name = "ENTREGABLES")]
         public string Entregables { get; set; }
@@ -49,6 +50,7 @@ namespace WSafe.Web.Models
         [Range(typeof(short), "1", "9999", ErrorMessage = "Por favor ingrese un número de actividades programadas válido.")]
         [Display(Name = "PROGRAMADAS")]
         public short Programed { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "FRECUENCIA")]
         public ActivitiesFrequency ActivityFrequency { get; set; }
         [Display(Name = "ESTADO")]
@@ -62,9 +64,6 @@ namespace WSafe.Web.Models
         public int OrganizationID { get; set; }
         public int ClientID { get; set; }
         public int UserID { get; set; }
-        [Display(Name = "SUBIR EVIENCIA")]
-        [MaxLength(200)]
-        public string FileName { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "FECHA")]
         [DataType(DataType.Date)]
@@ -75,5 +74,7 @@ namespace WSafe.Web.Models
         [Display(Name = "EJECUTADAS")]
         public short Executed { get; set; }
         public string TextDateSigue { get; set; }
+        [MaxLength(200)]
+        public string FileName { get; set; }
     }
 }

@@ -500,6 +500,10 @@
     <Compile Include="Migrations\202312300108451_UpdateDataBase1.designer.cs">
       <DependentUpon>202312300108451_UpdateDataBase1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202401042121025_UpdPlanActivity.cs" />
+    <Compile Include="Migrations\202401042121025_UpdPlanActivity.designer.cs">
+      <DependentUpon>202401042121025_UpdPlanActivity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -1242,6 +1246,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202312300108451_UpdateDataBase1.resx">
       <DependentUpon>202312300108451_UpdateDataBase1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202401042121025_UpdPlanActivity.resx">
+      <DependentUpon>202401042121025_UpdPlanActivity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -469,7 +469,7 @@ function ShowMovimientos(phva) {
                 html += '<td>' + item.Type + '</td>';
                 html += '<td><a href = "' + url + '" class="btn btn-info">Abrir</a></td>';
                 html += '<td><a href = "' + url + '" download="' + fileName + '" class="btn btn-info">Descargar</a ></td>';
-                html += '<td><a href = "#" onclick="DeleteMovimient(' + item.ID + ')" class="btn btn-info">Eliminar</a></td>';
+                html += '<td><a href="#" onclick="DeleteMovimient(' + item.ID + ', \'' + item.Name + '\')" class="btn btn-info">Eliminar</a></td>';
                 html += '<td><a href = "#" onclick="OpenEmail(' + item.ID + ')" class="btn btn-info">Enviar</a></td>';
                 html += '</tr>';
             });
@@ -739,22 +739,29 @@ function EditMovimient(movimientID) {
     $("#btnCanMovimient").show();
 }
 
-function DeleteMovimient(movimientID) {
-    $(".tabGesMovimientos").css("display", "none");
-    $.ajax({
-        async: true,
-        type: 'POST',
-        url: "/Movimientos/DeleteFile",
-        data: { id: movimientID },
-        dataType: "json",
-        success: function (result) {
-            alert(result.mensaj);
-            ShowMovimientos(ciclo);
-        },
-         error: function (errormessage) {
-            alert(errormessage.responseText);
-        }
-    });
+function DeleteMovimient(movimientID, name) {
+    // Eliminar un movimiento
+    var text = "";
+    text += "Esta seguro de querer borrar este documento ?: " + name + "\n\n";
+    var respuesta = confirm(text);
+    if (respuesta == true) {
+
+        $(".tabGesMovimientos").css("display", "none");
+        $.ajax({
+            async: true,
+            type: 'POST',
+            url: "/Movimientos/DeleteFile",
+            data: { id: movimientID },
+            dataType: "json",
+            success: function (result) {
+                alert(result.mensaj);
+                ShowMovimientos(ciclo);
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
     $(".tabGesMovimientos").css("display", "block");
     $(".tabAddMovimientos").css("display", "none");
     $("#btnAddMovimient").hide();

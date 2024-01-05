@@ -8,6 +8,7 @@ namespace WSafe.Domain.Data.Entities
     {
         public int ID { get; set; }
         public int EvaluationID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int NormaID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "FECHA CUMPLIMIENTO")]
@@ -18,6 +19,7 @@ namespace WSafe.Domain.Data.Entities
         [Display(Name = "ACTIVIDAD")]
         [MaxLength(200)]
         public string Activity { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [MaxLength(200)]
         [Display(Name = "ENTREGABLES")]
         public string Entregables { get; set; }
@@ -53,6 +55,7 @@ namespace WSafe.Domain.Data.Entities
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime InitialDate { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public ActivitiesFrequency ActivityFrequency { get; set; }
         public ICollection<SiguePlanAnual> SiguePlanAnual { get; set; }
     }
