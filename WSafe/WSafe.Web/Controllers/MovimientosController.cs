@@ -142,7 +142,7 @@ namespace WSafe.Web.Controllers
 
                 var idMovimient = _empresaContext.Movimientos.OrderByDescending(x => x.ID).First().ID;
                 message = "El archivo ha sido subido correctamente !!";
-                return Json(new { data = idMovimient, mensaj = message }, JsonRequestBehavior.AllowGet);
+                return Json(new { Item = item, ciclo = cycle, data = idMovimient, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
