@@ -8,35 +8,13 @@
         display: none
     }
 
-    .centerText{
-        text-align:center
+    .centerText {
+        text-align: center
     }
-
 </style>
 
 <h4 class="centerText">GESTIÓN DE LOS RIESGOS : @Session["organization"].ToString().Trim()</h4>
-<hr />
-<div class="container">
-    <div class="row align-items-center">
-        <div class="col-md-2">
-            NÚMERO TRABAJADORES : @Session["numeroTrabajadores"].ToString().Trim()
-        </div>
-        <div class="col-md-2">
-            CLASE RIESGO : @Session["riesgo"].ToString().Trim()
-        </div>
-        <div class="col-md-3">
-            HORARIO : @Session["turnoOperativo"].ToString().Trim()
-        </div>
-        <div class="col-md-2">
-            PERIODO : @Session["year"].ToString().Trim()
-        </div>
-        <div class="col-md-3">
-            RESPONSABLE SG-SST : @Session["responsable"].ToString().Trim()
-        </div>
-    </div>
-</div>
-<hr />
-
+@Html.Partial("_PageHead")
 <div class="container">
     <div class="row justify-content-between">
         <div class="col-md-8">
@@ -132,59 +110,59 @@
                         strStyle = "background-color:green;";
                         break;
                 }
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Proceso)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Zona)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Actividad)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Tarea)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TextRutinaria)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Clasificacion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Peligro)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EfectosPosibles)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NivelDeficiencia)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NivelExposicion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NivelProbabilidad)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NivelConsecuencia)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NivelRiesgo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CategoriaRiesgo)
-                </td>
-                <td style="@strStyle">
-                    @Html.DisplayFor(modelItem => item.Aceptability)
-                </td>
-                <td style="margin:initial; background-color:deepskyblue; text-align:left;">
-                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit", @title="Actualizar riesgo"})
-                </td>
-                <td style="margin:initial; background-color:deepskyblue; text-align:left">
-                    <a href="#" onclick="DeleteRiesgo('@item.ID')" class="glyphicon glyphicon-trash" title="Descartar riesgo"></a>
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Proceso)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Zona)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Actividad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tarea)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TextRutinaria)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Clasificacion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Peligro)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EfectosPosibles)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NivelDeficiencia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NivelExposicion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NivelProbabilidad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NivelConsecuencia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NivelRiesgo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CategoriaRiesgo)
+                    </td>
+                    <td style="@strStyle">
+                        @Html.DisplayFor(modelItem => item.Aceptability)
+                    </td>
+                    <td style="margin:initial; background-color:deepskyblue; text-align:left;">
+                        @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit", @title = "Actualizar riesgo" })
+                    </td>
+                    <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                        <a href="#" onclick="DeleteRiesgo('@item.ID')" class="glyphicon glyphicon-trash" title="Descartar riesgo"></a>
+                    </td>
+                </tr>
 
             }
 

@@ -12,32 +12,16 @@
     .queryIncidents {
         display: none;
     }
+
+    .centerText {
+        text-align: center;
+    }
+
 </style>
 
-<h4 style="text-align:center"><strong>@Session["organization"].ToString().Trim()</strong></h4>
-<hr class="mt-4">
+<h4 class="centerText">GESTIÓN DE INDICADORES: @Session["organization"].ToString().Trim()</h4>
+@Html.Partial("_PageHead")
 
-<div class="container">
-    <div class="row align-items-center">
-        <div class="col-md-2">
-            TRABAJADORES : @Session["numeroTrabajadores"].ToString().Trim()
-        </div>
-        <div class="col-md-2">
-            CLASE RIESGO : @Session["riesgo"].ToString().Trim()
-        </div>
-        <div class="col-md-2">
-            HORARIO : @Session["turnoOperativo"].ToString().Trim()
-        </div>
-        <div class="col-md-2">
-            PERIODO : @Session["year"].ToString().Trim()
-        </div>
-        <div class="col-md-4">
-            RESPONSABLE SG-SST : @Session["responsable"].ToString().Trim().ToUpper()
-        </div>
-    </div>
-</div>
-
-<hr class="mt-4">
 <div class="container">
     <div class="row justify-content-between">
         <div class="col-md-6">
