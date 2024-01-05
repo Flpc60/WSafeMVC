@@ -1,0 +1,21 @@
+﻿<hr class="mt-4">
+<div class="container">
+    <div class="row align-items-center">
+        <div class="col-md-2">
+            TRABAJADORES: @Session["numeroTrabajadores"].ToString().Trim()
+        </div>
+        <div class="col-md-2">
+            CLASE RIESGO: @Session["riesgo"].ToString().Trim()
+        </div>
+        <div class="col-md-3">
+            HORARIO: @Session["turnoOperativo"].ToString().Trim()
+        </div>
+        <div class="col-md-2">
+            PERIODO: @Session["year"].ToString().Trim()
+        </div>
+        <div class="col-md-3">
+            RESPONSABLE: @Session["responsable"].ToString().Trim().ToUpper()
+        </div>
+    </div>
+</div>
+<hr class="mt-4">
