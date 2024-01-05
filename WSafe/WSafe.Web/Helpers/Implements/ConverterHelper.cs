@@ -2270,7 +2270,13 @@ namespace WSafe.Domain.Helpers.Implements
                 Workers = _comboHelper.GetWorkersFull(org),
                 InitialDate = new DateTime(year, 1,2),
                 FechaFinal = new DateTime(year, 12, 30),
-                Executed = 1
+                Executed = 1,
+                ActionCategory = ActionCategories.Sin_Iniciar,
+                StateActivity = StatesActivity.Diseñar,
+                StateCronogram = StatesCronogram.Programada,
+                Humanos = true,
+                Tecnicos = true,
+                ActivityFrequency = ActivitiesFrequency.Mensual
             };
             return model;
         }
@@ -2344,12 +2350,12 @@ namespace WSafe.Domain.Helpers.Implements
                 StateCronogram = model.StateCronogram,
                 Programed = model.Programed,
                 Executed = model.Executed,
-                FileName = model.FileName,
                 DateSigue = model.DateSigue,
                 TextDateSigue = model.DateSigue.ToString("yyyy-MM-dd"),
                 OrganizationID = model.OrganizationID,
                 ClientID = model.ClientID,
-                UserID = model.UserID
+                UserID = model.UserID,
+                FileName = model.FileName
             };
             return result;
         }

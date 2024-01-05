@@ -14,6 +14,10 @@
     .centerText {
         text-align: center
     }
+    .tabAddSigue {
+        display: none;
+    }
+
 </style>
 
 @using (Html.BeginForm("Edit", "AnnualPlans", FormMethod.Post))
@@ -43,6 +47,11 @@
 <script type="text/javascript">
 
         $(document).ready(function () {
+            $('#btnCanTraceability').click(function () {
+                $('.tabAddSigue').css("display", "none");
+                $('#btnAddTraceability').hide();
+                $('#btnUpdTraceability').hide();
+            });
             $('#addTraceabilityID').click(function () {
                 $('.tabAddSigue').css("display", "block");
                 $('#dateSigue').focus();

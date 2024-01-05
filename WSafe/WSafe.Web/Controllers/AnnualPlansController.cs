@@ -88,7 +88,10 @@ namespace WSafe.Web.Controllers
                 model.DateSigue = model.InitialDate;
                 model.StateCronogram = StatesCronogram.Programada;
                 model.Executed = model.Programed;
-                if (ModelState.IsValid)
+                model.Normas = _comboHelper.GetNormasAll();
+                model.Workers = _comboHelper.GetWorkersFull(_orgID);
+
+                if (ModelState.IsValid && model.NormaID != 0 && model.TrabajadorID != 0)
                 {
                     var consulta = new AnnualPlanService(new AnnualPlanRepository(_empresaContext));
                     var planActivity = await _converterHelper.ToPlanActivityAsync(model, true);
@@ -157,31 +160,35 @@ namespace WSafe.Web.Controllers
                                 break;
                         }
 
-                        DateTime fecha = Convert.ToDateTime(model.InitialDate);
-                        while (Convert.ToDateTime(model.FechaFinal) >= fecha)
+                        if (numActivities > 0)
                         {
-                            var siguePlan = new SiguePlanAnual
-                            {
-                                ID = 0,
-                                DateSigue = fecha,
-                                TrabajadorID = model.TrabajadorID,
-                                StateActivity = model.StateActivity,
-                                StateCronogram = (StatesCronogram)1,
-                                Executed = 0,
-                                Programed = numActivities,
-                                Observation = model.Observation,
-                                ActionCategory = model.ActionCategory,
-                                PlanActivityID = id,
-                                FileName = "",
-                                OrganizationID = model.OrganizationID,
-                                ClientID = model.ClientID,
-                                UserID = model.UserID
-                            };
-                            _empresaContext.SigueAnnualPlans.Add(siguePlan);
 
-                            fecha = fecha.AddDays(sumar);
+                            DateTime fecha = Convert.ToDateTime(model.InitialDate);
+                            while (Convert.ToDateTime(model.FechaFinal) >= fecha)
+                            {
+                                var siguePlan = new SiguePlanAnual
+                                {
+                                    ID = 0,
+                                    DateSigue = fecha,
+                                    TrabajadorID = model.TrabajadorID,
+                                    StateActivity = model.StateActivity,
+                                    StateCronogram = (StatesCronogram)1,
+                                    Executed = 0,
+                                    Programed = numActivities,
+                                    Observation = model.Observation,
+                                    ActionCategory = model.ActionCategory,
+                                    PlanActivityID = id,
+                                    FileName = "",
+                                    OrganizationID = model.OrganizationID,
+                                    ClientID = model.ClientID,
+                                    UserID = model.UserID
+                                };
+                                _empresaContext.SigueAnnualPlans.Add(siguePlan);
+
+                                fecha = fecha.AddDays(sumar);
+                            }
+                            await _empresaContext.SaveChangesAsync();
                         }
-                        await _empresaContext.SaveChangesAsync();
 
                         return RedirectToAction("Index");
                     }
@@ -192,10 +199,6 @@ namespace WSafe.Web.Controllers
                 return View("Error", new HandleErrorInfo(ex, "AnnualPlans", "Index"));
             }
 
-            model.Normas = _comboHelper.GetNormasAll();
-            model.Workers = _comboHelper.GetWorkersFull(_orgID);
-            model.InitialDate = DateTime.Now;
-            model.FechaFinal = DateTime.Now;
             ViewBag.message = "Faltan campos por diligenciar del formulario !!";
             ViewBag.guardar = true;
 
