@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Web.WebPages;
 using WSafe.Web.Data.Entities;
 
 namespace WSafe.Domain.Data.Entities
@@ -29,7 +30,14 @@ namespace WSafe.Domain.Data.Entities
         {
             get
             {
-                return Nombres.Trim() + " " + PrimerApellido.Trim() + " " + SegundoApellido.Trim();
+                    if (!SegundoApellido.IsEmpty())
+                    {
+                        return Nombres.Trim() + " " + PrimerApellido.Trim() + " " + SegundoApellido.Trim();
+                    }
+                    else
+                    {
+                        return Nombres.Trim() + " " + PrimerApellido.Trim() + " ";
+                    }
             }
         }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
