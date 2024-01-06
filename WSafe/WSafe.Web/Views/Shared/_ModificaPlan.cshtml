@@ -10,11 +10,11 @@
             <hr />
             <div class="col-md-4 col-sm-6">
                 <label for="idFechaIni">FECHA INICIAL:</label>
-                <input type="date" class="form-control" id="idFechaIni" required autofocus>
+                <input type="date" class="form-control" id="idFechaIni" value="@Model.FechaSolicitud" required autofocus>
             </div>
             <div class="col-md-4 col-sm-6">
                 <label for="idFechaFin">FECHA CIERRE:</label>
-                <input type="date" class="form-control" id="idFechaFin" required>
+                <input type="date" class="form-control" id="idFechaFin" value="@Model.FechaCierre" required>
             </div>
             <div class="col-md-4 col-sm-6">
                 <label for="causa">CAUSA:</label>
@@ -30,29 +30,35 @@
         </div>
         <div class="row">
             <hr />
-            <div class="col-md-4 col-sm-6">
+            <div class="col-md-5 col-sm-6">
                 <div class="form-group">
-                    <div class="col-md-12 col-sm-10">
-                        <label for="Respons">FUNCIONARIO RESPONSABLE:</label>
+                    @Html.LabelFor(model => model.TrabajadorID, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-8 col-sm-10">
                         @Html.DropDownListFor(model => model.TrabajadorID, Model.Trabajadores, new { @class = "form-control", @id = "idRespons" })
                         @Html.ValidationMessageFor(model => model.TrabajadorID, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 col-sm-6">
-                <label for="prioritaria">PRIORITARIA:</label>
-                <input class="form-check-input" type="checkbox" id="idPrioritaria" name="idPrioritaria">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="prioritaria" class="form-control">PRIORITARIA: </label>
+                    <div class="col-md-6 col-sm-10">
+                        <div class="checkbox">
+                            <input class="form-check-input" type="checkbox" id="idPrioritaria" name="idPrioritaria">
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4 col-sm-6">
-                <label for="idCostos">COSTOS:</label>
-                <input type="number" class="form-control" id="idCostos" onchange="validarCostos()">
+            <div class="col-md-3 col-sm-6">
+                <label for="idCostos" class="form-control" >COSTOS:</label>
+                <input type="number" class="form-control" id="idCostos" name="idCostos" onchange="validarCostos()">
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4 col-sm-10">
+            <div class="col-md-6">
                 <div class="form-group">
+                    @Html.LabelFor(model => model.ActionCategory, htmlAttributes: new { @class = "control-label col-md-3" })
                     <div class="col-md-8 col-sm-10">
-                        <label for="accion">ESTADO:</label>
                         @Html.EnumDropDownListFor(model => model.ActionCategory, htmlAttributes: new { @class = "form-control", @id = "txtPlanCategory" })
                         @Html.ValidationMessageFor(model => model.ActionCategory, "", new { @class = "text-danger" })
                     </div>
