@@ -153,7 +153,9 @@ namespace WSafe.Domain.Helpers.Implements
                 Tareas = _comboHelper.GetComboTareas(org),
                 Trabajadores = _comboHelper.GetComboTrabajadores(org),
                 Planes = new List<PlanAction>(),
-                Seguimientos = new List<Seguimiento>()
+                Seguimientos = new List<Seguimiento>(),
+                FechaSolicitud = DateTime.Now.ToString("yyyy-MM-dd"),
+                FechaCierre = DateTime.Now.ToString("yyyy-MM-dd")
             };
 
             model.Planes.Add(new PlanAction());

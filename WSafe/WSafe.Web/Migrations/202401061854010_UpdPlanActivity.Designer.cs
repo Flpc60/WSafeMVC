@@ -13,7 +13,7 @@ namespace WSafe.Web.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202401051652004_UpdPlanActivity"; }
+            get { return "202401061854010_UpdPlanActivity"; }
         }
         
         string IMigrationMetadata.Source

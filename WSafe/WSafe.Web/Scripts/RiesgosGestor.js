@@ -1644,8 +1644,6 @@ function validateOrganization() {
 function AddPlanAccion() {
     // Crea una nueva accion, captura la accionID de id = txtAccionID
     // llama la acción del controlador CreatePlanAccion
-    $(".tabAddPlanAcc").css("display", "none");
-    $(".tabPlanAcc").css("display", "none");
     if ($("#idPrioritaria").is(':checked')) {
         $("#idPrioritaria").val(true)
     }
@@ -1675,12 +1673,16 @@ function AddPlanAccion() {
         data: { model: planAccionVM },
         dataType: "json",
         success: function (response) {
-            if (response.data != false) {
-                $("#txtPlanAccionID").val(response.data.ID);
-            }
             alert(response.mensaj);
-            ClearTextBox();
-            mostrarPlanAcc();
+            if (response.data) {
+                $("#txtPlanAccionID").val(response.data.ID);
+                $(".tabPlanAcc").css("display", "none");
+                $(".tabGesPlanAcc").css("display", "none");
+                $(".tabAddPlanAcc").css("display", "none");
+                $(".tabGesPlanAcc").css("display", "block");
+                ClearTextBox();
+                mostrarPlanAcc();
+            }
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -1693,9 +1695,6 @@ function UpdatePlanAcc() {
     // Actualiza una accion creada, captura la accionID de id = txtAccionID
     // llama la acción del controlador UpdatePlanAccion
     //TODO
-    $(".tabPlanAcc").css("display", "none");
-    $(".tabGesPlanAcc").css("display", "none");
-    $(".tabAddPlanAcc").css("display", "none");
     if ($("#idPrioritaria").is(':checked')) {
         $("#idPrioritaria").val(true)
     }
@@ -1729,8 +1728,14 @@ function UpdatePlanAcc() {
         dataType: "json",
         success: function (response) {
             alert(response.mensaj);
-            $(".tabGesPlanAcc").css("display", "block");
-            mostrarPlanAcc();
+            if (response.data) {
+                $(".tabPlanAcc").css("display", "none");
+                $(".tabGesPlanAcc").css("display", "none");
+                $(".tabAddPlanAcc").css("display", "none");
+                $(".tabGesPlanAcc").css("display", "block");
+                ClearTextBox();
+                mostrarPlanAcc();
+            }
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
