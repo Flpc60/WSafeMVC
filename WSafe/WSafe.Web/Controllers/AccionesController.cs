@@ -59,8 +59,6 @@ namespace WSafe.Web.Controllers
             _orgID = (int)Session["orgID"];
             var model = _converterHelper.ToAccionViewModelNew(_orgID);
             ViewBag.Categorias = _comboHelper.GetAllCausas();
-            ViewBag.fechaSolicitud = DateTime.Now;
-            ViewBag.fechaCierre = DateTime.Now;
 
             return View(model);
         }
@@ -322,18 +320,18 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> UpdatePlanAccion(PlanAction planAccion)
+        public async Task<ActionResult> UpdatePlanAccion(PlanAction planAction)
         {
             var message = "";
             try
             {
-                planAccion.ClientID = (int)Session["clientID"];
-                planAccion.OrganizationID = (int)Session["orgID"];
-                planAccion.UserID = (int)Session["userID"];
+                planAction.ClientID = (int)Session["clientID"];
+                planAction.OrganizationID = (int)Session["orgID"];
+                planAction.UserID = (int)Session["userID"];
 
                 if (ModelState.IsValid)
                 {
-                    PlanAction plan = await _converterHelper.ToPlanAccionAsync(planAccion);
+                    PlanAction plan = await _converterHelper.ToPlanAccionAsync(planAction);
                     _empresaContext.Entry(plan).State = EntityState.Modified;
                     await _empresaContext.SaveChangesAsync();
                     message = "La actualización se ha realizado exitosamente !!";
