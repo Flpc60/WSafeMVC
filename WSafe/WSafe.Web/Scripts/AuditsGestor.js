@@ -1908,6 +1908,7 @@ function formatDate(date) {
     var jsDate = new Date(dateString);
     return jsDate.toLocaleDateString('es-ES');
 }
+
 function deleteActivityPlan(id) {
     $.ajax({
         url: "/AnnualPlans/DeleteActivityPlan/" + id,
@@ -1958,8 +1959,8 @@ function logout() {
     $.ajax({
         type: "POST",
         url: "/Accounts/Logout",
-        success: function () {
-            window.close();
+        success: function (reponse) {
+            window.location.href = "/Accounts/Login";
         },
         error: function (xhr, ajaxOptions, thrownError) {
             console.error(xhr.status + ": " + thrownError);

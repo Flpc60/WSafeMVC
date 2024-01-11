@@ -168,8 +168,14 @@
                     {
                         <li><a style="color:white;font-size:12px"><b>Hola @Session["userName"].ToString().Trim()</b></a></li>
                     }
-                    <li>@Html.ActionLink("Cerrar", "Logout", "Accounts", new { @class = "glyphicon glyphicon-log-out" })</li>
-                    <li>@Html.ActionLink("Cerrar", "Logout", "Accounts", null, new { @class = "glyphicon glyphicon-log-out", onclick = "logout(); return false;" })</li>
+                    <!--
+                    <li>@Html.ActionLink("Cerrar", "Logout", "Accounts", null, new { @class = "glyphicon glyphicon-log-out", @onclick = "logout(); return false;" })</li>
+                    -->
+                    <li>
+                        <a href="#" class="glyphicon glyphicon-log-out" onclick="logout()">
+                            Cerrar
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

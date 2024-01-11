@@ -314,8 +314,9 @@ namespace WSafe.Web.Controllers
         {
             Session.Abandon();
             FormsAuthentication.SignOut();
-            return RedirectToAction("Login", "Accounts");
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
+
         [HttpGet]
         public ActionResult GetAllRoles()
         {
