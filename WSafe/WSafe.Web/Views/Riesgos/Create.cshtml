@@ -20,21 +20,18 @@
         align-items: center;
     }
 
-    .btn {
-        margin: 10px;
-        padding: 10px;
-        font-size: 16px;
-        cursor: pointer;
-    }
-
 </style>
 
 <h4 class="centerText">GESTIÓN DE LOS RIESGOS</h4>
 
 <div class="container">
-    <button type="button" class="btn btn-success" id="idPeligros" title="doble click para cerrar la ventana">1. IDENTIFICACIÓN PELIGROS</button>
-    <button type="button" class="btn btn-success" id="evalRiesgos" title="doble click para cerrar la ventana">2. EVALUACIÓN RIESGOS</button>
-    <button type="button" class="btn btn-success" id="mediAplica" title="doble click para cerrar la ventana">3. MEDIDAS DE INTERVENCIÓN</button>
+    <div class="row justify-content-between">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-success" id="idPeligros" title="doble click para cerrar la ventana">1. IDENTIFICACIÓN PELIGROS</button>
+            <button type="button" class="btn btn-success" id="evalRiesgos" title="doble click para cerrar la ventana">2. EVALUACIÓN RIESGOS</button>
+            <button type="button" class="btn btn-success" id="mediAplica" title="doble click para cerrar la ventana">3. MEDIDAS DE INTERVENCIÓN</button>
+        </div>
+    </div>
 </div>
 
 @using (Html.BeginForm(FormMethod.Post))
