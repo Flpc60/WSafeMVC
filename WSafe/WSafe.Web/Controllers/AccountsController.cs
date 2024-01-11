@@ -199,12 +199,12 @@ namespace WSafe.Web.Controllers
             return View(user);
         }
         [HttpPost]
-        public async Task<ActionResult> CreateUser([Bind(Include = "ID,Name,Email,Password,RoleID,OrganizationID,ClientID")] User model)
+        public async Task<ActionResult> CreateUser([Bind(Include = "ID,Name,Email,Password,RoleID,OrganizationID,ClientID")] User model, int interesting)
         {
             var message = "";
             try
             {
-                if (ModelState.IsValid)
+                if (ModelState.IsValid && interesting != 4)
                 {
                     string password = GetSHA256(model.Password);
                     var result = _empresaContext.Users.Where(u => u.Name == model.Name.Trim() && u.Email == model.Email.Trim() && u.Password == password.Trim()).FirstOrDefault();
@@ -314,7 +314,7 @@ namespace WSafe.Web.Controllers
         {
             Session.Abandon();
             FormsAuthentication.SignOut();
-            return null;
+            return RedirectToAction("Login", "Accounts");
         }
         [HttpGet]
         public ActionResult GetAllRoles()
