@@ -20,7 +20,15 @@
 </style>
 
 <h4 class="centerText">GESTIÓN DE INCIDENTES: @Session["organization"].ToString().Trim()</h4>
-@Html.Partial("_PageHead")
+<div class="container">
+    @Html.Partial("_PageHead")
+    <div class="row">
+        <div class="col-md-4">
+            @Html.ActionLink(" Nuevo incidente", "Create", null, new { @class = "btn btn-info btn-lg glyphicon glyphicon-plus" })
+        </div>
+    </div>
+</div>
+<hr class="mt-2">
 <div class="table-responsive" style="background-color:azure">
     <table class="table table-bordered">
         <thead>

@@ -22,7 +22,16 @@
 </style>
 
 <h4 class="centerText">GESTIÓN DE USUARIOS: @Session["organization"].ToString().Trim()</h4>
-@Html.Partial("_PageHead")
+<div class="container">
+    @Html.Partial("_PageHead")
+    <div class="row">
+        <div class="col-md-8">
+            @Html.ActionLink(" Nuevo rol usuario", "Create", null, new { @class = "btn btn-info btn-lg glyphicon glyphicon-plus" })
+            <button type="button" class="btn btn-info btn-lg" id="authorize"> Autorización usuario</button>
+        </div>
+    </div>
+
+</div>
 <div class="tabAuthorize">
     <div class="row">
         <div class="col-md-4">

@@ -3234,6 +3234,7 @@ function AddTask() {
 
 function AddUser() {
     // Crea un nuevo usuario
+    var interesting = $("#interestLevel").val();
     var user = {
         ID: "0",
         Name: $("#txtName").val(),
@@ -3246,11 +3247,18 @@ function AddUser() {
     $.ajax({
         type: "POST",
         url: "/Accounts/CreateUser",
-        data: { model: user },
+        data: {
+            model: user,
+            interesting: interesting
+        },
         dataType: "json",
         success: function (response) {
             document.getElementById("txtLogin").innerHTML = response.mensaj;
             $(".tabMessage").css("display", "block");
+            $(".tabValidation").css("display", "none");
+            setTimeout(function () {
+                location.reload();
+            }, 6000); // 2000 milisegundos = 6 segundos
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);

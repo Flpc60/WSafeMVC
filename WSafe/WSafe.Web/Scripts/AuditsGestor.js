@@ -1953,3 +1953,16 @@ function deleteActivityPlan(id) {
         }
     });
 }
+
+function logout() {
+    $.ajax({
+        type: "POST",
+        url: "/Accounts/Logout",
+        success: function () {
+            window.close();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.error(xhr.status + ": " + thrownError);
+        }
+    });
+}
