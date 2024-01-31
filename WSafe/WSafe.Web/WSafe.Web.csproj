@@ -346,6 +346,7 @@
     <Compile Include="Controllers\IncidentesController.cs" />
     <Compile Include="Controllers\IndicadoresController.cs" />
     <Compile Include="Controllers\MovimientosController.cs" />
+    <Compile Include="Controllers\OccupationalsController.cs" />
     <Compile Include="Controllers\OrganizationsController.cs" />
     <Compile Include="Controllers\RecomendationsController.cs" />
     <Compile Include="Controllers\RiesgosController.cs" />
@@ -399,6 +400,7 @@
     <Compile Include="Data\Entities\EstadosCivil.cs" />
     <Compile Include="Data\Entities\EstratoCategories.cs" />
     <Compile Include="Data\Entities\Evaluation.cs" />
+    <Compile Include="Data\Entities\ExaminationTypes.cs" />
     <Compile Include="Data\Entities\FreeTimeCategories.cs" />
     <Compile Include="Data\Entities\FuentesAccion.cs" />
     <Compile Include="Data\Entities\Hobbies.cs" />
@@ -427,6 +429,7 @@
     <Compile Include="Data\Entities\Indicador.cs" />
     <Compile Include="Data\Entities\IngresoCategories.cs" />
     <Compile Include="Data\Entities\JerarquiaControles.cs" />
+    <Compile Include="Data\Entities\MedicalRecomendations.cs" />
     <Compile Include="Data\Entities\MedidasControl.cs" />
     <Compile Include="Data\Entities\Movimient.cs" />
     <Compile Include="Data\Entities\NamesMonth.cs" />
@@ -437,6 +440,7 @@
     <Compile Include="Data\Entities\NivelesProbabilidad.cs" />
     <Compile Include="Data\Entities\NivelesRiesgo.cs" />
     <Compile Include="Data\Entities\Norma.cs" />
+    <Compile Include="Data\Entities\Occupational.cs" />
     <Compile Include="Data\Entities\Operation.cs" />
     <Compile Include="Data\Entities\Operations.cs" />
     <Compile Include="Data\Entities\Organization.cs" />
@@ -457,6 +461,7 @@
     <Compile Include="Data\Entities\SeguimientoAccion.cs" />
     <Compile Include="Data\Entities\SeguimientoAction.cs" />
     <Compile Include="Data\Entities\SigueAudit.cs" />
+    <Compile Include="Data\Entities\SigueOccupational.cs" />
     <Compile Include="Data\Entities\SiguePlanAnual.cs" />
     <Compile Include="Data\Entities\SigueRecomendation.cs" />
     <Compile Include="Data\Entities\SocioDemografico.cs" />
@@ -500,6 +505,18 @@
     <Compile Include="Migrations\202401100043142_UpdLocalDB.designer.cs">
       <DependentUpon>202401100043142_UpdLocalDB.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202401302121447_CrtOccupational.cs" />
+    <Compile Include="Migrations\202401302121447_CrtOccupational.designer.cs">
+      <DependentUpon>202401302121447_CrtOccupational.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202401302352586_UpdOccupational.cs" />
+    <Compile Include="Migrations\202401302352586_UpdOccupational.designer.cs">
+      <DependentUpon>202401302352586_UpdOccupational.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202401310025119_UpdOccupational1.cs" />
+    <Compile Include="Migrations\202401310025119_UpdOccupational1.designer.cs">
+      <DependentUpon>202401310025119_UpdOccupational1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -517,6 +534,7 @@
     <Compile Include="Models\CalificationVM.cs" />
     <Compile Include="Models\ControlViewModel.cs" />
     <Compile Include="Models\CreateIndicatorsViewModel.cs" />
+    <Compile Include="Models\CreateOccupationalVM.cs" />
     <Compile Include="Models\CreatePlanActivityVM.cs" />
     <Compile Include="Models\DashboardVM.cs" />
     <Compile Include="Models\DetailsIncidentVM.cs" />
@@ -531,6 +549,7 @@
     <Compile Include="Models\ListaRiesgosVM.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\MatrizRiesgosVM.cs" />
+    <Compile Include="Models\MedicalRecomendationVM.cs" />
     <Compile Include="Models\MinimalsStandardsVM.cs" />
     <Compile Include="Models\MovimientVM.cs" />
     <Compile Include="Models\OrganizationVM.cs" />
@@ -565,7 +584,9 @@
     <Compile Include="Repositories\Implements\AuditRepository.cs" />
     <Compile Include="Repositories\Implements\GenericRepository.cs" />
     <Compile Include="Repositories\Implements\IncidenteRepository.cs" />
+    <Compile Include="Repositories\Implements\OccupationalRepository.cs" />
     <Compile Include="Repositories\Implements\RecomendationRepository.cs" />
+    <Compile Include="Repositories\IOccupationalRepository.cs" />
     <Compile Include="Repositories\IRecomendationRepository.cs" />
     <Compile Include="Repositories\Implements\RiesgoRepository.cs" />
     <Compile Include="Repositories\IRiesgoRepository.cs" />
@@ -581,8 +602,10 @@
     <Compile Include="Services\Implements\AuditService.cs" />
     <Compile Include="Services\Implements\GenericService.cs" />
     <Compile Include="Services\Implements\IncidenteService.cs" />
+    <Compile Include="Services\Implements\OccupationalService.cs" />
     <Compile Include="Services\Implements\RecomendationService.cs" />
     <Compile Include="Services\Implements\RiesgoService.cs" />
+    <Compile Include="Services\IOccupationalService.cs" />
     <Compile Include="Services\IRecomendationService.cs" />
     <Compile Include="Services\IRiesgoService.cs" />
   </ItemGroup>
@@ -986,6 +1009,11 @@
     <Content Include="Views\Shared\_ShowSeguimients.cshtml" />
     <Content Include="Views\AnnualPlans\CreateAnnualPlan.cshtml" />
     <Content Include="Views\Shared\_PageHead.cshtml" />
+    <Content Include="Views\Occupationals\Create.cshtml" />
+    <Content Include="Views\Occupationals\Delete.cshtml" />
+    <Content Include="Views\Occupationals\Details.cshtml" />
+    <Content Include="Views\Occupationals\Edit.cshtml" />
+    <Content Include="Views\Occupationals\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1243,6 +1271,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202401100043142_UpdLocalDB.resx">
       <DependentUpon>202401100043142_UpdLocalDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202401302121447_CrtOccupational.resx">
+      <DependentUpon>202401302121447_CrtOccupational.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202401302352586_UpdOccupational.resx">
+      <DependentUpon>202401302352586_UpdOccupational.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202401310025119_UpdOccupational1.resx">
+      <DependentUpon>202401310025119_UpdOccupational1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
