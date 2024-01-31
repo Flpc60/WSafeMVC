@@ -2475,5 +2475,28 @@ namespace WSafe.Domain.Helpers.Implements
                 return null;
             }
         }
+        public IEnumerable<MedicalRecomendationVM> ToMedicalRecomendationVM(IEnumerable<Occupational> list)
+        {
+            var compromise = "";
+            var workerCompromise = "";
+            var model = new List<MedicalRecomendationVM>();
+            foreach (var item in list)
+            {
+                model.Add(new MedicalRecomendationVM
+                {
+                    ID = item.ID,
+                    ExaminationDate = item.ExaminationDate.ToString("yyyy-MM-dd"),
+                    Trabajador = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto,
+                    Talla = item.Talla,
+                    Peso = item.Peso,
+                    ExaminationType = _gestorHelper.GetExaminationType(item.ExaminationType),
+                    Recomendations = item.Recomendations,
+                    MedicalRecomendation = _gestorHelper.GetMedicalRecomendation(item.MedicalRecomendation),
+                    SigueOccupational = item.SigueOccupational
+                });
+            }
+
+            return model;
+        }
     }
 }

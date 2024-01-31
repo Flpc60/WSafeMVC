@@ -1041,5 +1041,39 @@ namespace WSafe.Domain.Helpers.Implements
                     return "PROGRAMADA";
             }
         }
+        public string GetExaminationType(ExaminationTypes type)
+        {
+            switch (type)
+            {
+                case ExaminationTypes.Ingreso:
+                    return "INGRESO";
+
+                case ExaminationTypes.Periódico:
+                    return "PERIÓDICO";
+
+                case ExaminationTypes.Retiro:
+                    return "RETIRO";
+
+                default:
+                    return "INGRESO";
+            }
+        }
+        public string GetMedicalRecomendation(MedicalRecomendations medical)
+        {
+            switch (medical)
+            {
+                case MedicalRecomendations.Nutrición:
+                    return "NUTRICIÓN";
+
+                case MedicalRecomendations.Optometría:
+                    return "OPTOMETRÍA";
+
+                case MedicalRecomendations.Ergonómico:
+                    return "ERGONÓMICO";
+
+                default:
+                    return "NUTRICIÓN";
+            }
+        }
     }
 }

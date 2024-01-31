@@ -1,0 +1,80 @@
+﻿@model WSafe.Web.Models.MedicalRecomendationVM
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>MedicalRecomendationVM</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ExaminationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExaminationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Trabajador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Trabajador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Talla)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Talla)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Peso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Peso)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExaminationType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExaminationType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Recomendations)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Recomendations)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MedicalRecomendation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MedicalRecomendation)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
