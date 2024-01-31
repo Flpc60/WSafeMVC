@@ -107,69 +107,77 @@
 
     </table>
 
-    <div class="tabSigueOccupational">
-        <div class="table-responsive" style="background-color: azure; width:100%; margin-right:0px">
-            <table class="table table-bordered">
-                <tr style="background-color:gainsboro; width:auto">
-                    <th>
-                        FECHA
-                    </th>
-                    <th>
-                        RESULTADO
-                    </th>
-                    <th>
-                        RECOMENDACIONES
-                    </th>
-                </tr>
+</div>
 
-                <tbody id="seguimientosBody"></tbody>
-            </table>
-        </div>
+<div class="tabSigueOccupational">
+    <div class="table-responsive" style="background-color: azure; width:100%; margin-right:0px">
+        <table class="table table-bordered">
+            <tr style="background-color:gainsboro; width:auto">
+                <th>
+                    FECHA
+                </th>
+                <th>
+                    RESULTADO
+                </th>
+                <th>
+                    RECOMENDACIONES
+                </th>
+            </tr>
+
+            <tbody id="seguimientosBody"></tbody>
+        </table>
     </div>
-
 </div>
 
 @section Scripts
 {
     <script type="text/javascript">
         $(document).ready(function () {
-            function mostrarSeguimientos(occupationalId) {
-                $('#seguimientosBody').empty();
+        });
 
-                @foreach(var item in Model)
-                {
-                    <text>
-                        if ('@item.ID' == occupationalId) {
-                            @foreach(var seguimiento in item.SigueOccupational)
-                            {
-                                <text>
-                                    $('#seguimientosBody').append(`
-                                        <tr>
-                                            <td>${seguimiento.SigueDate}</td>
-                                            <td>${seguimiento.Resultado}</td>
-                                            <td>${seguimiento.Recomendations}</td>
-                                            <td style="margin:initial; background-color:deepskyblue; text-align:left">
-                                                <a href="#" title="Cerrar" onclick="ocultarSeguimientos();">
-                                                    <span class="glyphicon glyphicon-folder-close"></span>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    `);
-                                </text>
-                            }
-                        }
-                    </text>
+        function mostrarSeguimientos(occupationalId) {
+            $('#seguimientosBody').empty();
+            var seguimientos = JSON.parse('@Html.Raw(Json.Encode(Model))');
+
+            if (seguimientos && Array.isArray(seguimientos.SigueOccupational)) {
+                var seguimientosArray = seguimientos.SigueOccupational.slice();
+
+                if (!seguimientosArray.length) {
+                    console.log("Elemento no encontrado para ID:" + occupationalId);
+                    return;
+                }
+
+                console.log("Elemento a iterar:", seguimientosArray);
+
+                for (var j = 0; j < seguimientosArray.length; j++) {
+                    var detalle = seguimientosArray[j];
+
+                    $('#seguimientosBody').append(`
+                        <tr>
+                            <td>${detalle.SigueDate}</td>
+                            <td>${detalle.Resultado}</td>
+                            <td>${detalle.Recomendations}</td>
+                            <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                                <div style="width: 100px; height: 30px;">
+                                    <a href="#" title="Cerrar" onclick="ocultarSeguimientos();">
+                                        <span class="glyphicon glyphicon-folder-close"></span>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    `);
                 }
 
                 $('.tabSigueOccupational').css('display', 'block');
+            } else {
+                console.log("SigueOccupational no es un array o no está definido.");
             }
+        }
 
-            function ocultarSeguimientos() {
-                // Oculta la tabla de seguimientos
-                $('.tabSigueOccupational').css('display', 'none');
-            }
-
-        });
+        function ocultarSeguimientos() {
+            // Oculta la tabla de seguimientos
+            $('.tabSigueOccupational').css('display', 'none');
+        }
 
     </script>
 }

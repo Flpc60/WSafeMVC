@@ -48,7 +48,8 @@ namespace WSafe.Web.Controllers
                     .Include(s => s.SigueOccupational)
                     .ToListAsync();
                 var model = _converterHelper.ToMedicalRecomendationVM(list);
-                return View(model);
+
+                return View(model.ToList());
             }
             catch (Exception ex)
             {

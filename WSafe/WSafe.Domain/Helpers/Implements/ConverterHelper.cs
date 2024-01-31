@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
+using WSafe.Web.Data.Entities;
 using WSafe.Web.Models;
 using static Antlr4.Runtime.Atn.SemanticContext;
 using static iTextSharp.tool.xml.html.HTML;
@@ -2477,11 +2478,10 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public IEnumerable<MedicalRecomendationVM> ToMedicalRecomendationVM(IEnumerable<Occupational> list)
         {
-            var compromise = "";
-            var workerCompromise = "";
             var model = new List<MedicalRecomendationVM>();
             foreach (var item in list)
             {
+                var sigueOccupationalList = item.SigueOccupational ?? new List<SigueOccupational>();
                 model.Add(new MedicalRecomendationVM
                 {
                     ID = item.ID,
@@ -2492,7 +2492,7 @@ namespace WSafe.Domain.Helpers.Implements
                     ExaminationType = _gestorHelper.GetExaminationType(item.ExaminationType),
                     Recomendations = item.Recomendations,
                     MedicalRecomendation = _gestorHelper.GetMedicalRecomendation(item.MedicalRecomendation),
-                    SigueOccupational = item.SigueOccupational
+                    SigueOccupational = sigueOccupationalList
                 });
             }
 
