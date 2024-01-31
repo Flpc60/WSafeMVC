@@ -3,6 +3,7 @@ using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Data.Entities.Auditor;
 using WSafe.Domain.Data.Entities.ICAM;
+using WSafe.Web.Data.Entities;
 
 namespace WSafe.Web.Models
 {
@@ -68,6 +69,8 @@ namespace WSafe.Web.Models
         public DbSet<AuditItem> AuditItems { get; set; }
         public DbSet<AuditedAction> AuditedActions { get; set; }
         public DbSet<SiguePlanAnual> SigueAnnualPlans { get; set; }
+        public DbSet<Occupational> Occupationals { get; set; }
+        public DbSet<SigueOccupational> SigueOccupationals { get; set; }
         public System.Data.Entity.DbSet<WSafe.Web.Models.UserViewModel> UserViewModels { get; set; }
         public System.Data.Entity.DbSet<WSafe.Web.Models.RoleUserVM> RoleUserVMs { get; set; }
 
@@ -97,5 +100,7 @@ namespace WSafe.Web.Models
         public System.Data.Entity.DbSet<WSafe.Web.Models.AnnualPlanVM> AnnualPlanVMs { get; set; }
 
         public System.Data.Entity.DbSet<WSafe.Web.Models.CreatePlanActivityVM> CreatePlanActivityVMs { get; set; }
+
+        public System.Data.Entity.DbSet<WSafe.Web.Models.MedicalRecomendationVM> MedicalRecomendationVMs { get; set; }
     }
 }

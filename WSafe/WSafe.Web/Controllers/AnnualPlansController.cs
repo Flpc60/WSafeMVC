@@ -7,14 +7,12 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using System.Web.Security;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Helpers;
 using WSafe.Domain.Repositories.Implements;
 using WSafe.Domain.Services.Implements;
 using WSafe.Web.Filters;
 using WSafe.Web.Models;
-using static Antlr4.Runtime.Atn.SemanticContext;
 
 namespace WSafe.Web.Controllers
 {
@@ -257,34 +255,6 @@ namespace WSafe.Web.Controllers
             return View(model);
         }
 
-        /*
-        // GET: AnnualPlans/Delete/5
-        public async Task<ActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            AnnualPlanVM annualPlanVM = await db.AnnualPlanVMs.FindAsync(id);
-            if (annualPlanVM == null)
-            {
-                return HttpNotFound();
-            }
-            return View(annualPlanVM);
-        }
-
-        // POST: AnnualPlans/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
-        {
-            AnnualPlanVM annualPlanVM = await db.AnnualPlanVMs.FindAsync(id);
-            db.AnnualPlanVMs.Remove(annualPlanVM);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
-        */
-
         [HttpGet]
         public ActionResult GetPlanActivities(int id)
         {
@@ -322,10 +292,10 @@ namespace WSafe.Web.Controllers
                         TxtStateActivity = _gestorHelper.GetStateActivity(item.TxtStateActivity),
                         TxtStateCronogram = _gestorHelper.GetStateCronogram(item.TxtStateCronogram),
                         Observation = item.Observation,
-                        Programed=item.Programed,
+                        Programed = item.Programed,
                         Executed = item.Executed,
                         FileName = item.FileName,
-                        PlanActivityID=item.PlanActivityID
+                        PlanActivityID = item.PlanActivityID
                     });
                 }
 

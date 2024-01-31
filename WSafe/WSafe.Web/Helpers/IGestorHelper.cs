@@ -49,5 +49,7 @@ namespace WSafe.Domain.Helpers
         string GetRiskClass(int riskClass);
         string GetStateActivity(StatesActivity state);
         string GetStateCronogram(StatesCronogram state);
+        string GetExaminationType(ExaminationTypes type);
+        string GetMedicalRecomendation(MedicalRecomendations medical);
     }
 }

@@ -1,0 +1,175 @@
+﻿@model IEnumerable<WSafe.Web.Models.MedicalRecomendationVM>
+
+@{
+    ViewBag.Title = "Index";
+    var year = @Session["year"].ToString().Trim();
+}
+
+<style>
+
+    .tabConsActions, .tabSigueOccupational {
+        display: none
+    }
+
+    .centerText {
+        text-align: center;
+    }
+</style>
+
+<h4 class="centerText">SEGUIMIENTO A EVALUACIONES MÉDICAS OCUPACIONALES: @Session["organization"].ToString().Trim()</h4>
+@Html.Partial("_PageHead")
+
+<div class="container">
+    <div class="row justify-content-between">
+        <div class="col-md-12">
+            <a href="@Url.Action("Create", "Occupationals")" class="btn btn-info btn-lg active">
+                <span class="glyphicon glyphicon-tasks"></span> Crear nueva evaluación
+            </a>
+            <a href="@Url.Action("Create", "Acciones")" class="btn btn-info btn-lg active">
+                <span class="glyphicon glyphicon-adjust"></span> Crear nueva acción
+            </a>
+            <a href="@Url.Action("OccupationalsPdf", "Occupationals")" class="btn btn-info btn-lg active">
+                <span class="glyphicon glyphicon-download"></span> Generar matriz de seguimiento
+            </a>
+        </div>
+    </div>
+</div>
+
+<hr class="mt-4">
+<div class="table-responsive" style="background-color: azure; width:100%; margin-right:0px">
+    <table class="table table-bordered">
+        <tr style="background-color:gainsboro; width:auto">
+            <th>
+                @Html.DisplayNameFor(model => model.ExaminationDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Trabajador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Talla)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Peso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExaminationType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Recomendations)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MedicalRecomendation)
+            </th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExaminationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Trabajador)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Talla)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Peso)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExaminationType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Recomendations)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MedicalRecomendation)
+                </td>
+                <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                    <a href="#" title="Seguimientos" onclick="mostrarSeguimientos('@item.ID');">
+                        <span class="glyphicon glyphicon-forward"></span>
+                    </a>
+                </td>
+                <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit", @title = "Actualizar" })
+                </td>
+                <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                    <a href="#" title="Descartar" onclick="deleteOccupational('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
+                </td>
+            </tr>
+
+        }
+
+    </table>
+
+    <div class="tabSigueOccupational">
+        <div class="table-responsive" style="background-color: azure; width:100%; margin-right:0px">
+            <table class="table table-bordered">
+                <tr style="background-color:gainsboro; width:auto">
+                    <th>
+                        FECHA
+                    </th>
+                    <th>
+                        RESULTADO
+                    </th>
+                    <th>
+                        RECOMENDACIONES
+                    </th>
+                </tr>
+
+                <tbody id="seguimientosBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            function mostrarSeguimientos(occupationalId) {
+                $('#seguimientosBody').empty();
+
+                @foreach(var item in Model)
+                {
+                    <text>
+                        if ('@item.ID' == occupationalId) {
+                            @foreach(var seguimiento in item.SigueOccupational)
+                            {
+                                <text>
+                                    $('#seguimientosBody').append(`
+                                        <tr>
+                                            <td>${seguimiento.SigueDate}</td>
+                                            <td>${seguimiento.Resultado}</td>
+                                            <td>${seguimiento.Recomendations}</td>
+                                            <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                                                <a href="#" title="Cerrar" onclick="ocultarSeguimientos();">
+                                                    <span class="glyphicon glyphicon-folder-close"></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    `);
+                                </text>
+                            }
+                        }
+                    </text>
+                }
+
+                $('.tabSigueOccupational').css('display', 'block');
+            }
+
+            function ocultarSeguimientos() {
+                // Oculta la tabla de seguimientos
+                $('.tabSigueOccupational').css('display', 'none');
+            }
+
+        });
+
+    </script>
+}

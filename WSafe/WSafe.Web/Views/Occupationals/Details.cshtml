@@ -1,0 +1,74 @@
+﻿@model WSafe.Web.Models.MedicalRecomendationVM
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MedicalRecomendationVM</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ExaminationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExaminationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Trabajador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Trabajador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Talla)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Talla)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Peso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Peso)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExaminationType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExaminationType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Recomendations)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Recomendations)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MedicalRecomendation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MedicalRecomendation)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
