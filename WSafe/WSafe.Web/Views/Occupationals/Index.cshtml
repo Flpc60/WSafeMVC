@@ -3,6 +3,8 @@
 @{
     ViewBag.Title = "Index";
     var year = @Session["year"].ToString().Trim();
+    var modelo = Model;
+
 }
 
 <style>
@@ -43,7 +45,16 @@
                 @Html.DisplayNameFor(model => model.ExaminationDate)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Document)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Trabajador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cargo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Talla)
@@ -73,7 +84,16 @@
                     @Html.DisplayFor(modelItem => item.ExaminationDate)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Document)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Trabajador)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cargo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Talla)
@@ -139,15 +159,12 @@
             $('#seguimientosBody').empty();
             var seguimientos = JSON.parse('@Html.Raw(Json.Encode(Model))');
 
-            if (seguimientos && Array.isArray(seguimientos.SigueOccupational)) {
-                var seguimientosArray = seguimientos.SigueOccupational.slice();
+            var seguimientosFiltrados = seguimientos.filter(function(detalle) {
+                return detalle.ID == occupationalId;
+            });
 
-                if (!seguimientosArray.length) {
-                    console.log("Elemento no encontrado para ID:" + occupationalId);
-                    return;
-                }
-
-                console.log("Elemento a iterar:", seguimientosArray);
+            if (seguimientosFiltrados.length > 0 && Array.isArray(seguimientosFiltrados[0].SigueOccupational)) {
+                var seguimientosArray = seguimientosFiltrados[0].SigueOccupational;
 
                 for (var j = 0; j < seguimientosArray.length; j++) {
                     var detalle = seguimientosArray[j];
@@ -170,10 +187,9 @@
 
                 $('.tabSigueOccupational').css('display', 'block');
             } else {
-                console.log("SigueOccupational no es un array o no está definido.");
+                console.log("SigueOccupational no es un array o no está definido o los IDs no coinciden.");
             }
         }
-
         function ocultarSeguimientos() {
             // Oculta la tabla de seguimientos
             $('.tabSigueOccupational').css('display', 'none');

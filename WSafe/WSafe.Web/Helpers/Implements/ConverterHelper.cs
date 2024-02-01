@@ -2482,13 +2482,18 @@ namespace WSafe.Domain.Helpers.Implements
             foreach (var item in list)
             {
                 var sigueOccupationalList = item.SigueOccupational ?? new List<SigueOccupational>();
+                var trabajador = _empresaContext.Trabajadores.Find(item.TrabajadorID);
+                double talla = item.Talla > 0 ? item.Talla / 100.00 : 0.00;
                 model.Add(new MedicalRecomendationVM
                 {
                     ID = item.ID,
                     ExaminationDate = item.ExaminationDate.ToString("yyyy-MM-dd"),
-                    Trabajador = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto,
-                    Talla = item.Talla,
-                    Peso = item.Peso,
+                    Document = trabajador.Documento,
+                    Trabajador = trabajador.NombreCompleto,
+                    Cargo = _empresaContext.Cargos.Find(trabajador.CargoID).Descripcion,
+                    Age = _gestorHelper.CalculateAge(trabajador.FechaNacimiento).ToString(),
+                    Talla = talla.ToString("F2"),
+                    Peso = item.Peso.ToString("#.##"),
                     ExaminationType = _gestorHelper.GetExaminationType(item.ExaminationType),
                     Recomendations = item.Recomendations,
                     MedicalRecomendation = _gestorHelper.GetMedicalRecomendation(item.MedicalRecomendation),

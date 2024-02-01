@@ -17,9 +17,9 @@ namespace WSafe.Domain.Data.Entities
         [StringLength(500, ErrorMessage = "El campo 'Recomendaciones' no puede tener más de 500 caracteres.")]
         public string Recomendations { get; set; }
         [Range(50, 250, ErrorMessage = "La 'Talla' debe estar entre 50 y 210 centímetros.")]
-        public int Talla { get; set; }
+        public short Talla { get; set; }
         [Range(10, 500, ErrorMessage = "El 'Peso' debe estar entre 10 y 120 kilogramos.")]
-        public int Peso { get; set; }
+        public short Peso { get; set; }
         public ExaminationTypes ExaminationType { get; set; }
         public MedicalRecomendations MedicalRecomendation { get; set; }
         public ICollection<SigueOccupational> SigueOccupational { get; set; }
