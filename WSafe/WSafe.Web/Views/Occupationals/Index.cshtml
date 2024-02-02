@@ -16,6 +16,16 @@
     .centerText {
         text-align: center;
     }
+
+    #trabajador {
+        background-color: forestgreen;
+        color: white;
+        padding: 10px;
+        border: 1px solid #000000;
+        text-align:center;
+        margin:0;
+    }
+
 </style>
 
 <h4 class="centerText">SEGUIMIENTO A EVALUACIONES MÉDICAS OCUPACIONALES: @Session["organization"].ToString().Trim()</h4>
@@ -130,27 +140,35 @@
 </div>
 
 <div class="tabSigueOccupational">
-    <div class="table-responsive" style="background-color: azure; width:100%; margin-right:0px">
-        <table class="table table-bordered">
-            <tr style="background-color:gainsboro; width:auto">
-                <th>
-                    FECHA
-                </th>
-                <th>
-                    RESULTADO
-                </th>
-                <th>
-                    RECOMENDACIONES
-                </th>
-            </tr>
+    <div class="container">
+        <div>
+            <p id="trabajador"></p>
+        </div>
+        <div class="table-responsive" style="background-color: azure; width:100%; margin-right:0px">
+            <table class="table table-bordered">
+                <tr style="background-color:gainsboro; width:auto">
+                    <th>
+                        FECHA
+                    </th>
+                    <th>
+                        RESULTADO
+                    </th>
+                    <th>
+                        RECOMENDACIONES
+                    </th>
+                    <th></th>
+                </tr>
 
-            <tbody id="seguimientosBody"></tbody>
-        </table>
+                <tbody id="seguimientosBody"></tbody>
+            </table>
+        </div>
     </div>
 </div>
 
 @section Scripts
 {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
     <script type="text/javascript">
         $(document).ready(function () {
         });
@@ -165,21 +183,23 @@
 
             if (seguimientosFiltrados.length > 0 && Array.isArray(seguimientosFiltrados[0].SigueOccupational)) {
                 var seguimientosArray = seguimientosFiltrados[0].SigueOccupational;
+                var trabajador = "TRAABAJADOR: " + seguimientosFiltrados[0].Document + " - " + seguimientosFiltrados[0].Trabajador + " - " + seguimientosFiltrados[0].Cargo;
+                document.getElementById("trabajador").innerHTML = trabajador;
 
                 for (var j = 0; j < seguimientosArray.length; j++) {
                     var detalle = seguimientosArray[j];
+                    var sigueDate = moment(detalle.SigueDate);
+                    var formattedDate = sigueDate.format('YYYY-MM-DD');
 
                     $('#seguimientosBody').append(`
                         <tr>
-                            <td>${detalle.SigueDate}</td>
+                            <td>${formattedDate}</td>
                             <td>${detalle.Resultado}</td>
                             <td>${detalle.Recomendations}</td>
                             <td style="margin:initial; background-color:deepskyblue; text-align:left">
-                                <div style="width: 100px; height: 30px;">
-                                    <a href="#" title="Cerrar" onclick="ocultarSeguimientos();">
-                                        <span class="glyphicon glyphicon-folder-close"></span>
-                                    </a>
-                                </div>
+                                <a href="#" title="Cerrar" onclick="ocultarSeguimientos();">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </a>
                             </td>
                         </tr>
                     `);
