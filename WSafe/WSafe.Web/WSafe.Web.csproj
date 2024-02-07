@@ -501,25 +501,9 @@
     <Compile Include="Helpers\Implements\ConverterHelper.cs" />
     <Compile Include="Helpers\Implements\GestorHelper.cs" />
     <Compile Include="Helpers\Implements\IndicadorHelper.cs" />
-    <Compile Include="Migrations\202401100043142_UpdLocalDB.cs" />
-    <Compile Include="Migrations\202401100043142_UpdLocalDB.designer.cs">
-      <DependentUpon>202401100043142_UpdLocalDB.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202401302121447_CrtOccupational.cs" />
-    <Compile Include="Migrations\202401302121447_CrtOccupational.designer.cs">
-      <DependentUpon>202401302121447_CrtOccupational.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202401302352586_UpdOccupational.cs" />
-    <Compile Include="Migrations\202401302352586_UpdOccupational.designer.cs">
-      <DependentUpon>202401302352586_UpdOccupational.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202401310025119_UpdOccupational1.cs" />
-    <Compile Include="Migrations\202401310025119_UpdOccupational1.designer.cs">
-      <DependentUpon>202401310025119_UpdOccupational1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202402011810545_UpdOccupational2.cs" />
-    <Compile Include="Migrations\202402011810545_UpdOccupational2.designer.cs">
-      <DependentUpon>202402011810545_UpdOccupational2.cs</DependentUpon>
+    <Compile Include="Migrations\202402070002407_UpdRemoteDB.cs" />
+    <Compile Include="Migrations\202402070002407_UpdRemoteDB.designer.cs">
+      <DependentUpon>202402070002407_UpdRemoteDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
@@ -1273,20 +1257,8 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202401100043142_UpdLocalDB.resx">
-      <DependentUpon>202401100043142_UpdLocalDB.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202401302121447_CrtOccupational.resx">
-      <DependentUpon>202401302121447_CrtOccupational.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202401302352586_UpdOccupational.resx">
-      <DependentUpon>202401302352586_UpdOccupational.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202401310025119_UpdOccupational1.resx">
-      <DependentUpon>202401310025119_UpdOccupational1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202402011810545_UpdOccupational2.resx">
-      <DependentUpon>202402011810545_UpdOccupational2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202402070002407_UpdRemoteDB.resx">
+      <DependentUpon>202402070002407_UpdRemoteDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

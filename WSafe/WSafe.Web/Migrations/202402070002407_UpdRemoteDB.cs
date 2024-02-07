@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class CrtOccupational : DbMigration
+    public partial class UpdRemoteDB : DbMigration
     {
         public override void Up()
         {
@@ -12,13 +12,34 @@
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
-                        ExaminationDate = c.DateTime(nullable: false),
+                        ExaminationDate = c.String(),
                         Trabajador = c.String(),
-                        Talla = c.Int(nullable: false),
-                        Peso = c.Int(nullable: false),
+                        Talla = c.String(),
+                        Peso = c.String(),
                         ExaminationType = c.String(),
                         Recomendations = c.String(),
                         MedicalRecomendation = c.String(),
+                        Document = c.String(),
+                        Age = c.String(),
+                        Cargo = c.String(),
+                    })
+                .PrimaryKey(t => t.ID);
+            
+            CreateTable(
+                "dbo.Occupationals",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        ExaminationDate = c.DateTime(nullable: false),
+                        TrabajadorID = c.Int(nullable: false),
+                        Recomendations = c.String(maxLength: 500),
+                        Talla = c.Short(nullable: false),
+                        Peso = c.Short(nullable: false),
+                        ExaminationType = c.Int(nullable: false),
+                        MedicalRecomendation = c.Int(nullable: false),
+                        OrganizationID = c.Int(nullable: false),
+                        ClientID = c.Int(nullable: false),
+                        UserID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);
             
@@ -35,42 +56,19 @@
                         OrganizationID = c.Int(nullable: false),
                         ClientID = c.Int(nullable: false),
                         UserID = c.Int(nullable: false),
-                        MedicalRecomendationVM_ID = c.Int(),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.MedicalRecomendationVMs", t => t.MedicalRecomendationVM_ID)
                 .ForeignKey("dbo.Occupationals", t => t.OccupationalID, cascadeDelete: true)
-                .Index(t => t.OccupationalID)
-                .Index(t => t.MedicalRecomendationVM_ID);
-            
-            CreateTable(
-                "dbo.Occupationals",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        ExaminationDate = c.DateTime(nullable: false),
-                        TrabajadorID = c.Int(nullable: false),
-                        Recomendations = c.String(maxLength: 500),
-                        Talla = c.Int(nullable: false),
-                        Peso = c.Int(nullable: false),
-                        ExaminationType = c.Int(nullable: false),
-                        MedicalRecomendation = c.Int(nullable: false),
-                        OrganizationID = c.Int(nullable: false),
-                        ClientID = c.Int(nullable: false),
-                        UserID = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID);
+                .Index(t => t.OccupationalID);
             
         }
         
         public override void Down()
         {
             DropForeignKey("dbo.SigueOccupationals", "OccupationalID", "dbo.Occupationals");
-            DropForeignKey("dbo.SigueOccupationals", "MedicalRecomendationVM_ID", "dbo.MedicalRecomendationVMs");
-            DropIndex("dbo.SigueOccupationals", new[] { "MedicalRecomendationVM_ID" });
             DropIndex("dbo.SigueOccupationals", new[] { "OccupationalID" });
-            DropTable("dbo.Occupationals");
             DropTable("dbo.SigueOccupationals");
+            DropTable("dbo.Occupationals");
             DropTable("dbo.MedicalRecomendationVMs");
         }
     }
