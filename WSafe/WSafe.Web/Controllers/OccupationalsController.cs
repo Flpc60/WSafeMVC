@@ -13,6 +13,7 @@ using WSafe.Domain.Services.Implements;
 using WSafe.Domain.Repositories.Implements;
 using System.IO;
 using WSafe.Domain.Data.Entities;
+using System.IdentityModel.Metadata;
 
 namespace WSafe.Web.Controllers
 {
@@ -143,64 +144,81 @@ namespace WSafe.Web.Controllers
             return View(model);
         }
 
-/*
-        // GET: Occupationals/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
+                Occupational occupational = await _empresaContext.Occupationals.FindAsync(id);
+                var model = _converterHelper.ToUpdateOccupationalVM(occupational, _orgID);
+                ViewBag.guardar = true;
+
+                return View(model);
             }
-            MedicalRecomendationVM medicalRecomendationVM = await db.MedicalRecomendationVMs.FindAsync(id);
-            if (medicalRecomendationVM == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+                return View("Error", new HandleErrorInfo(ex, "Occupationals", "Index"));
             }
-            return View(medicalRecomendationVM);
         }
 
-        // POST: Occupationals/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,ExaminationDate,Trabajador,Talla,Peso,ExaminationType,Recomendations,MedicalRecomendation")] MedicalRecomendationVM medicalRecomendationVM)
+        public async Task<ActionResult> Edit([Bind(Include = "ID, ExaminationDate, TrabajadorID, Workers, Talla, Peso, ExaminationType, Recomendations, MedicalRecomendation, SigueOccupational, OrganizationID, ClientID, UserID, FileName")] CreateOccupationalVM model, HttpPostedFileBase fileLoad)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(medicalRecomendationVM).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    Occupational occupational = await _converterHelper.ToOccupationalAsync(model, false);
+                    _empresaContext.Entry(occupational).State = EntityState.Modified;
+                    await _empresaContext.SaveChangesAsync();
+                    _orgID = (int)Session["orgID"];
+                    model.Workers = _comboHelper.GetWorkersFull(_orgID);
+                    ViewBag.guardar = false;
+                    return View(model);
+                }
             }
-            return View(medicalRecomendationVM);
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Occupationals", "Index"));
+            }
+
+            _orgID = model.OrganizationID;
+            model.Workers = _comboHelper.GetWorkersFull(_orgID);
+            ViewBag.message = "Faltan campos por diligenciar del formulario !!";
+            ViewBag.guardar = true;
+
+            return View(model);
         }
 
-        // GET: Occupationals/Delete/5
-        public async Task<ActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            MedicalRecomendationVM medicalRecomendationVM = await db.MedicalRecomendationVMs.FindAsync(id);
-            if (medicalRecomendationVM == null)
-            {
-                return HttpNotFound();
-            }
-            return View(medicalRecomendationVM);
-        }
+/*
+                // GET: Occupationals/Delete/5
+                public async Task<ActionResult> Delete(int? id)
+                {
+                    if (id == null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+                    MedicalRecomendationVM medicalRecomendationVM = await db.MedicalRecomendationVMs.FindAsync(id);
+                    if (medicalRecomendationVM == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    return View(medicalRecomendationVM);
+                }
 
-        // POST: Occupationals/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
-        {
-            MedicalRecomendationVM medicalRecomendationVM = await db.MedicalRecomendationVMs.FindAsync(id);
-            db.MedicalRecomendationVMs.Remove(medicalRecomendationVM);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
-*/
+                // POST: Occupationals/Delete/5
+                [HttpPost, ActionName("Delete")]
+                [ValidateAntiForgeryToken]
+                public async Task<ActionResult> DeleteConfirmed(int id)
+                {
+                    MedicalRecomendationVM medicalRecomendationVM = await db.MedicalRecomendationVMs.FindAsync(id);
+                    db.MedicalRecomendationVMs.Remove(medicalRecomendationVM);
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+        */
         protected override void Dispose(bool disposing)
         {
             if (disposing)

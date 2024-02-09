@@ -505,6 +505,10 @@
     <Compile Include="Migrations\202402092059181_UpdOrganization.designer.cs">
       <DependentUpon>202402092059181_UpdOrganization.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202402092302417_UpdOccupational.cs" />
+    <Compile Include="Migrations\202402092302417_UpdOccupational.designer.cs">
+      <DependentUpon>202402092302417_UpdOccupational.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -1260,6 +1264,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202402092059181_UpdOrganization.resx">
       <DependentUpon>202402092059181_UpdOrganization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202402092302417_UpdOccupational.resx">
+      <DependentUpon>202402092302417_UpdOccupational.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
