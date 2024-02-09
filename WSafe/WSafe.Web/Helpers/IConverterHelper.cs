@@ -77,5 +77,6 @@ namespace WSafe.Domain.Helpers
         IEnumerable<MedicalRecomendationVM> ToMedicalRecomendationVM(IEnumerable<Occupational> list);
         CreateOccupationalVM ToCreateOccupationalVM(int org);
         Task<Occupational> ToOccupationalAsync(CreateOccupationalVM model, bool isNew);
+        CreateOccupationalVM ToUpdateOccupationalVM(Occupational model, int org);
     }   
 }

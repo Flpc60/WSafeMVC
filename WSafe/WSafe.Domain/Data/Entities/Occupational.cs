@@ -29,7 +29,6 @@ namespace WSafe.Domain.Data.Entities
         public int ClientID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int UserID { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [MaxLength(200)]
         public string FileName { get; set; }
     }
