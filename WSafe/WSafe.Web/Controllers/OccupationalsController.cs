@@ -9,6 +9,10 @@ using System.Web;
 using System.Web.Mvc;
 using WSafe.Web.Models;
 using WSafe.Domain.Helpers;
+using WSafe.Domain.Services.Implements;
+using WSafe.Domain.Repositories.Implements;
+using System.IO;
+using WSafe.Domain.Data.Entities;
 
 namespace WSafe.Web.Controllers
 {
@@ -56,46 +60,90 @@ namespace WSafe.Web.Controllers
                 return View("Error", new HandleErrorInfo(ex, "Occupationals", "Index"));
             }
         }
-
-/*
-        // GET: Occupationals/Details/5
-        public async Task<ActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            MedicalRecomendationVM medicalRecomendationVM = await db.MedicalRecomendationVMs.FindAsync(id);
-            if (medicalRecomendationVM == null)
-            {
-                return HttpNotFound();
-            }
-            return View(medicalRecomendationVM);
-        }
-
-        // GET: Occupationals/Create
         public ActionResult Create()
         {
-            return View();
+            _orgID = (int)Session["orgID"];
+            var model = _converterHelper.ToCreateOccupationalVM(_orgID);
+            return View(model);
         }
 
-        // POST: Occupationals/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,ExaminationDate,Trabajador,Talla,Peso,ExaminationType,Recomendations,MedicalRecomendation")] MedicalRecomendationVM medicalRecomendationVM)
+        public async Task<ActionResult> Create([Bind(Include = "ID,ExaminationDate,TrabajadorID,Workers, Talla,Peso,ExaminationType,Recomendations,MedicalRecomendation,SigueOccupational,OrganizationID,ClientID,UserID, FileName")] CreateOccupationalVM model, HttpPostedFileBase fileLoad)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.MedicalRecomendationVMs.Add(medicalRecomendationVM);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
+                _path = (string)Session["path"];
+                model.ClientID = (int)Session["clientID"];
+                model.OrganizationID = (int)Session["orgID"];
+                model.UserID = (int)Session["userID"];
+                model.Workers = _comboHelper.GetWorkersFull(_orgID);
+                if (fileLoad != null)
+                {
+                    var url = $"{_path}/2. HACER/3.1.4/{fileLoad.FileName}";
+                    model.FileName = url.Substring(1);
+                }
+                if (ModelState.IsValid)
+                {
+                    var organization = _empresaContext.Organizations.Find(_orgID);
+                    var normaID = organization.StandardOccupational;
+                    var item = _empresaContext.Normas.Find(normaID).Item;
+                    var fullPath = $"{_path}/2. HACER/{item}/";
+                    var path = Server.MapPath(fullPath);
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    fileLoad.SaveAs(path + Path.GetFileName(fileLoad.FileName));
+                    var fullName = fileLoad.FileName;
+                    var type = Path.GetExtension(fileLoad.FileName).ToUpper();
+
+                    //Generar archivo de movimiento
+                    var descript = "Evaluaciones médicas ocupacionales";
+                    var userID = (int)Session["userID"];
+                    Movimient movimient = new Movimient()
+                    {
+                        ID = 0,
+                        OrganizationID = _orgID,
+                        NormaID = normaID,
+                        UserID = userID,
+                        Descripcion = descript,
+                        Document = fileLoad.FileName,
+                        Year = _year,
+                        Item = item,
+                        Ciclo = "H",
+                        Type = type,
+                        Path = path,
+                        ClientID = _clientID
+                    };
+
+                    _empresaContext.Movimientos.Add(movimient);
+                    _empresaContext.SaveChanges();
+
+                    var consulta = new OccupationalService(new OccupationalRepository(_empresaContext));
+                    var occupational = await _converterHelper.ToOccupationalAsync(model, true);
+                    var saved = await consulta.Insert(occupational);
+                    if (saved != null)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Occupationals", "Index"));
             }
 
-            return View(medicalRecomendationVM);
+            ViewBag.message = "Faltan campos por diligenciar del formulario !!";
+
+            return View(model);
         }
 
+/*
         // GET: Occupationals/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {

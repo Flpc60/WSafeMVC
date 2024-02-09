@@ -21,10 +21,10 @@ namespace WSafe.Web.Models
         public IEnumerable<SelectListItem> Workers { get; set; }
         [Range(50, 250, ErrorMessage = "La 'Talla' debe estar entre 50 y 210 centímetros.")]
         [Display(Name = "TALLA")]
-        public int Talla { get; set; }
+        public short Talla { get; set; }
         [Range(10, 500, ErrorMessage = "El 'Peso' debe estar entre 10 y 120 kilogramos.")]
         [Display(Name = "PESO")]
-        public int Peso { get; set; }
+        public short Peso { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "TIPO EXÁMEN")]
         public ExaminationTypes ExaminationType { get; set; }
@@ -41,5 +41,9 @@ namespace WSafe.Web.Models
         public int ClientID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int UserID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "SUBIR EVIENCIA")]
+        [MaxLength(200)]
+        public string FileName { get; set; }
     }
 }
