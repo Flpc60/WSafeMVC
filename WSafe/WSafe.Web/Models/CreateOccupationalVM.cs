@@ -41,7 +41,6 @@ namespace WSafe.Web.Models
         public int ClientID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int UserID { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "SUBIR EVIENCIA")]
         [MaxLength(200)]
         public string FileName { get; set; }
