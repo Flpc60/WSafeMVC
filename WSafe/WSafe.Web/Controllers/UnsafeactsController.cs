@@ -15,7 +15,7 @@ namespace WSafe.Web.Controllers
 {
     public class UnsafeactsController : Controller
     {
-        // Gestión de actos inseguros
+        // Gestión de actos inseguros...
         private int _clientID;
         private int _orgID;
         private string _year;

@@ -24,7 +24,7 @@ namespace WSafe.Web.Models
         public IEnumerable<SigueOccupational> SigueOccupational { get; set; }
         [Display(Name = "DOCUMENTO")]
         public string Document { get; set; }
-        [Display(Name = "EDAD")]
+        [Display(Name = "EDAD (Años)")]
         public string Age { get; set; }
         [Display(Name = "OCUPACIÓN")]
         public string Cargo { get; set; }

@@ -102,5 +102,7 @@ namespace WSafe.Web.Models
         public System.Data.Entity.DbSet<WSafe.Web.Models.CreatePlanActivityVM> CreatePlanActivityVMs { get; set; }
 
         public System.Data.Entity.DbSet<WSafe.Web.Models.MedicalRecomendationVM> MedicalRecomendationVMs { get; set; }
+
+        public System.Data.Entity.DbSet<WSafe.Web.Models.CreateOccupationalVM> CreateOccupationalVMs { get; set; }
     }
 }

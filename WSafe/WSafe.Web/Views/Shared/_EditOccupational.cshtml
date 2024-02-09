@@ -1,0 +1,109 @@
+﻿@model WSafe.Web.Models.CreateOccupationalVM
+
+<div class="container" style="background-color:azure; padding:20px;">
+    <hr class="mt-4">
+    <h4 style="text-align:center"><strong>REGISTRAR EXÁMEN MEDICO OCUPACIONAL</strong></h4>
+    <hr class="mt-4">
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ExaminationDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.ExaminationDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ExaminationDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="form-group">
+                @Html.LabelFor(model => model.TrabajadorID, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-8 col-sm-10">
+                    @Html.DropDownListFor(model => model.TrabajadorID, Model.Workers, new { @class = "form-control", @id = "workerID" })
+                    @Html.ValidationMessageFor(model => model.TrabajadorID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Talla, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.Talla, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Talla, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Peso, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.Peso, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Peso, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ExaminationType, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-6">
+                    @Html.EnumDropDownListFor(model => model.ExaminationType, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ExaminationType, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Recomendations, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Recomendations, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Recomendations, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.MedicalRecomendation, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-4">
+                    @Html.EnumDropDownListFor(model => model.MedicalRecomendation, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.MedicalRecomendation, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.FileName, htmlAttributes: new { @class = "control-label col-md-5" })
+                <div class="col-md-10 col-sm-10">
+                    <input type="file" name="fileLoad" id="fileLoad" accept="image/*, video/*">
+                    @Html.ValidationMessageFor(model => model.FileName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="container">
+                    <input type="submit" value="Guardar" class="btn btn-primary" />
+                    <button type="button" id="btnSigue" class="btn btn-success" onclick="ShowAnnualPlan(@Model.ID);">Seguimientos</button>
+                    @Html.ActionLink("Listado evaluaciones", "Index", new { @class = "glyphicon glyphicon-plus" },
+                    new { @class = "btn btn-info" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <p style="color:red;font-size:18px;text-align:center"><strong>@ViewBag.message</strong></p>
+            </div>
+        </div>
+    </div>
+</div>

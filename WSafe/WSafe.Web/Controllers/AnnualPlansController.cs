@@ -18,7 +18,7 @@ namespace WSafe.Web.Controllers
 {
     public class AnnualPlansController : Controller
     {
-        //  Plan de trabajo anual en el SG-SST
+        //  Plan de trabajo anual en el SG-SST...
         private int _clientID;
         private int _orgID;
         private string _year;

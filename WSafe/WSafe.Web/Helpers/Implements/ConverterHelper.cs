@@ -2503,5 +2503,38 @@ namespace WSafe.Domain.Helpers.Implements
 
             return model;
         }
+        public CreateOccupationalVM ToCreateOccupationalVM(int org)
+        {
+            var year = DateTime.Now.Year;
+            var model = new CreateOccupationalVM
+            {
+                Workers = _comboHelper.GetWorkersFull(org),
+                ExaminationDate = new DateTime(year, 1, 2),
+                ExaminationType = ExaminationTypes.Ingreso,
+                MedicalRecomendation = MedicalRecomendations.Ergonómico,
+                SigueOccupational = new List<SigueOccupational>()
+            };
+            return model;
+        }
+        public async Task<Occupational> ToOccupationalAsync(CreateOccupationalVM model, bool isNew)
+        {
+            var result = new Occupational
+            {
+                ID = isNew ? 0 : model.ID,
+                ExaminationDate = Convert.ToDateTime(model.ExaminationDate),
+                TrabajadorID = model.TrabajadorID,
+                Recomendations = model.Recomendations,
+                Talla = model.Talla,
+                Peso = model.Peso,
+                ExaminationType = model.ExaminationType,
+                MedicalRecomendation = model.MedicalRecomendation,
+                SigueOccupational = model.SigueOccupational,
+                OrganizationID = model.OrganizationID,
+                ClientID = model.ClientID,
+                UserID = model.UserID,
+                FileName = model.FileName
+            };
+            return result;
+        }
     }
 }

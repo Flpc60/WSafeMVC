@@ -501,9 +501,9 @@
     <Compile Include="Helpers\Implements\ConverterHelper.cs" />
     <Compile Include="Helpers\Implements\GestorHelper.cs" />
     <Compile Include="Helpers\Implements\IndicadorHelper.cs" />
-    <Compile Include="Migrations\202402070002407_UpdRemoteDB.cs" />
-    <Compile Include="Migrations\202402070002407_UpdRemoteDB.designer.cs">
-      <DependentUpon>202402070002407_UpdRemoteDB.cs</DependentUpon>
+    <Compile Include="Migrations\202402092059181_UpdOrganization.cs" />
+    <Compile Include="Migrations\202402092059181_UpdOrganization.designer.cs">
+      <DependentUpon>202402092059181_UpdOrganization.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
@@ -1002,6 +1002,7 @@
     <Content Include="Views\Occupationals\Details.cshtml" />
     <Content Include="Views\Occupationals\Edit.cshtml" />
     <Content Include="Views\Occupationals\Index.cshtml" />
+    <Content Include="Views\Shared\_EditOccupational.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1257,8 +1258,8 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202402070002407_UpdRemoteDB.resx">
-      <DependentUpon>202402070002407_UpdRemoteDB.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202402092059181_UpdOrganization.resx">
+      <DependentUpon>202402092059181_UpdOrganization.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

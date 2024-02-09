@@ -75,5 +75,7 @@ namespace WSafe.Domain.Helpers
         IEnumerable<AnnualPlanVM> ToAnnualPlanMatriz(IEnumerable<PlanActivity> list);
         SiguePlanAnual Traceability(int normaID, string year, int _orgID, string fullName);
         IEnumerable<MedicalRecomendationVM> ToMedicalRecomendationVM(IEnumerable<Occupational> list);
+        CreateOccupationalVM ToCreateOccupationalVM(int org);
+        Task<Occupational> ToOccupationalAsync(CreateOccupationalVM model, bool isNew);
     }   
 }
