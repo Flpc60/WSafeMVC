@@ -7,7 +7,7 @@
 
 <style>
 
-    .tabAnnualPlan, .tabAddSigue {
+    .tabAnnualPlan, .tabAddSigue, .tabSigueOccupational {
         display: none;
     }
 
@@ -15,9 +15,6 @@
         text-align: center
     }
 
-    .tabAddSigue {
-        display: none;
-    }
 </style>
 
 @using (Html.BeginForm("EDit", "Occupationals", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -65,6 +62,48 @@
                 };
             });
         });
+        function mostrarSeguimientos(occupationalId) {
+            $('#seguimientosBody').empty();
+            var seguimientos = JSON.parse('@Html.Raw(Json.Encode(Model))');
+
+            var seguimientosFiltrados = seguimientos.filter(function (detalle) {
+                return detalle.ID == occupationalId;
+            });
+
+            if (seguimientosFiltrados.length > 0 && Array.isArray(seguimientosFiltrados[0].SigueOccupational)) {
+                var seguimientosArray = seguimientosFiltrados[0].SigueOccupational;
+                var trabajador = "TRAABAJADOR: " + seguimientosFiltrados[0].Document + " - " + seguimientosFiltrados[0].Trabajador + " - " + seguimientosFiltrados[0].Cargo;
+                document.getElementById("trabajador").innerHTML = trabajador;
+
+                for (var j = 0; j < seguimientosArray.length; j++) {
+                    var detalle = seguimientosArray[j];
+                    var sigueDate = moment(detalle.SigueDate);
+                    var formattedDate = sigueDate.format('YYYY-MM-DD');
+
+                    $('#seguimientosBody').append(`
+                                <tr>
+                                    <td>${formattedDate}</td>
+                                    <td>${detalle.Resultado}</td>
+                                    <td>${detalle.Recomendations}</td>
+                                    <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                                        <a href="#" title="Cerrar" onclick="ocultarSeguimientos();">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            `);
+                }
+
+                $('.tabSigueOccupational').css('display', 'block');
+            } else {
+                console.log("SigueOccupational no es un array o no está definido o los IDs no coinciden.");
+            }
+        }
+
+        function ocultarSeguimientos() {
+            // Oculta la tabla de seguimientos
+            $('.tabSigueOccupational').css('display', 'none');
+        }
 
     </script>
 

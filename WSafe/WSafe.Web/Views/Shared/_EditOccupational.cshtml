@@ -91,8 +91,10 @@
             <div class="form-group">
                 <div class="container">
                     <input type="submit" value="Guardar" class="btn btn-primary" />
-                    <button type="button" id="btnSigue" class="btn btn-success" onclick="ShowAnnualPlan(@Model.ID);">Seguimientos</button>
-                    @Html.ActionLink("Listado evaluaciones", "Index", new { @class = "glyphicon glyphicon-plus" },
+                    <button type="button" id="btnSigue" class="btn btn-success" onclick="mostrarSeguimientos('@Model.ID');">
+                        <span class="glyphicon glyphicon-forward"></span>
+                    </button>
+                    @Html.ActionLink("Listar evaluaciones", "Index", new { @class = "glyphicon glyphicon-plus" },
                     new { @class = "btn btn-info" })
                 </div>
             </div>
@@ -104,6 +106,32 @@
             <div class="form-group">
                 <p style="color:red;font-size:18px;text-align:center"><strong>@ViewBag.message</strong></p>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="tabSigueOccupational">
+    <div class="container">
+        <div>
+            <p id="trabajador"></p>
+        </div>
+        <div class="table-responsive" style="background-color: azure; width:100%; margin-right:0px">
+            <table class="table table-bordered">
+                <tr style="background-color:gainsboro; width:auto">
+                    <th>
+                        FECHA
+                    </th>
+                    <th>
+                        RESULTADO
+                    </th>
+                    <th>
+                        RECOMENDACIONES
+                    </th>
+                    <th></th>
+                </tr>
+
+                <tbody id="seguimientosBody"></tbody>
+            </table>
         </div>
     </div>
 </div>
