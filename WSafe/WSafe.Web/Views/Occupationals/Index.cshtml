@@ -30,7 +30,6 @@
 
 <h4 class="centerText">SEGUIMIENTO A EVALUACIONES MÉDICAS OCUPACIONALES: @Session["organization"].ToString().Trim()</h4>
 @Html.Partial("_PageHead")
-
 <div class="container">
     <div class="row justify-content-between">
         <div class="col-md-12">
@@ -177,7 +176,7 @@
             $('#seguimientosBody').empty();
             var seguimientos = JSON.parse('@Html.Raw(Json.Encode(Model))');
 
-            var seguimientosFiltrados = seguimientos.filter(function(detalle) {
+            var seguimientosFiltrados = seguimientos.filter(function (detalle) {
                 return detalle.ID == occupationalId;
             });
 
@@ -192,17 +191,17 @@
                     var formattedDate = sigueDate.format('YYYY-MM-DD');
 
                     $('#seguimientosBody').append(`
-                        <tr>
-                            <td>${formattedDate}</td>
-                            <td>${detalle.Resultado}</td>
-                            <td>${detalle.Recomendations}</td>
-                            <td style="margin:initial; background-color:deepskyblue; text-align:left">
-                                <a href="#" title="Cerrar" onclick="ocultarSeguimientos();">
-                                    <span class="glyphicon glyphicon-remove"></span>
-                                </a>
-                            </td>
-                        </tr>
-                    `);
+                                <tr>
+                                    <td>${formattedDate}</td>
+                                    <td>${detalle.Resultado}</td>
+                                    <td>${detalle.Recomendations}</td>
+                                    <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                                        <a href="#" title="Cerrar" onclick="ocultarSeguimientos();">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            `);
                 }
 
                 $('.tabSigueOccupational').css('display', 'block');
@@ -210,6 +209,7 @@
                 console.log("SigueOccupational no es un array o no está definido o los IDs no coinciden.");
             }
         }
+
         function ocultarSeguimientos() {
             // Oculta la tabla de seguimientos
             $('.tabSigueOccupational').css('display', 'none');
