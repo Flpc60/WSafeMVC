@@ -2003,3 +2003,39 @@ function ShowSigueOccupationals(id) {
     });
 }
 
+
+function getSigueOccupational(id) {
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: "/Occupationals/UpdateSigueOccupational",
+        data: {
+            id: id
+        },
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        success: function (response) {
+            var sigueDate = moment(item.SigueDate);
+            var formattedDate = sigueDate.format('YYYY-MM-DD');
+
+            $("#dateSigue").val(sigueDate);
+            $("#workerID").val(response.TrabajadorID);
+            $("#stateActivity").val(response.StateActivity);
+            $("#stateCronogram").val(response.StateCronogram);
+            $("#programed").val(response.Programed);
+            $("#executed").val(response.Executed);
+            $("#fileName").val(response.fileName);
+            $("#observation").val(response.Observation);
+            $("#actionCategory").val(response.ActionCategory);
+            $("#siguePlanID").val(response.ID);
+            $("#btnAddTraceability").hide();
+            $("#btnUpdTraceability").show();
+            $("#btnCanTraceability").show();
+            $(".tabAddSigue").css("display", "block");
+            $("#dateSigue").focus();
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
