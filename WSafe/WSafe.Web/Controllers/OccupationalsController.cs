@@ -192,33 +192,62 @@ namespace WSafe.Web.Controllers
             return View(model);
         }
 
-/*
-                // GET: Occupationals/Delete/5
-                public async Task<ActionResult> Delete(int? id)
-                {
-                    if (id == null)
+        [HttpGet]
+        public ActionResult GetSigueOccupationals(int id)
+        {
+            try
+            {
+                var list =
+                    from s in _empresaContext.SigueOccupationals
+                    where (s.OccupationalID == id)
+                    orderby s.SigueDate
+                    select new
                     {
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                    }
-                    MedicalRecomendationVM medicalRecomendationVM = await db.MedicalRecomendationVMs.FindAsync(id);
-                    if (medicalRecomendationVM == null)
-                    {
-                        return HttpNotFound();
-                    }
-                    return View(medicalRecomendationVM);
-                }
+                        ID = s.ID,
+                        OccupationalID = s.OccupationalID,
+                        DateSigue = s.SigueDate,
+                        Resultado = s.Resultado,
+                        Recomendations = s.Recomendations,
+                        TrabajadorID = s.TrabajadorID
+                    };
 
-                // POST: Occupationals/Delete/5
-                [HttpPost, ActionName("Delete")]
-                [ValidateAntiForgeryToken]
-                public async Task<ActionResult> DeleteConfirmed(int id)
-                {
-                    MedicalRecomendationVM medicalRecomendationVM = await db.MedicalRecomendationVMs.FindAsync(id);
-                    db.MedicalRecomendationVMs.Remove(medicalRecomendationVM);
-                    await db.SaveChangesAsync();
-                    return RedirectToAction("Index");
-                }
-        */
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+
+                var message = "La conslta NO se ha realizado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        /*
+                        // GET: Occupationals/Delete/5
+                        public async Task<ActionResult> Delete(int? id)
+                        {
+                            if (id == null)
+                            {
+                                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                            }
+                            MedicalRecomendationVM medicalRecomendationVM = await db.MedicalRecomendationVMs.FindAsync(id);
+                            if (medicalRecomendationVM == null)
+                            {
+                                return HttpNotFound();
+                            }
+                            return View(medicalRecomendationVM);
+                        }
+
+                        // POST: Occupationals/Delete/5
+                        [HttpPost, ActionName("Delete")]
+                        [ValidateAntiForgeryToken]
+                        public async Task<ActionResult> DeleteConfirmed(int id)
+                        {
+                            MedicalRecomendationVM medicalRecomendationVM = await db.MedicalRecomendationVMs.FindAsync(id);
+                            db.MedicalRecomendationVMs.Remove(medicalRecomendationVM);
+                            await db.SaveChangesAsync();
+                            return RedirectToAction("Index");
+                        }
+                */
         protected override void Dispose(bool disposing)
         {
             if (disposing)

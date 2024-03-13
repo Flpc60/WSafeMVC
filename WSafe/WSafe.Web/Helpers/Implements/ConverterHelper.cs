@@ -2538,6 +2538,8 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public CreateOccupationalVM ToUpdateOccupationalVM(Occupational model, int org)
         {
+            var sigue = _empresaContext.SigueOccupationals.Where(s => s.OccupationalID == model.ID).ToList();
+
             var result = new CreateOccupationalVM
             {
                 ID = model.ID,
@@ -2549,7 +2551,7 @@ namespace WSafe.Domain.Helpers.Implements
                 ExaminationType = model.ExaminationType,
                 Workers = _comboHelper.GetWorkersFull(org),
                 MedicalRecomendation = model.MedicalRecomendation, 
-                SigueOccupational = model.SigueOccupational,
+                SigueOccupational = sigue,
                 OrganizationID = model.OrganizationID,
                 ClientID = model.ClientID,
                 UserID = model.UserID,
