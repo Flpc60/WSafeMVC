@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var id = Model.ID;
 }
 
 <style>
@@ -62,6 +63,7 @@
                 };
             });
         });
+
         function mostrarSeguimientos(occupationalId) {
             $('#seguimientosBody').empty();
             var seguimientos = JSON.parse('@Html.Raw(Json.Encode(Model))');

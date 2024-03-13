@@ -1967,3 +1967,38 @@ function logout() {
         }
     });
 }
+
+function ShowSigueOccupationals(id) {
+    // Mostrar todos las actividades
+    $('#btnSigue').hide();
+    $.ajax({
+        url: "/AnnualPlans/GetSigueOccupationals",
+        data: { id: id },
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (response) {
+            var html = '';
+            response.forEach(function (item, index) {
+                var sigueDate = moment(item.SigueDate);
+                html += '<tr>';
+                html += '<td style="white-space: nowrap;">' + item.SigueDate + '</td>';
+                html += '<td>' + item.Resultado + '</td>';
+                html += '<td>' + item.Recomendations + '</td>';
+                html +=
+                    '<td><a href="#" onclick="return getSigueOccupational(' + item.ID + ')">Editar</a> | <a href = "#" onclick = "DeleteSigueOccupational(' + item.ID + ')"> Borrar</a></td>';
+                html += '<hr />';
+                html += '</tr>';
+            });
+            $('.seguimientosBody').html(html);
+            $('.seguimientosBody').focus();
+            $('.tabSigueOccupational').css("display", "block");
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+

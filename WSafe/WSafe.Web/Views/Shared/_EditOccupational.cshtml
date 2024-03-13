@@ -1,5 +1,16 @@
 ﻿@model WSafe.Web.Models.CreateOccupationalVM
 
+@{
+    var id = Model.ID;
+}
+
+<style>
+    .tabSigueOccupational {
+        display: none;
+    }
+
+</style>
+
 <div class="container" style="background-color:azure; padding:20px;">
     <hr class="mt-4">
     <h4 style="text-align:center"><strong>REGISTRAR EXÁMEN MEDICO OCUPACIONAL</strong></h4>
@@ -91,7 +102,7 @@
             <div class="form-group">
                 <div class="container">
                     <input type="submit" value="Guardar" class="btn btn-primary" />
-                    <button type="button" id="btnSigue" class="btn btn-success" onclick="mostrarSeguimientos('@Model.ID');">
+                    <button type="button" id="btnSigue" class="btn btn-success" onclick="ShowSigueOccupationals(@Model.ID);">
                         <span class="glyphicon glyphicon-forward"></span>
                     </button>
                     @Html.ActionLink("Listar evaluaciones", "Index", new { @class = "glyphicon glyphicon-plus" },
@@ -130,8 +141,64 @@
                     <th></th>
                 </tr>
 
-                <tbody id="seguimientosBody"></tbody>
+                <tbody class="seguimientosBody"></tbody>
             </table>
         </div>
     </div>
 </div>
+
+
+@section Scripts
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+        });
+
+        function mostrarSeguimientos(occupationalId) {
+            console.log(occupationalId);
+            $('#seguimientosBody').empty();
+            var seguimientos = JSON.parse('@Html.Raw(Json.Encode(Model))');
+
+            var seguimientosFiltrados = seguimientos.filter(function (detalle) {
+                return detalle.ID == occupationalId;
+            });
+
+            if (seguimientosFiltrados.length > 0 && Array.isArray(seguimientosFiltrados[0].SigueOccupational)) {
+                var seguimientosArray = seguimientosFiltrados[0].SigueOccupational;
+                var trabajador = "TRAABAJADOR: " + seguimientosFiltrados[0].Document + " - " + seguimientosFiltrados[0].Trabajador + " - " + seguimientosFiltrados[0].Cargo;
+                document.getElementById("trabajador").innerHTML = trabajador;
+
+                for (var j = 0; j < seguimientosArray.length; j++) {
+                    var detalle = seguimientosArray[j];
+                    var sigueDate = moment(detalle.SigueDate);
+                    var formattedDate = sigueDate.format('YYYY-MM-DD');
+
+                    $('#seguimientosBody').append(`
+                                <tr>
+                                    <td>${formattedDate}</td>
+                                    <td>${detalle.Resultado}</td>
+                                    <td>${detalle.Recomendations}</td>
+                                    <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                                        <a href="#" title="Cerrar" onclick="ocultarSeguimientos();">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            `);
+                }
+
+                $('.tabSigueOccupational').css('display', 'block');
+            } else {
+                console.log("SigueOccupational no es un array o no está definido o los IDs no coinciden.");
+            }
+        }
+
+        function ocultarSeguimientos() {
+            // Oculta la tabla de seguimientos
+            $('.tabSigueOccupational').css('display', 'none');
+        }
+
+    </script>
+}
