@@ -14,6 +14,7 @@ using WSafe.Domain.Repositories.Implements;
 using System.IO;
 using WSafe.Domain.Data.Entities;
 using System.IdentityModel.Metadata;
+using WSafe.Web.Data.Entities;
 
 namespace WSafe.Web.Controllers
 {
@@ -219,6 +220,77 @@ namespace WSafe.Web.Controllers
                 var message = "La conslta NO se ha realizado correctamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> UpdateSigueOccupational(int id)
+        {
+            _orgID = (int)Session["orgID"];
+            _year = (string)Session["year"];
+
+            SigueOccupational model = await _empresaContext.SigueOccupationals.FindAsync(id);
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UpdateSiguePlanAnual(SiguePlanAnual model)
+        {
+            var message = "";
+            try
+            {
+                model.ClientID = (int)Session["clientID"];
+                model.OrganizationID = (int)Session["orgID"];
+                model.UserID = (int)Session["userID"];
+
+                _empresaContext.Entry(model).State = EntityState.Modified;
+                await _empresaContext.SaveChangesAsync();
+                message = "La actualización se ha realizado exitosamente !!";
+                return Json(new { data = model.PlanActivityID, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                message = "La actualización NO se ha realizado exitosamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public async Task<ActionResult> DeleteSiguePlanAnual(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            _orgID = (int)Session["orgID"];
+            _year = (string)Session["year"];
+
+            SiguePlanAnual siquePlan = await _empresaContext.SigueAnnualPlans.FindAsync(id);
+            var model = _converterHelper.ToUpdateSiguePlanAnual(siquePlan, _orgID);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteSiguePlanAnual(int id)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    SiguePlanAnual siquePlan = await _empresaContext.SigueAnnualPlans.FindAsync(id);
+                    _empresaContext.SigueAnnualPlans.Remove(siquePlan);
+                    await _empresaContext.SaveChangesAsync();
+                    var message = "La actualización se ha realizado exitosamente !!";
+                    return Json(new { data = siquePlan.PlanActivityID, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                var message = "La actualización NO se ha realizado exitosamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+            return RedirectToAction("Index");
         }
 
         /*
