@@ -2003,7 +2003,6 @@ function ShowSigueOccupationals(id) {
     });
 }
 
-
 function getSigueOccupational(id) {
     $.ajax({
         async: true,
