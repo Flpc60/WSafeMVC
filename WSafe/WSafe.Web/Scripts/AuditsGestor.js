@@ -1972,7 +1972,7 @@ function ShowSigueOccupationals(id) {
     // Mostrar todos las actividades
     $('#btnSigue').hide();
     $.ajax({
-        url: "/AnnualPlans/GetSigueOccupationals",
+        url: "/Occupationals/GetSigueOccupationals",
         data: { id: id },
         type: "GET",
         contentType: "application/json;charset=utf-8",
@@ -1982,8 +1982,9 @@ function ShowSigueOccupationals(id) {
             var html = '';
             response.forEach(function (item, index) {
                 var sigueDate = moment(item.SigueDate);
+                var formattedDate = sigueDate.format('YYYY-MM-DD');
                 html += '<tr>';
-                html += '<td style="white-space: nowrap;">' + item.SigueDate + '</td>';
+                html += '<td style="white-space: nowrap;">' + formattedDate + '</td>';
                 html += '<td>' + item.Resultado + '</td>';
                 html += '<td>' + item.Recomendations + '</td>';
                 html +=
