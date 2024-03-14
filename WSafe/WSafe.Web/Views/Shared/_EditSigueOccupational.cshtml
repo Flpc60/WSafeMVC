@@ -1,104 +1,33 @@
-﻿@model WSafe.Web.Models.CreatePlanActivityVM
-
-@{
-    var activity = (Model.Activity != null) ? Model.Activity.ToUpper() : string.Empty;
-    var dateSigue = Model.DateSigue;
-    var dateControl = Model.FechaFinal.ToString("yyyy-MM-dd");
-    var filelName = Model.FileName;
-}
-
+﻿<input type="hidden" id="sigueOccupationalID" name="sigueOccupationalID" />
 <div class="container" style="background-color:floralwhite">
     <hr />
     <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label for="dateSigue" class="form-control">FECHA</label>
-                <div class="col-md-5 col-sm-10">
-                    <input type="hidden" class="form-control" id="dateControl" value="@dateControl" required>
-                    <input type="date" class="form-control" id="dateSigue" value="@dateSigue" required>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-8">
-            <div class="form-group">
-                @Html.LabelFor(model => model.TrabajadorID, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10 col-sm-10">
-                    @Html.DropDownListFor(model => model.TrabajadorID, Model.Workers, new { @class = "form-control", @id = "sigueWorkerID" })
-                    @Html.ValidationMessageFor(model => model.TrabajadorID, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3">
-            <div class="form-group">
-                @Html.LabelFor(model => model.StateActivity, htmlAttributes: new { @class = "control-label col-md-3" })
-                <div class="col-md-6 col-sm-10">
-                    @Html.EnumDropDownListFor(model => model.StateActivity, htmlAttributes: new { @class = "form-control", @id = "stateActivity" })
-                    @Html.ValidationMessageFor(model => model.StateActivity, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="form-group">
-                @Html.LabelFor(model => model.StateCronogram, htmlAttributes: new { @class = "control-label col-md-5" })
-                <div class="col-md-6 col-sm-10">
-                    @Html.EnumDropDownListFor(model => model.StateCronogram, htmlAttributes: new { @class = "form-control", @id = "stateCronogram" })
-                    @Html.ValidationMessageFor(model => model.StateCronogram, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="form-group">
-                @Html.LabelFor(model => model.Programed, htmlAttributes: new { @class = "control-label col-md-5" })
-                <div class="col-md-4 col-sm-10">
-                    @Html.EditorFor(model => model.Programed, new { htmlAttributes = new { @class = "form-control", @id = "programed"} })
-                    @Html.ValidationMessageFor(model => model.Programed, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="form-group">
-                @Html.LabelFor(model => model.Executed, htmlAttributes: new { @class = "control-label col-md-5" })
-                <div class="col-md-4 col-sm-10">
-                    @Html.EditorFor(model => model.Executed, new { htmlAttributes = new { @class = "form-control", @id = "executed"} })
-                    @Html.ValidationMessageFor(model => model.Executed, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-    </div>
-    <hr />
-    <div class="row">
         <div class="col-md-6">
+            <label class="control-label" for="dateSigue">Fecha:</label>
             <div class="form-group">
-                @Html.LabelFor(model => model.FileName, htmlAttributes: new { @class = "control-label col-md-5"})
-                <div class="col-md-7 col-sm-10">
-                    <input type="file" name="fileName" id="fileName" value="@filelName" accept="image/*, video/*">
-                    @Html.ValidationMessageFor(model => model.FileName, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                @Html.LabelFor(model => model.ActionCategory, htmlAttributes: new { @class = "control-label col-md-3" })
-                <div class="col-md-5 col-sm-10">
-                    @Html.EnumDropDownListFor(model => model.ActionCategory, htmlAttributes: new { @class = "form-control", @id = "actionCategory" })
-                    @Html.ValidationMessageFor(model => model.ActionCategory, "", new { @class = "text-danger" })
+                <div class="col-md-4 col-sm-10">
+                    <input type="date" class="form-control" id="dateSigue" name="dateSigue" required>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                @Html.LabelFor(model => model.Observation, htmlAttributes: new { @class = "control-label col-md-4" })
-                <div class="col-md-8 col-sm-10">
-                    @Html.EditorFor(model => model.Observation, new { htmlAttributes = new { @class = "form-control", @id = "observation" } })
-                    @Html.ValidationMessageFor(model => model.Observation, "", new { @class = "text-danger" })
-                </div>
+                <label class="control-label" for="resultado">Resultado:</label>
+                <textarea id="resultado" class="form-control" name="resultado" rows="2" required></textarea>
             </div>
         </div>
-        <hr />
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label" for="recomendations">Recomendaciones:</label>
+                <textarea id="recomendations" class="form-control" name="recomendations" rows="3" required></textarea>
+            </div>
+        </div>
     </div>
 
 </div>
