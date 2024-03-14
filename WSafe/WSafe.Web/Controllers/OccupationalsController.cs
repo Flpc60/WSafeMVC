@@ -233,7 +233,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> UpdateSiguePlanAnual(SiguePlanAnual model)
+        public async Task<ActionResult> UpdateSigueOccupational(SigueOccupational model)
         {
             var message = "";
             try
@@ -245,7 +245,7 @@ namespace WSafe.Web.Controllers
                 _empresaContext.Entry(model).State = EntityState.Modified;
                 await _empresaContext.SaveChangesAsync();
                 message = "La actualización se ha realizado exitosamente !!";
-                return Json(new { data = model.PlanActivityID, mensaj = message }, JsonRequestBehavior.AllowGet);
+                return Json(new { data = model.OccupationalID, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
@@ -253,7 +253,7 @@ namespace WSafe.Web.Controllers
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public async Task<ActionResult> DeleteSiguePlanAnual(int? id)
+        public async Task<ActionResult> DeleteSigueOccupational(int? id)
         {
             if (id == null)
             {
@@ -262,64 +262,58 @@ namespace WSafe.Web.Controllers
             _orgID = (int)Session["orgID"];
             _year = (string)Session["year"];
 
-            SiguePlanAnual siquePlan = await _empresaContext.SigueAnnualPlans.FindAsync(id);
-            var model = _converterHelper.ToUpdateSiguePlanAnual(siquePlan, _orgID);
-            if (model == null)
-            {
-                return HttpNotFound();
-            }
+            SigueOccupational model = await _empresaContext.SigueOccupationals.FindAsync(id);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public async Task<ActionResult> DeleteSiguePlanAnual(int id)
+        public async Task<ActionResult> DeleteSigueOccupational(int id)
         {
             try
             {
-                if (ModelState.IsValid)
-                {
-                    SiguePlanAnual siquePlan = await _empresaContext.SigueAnnualPlans.FindAsync(id);
-                    _empresaContext.SigueAnnualPlans.Remove(siquePlan);
-                    await _empresaContext.SaveChangesAsync();
-                    var message = "La actualización se ha realizado exitosamente !!";
-                    return Json(new { data = siquePlan.PlanActivityID, mensaj = message }, JsonRequestBehavior.AllowGet);
-                }
+                SigueOccupational sique = await _empresaContext.SigueOccupationals.FindAsync(id);
+                _empresaContext.SigueOccupationals.Remove(sique);
+                await _empresaContext.SaveChangesAsync();
+                var message = "El registro se ha borrado exitosamente !!";
+                return Json(new { data = sique.OccupationalID, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
-                var message = "La actualización NO se ha realizado exitosamente !!";
+                var message = "El registro NO se ha borrado exitosamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
-            return RedirectToAction("Index");
         }
 
-        /*
-                        // GET: Occupationals/Delete/5
-                        public async Task<ActionResult> Delete(int? id)
-                        {
-                            if (id == null)
-                            {
-                                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                            }
-                            MedicalRecomendationVM medicalRecomendationVM = await db.MedicalRecomendationVMs.FindAsync(id);
-                            if (medicalRecomendationVM == null)
-                            {
-                                return HttpNotFound();
-                            }
-                            return View(medicalRecomendationVM);
-                        }
+        [HttpPost]
+        public async Task<ActionResult> CreateSigueOccupational(SigueOccupational model)
+        {
+            if (model.OccupationalID == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var message = "";
+            try
+            {
+                model.ClientID = (int)Session["clientID"];
+                model.OrganizationID = (int)Session["orgID"];
+                model.UserID = (int)Session["userID"];
 
-                        // POST: Occupationals/Delete/5
-                        [HttpPost, ActionName("Delete")]
-                        [ValidateAntiForgeryToken]
-                        public async Task<ActionResult> DeleteConfirmed(int id)
-                        {
-                            MedicalRecomendationVM medicalRecomendationVM = await db.MedicalRecomendationVMs.FindAsync(id);
-                            db.MedicalRecomendationVMs.Remove(medicalRecomendationVM);
-                            await db.SaveChangesAsync();
-                            return RedirectToAction("Index");
-                        }
-                */
+                if (ModelState.IsValid)
+                {
+                    _empresaContext.SigueOccupationals.Add(model);
+                    await _empresaContext.SaveChangesAsync();
+                    message = "El registro ha sido ingresado correctamente !!";
+                    return Json(new { data = model, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                message = "El registro NO ha sido ingresado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                message = "El registro NO ha sido ingresado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -1969,7 +1969,7 @@ function logout() {
 }
 
 function ShowSigueOccupationals(id) {
-    // Mostrar todos las actividades
+    // Mostrar todos los seguimientos
     $('#btnSigue').hide();
     $.ajax({
         url: "/Occupationals/GetSigueOccupationals",
@@ -2014,19 +2014,14 @@ function getSigueOccupational(id) {
         dataType: "json",
         contentType: "application/json;charset=UTF-8",
         success: function (response) {
-            var sigueDate = moment(item.SigueDate);
+            var sigueDate = moment(response.SigueDate);
             var formattedDate = sigueDate.format('YYYY-MM-DD');
 
-            $("#dateSigue").val(sigueDate);
+            $("#dateSigue").val(formattedDate);
             $("#workerID").val(response.TrabajadorID);
-            $("#stateActivity").val(response.StateActivity);
-            $("#stateCronogram").val(response.StateCronogram);
-            $("#programed").val(response.Programed);
-            $("#executed").val(response.Executed);
-            $("#fileName").val(response.fileName);
-            $("#observation").val(response.Observation);
-            $("#actionCategory").val(response.ActionCategory);
-            $("#siguePlanID").val(response.ID);
+            $("#resultado").val(response.Resultado);
+            $("#recomendations").val(response.Recomendations);
+            $("#sigueOccupationalID").val(response.ID);
             $("#btnAddTraceability").hide();
             $("#btnUpdTraceability").show();
             $("#btnCanTraceability").show();
@@ -2035,6 +2030,120 @@ function getSigueOccupational(id) {
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
+        }
+    });
+}
+
+function addSigueOccupational(id) {
+    // Crea una nueva trazabilidad
+    $('.tabAddSigue').css("display", "none");
+    var sigueOccupational = {
+        ID: "0",
+        SigueDate: $("#dateSigue").val(),
+        Resultado: $("#resultado").val(),
+        Recomendations: $("#recomendations").val(),
+        OccupationalID: id,
+        TrabajadorID: $("#workerID").val(),
+        OrganizationID: 1,
+        ClientID: 1,
+        UserID: 1
+    };
+    $.ajax({
+        type: "POST",
+        url: "/Occupationals/CreateSigueOccupational",
+        data: { model: sigueOccupational },
+        dataType: "json",
+        success: function (response) {
+            $("#btnAddTraceability").hide();
+            $("#btnUpdTraceability").hide();
+            $(".tabAddSigue").css("display", "none");
+            alert(response.mensaj);
+            ShowSigueOccupationals(id);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function updateSigueOccupational(id) {
+    // Actualiza una trazabilidad
+    $('.tabAddSigue').css("display", "none");
+    var sigueOccupational = {
+        ID: $("#sigueOccupationalID").val(),
+        SigueDate: $("#dateSigue").val(),
+        Resultado: $("#resultado").val(),
+        Recomendations: $("#recomendations").val(),
+        OccupationalID: id,
+        TrabajadorID: $("#workerID").val(),
+        OrganizationID: 1,
+        ClientID: 1,
+        UserID: 1
+    };
+    $.ajax({
+        type: "POST",
+        url: "/Occupationals/UpdateSigueOccupational",
+        data: { model: sigueOccupational },
+        dataType: "json",
+        success: function (response) {
+            $(".tabAddSigue").css("display", "none");
+            alert(response.mensaj);
+            ShowSigueOccupationals(response.data);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function cancelSigueOccupational() {
+    $(".tabAddSigue").css("display", "none");
+    $("#dateSigue").val("");
+    $("#resultado").val("");
+    $("#recomendations").val("");
+}
+
+function DeleteSigueOccupational(id) {
+    $.ajax({
+        url: "/Occupationals/DeleteSigueOccupational/" + id,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        async: true,                                             // si es asincrónico o no
+        success: function (result) {
+            var sigueDate = moment(result.SigueDate);
+            var formattedDate = sigueDate.format('YYYY-MM-DD');
+
+            var text = "";
+            text += "Esta seguro de querer borrar este seguimiento ?:\n\n";
+            text += "Fecha: " + formattedDate + "\n";
+            text += "Resultado: " + result.Resultado + "\n";
+            text += "Recomendaciones: " + result.Recomendations + "\n";
+            var respuesta = confirm(text);
+            if (respuesta == true) {
+                $.ajax({
+                    url: "/Occupationals/DeleteSigueOccupational/" + id,
+                    type: "POST",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    async: true,                                               // si es asincrónico o no
+                    success: function (response) {
+                        $(".tabAddSigue").css("display", "none");
+                        alert(response.mensaj);
+                        ShowSigueOccupationals(response.data);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                    }
+                });
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
         }
     });
 }

@@ -5,10 +5,10 @@
 }
 
 <style>
-    .tabSigueOccupational {
+
+    .tabSigueOccupational, .tabAddSigue {
         display: none;
     }
-
 </style>
 
 <div class="container" style="background-color:azure; padding:20px;">
@@ -20,7 +20,7 @@
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(model => model.ExaminationDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
+                <div class="col-md-5 col-sm-10">
                     @Html.EditorFor(model => model.ExaminationDate, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.ExaminationDate, "", new { @class = "text-danger" })
                 </div>
@@ -114,6 +114,39 @@
     </div>
     <div class="row">
         <div class="col-md-12">
+            <div class="tabSigueOccupational">
+                <input type="hidden" id="occupationalID" name="occupationalID" />
+                <hr />
+                <div class="container">
+                    <button type="button" class="btn btn-primary" id="addTraceabilityID">Adicionar nuevo seguimiento</button>
+                    @Html.Partial("_ShowOccupational")
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabAddSigue">
+                @Html.Partial("_EditSigueOccupational")
+                <hr />
+                <div class="row">
+                    <div class="col-md-8">
+                        <button type="button" id="btnAddTraceability" class="btn btn-primary" onclick="addSigueOccupational(@Model.ID);">Adicionar</button>
+                        <button type="button" id="btnUpdTraceability" class="btn btn-primary" onclick="updateSigueOccupational(@Model.ID)">Actualizar</button>
+                        <button type="button" id="btnCanTraceability" class="btn btn-primary" onclick="cancelSigueOccupational()">
+                            <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                        </button>
+                        <hr />
+                    </div>
+                    <div class="col-md-4">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
             <div class="form-group">
                 <p style="color:red;font-size:18px;text-align:center"><strong>@ViewBag.message</strong></p>
             </div>
@@ -121,28 +154,37 @@
     </div>
 </div>
 
-<div class="tabSigueOccupational">
-    <div class="container">
-        <div>
-            <p id="trabajador"></p>
-        </div>
-        <div class="table-responsive" style="background-color: azure; width:100%; margin-right:0px">
-            <table class="table table-bordered">
-                <tr style="background-color:gainsboro; width:auto">
-                    <th>
-                        FECHA
-                    </th>
-                    <th>
-                        RESULTADO
-                    </th>
-                    <th>
-                        RECOMENDACIONES
-                    </th>
-                    <th></th>
-                </tr>
+@section Scripts {
 
-                <tbody class="seguimientosBody"></tbody>
-            </table>
-        </div>
-    </div>
-</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#btnCanTraceability').click(function () {
+                $('.tabAddSigue').css("display", "none");
+                $('#btnAddTraceability').hide();
+                $('#btnUpdTraceability').hide();
+            });
+            $('#addTraceabilityID').click(function () {
+                $('.tabAddSigue').css("display", "block");
+                $('#dateSigue').focus();
+                $('#btnAddTraceability').show();
+                $('#btnUpdTraceability').hide();
+            });
+            $('#dateSigue').click(function () {
+                var dateInput = $('#dateSigue').val(); // Obtener el valor del campo de fecha
+                var dateControl = $('#dateControl').val(); // Obtener el valor del campo de fecha
+                var fecha = Date.parse(dateInput);
+                var fechaFin = Date.parse(dateControl);
+                if (fecha.getTime() > fechaFin.getTime() || isNaN(fechaFin.getTime())) {
+                    return false;
+                };
+            });
+        });
+
+    </script>
+
+}
