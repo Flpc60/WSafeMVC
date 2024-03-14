@@ -2536,5 +2536,28 @@ namespace WSafe.Domain.Helpers.Implements
             };
             return result;
         }
+        public CreateOccupationalVM ToUpdateOccupationalVM(Occupational model, int org)
+        {
+            var sigue = _empresaContext.SigueOccupationals.Where(s => s.OccupationalID == model.ID).ToList();
+
+            var result = new CreateOccupationalVM
+            {
+                ID = model.ID,
+                ExaminationDate = model.ExaminationDate,
+                TrabajadorID = model.TrabajadorID,
+                Recomendations = model.Recomendations, 
+                Talla = model.Talla, 
+                Peso = model.Peso, 
+                ExaminationType = model.ExaminationType,
+                Workers = _comboHelper.GetWorkersFull(org),
+                MedicalRecomendation = model.MedicalRecomendation, 
+                SigueOccupational = sigue,
+                OrganizationID = model.OrganizationID,
+                ClientID = model.ClientID,
+                UserID = model.UserID,
+                FileName = model.FileName
+            };
+            return result;
+        }
     }
 }

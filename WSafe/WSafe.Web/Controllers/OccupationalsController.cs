@@ -14,6 +14,7 @@ using WSafe.Domain.Repositories.Implements;
 using System.IO;
 using WSafe.Domain.Data.Entities;
 using System.IdentityModel.Metadata;
+using WSafe.Web.Data.Entities;
 
 namespace WSafe.Web.Controllers
 {
@@ -221,33 +222,98 @@ namespace WSafe.Web.Controllers
             }
         }
 
-        /*
-                        // GET: Occupationals/Delete/5
-                        public async Task<ActionResult> Delete(int? id)
-                        {
-                            if (id == null)
-                            {
-                                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                            }
-                            MedicalRecomendationVM medicalRecomendationVM = await db.MedicalRecomendationVMs.FindAsync(id);
-                            if (medicalRecomendationVM == null)
-                            {
-                                return HttpNotFound();
-                            }
-                            return View(medicalRecomendationVM);
-                        }
+        [HttpGet]
+        public async Task<ActionResult> UpdateSigueOccupational(int id)
+        {
+            _orgID = (int)Session["orgID"];
+            _year = (string)Session["year"];
 
-                        // POST: Occupationals/Delete/5
-                        [HttpPost, ActionName("Delete")]
-                        [ValidateAntiForgeryToken]
-                        public async Task<ActionResult> DeleteConfirmed(int id)
-                        {
-                            MedicalRecomendationVM medicalRecomendationVM = await db.MedicalRecomendationVMs.FindAsync(id);
-                            db.MedicalRecomendationVMs.Remove(medicalRecomendationVM);
-                            await db.SaveChangesAsync();
-                            return RedirectToAction("Index");
-                        }
-                */
+            SigueOccupational model = await _empresaContext.SigueOccupationals.FindAsync(id);
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UpdateSigueOccupational(SigueOccupational model)
+        {
+            var message = "";
+            try
+            {
+                model.ClientID = (int)Session["clientID"];
+                model.OrganizationID = (int)Session["orgID"];
+                model.UserID = (int)Session["userID"];
+
+                _empresaContext.Entry(model).State = EntityState.Modified;
+                await _empresaContext.SaveChangesAsync();
+                message = "La actualización se ha realizado exitosamente !!";
+                return Json(new { data = model.OccupationalID, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                message = "La actualización NO se ha realizado exitosamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public async Task<ActionResult> DeleteSigueOccupational(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            _orgID = (int)Session["orgID"];
+            _year = (string)Session["year"];
+
+            SigueOccupational model = await _empresaContext.SigueOccupationals.FindAsync(id);
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteSigueOccupational(int id)
+        {
+            try
+            {
+                SigueOccupational sique = await _empresaContext.SigueOccupationals.FindAsync(id);
+                _empresaContext.SigueOccupationals.Remove(sique);
+                await _empresaContext.SaveChangesAsync();
+                var message = "El registro se ha borrado exitosamente !!";
+                return Json(new { data = sique.OccupationalID, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                var message = "El registro NO se ha borrado exitosamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CreateSigueOccupational(SigueOccupational model)
+        {
+            if (model.OccupationalID == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var message = "";
+            try
+            {
+                model.ClientID = (int)Session["clientID"];
+                model.OrganizationID = (int)Session["orgID"];
+                model.UserID = (int)Session["userID"];
+
+                if (ModelState.IsValid)
+                {
+                    _empresaContext.SigueOccupationals.Add(model);
+                    await _empresaContext.SaveChangesAsync();
+                    message = "El registro ha sido ingresado correctamente !!";
+                    return Json(new { data = model, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                message = "El registro NO ha sido ingresado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                message = "El registro NO ha sido ingresado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

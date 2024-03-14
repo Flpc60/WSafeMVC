@@ -1007,6 +1007,8 @@
     <Content Include="Views\Occupationals\Edit.cshtml" />
     <Content Include="Views\Occupationals\Index.cshtml" />
     <Content Include="Views\Shared\_EditOccupational.cshtml" />
+    <Content Include="Views\Shared\_EditSigueOccupational.cshtml" />
+    <Content Include="Views\Shared\_ShowOccupational.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
