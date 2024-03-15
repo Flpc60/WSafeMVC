@@ -15,6 +15,7 @@ using System.IO;
 using WSafe.Domain.Data.Entities;
 using System.IdentityModel.Metadata;
 using WSafe.Web.Data.Entities;
+using Rotativa;
 
 namespace WSafe.Web.Controllers
 {
@@ -376,6 +377,78 @@ namespace WSafe.Web.Controllers
             return Json(new { data = true, message = "El registro ha sido eliminado exitosamente" }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public async Task<ActionResult> OccupationalsPdf()
+        {
+            try
+            {
+                // Configuración nombre archivo pdf
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
+                _path = (string)Session["path"];
+                var organization = _empresaContext.Organizations.Find(_orgID);
+                var year = _year;
+                var item = _empresaContext.Normas.Find(organization.StandardOccupational).Item;
+                var fullPath = $"{_path}/2. HACER/{item}/";
+                var path = Server.MapPath(fullPath);
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                Random random = new Random();
+                var filename = "Matriz de evaluaciones médicas ocupacionales" + random.Next(1, 100) + ".Pdf";
+                var filePathName = path + filename;
+                var list = await _empresaContext.Occupationals
+                    .Where(o => o.OrganizationID == _orgID && o.ExaminationDate.Year.ToString() == _year)
+                    .OrderByDescending(o => o.ExaminationDate)
+                    .Include(s => s.SigueOccupational)
+                    .ToListAsync();
+                var model = _converterHelper.ToMedicalRecomendationVM(list);
+                var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == 15);
+                ViewBag.formato = document.Formato;
+                ViewBag.estandar = document.Estandar;
+                ViewBag.titulo = document.Titulo;
+                ViewBag.version = document.Version;
+                ViewBag.fecha = DateTime.Now;
+                var report = new ViewAsPdf("CreateOccupational");
+                report.Model = model;
+                report.FileName = filePathName;
+                report.PageSize = Rotativa.Options.Size.A4;
+                report.PageOrientation = Rotativa.Options.Orientation.Landscape;
+                report.PageWidth = 399;
+                report.PageHeight = 399;
+                report.SaveOnServerPath = filePathName;
+
+                //Generar archivo de movimiento
+                var fullName = filename;
+                var type = Path.GetExtension(filename).ToUpper();
+                var descript = "MATRIZ SEGUIMIENTO EVALUACIONES MÉDICAS OCUPACIONALES";
+                var userID = (int)Session["userID"];
+                Movimient movimient = new Movimient()
+                {
+                    ID = 0,
+                    OrganizationID = _orgID,
+                    NormaID = organization.StandardOccupational,
+                    UserID = userID,
+                    Descripcion = descript,
+                    Document = fullName,
+                    Year = year,
+                    Item = item,
+                    Ciclo = "H",
+                    Type = type,
+                    Path = path,
+                    ClientID = _clientID
+                };
+                _empresaContext.Movimientos.Add(movimient);
+                _empresaContext.SaveChanges();
+                return report;
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Occupationals", "Index"));
+            }
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
