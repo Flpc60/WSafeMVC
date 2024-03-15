@@ -1,0 +1,100 @@
+﻿@model IEnumerable<WSafe.Web.Models.MedicalRecomendationVM>
+
+@{
+    ViewBag.Title = "Sistema de Gestión de Seguridad y Salud en el Trabajo";
+    Layout = null;
+}
+
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryunobtrusive")
+
+@Html.Partial("_CabezoteFormat")
+
+<hr class="mt-4">
+<div class="container">
+    <table class="table table-bordered table-hover">
+        <tr style="background-color:gainsboro">
+            <th>
+                @Html.DisplayNameFor(model => model.ExaminationDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Document)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Trabajador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cargo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Talla)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Peso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExaminationType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Recomendations)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MedicalRecomendation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SigueOccupational)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExaminationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Document)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Trabajador)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cargo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Talla)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Peso)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExaminationType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Recomendations)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MedicalRecomendation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SigueOccupational)
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<div class="container body-content">
+    <hr />
+    <footer>
+        <p>&copy; @DateTime.Now.Year - FLPCSoft</p>
+    </footer>
+</div>
