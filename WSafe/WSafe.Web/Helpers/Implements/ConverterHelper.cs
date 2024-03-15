@@ -2488,6 +2488,7 @@ namespace WSafe.Domain.Helpers.Implements
                 {
                     ID = item.ID,
                     ExaminationDate = item.ExaminationDate.ToString("yyyy-MM-dd"),
+                    FechaIngreso = trabajador.FechaIngreso.ToString("yyyy-MM-dd"),
                     Document = trabajador.Documento,
                     Trabajador = trabajador.NombreCompleto,
                     Cargo = _empresaContext.Cargos.Find(trabajador.CargoID).Descripcion,

@@ -509,6 +509,10 @@
     <Compile Include="Migrations\202402092302417_UpdOccupational.designer.cs">
       <DependentUpon>202402092302417_UpdOccupational.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202403152213555_UpdMedicalRecomendation.cs" />
+    <Compile Include="Migrations\202403152213555_UpdMedicalRecomendation.designer.cs">
+      <DependentUpon>202403152213555_UpdMedicalRecomendation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -1270,6 +1274,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202402092302417_UpdOccupational.resx">
       <DependentUpon>202402092302417_UpdOccupational.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202403152213555_UpdMedicalRecomendation.resx">
+      <DependentUpon>202403152213555_UpdMedicalRecomendation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
