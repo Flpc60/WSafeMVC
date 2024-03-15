@@ -28,5 +28,7 @@ namespace WSafe.Web.Models
         public string Age { get; set; }
         [Display(Name = "OCUPACIÓN")]
         public string Cargo { get; set; }
+        [Display(Name = "FECHA INGRESO")]
+        public string FechaIngreso { get; set; }
     }
 }
