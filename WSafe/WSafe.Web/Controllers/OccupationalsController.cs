@@ -314,6 +314,68 @@ namespace WSafe.Web.Controllers
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        [HttpGet]
+        public async Task<ActionResult> DeleteOccupational(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            try
+            {
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
+                _path = (string)Session["path"];
+
+                var message = "";
+                Occupational result = await _empresaContext.Occupationals
+                    .Include(s => s.SigueOccupational)
+                    .FirstOrDefaultAsync(o => o.ID == id);
+
+                if (result != null)
+                {
+                    var sigue = result.SigueOccupational
+                        .Where(s => s.OccupationalID == id)
+                        .Count();
+                    if (sigue != 0)
+                    {
+                        message = "Esta evaluación ocupacional tiene seguimientos !!";
+                        return Json(new { data = false, error = message }, JsonRequestBehavior.AllowGet);
+                    }
+                    var model = _converterHelper.ToUpdateOccupationalVM(result, _orgID);
+                    return Json(new { data = model, error = "" }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    message = "No se encontró la actividad con el ID proporcionado.";
+                    return Json(new { data = false, error = message }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "AnnualPlans", "Index"));
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteOccupational(int id)
+        {
+            var consulta = new OccupationalService(new OccupationalRepository(_empresaContext));
+            try
+            {
+                await consulta.Delete(id);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Occupationals", "Delete"));
+            }
+
+            return Json(new { data = true, message = "El registro ha sido eliminado exitosamente" }, JsonRequestBehavior.AllowGet);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
