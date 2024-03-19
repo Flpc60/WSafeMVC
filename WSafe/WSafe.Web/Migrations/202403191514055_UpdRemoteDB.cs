@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class UpdOrganization : DbMigration
+    public partial class UpdRemoteDB : DbMigration
     {
         public override void Up()
         {
@@ -22,11 +22,12 @@
                         OrganizationID = c.Int(nullable: false),
                         ClientID = c.Int(nullable: false),
                         UserID = c.Int(nullable: false),
-                        FileName = c.String(nullable: false, maxLength: 200),
+                        FileName = c.String(maxLength: 200),
                     })
                 .PrimaryKey(t => t.ID);
             
-            AddColumn("dbo.Occupationals", "FileName", c => c.String(nullable: false, maxLength: 200));
+            AddColumn("dbo.MedicalRecomendationVMs", "FechaIngreso", c => c.String());
+            AddColumn("dbo.Occupationals", "FileName", c => c.String(maxLength: 200));
             AddColumn("dbo.SigueOccupationals", "CreateOccupationalVM_ID", c => c.Int());
             AddColumn("dbo.Organizations", "StandardOccupational", c => c.Short(nullable: false));
             CreateIndex("dbo.SigueOccupationals", "CreateOccupationalVM_ID");
@@ -40,6 +41,7 @@
             DropColumn("dbo.Organizations", "StandardOccupational");
             DropColumn("dbo.SigueOccupationals", "CreateOccupationalVM_ID");
             DropColumn("dbo.Occupationals", "FileName");
+            DropColumn("dbo.MedicalRecomendationVMs", "FechaIngreso");
             DropTable("dbo.CreateOccupationalVMs");
         }
     }
