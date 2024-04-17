@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using WSafe.Domain.Data.Entities;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace WSafe.Web.Models
 {
@@ -9,7 +7,7 @@ namespace WSafe.Web.Models
         public int ID { get; set; }
         [Display(Name = "ACTIVIDAD")]
         [MaxLength(200)]
-        public string Activity { get; set; }
+        public string Name { get; set; }
         [Display(Name = "OBJETIVO")]
         [MaxLength(200)]
         public int Objetive { get; set; }
@@ -93,7 +91,5 @@ namespace WSafe.Web.Models
         public short Cc13 { get; set; }
         public short C13 { get; set; }
         public short Tc13 { get; set; }
-        [Display(Name = "SEGUIMIENTOS")]
-        public IEnumerable<Schedule> Shedules { get; set; }
     }
 }
