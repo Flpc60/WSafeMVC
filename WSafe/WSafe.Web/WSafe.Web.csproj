@@ -482,6 +482,7 @@
     <Compile Include="Data\Entities\TiposSangre.cs" />
     <Compile Include="Data\Entities\TiposVinculacion.cs" />
     <Compile Include="Data\Entities\Trabajador.cs" />
+    <Compile Include="Data\Entities\TrainingTopic.cs" />
     <Compile Include="Data\Entities\Traza.cs" />
     <Compile Include="Data\Entities\User.cs" />
     <Compile Include="Data\Entities\ValorationCategory.cs" />
