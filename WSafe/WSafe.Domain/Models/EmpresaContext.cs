@@ -71,6 +71,9 @@ namespace WSafe.Web.Models
         public DbSet<SiguePlanAnual> SigueAnnualPlans { get; set; }
         public DbSet<Occupational> Occupationals { get; set; }
         public DbSet<SigueOccupational> SigueOccupationals { get; set; }
+        public DbSet<Capacitation> Capacitations { get; set; }
+        public DbSet<Schedule> Schedules { get; set; }
+        public DbSet<TrainingTopic> TrainingTopics { get; set; }
         public System.Data.Entity.DbSet<WSafe.Web.Models.UserViewModel> UserViewModels { get; set; }
         public System.Data.Entity.DbSet<WSafe.Web.Models.RoleUserVM> RoleUserVMs { get; set; }
 

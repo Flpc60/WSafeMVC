@@ -8,3 +8,4 @@ namespace WSafe.Domain.Repositories.Implements
         public OccupationalRepository(EmpresaContext _empresaContext) : base(_empresaContext) { }
     }
 }
+
