@@ -20,24 +20,14 @@ namespace WSafe.Web.Models
         [Display(Name = "Fecha final")]
         public DateTime EndDate { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [MaxLength(200)]
         [Display(Name = "Actividad")]
-        public string Activity { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [MaxLength(200)]
-        [Display(Name = "Objetivo")]
-        public int Objetive { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [MaxLength(200)]
-        [Display(Name = "Contenido")]
-        public string Content { get; set; }
+        public int TrainingTopicID { get; set; }
+        public IEnumerable<SelectListItem> TrainingTopics { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "RESPONSABLE")]
         public int TrabajadorID { get; set; }
         public IEnumerable<SelectListItem> Workers { get; set; }
-        [MaxLength(200)]
-        [Display(Name = "Recursos")]
-        public string Resources { get; set; }
+        public StatesCronogram StateCronogram { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Range(typeof(short), "1", "9999", ErrorMessage = "Por favor ingrese un número de actividades programadas válido.")]
         public short Programed { get; set; }
@@ -54,7 +44,6 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Range(typeof(short), "1", "9999", ErrorMessage = "Por favor ingrese un número de trabajadores evaluados válido.")]
         public short Evaluados { get; set; }
-        public ActionCategories ActionCategory { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public ActivitiesFrequency ActivityFrequency { get; set; }
         public ICollection<Schedule> Shedule { get; set; }

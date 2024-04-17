@@ -17,18 +17,9 @@ namespace WSafe.Domain.Data.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime EndDate { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [MaxLength(200)]
-        public string Activity { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [MaxLength(200)]
-        public int Objetive { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [MaxLength(200)]
-        public string Content { get; set; }
+        public string TrainingTopicID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int TrabajadorID { get; set; }
-        [MaxLength(200)]
-        public string Resources { get; set; }
         public StatesCronogram StateCronogram { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Range(typeof(short), "1", "9999", ErrorMessage = "Por favor ingrese un número de actividades programadas válido.")]
@@ -42,7 +33,6 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Range(typeof(short), "1", "9999", ErrorMessage = "Por favor ingrese un número de trabajadores evaluados válido.")]
         public short Evaluados { get; set; }
-        public ActionCategories ActionCategory { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public ActivitiesFrequency ActivityFrequency { get; set; }
         public ICollection<Schedule> Shedule { get; set; }
