@@ -17,7 +17,7 @@ namespace WSafe.Domain.Data.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime EndDate { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public string TrainingTopicID { get; set; }
+        public int TrainingTopicID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int TrabajadorID { get; set; }
         public StatesCronogram StateCronogram { get; set; }

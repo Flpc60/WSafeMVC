@@ -2,7 +2,7 @@
 
 namespace WSafe.Domain.Services
 {
-    public interface IOccupationalService : IGenericService<Occupational>
+    public interface IScheduleService : IGenericService<Schedule>
     {
     }
 }

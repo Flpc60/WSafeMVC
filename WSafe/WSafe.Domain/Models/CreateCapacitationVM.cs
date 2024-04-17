@@ -1,25 +1,40 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System;
 using WSafe.Domain.Data.Entities;
+using System.Web.Mvc;
 
 namespace WSafe.Web.Models
 {
-    public class CreateScheduleVM
+    public class CreateCapacitationVM
     {
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime DateSigue { get; set; }
+        [Display(Name = "Fecha inicial")]
+        public DateTime InitialDate { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Fecha final")]
+        public DateTime EndDate { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Actividad")]
+        public int TrainingTopicID { get; set; }
+        public IEnumerable<SelectListItem> TrainingTopics { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "RESPONSABLE")]
         public int TrabajadorID { get; set; }
+        public IEnumerable<SelectListItem> Workers { get; set; }
         public StatesCronogram StateCronogram { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Range(typeof(short), "0", "9999", ErrorMessage = "Por favor ingrese un número de actividades ejecutadas válido.")]
-        public short Executed { get; set; }
+        [Range(typeof(short), "1", "9999", ErrorMessage = "Por favor ingrese un número de actividades programadas válido.")]
+        public short Programed { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Range(typeof(short), "1", "9999", ErrorMessage = "Por favor ingrese un número de actividades ejecutadas válido.")]
-        public short Programed { get; set; }
+        [Display(Name = "EJECUTADAS")]
+        public short Executed { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Range(typeof(short), "1", "9999", ErrorMessage = "Por favor ingrese un número de trabajadores citados  válido.")]
         public short Citados { get; set; }
@@ -29,7 +44,9 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Range(typeof(short), "1", "9999", ErrorMessage = "Por favor ingrese un número de trabajadores evaluados válido.")]
         public short Evaluados { get; set; }
-        public int CapacitationID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public ActivitiesFrequency ActivityFrequency { get; set; }
+        public ICollection<Schedule> Shedule { get; set; }
         public int OrganizationID { get; set; }
         public int ClientID { get; set; }
         public int UserID { get; set; }

@@ -1,10 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System;
-using WSafe.Domain.Data.Entities;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
-namespace WSafe.Web.Models
+namespace WSafe.Domain.Data.Entities
 {
-    public class CreateScheduleVM
+    public class Schedule
     {
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]

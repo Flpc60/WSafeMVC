@@ -504,9 +504,13 @@
     <Compile Include="Helpers\Implements\ConverterHelper.cs" />
     <Compile Include="Helpers\Implements\GestorHelper.cs" />
     <Compile Include="Helpers\Implements\IndicadorHelper.cs" />
-    <Compile Include="Migrations\202403191514055_UpdRemoteDB.cs" />
-    <Compile Include="Migrations\202403191514055_UpdRemoteDB.designer.cs">
-      <DependentUpon>202403191514055_UpdRemoteDB.cs</DependentUpon>
+    <Compile Include="Migrations\202404171800316_CrtCapacitation.cs" />
+    <Compile Include="Migrations\202404171800316_CrtCapacitation.designer.cs">
+      <DependentUpon>202404171800316_CrtCapacitation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202404171833216_UpdCapacitation.cs" />
+    <Compile Include="Migrations\202404171833216_UpdCapacitation.designer.cs">
+      <DependentUpon>202404171833216_UpdCapacitation.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
@@ -571,38 +575,50 @@
     <Compile Include="Repositories\IAnnualPlanRepository.cs" />
     <Compile Include="Repositories\IAplicationRepository.cs" />
     <Compile Include="Repositories\IAuditRepository.cs" />
+    <Compile Include="Repositories\ICapacitationRepository.cs" />
     <Compile Include="Repositories\IGenericRepository.cs" />
     <Compile Include="Repositories\IIncidenteRepository.cs" />
     <Compile Include="Repositories\Implements\AccionRepository.cs" />
     <Compile Include="Repositories\Implements\AnnualPlanRepository.cs" />
     <Compile Include="Repositories\Implements\AplicationRepository.cs" />
     <Compile Include="Repositories\Implements\AuditRepository.cs" />
+    <Compile Include="Repositories\Implements\CapacitationRepository.cs" />
     <Compile Include="Repositories\Implements\GenericRepository.cs" />
     <Compile Include="Repositories\Implements\IncidenteRepository.cs" />
     <Compile Include="Repositories\Implements\OccupationalRepository.cs" />
     <Compile Include="Repositories\Implements\RecomendationRepository.cs" />
+    <Compile Include="Repositories\Implements\ScheduleRepository.cs" />
+    <Compile Include="Repositories\Implements\TrainingRepository.cs" />
     <Compile Include="Repositories\IOccupationalRepository.cs" />
     <Compile Include="Repositories\IRecomendationRepository.cs" />
     <Compile Include="Repositories\Implements\RiesgoRepository.cs" />
     <Compile Include="Repositories\IRiesgoRepository.cs" />
+    <Compile Include="Repositories\IScheduleRepository.cs" />
+    <Compile Include="Repositories\ITrainingRepository.cs" />
     <Compile Include="Services\IAccionService.cs" />
     <Compile Include="Services\IAnnualPlanService.cs" />
     <Compile Include="Services\IAplicationService.cs" />
     <Compile Include="Services\IAuditService.cs" />
+    <Compile Include="Services\ICapacitationService.cs" />
     <Compile Include="Services\IGenericService.cs" />
     <Compile Include="Services\IIncidenteService.cs" />
     <Compile Include="Services\Implements\AccionService.cs" />
     <Compile Include="Services\Implements\AnnualPlanService.cs" />
     <Compile Include="Services\Implements\AplicationService.cs" />
     <Compile Include="Services\Implements\AuditService.cs" />
+    <Compile Include="Services\Implements\CapacitationService.cs" />
     <Compile Include="Services\Implements\GenericService.cs" />
     <Compile Include="Services\Implements\IncidenteService.cs" />
     <Compile Include="Services\Implements\OccupationalService.cs" />
     <Compile Include="Services\Implements\RecomendationService.cs" />
     <Compile Include="Services\Implements\RiesgoService.cs" />
+    <Compile Include="Services\Implements\ScheduleService.cs" />
+    <Compile Include="Services\Implements\TrainingService.cs" />
     <Compile Include="Services\IOccupationalService.cs" />
     <Compile Include="Services\IRecomendationService.cs" />
     <Compile Include="Services\IRiesgoService.cs" />
+    <Compile Include="Services\IScheduleService.cs" />
+    <Compile Include="Services\ITrainingService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-table.css" />
@@ -1268,8 +1284,11 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202403191514055_UpdRemoteDB.resx">
-      <DependentUpon>202403191514055_UpdRemoteDB.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202404171800316_CrtCapacitation.resx">
+      <DependentUpon>202404171800316_CrtCapacitation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202404171833216_UpdCapacitation.resx">
+      <DependentUpon>202404171833216_UpdCapacitation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
