@@ -523,9 +523,11 @@
     <Compile Include="Models\AuthorizationVM.cs" />
     <Compile Include="Models\CalificationVM.cs" />
     <Compile Include="Models\ControlViewModel.cs" />
+    <Compile Include="Models\CreateCapacitationVM.cs" />
     <Compile Include="Models\CreateIndicatorsViewModel.cs" />
     <Compile Include="Models\CreateOccupationalVM.cs" />
     <Compile Include="Models\CreatePlanActivityVM.cs" />
+    <Compile Include="Models\CreateScheduleVM.cs" />
     <Compile Include="Models\DashboardVM.cs" />
     <Compile Include="Models\DetailsIncidentVM.cs" />
     <Compile Include="Models\EmpresaContext.cs" />
@@ -537,6 +539,7 @@
     <Compile Include="Models\IntervencionViewModel.cs" />
     <Compile Include="Models\IntervencionVM.cs" />
     <Compile Include="Models\ListaRiesgosVM.cs" />
+    <Compile Include="Models\ListCapacitationVM.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\MatrizRiesgosVM.cs" />
     <Compile Include="Models\MedicalRecomendationVM.cs" />
@@ -545,6 +548,7 @@
     <Compile Include="Models\OrganizationVM.cs" />
     <Compile Include="Models\PlanAccionVM.cs" />
     <Compile Include="Models\PlanActivityVM.cs" />
+    <Compile Include="Models\PlaneCapacitationVM.cs" />
     <Compile Include="Models\RecomendationListVM.cs" />
     <Compile Include="Models\RecomendationVM.cs" />
     <Compile Include="Models\RiesgoViewModel.cs" />
