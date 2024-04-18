@@ -10,7 +10,7 @@ namespace WSafe.Web.Models
         public string Name { get; set; }
         [Display(Name = "OBJETIVO")]
         [MaxLength(200)]
-        public int Objetive { get; set; }
+        public string Objetive { get; set; }
         [Display(Name = "CONTENIDO")]
         [MaxLength(100)]
         public string Content { get; set; }

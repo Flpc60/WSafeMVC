@@ -17,9 +17,9 @@ using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
 {
-    public class OccupationalsController : Controller
+    public class CapacitationsController : Controller
     {
-        //  Evaluaciones médicas  en el SG-SST
+        //  Capacitacionew en el SG-SST
         private int _clientID;
         private int _orgID;
         private string _year;
@@ -31,7 +31,7 @@ namespace WSafe.Web.Controllers
         private readonly IConverterHelper _converterHelper;
         private readonly IChartHelper _chartHelper;
         private readonly IGestorHelper _gestorHelper;
-        public OccupationalsController(EmpresaContext empresaContext, IComboHelper comboHelper, IConverterHelper converterHelper, IChartHelper chartHelper, IGestorHelper gestorHelper)
+        public CapacitationsController(EmpresaContext empresaContext, IComboHelper comboHelper, IConverterHelper converterHelper, IChartHelper chartHelper, IGestorHelper gestorHelper)
         {
             _empresaContext = empresaContext;
             _comboHelper = comboHelper;
@@ -47,12 +47,12 @@ namespace WSafe.Web.Controllers
             {
                 _orgID = (int)Session["orgID"];
                 _year = (string)Session["year"];
-                var list = await _empresaContext.Occupationals
-                    .Where(o => o.OrganizationID == _orgID && o.ExaminationDate.Year.ToString() == _year)
-                    .OrderByDescending(o => o.ExaminationDate)
-                    .Include(s => s.SigueOccupational)
+                var list = await _empresaContext.Capacitations
+                    .Where(o => o.OrganizationID == _orgID && o.EndDate.Year.ToString() == _year)
+                    .OrderByDescending(o => o.InitialDate)
+                    .Include(s => s.Schedule)
                     .ToListAsync();
-                var model = _converterHelper.ToMedicalRecomendationVM(list);
+                var model = _converterHelper.ToListCapacitationVM(list);
 
                 return View(model.ToList());
             }
