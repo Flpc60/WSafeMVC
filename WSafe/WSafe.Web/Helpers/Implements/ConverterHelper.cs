@@ -2566,258 +2566,70 @@ namespace WSafe.Domain.Helpers.Implements
             foreach (var item in list)
             {
                 var scheduleList = item.Schedule ?? new List<Schedule>();
-                var P1 = 0;
-                var E1 = 0;
-                var Cc1 = 0;
-                var C1 = 0;
-                var Tc1 = 0;
-                var P2 = 0;
-                var E2 = 0;
-                var Cc2 = 0;
-                var C2 = 0;
-                var Tc2 = 0;
-                var P3 = 0;
-                var E3 = 0;
-                var Cc3 = 0;
-                var C3 = 0;
-                var Tc3 = 0;
-                var P4 = 0;
-                var E4 = 0;
-                var Cc4 = 0;
-                var C4 = 0;
-                var Tc4 = 0;
-                var P5 = 0;
-                var E5 = 0;
-                var Cc5 = 0;
-                var C5 = 0;
-                var Tc5 = 0;
-                var P6 = 0;
-                var E6 = 0;
-                var Cc6 = 0;
-                var C6 = 0;
-                var Tc6 = 0;
-                var P7 = 0;
-                var E7 = 0;
-                var Cc7 = 0;
-                var C7 = 0;
-                var Tc7 = 0;
-                var P8 = 0;
-                var E8 = 0;
-                var Cc8 = 0;
-                var C8 = 0;
-                var Tc8 = 0;
-                var P9 = 0;
-                var E9 = 0;
-                var Cc9 = 0;
-                var C9 = 0;
-                var Tc9 = 0;
-                var P10 = 0;
-                var E10 = 0;
-                var Cc10 = 0;
-                var C10 = 0;
-                var Tc10 = 0;
-                var P11 = 0;
-                var E11 = 0;
-                var Cc11 = 0;
-                var C11 = 0;
-                var Tc11 = 0;
-                var P12 = 0;
-                var E12 = 0;
-                var Cc12 = 0;
-                var C12 = 0;
-                var Tc12 = 0;
-                var P13 = 0;
-                var E13 = 0;
-                var Cc13 = 0;
-                var C13 = 0;
-                var Tc13 = 0;
+                var monthTotals = InitializeMonthTotals();
 
                 foreach (var sigue in scheduleList)
                 {
-                    P13 += sigue.Programed;
-                    E13 += sigue.Executed;
-                    Cc13 += sigue.Citados;
-                    C13 += sigue.Capacitados;
-                    Tc13 += sigue.Evaluados;
-                    switch (sigue.DateSigue.Month)
-                    {
-                        case 1:
-                            P1 += sigue.Programed;
-                            E1 += sigue.Executed;
-                            Cc1 += sigue.Citados;
-                            C1 += sigue.Capacitados;
-                            Tc1 += sigue.Evaluados;
-                            break;
-                        case 2:
-                            P2 += sigue.Programed;
-                            E2 += sigue.Executed;
-                            Cc2 += sigue.Citados;
-                            C2 += sigue.Capacitados;
-                            Tc2 += sigue.Evaluados;
-                            break;
+                    var month = sigue.DateSigue.Month;
+                    monthTotals[month]["P"] += sigue.Programed;
+                    monthTotals[month]["E"] += sigue.Executed;
+                    monthTotals[month]["Cc"] += sigue.Citados;
+                    monthTotals[month]["C"] += sigue.Capacitados;
+                    monthTotals[month]["Tc"] += sigue.Evaluados;
 
-                        case 3:
-                            P3 += sigue.Programed;
-                            E3 += sigue.Executed;
-                            Cc3 += sigue.Citados;
-                            C3 += sigue.Capacitados;
-                            Tc3 += sigue.Evaluados;
-                            break;
-
-                        case 4:
-                            P4 += sigue.Programed;
-                            E4 += sigue.Executed;
-                            Cc4 += sigue.Citados;
-                            C4 += sigue.Capacitados;
-                            Tc4 += sigue.Evaluados;
-                            break;
-
-                        case 5:
-                            P5 += sigue.Programed;
-                            E5 += sigue.Executed;
-                            Cc5 += sigue.Citados;
-                            C5 += sigue.Capacitados;
-                            Tc5 += sigue.Evaluados;
-                            break;
-
-                        case 6:
-                            P6 += sigue.Programed;
-                            E6 += sigue.Executed;
-                            Cc6 += sigue.Citados;
-                            C6 += sigue.Capacitados;
-                            Tc6 += sigue.Evaluados;
-                            break;
-
-                        case 7:
-                            P7 += sigue.Programed;
-                            E7 += sigue.Executed;
-                            Cc7 += sigue.Citados;
-                            C7 += sigue.Capacitados;
-                            Tc7 += sigue.Evaluados;
-                            break;
-
-                        case 8:
-                            P8 += sigue.Programed;
-                            E8 += sigue.Executed;
-                            Cc8 += sigue.Citados;
-                            C8 += sigue.Capacitados;
-                            Tc8 += sigue.Evaluados;
-                            break;
-
-                        case 9:
-                            P9 += sigue.Programed;
-                            E9 += sigue.Executed;
-                            Cc9 += sigue.Citados;
-                            C9 += sigue.Capacitados;
-                            Tc9 += sigue.Evaluados;
-                            break;
-
-                        case 10:
-                            P10 += sigue.Programed;
-                            E10 += sigue.Executed;
-                            Cc10 += sigue.Citados;
-                            C10 += sigue.Capacitados;
-                            Tc10 += sigue.Evaluados;
-                            break;
-
-                        case 11:
-                            P11 += sigue.Programed;
-                            E11 += sigue.Executed;
-                            Cc11 += sigue.Citados;
-                            C11 += sigue.Capacitados;
-                            Tc11 += sigue.Evaluados;
-                            break;
-
-                        case 12:
-                            P12 += sigue.Programed;
-                            E12 += sigue.Executed;
-                            Cc12 += sigue.Citados;
-                            C12 += sigue.Capacitados;
-                            Tc12 += sigue.Evaluados;
-                            break;
-
-                        default:
-                            break;
-                    }
+                    monthTotals[13]["P"] += sigue.Programed;
+                    monthTotals[13]["E"] += sigue.Executed;
+                    monthTotals[13]["Cc"] += sigue.Citados;
+                    monthTotals[13]["C"] += sigue.Capacitados;
+                    monthTotals[13]["Tc"] += sigue.Evaluados;
                 }
                 var trabajador = _empresaContext.Trabajadores.Find(item.TrabajadorID);
                 var activity = _empresaContext.TrainingTopics.Find(item.TrainingTopicID);
-                model.Add(new ListCapacitationVM
+                var listCapacitationVM = new ListCapacitationVM
                 {
                     ID = item.ID,
                     Name = activity.Name,
                     Objetive = activity.Objetive,
                     Content = activity.Content,
                     Resources = activity.Resources,
-                    Responsable = trabajador.NombreCompleto,
-                    P1 = (short)P1,
-                    E1 = (short)E1,
-                    Cc1 = (short)Cc1,
-                    C1 = (short)C1,
-                    Tc1 = (short)Tc1,
-                    P2 = (short)P2,
-                    E2 = (short)E2,
-                    Cc2 = (short)Cc2,
-                    C2 = (short)C2,
-                    Tc2 = (short)Tc2,
-                    P3 = (short)P3,
-                    E3 = (short)E3,
-                    Cc3 = (short)Cc3,
-                    C3 = (short)C3,
-                    Tc3 = (short)Tc3,
-                    P4 = (short)P4,
-                    E4 = (short)E4,
-                    Cc4 = (short)Cc4,
-                    C4 = (short)C4,
-                    Tc4 = (short)Tc4,
-                    P5 = (short)P5,
-                    E5 = (short)E5,
-                    Cc5 = (short)Cc5,
-                    C5 = (short)C5,
-                    Tc5 = (short)Tc5,
-                    P6 = (short)P6,
-                    E6 = (short)E6,
-                    Cc6 = (short)Cc6,
-                    C6 = (short)C6,
-                    Tc6 = (short)Tc6,
-                    P7 = (short)P7,
-                    E7 = (short)E7,
-                    Cc7 = (short)Cc7,
-                    C7 = (short)C7,
-                    Tc7 = (short)Tc7,
-                    P8 = (short)P8,
-                    E8 = (short)E8,
-                    Cc8 = (short)Cc8,
-                    C8 = (short)C8,
-                    Tc8 = (short)Tc8,
-                    P9 = (short)P9,
-                    E9 = (short)E9,
-                    Cc9 = (short)Cc9,
-                    C9 = (short)C9,
-                    Tc9 = (short)Tc9,
-                    P10 = (short)P10,
-                    E10 = (short)E10,
-                    Cc10 = (short)Cc10,
-                    C10 = (short)C10,
-                    Tc10 = (short)Tc10,
-                    P11 = (short)P11,
-                    E11 = (short)E11,
-                    Cc11 = (short)Cc11,
-                    C11 = (short)C11,
-                    Tc11 = (short)Tc11,
-                    P12 = (short)P12,
-                    E12 = (short)E12,
-                    Cc12 = (short)Cc12,
-                    C12 = (short)C12,
-                    Tc12 = (short)Tc12,
-                    Eficacia = (E13 / P13).ToString("#0.##%"),
-                    Eficiencia = (C13 / Cc13).ToString("#0.##%"),
-                    Efectividad = (Tc13 / C13).ToString("#0.##%"),
+                    Responsable = trabajador.NombreCompleto
+                };
 
-                });
+                for (int i = 1; i <= 13; i++)
+                {
+                    listCapacitationVM.GetType().GetProperty($"P{i}").SetValue(listCapacitationVM, (short)monthTotals[i]["P"]);
+                    listCapacitationVM.GetType().GetProperty($"E{i}").SetValue(listCapacitationVM, (short)monthTotals[i]["E"]);
+                    listCapacitationVM.GetType().GetProperty($"Cc{i}").SetValue(listCapacitationVM, (short)monthTotals[i]["Cc"]);
+                    listCapacitationVM.GetType().GetProperty($"C{i}").SetValue(listCapacitationVM, (short)monthTotals[i]["C"]);
+                    listCapacitationVM.GetType().GetProperty($"Tc{i}").SetValue(listCapacitationVM, (short)monthTotals[i]["Tc"]);
+                }
+
+                listCapacitationVM.Eficacia = ((double)monthTotals[13]["E"] / monthTotals[13]["P"]).ToString("#0.##%");
+                listCapacitationVM.Eficiencia = ((double)monthTotals[13]["C"] / monthTotals[13]["Cc"]).ToString("#0.##%");
+                listCapacitationVM.Efectividad = ((double)monthTotals[13]["Tc"] / monthTotals[13]["C"]).ToString("#0.##%");
+
+                model.Add(listCapacitationVM);
             }
 
             return model;
+        }
+        private Dictionary<int, Dictionary<string, int>> InitializeMonthTotals()
+        {
+            var monthTotals = new Dictionary<int, Dictionary<string, int>>();
+
+            for (int i = 1; i <= 13; i++)
+            {
+                monthTotals[i] = new Dictionary<string, int>
+                {
+                    { "P", 0 },
+                    { "E", 0 },
+                    { "Cc", 0 },
+                    { "C", 0 },
+                    { "Tc", 0 }
+                };
+            }
+
+            return monthTotals;
         }
     }
 }
