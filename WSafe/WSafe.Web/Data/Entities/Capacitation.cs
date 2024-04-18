@@ -35,7 +35,7 @@ namespace WSafe.Domain.Data.Entities
         public short Evaluados { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public ActivitiesFrequency ActivityFrequency { get; set; }
-        public ICollection<Schedule> Shedule { get; set; }
+        public ICollection<Schedule> Schedule { get; set; }
         public int OrganizationID { get; set; }
         public int ClientID { get; set; }
         public int UserID { get; set; }
