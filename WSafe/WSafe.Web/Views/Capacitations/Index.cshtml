@@ -4,462 +4,120 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<style>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Objetive)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Content)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Resources)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Responsable)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Eficacia)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Eficiencia)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Efectividad)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.P1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.E1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cc1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.C1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tc1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.P2)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.E2)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cc2)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.C2)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tc2)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.P3)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.E3)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cc3)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.C3)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tc3)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.P4)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.E4)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cc4)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.C4)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tc4)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.P5)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.E5)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cc5)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.C5)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tc5)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.P6)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.E6)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cc6)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.C6)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tc6)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.P7)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.E7)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cc7)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.C7)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tc7)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.P8)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.E8)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cc8)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.C8)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tc8)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.P9)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.E9)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cc9)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.C9)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tc9)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.P10)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.E10)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cc10)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.C10)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tc10)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.P11)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.E11)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cc11)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.C11)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tc11)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.P12)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.E12)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cc12)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.C12)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tc12)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.P13)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.E13)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cc13)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.C13)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tc13)
-        </th>
-        <th></th>
-    </tr>
+    .tabConsActions, .tabSigueOccupational {
+        display: none
+    }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Objetive)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Content)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Resources)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Responsable)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Eficacia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Eficiencia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Efectividad)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.P1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.E1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cc1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.C1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tc1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.P2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.E2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cc2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.C2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tc2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.P3)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.E3)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cc3)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.C3)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tc3)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.P4)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.E4)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cc4)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.C4)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tc4)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.P5)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.E5)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cc5)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.C5)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tc5)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.P6)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.E6)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cc6)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.C6)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tc6)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.P7)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.E7)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cc7)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.C7)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tc7)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.P8)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.E8)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cc8)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.C8)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tc8)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.P9)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.E9)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cc9)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.C9)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tc9)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.P10)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.E10)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cc10)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.C10)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tc10)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.P11)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.E11)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cc11)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.C11)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tc11)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.P12)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.E12)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cc12)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.C12)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tc12)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.P13)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.E13)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cc13)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.C13)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tc13)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    .centerText {
+        text-align: center;
+    }
 
-</table>
+    #trabajador {
+        background-color: forestgreen;
+        color: white;
+        padding: 10px;
+        border: 1px solid #000000;
+        text-align: center;
+        margin: 0;
+    }
+</style>
+
+<h4 class="centerText"> PROGRAMA DE CAPACITACIÓN SEGURIDAD Y SALUD EN EL TRABAJO: @Session["organization"].ToString().Trim()</h4>
+@Html.Partial("_PageHead")
+<div class="container">
+    <div class="row justify-content-between">
+        <div class="col-md-12">
+            <a href="@Url.Action("Create", "Occupationals")" class="btn btn-info btn-lg active">
+                <span class="glyphicon glyphicon-tasks"></span> Crear nueva capacitación
+            </a>
+            <a href="@Url.Action("Create", "Acciones")" class="btn btn-info btn-lg active">
+                <span class="glyphicon glyphicon-adjust"></span> Crear nueva acción
+            </a>
+            <a href="@Url.Action("OccupationalsPdf", "Occupationals")" class="btn btn-info btn-lg active">
+                <span class="glyphicon glyphicon-download"></span> Generar matriz de capacitaciones
+            </a>
+        </div>
+    </div>
+</div>
+
+<hr class="mt-4">
+<div class="table-responsive" style="background-color: azure; width:100%; margin-right:0px">
+    <table class="table table-bordered">
+        <tr style="background-color:gainsboro; width:auto">
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Objetive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Resources)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Responsable)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Eficacia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Eficiencia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Efectividad)
+            </th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Objetive)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Content)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Resources)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Responsable)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Eficacia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Eficiencia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Efectividad)
+                </td>
+                <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                    <a href="#" title="Seguimientos" onclick="mostrarSeguimientos('@item.ID');">
+                        <span class="glyphicon glyphicon-forward"></span>
+                    </a>
+                </td>
+                <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit", @title = "Actualizar" })
+                </td>
+                <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                    <a href="#" title="Descartar" onclick="deleteOccupational('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
+                </td>
+            </tr>
+
+        }
+
+    </table>
+
+</div>
