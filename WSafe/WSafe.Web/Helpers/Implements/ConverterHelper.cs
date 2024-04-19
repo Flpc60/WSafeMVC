@@ -2631,5 +2631,43 @@ namespace WSafe.Domain.Helpers.Implements
 
             return monthTotals;
         }
+        public IEnumerable<ListCapacitationVM> ToCapacitationVM(IEnumerable<Capacitation> list)
+        {
+            var model = new List<ListCapacitationVM>();
+            var listCapacitationVM = new ListCapacitationVM();
+            var monthTotals = InitializeMonthTotals();
+            foreach (var item in list)
+            {
+                var scheduleList = item.Schedule ?? new List<Schedule>();
+
+                foreach (var sigue in scheduleList)
+                {
+                    var month = sigue.DateSigue.Month;
+                    monthTotals[month]["P"] += sigue.Programed;
+                    monthTotals[month]["E"] += sigue.Executed;
+                    monthTotals[month]["Cc"] += sigue.Citados;
+                    monthTotals[month]["C"] += sigue.Capacitados;
+                    monthTotals[month]["Tc"] += sigue.Evaluados;
+
+                    monthTotals[13]["P"] += sigue.Programed;
+                    monthTotals[13]["E"] += sigue.Executed;
+                    monthTotals[13]["Cc"] += sigue.Citados;
+                    monthTotals[13]["C"] += sigue.Capacitados;
+                    monthTotals[13]["Tc"] += sigue.Evaluados;
+                }
+            }
+
+            for (int i = 1; i <= 13; i++)
+            {
+                listCapacitationVM.GetType().GetProperty($"P{i}").SetValue(listCapacitationVM, (short)monthTotals[i]["P"]);
+                listCapacitationVM.GetType().GetProperty($"E{i}").SetValue(listCapacitationVM, (short)monthTotals[i]["E"]);
+                listCapacitationVM.GetType().GetProperty($"Cc{i}").SetValue(listCapacitationVM, (short)monthTotals[i]["Cc"]);
+                listCapacitationVM.GetType().GetProperty($"C{i}").SetValue(listCapacitationVM, (short)monthTotals[i]["C"]);
+                listCapacitationVM.GetType().GetProperty($"Tc{i}").SetValue(listCapacitationVM, (short)monthTotals[i]["Tc"]);
+            }
+
+            model.Add(listCapacitationVM);
+            return model;
+        }
     }
 }

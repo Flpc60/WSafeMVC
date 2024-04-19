@@ -455,5 +455,24 @@ namespace WSafe.Web.Controllers
             }
             base.Dispose(disposing);
         }
+        public async Task<ActionResult> GetScheduleAll()
+        {
+            try
+            {
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
+                var list = await _empresaContext.Capacitations
+                    .Where(o => o.OrganizationID == _orgID && o.EndDate.Year.ToString() == _year)
+                    .OrderByDescending(o => o.InitialDate)
+                    .Include(s => s.Schedule)
+                    .ToListAsync();
+                var model = _converterHelper.ToCapacitationVM(list);
+                return Json(new { data = model }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Capacitations", "Index"));
+            }
+        }
     }
 }

@@ -79,5 +79,6 @@ namespace WSafe.Domain.Helpers
         Task<Occupational> ToOccupationalAsync(CreateOccupationalVM model, bool isNew);
         CreateOccupationalVM ToUpdateOccupationalVM(Occupational model, int org);
         IEnumerable<ListCapacitationVM> ToListCapacitationVM(IEnumerable<Capacitation> list);
+        IEnumerable<ListCapacitationVM> ToCapacitationVM(IEnumerable<Capacitation> list);
     }   
 }
