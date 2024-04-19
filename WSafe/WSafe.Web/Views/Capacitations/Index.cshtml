@@ -6,7 +6,7 @@
 
 <style>
 
-    .tabConsActions, .tabSigueOccupational {
+    .tabConsActions, .tabCronograma {
         display: none
     }
 
@@ -121,3 +121,64 @@
     </table>
 
 </div>
+
+<div>
+    <div class="container">
+        <div class="table-responsive" style="background-color: azure; width:100%; margin-right:0px">
+            <table class="table table-bordered">
+                <tr style="background-color:gainsboro; width:auto">
+                    <th>
+                        ENERO
+                    </th>
+                    <th>
+                        FEBRERO
+                    </th>
+                    <th>
+                        MARZO
+                    </th>
+                    <th>
+                        ABRIL
+                    </th>
+                    <th>
+                        MAYO
+                    </th>
+                    <th>
+                        JUNIO
+                    </th>
+                    <th>
+                        JULIO
+                    </th>
+                    <th>
+                        AGOSTO
+                    </th>
+                    <th>
+                        SEPTIEMBRE
+                    </th>
+                    <th>
+                        OCTUBRE
+                    </th>
+                    <th>
+                        NOVIEMBRE
+                    </th>
+                    <th>
+                        DICIEMBRE
+                    </th>
+                </tr>
+                <tbody id="cronogramaBody"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+    <script type="text/javascript">
+
+        ShowSchedule();
+        $(document).ready(function () {
+        });
+
+    </script>
+}
