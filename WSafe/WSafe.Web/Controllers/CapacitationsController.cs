@@ -467,7 +467,7 @@ namespace WSafe.Web.Controllers
                     .Include(s => s.Schedule)
                     .ToListAsync();
                 var model = _converterHelper.ToCapacitationVM(list);
-                return Json(new { data = model }, JsonRequestBehavior.AllowGet);
+                return Json(model, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
