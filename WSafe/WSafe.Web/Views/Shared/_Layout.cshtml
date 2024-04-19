@@ -14,6 +14,7 @@
     <script src="~/Scripts/bootstrap-table/bootstrap-table.min.js"></script>
     <script src="~/Scripts/RiesgosGestor.js" type="text/javascript"></script>
     <script src="~/Scripts/AuditsGestor.js" type="text/javascript"></script> <!-- funciones gráficas y auditorías--->>
+    <script src="~/Scripts/GestorCapacitation.js" type="text/javascript"></script> <!-- funciones gráficas y capacitaciones --->>
 
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -23,7 +24,7 @@
     <style>
 
         body {
-            margin-top:0;
+            margin-top: 0;
             padding-top: 0; /* Adjusted to align with the top of the fixed navbar */
         }
 
@@ -33,12 +34,12 @@
         }
 
         .navbar-brand {
-            padding:0;
+            padding: 0;
         }
 
         .navbar-brand-logo {
             margin-top: -15px; /* Adjusted value for vertical alignment with menu */
-            height:50px;
+            height: 50px;
         }
 
         .navbar-nav {
@@ -48,13 +49,13 @@
             margin: 0; /* Adjusted margin between menu items */
         }
 
-        .navbar-nav .nav-item {
-            margin: 0 1px; /* Adjusted margin between menu items */
-        }
+            .navbar-nav .nav-item {
+                margin: 0 1px; /* Adjusted margin between menu items */
+            }
 
-        .navbar-nav .nav-item:hover {
-            background-color: #555; /* Change this color to your desired hover color */
-        }
+                .navbar-nav .nav-item:hover {
+                    background-color: #555; /* Change this color to your desired hover color */
+                }
 
         .navbar-text {
             font-size: 10px;
@@ -66,9 +67,9 @@
             transition: background-color 0.3s; /* Added transition for smooth hover effect */
         }
 
-        .navbar-nav li:hover {
-            background-color:silver ; /* Change this color to your desired hover color */
-        }
+            .navbar-nav li:hover {
+                background-color: silver; /* Change this color to your desired hover color */
+            }
 
         .navbar-right {
             margin-right: 1px; /* Adjusted margin for right-aligned items */
@@ -206,6 +207,7 @@
     @Scripts.Render("~/Scripts/bootstrap-table/bootstrap-table.min.js")
     @Scripts.Render("~/Scripts/RiesgosGestor.js")
     @Scripts.Render("~/Scripts/AuditsGestor.js")
+    @Scripts.Render("~/Scripts/GestorCapacitation.js")
     @RenderSection("scripts", required: false)
 
 </body>

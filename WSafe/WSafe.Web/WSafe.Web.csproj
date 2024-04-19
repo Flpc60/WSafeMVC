@@ -744,6 +744,7 @@
     <Content Include="Scripts\esm\popper.min.js" />
     <Content Include="Scripts\AuditsGestor.js" />
     <Content Include="Scripts\GestorAudits.js" />
+    <Content Include="Scripts\GestorCapacitation.js" />
     <Content Include="Scripts\RiesgosGestor.js" />
     <Content Include="Scripts\GestorRiesgosSST.js" />
     <Content Include="favicon.ico" />
