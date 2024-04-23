@@ -41,3 +41,212 @@ function ShowSchedule() {
         }
     });
 }
+function chartCapacitations() {
+
+    // Gráficar capacitaciones
+    $.ajax({
+        url: "/Capacitations/GetScheduleAll",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (data) {
+            var arrayLabel = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+            var eficacia = [];
+            var eficiencia = [];
+            var efectividad = [];
+            var backgroundColor = 'rgb(81, 152, 255)';
+            data.forEach(function (item, index) {
+                for (var i = 1; i <= 12; i++) {
+                    var numerator = item[`E${i}`]; // Accede a la propiedad del objeto usando la notación de corchetes
+                    var denominator = item[`P${i}`]; // Accede a la propiedad del objeto usando la notación de corchetes
+                    var resultEficacia = (denominator !== 0) ? (numerator / denominator) * 100 : 0;
+                    eficacia.push(resultEficacia);
+
+                    numerator = item[`C${i}`]; // Accede a la propiedad del objeto usando la notación de corchetes
+                    denominator = item[`Cc${i}`]; // Accede a la propiedad del objeto usando la notación de corchetes
+                    var resultEficiencia = (denominator !== 0) ? (numerator / denominator) * 100 : 0;
+                    eficiencia.push(resultEficiencia);
+
+                    numerator = item[`Tc${i}`]; // Accede a la propiedad del objeto usando la notación de corchetes
+                    denominator = item[`C${i}`]; // Accede a la propiedad del objeto usando la notación de corchetes
+                    var resultEfectividad = (denominator !== 0) ? (numerator / denominator) * 100 : 0;
+                    efectividad.push(resultEfectividad);
+                }
+            });
+
+            var legend = "% DE EFICACIA";
+            var ctx = document.getElementById("capacitationEficacia").getContext('2d');
+
+            var chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: arrayLabel,
+                    datasets: [
+                        {
+                            label: "ACTIVIDADES EJECUTADAS",
+                            backgroundColor: backgroundColor,
+                            data: eficacia
+                        }
+                    ]
+                },
+                options: {
+                    plugins: {
+                        legend: {
+                            title: {
+                                display: true,
+                                text: legend
+                            },
+                            display: true,
+                            position: 'inside',
+                            labels: {
+                                color: backgroundColor
+                            }
+                        }
+                    },
+                    responsive: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        },
+                        yAxes: [{
+                            display: true,
+                            title: {
+                                display: true
+                            },
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    title: {
+                        display: true,
+                        text: 'CAPACITACIONES ' + legend,
+                        color: backgroundColor
+                    }
+                }
+            });
+
+            legend = "% DE EFICIENCIA";
+            ctx = document.getElementById("capacitationEficiencia").getContext('2d');
+
+            chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: arrayLabel,
+                    datasets: [
+                        {
+                            label: "ACTIVIDADES EJECUTADAS",
+                            backgroundColor: backgroundColor,
+                            data: eficiencia
+                        }
+                    ]
+                },
+                options: {
+                    plugins: {
+                        legend: {
+                            title: {
+                                display: true,
+                                text: legend
+                            },
+                            display: true,
+                            position: 'inside',
+                            labels: {
+                                color: backgroundColor
+                            }
+                        }
+                    },
+                    responsive: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        },
+                        yAxes: [{
+                            display: true,
+                            title: {
+                                display: true
+                            },
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    title: {
+                        display: true,
+                        text: 'CAPACITACIONES ' + legend,
+                        color: backgroundColor
+                    }
+                }
+            });
+
+            legend = "% DE EFECTIVIDAD";
+            ctx = document.getElementById("capacitationEfectividad").getContext('2d');
+
+            chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: arrayLabel,
+                    datasets: [
+                        {
+                            label: "ACTIVIDADES EJECUTADAS",
+                            backgroundColor: backgroundColor,
+                            data: efectividad
+                        }
+                    ]
+                },
+                options: {
+                    plugins: {
+                        legend: {
+                            title: {
+                                display: true,
+                                text: legend
+                            },
+                            display: true,
+                            position: 'inside',
+                            labels: {
+                                color: backgroundColor
+                            }
+                        }
+                    },
+                    responsive: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        },
+                        yAxes: [{
+                            display: true,
+                            title: {
+                                display: true
+                            },
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    title: {
+                        display: true,
+                        text: 'CAPACITACIONES ' + legend,
+                        color: backgroundColor
+                    }
+                }
+            });
+
+            var canvasElement = document.getElementById("capacitationEficacia");
+            canvasElement.tabIndex = 0;
+            canvasElement.focus();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
