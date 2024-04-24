@@ -2669,5 +2669,43 @@ namespace WSafe.Domain.Helpers.Implements
             model.Add(listCapacitationVM);
             return model;
         }
+        public CreateCapacitationVM ToCreateCapacitationVM(int org)
+        {
+            var year = DateTime.Now.Year;
+            var model = new CreateCapacitationVM
+            {
+                TrainingTopics = _comboHelper.GetTrainingTopicsAll(org),
+                Workers = _comboHelper.GetWorkersFull(org),
+                StateCronogram = StatesCronogram.Programada,
+                InitialDate = new DateTime(year, 1, 2),
+                EndDate = new DateTime(year, 12, 30),
+                ActivityFrequency = ActivitiesFrequency.Mensual,
+                Shedule = new List<Schedule>()
+            };
+            return model;
+        }
+        public async Task<Capacitation> ToCapacitationAsync(CreateCapacitationVM model, bool isNew)
+        {
+            var result = new Capacitation
+            {
+                ID = isNew ? 0 : model.ID,
+                InitialDate = Convert.ToDateTime(model.InitialDate),
+                EndDate = Convert.ToDateTime(model.EndDate),
+                TrainingTopicID = model.TrainingTopicID,
+                TrabajadorID = model.TrabajadorID,
+                StateCronogram = model.StateCronogram,
+                Programed = model.Programed,
+                Executed = model.Executed,
+                Citados = model.Citados,
+                Capacitados = model.Capacitados,
+                Evaluados = model.Evaluados,
+                ActivityFrequency = model.ActivityFrequency,
+                Schedule = model.Shedule,
+                OrganizationID = model.OrganizationID,
+                ClientID = model.ClientID,
+                UserID = model.UserID,
+            };
+            return result;
+        }
     }
 }

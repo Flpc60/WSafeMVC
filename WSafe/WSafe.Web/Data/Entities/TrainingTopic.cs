@@ -19,5 +19,6 @@ namespace WSafe.Domain.Data.Entities
         public string Resources { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public ActivitiesFrequency ActivityFrequency { get; set; }
+        public int OrganizationID { get; set; }
     }
 }

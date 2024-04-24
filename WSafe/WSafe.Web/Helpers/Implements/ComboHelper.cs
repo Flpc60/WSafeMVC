@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using WSafe.Domain.Data.Entities;
 using WSafe.Web.Models;
+using static Antlr4.Runtime.Atn.SemanticContext;
 
 namespace WSafe.Domain.Helpers.Implements
 {
@@ -574,6 +575,24 @@ namespace WSafe.Domain.Helpers.Implements
             list.Insert(0, new SelectListItem
             {
                 Text = "(Seleccione un estándard ...)",
+                Value = "0"
+            });
+
+            return list;
+        }
+        public IEnumerable<SelectListItem> GetTrainingTopicsAll(int org)
+        {
+            var list = _empresaContext.TrainingTopics.Where(t => t.OrganizationID == org).Select(t => new SelectListItem
+            {
+                Text = t.Name,
+                Value = t.ID.ToString()
+            })
+                .OrderBy(t => t.Text)
+                .ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione una actividad ...)",
                 Value = "0"
             });
 

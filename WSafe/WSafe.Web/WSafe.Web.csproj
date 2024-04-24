@@ -513,6 +513,14 @@
     <Compile Include="Migrations\202404171833216_UpdCapacitation.designer.cs">
       <DependentUpon>202404171833216_UpdCapacitation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202404241738068_updateCapacitationVM.cs" />
+    <Compile Include="Migrations\202404241738068_updateCapacitationVM.designer.cs">
+      <DependentUpon>202404241738068_updateCapacitationVM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202404242008139_updateCapacitationTable.cs" />
+    <Compile Include="Migrations\202404242008139_updateCapacitationTable.designer.cs">
+      <DependentUpon>202404242008139_updateCapacitationTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -1036,6 +1044,7 @@
     <Content Include="Views\Capacitations\Details.cshtml" />
     <Content Include="Views\Capacitations\Edit.cshtml" />
     <Content Include="Views\Capacitations\Index.cshtml" />
+    <Content Include="Views\Shared\_EditCapacitation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1296,6 +1305,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202404171833216_UpdCapacitation.resx">
       <DependentUpon>202404171833216_UpdCapacitation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202404241738068_updateCapacitationVM.resx">
+      <DependentUpon>202404241738068_updateCapacitationVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202404242008139_updateCapacitationTable.resx">
+      <DependentUpon>202404242008139_updateCapacitationTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

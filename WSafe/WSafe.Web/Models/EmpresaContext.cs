@@ -109,5 +109,7 @@ namespace WSafe.Web.Models
         public System.Data.Entity.DbSet<WSafe.Web.Models.CreateOccupationalVM> CreateOccupationalVMs { get; set; }
 
         public System.Data.Entity.DbSet<WSafe.Web.Models.ListCapacitationVM> ListCapacitationVMs { get; set; }
+
+        public System.Data.Entity.DbSet<WSafe.Web.Models.CreateCapacitationVM> CreateCapacitationVMs { get; set; }
     }
 }
