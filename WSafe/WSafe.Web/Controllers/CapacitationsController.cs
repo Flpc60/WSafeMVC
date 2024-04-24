@@ -64,17 +64,16 @@ namespace WSafe.Web.Controllers
         public ActionResult Create()
         {
             _orgID = (int)Session["orgID"];
-            var model = _converterHelper.ToCreateOccupationalVM(_orgID);
+            var model = _converterHelper.ToCreateCapacitationVM(_orgID);
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,ExaminationDate,TrabajadorID,Workers, Talla,Peso,ExaminationType,Recomendations,MedicalRecomendation,SigueOccupational,OrganizationID,ClientID,UserID, FileName")] CreateOccupationalVM model, HttpPostedFileBase fileLoad)
+        public async Task<ActionResult> Create([Bind(Include = "ID,TrainingTopicID,TrabajadorID,StateCronogram,Programed,Executed,Citados,Capacitados,Evaluados,InitialDate,EndDate,ActivityFrequency,OrganizationID,ClientID,UserID")] CreateCapacitationVM model)
         {
             try
             {
-
                 _clientID = (int)Session["clientID"];
                 _orgID = (int)Session["orgID"];
                 _year = (string)Session["year"];
@@ -82,68 +81,121 @@ namespace WSafe.Web.Controllers
                 model.ClientID = (int)Session["clientID"];
                 model.OrganizationID = (int)Session["orgID"];
                 model.UserID = (int)Session["userID"];
+                model.TrainingTopics = _comboHelper.GetTrainingTopicsAll(_orgID);
                 model.Workers = _comboHelper.GetWorkersFull(_orgID);
-                if (fileLoad != null)
+
+                if (model.TrabajadorID != 0)
                 {
-                    var url = $"{_path}/2. HACER/3.1.4/{fileLoad.FileName}";
-                    model.FileName = url.Substring(1);
-                }
-                if (ModelState.IsValid)
-                {
-                    var organization = _empresaContext.Organizations.Find(_orgID);
-                    var normaID = organization.StandardOccupational;
-                    var item = _empresaContext.Normas.Find(normaID).Item;
-                    var fullPath = $"{_path}/2. HACER/{item}/";
-                    var path = Server.MapPath(fullPath);
-                    if (!Directory.Exists(path))
-                    {
-                        Directory.CreateDirectory(path);
-                    }
-                    fileLoad.SaveAs(path + Path.GetFileName(fileLoad.FileName));
-                    var fullName = fileLoad.FileName;
-                    var type = Path.GetExtension(fileLoad.FileName).ToUpper();
-
-                    //Generar archivo de movimiento
-                    var descript = "Evaluaciones médicas ocupacionales";
-                    var userID = (int)Session["userID"];
-                    Movimient movimient = new Movimient()
-                    {
-                        ID = 0,
-                        OrganizationID = _orgID,
-                        NormaID = normaID,
-                        UserID = userID,
-                        Descripcion = descript,
-                        Document = fileLoad.FileName,
-                        Year = _year,
-                        Item = item,
-                        Ciclo = "H",
-                        Type = type,
-                        Path = path,
-                        ClientID = _clientID
-                    };
-
-                    _empresaContext.Movimientos.Add(movimient);
-                    _empresaContext.SaveChanges();
-
-                    var consulta = new OccupationalService(new OccupationalRepository(_empresaContext));
-                    var occupational = await _converterHelper.ToOccupationalAsync(model, true);
-                    var saved = await consulta.Insert(occupational);
+                    var consulta = new CapacitationService(new CapacitationRepository(_empresaContext));
+                    var capacitation = await _converterHelper.ToCapacitationAsync(model, true);
+                    var saved = await consulta.Insert(capacitation);
                     if (saved != null)
                     {
+                        // Generar registros de seguimiento del plan anual de capacitaciones acorde con la programación de actividades
+
+                        var id = _empresaContext.Capacitations.OrderByDescending(c => c.ID)
+                            .Select(c => c.ID).First();
+
+                        // Calcular la diferencia en días
+                        TimeSpan diferencia = Convert.ToDateTime(model.EndDate) - Convert.ToDateTime(model.InitialDate);
+                        int factor = diferencia.Days;
+                        var sumar = 1;
+                        short numActivities = 0;
+                        var denominador = 1;
+                        switch (model.ActivityFrequency)
+                        {
+                            case ActivitiesFrequency.Diaria:
+                                sumar = 1;
+                                denominador = (factor / sumar) <= 0 ? 1 : (factor / sumar);
+                                numActivities = Convert.ToInt16(model.Programed / denominador);
+                                break;
+                            case ActivitiesFrequency.Semanal:
+                                sumar = 7;
+                                denominador = (factor / sumar) <= 0 ? 1 : (factor / sumar);
+                                numActivities = Convert.ToInt16(model.Programed / denominador);
+                                break;
+                            case ActivitiesFrequency.Quincenal:
+                                sumar = 15;
+                                denominador = (factor / sumar) <= 0 ? 1 : (factor / sumar);
+                                numActivities = Convert.ToInt16(model.Programed / denominador);
+                                break;
+                            case ActivitiesFrequency.Mensual:
+                                sumar = 30;
+                                denominador = (factor / sumar) <= 0 ? 1 : (factor / sumar);
+                                numActivities = Convert.ToInt16(model.Programed / denominador);
+                                break;
+                            case ActivitiesFrequency.Bimensual:
+                                sumar = 60;
+                                denominador = (factor / sumar) <= 0 ? 1 : (factor / sumar);
+                                numActivities = Convert.ToInt16(model.Programed / denominador);
+                                break;
+                            case ActivitiesFrequency.Trimestral:
+                                sumar = 90;
+                                denominador = (factor / sumar) <= 0 ? 1 : (factor / sumar);
+                                numActivities = Convert.ToInt16(model.Programed / denominador);
+                                break;
+                            case ActivitiesFrequency.Cuatrimestral:
+                                sumar = 120;
+                                denominador = (factor / sumar) <= 0 ? 1 : (factor / sumar);
+                                numActivities = Convert.ToInt16(model.Programed / denominador);
+                                break;
+                            case ActivitiesFrequency.Semestral:
+                                sumar = 180;
+                                denominador = (factor / sumar) <= 0 ? 1 : (factor / sumar);
+                                numActivities = Convert.ToInt16(model.Programed / denominador);
+                                break;
+                            case ActivitiesFrequency.Anual:
+                                sumar = 365;
+                                denominador = (factor / sumar) <= 0 ? 1 : (factor / sumar);
+                                numActivities = Convert.ToInt16(model.Programed / denominador);
+                                break;
+                            default:
+                                break;
+                        }
+
+                        if (numActivities > 0)
+                        {
+
+                            DateTime fecha = Convert.ToDateTime(model.InitialDate);
+                            while (Convert.ToDateTime(model.EndDate) >= fecha)
+                            {
+                                var siguePlan = new Schedule
+                                {
+                                    ID = 0,
+                                    DateSigue = fecha,
+                                    TrabajadorID = model.TrabajadorID,
+                                    StateCronogram = (StatesCronogram)1,
+                                    Programed = numActivities,
+                                    Executed = model.Executed,
+                                    Citados = model.Citados,
+                                    Capacitados = model.Capacitados,
+                                    Evaluados = model.Evaluados,
+                                    CapacitationID = id,
+                                    OrganizationID = model.OrganizationID,
+                                    ClientID = model.ClientID,
+                                    UserID = model.UserID
+                                };
+                                _empresaContext.Schedules.Add(siguePlan);
+
+                                fecha = fecha.AddDays(sumar);
+                            }
+                            await _empresaContext.SaveChangesAsync();
+                        }
+
                         return RedirectToAction("Index");
                     }
                 }
             }
             catch (Exception ex)
             {
-                return View("Error", new HandleErrorInfo(ex, "Occupationals", "Index"));
+                return View("Error", new HandleErrorInfo(ex, "Capacitations", "Index"));
             }
 
             ViewBag.message = "Faltan campos por diligenciar del formulario !!";
+            ViewBag.guardar = true;
 
             return View(model);
         }
-
         public async Task<ActionResult> Edit(int? id)
         {
             try

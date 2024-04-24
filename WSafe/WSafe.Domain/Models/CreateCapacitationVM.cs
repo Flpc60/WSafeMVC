@@ -10,19 +10,17 @@ namespace WSafe.Web.Models
     {
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Fecha inicial")]
-        public DateTime InitialDate { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Fecha final")]
-        public DateTime EndDate { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Actividad")]
         public int TrainingTopicID { get; set; }
         public IEnumerable<SelectListItem> TrainingTopics { get; set; }
+        [MaxLength(200)]
+        public string Name { get; set; }
+        [MaxLength(200)]
+        public string Objetive { get; set; }
+        [MaxLength(200)]
+        public string Content { get; set; }
+        [MaxLength(200)]
+        public string Resources { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "RESPONSABLE")]
         public int TrabajadorID { get; set; }
@@ -44,6 +42,16 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Range(typeof(short), "1", "9999", ErrorMessage = "Por favor ingrese un número de trabajadores evaluados válido.")]
         public short Evaluados { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Fecha inicial")]
+        public DateTime InitialDate { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Fecha final")]
+        public DateTime EndDate { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public ActivitiesFrequency ActivityFrequency { get; set; }
         public ICollection<Schedule> Shedule { get; set; }

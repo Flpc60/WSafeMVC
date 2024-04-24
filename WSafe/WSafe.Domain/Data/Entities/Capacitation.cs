@@ -25,6 +25,10 @@ namespace WSafe.Domain.Data.Entities
         [Range(typeof(short), "1", "9999", ErrorMessage = "Por favor ingrese un número de actividades programadas válido.")]
         public short Programed { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Range(typeof(short), "1", "9999", ErrorMessage = "Por favor ingrese un número de actividades ejecutadas válido.")]
+        [Display(Name = "EJECUTADAS")]
+        public short Executed { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Range(typeof(short), "1", "9999", ErrorMessage = "Por favor ingrese un número de trabajadores citados  válido.")]
         public short Citados { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
