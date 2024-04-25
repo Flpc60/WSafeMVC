@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class updateCapacitationVM : DbMigration
+    public partial class updateCapacitacionVM : DbMigration
     {
         public override void Up()
         {

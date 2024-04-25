@@ -22,16 +22,18 @@ namespace WSafe.Web.Models
         [MaxLength(200)]
         public string Resources { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "RESPONSABLE")]
+        [Display(Name = "Responsable")]
         public int TrabajadorID { get; set; }
+        [Display(Name = "Estado")]
         public IEnumerable<SelectListItem> Workers { get; set; }
         public StatesCronogram StateCronogram { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Range(typeof(short), "1", "9999", ErrorMessage = "Por favor ingrese un número de actividades programadas válido.")]
+        [Display(Name = "Programadas")]
         public short Programed { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Range(typeof(short), "1", "9999", ErrorMessage = "Por favor ingrese un número de actividades ejecutadas válido.")]
-        [Display(Name = "EJECUTADAS")]
+        [Display(Name = "Ejecutadas")]
         public short Executed { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Range(typeof(short), "1", "9999", ErrorMessage = "Por favor ingrese un número de trabajadores citados  válido.")]
@@ -53,6 +55,7 @@ namespace WSafe.Web.Models
         [Display(Name = "Fecha final")]
         public DateTime EndDate { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Frecuencia")]
         public ActivitiesFrequency ActivityFrequency { get; set; }
         public ICollection<Schedule> Shedule { get; set; }
         public int OrganizationID { get; set; }

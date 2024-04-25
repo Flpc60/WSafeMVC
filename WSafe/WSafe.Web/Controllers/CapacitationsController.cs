@@ -167,7 +167,7 @@ namespace WSafe.Web.Controllers
                                     TrabajadorID = model.TrabajadorID,
                                     StateCronogram = (StatesCronogram)1,
                                     Programed = numActivities,
-                                    Executed = model.Executed,
+                                    Executed = numActivities,
                                     Citados = model.Citados,
                                     Capacitados = model.Capacitados,
                                     Evaluados = model.Evaluados,
@@ -533,7 +533,7 @@ namespace WSafe.Web.Controllers
             try
             {
                 _orgID = (int)Session["orgID"];
-                var model = await _empresaContext.Capacitations
+                var model = await _empresaContext.TrainingTopics
                     .Where(c => c.OrganizationID == _orgID)
                     .FirstOrDefaultAsync(c => c.ID == id);
                 return Json(model, JsonRequestBehavior.AllowGet);
@@ -541,6 +541,40 @@ namespace WSafe.Web.Controllers
             catch (Exception ex)
             {
                 return View("Error", new HandleErrorInfo(ex, "Capacitations", "Index"));
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetSigueCapacitations(int id)
+        {
+            try
+            {
+                var list =
+                    from s in _empresaContext.Schedules
+                    where (s.CapacitationID == id)
+                    orderby s.DateSigue
+                    select new
+                    {
+                        ID = s.ID,
+                        CapacitationID = s.CapacitationID,
+                        DateSigue = s.DateSigue,
+                        TrabajadorID = s.TrabajadorID,
+                        Responsable = _empresaContext.Trabajadores.Find(s.TrabajadorID).NombreCompleto,
+                        StateCronogram = s.StateCronogram,
+                        Executed = s.Executed,
+                        Programed = s.Programed,
+                        Citados = s.Citados,
+                        Capacitados = s.Capacitados,
+                        Evaluados = s.Evaluados
+                    };
+
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+
+                var message = "La conslta NO se ha realizado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
     }
