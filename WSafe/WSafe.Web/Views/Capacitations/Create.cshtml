@@ -6,7 +6,7 @@
 
 <style>
 
-    .tabAnnualPlan, .tabAddSigue {
+    .tabAnnualPlan, .tabAddSigue, tabTraining {
         display: none;
     }
 
@@ -15,7 +15,7 @@
     }
 </style>
 
-@using (Html.BeginForm("Create", "Occupationals", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Create", "Capacitations", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -32,6 +32,15 @@
     </div>
 }
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+@section Scripts
+{
+    <script type="text/javascript">
+        $('#trainingID').change(function () {
+            getTrainingTopic();
+        });
+
+        $(document).ready(function () {
+        });
+    </script>
 }
+
