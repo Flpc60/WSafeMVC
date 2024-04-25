@@ -743,6 +743,7 @@
     <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-zh-TW.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\CapacitationsGestor.js" />
     <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\ChatGPTAsistence.js" />
@@ -1045,6 +1046,7 @@
     <Content Include="Views\Capacitations\Edit.cshtml" />
     <Content Include="Views\Capacitations\Index.cshtml" />
     <Content Include="Views\Shared\_EditCapacitation.cshtml" />
+    <Content Include="Views\Shared\_EditSigueCapacitation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
