@@ -1,5 +1,13 @@
 ﻿@model WSafe.Web.Models.CreateCapacitationVM
 
+<style>
+
+    .tabTraining, .tabSigueCapacitation, .tabCapacitation {
+        display: none;
+    }
+
+</style>
+
 <div class="container" style="background-color:azure; padding:20px;">
     <hr class="mt-4">
     <h4 style="text-align:center">REGISTRAR PLAN DE CAPACITACIONES ANUAL</h4>
@@ -15,25 +23,6 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <p><srong>OBJETIVO: </srong></p>
-            <p id="objetive"></p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <p><srong>CONTENIDO: </srong></p>
-            <p id="contenido"></p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <p><srong>RECURSOS: </srong></p>
-            <p id="Resources"></p>
-        </div>
-    </div>
-
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -134,12 +123,12 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <div class="tabAnnualPlan">
+            <div class="tabCapacitation">
                 <input type="hidden" id="planActivityID" name="planActivityID" />
                 <hr />
                 <div class="container">
                     <button type="button" class="btn btn-primary" id="addTraceabilityID">Adicionar nuevo seguimiento</button>
-                    @Html.Partial("_ShowSeguimients")
+                    @Html.Partial("_ShowCapacitation")
                 </div>
             </div>
         </div>
@@ -172,9 +161,43 @@
                     {
                         <input type="submit" value="Guardar" class="btn btn-primary" />
                     }
-                    <button type="button" id="btnSigue" class="btn btn-success" onclick="ShowCapacitations(@Model.ID);">Seguimientos</button>
+                    <button type="button" id="btnSigue" class="btn btn-success" onclick="ShowCapacitations(@Model.ID);">
+                        <span class="glyphicon glyphicon-forward"></span>
+                    </button>
                     @Html.ActionLink("Listado capacitaciones", "Index", new { @class = "glyphicon glyphicon-plus" },
                     new { @class = "btn btn-info" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabSigueCapacitation">
+                <input type="hidden" id="occupationalID" name="occupationalID" />
+                <hr />
+                <div class="container">
+                    <button type="button" class="btn btn-primary" id="addTraceabilityID">Adicionar nuevo seguimiento</button>
+                    @Html.Partial("_ShowCapacitation")
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabAddSigue">
+                @Html.Partial("_EditSigueCapacitation")
+                <hr />
+                <div class="row">
+                    <div class="col-md-8">
+                        <button type="button" id="btnAddTraceability" class="btn btn-primary" onclick="addSigueOccupational(@Model.ID);">Adicionar</button>
+                        <button type="button" id="btnUpdTraceability" class="btn btn-primary" onclick="updateSigueOccupational(@Model.ID)">Actualizar</button>
+                        <button type="button" id="btnCanTraceability" class="btn btn-primary" onclick="cancelSigueOccupational()">
+                            <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                        </button>
+                        <hr />
+                    </div>
+                    <div class="col-md-4">
+                    </div>
                 </div>
             </div>
         </div>
@@ -188,22 +211,3 @@
     </div>
 
 </div>
-
-@section Scripts
-{
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-
-    <script type="text/javascript">
-        var id = $("#trainingID").val();
-        alert("Voy a Entrar a getTrainingTopic: ") + id;
-
-        $('#trainingID').change(function () {
-            getTrainingTopic();
-        });
-
-        $(document).ready(function () {
-            // Aquí puedes agregar cualquier código adicional que desees ejecutar cuando el documento esté listo.
-        });
-    </script>
-}
-
