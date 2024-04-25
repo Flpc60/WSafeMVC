@@ -65,6 +65,7 @@ namespace WSafe.Web.Controllers
         {
             _orgID = (int)Session["orgID"];
             var model = _converterHelper.ToCreateCapacitationVM(_orgID);
+            ViewBag.guardar = true;
             return View(model);
         }
 
@@ -519,6 +520,22 @@ namespace WSafe.Web.Controllers
                     .Include(s => s.Schedule)
                     .ToListAsync();
                 var model = _converterHelper.ToCapacitationVM(list);
+                return Json(model, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Capacitations", "Index"));
+            }
+        }
+        [HttpGet]
+        public async Task<ActionResult> GetTrainingTopicName(int id)
+        {
+            try
+            {
+                _orgID = (int)Session["orgID"];
+                var model = await _empresaContext.Capacitations
+                    .Where(c => c.OrganizationID == _orgID)
+                    .FirstOrDefaultAsync(c => c.ID == id);
                 return Json(model, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
