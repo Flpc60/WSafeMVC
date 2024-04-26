@@ -1,7 +1,9 @@
-﻿using Rotativa;
+﻿using Jint.Expressions;
+using Rotativa;
 using System;
 using System.Data;
 using System.Data.Entity;
+using System.IdentityModel.Metadata;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -14,6 +16,7 @@ using WSafe.Domain.Repositories.Implements;
 using WSafe.Domain.Services.Implements;
 using WSafe.Web.Data.Entities;
 using WSafe.Web.Models;
+using static Antlr4.Runtime.Atn.SemanticContext;
 
 namespace WSafe.Web.Controllers
 {
@@ -203,41 +206,43 @@ namespace WSafe.Web.Controllers
             {
                 _orgID = (int)Session["orgID"];
                 _year = (string)Session["year"];
-                Occupational occupational = await _empresaContext.Occupationals.FindAsync(id);
-                var model = _converterHelper.ToUpdateOccupationalVM(occupational, _orgID);
+                Capacitation capacitation = await _empresaContext.Capacitations.FindAsync(id);
+                var model = _converterHelper.ToUpdateCapacitationVM(capacitation, _orgID);
                 ViewBag.guardar = true;
 
                 return View(model);
             }
             catch (Exception ex)
             {
-                return View("Error", new HandleErrorInfo(ex, "Occupationals", "Index"));
+                return View("Error", new HandleErrorInfo(ex, "Capacitations", "Index"));
             }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID, ExaminationDate, TrabajadorID, Workers, Talla, Peso, ExaminationType, Recomendations, MedicalRecomendation, SigueOccupational, OrganizationID, ClientID, UserID, FileName")] CreateOccupationalVM model, HttpPostedFileBase fileLoad)
+        public async Task<ActionResult> Edit([Bind(Include = "ID, TrainingTopicID, TrabajadorID, StateCronogram, Programed, Executed, Citados, Capacitados, Evaluados, InitialDate, EndDate, ActivityFrequency, OrganizationID, ClientID, UserID")] CreateCapacitationVM model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    Occupational occupational = await _converterHelper.ToOccupationalAsync(model, false);
-                    _empresaContext.Entry(occupational).State = EntityState.Modified;
+                    Capacitation capacitation = await _converterHelper.ToCapacitationAsync(model, false);
+                    _empresaContext.Entry(capacitation).State = EntityState.Modified;
                     await _empresaContext.SaveChangesAsync();
                     _orgID = (int)Session["orgID"];
                     model.Workers = _comboHelper.GetWorkersFull(_orgID);
+                    model.TrainingTopics = _comboHelper.GetTrainingTopicsAll(_orgID);
                     ViewBag.guardar = false;
                     return View(model);
                 }
             }
             catch (Exception ex)
             {
-                return View("Error", new HandleErrorInfo(ex, "Occupationals", "Index"));
+                return View("Error", new HandleErrorInfo(ex, "Capacitations", "Index"));
             }
 
             _orgID = model.OrganizationID;
+            model.TrainingTopics = _comboHelper.GetTrainingTopicsAll(_orgID);
             model.Workers = _comboHelper.GetWorkersFull(_orgID);
             ViewBag.message = "Faltan campos por diligenciar del formulario !!";
             ViewBag.guardar = true;
@@ -559,7 +564,7 @@ namespace WSafe.Web.Controllers
                         CapacitationID = s.CapacitationID,
                         DateSigue = s.DateSigue,
                         TrabajadorID = s.TrabajadorID,
-                        Responsable = _empresaContext.Trabajadores.Find(s.TrabajadorID).NombreCompleto,
+                        Responsable = " ",
                         StateCronogram = s.StateCronogram,
                         Executed = s.Executed,
                         Programed = s.Programed,

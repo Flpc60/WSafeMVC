@@ -123,38 +123,6 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <div class="tabCapacitation">
-                <input type="hidden" id="planActivityID" name="planActivityID" />
-                <hr />
-                <div class="container">
-                    <button type="button" class="btn btn-primary" id="addTraceabilityID">Adicionar nuevo seguimiento</button>
-                    @Html.Partial("_ShowCapacitation")
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="tabAddSigue">
-                <input type="hidden" id="siguePlanID" name="siguePlanID" />
-                <hr />
-                <div class="row">
-                    <div class="col-md-8">
-                        <button type="button" id="btnAddCapacitation" class="btn btn-primary" onclick="addTraceability(@Model.ID);">Adicionar</button>
-                        <button type="button" id="btnUpdCapacitation" class="btn btn-primary" onclick="updateTraceability(@Model.ID)">Actualizar</button>
-                        <button type="button" id="btnCanCapacitation" class="btn btn-primary" onclick="cancelTraceability()">
-                            <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
-                        </button>
-                        <hr />
-                    </div>
-                    <div class="col-md-4">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
             <div class="form-group">
                 <div class="container">
                     @if (ViewBag.guardar)
@@ -178,6 +146,27 @@
                 <div class="container">
                     <button type="button" class="btn btn-primary" id="addTraceabilityID">Adicionar nuevo seguimiento</button>
                     @Html.Partial("_ShowCapacitation")
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabAddSigue">
+                <input type="hidden" id="sigueCapacitation" name="sigueCapacitation" />
+                @Html.Partial("_EditSigueCapacitation")
+                <hr />
+                <div class="row">
+                    <div class="col-md-8">
+                        <button type="button" id="btnAddCapacitation" class="btn btn-primary" onclick="addTraceability(@Model.ID);">Adicionar</button>
+                        <button type="button" id="btnUpdCapacitation" class="btn btn-primary" onclick="updateTraceability(@Model.ID)">Actualizar</button>
+                        <button type="button" id="btnCanCapacitation" class="btn btn-primary" onclick="cancelTraceability()">
+                            <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                        </button>
+                        <hr />
+                    </div>
+                    <div class="col-md-4">
+                    </div>
                 </div>
             </div>
         </div>

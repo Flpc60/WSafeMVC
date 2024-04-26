@@ -2680,7 +2680,7 @@ namespace WSafe.Domain.Helpers.Implements
                 InitialDate = new DateTime(year, 1, 2),
                 EndDate = new DateTime(year, 12, 30),
                 ActivityFrequency = ActivitiesFrequency.Mensual,
-                Shedule = new List<Schedule>()
+                Schedule = new List<Schedule>()
             };
             return model;
         }
@@ -2700,7 +2700,34 @@ namespace WSafe.Domain.Helpers.Implements
                 Capacitados = model.Capacitados,
                 Evaluados = model.Evaluados,
                 ActivityFrequency = model.ActivityFrequency,
-                Schedule = model.Shedule,
+                Schedule = model.Schedule,
+                OrganizationID = model.OrganizationID,
+                ClientID = model.ClientID,
+                UserID = model.UserID,
+            };
+            return result;
+        }
+        public CreateCapacitationVM ToUpdateCapacitationVM(Capacitation model, int org)
+        {
+            var sigue = _empresaContext.Schedules.Where(s => s.CapacitationID == model.ID).ToList();
+
+            var result = new CreateCapacitationVM
+            {
+                ID = model.ID,
+                TrainingTopics = _comboHelper.GetTrainingTopicsAll(org),
+                Workers = _comboHelper.GetWorkersFull(org),
+                InitialDate = model.InitialDate,
+                EndDate = model.EndDate,
+                TrainingTopicID = model.TrainingTopicID,
+                TrabajadorID = model.TrabajadorID,
+                StateCronogram = model.StateCronogram,
+                Programed = model.Programed,
+                Executed = model.Executed,
+                Citados = model.Citados,
+                Capacitados = model.Capacitados,
+                Evaluados = model.Evaluados,
+                ActivityFrequency = model.ActivityFrequency,
+                Schedule = model.Schedule,
                 OrganizationID = model.OrganizationID,
                 ClientID = model.ClientID,
                 UserID = model.UserID,

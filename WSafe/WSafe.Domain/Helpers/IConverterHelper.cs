@@ -82,5 +82,6 @@ namespace WSafe.Domain.Helpers
         IEnumerable<ListCapacitationVM> ToCapacitationVM(IEnumerable<Capacitation> list);
         CreateCapacitationVM ToCreateCapacitationVM(int org);
         Task<Capacitation> ToCapacitationAsync(CreateCapacitationVM model, bool isNew);
+        CreateCapacitationVM ToUpdateCapacitationVM(Capacitation model, int org);
     }   
 }
