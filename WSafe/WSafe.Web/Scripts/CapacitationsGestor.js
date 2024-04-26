@@ -563,35 +563,70 @@ function addSigueCapacitation(id) {
 function updateSigueCapacitation(id) {
     // Actualiza una trazabilidad
     $('.tabAddSigue').css("display", "none");
-    var siguePlanAnualVM = {
-        ID: $("#siguePlanID").val(),
+    var schedule = {
+        ID: $("#sigueCapacitation").val(),
         DateSigue: $("#dateSigue").val(),
-        TrabajadorID: $("#sigueWorkerID").val(),
-        StateActivity: $("#stateActivity").val(),
+        TrabajadorID: $("#workerID").val(),
         StateCronogram: $("#stateCronogram").val(),
-        Programed: $("#programed").val(),
-        Executed: $("#executed").val(),
-        PlanActivityID: planActivityID,
-        Observation: $("#observation").val(),
-        FileName: $("#fileName").val(),
-        ActionCategory: $("#actionCategory").val(),
+        Programed: $("#sigueProgramed").val(),
+        Executed: $("#sigueExecuted").val(),
+        Citados: $("#citados").val(),
+        Capacitados: $("#capacitados").val(),
+        Evaluados: $("#sigueEvaluados").val(),
+        CapacitationID: id,
         OrganizationID: 1,
         ClientID: 1,
         UserID: 1
     };
     $.ajax({
         type: "POST",
-        url: "/AnnualPlans/UpdateSiguePlanAnual",
-        data: { model: siguePlanAnualVM },
+        url: "/Capacitations/UpdateSigueCapacitation",
+        data: { model: schedule },
         dataType: "json",
+        async: true,
         success: function (response) {
             alert(response.mensaj);
-            $(".tabAnnualPlan").css("display", "block");
-            ShowAnnualPlan(planActivityID);
+            $(".tabSigueCapacitation").css("display", "block");
+            ShowCapacitations(id);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
             alert(thrownError);
+        }
+    });
+}
+
+function getSigueCapacitation(id) {
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: "/Capacitations/UpdateSigueCapacitation",
+        data: {
+            id: id
+        },
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        success: function (response) {
+            var sigueDate = moment(response.DateSigue);
+            var formattedDate = sigueDate.format('YYYY-MM-DD');
+
+            $("#dateSigue").val(formattedDate);
+            $("#workerID").val(response.TrabajadorID);
+            $("#stateCronogram").val(response.StateCronogram);
+            $("#sigueProgramed").val(response.Programed);
+            $("#sigueExecuted").val(response.Executed);
+            $("#sigueCitados").val(response.Citados);
+            $("#sigueCapacitados").val(response.Capacitados);
+            $("#sigueEvaluados").val(response.Evaluados);
+            $("#sigueCapacitation").val(response.ID);
+            $("#btnAddTraceability").hide();
+            $("#btnUpdTraceability").show();
+            $("#btnCanTraceability").show();
+            $(".tabAddSigue").css("display", "block");
+            $("#dateSigue").focus();
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
         }
     });
 }

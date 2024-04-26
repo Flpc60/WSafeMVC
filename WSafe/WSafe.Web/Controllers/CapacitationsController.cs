@@ -280,17 +280,17 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> UpdateSigueOccupational(int id)
+        public async Task<ActionResult> UpdateSigueCapacitation(int id)
         {
             _orgID = (int)Session["orgID"];
             _year = (string)Session["year"];
 
-            SigueOccupational model = await _empresaContext.SigueOccupationals.FindAsync(id);
+            Schedule model = await _empresaContext.Schedules.FindAsync(id);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public async Task<ActionResult> UpdateSigueOccupational(SigueOccupational model)
+        public async Task<ActionResult> UpdateSigueCapacitation(Schedule model)
         {
             var message = "";
             try
@@ -302,7 +302,7 @@ namespace WSafe.Web.Controllers
                 _empresaContext.Entry(model).State = EntityState.Modified;
                 await _empresaContext.SaveChangesAsync();
                 message = "La actualización se ha realizado exitosamente !!";
-                return Json(new { data = model.OccupationalID, mensaj = message }, JsonRequestBehavior.AllowGet);
+                return Json(new { data = model.CapacitationID, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
