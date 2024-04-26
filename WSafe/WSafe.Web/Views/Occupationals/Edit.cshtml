@@ -41,8 +41,11 @@
     @Scripts.Render("~/bundles/jqueryval")
 
     <script type="text/javascript">
-
         $(document).ready(function () {
+            $('#trainingID').change(function () {
+                getTrainingTopic();
+            });
+
             $('#btnCanTraceability').click(function () {
                 $('.tabAddSigue').css("display", "none");
                 $('#btnAddTraceability').hide();
