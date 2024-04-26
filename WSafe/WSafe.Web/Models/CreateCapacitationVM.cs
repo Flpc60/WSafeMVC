@@ -57,7 +57,7 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Frecuencia")]
         public ActivitiesFrequency ActivityFrequency { get; set; }
-        public ICollection<Schedule> Shedule { get; set; }
+        public ICollection<Schedule> Schedule { get; set; }
         public int OrganizationID { get; set; }
         public int ClientID { get; set; }
         public int UserID { get; set; }
