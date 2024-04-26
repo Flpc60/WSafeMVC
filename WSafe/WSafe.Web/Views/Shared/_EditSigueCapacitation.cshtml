@@ -1,7 +1,7 @@
 ﻿@model WSafe.Web.Models.CreateCapacitationVM
 
 @{
-    var dateSigue = DateTime.Now;
+    var dateSigue = Model.InitialDate.ToString("yyyy-MM-dd");
     var dateControl = Model.EndDate.ToString("yyyy-MM-dd");
 }
 
@@ -31,7 +31,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Programed, htmlAttributes: new { @class = "control-label col-md-5" })
                 <div class="col-md-4 col-sm-10">
-                    @Html.EditorFor(model => model.Programed, new { htmlAttributes = new { @class = "form-control", @id = "programed" } })
+                    @Html.EditorFor(model => model.Programed, new { htmlAttributes = new { @class = "form-control", @id = "sigueProgramed" } })
                     @Html.ValidationMessageFor(model => model.Programed, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -40,7 +40,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Executed, htmlAttributes: new { @class = "control-label col-md-5" })
                 <div class="col-md-4 col-sm-10">
-                    @Html.EditorFor(model => model.Executed, new { htmlAttributes = new { @class = "form-control", @id = "executed" } })
+                    @Html.EditorFor(model => model.Executed, new { htmlAttributes = new { @class = "form-control", @id = "sigueExecuted" } })
                     @Html.ValidationMessageFor(model => model.Executed, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -58,16 +58,11 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Evaluados, htmlAttributes: new { @class = "control-label col-md-5" })
                 <div class="col-md-4 col-sm-10">
-                    @Html.EditorFor(model => model.Evaluados, new { htmlAttributes = new { @class = "form-control", @id = "evaluados" } })
+                    @Html.EditorFor(model => model.Evaluados, new { htmlAttributes = new { @class = "form-control", @id = "sigueEvaluados" } })
                     @Html.ValidationMessageFor(model => model.Evaluados, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
-    </div>
-    <hr />
-    <div class="row">
-    </div>
-    <div class="row">
     </div>
 
 </div>

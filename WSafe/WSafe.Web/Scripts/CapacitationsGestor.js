@@ -520,3 +520,78 @@ function deleteOccupational(id) {
         }
     });
 }
+
+function addSigueCapacitation(id) {
+    // Crea una nueva trazabilidad
+    $('.tabAddSigue').css("display", "none");
+    var schedule = {
+        ID: "0",
+        DateSigue: $("#dateSigue").val(),
+        TrabajadorID: $("#workerID").val(),
+        StateCronogram: $("#stateCronogram").val(),
+        Programed: $("#sigueProgramed").val(),
+        Executed: $("#sigueExecuted").val(),
+        Citados: $("#citados").val(),
+        Capacitados: $("#capacitados").val(),
+        Evaluados: $("#sigueEvaluados").val(),
+        CapacitationID: id,
+        OrganizationID: 1,
+        ClientID: 1,
+        UserID: 1
+    };
+    $.ajax({
+        type: "POST",
+        url: "/Capacitations/CreateSigueCapacitation",
+        data: { model: schedule },
+        dataType: "json",
+        async: true,
+        success: function (response) {
+            $("#sigueCapacitation").val(response.ID);
+            $("#btnAddTraceability").hide();
+            $("#btnUpdTraceability").hide();
+            $(".tabAddSigue").css("display", "none");
+            alert(response.mensaj);
+            ShowCapacitations(id);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function updateSigueCapacitation(id) {
+    // Actualiza una trazabilidad
+    $('.tabAddSigue').css("display", "none");
+    var siguePlanAnualVM = {
+        ID: $("#siguePlanID").val(),
+        DateSigue: $("#dateSigue").val(),
+        TrabajadorID: $("#sigueWorkerID").val(),
+        StateActivity: $("#stateActivity").val(),
+        StateCronogram: $("#stateCronogram").val(),
+        Programed: $("#programed").val(),
+        Executed: $("#executed").val(),
+        PlanActivityID: planActivityID,
+        Observation: $("#observation").val(),
+        FileName: $("#fileName").val(),
+        ActionCategory: $("#actionCategory").val(),
+        OrganizationID: 1,
+        ClientID: 1,
+        UserID: 1
+    };
+    $.ajax({
+        type: "POST",
+        url: "/AnnualPlans/UpdateSiguePlanAnual",
+        data: { model: siguePlanAnualVM },
+        dataType: "json",
+        success: function (response) {
+            alert(response.mensaj);
+            $(".tabAnnualPlan").css("display", "block");
+            ShowAnnualPlan(planActivityID);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}

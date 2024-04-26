@@ -342,9 +342,9 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateSigueOccupational(SigueOccupational model)
+        public async Task<ActionResult> CreateSigueCapacitation(Schedule model)
         {
-            if (model.OccupationalID == 0)
+            if (model.CapacitationID == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -357,7 +357,7 @@ namespace WSafe.Web.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    _empresaContext.SigueOccupationals.Add(model);
+                    _empresaContext.Schedules.Add(model);
                     await _empresaContext.SaveChangesAsync();
                     message = "El registro ha sido ingresado correctamente !!";
                     return Json(new { data = model, mensaj = message }, JsonRequestBehavior.AllowGet);
