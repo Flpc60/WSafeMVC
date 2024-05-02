@@ -310,7 +310,7 @@ namespace WSafe.Web.Controllers
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public async Task<ActionResult> DeleteSigueOccupational(int? id)
+        public async Task<ActionResult> DeleteSigueCapacitation(int? id)
         {
             if (id == null)
             {
@@ -319,20 +319,20 @@ namespace WSafe.Web.Controllers
             _orgID = (int)Session["orgID"];
             _year = (string)Session["year"];
 
-            SigueOccupational model = await _empresaContext.SigueOccupationals.FindAsync(id);
+            Schedule model = await _empresaContext.Schedules.FindAsync(id);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public async Task<ActionResult> DeleteSigueOccupational(int id)
+        public async Task<ActionResult> DeleteSigueCapacitation(int id)
         {
             try
             {
-                SigueOccupational sique = await _empresaContext.SigueOccupationals.FindAsync(id);
-                _empresaContext.SigueOccupationals.Remove(sique);
+                Schedule sique = await _empresaContext.Schedules.FindAsync(id);
+                _empresaContext.Schedules.Remove(sique);
                 await _empresaContext.SaveChangesAsync();
                 var message = "El registro se ha borrado exitosamente !!";
-                return Json(new { data = sique.OccupationalID, mensaj = message }, JsonRequestBehavior.AllowGet);
+                return Json(new { data = sique.CapacitationID, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
@@ -373,7 +373,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> DeleteOccupational(int? id)
+        public async Task<ActionResult> DeleteCapacitation(int? id)
         {
             if (id == null)
             {
@@ -388,21 +388,21 @@ namespace WSafe.Web.Controllers
                 _path = (string)Session["path"];
 
                 var message = "";
-                Occupational result = await _empresaContext.Occupationals
-                    .Include(s => s.SigueOccupational)
-                    .FirstOrDefaultAsync(o => o.ID == id);
+                Capacitation result = await _empresaContext.Capacitations
+                    .Include(c => c.Schedule)
+                    .FirstOrDefaultAsync(c => c.ID == id);
 
                 if (result != null)
                 {
-                    var sigue = result.SigueOccupational
-                        .Where(s => s.OccupationalID == id)
+                    var sigue = result.Schedule
+                        .Where(s => s.CapacitationID == id)
                         .Count();
                     if (sigue != 0)
                     {
-                        message = "Esta evaluación ocupacional tiene seguimientos !!";
+                        message = "Esta capaciatción tiene seguimientos !!";
                         return Json(new { data = false, error = message }, JsonRequestBehavior.AllowGet);
                     }
-                    var model = _converterHelper.ToUpdateOccupationalVM(result, _orgID);
+                    var model = _converterHelper.ToUpdateCapacitationVM(result, _orgID);
                     return Json(new { data = model, error = "" }, JsonRequestBehavior.AllowGet);
                 }
                 else
@@ -418,16 +418,16 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> DeleteOccupational(int id)
+        public async Task<ActionResult> DeleteCapacitation(int id)
         {
-            var consulta = new OccupationalService(new OccupationalRepository(_empresaContext));
+            var consulta = new CapacitationService(new CapacitationRepository(_empresaContext));
             try
             {
                 await consulta.Delete(id);
             }
             catch (Exception ex)
             {
-                return View("Error", new HandleErrorInfo(ex, "Occupationals", "Delete"));
+                return View("Error", new HandleErrorInfo(ex, "Capacitations", "Delete"));
             }
 
             return Json(new { data = true, message = "El registro ha sido eliminado exitosamente" }, JsonRequestBehavior.AllowGet);
