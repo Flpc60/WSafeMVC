@@ -316,7 +316,7 @@ function ShowCapacitations(id) {
                 html += '<td>' + item.Capacitados + '</td>';
                 html += '<td>' + item.Evaluados + '</td>';
                 html +=
-                    '<td><a href="#" onclick="return getSigueCapacitation(' + item.ID + ')">Editar</a> | <a href = "#" onclick = "DeleteSigueCapacitation(' + item.ID + ')"> Borrar</a></td>';
+                    '<td><a href="#" onclick="return getSigueCapacitation(' + item.ID + ')">Editar</a> | <a href = "#" onclick = "deleteSigueCapacitation(' + item.ID + ')"> Borrar</a></td>';
                 html += '<hr />';
                 html += '</tr>';
             });
@@ -330,174 +330,33 @@ function ShowCapacitations(id) {
         }
     });
 }
-
-function getSigueOccupational(id) {
+function deleteCapacitation(id) {
     $.ajax({
-        async: true,
-        type: 'GET',
-        url: "/Occupationals/UpdateSigueOccupational",
-        data: {
-            id: id
-        },
-        dataType: "json",
-        contentType: "application/json;charset=UTF-8",
-        success: function (response) {
-            var sigueDate = moment(response.SigueDate);
-            var formattedDate = sigueDate.format('YYYY-MM-DD');
-
-            $("#dateSigue").val(formattedDate);
-            $("#workerID").val(response.TrabajadorID);
-            $("#resultado").val(response.Resultado);
-            $("#recomendations").val(response.Recomendations);
-            $("#sigueOccupationalID").val(response.ID);
-            $("#btnAddTraceability").hide();
-            $("#btnUpdTraceability").show();
-            $("#btnCanTraceability").show();
-            $(".tabAddSigue").css("display", "block");
-            $("#dateSigue").focus();
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
-        }
-    });
-}
-
-function addSigueOccupational(id) {
-    // Crea una nueva trazabilidad
-    $('.tabAddSigue').css("display", "none");
-    var sigueOccupational = {
-        ID: "0",
-        SigueDate: $("#dateSigue").val(),
-        Resultado: $("#resultado").val(),
-        Recomendations: $("#recomendations").val(),
-        OccupationalID: id,
-        TrabajadorID: $("#workerID").val(),
-        OrganizationID: 1,
-        ClientID: 1,
-        UserID: 1
-    };
-    $.ajax({
-        type: "POST",
-        url: "/Occupationals/CreateSigueOccupational",
-        data: { model: sigueOccupational },
-        dataType: "json",
-        success: function (response) {
-            $("#btnAddTraceability").hide();
-            $("#btnUpdTraceability").hide();
-            $(".tabAddSigue").css("display", "none");
-            alert(response.mensaj);
-            ShowSigueOccupationals(id);
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            alert(xhr.status);
-            alert(thrownError);
-        }
-    });
-}
-
-function updateSigueOccupational(id) {
-    // Actualiza una trazabilidad
-    $('.tabAddSigue').css("display", "none");
-    var sigueOccupational = {
-        ID: $("#sigueOccupationalID").val(),
-        SigueDate: $("#dateSigue").val(),
-        Resultado: $("#resultado").val(),
-        Recomendations: $("#recomendations").val(),
-        OccupationalID: id,
-        TrabajadorID: $("#workerID").val(),
-        OrganizationID: 1,
-        ClientID: 1,
-        UserID: 1
-    };
-    $.ajax({
-        type: "POST",
-        url: "/Occupationals/UpdateSigueOccupational",
-        data: { model: sigueOccupational },
-        dataType: "json",
-        success: function (response) {
-            $(".tabAddSigue").css("display", "none");
-            alert(response.mensaj);
-            ShowSigueOccupationals(response.data);
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            alert(xhr.status);
-            alert(thrownError);
-        }
-    });
-}
-
-function cancelSigueOccupational() {
-    $(".tabAddSigue").css("display", "none");
-    $("#dateSigue").val("");
-    $("#resultado").val("");
-    $("#recomendations").val("");
-}
-
-function DeleteSigueOccupational(id) {
-    $.ajax({
-        url: "/Occupationals/DeleteSigueOccupational/" + id,
-        type: "GET",
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        async: true,                                             // si es asincrónico o no
-        success: function (result) {
-            var sigueDate = moment(result.SigueDate);
-            var formattedDate = sigueDate.format('YYYY-MM-DD');
-
-            var text = "";
-            text += "Esta seguro de querer borrar este seguimiento ?:\n\n";
-            text += "Fecha: " + formattedDate + "\n";
-            text += "Resultado: " + result.Resultado + "\n";
-            text += "Recomendaciones: " + result.Recomendations + "\n";
-            var respuesta = confirm(text);
-            if (respuesta == true) {
-                $.ajax({
-                    url: "/Occupationals/DeleteSigueOccupational/" + id,
-                    type: "POST",
-                    contentType: "application/json;charset=UTF-8",
-                    dataType: "json",
-                    async: true,                                               // si es asincrónico o no
-                    success: function (response) {
-                        $(".tabAddSigue").css("display", "none");
-                        alert(response.mensaj);
-                        ShowSigueOccupationals(response.data);
-                    },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        alert(xhr.status);
-                        alert(thrownError);
-                    }
-                });
-            }
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            alert(xhr.status);
-            alert(thrownError);
-        }
-    });
-}
-
-function deleteOccupational(id) {
-    $.ajax({
-        url: "/Occupationals/DeleteOccupational/" + id,
+        url: "/Capacitations/DeleteCapacitation/" + id,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         async: true,                                               // si es asincrónico o no
-        success: function (result) {
-            if (result.data == false) {
-                alert(result.error);
+        success: function (response) {
+            if (response.data == false) {
+                alert(response.error);
             } else {
+                var sigueDate = moment(response.data.InitialDate);
+                var formattedDate = sigueDate.format('YYYY-MM-DD');
                 var text = "";
-                text += "Esta seguro de querer borrar esta evaluación ocupacional ?:\n\n";
-                text += "Fecha: " + formatDate(result.data.ExaminationDate) + "\n";
-                text += "Recomendación: " + result.data.Recomendations + "\n";
-                text += "Peso: " + result.data.Peso + "\n";
-                text += "Talla: " + result.data.Talla + "\n";
+                text += "Esta seguro de querer borrar esta capacitación ?:\n\n";
+                text += "Fecha inicial: " + formattedDate + "\n";
+                text += "Estado: " + response.data.StateCronogram + "\n";
+                text += "Programadas: " + response.data.Programed + "\n";
+                text += "Ejecutadas: " + response.data.Executed + "\n";
+                text += "Citados: " + response.data.Citados + "\n";
+                text += "Capacitados: " + response.data.Capacitados + "\n";
+                text += "Evaluados: " + response.data.Evaluados + "\n";
                 var respuesta = confirm(text);
 
                 if (respuesta == true) {
                     $.ajax({
-                        url: "/Occupationals/DeleteOccupational/" + id,
+                        url: "/Capacitations/DeleteCapacitation/" + id,
                         type: "POST",
                         contentType: "application/json;charset=UTF-8",
                         dataType: "json",
@@ -547,8 +406,8 @@ function addSigueCapacitation(id) {
         async: true,
         success: function (response) {
             $("#sigueCapacitation").val(response.ID);
-            $("#btnAddTraceability").hide();
-            $("#btnUpdTraceability").hide();
+            $("#btnAddCapacitation").show();
+            $("#btnUpdCapacitation").hide();
             $(".tabAddSigue").css("display", "none");
             alert(response.mensaj);
             ShowCapacitations(id);
@@ -563,31 +422,116 @@ function addSigueCapacitation(id) {
 function updateSigueCapacitation(id) {
     // Actualiza una trazabilidad
     $('.tabAddSigue').css("display", "none");
-    var siguePlanAnualVM = {
-        ID: $("#siguePlanID").val(),
+    var schedule = {
+        ID: $("#sigueCapacitation").val(),
         DateSigue: $("#dateSigue").val(),
-        TrabajadorID: $("#sigueWorkerID").val(),
-        StateActivity: $("#stateActivity").val(),
+        TrabajadorID: $("#workerID").val(),
         StateCronogram: $("#stateCronogram").val(),
-        Programed: $("#programed").val(),
-        Executed: $("#executed").val(),
-        PlanActivityID: planActivityID,
-        Observation: $("#observation").val(),
-        FileName: $("#fileName").val(),
-        ActionCategory: $("#actionCategory").val(),
+        Programed: $("#sigueProgramed").val(),
+        Executed: $("#sigueExecuted").val(),
+        Citados: $("#citados").val(),
+        Capacitados: $("#capacitados").val(),
+        Evaluados: $("#sigueEvaluados").val(),
+        CapacitationID: id,
         OrganizationID: 1,
         ClientID: 1,
         UserID: 1
     };
     $.ajax({
         type: "POST",
-        url: "/AnnualPlans/UpdateSiguePlanAnual",
-        data: { model: siguePlanAnualVM },
+        url: "/Capacitations/UpdateSigueCapacitation",
+        data: { model: schedule },
         dataType: "json",
+        async: true,
         success: function (response) {
             alert(response.mensaj);
-            $(".tabAnnualPlan").css("display", "block");
-            ShowAnnualPlan(planActivityID);
+            $(".tabSigueCapacitation").css("display", "block");
+            ShowCapacitations(id);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}
+
+function getSigueCapacitation(id) {
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: "/Capacitations/UpdateSigueCapacitation",
+        data: {
+            id: id
+        },
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        success: function (response) {
+            var sigueDate = moment(response.DateSigue);
+            var formattedDate = sigueDate.format('YYYY-MM-DD');
+
+            $("#dateSigue").val(formattedDate);
+            $("#workerID").val(response.TrabajadorID);
+            $("#stateCronogram").val(response.StateCronogram);
+            $("#sigueProgramed").val(response.Programed);
+            $("#sigueExecuted").val(response.Executed);
+            $("#sigueCitados").val(response.Citados);
+            $("#sigueCapacitados").val(response.Capacitados);
+            $("#sigueEvaluados").val(response.Evaluados);
+            $("#sigueCapacitation").val(response.ID);
+            $("#btnAddCapacitation").hide();
+            $("#btnUpdCapacitation").show();
+            $("#btnCanCapacitation").show();
+            $(".tabAddSigue").css("display", "block");
+            $("#dateSigue").focus();
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+function deleteSigueCapacitation(id) {
+    $.ajax({
+        url: "/Capacitations/DeleteSigueCapacitation/" + id,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        async: true,                                               // si es asincrónico o no
+        success: function (response) {
+            var sigueDate = moment(response.DateSigue);
+            var formattedDate = sigueDate.format('YYYY-MM-DD');
+            var text = "";
+            text += "Esta seguro de querer borrar esta capacitación ?:\n\n";
+            text += "Fecha: " + formattedDate + "\n";
+            text += "Estado: " + response.StateCronogram + "\n";
+            text += "Programadas: " + response.Programed + "\n";
+            text += "Ejecutadas: " + response.Executed + "\n";
+            text += "Citados: " + response.Citados + "\n";
+            text += "Capacitados: " + response.Capacitados + "\n";
+            text += "Evaluados: " + response.Evaluados + "\n";
+            var respuesta = confirm(text);
+
+            if (respuesta == true) {
+                $.ajax({
+                    url: "/Capacitations/DeleteSigueCapacitation/" + id,
+                    type: "POST",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    async: true,
+                    success: function (response) {
+                        $("#sigueCapacitation").val(response.data);
+                        $("#btnAddTraceability").hide();
+                        $("#btnUpdTraceability").hide();
+                        $(".tabAddSigue").css("display", "none");
+                        alert(response.mensaj);
+                        ShowCapacitations(response.data);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                    }
+                });
+            }
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
