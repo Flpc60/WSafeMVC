@@ -134,5 +134,6 @@ namespace WSafe.Domain.Data.Entities
         public short StandardAudits { get; set; }
         public short StandardAnnualPlan { get; set; }
         public short StandardOccupational { get; set; }
+        public short StandardCapacitation { get; set; }
     }
 }
