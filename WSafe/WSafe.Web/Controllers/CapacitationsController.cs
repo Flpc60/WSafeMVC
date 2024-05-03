@@ -434,7 +434,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> OccupationalsPdf()
+        public async Task<ActionResult> CapacitationsPdf()
         {
             try
             {
@@ -445,29 +445,29 @@ namespace WSafe.Web.Controllers
                 _path = (string)Session["path"];
                 var organization = _empresaContext.Organizations.Find(_orgID);
                 var year = _year;
-                var item = _empresaContext.Normas.Find(organization.StandardOccupational).Item;
-                var fullPath = $"{_path}/2. HACER/{item}/";
+                var item = _empresaContext.Normas.Find(organization.StandardCapacitation).Item;
+                var fullPath = $"{_path}/1. PLANEAR/{item}/";
                 var path = Server.MapPath(fullPath);
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
                 }
                 Random random = new Random();
-                var filename = "Matriz de evaluaciones médicas ocupacionales" + random.Next(1, 100) + ".Pdf";
+                var filename = "Cronograma de capacitaciones y entrenamiento" + random.Next(1, 100) + ".Pdf";
                 var filePathName = path + filename;
-                var list = await _empresaContext.Occupationals
-                    .Where(o => o.OrganizationID == _orgID && o.ExaminationDate.Year.ToString() == _year)
-                    .OrderByDescending(o => o.ExaminationDate)
-                    .Include(s => s.SigueOccupational)
+                var list = await _empresaContext.Capacitations
+                    .Where(o => o.OrganizationID == _orgID && o.InitialDate.Year.ToString() == _year)
+                    .OrderByDescending(o => o.InitialDate)
+                    .Include(s => s.Schedule)
                     .ToListAsync();
-                var model = _converterHelper.ToMedicalRecomendationVM(list);
-                var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == 15);
+                var model = _converterHelper.ToListCapacitationVM(list);
+                var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == 16);
                 ViewBag.formato = document.Formato;
                 ViewBag.estandar = document.Estandar;
                 ViewBag.titulo = document.Titulo;
                 ViewBag.version = document.Version;
                 ViewBag.fecha = DateTime.Now;
-                var report = new ViewAsPdf("CreateOccupational");
+                var report = new ViewAsPdf("CreateCapacitations");
                 report.Model = model;
                 report.FileName = filePathName;
                 report.PageSize = Rotativa.Options.Size.A4;
@@ -479,30 +479,37 @@ namespace WSafe.Web.Controllers
                 //Generar archivo de movimiento
                 var fullName = filename;
                 var type = Path.GetExtension(filename).ToUpper();
-                var descript = "MATRIZ SEGUIMIENTO EVALUACIONES MÉDICAS OCUPACIONALES";
+                var descript = "MATRIZ DE CRONOGRAMA DE CAPACITACIONES Y ENTRENAMIENTO";
                 var userID = (int)Session["userID"];
                 Movimient movimient = new Movimient()
                 {
                     ID = 0,
                     OrganizationID = _orgID,
-                    NormaID = organization.StandardOccupational,
+                    NormaID = organization.StandardCapacitation,
                     UserID = userID,
                     Descripcion = descript,
                     Document = fullName,
                     Year = year,
                     Item = item,
-                    Ciclo = "H",
+                    Ciclo = "P",
                     Type = type,
                     Path = path,
                     ClientID = _clientID
                 };
                 _empresaContext.Movimientos.Add(movimient);
+                // Generar trazabilidad 
+                var model1 = _converterHelper.Traceability(organization.StandardCapacitation, year, _orgID, fullName);
+                if (model1 != null)
+                {
+                    _empresaContext.SigueAnnualPlans.Add(model1);
+                }
+
                 _empresaContext.SaveChanges();
                 return report;
             }
             catch (Exception ex)
             {
-                return View("Error", new HandleErrorInfo(ex, "Occupationals", "Index"));
+                return View("Error", new HandleErrorInfo(ex, "Capacitations", "Index"));
             }
         }
         protected override void Dispose(bool disposing)

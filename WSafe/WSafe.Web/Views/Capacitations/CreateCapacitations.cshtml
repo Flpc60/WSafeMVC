@@ -1,51 +1,24 @@
 ﻿@model IEnumerable<WSafe.Web.Models.ListCapacitationVM>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Sistema de Gestión de Seguridad y Salud en el Trabajo";
+    Layout = null;
 }
 
-<style>
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryunobtrusive")
+@Scripts.Render("~/Scripts/RiesgosGestor.js")
+@Scripts.Render("~/Scripts/AuditsGestor.js")
+@Scripts.Render("~/Scripts/CapacitationsGestor.js")
 
-    .tabConsActions, .tabCronograma {
-        display: none
-    }
-
-    .centerText {
-        text-align: center;
-    }
-
-    #trabajador {
-        background-color: forestgreen;
-        color: white;
-        padding: 10px;
-        border: 1px solid #000000;
-        text-align: center;
-        margin: 0;
-    }
-</style>
-
-<h4 class="centerText"> PROGRAMA DE CAPACITACIÓN SEGURIDAD Y SALUD EN EL TRABAJO: @Session["organization"].ToString().Trim()</h4>
-@Html.Partial("_PageHead")
-<div class="container">
-    <div class="row justify-content-between">
-        <div class="col-md-12">
-            <a href="@Url.Action("Create", "Capacitations")" class="btn btn-info btn-lg active">
-                <span class="glyphicon glyphicon-tasks"></span> Crear nueva capacitación
-            </a>
-            <a href="@Url.Action("Create", "Acciones")" class="btn btn-info btn-lg active">
-                <span class="glyphicon glyphicon-adjust"></span> Crear nueva acción
-            </a>
-            <a href="@Url.Action("CapacitationsPdf", "Capacitations")" class="btn btn-info btn-lg active">
-                <span class="glyphicon glyphicon-download"></span> Generar matriz de capacitaciones
-            </a>
-        </div>
-    </div>
-</div>
+@Html.Partial("_CabezoteFormat")
 
 <hr class="mt-4">
-<div class="table-responsive" style="background-color: azure; width:100%; margin-right:0px">
-    <table class="table table-bordered">
-        <tr style="background-color:gainsboro; width:auto">
+<div class="container">
+    <table class="table table-bordered table-hover">
+        <tr style="background-color:gainsboro">
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -70,9 +43,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Efectividad)
             </th>
-            <th></th>
-            <th></th>
-            <th></th>
         </tr>
 
         @foreach (var item in Model)
@@ -102,17 +72,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Efectividad)
-                </td>
-                <td style="margin:initial; background-color:deepskyblue; text-align:left">
-                    <a href="#" title="Seguimientos" onclick="mostrarSeguimientos('@item.ID');">
-                        <span class="glyphicon glyphicon-forward"></span>
-                    </a>
-                </td>
-                <td style="margin:initial; background-color:deepskyblue; text-align:left">
-                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit", @title = "Actualizar" })
-                </td>
-                <td style="margin:initial; background-color:deepskyblue; text-align:left">
-                    <a href="#" title="Descartar" onclick="deleteCapacitation('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
                 </td>
             </tr>
 
@@ -168,7 +127,7 @@
                         DICIEMBRE
                     </th>
                 </tr>
-                <tbody class="cronogramaBody"></tbody>
+                <tbody class="cronograma1Body"></tbody>
             </table>
         </div>
     </div>
@@ -189,17 +148,9 @@
     </div>
 </div>
 
-@section Scripts
-{
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-
-    <script type="text/javascript">
-
-        ShowSchedule();
-        chartCapacitations();
-
-        $(document).ready(function () {
-        });
-
-    </script>
-}
+<div class="container body-content">
+    <hr />
+    <footer>
+        <p>&copy; @DateTime.Now.Year - FLPCSoft</p>
+    </footer>
+</div>

@@ -509,6 +509,10 @@
     <Compile Include="Migrations\202404251959504_updateCapacitacionVM.designer.cs">
       <DependentUpon>202404251959504_updateCapacitacionVM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202405022258182_UpdOrganization.cs" />
+    <Compile Include="Migrations\202405022258182_UpdOrganization.designer.cs">
+      <DependentUpon>202405022258182_UpdOrganization.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -1036,6 +1040,7 @@
     <Content Include="Views\Shared\_EditCapacitation.cshtml" />
     <Content Include="Views\Shared\_EditSigueCapacitation.cshtml" />
     <Content Include="Views\Shared\_ShowCapacitation.cshtml" />
+    <Content Include="Views\Capacitations\CreateCapacitations.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1293,6 +1298,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202404251959504_updateCapacitacionVM.resx">
       <DependentUpon>202404251959504_updateCapacitacionVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202405022258182_UpdOrganization.resx">
+      <DependentUpon>202405022258182_UpdOrganization.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
