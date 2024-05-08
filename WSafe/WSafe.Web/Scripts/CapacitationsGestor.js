@@ -540,3 +540,24 @@ function deleteSigueCapacitation(id) {
         }
     });
 }
+
+function generateCapacitationsPdf() {
+    ShowSchedule();
+    chartCapacitations();
+    var cronogramaData = $('.cronogramaBody').html(); // Obtener el contenido HTML de .cronogramaBody
+    var encodedData = encodeURIComponent(cronogramaData); // Codificar el contenido HTML
+
+    $.ajax({
+        url: "/Capacitations/CapacitationsPdf",
+        type: "POST",
+        data: { cronogramaData: encodedData }, // Enviar el contenido HTML codificado al servidor
+        success: function (pdfUrl) {
+            window.open(pdfUrl, '_blank');
+            window.location.href = '/Capacitations/index';
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+}

@@ -433,16 +433,23 @@ namespace WSafe.Web.Controllers
             return Json(new { data = true, message = "El registro ha sido eliminado exitosamente" }, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpGet]
-        public async Task<ActionResult> CapacitationsPdf()
+        [HttpPost]
+        public async Task<ActionResult> CapacitationsPdf(string cronogramaData)
         {
             try
             {
+                // Verificar y obtener datos de sesión
+                if (Session["clientID"] == null || Session["orgID"] == null || Session["year"] == null || Session["path"] == null || Session["userID"] == null)
+                {
+                    return View("Error", new HandleErrorInfo(new Exception("No ha iniciado sesión correctamente."), "Capacitations", "Index"));
+                }
+
                 // Configuración nombre archivo pdf
-                _clientID = (int)Session["clientID"];
-                _orgID = (int)Session["orgID"];
-                _year = (string)Session["year"];
-                _path = (string)Session["path"];
+                int _clientID = (int)Session["clientID"];
+                int _orgID = (int)Session["orgID"];
+                string _year = (string)Session["year"];
+                string _path = (string)Session["path"];
+
                 var organization = _empresaContext.Organizations.Find(_orgID);
                 var year = _year;
                 var item = _empresaContext.Normas.Find(organization.StandardCapacitation).Item;
@@ -455,26 +462,35 @@ namespace WSafe.Web.Controllers
                 Random random = new Random();
                 var filename = "Cronograma de capacitaciones y entrenamiento" + random.Next(1, 100) + ".Pdf";
                 var filePathName = path + filename;
+
+                // Obtener datos de capacitación
                 var list = await _empresaContext.Capacitations
                     .Where(o => o.OrganizationID == _orgID && o.InitialDate.Year.ToString() == _year)
                     .OrderByDescending(o => o.InitialDate)
                     .Include(s => s.Schedule)
                     .ToListAsync();
                 var model = _converterHelper.ToListCapacitationVM(list);
+
                 var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == 16);
+                var decodedCronogramaData = HttpUtility.UrlDecode(cronogramaData);
+                ViewBag.CronogramaData = decodedCronogramaData;
+
                 ViewBag.formato = document.Formato;
                 ViewBag.estandar = document.Estandar;
                 ViewBag.titulo = document.Titulo;
                 ViewBag.version = document.Version;
                 ViewBag.fecha = DateTime.Now;
-                var report = new ViewAsPdf("CreateCapacitations");
-                report.Model = model;
-                report.FileName = filePathName;
-                report.PageSize = Rotativa.Options.Size.A4;
-                report.PageOrientation = Rotativa.Options.Orientation.Landscape;
-                report.PageWidth = 399;
-                report.PageHeight = 399;
-                report.SaveOnServerPath = filePathName;
+
+                // Generar PDF
+                var report = new ViewAsPdf("CreateCapacitations", model)
+                {
+                    FileName = filePathName,
+                    PageSize = Rotativa.Options.Size.A4,
+                    PageOrientation = Rotativa.Options.Orientation.Landscape,
+                    PageWidth = 399,
+                    PageHeight = 399,
+                    SaveOnServerPath = filePathName
+                };
 
                 //Generar archivo de movimiento
                 var fullName = filename;
@@ -505,7 +521,15 @@ namespace WSafe.Web.Controllers
                 }
 
                 _empresaContext.SaveChanges();
-                return report;
+                var pdfBytes = report.BuildPdf(ControllerContext);
+
+                // Configurar la respuesta HTTP para el tipo MIME y el encabezado del archivo PDF
+                Response.ContentType = "application/pdf";
+                Response.AddHeader("content-disposition", "inline;filename=" + filename);
+                Response.BinaryWrite(pdfBytes);
+
+                var pdfUrl = $"{Request.Url.GetLeftPart(UriPartial.Authority)}/{fullPath}/{filename}";
+                return Content(pdfUrl);
             }
             catch (Exception ex)
             {
@@ -539,6 +563,7 @@ namespace WSafe.Web.Controllers
                 return View("Error", new HandleErrorInfo(ex, "Capacitations", "Index"));
             }
         }
+
         [HttpGet]
         public async Task<ActionResult> GetTrainingTopicName(int id)
         {

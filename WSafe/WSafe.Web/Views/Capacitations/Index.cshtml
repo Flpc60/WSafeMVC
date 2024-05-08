@@ -35,7 +35,7 @@
             <a href="@Url.Action("Create", "Acciones")" class="btn btn-info btn-lg active">
                 <span class="glyphicon glyphicon-adjust"></span> Crear nueva acción
             </a>
-            <a href="@Url.Action("CapacitationsPdf", "Capacitations")" class="btn btn-info btn-lg active">
+            <a id="pdfLink" href="#" onclick="generateCapacitationsPdf()" class="btn btn-info btn-lg active">
                 <span class="glyphicon glyphicon-download"></span> Generar matriz de capacitaciones
             </a>
         </div>
@@ -195,11 +195,15 @@
 
     <script type="text/javascript">
 
-        ShowSchedule();
-        chartCapacitations();
-
         $(document).ready(function () {
+            $('.cronogramaBody').html();
+            ShowSchedule();
+            chartCapacitations();
+            setTimeout(function() {
+                var cronogramaData = $('.cronogramaBody').html();
+            }, 500); // Espera 500 milisegundos
         });
 
     </script>
+
 }
