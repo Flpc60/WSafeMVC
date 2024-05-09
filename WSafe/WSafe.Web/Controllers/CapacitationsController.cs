@@ -434,7 +434,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CapacitationsPdf(string cronogramaData)
+        public async Task<ActionResult> CapacitationsPdf(string cronograma, string eficacia, string eficiencia, string efectividad)
         {
             try
             {
@@ -472,8 +472,12 @@ namespace WSafe.Web.Controllers
                 var model = _converterHelper.ToListCapacitationVM(list);
 
                 var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == 16);
-                var decodedCronogramaData = HttpUtility.UrlDecode(cronogramaData);
-                ViewBag.CronogramaData = decodedCronogramaData;
+                var decodedCronograma = HttpUtility.UrlDecode(cronograma);
+                var decodedEficacia = HttpUtility.UrlDecode(eficacia);
+                ViewBag.cronograma = decodedCronograma;
+                ViewBag.eficacia = eficacia;
+                ViewBag.eficiencia = eficiencia;
+                ViewBag.efectividad = efectividad;
 
                 ViewBag.formato = document.Formato;
                 ViewBag.estandar = document.Estandar;
@@ -487,7 +491,9 @@ namespace WSafe.Web.Controllers
                     FileName = filePathName,
                     PageSize = Rotativa.Options.Size.A4,
                     PageOrientation = Rotativa.Options.Orientation.Landscape,
-                    SaveOnServerPath = filePathName
+                    SaveOnServerPath = filePathName,
+                    PageMargins = new Rotativa.Options.Margins(10, 10, 10, 10),
+                    CustomSwitches = "--enable-local-file-access"
                 };
 
                 //Generar archivo de movimiento
