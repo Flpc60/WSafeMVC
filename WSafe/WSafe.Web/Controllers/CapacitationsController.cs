@@ -487,8 +487,6 @@ namespace WSafe.Web.Controllers
                     FileName = filePathName,
                     PageSize = Rotativa.Options.Size.A4,
                     PageOrientation = Rotativa.Options.Orientation.Landscape,
-                    PageWidth = 399,
-                    PageHeight = 399,
                     SaveOnServerPath = filePathName
                 };
 
