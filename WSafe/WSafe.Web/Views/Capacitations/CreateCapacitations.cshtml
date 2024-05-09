@@ -122,10 +122,30 @@
                     DICIEMBRE
                 </th>
             </tr>
-            <tbody class="@Html.Raw(ViewBag.CronogramaData)"></tbody>
+            <tbody class="@Html.Raw(ViewBag.cronograma)"></tbody>
         </table>
     </div>
 </div>
+
+<hr class="mt-4">
+<div class="container" style="text-align:justify-all; display:block;">
+    <div class="row">
+        <div class="col-md-12">
+            <div><img src="@Html.Raw(ViewBag.eficacia)" width="500" height="500"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div><img src="@Html.Raw(ViewBag.eficiencia)" width="500" height="500"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div><img src="@Html.Raw(ViewBag.efectividad)" width="500" height="500"></div>
+        </div>
+    </div>
+</div>
+
 <div class="container body-content">
     <hr />
     <footer>
