@@ -77,7 +77,7 @@ function chartCapacitations() {
                 }
             });
 
-            var legend = "% DE EFICACIA";
+            var legend = "% DE EFICACIA CAPACITACIONES";
             var ctx = document.getElementById("capacitationEficacia").getContext('2d');
 
             var chart = new Chart(ctx, {
@@ -126,13 +126,13 @@ function chartCapacitations() {
                     },
                     title: {
                         display: true,
-                        text: 'CAPACITACIONES ' + legend,
+                        text: legend,
                         color: backgroundColor
                     }
                 }
             });
 
-            legend = "% DE EFICIENCIA";
+            legend = "% DE EFICIENCIA CAPACITACIONES";
             ctx = document.getElementById("capacitationEficiencia").getContext('2d');
 
             chart = new Chart(ctx, {
@@ -181,13 +181,13 @@ function chartCapacitations() {
                     },
                     title: {
                         display: true,
-                        text: 'CAPACITACIONES ' + legend,
+                        text: legend,
                         color: backgroundColor
                     }
                 }
             });
 
-            legend = "% DE EFECTIVIDAD";
+            legend = "% DE EFECTIVIDAD CAPACITACIONES";
             ctx = document.getElementById("capacitationEfectividad").getContext('2d');
 
             chart = new Chart(ctx, {
@@ -236,7 +236,7 @@ function chartCapacitations() {
                     },
                     title: {
                         display: true,
-                        text: 'CAPACITACIONES ' + legend,
+                        text: legend,
                         color: backgroundColor
                     }
                 }
@@ -545,13 +545,24 @@ function deleteSigueCapacitation(id) {
 function generateCapacitationsPdf() {
     ShowSchedule();
     chartCapacitations();
-    var cronogramaData = $('.cronogramaBody').html();
-    var encodedData = encodeURIComponent(cronogramaData);
+    var cronograma = $('.cronogramaBody').html();
+    var encodedData = encodeURIComponent(cronograma);
+    var eficacia = document.getElementById("capacitationEficacia");
+    var encodedEficacia = eficacia.toDataURL();;
+    var eficiencia = document.getElementById("capacitationEficiencia");
+    var encodedEficiencia = eficiencia.toDataURL();;
+    var efectividad = document.getElementById("capacitationEfectividad");
+    var encodedEfectividad = efectividad.toDataURL();;
 
     $.ajax({
         url: "/Capacitations/CapacitationsPdf",
         type: "POST",
-        data: { cronogramaData: encodedData }, // Enviar el contenido HTML codificado al servidor
+        data: {
+            cronograma: encodedData,
+            eficacia: encodedEficacia,
+            eficiencia: encodedEficiencia,
+            efectividad: encodedEfectividad
+        },
         success: function (pdfUrl) {
             window.open(pdfUrl, '_blank');
             window.location.href = '/Capacitations/index';
