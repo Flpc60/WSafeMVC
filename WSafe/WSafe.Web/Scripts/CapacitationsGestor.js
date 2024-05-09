@@ -1,12 +1,13 @@
 ﻿function buildTableRow(header, values) {
-    let rowHtml = '<tr>';
+    var rowHtml = '';
+    rowHtml += '<tr style="background-color:gainsboro;">';
     rowHtml += `<td style="white-space: nowrap;">${header}</td>`;
     values.forEach(value => {
-        let result;
+        var result;
         // Verificar si el denominador es cero
         if (header === "% Eficacia" || header === "% Eficicencia" || header === "% Efectividad") {
             result = (value.denominator !== 0) ? (value.numerator / value.denominator) * 100 : 0;
-            result = result.toFixed(0) + "%"; // Redondear a 2 decimales y agregar el símbolo de porcentaje
+            result = result.toFixed(0) + "%";
         } else {
             result = (value.denominator !== 0) ? value.numerator / value.denominator : 0;
         }
@@ -24,7 +25,7 @@ function ShowSchedule() {
         dataType: "json",
         async: true,
         success: function (response) {
-            let html = '';
+            var html = '';
             response.forEach(function (item, index) {
                 html += buildTableRow("Capacitaciones Programadas", [{ numerator: item.P1, denominator: 1 }, { numerator: item.P2, denominator: 1 }, { numerator: item.P3, denominator: 1 }, { numerator: item.P4, denominator: 1 }, { numerator: item.P5, denominator: 1 }, { numerator: item.P6, denominator: 1 }, { numerator: item.P7, denominator: 1 }, { numerator: item.P8, denominator: 1 }, { numerator: item.P9, denominator: 1 }, { numerator: item.P10, denominator: 1 }, { numerator: item.P11, denominator: 1 }, { numerator: item.P12, denominator: 1 }]);
                 html += buildTableRow("Capacitaciones Ejecutadas", [{ numerator: item.E1, denominator: 1 }, { numerator: item.E2, denominator: 1 }, { numerator: item.E3, denominator: 1 }, { numerator: item.E4, denominator: 1 }, { numerator: item.E5, denominator: 1 }, { numerator: item.E6, denominator: 1 }, { numerator: item.E7, denominator: 1 }, { numerator: item.E8, denominator: 1 }, { numerator: item.E9, denominator: 1 }, { numerator: item.E10, denominator: 1 }, { numerator: item.E11, denominator: 1 }, { numerator: item.E12, denominator: 1 }]);
@@ -544,8 +545,8 @@ function deleteSigueCapacitation(id) {
 function generateCapacitationsPdf() {
     ShowSchedule();
     chartCapacitations();
-    var cronogramaData = $('.cronogramaBody').html(); // Obtener el contenido HTML de .cronogramaBody
-    var encodedData = encodeURIComponent(cronogramaData); // Codificar el contenido HTML
+    var cronogramaData = $('.cronogramaBody').html();
+    var encodedData = encodeURIComponent(cronogramaData);
 
     $.ajax({
         url: "/Capacitations/CapacitationsPdf",
