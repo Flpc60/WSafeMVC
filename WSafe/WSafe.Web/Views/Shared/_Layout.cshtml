@@ -24,12 +24,12 @@
 
         body {
             margin-top: 0;
-            padding-top: 0; /* Adjusted to align with the top of the fixed navbar */
+            padding-top: 0;
         }
 
         .navbar {
-            background-color: #343a40; /* Set your desired background color */
-            padding: 1px 1px; /* Adjusted padding */
+            background-color: silver;
+            padding: 0;
         }
 
         .navbar-brand {
@@ -37,24 +37,33 @@
         }
 
         .navbar-brand-logo {
-            margin-top: -15px; /* Adjusted value for vertical alignment with menu */
+            margin-top: 0; /* Adjusted value for vertical alignment with menu */
             height: 50px;
+            margin-right: 10px;
         }
 
         .navbar-nav {
             font-size: 11px;
             color: blue;
-            text-align: center; /* Center the menu items */
+            text-align: left; /* Center the menu items */
             margin: 0; /* Adjusted margin between menu items */
+            padding: 0;
+            list-style-type: none;
         }
 
             .navbar-nav .nav-item {
-                margin: 0 1px; /* Adjusted margin between menu items */
+                margin-left: -20px;
+                font-size: 11px;
+                color: blue;
+                padding: 0;
+                list-style-type: none;
             }
 
-                .navbar-nav .nav-item:hover {
-                    background-color: #555; /* Change this color to your desired hover color */
-                }
+            .navbar-nav .nav-link {
+                padding: 0;
+                margin: 0;
+                color: blue;
+            }
 
         .navbar-text {
             font-size: 10px;
@@ -62,8 +71,11 @@
         }
 
         .navbar-nav li {
-            margin-right: 1px; /* Adjusted margin between menu items */
-            transition: background-color 0.3s; /* Added transition for smooth hover effect */
+            display: inline-block;
+            font-size: 12px;
+            text-align: right;
+            color:white;
+            margin-left: 10px;
         }
 
             .navbar-nav li:hover {
@@ -71,24 +83,24 @@
             }
 
         .navbar-right {
-            margin-right: 1px; /* Adjusted margin for right-aligned items */
+            margin-right: 0; /* Adjusted margin for right-aligned items */
         }
 
         .navbar-collapse {
-            text-align: center; /* Center the menu items */
+            text-align: left; /* Center the menu items */
         }
 
         .navbar-toggler {
-            margin-right: 1px; /* Adjusted margin for the toggler button */
+            margin-right: 0; /* Adjusted margin for the toggler button */
         }
 
         .body-content {
-            margin-top: 5px; /* Adjusted margin below the fixed navbar */
-            padding-top: 5px; /* Added padding to reduce space below the menu */
+            margin-top: 1px; /* Adjusted margin below the fixed navbar */
+            padding-top: 1px; /* Added padding to reduce space below the menu */
         }
 
         footer {
-            margin-top: 20px; /* Adjusted margin above the footer */
+            margin-top: 5px; /* Adjusted margin above the footer */
         }
     </style>
 
@@ -102,7 +114,7 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     @{
                         var userID = Session["userID"];
@@ -110,76 +122,66 @@
                         userRole = userRole.ToString().Trim();
                         if (userRole.Equals("ADMIN"))
                         {
-                            <li>@Html.ActionLink("ENTIDAD", "Index", "Organizations")</li>
-                            <li>@Html.ActionLink("SGSST", "Index", "Movimientos")</li>
-                            <li>@Html.ActionLink("EVALUACIÓN", "Index", "Evaluations")</li>
-                            <li>@Html.ActionLink("RIESGO", "Index", "Riesgos")</li>
-                            <li>@Html.ActionLink("INCIDENTE", "Index", "Incidentes")</li>
-                            <li>@Html.ActionLink("ACCIÓN", "Index", "Acciones")</li>
-                            <li>@Html.ActionLink("INDICADOR", "Index", "Indicadores")</li>
-                            <li>@Html.ActionLink("USUARIO", "Index", "Accounts")</li>
-                            <li>@Html.ActionLink("TRABAJADOR", "Index", "Workers")</li>
-                            <li>@Html.ActionLink("ACTO_INSEGURO", "Index", "Unsafeacts")</li>
-                            <li>@Html.ActionLink("RECOMENDACIÓN", "Index", "Recomendations")</li>
-                            <!--<li>@Html.ActionLink("AUDITORIA", "Index", "Audits")</li>-->
-                            <li>@Html.ActionLink("PLAN_ANUAL", "Index", "AnnualPlans")</li>
-                            <li>@Html.ActionLink("OCUPACIONAL", "Index", "Occupationals")</li>
-                            <li>@Html.ActionLink("CAPACITACIÓN", "Index", "Capacitations")</li>
+                            <li class="nav-item">@Html.ActionLink("ENTIDAD", "Index", "Organizations")</li>
+                            <li class="nav-item">@Html.ActionLink("SG-SST", "Index", "Movimientos")</li>
+                            <li class="nav-item">@Html.ActionLink("EVALUACIONES", "Index", "Evaluations")</li>
+                            <li class="nav-item">@Html.ActionLink("RIESGOS", "Index", "Riesgos")</li>
+                            <li class="nav-item">@Html.ActionLink("INCIDENTES", "Index", "Incidentes")</li>
+                            <li class="nav-item">@Html.ActionLink("ACCIONES", "Index", "Acciones")</li>
+                            <li class="nav-item">@Html.ActionLink("INDICADORES", "Index", "Indicadores")</li>
+                            <li class="nav-item">@Html.ActionLink("USUARIOS", "Index", "Accounts")</li>
+                            <li class="nav-item">@Html.ActionLink("TRABAJADORES", "Index", "Workers")</li>
+                            <li class="nav-item">@Html.ActionLink("ACTO_INSEGUROS", "Index", "Unsafeacts")</li>
+                            <li class="nav-item">@Html.ActionLink("RECOMENDACIONES", "Index", "Recomendations")</li>
+                            <li class="nav-item">@Html.ActionLink("PLAN_ANUAL", "Index", "AnnualPlans")</li>
+                            <li class="nav-item">@Html.ActionLink("OCUPACIONALES", "Index", "Occupationals")</li>
+                            <li class="nav-item">@Html.ActionLink("CAPACITACIONES", "Index", "Capacitations")</li>
                         }
                         else
                         {
                             if (userRole.Equals("LIDER RESPONSABLE SST"))
                             {
-                                <li>@Html.ActionLink("RIESGOS", "Index", "Riesgos")</li>
-                                <li>@Html.ActionLink("INCIDENTES", "Index", "Incidentes")</li>
-                                <li>@Html.ActionLink("ACCIONES", "Index", "Acciones")</li>
-                                <li>@Html.ActionLink("ACTOS_INSEGUROS", "Index", "Unsafeacts")</li>
-                                <li>@Html.ActionLink("RECOMENDACIONES", "Index", "Recomendations")</li>
-                                <!--<li>@Html.ActionLink("AUDITORIA", "Index", "Audits")</li>-->
-                                <li>@Html.ActionLink("PLAN_ANUAL", "Index", "AnnualPlans")</li>
-                                <li>@Html.ActionLink("CAPACITACIÓN", "Index", "Capacitations")</li>
+                                <li class="nav-item">@Html.ActionLink("RIESGOS", "Index", "Riesgos")</li>
+                                <li class="nav-item">@Html.ActionLink("INCIDENTES", "Index", "Incidentes")</li>
+                                <li class="nav-item">@Html.ActionLink("ACCIONES", "Index", "Acciones")</li>
+                                <li class="nav-item">@Html.ActionLink("ACTOS_INSEGUROS", "Index", "Unsafeacts")</li>
+                                <li class="nav-item">@Html.ActionLink("RECOMENDACIONES", "Index", "Recomendations")</li>
+                                <li class="nav-item">@Html.ActionLink("PLAN_ANUAL", "Index", "AnnualPlans")</li>
+                                <li class="nav-item">@Html.ActionLink("CAPACITACIONES", "Index", "Capacitations")</li>
                             }
                             else
                             {
                                 if (userRole.Equals("ARL"))
                                 {
-                                    <li>@Html.ActionLink("ENTIDAD", "Index", "Organizations")</li>
-                                    <li>@Html.ActionLink("SG-SST", "Index", "Movimientos")</li>
-                                    <li>@Html.ActionLink("EVALUACIÓN", "Index", "Evaluations")</li>
-                                    <!--<li>@Html.ActionLink("AUDITORIA", "Index", "Audits")</li>-->
-                                    <li>@Html.ActionLink("PLAN_ANUAL", "Index", "AnnualPlans")</li>
+                                    <li class="nav-item">@Html.ActionLink("ENTIDAD", "Index", "Organizations")</li>
+                                    <li class="nav-item">@Html.ActionLink("SG-SST", "Index", "Movimientos")</li>
+                                    <li>@Html.ActionLink("EVALUACIONES", "Index", "Evaluations")</li>
+                                    <li class="nav-item">@Html.ActionLink("PLAN_ANUAL", "Index", "AnnualPlans")</li>
                                 }
                                 else
                                 {
                                     if (userRole.Equals("TRABAJADOR"))
                                     {
-                                        <li>@Html.ActionLink("TRABAJADORES", "GetWorker", "Workers")</li>
-                                        <li>@Html.ActionLink("RIESGO", "Create", "Riesgos")</li>
-                                        <li>@Html.ActionLink("ACTOS_INSEGUROS", "Create", "Unsafeacts")</li>
+                                        <li class="nav-item">@Html.ActionLink("TRABAJADORES", "GetWorker", "Workers")</li>
+                                        <li class="nav-item">@Html.ActionLink("RIESGOS", "Create", "Riesgos")</li>
+                                        <li class="nav-item">@Html.ActionLink("ACTOS_INSEGUROS", "Create", "Unsafeacts")</li>
                                     }
                                     else
                                     {
-                                        <li>@Html.ActionLink("ACTOS_INSEGUROS", "Create", "Unsafeacts")</li>
+                                        <li class="nav-item">@Html.ActionLink("ACTOS_INSEGUROS", "Create", "Unsafeacts")</li>
                                     }
                                 }
                             }
                         }
                     }
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
+                <div style="color: white; text-align: right;">
                     @if (Session["userName"] != null)
                     {
-                        <li><a style="color:white;font-size:12px"><b>Hola @Session["userName"].ToString().Trim()</b></a></li>
+                        <a style="display: inline-block; margin-right: 10px;"><b>Hola: @Session["userName"].ToString().Trim()</b></a>
+                        <a href="#" style="display: inline-block;" class="glyphicon glyphicon-chevron-left" onclick="logout()">Cerrar sesión</a>
                     }
-                    <!--
-                    <li>@Html.ActionLink("Cerrar", "Logout", "Accounts", null, new { @class = "glyphicon glyphicon-log-out", @onclick = "logout(); return false;" })</li>
-                    -->
-                    <li>
-                        <a href="#" class="glyphicon glyphicon-log-out" onclick="logout()">
-                            Cerrar
-                        </a>
-                    </li>
-                </ul>
+                </div>
             </div>
         </div>
     </div>
