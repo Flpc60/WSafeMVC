@@ -3,33 +3,14 @@
 }
 
 <div class="container" style="background-color: lightgray">
-    <div class="row justify-content-between">
-        <div class="col-md-2">
+    <div class="row align-items-center">
+        <div class="col-md-12 text-center" style="display:inline-flex;">
             <img src="@Server.MapPath(@logo)" style="width:100px; height:100px" alt="Logo">
-        </div>
-        <div class="col-md-10">
-            <div class="row">
-                <div class="col">
-                    <p class="mb-0">
-                        <strong><b>@Session["organization"].ToString()</b></strong>
-                    </p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <p class="mb-0">
-                        <strong><b>@ViewBag.titulo AÑO: @Session["year"].ToString()</b></strong>
-                    </p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <p class="mb-0">
-                        ESTANDAR: <strong>@ViewBag.estandar</strong>
-                        FECHA REPORTE: <strong>@ViewBag.fecha</strong>
-                    </p>
-                </div>
-            </div>
+            <div><strong><b>@Session["organization"].ToString()</b></strong></div>
         </div>
     </div>
+    <div class="row" style="text-align:center;"><strong><b>@ViewBag.titulo AÑO: @Session["year"].ToString()</b></strong></div>
+    <div class="row" style="text-align:center;">ESTANDAR: <strong><b>@ViewBag.estandar FECHA REPORTE: @ViewBag.fecha</b></strong></div>
+    <div class="row" style="text-align:center;"></div>
+    <div class="row" style="text-align:center;"></div>
 </div>
