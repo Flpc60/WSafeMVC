@@ -271,3 +271,34 @@ function getTrainingTopic() {
         }
     });
 }
+
+function addTrainingTopic() {
+    var trainingTopic = {
+        Name: $("#Name").val(),
+        Objetive: $("#Objetive").val(),
+        Content: $("#Content").val(),
+        Resources: $("#Resources").val(),
+        ActivityFrequency: $("#ActivityFrequency").val(),
+        OrganizationID: 1
+    };
+
+    $.ajax({
+        url: "/Capacitations/AddTrainingTopic",
+        type: 'POST',
+        data: { model: trainingTopic },
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: function (result) {
+            if (result.success) {
+                alert("Actividad adicionada !!");
+                // Optionally, refresh the dropdown or the page to reflect the new record
+                location.reload();
+            } else {
+                alert("Error: " + result.message);
+            }
+        },
+        error: function (xhr, status, error) {
+            alert("An error occurred: " + error);
+        }
+    });
+}

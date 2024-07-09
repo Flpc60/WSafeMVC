@@ -618,5 +618,31 @@ namespace WSafe.Web.Controllers
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        [HttpPost]
+        public JsonResult AddTrainingTopic(TrainingTopic model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _orgID = (int)Session["orgID"];
+                    _year = (string)Session["year"];
+                    model.OrganizationID = _orgID;
+                    _empresaContext.TrainingTopics.Add(model);
+                    _empresaContext.SaveChanges();
+
+                    return Json(new { success = true });
+                }
+                else
+                {
+                    return Json(new { success = false, message = "Faltan datos por ingresar !!" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
     }
 }
