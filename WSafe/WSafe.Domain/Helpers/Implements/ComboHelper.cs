@@ -587,13 +587,19 @@ namespace WSafe.Domain.Helpers.Implements
                 Text = t.Name,
                 Value = t.ID.ToString()
             })
-                .OrderBy(t => t.Text)
-                .ToList();
+            .OrderBy(t => t.Text)
+            .ToList();
 
             list.Insert(0, new SelectListItem
             {
                 Text = "(Seleccione una actividad ...)",
                 Value = "0"
+            });
+
+            list.Add(new SelectListItem
+            {
+                Text = "Crear nueva...",
+                Value = "-1"
             });
 
             return list;

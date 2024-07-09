@@ -505,9 +505,9 @@
     <Compile Include="Helpers\Implements\ConverterHelper.cs" />
     <Compile Include="Helpers\Implements\GestorHelper.cs" />
     <Compile Include="Helpers\Implements\IndicadorHelper.cs" />
-    <Compile Include="Migrations\202405151747456_updateRemoteDB.cs" />
-    <Compile Include="Migrations\202405151747456_updateRemoteDB.designer.cs">
-      <DependentUpon>202405151747456_updateRemoteDB.cs</DependentUpon>
+    <Compile Include="Migrations\202407092116221_UpdLocalDB.cs" />
+    <Compile Include="Migrations\202407092116221_UpdLocalDB.designer.cs">
+      <DependentUpon>202407092116221_UpdLocalDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
@@ -1292,8 +1292,8 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202405151747456_updateRemoteDB.resx">
-      <DependentUpon>202405151747456_updateRemoteDB.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202407092116221_UpdLocalDB.resx">
+      <DependentUpon>202407092116221_UpdLocalDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
