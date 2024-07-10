@@ -596,12 +596,6 @@ namespace WSafe.Domain.Helpers.Implements
                 Value = "0"
             });
 
-            list.Add(new SelectListItem
-            {
-                Text = "Crear nueva...",
-                Value = "-1"
-            });
-
             return list;
         }
     }

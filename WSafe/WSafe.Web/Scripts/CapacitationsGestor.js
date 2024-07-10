@@ -573,3 +573,35 @@ function generateCapacitationsPdf() {
         }
     });
 }
+function addTrainingTopic() {
+    var trainingTopic = {
+        Name: $("#Name").val(),
+        Objetive: $("#Objetive").val(),
+        Content: $("#Content").val(),
+        Resources: $("#Resources").val(),
+        ActivityFrequency: $("#ActivityFrequency").val(),
+        OrganizationID: 1
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/Capacitations/AddTrainingTopic",
+        data: JSON.stringify(trainingTopic), // Convertir el objeto a una cadena JSON
+        dataType: "json",
+        contentType: 'application/json; charset=utf-8',
+        async: true,
+        success: function (result) {
+            if (result.success) {
+                alert("Actividad adicionada !!");
+                // Opcional: actualizar el dropdown o la página para reflejar el nuevo registro
+                location.reload();
+            } else {
+                alert("Error: " + result.message);
+            }
+            $(".tabNewTopic").css("display", "none");
+        },
+        error: function (xhr, status, error) {
+            alert("Error del servidor: " + error);
+        }
+    });
+}

@@ -38,8 +38,10 @@
         $('#trainingID').change(function () {
             getTrainingTopic();
         });
-
         $(document).ready(function () {
+            $('#btnAddTraining').click(function () {
+                $(".tabNewTopic").css("display", "block");
+            });
         });
     </script>
 }

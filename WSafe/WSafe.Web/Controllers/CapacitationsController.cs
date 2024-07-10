@@ -618,9 +618,8 @@ namespace WSafe.Web.Controllers
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
-
         [HttpPost]
-        public JsonResult AddTrainingTopic(TrainingTopic model)
+        public async Task<ActionResult> AddTrainingTopic(TrainingTopic model)
         {
             try
             {
@@ -630,7 +629,7 @@ namespace WSafe.Web.Controllers
                     _year = (string)Session["year"];
                     model.OrganizationID = _orgID;
                     _empresaContext.TrainingTopics.Add(model);
-                    _empresaContext.SaveChanges();
+                    await _empresaContext.SaveChangesAsync();
 
                     return Json(new { success = true });
                 }
