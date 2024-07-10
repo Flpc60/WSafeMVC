@@ -16,7 +16,7 @@ using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
 {
-    //  Procesos controlador de riesgos en el SG-SST
+    //  Procesos controlador de riesgos en el SG-SST de las empresas ...
     public class RiesgosController : Controller
     {
         private int _clientID;

@@ -587,8 +587,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Text = t.Name,
                 Value = t.ID.ToString()
             })
-                .OrderBy(t => t.Text)
-                .ToList();
+            .OrderBy(t => t.Text)
+            .ToList();
 
             list.Insert(0, new SelectListItem
             {

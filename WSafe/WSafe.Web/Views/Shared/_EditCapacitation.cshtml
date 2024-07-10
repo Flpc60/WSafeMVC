@@ -2,10 +2,9 @@
 
 <style>
 
-    .tabTraining, .tabSigueCapacitation, .tabCapacitation {
+    .tabTraining, .tabSigueCapacitation, .tabCapacitation, .tabNewTopic {
         display: none;
     }
-
 </style>
 
 <div class="container" style="background-color:azure; padding:20px;">
@@ -13,7 +12,7 @@
     <h4 style="text-align:center">REGISTRAR PLAN DE CAPACITACIONES ANUAL</h4>
     <hr class="mt-4">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-10">
             <div class="form-group">
                 @Html.LabelFor(model => model.TrainingTopicID, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10 col-sm-10">
@@ -22,7 +21,15 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <div class="col-md-10 col-sm-10" style="margin-left: 0;">
+                    <button type="button" class="btn btn-primary" id="btnAddTraining">Adicionar</button>
+                </div>
+            </div>
+        </div>
     </div>
+
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -141,7 +148,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="tabSigueCapacitation">
-                <input type="hidden" id="capacitationID" name="capacitationID"/>
+                <input type="hidden" id="capacitationID" name="capacitationID" />
                 <hr />
                 <div class="container">
                     <button type="button" class="btn btn-primary" id="addTraceabilityID">Adicionar nuevo seguimiento</button>
@@ -175,6 +182,75 @@
         <div class="col-md-12">
             <div class="form-group">
                 <p style="color:red;font-size:18px;text-align:center"><strong>@ViewBag.message</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="tabNewTopic">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Name" class="control-label col-md-2">Actividad</label>
+                        <div class="col-md-10 col-sm-10">
+                            <input type="text" class="form-control" id="Name" name="Name" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Objetive" class="control-label col-md-2">Objetivos</label>
+                        <div class="col-md-10 col-sm-10">
+                            <input type="text" class="form-control" id="Objetive" name="Objetive" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Content" class="control-label col-md-2">Contenido</label>
+                        <div class="col-md-10 col-sm-10">
+                            <input type="text" class="form-control" id="Content" name="Content" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Resources" class="control-label col-md-2">Recursos</label>
+                        <div class="col-md-10 col-sm-10">
+                            <input type="text" class="form-control" id="Resources" name="Resources" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="ActivityFrequency" class="control-label col-md-2">Frecuencia</label>
+                        <div class="col-md-10 col-sm-10">
+                            <select class="form-control" id="ActivityFrequency" name="ActivityFrequency">
+                                <option value="0">Seleccione frecuencia ...</option>
+                                <option value="1">Diaria</option>
+                                <option value="2">Semanal</option>
+                                <option value="3">Quicenal</option>
+                                <option value="4">Mensual</option>
+                                <option value="5">Bimensual</option>
+                                <option value="6">Trimestral</option>
+                                <option value="7">Cuatrimestrual</option>
+                                <option value="8">Semestral</option>
+                                <option value="9">Anual</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10 col-sm-10">
+                            <button type="button" class="btn btn-primary" onclick="addTrainingTopic()">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
