@@ -2,6 +2,9 @@
 {
     public enum CategoriasEfectividad
     {
-        Alto, Medio, Bajo
+        Muy_Alto = 1,
+        Alto = 2, 
+        Medio = 3, 
+        Bajo = 4
     }
 }

@@ -74,6 +74,7 @@ namespace WSafe.Web.Models
         public DbSet<Capacitation> Capacitations { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<TrainingTopic> TrainingTopics { get; set; }
+        public DbSet<ControlTrace> ControlTraces { get; set; }
         public System.Data.Entity.DbSet<WSafe.Web.Models.UserViewModel> UserViewModels { get; set; }
         public System.Data.Entity.DbSet<WSafe.Web.Models.RoleUserVM> RoleUserVMs { get; set; }
 

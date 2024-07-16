@@ -147,6 +147,7 @@
     <Compile Include="Data\Entities\Components.cs" />
     <Compile Include="Data\Entities\CondicionSalud.cs" />
     <Compile Include="Data\Entities\Contingencias.cs" />
+    <Compile Include="Data\Entities\ControlTrace.cs" />
     <Compile Include="Data\Entities\DangerCategories.cs" />
     <Compile Include="Data\Entities\Dashboard.cs" />
     <Compile Include="Data\Entities\Document.cs" />
