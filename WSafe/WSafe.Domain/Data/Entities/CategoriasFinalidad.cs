@@ -3,6 +3,7 @@
     public enum CategoriasFinalidad
     {
         Preventivo = 1,
-        Mitigador = 2
+        Correctivo = 2,
+        Mejora = 3
     }
 }
