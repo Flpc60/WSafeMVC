@@ -87,43 +87,6 @@ namespace WSafe.Domain.Helpers.Implements
                     return "green";
             }
         }
-        public List<Control> GetControlesFuente(int idRiesgo)
-        {
-            var list = _empresaContext.Controles
-                .Where(c => c.RiesgoID == idRiesgo && c.CategoriaAplicacion == CategoriaAplicacion.Fuente)
-                .Select(c => new Control
-                {
-                    Nombre = c.Nombre,
-                    Beneficios = c.Beneficios,
-                    Efectividad = c.Efectividad
-                }).ToList();
-            return list;
-        }
-        public List<Control> GetControlesMedio(int idRiesgo)
-        {
-            var list = _empresaContext.Controles
-                .Where(c => c.RiesgoID == idRiesgo && c.CategoriaAplicacion == CategoriaAplicacion.Medio)
-                .Select(c => new Control
-                {
-                    Nombre = c.Nombre,
-                    Beneficios = c.Beneficios,
-                    Efectividad = c.Efectividad
-                }).ToList();
-            return list;
-        }
-        public List<Control> GetControlesPersona(int idRiesgo)
-        {
-            var list = _empresaContext.Controles
-                .Where(c => c.RiesgoID == idRiesgo && c.CategoriaAplicacion == CategoriaAplicacion.Individuo)
-                .Select(c => new Control
-                {
-                    Nombre = c.Nombre,
-                    Beneficios = c.Beneficios,
-                    Efectividad = c.Efectividad
-                }).ToList();
-            return list;
-        }
-
         public NivelesDeficiencia GetNivelDeficiencia(int deficiencia)
         {
             switch (deficiencia)

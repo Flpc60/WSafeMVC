@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WSafe.Domain.Data.Entities
 {
-    public class Traza
+    public class ControlTrace
     {
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
@@ -13,14 +13,16 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         public int RiesgoID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        public DateTime FechaInicial { get; set; }
+        public DateTime DateSigue { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        public DateTime FechaFinal { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        public int Efectividad { get; set; }
+        public bool Efectividad { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         public decimal Presupuesto { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        public string EstadoActual { get; set; }
+        public CategoriaAplicacion CategoriaAplicacion { get; set; }
+        public bool Active { get; set; }
+        public int OrganizationID { get; set; }
+        public int ClientID { get; set; }
+        public int UserID { get; set; }
     }
 }
