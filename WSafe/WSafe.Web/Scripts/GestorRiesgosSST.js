@@ -1,4 +1,4 @@
-﻿// Agregar funcionlidad del lado del cliente
+﻿// Agregar funcionlidad del lado del cliente ...
 // Implementar UI
 
 function viewHistory() {
@@ -1955,7 +1955,8 @@ function AddInterven() {
     var aplicaVM = {
         ID: "0",
         RiesgoID: riesgoID,
-        Nombre: $("#txtNombre").val(),
+        ControlID: $("#controlID").val(),
+        Nombre: $("#controlID").val(),
         CategoriaAplicacion: $("#txtCatAplica").val(),
         Finalidad: $("#txtFinal").val(),
         Intervencion: $("#idInterven").val(),
@@ -3756,6 +3757,9 @@ function gestorRiesgos() {
         $("#btnAddPlan").show();
         $("#btnCanPlan").show();
         $("#btnUpdPlan").hide();
+    });
+    $("#btnAddControl").click(function () {
+        addNewControl();
     });
 }
 
