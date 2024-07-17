@@ -142,6 +142,7 @@ namespace WSafe.Web.Controllers
             _orgID = (int)Session["orgID"];
             var model = _converterHelper.ToRiesgoViewModelNew(_orgID);
             ViewBag.trabajadores = _comboHelper.GetComboTrabajadores(_orgID);
+            ViewBag.controls = _comboHelper.GetAllControls(_orgID);
             return View(model);
         }
 
@@ -606,6 +607,32 @@ namespace WSafe.Web.Controllers
             }
 
             return true;
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AddControl(Control model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _orgID = (int)Session["orgID"];
+                    _year = (string)Session["year"];
+                    model.OrganizationID = _orgID;
+                    _empresaContext.Controls.Add(model);
+                    await _empresaContext.SaveChangesAsync();
+
+                    return Json(new { success = true });
+                }
+                else
+                {
+                    return Json(new { success = false, message = "Faltan datos por ingresar !!" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
         }
     }
 }

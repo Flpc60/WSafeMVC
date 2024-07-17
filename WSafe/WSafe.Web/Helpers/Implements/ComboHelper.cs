@@ -598,5 +598,23 @@ namespace WSafe.Domain.Helpers.Implements
 
             return list;
         }
+        public IEnumerable<SelectListItem> GetAllControls(int org)
+        {
+            var list = _empresaContext.Controls.Where(c => c.OrganizationID == org).Select(t => new SelectListItem
+            {
+                Text = t.Description,
+                Value = t.ID.ToString()
+            })
+            .OrderBy(t => t.Text)
+            .ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione un control ...)",
+                Value = "0"
+            });
+
+            return list;
+        }
     }
 }

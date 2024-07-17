@@ -195,6 +195,7 @@
     <Compile Include="Data\Entities\Control.cs" />
     <Compile Include="Data\Entities\EfectosPosibles.cs" />
     <Compile Include="Data\Entities\EstadosCivil.cs" />
+    <Compile Include="Data\Entities\MainCause.cs" />
     <Compile Include="Data\Entities\MedicalRecomendations.cs" />
     <Compile Include="Data\Entities\MedidasControl.cs" />
     <Compile Include="Data\Entities\Movimient.cs" />

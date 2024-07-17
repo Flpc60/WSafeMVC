@@ -598,7 +598,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Aceptabilidad = model.Aceptabilidad,
                 OrganizationID = model.OrganizationID,
                 ClientID = model.ClientID,
-                UserID = model.UserID
+                UserID = model.UserID,
+                ControlID = model.ControlID
             };
 
             return result;

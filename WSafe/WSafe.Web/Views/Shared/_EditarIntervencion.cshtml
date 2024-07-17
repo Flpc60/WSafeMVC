@@ -1,15 +1,23 @@
 ﻿@{
     var trabajadores = ViewBag.trabajadores;
+    var controls = ViewBag.controls;
 }
 
 <hr />
 <div class="container" style="background-color:azure">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-10">
             <div class="col-md-12 col-sm-10">
                 <hr />
-                <label for="intervencion">Medidas de intervención:</label>
-                <textarea id="txtNombre" style="resize:none;" class="form-control" rows=3 cols=70 required></textarea>
+                <label class="control-label" for="Respons">Medidas de intervención:</label>
+                @Html.DropDownList("Controles", controls as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "controlID" })
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <div class="col-md-10 col-sm-10" style="margin-left: 0;">
+                    <button type="button" class="btn btn-primary" id="btnAddControl">Adicionar control</button>
+                </div>
             </div>
         </div>
     </div>
@@ -79,11 +87,18 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-10">
             <div class="col-md-12 col-sm-10">
                 <hr />
                 <label for="idObserv">Observaciones:</label>
                 <textarea id="idObserv" style="resize:none;" class="form-control" rows=3 required></textarea>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <div class="col-md-10 col-sm-10" style="margin-left: 0;">
+                    <button type="button" class="btn btn-primary" id="btnAddControlTrace">Adicionar seguimiento</button>
+                </div>
             </div>
         </div>
     </div>
