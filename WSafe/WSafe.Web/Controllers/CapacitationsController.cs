@@ -22,7 +22,7 @@ namespace WSafe.Web.Controllers
 {
     public class CapacitationsController : Controller
     {
-        //  Capacitacionew en el SG-SST
+        //  Capacitacionew en el SG-SST ...
         private int _clientID;
         private int _orgID;
         private string _year;
@@ -618,6 +618,7 @@ namespace WSafe.Web.Controllers
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
+
         [HttpPost]
         public async Task<ActionResult> AddTrainingTopic(TrainingTopic model)
         {

@@ -605,3 +605,39 @@ function addTrainingTopic() {
         }
     });
 }
+
+function addNewControl() {
+    var controlVM = {
+        Description: $("#description").val(),
+        Beneficio: $("#beneficio").val(),
+        CategoriaAplicacion: $("#categoriaApp").val(),
+        Finalidad: $("#finalidad").val(),
+        Intervencion: $("#intervencion").val(),
+        Presupuesto: $("#presupuesto").val(),
+        Intervencion: $("#intervencion").val(),
+        OrganizationID: 1,
+        ClientID: 1,
+        UserID: 1
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/Riesgos/AddControl",
+        data: JSON.stringify(controlVM),
+        dataType: "json",
+        contentType: 'application/json; charset=utf-8',
+        async: true,
+        success: function (result) {
+            if (result.success) {
+                alert("Control adicionado !!");
+                location.reload();
+            } else {
+                alert("Error: " + result.message);
+            }
+            $(".tabNewTopic").css("display", "none");
+        },
+        error: function (xhr, status, error) {
+            alert("Error del servidor: " + error);
+        }
+    });
+}

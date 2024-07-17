@@ -22,7 +22,7 @@ namespace WSafe.Web.Models
         public DbSet<CategoriaPeligro> CategoriasPeligros { get; set; }
         public DbSet<Peligro> Peligros { get; set; }
         public DbSet<Trabajador> Trabajadores { get; set; }
-        public DbSet<Control> Controles { get; set; }
+        public DbSet<Control> Controls { get; set; }
         public DbSet<Accion> Acciones { get; set; }
         public DbSet<Incidente> Incidentes { get; set; }
         public DbSet<Indicador> Indicadores { get; set; }
@@ -75,6 +75,7 @@ namespace WSafe.Web.Models
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<TrainingTopic> TrainingTopics { get; set; }
         public DbSet<ControlTrace> ControlTraces { get; set; }
+        public DbSet<MainCause> MainCauses { get; set; }
         public System.Data.Entity.DbSet<WSafe.Web.Models.UserViewModel> UserViewModels { get; set; }
         public System.Data.Entity.DbSet<WSafe.Web.Models.RoleUserVM> RoleUserVMs { get; set; }
 
