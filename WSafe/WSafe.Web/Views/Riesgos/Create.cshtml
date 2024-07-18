@@ -7,7 +7,7 @@
 
 <style>
     .tabInterven, .capInterven, .tabPeligros, .tabEvalRiesgos, .tabMediAplica, .consInterven, .tabIntervencion,
-    .tabAddInterven, .tabIncidents, .tabAddPlanAcc, .tabGesPlanAcc, .tabAddControl {
+    .tabAddInterven, .tabIncidents, .tabAddPlanAcc, .tabGesPlanAcc, .tabAddControl, .tabAddControlTrace {
         display: none;
     }
     .centerText {
@@ -187,8 +187,8 @@
         <div class="row">
             <div class="col-md-8">
                 <hr />
-                <button type="button" id="btnAddPlan" class="btn btn-primary" onclick="AddPlanAccion()">Adicionar</button>
-                <button type="button" id="btnCanPlan" class="btn btn-primary" onclick="CancelPlan()">
+                <button type="button" class="btn btn-primary" onclick="addNewControl()">Adicionar</button>
+                <button type="button" class="btn btn-primary" onclick="CancelControl()">
                     <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
                 </button>
             </div>
@@ -197,6 +197,21 @@
         </div>
     </div>
 
+    <div class="tabAddControlTrace">
+        <input type="hidden" id="txtPlanAccionID" name="txtPlanAccionID" />
+        @Html.Partial("_EditControlTrace")
+        <div class="row">
+            <div class="col-md-8">
+                <hr />
+                <button type="button" class="btn btn-primary" onclick="addNewControlTrace()">Adicionar</button>
+                <button type="button" class="btn btn-primary" onclick="CancelControTracel()">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                </button>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
 </div>
 }
 
@@ -233,6 +248,12 @@
             $(".tabAddInterven").css("display", "none");
         }
 
+        function CancelControl() {
+            $(".tabAddControl").css("display", "none");
+        }
+        function CancelControlTrace() {
+            $(".tabAddControlTrace").css("display", "none");
+        }
 
     </script>
 }
