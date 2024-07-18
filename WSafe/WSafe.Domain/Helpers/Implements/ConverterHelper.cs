@@ -1,6 +1,4 @@
-﻿using iTextSharp.text;
-using Jint.Expressions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,8 +6,6 @@ using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
 using WSafe.Web.Data.Entities;
 using WSafe.Web.Models;
-using static Antlr4.Runtime.Atn.SemanticContext;
-using static iTextSharp.tool.xml.html.HTML;
 
 namespace WSafe.Domain.Helpers.Implements
 {
@@ -528,7 +524,7 @@ namespace WSafe.Domain.Helpers.Implements
             {
                 ID = aplicacion.ID,
                 RiesgoID = aplicacion.RiesgoID,
-                Nombre = aplicacion.Nombre.ToUpper(),
+                Nombre = _empresaContext.Controls.Find(aplicacion.ControlID).Description.ToUpper(),
                 CategoriaAplicacion = aplicacion.CategoriaAplicacion,
                 Intervencion = aplicacion.Intervencion,
                 Beneficios = aplicacion.Beneficios.ToUpper(),
@@ -555,7 +551,7 @@ namespace WSafe.Domain.Helpers.Implements
                 {
                     ID = item.ID,
                     RiesgoID = item.RiesgoID,
-                    Nombre = item.Nombre.ToUpper(),
+                    Nombre = _empresaContext.Controls.Find(item.ControlID).Description.ToUpper(),
                     CategoriaAplicacion = item.CategoriaAplicacion,
                     Intervencion = item.Intervencion,
                     Beneficios = item.Beneficios.ToUpper(),
@@ -583,7 +579,6 @@ namespace WSafe.Domain.Helpers.Implements
             {
                 ID = isNew ? 0 : model.ID,
                 RiesgoID = model.RiesgoID,
-                Nombre = model.Nombre,
                 CategoriaAplicacion = model.CategoriaAplicacion,
                 Intervencion = model.Intervencion,
                 Beneficios = model.Beneficios,
@@ -598,7 +593,9 @@ namespace WSafe.Domain.Helpers.Implements
                 Aceptabilidad = model.Aceptabilidad,
                 OrganizationID = model.OrganizationID,
                 ClientID = model.ClientID,
-                UserID = model.UserID
+                UserID = model.UserID,
+                ControlID = model.ControlID,
+                Traces = new List<ControlTrace>()
             };
 
             return result;
@@ -876,42 +873,42 @@ namespace WSafe.Domain.Helpers.Implements
                     switch (apl.CategoriaAplicacion)
                     {
                         case CategoriaAplicacion.Fuente:
-                            fuente += apl.Nombre + "\n";
+                            fuente += _empresaContext.Controls.Find(apl.ControlID).Description + "\n";
                             break;
 
                         case CategoriaAplicacion.Medio:
-                            medio += apl.Nombre + "\n";
+                            medio += _empresaContext.Controls.Find(apl.ControlID).Description + "\n";
                             break;
 
                         case CategoriaAplicacion.Individuo:
-                            individuo += apl.Nombre + "\n";
+                            individuo += _empresaContext.Controls.Find(apl.ControlID).Description + "\n";
                             break;
                     }
 
                     switch (apl.Intervencion)
                     {
                         case JerarquiaControles.Eliminacion:
-                            eliminacion += apl.Nombre + "\n";
+                            eliminacion += _empresaContext.Controls.Find(apl.ControlID).Description + "\n";
                             break;
 
                         case JerarquiaControles.Sustitucion:
-                            sustituto += apl.Nombre + "\n";
+                            sustituto += _empresaContext.Controls.Find(apl.ControlID).Description + "\n";
                             break;
 
                         case JerarquiaControles.Controles_Ingeniería:
-                            ingenieria += apl.Nombre + "\n";
+                            ingenieria += _empresaContext.Controls.Find(apl.ControlID).Description + "\n";
                             break;
 
                         case JerarquiaControles.Controles_Admon:
-                            admon += apl.Nombre + "\n";
+                            admon += _empresaContext.Controls.Find(apl.ControlID).Description + "\n";
                             break;
 
                         case JerarquiaControles.Señaliza:
-                            señales += apl.Nombre + "\n";
+                            señales += _empresaContext.Controls.Find(apl.ControlID).Description + "\n";
                             break;
 
                         case JerarquiaControles.EPP:
-                            epp += apl.Nombre + "\n";
+                            epp += _empresaContext.Controls.Find(apl.ControlID).Description + "\n";
                             break;
 
                     }
@@ -2077,7 +2074,7 @@ namespace WSafe.Domain.Helpers.Implements
                 WorkerCompromise = workerCompromise,
                 Observation = recomendation.Observation,
                 Coordinador = _empresaContext.Trabajadores.FirstOrDefault(t => t.ID == recomendation.CoordinadorID).NombreCompleto
-        };
+            };
 
             foreach (var item in model.Seguimients)
             {
@@ -2271,7 +2268,7 @@ namespace WSafe.Domain.Helpers.Implements
             {
                 Normas = _comboHelper.GetNormasAll(),
                 Workers = _comboHelper.GetWorkersFull(org),
-                InitialDate = new DateTime(year, 1,2),
+                InitialDate = new DateTime(year, 1, 2),
                 FechaFinal = new DateTime(year, 12, 30),
                 Executed = 1,
                 ActionCategory = ActionCategories.Sin_Iniciar,
@@ -2546,12 +2543,12 @@ namespace WSafe.Domain.Helpers.Implements
                 ID = model.ID,
                 ExaminationDate = model.ExaminationDate,
                 TrabajadorID = model.TrabajadorID,
-                Recomendations = model.Recomendations, 
-                Talla = model.Talla, 
-                Peso = model.Peso, 
+                Recomendations = model.Recomendations,
+                Talla = model.Talla,
+                Peso = model.Peso,
                 ExaminationType = model.ExaminationType,
                 Workers = _comboHelper.GetWorkersFull(org),
-                MedicalRecomendation = model.MedicalRecomendation, 
+                MedicalRecomendation = model.MedicalRecomendation,
                 SigueOccupational = sigue,
                 OrganizationID = model.OrganizationID,
                 ClientID = model.ClientID,

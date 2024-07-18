@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using WSafe.Domain.Data.Entities;
 
 namespace WSafe.Web.Models
@@ -55,5 +54,6 @@ namespace WSafe.Web.Models
         public int OrganizationID { get; set; }
         public int ClientID { get; set; }
         public int UserID { get; set; }
+        public int ControlID { get; set; }
     }
 }
