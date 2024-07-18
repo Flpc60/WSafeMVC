@@ -18,8 +18,6 @@ namespace WSafe.Domain.Data.Entities
         public CategoriasFinalidad Finalidad { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public JerarquiaControles Intervencion { get; set; }
-        [MaxLength(200)]
-        public string Nombre { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [MaxLength(200)]
         public string Beneficios { get; set; }

@@ -3759,8 +3759,12 @@ function gestorRiesgos() {
         $("#btnUpdPlan").hide();
     });
     $("#btnAddControl").click(function () {
-        addNewControl();
+        $(".tabAddControl").css("display", "block");
     });
+    $("#btnAddControlTrace").click(function () {
+        $(".tabAddControl").css("display", "block");
+    });
+
 }
 
 function calcularProbabilidad() {
