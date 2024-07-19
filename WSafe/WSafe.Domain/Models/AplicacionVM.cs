@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 using WSafe.Domain.Data.Entities;
 
 namespace WSafe.Web.Models
@@ -9,10 +11,6 @@ namespace WSafe.Web.Models
         public int ID { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int RiesgoID { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Display(Name = "Descripción")]
-        [MaxLength(100)]
-        public string Nombre { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Aplicación del control")]
         public CategoriaAplicacion CategoriaAplicacion { get; set; }
@@ -54,6 +52,10 @@ namespace WSafe.Web.Models
         public int OrganizationID { get; set; }
         public int ClientID { get; set; }
         public int UserID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Control:")]
         public int ControlID { get; set; }
+        public IEnumerable<SelectListItem> Controles { get; set; }
+        public string Nombre { get; set; }
     }
 }

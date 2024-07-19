@@ -609,7 +609,7 @@ function addTrainingTopic() {
 function addNewControl() {
     var controlVM = {
         Description: $("#description").val(),
-        Beneficio: $("#beneficio").val(),
+        Beneficios: $("#beneficio").val(),
         CategoriaAplicacion: $("#categoriaApp").val(),
         Finalidad: $("#finalidad").val(),
         Intervencion: $("#intervencion").val(),
@@ -634,7 +634,7 @@ function addNewControl() {
             } else {
                 alert("Error: " + result.message);
             }
-            $(".tabNewTopic").css("display", "none");
+            $(".tabAddControl").css("display", "none");
         },
         error: function (xhr, status, error) {
             alert("Error del servidor: " + error);
