@@ -1044,6 +1044,7 @@
     <Content Include="Views\Shared\_ShowCapacitation.cshtml" />
     <Content Include="Views\Capacitations\CreateCapacitations.cshtml" />
     <Content Include="Views\Shared\_EditControl.cshtml" />
+    <Content Include="Views\Shared\_EditControlTrace.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

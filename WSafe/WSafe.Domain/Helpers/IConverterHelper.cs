@@ -23,7 +23,7 @@ namespace WSafe.Domain.Helpers
         IndicadorViewModel ToIndicadorViewModelNew(
             Indicador indicador, int[] periodo, int year, int orgID, string imagePathName);
         AccidentadoVM ToLesionadoViewModel(Trabajador lesionado);
-        IEnumerable<AplicacionVM> ToIntervencionesViewModel(IEnumerable<Aplicacion> listaAplicacion);
+        IEnumerable<AplicacionVM> ToIntervencionesViewModel(IEnumerable<Aplicacion> listaAplicacion, int org);
         Task<Aplicacion> ToAplicacionAsync(AplicacionVM model, bool isNew);
         PlanAccionVM ToPlanAccionVM(PlanAction planAccion);
         PlanAccionVM ToPlanAccionVMNew();
@@ -42,7 +42,7 @@ namespace WSafe.Domain.Helpers
         IEnumerable<AuthorizationVM> ToRolOperationVM(IEnumerable<RoleOperation> roleOperation);
         RoleUserVM ToAuthorizationVM(User user);
         Task<User> ToUserAsync(RoleUserVM user);
-        AplicacionVM ToAplicationVM(Aplicacion aplicacion);
+        AplicacionVM ToAplicationVM(Aplicacion aplicacion, int org);
         IEnumerable<MovimientVM> ToListMovimientos(IEnumerable<Movimient> movimientos);
         IEnumerable<EvaluationVM> ToEvaluationVMList(IEnumerable<Evaluation> evaluation);
         IEnumerable<CalificationVM> ToCalificationVMList(IEnumerable<CalificationVM> calification);

@@ -518,13 +518,14 @@ namespace WSafe.Domain.Helpers.Implements
             }
             return modelo;
         }
-        public AplicacionVM ToAplicationVM(Aplicacion aplicacion)
+        public AplicacionVM ToAplicationVM(Aplicacion aplicacion, int org)
         {
             var modelo = new AplicacionVM
             {
                 ID = aplicacion.ID,
                 RiesgoID = aplicacion.RiesgoID,
-                Nombre = _empresaContext.Controls.Find(aplicacion.ControlID).Description.ToUpper(),
+                ControlID = aplicacion.ControlID,
+                Controles = _comboHelper.GetAllControls(org),
                 CategoriaAplicacion = aplicacion.CategoriaAplicacion,
                 Intervencion = aplicacion.Intervencion,
                 Beneficios = aplicacion.Beneficios.ToUpper(),
@@ -542,7 +543,7 @@ namespace WSafe.Domain.Helpers.Implements
 
             return modelo;
         }
-        public IEnumerable<AplicacionVM> ToIntervencionesViewModel(IEnumerable<Aplicacion> listaAplicacion)
+        public IEnumerable<AplicacionVM> ToIntervencionesViewModel(IEnumerable<Aplicacion> listaAplicacion, int org)
         {
             var modelo = new List<AplicacionVM>();
             foreach (var item in listaAplicacion)
@@ -551,7 +552,8 @@ namespace WSafe.Domain.Helpers.Implements
                 {
                     ID = item.ID,
                     RiesgoID = item.RiesgoID,
-                    Nombre = _empresaContext.Controls.Find(item.ControlID).Description.ToUpper(),
+                    ControlID = item.ControlID,
+                    Controles = _comboHelper.GetAllControls(org),
                     CategoriaAplicacion = item.CategoriaAplicacion,
                     Intervencion = item.Intervencion,
                     Beneficios = item.Beneficios.ToUpper(),
@@ -568,7 +570,8 @@ namespace WSafe.Domain.Helpers.Implements
                     NivelDeficiencia = item.NivelDeficiencia,
                     NivelExposicion = item.NivelExposicion,
                     NivelConsecuencia = item.NivelConsecuencia,
-                    Aceptabilidad = item.Aceptabilidad
+                    Aceptabilidad = item.Aceptabilidad,
+                    Nombre = _empresaContext.Controls.Find(item.ControlID).Description.ToUpper()
                 });
             }
             return modelo;
