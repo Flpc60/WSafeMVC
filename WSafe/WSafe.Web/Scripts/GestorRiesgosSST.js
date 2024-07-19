@@ -1956,7 +1956,6 @@ function AddInterven() {
         ID: "0",
         RiesgoID: riesgoID,
         ControlID: $("#controlID").val(),
-        Nombre: $("#controlID").val(),
         CategoriaAplicacion: $("#txtCatAplica").val(),
         Finalidad: $("#txtFinal").val(),
         Intervencion: $("#idInterven").val(),
@@ -3762,7 +3761,7 @@ function gestorRiesgos() {
         $(".tabAddControl").css("display", "block");
     });
     $("#btnAddControlTrace").click(function () {
-        $(".tabAddControl").css("display", "block");
+        $(".tabAddControlTrace").css("display", "block");
     });
 
 }

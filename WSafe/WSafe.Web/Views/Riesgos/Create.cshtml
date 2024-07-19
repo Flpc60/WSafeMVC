@@ -1,5 +1,4 @@
 ﻿@model WSafe.Web.Models.RiesgoViewModel
-
 @{
     ViewBag.Title = "Create";
     var trabajadores = ViewBag.trabajadores;
@@ -148,17 +147,6 @@
         <input type="hidden" id="txtIntervenID" name="txtIntervenID" />
         <input type="hidden" id="txtAccionID" name="txtAccionID" />
         @Html.Partial("_EditarIntervencion")
-        <div class="row">
-            <div class="col-md-8">
-                <button type="button" id="btnAddInterven" class="btn btn-primary" onclick="AddInterven()">Adicionar</button>
-                <button type="button" id="btnUpdInterven" class="btn btn-primary" onclick="UpdateIntervencion()">Guardar</button>
-                <button type="button" id="btnCanInterven" class="btn btn-primary" onclick="CancelInterven()">
-                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
-                </button>
-            </div>
-            <div class="col-md-4">
-            </div>
-        </div>
     </div>
 
     <div class="tabGesPlanAcc">
@@ -173,22 +161,6 @@
                 <button type="button" id="btnAddPlan" class="btn btn-primary" onclick="AddPlanAccion()">Adicionar</button>
                 <button type="button" id="btnUpdPlan" class="btn btn-primary" onclick="UpdatePlanAcc()">Actualizar</button>
                 <button type="button" id="btnCanPlan" class="btn btn-primary" onclick="CancelPlan()">
-                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
-                </button>
-            </div>
-            <div class="col-md-4">
-            </div>
-        </div>
-    </div>
-
-    <div class="tabAddControl">
-        <input type="hidden" id="txtPlanAccionID" name="txtPlanAccionID" />
-        @Html.Partial("_EditControl")
-        <div class="row">
-            <div class="col-md-8">
-                <hr />
-                <button type="button" class="btn btn-primary" onclick="addNewControl()">Adicionar</button>
-                <button type="button" class="btn btn-primary" onclick="CancelControl()">
                     <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
                 </button>
             </div>
@@ -254,6 +226,10 @@
         function CancelControlTrace() {
             $(".tabAddControlTrace").css("display", "none");
         }
+
+        $("#btnAddControl").click(function () {
+            $(".tabAddControl").css("display", "block");
+        });
 
     </script>
 }

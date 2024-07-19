@@ -311,10 +311,11 @@ namespace WSafe.Web.Controllers
         {
             try
             {
+                _orgID = (int)Session["orgID"];
                 var result = await _empresaContext.Aplicaciones
-                    .Where(a => a.RiesgoID == idRiesgo).ToListAsync();
+                    .Where(a => a.RiesgoID == idRiesgo && a.OrganizationID == _orgID).ToListAsync();
 
-                var intervenciones = _converterHelper.ToIntervencionesViewModel(result);
+                var intervenciones = _converterHelper.ToIntervencionesViewModel(result, _orgID);
 
                 return Json(intervenciones, JsonRequestBehavior.AllowGet);
             }
@@ -329,8 +330,9 @@ namespace WSafe.Web.Controllers
         {
             try
             {
+                _orgID = (int)Session["orgID"];
                 var result = _empresaContext.Aplicaciones.Find(id);
-                var intervencion = _converterHelper.ToAplicationVM(result);
+                var intervencion = _converterHelper.ToAplicationVM(result, _orgID);
                 return Json(intervencion, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -401,8 +403,9 @@ namespace WSafe.Web.Controllers
             var message = "";
             try
             {
+                _orgID = (int)Session["orgID"];
                 var result = _empresaContext.Aplicaciones.Find(id);
-                var model = _converterHelper.ToAplicationVM(result);
+                var model = _converterHelper.ToAplicationVM(result, _orgID);
                 return Json(new { data = model, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
             catch
