@@ -17,9 +17,11 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Medida intervención")]
         public JerarquiaControles Intervencion { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public CategoriasFinalidad Finalidad { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [MaxLength(100)]
         public string Beneficios { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public decimal Presupuesto { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Responsable")]
@@ -41,13 +43,13 @@ namespace WSafe.Web.Models
         public string TextIntervencion { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "ND")]
-        public int NivelDeficiencia { get; set; }
+        public short NivelDeficiencia { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "NE")]
-        public int NivelExposicion { get; set; }
+        public short NivelExposicion { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "NC")]
-        public int NivelConsecuencia { get; set; }
+        public short NivelConsecuencia { get; set; }
         public CategoriasAceptabilidad Aceptabilidad { get; set; }
         public int OrganizationID { get; set; }
         public int ClientID { get; set; }
