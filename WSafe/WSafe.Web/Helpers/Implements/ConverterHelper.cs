@@ -528,6 +528,7 @@ namespace WSafe.Domain.Helpers.Implements
                 Controles = _comboHelper.GetAllControls(org),
                 CategoriaAplicacion = aplicacion.CategoriaAplicacion,
                 Intervencion = aplicacion.Intervencion,
+                Finalidad = aplicacion.Finalidad,
                 Beneficios = aplicacion.Beneficios.ToUpper(),
                 Presupuesto = aplicacion.Presupuesto,
                 TrabajadorID = aplicacion.TrabajadorID,

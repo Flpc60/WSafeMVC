@@ -600,12 +600,12 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public IEnumerable<SelectListItem> GetAllControls(int org)
         {
-            var list = _empresaContext.Controls.Where(c => c.OrganizationID == org).Select(t => new SelectListItem
+            var list = _empresaContext.Controls.Where(c => c.OrganizationID == org).Select(c => new SelectListItem
             {
-                Text = t.Description,
-                Value = t.ID.ToString()
+                Text = c.Description,
+                Value = c.ID.ToString()
             })
-            .OrderBy(t => t.Text)
+            .OrderBy(c => c.Text)
             .ToList();
 
             list.Insert(0, new SelectListItem
