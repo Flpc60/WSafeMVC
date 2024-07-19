@@ -507,13 +507,9 @@
     <Compile Include="Helpers\Implements\ConverterHelper.cs" />
     <Compile Include="Helpers\Implements\GestorHelper.cs" />
     <Compile Include="Helpers\Implements\IndicadorHelper.cs" />
-    <Compile Include="Migrations\202407092116221_UpdLocalDB.cs" />
-    <Compile Include="Migrations\202407092116221_UpdLocalDB.designer.cs">
-      <DependentUpon>202407092116221_UpdLocalDB.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202407172014277_UpdAplication.cs" />
-    <Compile Include="Migrations\202407172014277_UpdAplication.designer.cs">
-      <DependentUpon>202407172014277_UpdAplication.cs</DependentUpon>
+    <Compile Include="Migrations\202407191626344_UpdateAplicationVM.cs" />
+    <Compile Include="Migrations\202407191626344_UpdateAplicationVM.designer.cs">
+      <DependentUpon>202407191626344_UpdateAplicationVM.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
@@ -748,8 +744,7 @@
     <Content Include="Scripts\AuditsGestor.js" />
     <Content Include="Scripts\GestorAudits.js" />
     <Content Include="Scripts\GestorCapacitation.js" />
-    <Content Include="Scripts\RiesgosGestor.js" />
-    <Content Include="Scripts\GestorRiesgosSST.js" />
+    <Content Include="Scripts\GestorRiesgos.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -1300,11 +1295,8 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202407092116221_UpdLocalDB.resx">
-      <DependentUpon>202407092116221_UpdLocalDB.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202407172014277_UpdAplication.resx">
-      <DependentUpon>202407172014277_UpdAplication.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202407191626344_UpdateAplicationVM.resx">
+      <DependentUpon>202407191626344_UpdateAplicationVM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

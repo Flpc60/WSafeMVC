@@ -7,10 +7,10 @@
 <div class="container-fluid" style="background-color:azure">
     <div class="row">
         <div class="col-md-12">
-            <label class="control-label" for="controlID">Medidas de intervención</label>
+            <label class="control-label" for="control">Medidas de intervención</label>
             <div class="form-group">
                 <div class="col-md-10 col-sm-10">
-                    @Html.DropDownList("Controles", controls as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "controlID" })
+                    @Html.DropDownList("Controles", controls as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "controlMedidaID" })
                 </div>
                 <div class="col-md-2 col-sm-10">
                     <button type="button" class="btn btn-primary" id="btnAddControl">Adicionar control</button>
@@ -62,8 +62,20 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
-            <div class="col-md-12 col-sm-10">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="finalidad">Finalidad</label>
+                <select name="finalidad" class="form-control" id="finalidad">
+                    <option selected="selected" value="0">Seleccione finalidad...</option>
+                    <option value="1">Preventivo</option>
+                    <option value="2">Correctivo</option>
+                    <option value="3">Mejora</option>
+                </select>
+                <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="finalidad"></span>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="col-md-7 col-sm-10">
                 <hr />
                 <label for="idBeneficio">Beneficios:</label>
                 <textarea id="idBeneficio" style="resize:none;" class="form-control" rows=3 required></textarea>

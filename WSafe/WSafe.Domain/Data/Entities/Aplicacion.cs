@@ -34,9 +34,9 @@ namespace WSafe.Domain.Data.Entities
         public DateTime FechaFinal { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string Observaciones { get; set; }
-        public int NivelDeficiencia { get; set; }
-        public int NivelExposicion { get; set; }
-        public int NivelConsecuencia { get; set; }
+        public short NivelDeficiencia { get; set; }
+        public short NivelExposicion { get; set; }
+        public short NivelConsecuencia { get; set; }
         public CategoriasAceptabilidad Aceptabilidad { get; set; }
         public ICollection<ControlTrace> Traces { get; set; }
         public int OrganizationID { get; set; }

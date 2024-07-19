@@ -1,4 +1,4 @@
-﻿// Agregar funcionlidad del lado del cliente
+﻿// Agregar funcionlidad del lado del cliente...
 // Implementar UI
 
 function viewHistory() {
@@ -780,6 +780,7 @@ function getIntervenByID(intervenID) {
         contentType: "application/json;charset=UTF-8",
         success: function (result) {
             $("#txtIntervenID").val(result.ID);
+            $("#controlMedidaID").val(result.ControlID);
             $("#txtRiesgoID").val(result.RiesgoID);
             $("#txtNombre").val(result.Nombre);
             $("#txtCatAplica").val(result.CategoriaAplicacion);
@@ -1965,10 +1966,11 @@ function UpdateRiesgo() {
 function AddInterven() {
     $(".tabMediAplica").css("display", "none");
     var riesgoID = $("#txtRiesgoID").val();
+    var controlID = $("#controlMedidaID").val();
     var aplicaVM = {
         ID: "0",
         RiesgoID: riesgoID,
-        Nombre: $("#txtNombre").val(),
+        ControlID: controlID,
         CategoriaAplicacion: $("#txtCatAplica").val(),
         Finalidad: $("#txtFinal").val(),
         Intervencion: $("#idInterven").val(),
@@ -2011,18 +2013,20 @@ function UpdateIntervencion() {
     //TODO
     riesgoID = $("#txtRiesgoID").val();
     aplicaID = $("#txtIntervenID").val();
+    var controlID = $("#controlMedidaID").val();
 
     var aplicaVM = {
         ID: aplicaID,
         RiesgoID: riesgoID,
-        Nombre: $("#txtNombre").val(),
+        ControlID: controlID,
         CategoriaAplicacion: $("#txtCatAplica").val(),
-        TrabajadorID: $("#idRespons").val(),
+        Finalidad: $("#txtFinal").val(),
         Intervencion: $("#idInterven").val(),
         Beneficios: $("#idBeneficio").val(),
         Presupuesto: $("#idPresup").val(),
+        TrabajadorID: $("#idRespons").val(),
         FechaInicial: $("#FechaInicial").val(),
-        FechaFinal: $("#FechaFinal").val(),
+        Fechafinal: $("#FechaFinal").val(),
         Observaciones: $("#idObserv").val(),
         NivelDeficiencia: $("#deficiencia").val(),
         NivelExposicion: $("#exposicion").val(),

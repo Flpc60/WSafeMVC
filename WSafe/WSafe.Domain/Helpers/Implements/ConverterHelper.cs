@@ -528,6 +528,7 @@ namespace WSafe.Domain.Helpers.Implements
                 Controles = _comboHelper.GetAllControls(org),
                 CategoriaAplicacion = aplicacion.CategoriaAplicacion,
                 Intervencion = aplicacion.Intervencion,
+                Finalidad = aplicacion.Finalidad,
                 Beneficios = aplicacion.Beneficios.ToUpper(),
                 Presupuesto = aplicacion.Presupuesto,
                 TrabajadorID = aplicacion.TrabajadorID,
@@ -552,7 +553,8 @@ namespace WSafe.Domain.Helpers.Implements
                 {
                     ID = item.ID,
                     RiesgoID = item.RiesgoID,
-                    Controles = _comboHelper.GetAllControls(org), 
+                    ControlID = item.ControlID,
+                    Controles = _comboHelper.GetAllControls(org),
                     CategoriaAplicacion = item.CategoriaAplicacion,
                     Intervencion = item.Intervencion,
                     Beneficios = item.Beneficios.ToUpper(),
@@ -569,7 +571,8 @@ namespace WSafe.Domain.Helpers.Implements
                     NivelDeficiencia = item.NivelDeficiencia,
                     NivelExposicion = item.NivelExposicion,
                     NivelConsecuencia = item.NivelConsecuencia,
-                    Aceptabilidad = item.Aceptabilidad
+                    Aceptabilidad = item.Aceptabilidad,
+                    Nombre = _empresaContext.Controls.Find(item.ControlID).Description.ToUpper()
                 });
             }
             return modelo;

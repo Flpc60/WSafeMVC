@@ -7,18 +7,18 @@ namespace WSafe.Web.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class UpdLocalDB : IMigrationMetadata
+    public sealed partial class UpdateAplicationVM : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdLocalDB));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateAplicationVM));
         
         string IMigrationMetadata.Id
         {
-            get { return "202407092116221_UpdLocalDB"; }
+            get { return "202407191626344_UpdateAplicationVM"; }
         }
         
         string IMigrationMetadata.Source
         {
-            get { return null; }
+            get { return Resources.GetString("Source"); }
         }
         
         string IMigrationMetadata.Target
