@@ -1386,7 +1386,7 @@ function validateAction() {
 
 // las siguientes funciones cran una nueva accion, plan acción y nuevo seguimiento
 function AddAccion() {
-    // Crea una nueva acción, para una nueva no conformidad
+    // Crea una nueva acción, para una nueva no conformidad ...
     // Retorna la accionID, y se la pasa a PlanAccion y SeguimientoAccion
 
     if (!validateAction()) {
@@ -3781,6 +3781,21 @@ function gestorRiesgos() {
         $("#btnAddPlan").show();
         $("#btnCanPlan").show();
         $("#btnUpdPlan").hide();
+    });
+    $("#actionTraceID").click(function () {
+        var mainCause = $("#mainCause").val();
+        var fechaSolicitud = $("#dateSigue").val();
+        var description = "Falta de seguimiento a medida de intervención de riesgos";
+        var fechaCierre = $("#FechaFinal").val();
+        $("#FechaSolicitud").val(fechaSolicitud);
+        $("#idFuente").val(mainCause);
+        $("#idDescrip").val(description);
+        $("#idEficaciaAnt").val(0);
+        $("#idEficaciaDesp").val(0);
+        $("#FechaCierre").val(fechaCierre);
+        $("#idEfectiva").val(0);
+        $("#txtActionCategory").val(1);
+        AddAccion();
     });
 }
 
