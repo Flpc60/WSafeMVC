@@ -641,3 +641,70 @@ function addNewControl() {
         }
     });
 }
+
+function addMainCause() {
+    var causeMainVM = {
+        Name: $("#mainCause").val(),
+        OrganizationID: 1,
+        ClientID: 1,
+        UserID: 1
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/Riesgos/AddMainCause",
+        data: JSON.stringify(causeMainVM),
+        dataType: "json",
+        contentType: 'application/json; charset=utf-8',
+        async: true,
+        success: function (result) {
+            if (result.success) {
+                alert("Causa principal adicionada !!");
+                location.reload();
+            } else {
+                alert("Error: " + result.message);
+            }
+            $(".tabAddMainCause").css("display", "none");
+        },
+        error: function (xhr, status, error) {
+            alert("Error del servidor: " + error);
+        }
+    });
+}
+
+function addControlTrace() {
+    var controlTraceVM = {
+        ControlID: $("#controlID").val(),
+        CtrlReplaceID: $("#controlTraceID").val(),
+        MaintCauseID: $("#maintCauseID").val(),
+        AplicacionID: $("#txtIntervenID").val(),
+        RiesgoID: $("#txtRiesgoID").val(),
+        DateSigue: $("#DateSigue").val(),
+        Efectividad: $("#efectividad").val(),
+        Observations: $("#observations").val(),
+        OrganizationID: 1,
+        ClientID: 1,
+        UserID: 1
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/Riesgos/AddControlTrace",
+        data: JSON.stringify(controlTraceVM),
+        dataType: "json",
+        contentType: 'application/json; charset=utf-8',
+        async: true,
+        success: function (result) {
+            if (result.success) {
+                alert("Seguimiento adicionado !!");
+                location.reload();
+            } else {
+                alert("Error: " + result.message);
+            }
+            $(".tabAddControlTrace").css("display", "none");
+        },
+        error: function (xhr, status, error) {
+            alert("Error del servidor: " + error);
+        }
+    });
+}

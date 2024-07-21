@@ -6,7 +6,7 @@
 
 <style>
     .tabInterven, .capInterven, .tabPeligros, .tabEvalRiesgos, .tabMediAplica, .consInterven, .tabIntervencion,
-    .tabAddInterven, .tabIncidents, .tabAddPlanAcc, .tabGesPlanAcc, .tabAddControl, .tabAddControlTrace {
+    .tabAddInterven, .tabIncidents, .tabAddPlanAcc, .tabGesPlanAcc, .tabAddControl, .tabAddControlTrace, .tabAddMainCause {
         display: none;
     }
     .centerText {
@@ -227,8 +227,16 @@
             $(".tabAddControlTrace").css("display", "none");
         }
 
+        function CancelMainCause() {
+            $(".tabAddMainCause").css("display", "none");
+        }
+
         $("#btnAddControl").click(function () {
             $(".tabAddControl").css("display", "block");
+        });
+
+        $("#btnAddMainCause").click(function () {
+            $(".tabAddMainCause").css("display", "block");
         });
 
     </script>
