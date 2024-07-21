@@ -37,5 +37,6 @@ namespace WSafe.Domain.Helpers
         IEnumerable<SelectListItem> GetNormasAll();
         IEnumerable<SelectListItem> GetTrainingTopicsAll(int org);
         IEnumerable<SelectListItem> GetAllControls(int org);
+        IEnumerable<SelectListItem> GetAllMainCauses(int org);
     }
 }
