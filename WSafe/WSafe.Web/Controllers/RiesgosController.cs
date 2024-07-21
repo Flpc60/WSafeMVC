@@ -143,6 +143,7 @@ namespace WSafe.Web.Controllers
             var model = _converterHelper.ToRiesgoViewModelNew(_orgID);
             ViewBag.trabajadores = _comboHelper.GetComboTrabajadores(_orgID);
             ViewBag.controls = _comboHelper.GetAllControls(_orgID);
+            ViewBag.mainCauses = _comboHelper.GetAllMainCauses(_orgID);
             return View(model);
         }
 
@@ -209,6 +210,7 @@ namespace WSafe.Web.Controllers
             }
             ViewBag.trabajadores = _comboHelper.GetComboTrabajadores(_orgID);
             ViewBag.controls = _comboHelper.GetAllControls(_orgID);
+            ViewBag.mainCauses = _comboHelper.GetAllMainCauses(_orgID);
             ViewBag.riesgoID = id;
             return View(model);
         }

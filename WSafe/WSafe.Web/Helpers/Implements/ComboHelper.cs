@@ -616,5 +616,23 @@ namespace WSafe.Domain.Helpers.Implements
 
             return list;
         }
+        public IEnumerable<SelectListItem> GetAllMainCauses(int org)
+        {
+            var list = _empresaContext.MainCauses.Where(m => m.OrganizationID == org).Select(m => new SelectListItem
+            {
+                Text = m.Name,
+                Value = m.ID.ToString()
+            })
+            .OrderBy(m => m.Text)
+            .ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione una causa ...)",
+                Value = "0"
+            });
+
+            return list;
+        }
     }
 }
