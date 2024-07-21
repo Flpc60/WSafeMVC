@@ -206,7 +206,26 @@
             $(".tabAddInterven").css("display", "none");
         }
 
+        function CancelControl() {
+            $(".tabAddControl").css("display", "none");
+        }
+        function CancelControlTrace() {
+            $(".tabAddControlTrace").css("display", "none");
+        }
+
+        function CancelMainCause() {
+            $(".tabAddMainCause").css("display", "none");
+        }
+
         $("#btnAddControl").click(function () {
+            $(".tabAddControl").css("display", "block");
+        });
+
+        $("#btnAddControlTrace").click(function () {
+            $(".tabAddControlTrace").css("display", "block");
+        });
+
+        $("#btnAddMainCause").click(function () {
             $(".tabAddMainCause").css("display", "block");
         });
 

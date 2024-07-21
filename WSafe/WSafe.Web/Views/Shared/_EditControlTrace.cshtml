@@ -1,10 +1,9 @@
 ﻿@{
     var controls = ViewBag.controls;
     var mainCauses = ViewBag.mainCauses;
-    var medidaActual = ViewBag.medidaActual;
 }
 
-<div class="container" style="background-color:azure">
+<div class="container" style="text-align:center;background-color:lightgray;">
     <hr class="mt-4">
     <h4 style="text-align:center">REGISTRAR SEGUIMIENTO</h4>
     <hr class="mt-4">
@@ -25,8 +24,7 @@
         <div class="col-md-4">
             <div class="form-group">
                 <input type="checkbox" id="efectividad" name="efectividad">
-                <label class="control-label" for="efectividad"> Fué efectiva la medida</label><br>
-                <input name="presupuesto" class="form-control" id="efectividad">
+                <label class="control-label" for="efectividad">  Fué efectiva la medida</label><br>
                 <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="efectividad"></span>
             </div>
         </div>
@@ -52,6 +50,38 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="checkbox" id="actionTraceID" name="actionTraceID">
+                <label class="control-label" for="actionTraceID">  Generar acción correctiva, preventiva o de mejora</label><br>
+                <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="actionTraceID"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="categoriaAcc">Finalidad</label>
+                <select name="categoriaAcc" class="form-control" id="categoriaAcc">
+                    <option selected="selected" value="0">Seleccione finalidad...</option>
+                    <option value="1">Preventivo</option>
+                    <option value="2">Correctivo</option>
+                    <option value="3">Mejora</option>
+                </select>
+                <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="categoriaAcc"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <hr />
+            <button type="button" class="btn btn-primary" onclick="addControlTrace()">Adicionar</button>
+            <button type="button" class="btn btn-primary" onclick="CancelControTracel()">
+                <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+            </button>
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+    <div class="row">
         <div class="tabAddMainCause">
             <div class="row">
                 <div class="col-md-12">
@@ -61,13 +91,13 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <button type="button" class="btn btn-primary" onclick="addMainCause()">Adicionar</button>
-                <button type="button" class="btn btn-primary" onclick="CancelMainCause()">
-                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
-                </button>
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-primary" onclick="addMainCause()">Adicionar</button>
+                    <button type="button" class="btn btn-primary" onclick="CancelMainCause()">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                    </button>
+                </div>
             </div>
         </div>
         <hr class="mt-4">
