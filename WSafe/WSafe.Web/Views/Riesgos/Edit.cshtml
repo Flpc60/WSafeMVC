@@ -1,5 +1,4 @@
 ﻿@model WSafe.Web.Models.RiesgoViewModel
-@using System.Web.Mvc.Html;
 @{
     ViewBag.Title = "GESTIONAR LOS RIESGOS";
     var trabajadores = @ViewBag.trabajadores;
@@ -9,7 +8,7 @@
 
 <style>
     .tabInterven, .capInterven, .tabPeligros, .tabEvalRiesgos, .tabMediAplica, .consInterven, .tabIntervencion,
-    .tabAddInterven, .tabIncidents, .tabAddPlanAcc, .tabGesPlanAcc, .tabAddControl, .tabAddControlTrace {
+    .tabAddInterven, .tabIncidents, .tabAddPlanAcc, .tabGesPlanAcc, .tabAddControl, .tabAddControlTrace, .tabHistory, .tabAddMainCause {
         display: none;
     }
 
@@ -208,7 +207,7 @@
         }
 
         $("#btnAddControl").click(function () {
-            $(".tabAddControl").css("display", "block");
+            $(".tabAddMainCause").css("display", "block");
         });
 
     </script>

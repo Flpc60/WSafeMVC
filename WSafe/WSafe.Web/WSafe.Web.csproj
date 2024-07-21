@@ -511,6 +511,10 @@
     <Compile Include="Migrations\202407191626344_UpdateAplicationVM.designer.cs">
       <DependentUpon>202407191626344_UpdateAplicationVM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202407210015421_CrtControlTrace.cs" />
+    <Compile Include="Migrations\202407210015421_CrtControlTrace.designer.cs">
+      <DependentUpon>202407210015421_CrtControlTrace.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -1297,6 +1301,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202407191626344_UpdateAplicationVM.resx">
       <DependentUpon>202407191626344_UpdateAplicationVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202407210015421_CrtControlTrace.resx">
+      <DependentUpon>202407210015421_CrtControlTrace.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

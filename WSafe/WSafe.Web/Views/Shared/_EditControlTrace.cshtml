@@ -1,14 +1,44 @@
-﻿
+﻿@{
+    var controls = ViewBag.controls;
+    var mainCauses = ViewBag.mainCauses;
+    var medidaActual = ViewBag.medidaActual;
+}
+
 <div class="container" style="background-color:azure">
     <hr class="mt-4">
-    <h4 style="text-align:center">REGISTRAR CONTROL</h4>
+    <h4 style="text-align:center">REGISTRAR SEGUIMIENTO</h4>
     <hr class="mt-4">
     <div class="row">
         <div class="col-md-12">
-            <div class="col-md-12 col-sm-10">
-                <hr />
-                <label for="Description">Descripción:</label>
-                <textarea id="description" style="resize:none;" class="form-control" rows=3 required></textarea>
+            <label class="control-label" for="controlTrace">Nueva medida de intervención a aplicar</label>
+            <div class="form-group">
+                <div class="col-md-10 col-sm-10">
+                    @Html.DropDownList("Controles", controls as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "controlTraceID" })
+                </div>
+                <div class="col-md-2 col-sm-10">
+                    <button type="button" class="btn btn-primary" id="btnAddControl">Adicionar control</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="checkbox" id="efectividad" name="efectividad">
+                <label class="control-label" for="efectividad"> Fué efectiva la medida</label><br>
+                <input name="presupuesto" class="form-control" id="efectividad">
+                <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="efectividad"></span>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <label class="control-label" for="maintCauseID">Causa fundamental de inefectividad de la medida</label>
+            <div class="form-group">
+                <div class="col-md-8 col-sm-10">
+                    @Html.DropDownList("Causas", mainCauses as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "maintCauseID" })
+                </div>
+                <div class="col-md-2 col-sm-10">
+                    <button type="button" class="btn btn-primary" id="btnAddMainCause">Adicionar causa principal</button>
+                </div>
             </div>
         </div>
     </div>
@@ -16,59 +46,31 @@
         <div class="col-md-12">
             <div class="col-md-12 col-sm-10">
                 <hr />
-                <label for="beneficio">Beneficios</label>
-                <textarea id="beneficio" style="resize:none;" class="form-control" rows=3 required></textarea>
+                <label for="observations">Observaciones:</label>
+                <textarea id="observations" style="resize:none;" class="form-control" rows=3 required></textarea>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="control-label" for="categoriaApp">Aplicación del control</label>
-                <select name="categoriaApp" class="form-control" id="categoriaApp">
-                    <option selected="selected" value="0">Seleccione aplicación...</option>
-                    <option value="1">Fuente</option>
-                    <option value="2">Medio</option>
-                    <option value="3">Individuo</option>
-                </select>
-                <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="categoriaApp"></span>
+        <div class="tabAddMainCause">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="mainCause">Causa de inefectividad:</label>
+                        <textarea id="mainCause" class="form-control" rows="3" cols="70" style="resize: none;" required></textarea>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="control-label" for="finalidad">Finalidad:</label>
-                <select name="finalidad" class="form-control" id="finalidad">
-                    <option selected="selected" value="0">Seleccione finalidad ...</option>
-                    <option value="1">Preventivo</option>
-                    <option value="2">Correctivo</option>
-                    <option value="3">Mejora</option>
-                </select>
-                <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="finalidad"></span>
+        <div class="row">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-primary" onclick="addMainCause()">Adicionar</button>
+                <button type="button" class="btn btn-primary" onclick="CancelMainCause()">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+                </button>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="control-label" for="intervencion">Medida intervención</label>
-                <select name="intervencion" class="form-control" id="intervencion">
-                    <option selected="selected" value="0">Seleccione aplicación medida...</option>
-                    <option value="1">Eliminacion</option>
-                    <option value="2">Sustitucion</option>
-                    <option value="3">Controles de ingeniería</option>
-                    <option value="4">Controles de administración</option>
-                    <option value="5">Señalización</option>
-                    <option value="6">Equipos, EPP</option>
-                </select>
-                <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="intervencion"></span>
-            </div>
-        </div>
+        <hr class="mt-4">
     </div>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="control-label" for="presupuesto">Presupuesto</label>
-                <input name="presupuesto" class="form-control text-box single-line" id="presupuesto" type="number" value="0,00">
-                <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="presupuesto"></span>
-            </div>
-        </div>
-    </div>
+
 </div>
