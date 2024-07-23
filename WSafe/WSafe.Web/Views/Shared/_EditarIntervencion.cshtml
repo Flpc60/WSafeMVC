@@ -3,31 +3,40 @@
     var controls = ViewBag.controls;
 }
 
-<hr />
-<div class="container-fluid" style="background-color:azure">
+<style>
+    .form-section {
+        margin-bottom: 20px;
+    }
+
+    .textarea-expanded {
+        height: 150px;
+    }
+</style>
+
+<div class="container bg-light p-4">
     <div class="row">
         <div class="col-md-12">
-            <label class="control-label" for="control">Medidas de intervención</label>
-            <div class="form-group">
-                <div class="col-md-10 col-sm-10">
+            <label class="control-label" for="control">Medida de intervención</label>
+            <div class="row">
+                <div class="col-md-10 col-sm-10 mb-2">
                     @Html.DropDownList("Controles", controls as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "controlMedidaID" })
                 </div>
-                <div class="col-md-2 col-sm-10">
+                <div class="col-md-2 col-sm-10 mb-2">
                     <button type="button" class="btn btn-primary" id="btnAddControl">Adicionar control</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="tabAddControl">
+    <div class="row mb-3">
+        <div class="col-12 tabAddControl">
             <input type="hidden" id="txtPlanAccionID" name="txtPlanAccionID" />
             @Html.Partial("_EditControl")
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-4">
+    <div class="row form-section">
+        <div class="col-md-3 mb-3">
             <div class="form-group">
                 <label class="control-label" for="CategoriaAplicacion">Aplicación del control</label>
                 <select name="CategoriaAplicacion" class="form-control" id="txtCatAplica">
@@ -39,13 +48,13 @@
                 <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="CategoriaAplicacion"></span>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3 mb-3">
             <div class="form-group">
                 <label class="control-label" for="Respons">Funcionario responsable</label>
                 @Html.DropDownList("Trabajadores", trabajadores as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "idRespons" })
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3 mb-3">
             <div class="form-group">
                 <label class="control-label" for="Intervencion">Medida intervención</label>
                 <select name="Intervencion" class="form-control" id="idInterven">
@@ -60,11 +69,9 @@
                 <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="Intervencion"></span>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3 mb-3">
             <div class="form-group">
-                <label for="finalidad">Finalidad</label>
+                <label class="control-label" for="finalidad">Finalidad</label>
                 <select name="finalidad" class="form-control" id="finalidad">
                     <option selected="selected" value="0">Seleccione finalidad...</option>
                     <option value="1">Preventivo</option>
@@ -74,62 +81,65 @@
                 <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="finalidad"></span>
             </div>
         </div>
-        <div class="col-md-8">
-            <div class="col-md-7 col-sm-10">
-                <hr />
-                <label for="idBeneficio">Beneficios:</label>
-                <textarea id="idBeneficio" style="resize:none;" class="form-control" rows=3 required></textarea>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label" for="idBeneficio">Beneficios:</label>
+                <textarea id="idBeneficio" class="form-control" rows="2" cols="90" required></textarea>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-4">
+
+    <div class="row form-section">
+        <div class="col-md-4 mb-3">
             <div class="form-group">
                 <label class="control-label" for="Presupuesto">Presupuesto</label>
                 <input name="Presupuesto" class="form-control" id="idPresup" type="number">
                 <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="Presupuesto"></span>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 mb-3">
             <div class="form-group">
                 <label class="control-label" for="FechaInicial">Fecha inicial</label>
-                <input type="date" class="form-control" id="FechaInicial" required autofocus>
+                <input type="date" class="form-control" id="FechaInicial" required>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 mb-3">
             <div class="form-group">
                 <label class="control-label" for="FechaFinal">Fecha final</label>
                 <input type="date" class="form-control" id="FechaFinal" required>
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label for="idObserv">Observaciones:</label>
-                <textarea id="idObserv" style="resize:none;" class="form-control" rows=3 required></textarea>
-                <hr class="mt-4">
-                <button type="button" class="btn btn-warning" id="btnAddControlTrace">Adicionar seguimiento</button>
+                <label class="control-label" for="idObserv">Observaciones:</label>
+                <textarea id="idObserv" class="form-control" rows="2" cols="90" required></textarea>
+                <hr class="mt-1">
+                <button type="button" class="btn btn-success" id="btnAddControlTrace">Adicionar seguimiento</button>
             </div>
         </div>
     </div>
+
     <hr class="mt-4">
-    <div class="row">
-        <div class="col-md-8">
+    <div class="row form-section">
+        <div class="col-12 d-flex justify-content-between">
             <button type="button" id="btnAddInterven" class="btn btn-primary" onclick="AddInterven()">Adicionar</button>
             <button type="button" id="btnUpdInterven" class="btn btn-primary" onclick="UpdateIntervencion()">Guardar</button>
-            <button type="button" id="btnCanInterven" class="btn btn-primary" onclick="CancelInterven()">
+            <button type="button" id="btnCanInterven" class="btn btn-secondary" onclick="CancelInterven()">
                 <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
             </button>
         </div>
-        <div class="col-md-4">
-        </div>
-    </div>
-    <hr class="mt-4">
-    <div class="tabAddControlTrace">
-        <input type="hidden" id="txtPlanAccionID" name="txtPlanAccionID" />
-        @Html.Partial("_EditControlTrace")
     </div>
 
+    <div class="row form-section">
+        <div class="col-12 tabAddControlTrace">
+            <input type="hidden" id="txtPlanAccionID" name="txtPlanAccionID" />
+            @Html.Partial("_EditControlTrace")
+        </div>
+    </div>
 </div>
 <hr class="mt-4">
