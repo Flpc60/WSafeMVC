@@ -3785,7 +3785,7 @@ function gestorRiesgos() {
     $("#actionTraceID").click(function () {
         var mainCause = $("#mainCause").val();
         var fechaSolicitud = $("#dateSigue").val();
-        var description = "Falta de seguimiento a medida de intervención de riesgos";
+        var description = "Falto seguimiento a la medida de intervención de riesgos";
         var fechaCierre = $("#FechaFinal").val();
         $("#FechaSolicitud").val(fechaSolicitud);
         $("#idFuente").val(mainCause);

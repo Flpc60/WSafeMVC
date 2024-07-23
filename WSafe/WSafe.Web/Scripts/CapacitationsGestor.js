@@ -673,14 +673,16 @@ function addMainCause() {
 }
 
 function addControlTrace() {
+    var efectividad = false;
+    if ($("#efectividad").is(':checked')) { efectividad = true; }
     var controlTraceVM = {
-        ControlID: $("#controlID").val(),
+        ControlID: $("#controlMedidaID").val(),
         CtrlReplaceID: $("#controlTraceID").val(),
         MaintCauseID: $("#maintCauseID").val(),
         AplicacionID: $("#txtIntervenID").val(),
         RiesgoID: $("#txtRiesgoID").val(),
-        DateSigue: $("#DateSigue").val(),
-        Efectividad: $("#efectividad").val(),
+        DateSigue: $("#FechaFinal").val(),
+        Efectividad: efectividad,
         Observations: $("#observations").val(),
         OrganizationID: 1,
         ClientID: 1,
