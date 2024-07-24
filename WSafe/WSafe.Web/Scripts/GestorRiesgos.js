@@ -1416,7 +1416,8 @@ function AddAccion() {
         EficaciaDespues: $("#idEficaciaDesp").val(),
         FechaCierre: $("#FechaCierre").val(),
         Efectiva: $("#idEfectiva").val(),
-        ActionCategory: $("#txtActionCategory").val()
+        ActionCategory: $("#txtActionCategory").val(),
+        ControlTraceID: $("#controlTraceID").val()
     };
 
     $.ajax({
@@ -3781,21 +3782,6 @@ function gestorRiesgos() {
         $("#btnAddPlan").show();
         $("#btnCanPlan").show();
         $("#btnUpdPlan").hide();
-    });
-    $("#actionTraceID").click(function () {
-        var mainCause = $("#mainCause").val();
-        var fechaSolicitud = $("#dateSigue").val();
-        var description = "Falto seguimiento a la medida de intervención de riesgos";
-        var fechaCierre = $("#FechaFinal").val();
-        $("#FechaSolicitud").val(fechaSolicitud);
-        $("#idFuente").val(mainCause);
-        $("#idDescrip").val(description);
-        $("#idEficaciaAnt").val(0);
-        $("#idEficaciaDesp").val(0);
-        $("#FechaCierre").val(fechaCierre);
-        $("#idEfectiva").val(0);
-        $("#txtActionCategory").val(1);
-        AddAccion();
     });
 }
 

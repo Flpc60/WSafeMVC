@@ -8,7 +8,7 @@
 
 <style>
     .tabInterven, .capInterven, .tabPeligros, .tabEvalRiesgos, .tabMediAplica, .consInterven, .tabIntervencion,
-    .tabAddInterven, .tabIncidents, .tabAddPlanAcc, .tabGesPlanAcc, .tabAddControl, .tabAddControlTrace, .tabHistory, .tabAddMainCause {
+    .tabAddInterven, .tabIncidents, .tabAddPlanAcc, .tabGesPlanAcc, .tabAddControl, .tabAddControlTrace, .tabHistory, .tabAddMainCause, .tabShowControlTrace {
         display: none;
     }
 
@@ -229,9 +229,16 @@
             $(".tabAddControlTrace").css("display", "block");
         });
 
+        $("#btnShowControlTrace").click(function () {
+            var id = $("#txtIntervenID").val();
+            showControlTraceAll(id);
+            $(".tabShowControlTrace").css("display", "block");
+        });
+
         $("#btnAddMainCause").click(function () {
             $(".tabAddMainCause").css("display", "block");
         });
 
     </script>
+
 }

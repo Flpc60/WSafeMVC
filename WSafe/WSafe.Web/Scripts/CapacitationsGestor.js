@@ -698,6 +698,25 @@ function addControlTrace() {
         async: true,
         success: function (result) {
             if (result.success) {
+                var actionTraceID = $("#actionTraceID").val();
+                if (actionTraceID) {
+                    var mainCause = $("#maintCauseID").val();
+                    var fechaSolicitud = $("#FechaFinal").val();
+                    var description = "Falto seguimiento a la medida de intervención de riesgos";
+                    var fechaCierre = $("#FechaFinal").val();
+                    var responsable = $("#idRespons").val();
+                    $("#FechaSolicitud").val(fechaSolicitud);
+                    $("#idFuente").val(mainCause);
+                    $("#idDescrip").val(description);
+                    $("#idEficaciaAnt").val("4");
+                    $("#idEficaciaDesp").val("4");
+                    $("#FechaCierre").val(fechaCierre);
+                    $("#idEfectiva").val(false);
+                    $("#txtActionCategory").val("1");
+                    $("#idTrabajador").val(responsable);
+                    $("#txtInfoAct").val("");
+                    AddAccion();
+                };
                 alert("Seguimiento adicionado !!");
                 location.reload();
             } else {
@@ -707,6 +726,64 @@ function addControlTrace() {
         },
         error: function (xhr, status, error) {
             alert("Error del servidor: " + error);
+        }
+    });
+}
+
+function showControlTraceAll(id) {
+    // Mostrar todos los seguimientos
+    $('#btnSigue').hide();
+    $.ajax({
+        url: "/Riesgos/GetSigueIntervencionesAll",
+        data: { id: id },
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (response) {
+            var html = '';
+            response.forEach(function (item, index) {
+                switch (item.StateCronogram) {
+                    case 1:
+                        var color = "yellow";
+                        var estado = "Programada";
+                        break;
+
+                    case 2:
+                        var color = "green";
+                        var estado = "Ejecutada";
+                        break;
+
+                    case 3:
+                        var color = "red";
+                        var estado = "Reprogramada";
+                        break;
+
+                    default:
+                        break;
+                }
+                var sigueDate = moment(item.DateSigue);
+                var formattedDate = sigueDate.format('YYYY-MM-DD');
+                html += '<tr>';
+                html += '<td style="white-space: nowrap;">' + formattedDate + '</td>';
+                html += '<td style="background-color:' + color + ';">' + estado + '</td>';
+                html += '<td>' + item.Programed + '</td>';
+                html += '<td>' + item.Executed + '</td>';
+                html += '<td>' + item.Citados + '</td>';
+                html += '<td>' + item.Capacitados + '</td>';
+                html += '<td>' + item.Evaluados + '</td>';
+                html +=
+                    '<td><a href="#" onclick="return getSigueCapacitation(' + item.ID + ')">Editar</a> | <a href = "#" onclick = "deleteSigueCapacitation(' + item.ID + ')"> Borrar</a></td>';
+                html += '<hr />';
+                html += '</tr>';
+            });
+            $('.sigueCapacitation').html(html);
+            $('.sigueCapacitation').focus();
+            $('.tabSigueCapacitation').css("display", "block");
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
         }
     });
 }
