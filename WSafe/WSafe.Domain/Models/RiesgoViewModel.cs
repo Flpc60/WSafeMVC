@@ -121,7 +121,6 @@ namespace WSafe.Web.Models
             }
         }
         [Display(Name = "Aceptabilidad NR")]
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public CategoriasAceptabilidad AceptabilidadNR { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Nro. Expuestos")]

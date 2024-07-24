@@ -534,7 +534,10 @@ namespace WSafe.Domain.Helpers.Implements
                 TextCategoria = _gestorHelper.GetCategoriaAplicacion(aplicacion.CategoriaAplicacion),
                 TextIntervencion = _gestorHelper.GetJerarquiaControl(aplicacion.Intervencion),
                 TextFechaInicial = aplicacion.FechaInicial.ToString("yyyy-MM-dd"),
-                TextFechaFinal = aplicacion.FechaFinal.ToString("yyyy-MM-dd")
+                TextFechaFinal = aplicacion.FechaFinal.ToString("yyyy-MM-dd"),
+                NivelDeficiencia = aplicacion.NivelDeficiencia,
+                NivelExposicion = aplicacion.NivelExposicion,
+                NivelConsecuencia = aplicacion.NivelConsecuencia
             };
 
             return modelo;
