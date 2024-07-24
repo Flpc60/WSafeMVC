@@ -743,43 +743,20 @@ function showControlTraceAll(id) {
         success: function (response) {
             var html = '';
             response.forEach(function (item, index) {
-                switch (item.StateCronogram) {
-                    case 1:
-                        var color = "yellow";
-                        var estado = "Programada";
-                        break;
-
-                    case 2:
-                        var color = "green";
-                        var estado = "Ejecutada";
-                        break;
-
-                    case 3:
-                        var color = "red";
-                        var estado = "Reprogramada";
-                        break;
-
-                    default:
-                        break;
-                }
-                var sigueDate = moment(item.DateSigue);
+                var sigueDate = moment(item.Fecha);
                 var formattedDate = sigueDate.format('YYYY-MM-DD');
                 html += '<tr>';
+                html += '<td>' + item.MedidaAnt + '</td>';
+                html += '<td>' + item.MedidaAct + '</td>';
+                html += '<td>' + item.Causa + '</td>';
                 html += '<td style="white-space: nowrap;">' + formattedDate + '</td>';
-                html += '<td style="background-color:' + color + ';">' + estado + '</td>';
-                html += '<td>' + item.Programed + '</td>';
-                html += '<td>' + item.Executed + '</td>';
-                html += '<td>' + item.Citados + '</td>';
-                html += '<td>' + item.Capacitados + '</td>';
-                html += '<td>' + item.Evaluados + '</td>';
-                html +=
-                    '<td><a href="#" onclick="return getSigueCapacitation(' + item.ID + ')">Editar</a> | <a href = "#" onclick = "deleteSigueCapacitation(' + item.ID + ')"> Borrar</a></td>';
-                html += '<hr />';
+                html += '<td>' + item.Efectividad + '</td>';
+                html += '<td>' + item.Observaciones + '</td>';
                 html += '</tr>';
             });
-            $('.sigueCapacitation').html(html);
-            $('.sigueCapacitation').focus();
-            $('.tabSigueCapacitation').css("display", "block");
+            $('.showControlTrace').html(html);
+            $('.showControlTrace').focus();
+            $(".tabShowControlTrace").css("display", "block");
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);

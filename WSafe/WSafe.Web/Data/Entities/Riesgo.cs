@@ -108,15 +108,6 @@ namespace WSafe.Domain.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Categoria daño")]
         public DangerCategories DangerCategory { get; set; }
-        [Display(Name = "CONTROLES EN LA FUENTE :")]
-        [MaxLength(300)]
-        public string FuenteControls { get; set; }
-        [Display(Name = "CONTROLES EN EL MEDIO :")]
-        [MaxLength(300)]
-        public string MedioControls { get; set; }
-        [Display(Name = "CONTROLES EN EL INDIVIDUO :")]
-        [MaxLength(300)]
-        public string IndividuoControls { get; set; }
         public int OrganizationID { get; set; }
         public int ClientID { get; set; }
         public int UserID { get; set; }
