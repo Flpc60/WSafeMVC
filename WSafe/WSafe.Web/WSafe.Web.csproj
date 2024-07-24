@@ -519,6 +519,10 @@
     <Compile Include="Migrations\202407241720307_UpdTableRisk.designer.cs">
       <DependentUpon>202407241720307_UpdTableRisk.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202407242146136_UpdRiesgoVM.cs" />
+    <Compile Include="Migrations\202407242146136_UpdRiesgoVM.designer.cs">
+      <DependentUpon>202407242146136_UpdRiesgoVM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -1311,6 +1315,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202407241720307_UpdTableRisk.resx">
       <DependentUpon>202407241720307_UpdTableRisk.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202407242146136_UpdRiesgoVM.resx">
+      <DependentUpon>202407242146136_UpdRiesgoVM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
