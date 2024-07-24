@@ -698,22 +698,29 @@ namespace WSafe.Web.Controllers
         {
             try
             {
-                var list =
-                    from si in _empresaContext.ControlTraces
-                    where (si.AplicacionID == id)
-                    orderby si.DateSigue
-                    select new
-                    {
-                        ID = si.ID,
-                    };
+                var list = (from t in _empresaContext.ControlTraces
+                            join c in _empresaContext.Controls on t.ControlID equals c.ID
+                            join d in _empresaContext.Controls on t.CtrlReplaceID equals d.ID
+                            join m in _empresaContext.MainCauses on t.MaintCauseID equals m.ID
+                            where t.AplicacionID == id
+                            orderby t.DateSigue
+                            select new
+                            {
+                                ID = t.ID,
+                                MedidaAnt = c.Description.ToUpper(),
+                                MedidaAct = d.Description.ToUpper(),
+                                Causa = m.Name.ToUpper(),
+                                Fecha = t.DateSigue,
+                                Efectividad = t.Efectividad ? "SI" : "NO",
+                                Observaciones = t.Observations.ToUpper()
+                            }).ToList();
 
                 return Json(list, JsonRequestBehavior.AllowGet);
             }
-            catch
+            catch (Exception ex)
             {
-
-                var message = "La conslta NO se ha realizado correctamente !!";
-                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                var message = "La consulta NO se ha realizado correctamente: " + ex.Message;
+                return Json(new { data = false, mensaje = message }, JsonRequestBehavior.AllowGet);
             }
         }
     }

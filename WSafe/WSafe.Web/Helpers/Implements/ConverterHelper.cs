@@ -78,9 +78,6 @@ namespace WSafe.Domain.Helpers.Implements
                 RequisitoLegal = model.RequisitoLegal,
                 IncidenteID = model.IncidenteID,
                 DangerCategory = model.DangerCategory,
-                FuenteControls = model.FuenteControls,
-                MedioControls = model.MedioControls,
-                IndividuoControls = model.IndividuoControls,
                 OrganizationID = model.OrganizationID,
                 ClientID = model.ClientID,
                 UserID = model.UserID
@@ -117,9 +114,6 @@ namespace WSafe.Domain.Helpers.Implements
                 Actividades = _comboHelper.GetComboActividades(org),
                 Tareas = _comboHelper.GetComboTareas(org),
                 DangerCategory = riesgo.DangerCategory,
-                FuenteControls = riesgo.FuenteControls,
-                MedioControls = riesgo.MedioControls,
-                IndividuoControls = riesgo.IndividuoControls,
                 OrganizationID = riesgo.OrganizationID,
                 ClientID = riesgo.ClientID,
                 UserID = riesgo.UserID
@@ -845,34 +839,6 @@ namespace WSafe.Domain.Helpers.Implements
                     requisito = "No";
                 }
 
-                if (item.FuenteControls != null)
-                {
-                    fuente = item.FuenteControls.ToUpper();
-                }
-                else
-                {
-                    fuente = "";
-                }
-
-                if (item.MedioControls != null)
-                {
-                    fuente = item.MedioControls.ToUpper();
-                }
-                else
-                {
-                    medio = "";
-                }
-
-                if (item.IndividuoControls != null)
-                {
-                    fuente = item.IndividuoControls.ToUpper();
-                }
-                else
-                {
-                    individuo = "";
-                }
-
-
                 foreach (var apl in item.MedidasIntervencion)
                 {
                     switch (apl.CategoriaAplicacion)
@@ -975,9 +941,6 @@ namespace WSafe.Domain.Helpers.Implements
                 SignificadoNR = _gestorHelper.GetSignificadoNR(riesgo.CategoriaRiesgo),
                 NroExpuestos = riesgo.NroExpuestos,
                 PeorConsecuencia = riesgo.PeorConsecuencia,
-                FuenteControls = riesgo.FuenteControls,
-                MedioControls = riesgo.MedioControls,
-                IndividuoControls = riesgo.IndividuoControls
             };
             return model;
         }

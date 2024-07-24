@@ -171,10 +171,14 @@
 
 @section Scripts
 {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script type="text/javascript">
 
         $("#txtRiesgoID").val(@riesgoID);
         gestorRiesgos();
+        calcularProbabilidad();
+        calcularRiesgo();
+
         $('#categoria').change(function () {
             var selectedCategoria = $("#categoria").val();
             var peligroSelect = $('#peligro');
@@ -232,7 +236,6 @@
         $("#btnShowControlTrace").click(function () {
             var id = $("#txtIntervenID").val();
             showControlTraceAll(id);
-            $(".tabShowControlTrace").css("display", "block");
         });
 
         $("#btnAddMainCause").click(function () {

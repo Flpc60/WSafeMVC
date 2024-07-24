@@ -92,38 +92,4 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-group">
-                @Html.LabelFor(model => model.FuenteControls, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10 col-sm-10">
-                    @Html.TextAreaFor(model => model.FuenteControls, new { @class = "form-control", @id = "fuenteControls", cols = "70", rows = "2" })
-                    @Html.ValidationMessageFor(model => model.FuenteControls, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-group">
-                @Html.LabelFor(model => model.MedioControls, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10 col-sm-10">
-                    @Html.TextAreaFor(model => model.MedioControls, new { @class = "form-control", @id = "medioControls", cols = "70", rows = "2" })
-                    @Html.ValidationMessageFor(model => model.MedioControls, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-group">
-                @Html.LabelFor(model => model.IndividuoControls, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10 col-sm-10">
-                    @Html.TextAreaFor(model => model.IndividuoControls, new { @class = "form-control", @id = "individuoControls", cols = "70", rows = "2" })
-                    @Html.ValidationMessageFor(model => model.IndividuoControls, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
-
