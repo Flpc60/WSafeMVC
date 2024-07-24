@@ -791,6 +791,9 @@ function getIntervenByID(intervenID) {
             $("#FechaInicial").val(result.FechaInicial);
             $("#FechaFinal").val(result.FechaFinal);
             $("#idObserv").val(result.Observaciones);
+            $("#deficienciaSelected").val(result.NivelDeficiencia);
+            $("#exposicionSelected").val(result.NivelExposicion);
+            $("#consecuenciaSelected").val(result.NivelConsecuencia);
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -1872,9 +1875,7 @@ function AddNewRiesgo() {
         NroExpuestos: $("#txtExpuestos").val(),
         RequisitoLegal: $("#txtRequisito").val(),
         DangerCategory: $("#txtDanger").val(),
-        FuenteControls: $("#fuenteControls").val(),
-        MedioControls: $("#medioControls").val(),
-        IndividuoControls: $("#individuoControls").val()
+        Aceptabilidad: $("#txtAceptabilidad").val()
     };
 
     $.ajax({
@@ -1919,6 +1920,10 @@ function UpdateRiesgo() {
         $("#txtRutinaria").val(false)
     }
 
+    if ($("#txtAceptabilidad").val() == '0') {
+        $("#txtAceptabilidad").val("Aceptable")
+    }
+
     var riesgoVM = {
         ID: $("#txtRiesgoID").val(),
         ZonaID: $("#zona").val(),
@@ -1936,9 +1941,6 @@ function UpdateRiesgo() {
         NroExpuestos: $("#txtExpuestos").val(),
         RequisitoLegal: $("#txtRequisito").val(),
         DangerCategory: $("#txtDanger").val(),
-        FuenteControls: $("#fuenteControls").val(),
-        MedioControls: $("#medioControls").val(),
-        IndividuoControls: $("#individuoControls").val(),
         UserID: $("#userID").val()
     };
 

@@ -113,6 +113,49 @@
         </div>
     </div>
 
+    <div class="row mb-3">
+        <div class="col-md-4 mb-3">
+            <input type="hidden" id="aceptabilidad" name="aceptabilidad" />
+            <div class="form-group">
+                <label class="control-label" for="Intervencion">Nivel deficiencia</label>
+                <select name="deficienciaSelected" class="form-control" id="deficienciaSelected">
+                    <option selected="selected" value="0">Seleccione nivel deficincia ...</option>
+                    <option value="1">Muy alto</option>
+                    <option value="2">Alto</option>
+                    <option value="3">Medio</option>
+                    <option value="4">Bajo</option>
+                </select>
+                <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="deficienciaSelected"></span>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                <label class="control-label" for="exposicionSelected">Nivel exposición</label>
+                <select name="exposicionSelected" class="form-control" id="exposicionSelected">
+                    <option selected="selected" value="0">Seleccione nivel deficincia ...</option>
+                    <option value="1">Continua</option>
+                    <option value="2">Frecuente</option>
+                    <option value="3">Ocasional</option>
+                    <option value="4">Esporádica</option>
+                </select>
+                <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="exposicionSelected"></span>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                <label class="control-label" for="consecuenciaSelected">Nivel Consecuencia</label>
+                <select name="consecuenciaSelected" class="form-control" id="consecuenciaSelected">
+                    <option selected="selected" value="0">Seleccione nivel consecuencia ...</option>
+                    <option value="1">Mortal o catastrófico</option>
+                    <option value="2">Muy grave</option>
+                    <option value="3">Grave</option>
+                    <option value="4">Leve</option>
+                </select>
+                <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="consecuenciaSelected"></span>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
