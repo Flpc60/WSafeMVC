@@ -692,5 +692,29 @@ namespace WSafe.Web.Controllers
                 return Json(new { success = false, message = ex.Message });
             }
         }
+
+        [HttpGet]
+        public ActionResult GetSigueIntervencionesAll(int id)
+        {
+            try
+            {
+                var list =
+                    from si in _empresaContext.ControlTraces
+                    where (si.AplicacionID == id)
+                    orderby si.DateSigue
+                    select new
+                    {
+                        ID = si.ID,
+                    };
+
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+
+                var message = "La conslta NO se ha realizado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

@@ -118,12 +118,16 @@
             <div class="form-group">
                 <label class="control-label" for="idObserv">Observaciones:</label>
                 <textarea id="idObserv" class="form-control" rows="2" cols="90" required></textarea>
-                <hr class="mt-1">
-                <button type="button" class="btn btn-success" id="btnAddControlTrace">Adicionar seguimiento</button>
             </div>
         </div>
     </div>
-
+    <hr class="mt-4">
+    <div class="row form-section">
+        <div class="col-12 d-flex justify-content-between">
+            <button type="button" id="btnAddControlTrace" class="btn btn-warning">Adicionar seguimiento</button>
+            <button type="button" id="btnShowControlTrace" class="btn btn-warning">Consultar seguimientos</button>
+        </div>
+    </div>
     <hr class="mt-4">
     <div class="row form-section">
         <div class="col-12 d-flex justify-content-between">
@@ -137,8 +141,47 @@
 
     <div class="row form-section">
         <div class="col-12 tabAddControlTrace">
-            <input type="hidden" id="txtPlanAccionID" name="txtPlanAccionID" />
+            <input type="hidden" id="txtInfoAct" name="txtInfoAct" />
+            <input type="hidden" id="idDescrip" name="idDescrip" />
+            <input type="hidden" id="FechaSolicitud" name="FechaSolicitud" />
+            <input type="hidden" id="FechaCierre" name="FechaCierre" />
+            <input type="hidden" id="idTrabajador" name="idTrabajador" />
+            <input type="hidden" id="idFuente" name="idFuente" />
+            <input type="hidden" id="txtActionCategory" name="txtActionCategory" />
             @Html.Partial("_EditControlTrace")
+        </div>
+    </div>
+    <div class="row form-section">
+        <div class="col-12 tabShowControlTrace">
+            <hr />
+            <div class="table-responsive-xl" style="background-color: antiquewhite">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr style="background-color: gainsboro; width: auto">
+                            <th>
+                                Medida Control anterior
+                            </th>
+                            <th>
+                                Medida Control actual
+                            </th>
+                            <th>
+                                Causa reemplazo
+                            </th>
+                            <th>
+                                Fecha seguimiento
+                            </th>
+                            <th>
+                                Efectividad
+                            </th>
+                            <th>
+                                Observaciones
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="showControlTrace">
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

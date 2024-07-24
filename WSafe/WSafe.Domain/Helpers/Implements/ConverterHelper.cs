@@ -216,7 +216,8 @@ namespace WSafe.Domain.Helpers.Implements
                 ActionCategory = model.ActionCategory,
                 OrganizationID = model.OrganizationID,
                 ClientID = model.ClientID,
-                UserID = model.UserID
+                UserID = model.UserID,
+                ControlTraceID = model.ControlTraceID
             };
             return result;
         }
