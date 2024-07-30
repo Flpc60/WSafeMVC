@@ -537,7 +537,8 @@ namespace WSafe.Domain.Helpers.Implements
                 TextFechaFinal = aplicacion.FechaFinal.ToString("yyyy-MM-dd"),
                 NivelDeficiencia = aplicacion.NivelDeficiencia,
                 NivelExposicion = aplicacion.NivelExposicion,
-                NivelConsecuencia = aplicacion.NivelConsecuencia
+                NivelConsecuencia = aplicacion.NivelConsecuencia,
+                Aceptabilidad = aplicacion.Aceptabilidad
             };
 
             return modelo;

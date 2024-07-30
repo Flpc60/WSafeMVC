@@ -11,6 +11,19 @@
     .textarea-expanded {
         height: 150px;
     }
+
+    #updAceptabilidad {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: auto; /* altura similar a la de los select */
+        margin-top: 1px; /* alinear con los selects */
+        margin-left: 2px; /* alinear con los selects */
+        white-space: normal; /* permitir el ajuste del texto */
+        text-align: center; /* centrar el texto */
+        padding: 5px;
+    }
+
 </style>
 
 <div class="container bg-light p-4">
@@ -114,44 +127,49 @@
     </div>
 
     <div class="row mb-3">
-        <div class="col-md-4 mb-3">
-            <input type="hidden" id="aceptabilidad" name="aceptabilidad" />
+        <div class="col-md-3 mb-3">
             <div class="form-group">
-                <label class="control-label" for="Intervencion">Nivel deficiencia</label>
-                <select name="deficienciaSelected" class="form-control" id="deficienciaSelected">
-                    <option selected="selected" value="0">Seleccione nivel deficincia ...</option>
-                    <option value="1">Muy alto</option>
-                    <option value="2">Alto</option>
-                    <option value="3">Medio</option>
-                    <option value="4">Bajo</option>
+                <label class="control-label" for="updDeficiencia">Nivel deficiencia</label>
+                <select name="updDeficiencia" class="form-control" id="updDeficiencia" onchange="aceptabilidadRiesgo()">
+                    <option selected="selected" value="0">Seleccione nivel ...</option>
+                    <option value="10">Muy alto</option>
+                    <option value="6">Alto</option>
+                    <option value="2">Medio</option>
+                    <option value="0">Bajo</option>
                 </select>
-                <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="deficienciaSelected"></span>
+                <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="updDeficiencia"></span>
             </div>
         </div>
-        <div class="col-md-4 mb-3">
+        <div class="col-md-3 mb-3">
             <div class="form-group">
-                <label class="control-label" for="exposicionSelected">Nivel exposición</label>
-                <select name="exposicionSelected" class="form-control" id="exposicionSelected">
-                    <option selected="selected" value="0">Seleccione nivel deficincia ...</option>
-                    <option value="1">Continua</option>
-                    <option value="2">Frecuente</option>
-                    <option value="3">Ocasional</option>
-                    <option value="4">Esporádica</option>
+                <label class="control-label" for="updExposicion">Nivel exposición</label>
+                <select name="updExposicion" class="form-control" id="updExposicion" onchange="aceptabilidadRiesgo()">
+                    <option selected="selected" value="0">Seleccione nivel ...</option>
+                    <option value="4">Continua</option>
+                    <option value="3">Frecuente</option>
+                    <option value="2">Ocasional</option>
+                    <option value="1">Esporádica</option>
                 </select>
-                <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="exposicionSelected"></span>
+                <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="updExposicion"></span>
             </div>
         </div>
-        <div class="col-md-4 mb-3">
+        <div class="col-md-3 mb-3">
             <div class="form-group">
-                <label class="control-label" for="consecuenciaSelected">Nivel Consecuencia</label>
-                <select name="consecuenciaSelected" class="form-control" id="consecuenciaSelected">
-                    <option selected="selected" value="0">Seleccione nivel consecuencia ...</option>
-                    <option value="1">Mortal o catastrófico</option>
-                    <option value="2">Muy grave</option>
-                    <option value="3">Grave</option>
-                    <option value="4">Leve</option>
+                <label class="control-label" for="updConsecuencia">Nivel Consecuencia</label>
+                <select name="updConsecuencia" class="form-control" id="updConsecuencia" onchange="aceptabilidadRiesgo()">
+                    <option selected="selected" value="0">Seleccione nivel ...</option>
+                    <option value="100">Mortal o catastrófico</option>
+                    <option value="60">Muy grave</option>
+                    <option value="25">Grave</option>
+                    <option value="10">Leve</option>
                 </select>
-                <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="consecuenciaSelected"></span>
+                <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="updConsecuencia"></span>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="form-group">
+                <label class="control-label" for="updAceptabilidad">Aceptabilidad</label>
+                <p id="updAceptabilidad" class="form-control"></p>
             </div>
         </div>
     </div>
