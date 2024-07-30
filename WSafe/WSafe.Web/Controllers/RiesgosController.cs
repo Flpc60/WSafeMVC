@@ -357,6 +357,12 @@ namespace WSafe.Web.Controllers
                 if (ModelState.IsValid)
                 {
                     _empresaContext.Entry(model).State = EntityState.Modified;
+                    var riesgo = await _empresaContext.Riesgos.FindAsync(model.RiesgoID);
+                    riesgo.NivelDeficiencia = model.NivelDeficiencia;
+                    riesgo.NivelExposicion = model.NivelExposicion;
+                    riesgo.NivelConsecuencia = model.NivelConsecuencia;
+                    riesgo.Aceptabilidad = model.Aceptabilidad;
+                    _empresaContext.Entry(riesgo).State = EntityState.Modified;
                     var saved = await _empresaContext.SaveChangesAsync();
                     message = "El registro ha sido actualizado correctamente !!";
                     return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
@@ -385,6 +391,12 @@ namespace WSafe.Web.Controllers
                 {
                     var result = await _converterHelper.ToAplicacionAsync(model, true);
                     _empresaContext.Aplicaciones.Add(result);
+                    var riesgo = await _empresaContext.Riesgos.FindAsync(model.RiesgoID);
+                    riesgo.NivelDeficiencia = model.NivelDeficiencia;
+                    riesgo.NivelExposicion = model.NivelExposicion;
+                    riesgo.NivelConsecuencia = model.NivelConsecuencia;
+                    riesgo.Aceptabilidad = model.Aceptabilidad;
+                    _empresaContext.Entry(riesgo).State = EntityState.Modified;
                     var saved = await _empresaContext.SaveChangesAsync();
                     var idAplica = _empresaContext.Aplicaciones.OrderByDescending(x => x.ID).First().ID;
                     message = "El registro ha sido ingresado correctamente !!";

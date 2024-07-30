@@ -764,3 +764,42 @@ function showControlTraceAll(id) {
         }
     });
 }
+function aceptabilidadRiesgo() {
+    var nd = $('#updDeficiencia').val();
+    var ne = $('#updExposicion').val();
+    var nc = $('#updConsecuencia').val();
+    var np = nd * ne;
+    var riesgo = np * nc;
+    $('#riesgo').val(riesgo);
+    var colorStyle = " ";
+    var aceptability = "";
+    switch (true) {
+        case (riesgo >= 600):
+            colorStyle = "red";
+            aceptability = "No Aceptable";
+            break;
+
+        case (riesgo >= 150 && riesgo < 600):
+            colorStyle = "orange";
+            aceptability = "No Aceptable o Aceptable con control Específico";
+            break;
+
+        case (riesgo >= 40 && riesgo < 150):
+            colorStyle = "yellow";
+            aceptability = "Mejorable";
+            break;
+
+        case (riesgo < 40):
+            colorStyle = "green";
+            aceptability = "Aceptable";
+            break;
+
+        default:
+            colorStyle = "green";
+            aceptability = "Aceptable";
+            break;
+    }
+
+    $('#updAceptabilidad').text(aceptability);
+    $('#updAceptabilidad').css({ "backgroundColor": colorStyle, "font-size": "100%", "color": "white" });
+}

@@ -791,9 +791,10 @@ function getIntervenByID(intervenID) {
             $("#FechaInicial").val(result.FechaInicial);
             $("#FechaFinal").val(result.FechaFinal);
             $("#idObserv").val(result.Observaciones);
-            $("#deficienciaSelected").val(result.NivelDeficiencia);
-            $("#exposicionSelected").val(result.NivelExposicion);
-            $("#consecuenciaSelected").val(result.NivelConsecuencia);
+            $("#updDeficiencia").val(result.NivelDeficiencia);
+            $("#updExposicion").val(result.NivelExposicion);
+            $("#updConsecuencia").val(result.NivelConsecuencia);
+            $("#updAceptabilidad").val(result.Aceptabilidad);
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -1920,7 +1921,7 @@ function UpdateRiesgo() {
         $("#txtRutinaria").val(false)
     }
 
-    if ($("#txtAceptabilidad").val() == '0') {
+    if ($("#txtAceptabilidad").val() == '') {
         $("#txtAceptabilidad").val("Aceptable")
     }
 
@@ -1983,9 +1984,9 @@ function AddInterven() {
         FechaInicial: $("#FechaInicial").val(),
         Fechafinal: $("#FechaFinal").val(),
         Observaciones: $("#idObserv").val(),
-        NivelDeficiencia: $("#deficiencia").val(),
-        NivelExposicion: $("#exposicion").val(),
-        NivelConsecuencia: $("#consecuencia").val(),
+        NivelDeficiencia: $("#updDeficiencia").val(),
+        NivelExposicion: $("#updExposicion").val(),
+        NivelConsecuencia: $("#updConsecuencia").val(),
         AceptabilidadNR: $("#txtAceptabilidad").val()
     };
 
@@ -2031,10 +2032,10 @@ function UpdateIntervencion() {
         FechaInicial: $("#FechaInicial").val(),
         Fechafinal: $("#FechaFinal").val(),
         Observaciones: $("#idObserv").val(),
-        NivelDeficiencia: $("#deficiencia").val(),
-        NivelExposicion: $("#exposicion").val(),
-        NivelConsecuencia: $("#consecuencia").val(),
-        AceptabilidadNR: $("#txtAceptabilidad").val()
+        NivelDeficiencia: $("#updDeficiencia").val(),
+        NivelExposicion: $("#updExposicion").val(),
+        NivelConsecuencia: $("#updConsecuencia").val(),
+        AceptabilidadNR: $("#updAceptabilidad").val()
     };
 
     $.ajax({
