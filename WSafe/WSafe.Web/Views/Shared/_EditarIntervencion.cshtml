@@ -131,7 +131,6 @@
             <div class="form-group">
                 <label class="control-label" for="updDeficiencia">Nivel deficiencia</label>
                 <select name="updDeficiencia" class="form-control" id="updDeficiencia" onchange="aceptabilidadRiesgo()">
-                    <option selected="selected" value="0">Seleccione nivel ...</option>
                     <option value="10">Muy alto</option>
                     <option value="6">Alto</option>
                     <option value="2">Medio</option>
@@ -144,7 +143,6 @@
             <div class="form-group">
                 <label class="control-label" for="updExposicion">Nivel exposición</label>
                 <select name="updExposicion" class="form-control" id="updExposicion" onchange="aceptabilidadRiesgo()">
-                    <option selected="selected" value="0">Seleccione nivel ...</option>
                     <option value="4">Continua</option>
                     <option value="3">Frecuente</option>
                     <option value="2">Ocasional</option>
@@ -153,11 +151,10 @@
                 <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="updExposicion"></span>
             </div>
         </div>
-        <div class="col-md-3 mb-3">
+        <div class="col-md-4 mb-3">
             <div class="form-group">
                 <label class="control-label" for="updConsecuencia">Nivel Consecuencia</label>
                 <select name="updConsecuencia" class="form-control" id="updConsecuencia" onchange="aceptabilidadRiesgo()">
-                    <option selected="selected" value="0">Seleccione nivel ...</option>
                     <option value="100">Mortal o catastrófico</option>
                     <option value="60">Muy grave</option>
                     <option value="25">Grave</option>
@@ -166,9 +163,9 @@
                 <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="updConsecuencia"></span>
             </div>
         </div>
-        <div class="col-md-3 mb-3">
+        <div class="col-md-2 mb-3">
             <div class="form-group">
-                <label class="control-label" for="updAceptabilidad">Aceptabilidad</label>
+                <label class="control-label" for="updAceptabilidad"></label>
                 <p id="updAceptabilidad" class="form-control"></p>
             </div>
         </div>
