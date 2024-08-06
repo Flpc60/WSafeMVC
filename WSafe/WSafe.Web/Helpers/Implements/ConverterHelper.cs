@@ -116,7 +116,8 @@ namespace WSafe.Domain.Helpers.Implements
                 DangerCategory = riesgo.DangerCategory,
                 OrganizationID = riesgo.OrganizationID,
                 ClientID = riesgo.ClientID,
-                UserID = riesgo.UserID
+                UserID = riesgo.UserID,
+                TxtAceptability = _gestorHelper.GetAceptabilidadNR(riesgo.CategoriaRiesgo).ToUpper()
             };
 
             return model;

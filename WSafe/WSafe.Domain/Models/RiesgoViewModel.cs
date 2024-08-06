@@ -143,5 +143,7 @@ namespace WSafe.Web.Models
         public int OrganizationID { get; set; }
         public int ClientID { get; set; }
         public int UserID { get; set; }
+        [Display(Name = "ACEPTABILIDAD:")]
+        public string TxtAceptability { get; set; }
     }
 }
