@@ -1860,6 +1860,10 @@ function AddNewRiesgo() {
         $("#txtRutinaria").val(false)
     }
 
+    if ($("#txtAceptabilidad").val() == '0') {
+        $("#txtAceptabilidad").val(4)
+    }
+
     var riesgoVM = {
         ID: "0",
         ZonaID: $("#zona").val(),
@@ -1921,10 +1925,6 @@ function UpdateRiesgo() {
         $("#txtRutinaria").val(false)
     }
 
-    if ($("#txtAceptabilidad").val() == '') {
-        $("#txtAceptabilidad").val("Aceptable")
-    }
-
     var riesgoVM = {
         ID: $("#txtRiesgoID").val(),
         ZonaID: $("#zona").val(),
@@ -1938,7 +1938,7 @@ function UpdateRiesgo() {
         NivelDeficiencia: $("#deficiencia").val(),
         NivelExposicion: $("#exposicion").val(),
         NivelConsecuencia: $("#consecuencia").val(),
-        AceptabilidadNR: $("#txtAceptabilidad").val(),
+        AceptabilidadNR: $("#AceptabilidadNR").val(),
         NroExpuestos: $("#txtExpuestos").val(),
         RequisitoLegal: $("#txtRequisito").val(),
         DangerCategory: $("#txtDanger").val(),
@@ -3830,40 +3830,47 @@ function calcularRiesgo() {
     $('#riesgo').val(riesgo);
     var interpretaNR = " ";
     var colorStyle = " ";
-    var aceptability = "";
+    var aceptability = 0;
+    var txtAceptability = "";
     switch (true) {
         case (riesgo >= 600):
             interpretaNR = "I";
             colorStyle = "red";
-            aceptability = "No Aceptable";
+            aceptability = 1;
+            txtAceptability = "No Aceptable";
             break;
 
         case (riesgo >= 150 && riesgo < 600):
             interpretaNR = "II";
             colorStyle = "orange";
-            aceptability = "No Aceptable o Aceptable con control Específico";
+            aceptability = 2;
+            txtAceptability = "No Aceptable  o Aceptable con control específico";
             break;
 
         case (riesgo >= 40 && riesgo < 150):
             interpretaNR = "III";
             colorStyle = "yellow";
-            aceptability = "Mejorable";
+            aceptability = 3;
+            txtAceptability = "Mejorable";
             break;
 
         case (riesgo < 40):
             interpretaNR = "IV";
             colorStyle = "green";
-            aceptability = "Aceptable";
+            aceptability = 4;
+            txtAceptability = "Aceptable";
             break;
 
         default:
             interpretaNR = "IV";
             colorStyle = "green";
-            aceptability = "Aceptable";
+            aceptability = 4;
+            txtAceptability = "Aceptable";
             break;
     }
 
-    $('#txtAceptabilidad').val(aceptability);
+    $('#txtAceptabilidad').val(txtAceptability);
+    $('#AceptabilidadNR').val(aceptability);
     $('#interpretaNR').val(interpretaNR);
     $('#interpretaNR').css({ "backgroundColor": colorStyle, "font-size": "100%", "color": "white"});
     $('#txtAceptabilidad').css({ "backgroundColor": colorStyle, "font-size": "100%", "color": "white"});

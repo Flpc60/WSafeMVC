@@ -1,4 +1,7 @@
 ﻿@model WSafe.Web.Models.RiesgoViewModel
+@{ 
+    var aceptability = Model.AceptabilidadNR;
+}
 
 <div class="container bg-light p-4 rounded">
     <div class="row mb-3">
@@ -105,19 +108,19 @@
     </div>
 
     <div class="row mb-3">
-        <div class="col-md-6">
+        <div class="col-md-8">
             <div class="form-group row">
-                @Html.LabelFor(model => model.AceptabilidadNR, htmlAttributes: new { @class = "col-form-label col-sm-4" })
-                <div class="col-sm-8">
-                    @Html.EditorFor(model => model.AceptabilidadNR, new { htmlAttributes = new { @class = "form-control", @id = "txtAceptabilidad" } })
-                    @Html.ValidationMessageFor(model => model.AceptabilidadNR, "", new { @class = "text-danger" })
+                <input type="hidden" id="AceptabilidadNR" name="AceptabilidadNR" value="@aceptability"/>
+                @Html.LabelFor(model => model.TxtAceptability, htmlAttributes: new { @class = "col-form-label col-sm-3" })
+                <div class="col-sm-9">
+                    @Html.EditorFor(model => model.TxtAceptability, new { htmlAttributes = new { @class = "form-control", @id = "txtAceptabilidad" } })
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="form-group row">
                 @Html.LabelFor(model => model.NroExpuestos, htmlAttributes: new { @class = "col-form-label col-sm-4" })
-                <div class="col-sm-8">
+                <div class="col-sm-6">
                     @Html.EditorFor(model => model.NroExpuestos, new { htmlAttributes = new { @class = "form-control", @id = "txtExpuestos" } })
                     @Html.ValidationMessageFor(model => model.NroExpuestos, "", new { @class = "text-danger" })
                 </div>
