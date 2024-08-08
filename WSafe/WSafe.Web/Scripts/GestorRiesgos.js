@@ -1987,7 +1987,7 @@ function AddInterven() {
         NivelDeficiencia: $("#updDeficiencia").val(),
         NivelExposicion: $("#updExposicion").val(),
         NivelConsecuencia: $("#updConsecuencia").val(),
-        AceptabilidadNR: $("#txtAceptabilidad").val()
+        AceptabilidadNR: $("#AceptabilidadNR").val()
     };
 
     $.ajax({
@@ -2014,7 +2014,6 @@ function AddInterven() {
 }
 
 function UpdateIntervencion() {
-    //TODO
     riesgoID = $("#txtRiesgoID").val();
     aplicaID = $("#txtIntervenID").val();
     var controlID = $("#controlMedidaID").val();
