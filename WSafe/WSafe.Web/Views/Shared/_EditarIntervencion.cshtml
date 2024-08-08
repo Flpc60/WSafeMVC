@@ -6,13 +6,14 @@
 <style>
     .form-section {
         margin-bottom: 20px;
+        display: inline-block;
     }
 
     .textarea-expanded {
         height: 150px;
     }
 
-    #updAceptabilidad {
+    #updTxtAceptability {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -126,10 +127,10 @@
         </div>
     </div>
 
-    <div class="row mb-3">
-        <div class="col-md-3 mb-3">
+    <div class="row form-section">
+        <div class="col-md-3">
             <div class="form-group">
-                <label class="control-label" for="updDeficiencia">Nivel deficiencia</label>
+                <label class="control-label" for="updDeficiencia">Deficiencia</label>
                 <select name="updDeficiencia" class="form-control" id="updDeficiencia" onchange="aceptabilidadRiesgo()">
                     <option value="10">Muy alto</option>
                     <option value="6">Alto</option>
@@ -139,9 +140,9 @@
                 <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="updDeficiencia"></span>
             </div>
         </div>
-        <div class="col-md-3 mb-3">
+        <div class="col-md-3">
             <div class="form-group">
-                <label class="control-label" for="updExposicion">Nivel exposición</label>
+                <label class="control-label" for="updExposicion">Exposición</label>
                 <select name="updExposicion" class="form-control" id="updExposicion" onchange="aceptabilidadRiesgo()">
                     <option value="4">Continua</option>
                     <option value="3">Frecuente</option>
@@ -151,9 +152,9 @@
                 <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="updExposicion"></span>
             </div>
         </div>
-        <div class="col-md-4 mb-3">
+        <div class="col-md-3">
             <div class="form-group">
-                <label class="control-label" for="updConsecuencia">Nivel Consecuencia</label>
+                <label class="control-label" for="updConsecuencia">Consecuencia</label>
                 <select name="updConsecuencia" class="form-control" id="updConsecuencia" onchange="aceptabilidadRiesgo()">
                     <option value="100">Mortal o catastrófico</option>
                     <option value="60">Muy grave</option>
@@ -163,10 +164,11 @@
                 <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="updConsecuencia"></span>
             </div>
         </div>
-        <div class="col-md-2 mb-3">
+        <div class="col-md-3">
             <div class="form-group">
-                <label class="control-label" for="updAceptabilidad"></label>
-                <p id="updAceptabilidad" class="form-control"></p>
+                <input type="hidden" id="updAceptabilidad" name="updAceptabilidad" />
+                <label class="control-label" for="updTxtAceptability">Aceptabilidad</label>
+                <p id="updTxtAceptability"></p>
             </div>
         </div>
     </div>

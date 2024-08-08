@@ -116,7 +116,8 @@ namespace WSafe.Domain.Helpers.Implements
                 DangerCategory = riesgo.DangerCategory,
                 OrganizationID = riesgo.OrganizationID,
                 ClientID = riesgo.ClientID,
-                UserID = riesgo.UserID
+                UserID = riesgo.UserID,
+                TxtAceptability = _gestorHelper.GetAceptabilidadNR(riesgo.CategoriaRiesgo).ToUpper()
             };
 
             return model;
@@ -537,7 +538,8 @@ namespace WSafe.Domain.Helpers.Implements
                 TextFechaFinal = aplicacion.FechaFinal.ToString("yyyy-MM-dd"),
                 NivelDeficiencia = aplicacion.NivelDeficiencia,
                 NivelExposicion = aplicacion.NivelExposicion,
-                NivelConsecuencia = aplicacion.NivelConsecuencia
+                NivelConsecuencia = aplicacion.NivelConsecuencia,
+                Aceptabilidad = aplicacion.Aceptabilidad
             };
 
             return modelo;
