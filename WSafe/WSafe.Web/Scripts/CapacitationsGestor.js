@@ -771,35 +771,48 @@ function aceptabilidadRiesgo() {
     var np = nd * ne;
     var riesgo = np * nc;
     $('#riesgo').val(riesgo);
+    var interpretaNR = " ";
     var colorStyle = " ";
-    var aceptability = "";
+    var aceptability = 0;
+    var txtAceptability = "";
     switch (true) {
         case (riesgo >= 600):
+            interpretaNR = "I";
             colorStyle = "red";
             aceptability = 1;
+            txtAceptability = "No Aceptable";
             break;
 
         case (riesgo >= 150 && riesgo < 600):
+            interpretaNR = "II";
             colorStyle = "orange";
             aceptability = 2;
+            txtAceptability = "No Aceptable  o Aceptable con control específico";
             break;
 
         case (riesgo >= 40 && riesgo < 150):
+            interpretaNR = "III";
             colorStyle = "yellow";
             aceptability = 3;
+            txtAceptability = "Mejorable";
             break;
 
         case (riesgo < 40):
+            interpretaNR = "IV";
             colorStyle = "green";
             aceptability = 4;
+            txtAceptability = "Aceptable";
             break;
 
         default:
+            interpretaNR = "IV";
             colorStyle = "green";
             aceptability = 4;
+            txtAceptability = "Aceptable";
             break;
     }
 
+    $('#updTxtAceptability').text(txtAceptability);
+    $('#updTxtAceptability').css({ "backgroundColor": colorStyle, "font-size": "100%", "color": "white" });
     $('#updAceptabilidad').val(aceptability);
-    $('#updAceptabilidad').css({ "backgroundColor": colorStyle, "font-size": "100%", "color": "white" });
 }
