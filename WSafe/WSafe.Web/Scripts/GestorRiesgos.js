@@ -795,6 +795,7 @@ function getIntervenByID(intervenID) {
             $("#updExposicion").val(result.NivelExposicion);
             $("#updConsecuencia").val(result.NivelConsecuencia);
             $("#updAceptabilidad").val(result.Aceptabilidad);
+            aceptabilidadRiesgo();
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
