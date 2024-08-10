@@ -70,5 +70,36 @@ namespace WSafe.Web.Models
         public int OrganizationID { get; set; }
         public int ClientID { get; set; }
         public int UserID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Causa 1:")]
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una causa")]
+        public int MainCause1ID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Causa 2:")]
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una causa")]
+        public int MainCause2ID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Causa 3:")]
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una causa")]
+        public int MainCause3ID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Causa 4:")]
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una causa")]
+        public int MainCause4ID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Causa 5:")]
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una causa")]
+        public int MainCause5ID { get; set; }
+        public IEnumerable<SelectListItem> Causes { get; set; }
+        [Display(Name = "Causa raíz")]
+        public bool RootCause1 { get; set; }
+        [Display(Name = "Causa raíz")]
+        public bool RootCause2 { get; set; }
+        [Display(Name = "Causa raíz")]
+        public bool RootCause3 { get; set; }
+        [Display(Name = "Causa raíz")]
+        public bool RootCause4 { get; set; }
+        [Display(Name = "Causa raíz")]
+        public bool RootCause5 { get; set; }
     }
 }
