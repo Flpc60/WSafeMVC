@@ -94,7 +94,7 @@ namespace WSafe.Web.Controllers
 
         [HttpPost]
         public async Task<ActionResult> UpdateAccion([Bind(Include="ID, ZonaID, ProcesoID, ActividadID, TareaID, FechaSolicitud, Categoria, TrabajadorID, " +
-            "FuenteAccion, Descripcion, EficaciaAntes, EficaciaDespues, FechaCierre, Efectiva, ActionCategory, UserID")] Accion model)
+            "FuenteAccion, Descripcion, EficaciaAntes, EficaciaDespues, FechaCierre, Efectiva, ActionCategory, UserID, MainCause1ID, MainCause2ID, MainCause3ID, MainCause4ID, MainCause5ID")] Accion model)
         {
             var message = "";
             try

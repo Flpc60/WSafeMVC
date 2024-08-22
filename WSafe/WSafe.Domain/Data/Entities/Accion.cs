@@ -52,5 +52,10 @@ namespace WSafe.Domain.Data.Entities
         public int ClientID { get; set; }
         public int UserID { get; set; }
         public int ControlTraceID { get; set; }
+        public int MainCause1ID { get; set; }
+        public int MainCause2ID { get; set; }
+        public int MainCause3ID { get; set; }
+        public int MainCause4ID { get; set; }
+        public int MainCause5ID { get; set; }
     }
 }
