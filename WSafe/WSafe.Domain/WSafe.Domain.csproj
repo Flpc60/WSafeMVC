@@ -206,6 +206,7 @@
     <Compile Include="Data\Entities\NivelesExposicion.cs" />
     <Compile Include="Data\Entities\NivelesProbabilidad.cs" />
     <Compile Include="Data\Entities\NivelesRiesgo.cs" />
+    <Compile Include="Data\Entities\NonConformity.cs" />
     <Compile Include="Data\Entities\Norma.cs" />
     <Compile Include="Data\Entities\Occupational.cs" />
     <Compile Include="Data\Entities\Operation.cs" />

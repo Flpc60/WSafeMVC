@@ -524,6 +524,10 @@
     <Compile Include="Migrations\202407242146136_UpdRiesgoVM.designer.cs">
       <DependentUpon>202407242146136_UpdRiesgoVM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202408221709402_CreateMainCause.cs" />
+    <Compile Include="Migrations\202408221709402_CreateMainCause.designer.cs">
+      <DependentUpon>202408221709402_CreateMainCause.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -1053,6 +1057,7 @@
     <Content Include="Views\Capacitations\CreateCapacitations.cshtml" />
     <Content Include="Views\Shared\_EditControl.cshtml" />
     <Content Include="Views\Shared\_EditControlTrace.cshtml" />
+    <Content Include="Views\Shared\_CausesAnalisys.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1319,6 +1324,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202407242146136_UpdRiesgoVM.resx">
       <DependentUpon>202407242146136_UpdRiesgoVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202408221709402_CreateMainCause.resx">
+      <DependentUpon>202408221709402_CreateMainCause.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

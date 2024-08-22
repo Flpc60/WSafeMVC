@@ -1422,7 +1422,12 @@ function AddAccion() {
         FechaCierre: $("#FechaCierre").val(),
         Efectiva: $("#idEfectiva").val(),
         ActionCategory: $("#txtActionCategory").val(),
-        ControlTraceID: $("#controlTraceID").val()
+        ControlTraceID: $("#controlTraceID").val(),
+        MainCause1ID: $("#cause1").val(),
+        MainCause2ID: $("#cause2").val(),
+        MainCause3ID: $("#cause3").val(),
+        MainCause4ID: $("#cause4").val(),
+        MainCause5ID: $("#cause5").val()
     };
 
     $.ajax({
@@ -1476,7 +1481,13 @@ function UpdateAccion(id) {
         FechaCierre: $("#FechaCierre").val(),
         Efectiva: $("#idEfectiva").val(),
         ActionCategory: $("#txtActionCategory").val(),
-        UserID: $("#userID").val()
+        UserID: $("#userID").val(),
+        ControlTraceID: $("#controlTraceID").val(),
+        MainCause1ID: $("#cause1").val(),
+        MainCause2ID: $("#cause2").val(),
+        MainCause3ID: $("#cause3").val(),
+        MainCause4ID: $("#cause4").val(),
+        MainCause5ID: $("#cause5").val()
     };
 
     $.ajax({

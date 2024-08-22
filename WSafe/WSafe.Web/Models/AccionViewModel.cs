@@ -48,7 +48,7 @@ namespace WSafe.Web.Models
         public string Origen { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Descripción de la no conformidad")]
-        [MaxLength(100)]
+        [MaxLength(200)]
         public string Descripcion { get; set; }
         [Display(Name = "Indicador Antes")]
         public CategoriasEfectividad EficaciaAntes { get; set; }
@@ -64,7 +64,7 @@ namespace WSafe.Web.Models
         public ICollection<Seguimiento> Seguimientos { get; set; }
         public string FechaSolicitudStr { get; set; }
         public string FechaCierreStr { get; set; }
-        [Display(Name = "ESTADO")]
+        [Display(Name = "Estado")]
         public ActionCategories ActionCategory { get; set; }
         public string ActionState { get; set; }
         public int OrganizationID { get; set; }
@@ -91,15 +91,5 @@ namespace WSafe.Web.Models
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una causa")]
         public int MainCause5ID { get; set; }
         public IEnumerable<SelectListItem> Causes { get; set; }
-        [Display(Name = "Causa raíz")]
-        public bool RootCause1 { get; set; }
-        [Display(Name = "Causa raíz")]
-        public bool RootCause2 { get; set; }
-        [Display(Name = "Causa raíz")]
-        public bool RootCause3 { get; set; }
-        [Display(Name = "Causa raíz")]
-        public bool RootCause4 { get; set; }
-        [Display(Name = "Causa raíz")]
-        public bool RootCause5 { get; set; }
     }
 }

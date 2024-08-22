@@ -147,7 +147,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Planes = new List<PlanAction>(),
                 Seguimientos = new List<Seguimiento>(),
                 FechaSolicitud = DateTime.Now.ToString("yyyy-MM-dd"),
-                FechaCierre = DateTime.Now.ToString("yyyy-MM-dd")
+                FechaCierre = DateTime.Now.ToString("yyyy-MM-dd"),
+                Causes = _comboHelper.GetAllMainCauses(org)
             };
 
             model.Planes.Add(new PlanAction());
@@ -186,7 +187,13 @@ namespace WSafe.Domain.Helpers.Implements
                 ActionState = _gestorHelper.GetActionCategory((int)accion.ActionCategory),
                 OrganizationID = accion.OrganizationID,
                 ClientID = accion.ClientID,
-                UserID = accion.UserID
+                UserID = accion.UserID,
+                MainCause1ID = accion.MainCause1ID,
+                MainCause2ID = accion.MainCause2ID,
+                MainCause3ID = accion.MainCause3ID,
+                MainCause4ID = accion.MainCause4ID,
+                MainCause5ID = accion.MainCause5ID,
+                Causes = _comboHelper.GetAllMainCauses(org)
             };
             return model;
         }
@@ -212,7 +219,12 @@ namespace WSafe.Domain.Helpers.Implements
                 OrganizationID = model.OrganizationID,
                 ClientID = model.ClientID,
                 UserID = model.UserID,
-                ControlTraceID = model.ControlTraceID
+                ControlTraceID = model.ControlTraceID,
+                MainCause1ID = model.MainCause1ID,
+                MainCause2ID = model.MainCause2ID,
+                MainCause3ID = model.MainCause3ID,
+                MainCause4ID = model.MainCause4ID,
+                MainCause5ID = model.MainCause5ID
             };
             return result;
         }
