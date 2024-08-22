@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis de Causalidad</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            max-width: 700px;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #007bff;
+        }
+
+        .add-cause {
+            background-color: #28a745;
+            color: #ffffff;
+        }
+
+            .add-cause:hover {
+                background-color: #218838;
+            }
+
+        .remove-cause {
+            background-color: #dc3545;
+            color: #ffffff;
+        }
+
+            .remove-cause:hover {
+                background-color: #c82333;
+            }
+    </style>
+
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Análisis de Causalidad de No Conformidad</h2>
+
+        <!-- Formulario para ingresar datos -->
+        <form id="causalityForm">
+            <div class="form-group">
+                <label for="nonconformity">Descripción de la No Conformidad:</label>
+                <textarea class="form-control" id="nonconformity" rows="3" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="whys">Causas Identificadas:</label>
+                <div id="whys" class="mb-3">
+                    <div class="input-group mb-2">
+                        <input type="text" class="form-control cause-input" placeholder="¿Por qué ocurrió esto?" required>
+                        <div class="input-group-append">
+                            <button class="btn btn-danger remove-cause" type="button">&times;</button>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-secondary add-cause">Agregar Causa</button>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3">Guardar Análisis</button>
+        </form>
+
+        <!-- Respuesta del servidor -->
+        <div id="serverResponse" class="mt-4"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="scripts.js"></script>
+</body>
+</html>
+
+@section Scripts
+{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Agregar nueva causa
+            $('.add-cause').on('click', function () {
+                $('#whys').append(`
+                <div class="input-group mb-2">
+                    <input type="text" class="form-control cause-input" placeholder="¿Por qué ocurrió esto?" required>
+                    <div class="input-group-append">
+                        <button class="btn btn-danger remove-cause" type="button">&times;</button>
+                    </div>
+                </div>
+            `);
+        });
+
+        // Remover causa
+        $(document).on('click', '.remove-cause', function () {
+            $(this).closest('.input-group').remove();
+        });
+
+        // Enviar formulario
+        $('#causalityForm').on('submit', function (event) {
+            event.preventDefault();
+
+            let nonconformity = $('#nonconformity').val();
+            let causes = [];
+
+            $('.cause-input').each(function () {
+                causes.push($(this).val());
+            });
+
+            $.ajax({
+                url: '/saveCausalityAnalysis',
+                type: 'POST',
+                data: {
+                    nonconformity: nonconformity,
+                    causes: causes
+                },
+                success: function (response) {
+                    $('#serverResponse').html(`<div class="alert alert-success">${response.message}</div>`);
+                },
+                error: function () {
+                    $('#serverResponse').html('<div class="alert alert-danger">Error al guardar el análisis.</div>');
+                }
+                });
+            });
+        });
+
+    </script>
+
+}
