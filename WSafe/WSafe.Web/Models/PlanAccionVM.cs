@@ -42,5 +42,6 @@ namespace WSafe.Web.Models
         public int OrganizationID { get; set; }
         public int ClientID { get; set; }
         public int UserID { get; set; }
+        public CategoriasEfectividad Effectiveness { get; set; }
     }
 }
