@@ -528,6 +528,10 @@
     <Compile Include="Migrations\202408221709402_CreateMainCause.designer.cs">
       <DependentUpon>202408221709402_CreateMainCause.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202408222211264_UpdActionTable.cs" />
+    <Compile Include="Migrations\202408222211264_UpdActionTable.designer.cs">
+      <DependentUpon>202408222211264_UpdActionTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -1327,6 +1331,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202408221709402_CreateMainCause.resx">
       <DependentUpon>202408221709402_CreateMainCause.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202408222211264_UpdActionTable.resx">
+      <DependentUpon>202408222211264_UpdActionTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

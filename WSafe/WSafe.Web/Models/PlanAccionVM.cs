@@ -16,10 +16,8 @@ namespace WSafe.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Fecha final")]
         public string FechaFinal { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatotio")]
         [Display(Name = "Causa que originó la acción")]
         public CategoriasCausa Causa { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Causa que originó la acción")]
         public string Categoria { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]

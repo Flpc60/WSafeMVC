@@ -18,12 +18,10 @@ namespace WSafe.Domain.Data.Entities
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime FechaFinal { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatotio")]
-        [Display(Name = "No conformidad")]
         public CategoriasCausa Causa { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Plan acción")]
-        [MaxLength(100)]
+        [MaxLength(200)]
         public string Accion { get; set; }
         [Display(Name = "Trabajador responsable")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]

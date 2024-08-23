@@ -74,19 +74,15 @@ namespace WSafe.Web.Models
         [Display(Name = "Causa 1:")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una causa")]
         public int MainCause1ID { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Causa 2:")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una causa")]
         public int MainCause2ID { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Causa 3:")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una causa")]
         public int MainCause3ID { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Causa 4:")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una causa")]
         public int MainCause4ID { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Causa 5:")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una causa")]
         public int MainCause5ID { get; set; }
