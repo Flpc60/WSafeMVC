@@ -52,6 +52,7 @@ namespace WSafe.Domain.Data.Entities
         public int ClientID { get; set; }
         public int UserID { get; set; }
         public int ControlTraceID { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatotio")]
         public int MainCause1ID { get; set; }
         public int MainCause2ID { get; set; }
         public int MainCause3ID { get; set; }
