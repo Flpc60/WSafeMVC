@@ -1,70 +1,64 @@
 ﻿@model WSafe.Web.Models.AccionViewModel
 
-@{
-    var categorias = ViewBag.Categorias;
-}
-
-<div class="container" style="background-color:floralwhite">
-    <div id="_EditarPlanAcc">
-        <div class="row">
-            <hr />
-            <div class="col-md-4 col-sm-6">
-                <label for="idFechaIni">FECHA INICIAL:</label>
-                <input type="date" class="form-control" id="idFechaIni" value="@Model.FechaSolicitud" required autofocus>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <label for="idFechaFin">FECHA CIERRE:</label>
-                <input type="date" class="form-control" id="idFechaFin" value="@Model.FechaCierre" required>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <label for="causa">CAUSA:</label>
-                @Html.DropDownList("Categorias", categorias as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "txtCausa"})
-            </div>
+<div class="container bg-light p-4 rounded">
+    <hr />
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            <label for="accion">Actividad:</label>
+            <textarea id="accion" class="form-control form-control-sm" rows="3" style="resize:none; width: 90%;" required></textarea>
         </div>
-        <div class="row">
-            <hr />
-            <div class="col-md-12">
-                <label for="accion">ACTIVIDAD:</label>
-                <textarea id="accion" style="resize:none;" class="form-control" rows=3 required></textarea>
-            </div>
-        </div>
-        <div class="row">
-            <hr />
-            <div class="col-md-5 col-sm-6">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.TrabajadorID, htmlAttributes: new { @class = "control-label col-md-3" })
-                    <div class="col-md-8 col-sm-10">
-                        @Html.DropDownListFor(model => model.TrabajadorID, Model.Trabajadores, new { @class = "form-control", @id = "idRespons" })
-                        @Html.ValidationMessageFor(model => model.TrabajadorID, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="prioritaria" class="form-control">PRIORITARIA: </label>
-                    <div class="col-md-6 col-sm-10">
-                        <div class="checkbox">
-                            <input class="form-check-input" type="checkbox" id="idPrioritaria" name="idPrioritaria">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <label for="idCostos" class="form-control" >COSTOS:</label>
-                <input type="number" class="form-control" id="idCostos" name="idCostos" onchange="validarCostos()">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.ActionCategory, htmlAttributes: new { @class = "control-label col-md-3" })
-                    <div class="col-md-8 col-sm-10">
-                        @Html.EnumDropDownListFor(model => model.ActionCategory, htmlAttributes: new { @class = "form-control", @id = "txtPlanCategory" })
-                        @Html.ValidationMessageFor(model => model.ActionCategory, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-        </div>
-        <hr />
     </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <div class="form-group d-flex align-items-center">
+                <label for="idFechaIni" class="me-5">Fecha inicial:</label>
+                <input type="date" class="form-control form-control-sm" id="idFechaIni" value="@Model.FechaSolicitud" required autofocus style="width: 30%;">
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <div class="form-group d-flex align-items-center">
+                <label for="idFechaFin" class="me-3">Fecha cierre:</label>
+                <input type="date" class="form-control form-control-sm" id="idFechaFin" value="@Model.FechaCierre" required style="width: 30%;">
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-5 mb-3">
+            <div class="form-group d-flex align-items-center">
+                @Html.LabelFor(model => model.TrabajadorID, htmlAttributes: new { @class = "me-3" })
+                @Html.DropDownListFor(model => model.TrabajadorID, Model.Trabajadores, new { @class = "form-control form-control-sm", @id = "idRespons", style = "width: 85%;" })
+                @Html.ValidationMessageFor(model => model.TrabajadorID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="form-group d-flex align-items-center">
+                <label for="prioritaria" class="me-3">Prioritaria:</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="idPrioritaria" name="idPrioritaria">
+                    <label class="form-check-label" for="idPrioritaria">Sí</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="form-group d-flex align-items-center">
+                <label for="idCostos" class="me-3">Costos:</label>
+                <input type="number" class="form-control form-control-sm" id="idCostos" name="idCostos" onchange="validarCostos()" style="width: 50%;">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <div class="form-group d-flex align-items-center">
+                @Html.LabelFor(model => model.ActionCategory, htmlAttributes: new { @class = "me-3" })
+                @Html.EnumDropDownListFor(model => model.ActionCategory, htmlAttributes: new { @class = "form-control form-control-sm", @id = "txtPlanCategory", style = "width: 50%;" })
+                @Html.ValidationMessageFor(model => model.ActionCategory, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <hr />
+</div>
+
+<div id="_EditarPlanAcc">
 </div>

@@ -85,7 +85,6 @@ namespace WSafe.Web.Controllers
             }
             ViewBag.AccionID = id;
 
-            ViewBag.Categorias = _comboHelper.GetAllCausas();
             ViewBag.fechaSolicitud = model.FechaSolicitud;
             ViewBag.fechaCierre = model.FechaCierre;
 
