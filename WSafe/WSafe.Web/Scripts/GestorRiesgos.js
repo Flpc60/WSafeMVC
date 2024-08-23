@@ -836,6 +836,7 @@ function getPlanByID(PlanID) {
             $("#txtNormaID").val(result.NormaID);
             $("#txtFechaActivity").val(result.FechaActivity);
             $("#txtObservation").val(result.Observation);
+            $("#effectiveness").val(result.Effectiveness);
             if (result.Prioritaria == true) {
                 $("#idPrioritaria").prop('checked', true);
             } else {
@@ -1681,7 +1682,8 @@ function AddPlanAccion() {
         Prioritaria: $("#idPrioritaria").val(),
         Costos: $("#idCostos").val(),
         Responsable: " ",
-        ActionCategory: $("#txtPlanCategory").val()
+        ActionCategory: $("#txtPlanCategory").val(),
+        Effectiveness: $("effectiveness").val()
     };
 
     $.ajax({
@@ -1735,7 +1737,8 @@ function UpdatePlanAcc() {
         EvaluationID: $("#txtEvaluationID").val(),
         NormaID: $("#txtNormaID").val(),
         FechaActivity: $("#idFechaIni").val(),
-        Observation: $("#txtObservation").val()
+        Observation: $("#txtObservation").val(),
+        Effectiveness: $("effectiveness").val()
     };
     $.ajax({
         type: "POST",
