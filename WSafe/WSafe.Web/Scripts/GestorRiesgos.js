@@ -2138,6 +2138,10 @@ function GestorActions() {
         $("#btnAddSigue").show();
         $("#btnUpdSigue").hide();
     });
+    $("#btnAdddCause").click(function () {
+        $(".tabAddCause").css("display", "block");
+        $("#btnAdddCause").hide();
+    });
 
 }
 
