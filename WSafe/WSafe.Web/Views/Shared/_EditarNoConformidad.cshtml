@@ -3,7 +3,11 @@
 <style>
 
     .centerText {
-        text-align: center
+        text-align: center;
+    }
+
+    .tabAddCause {
+        display: none;
     }
 
 </style>
@@ -92,7 +96,7 @@
         </div>
     </div>
     <div class="container">
-        <h3 class="text-center"><strong>Análisis de Causalidad de No Conformidad</strong></h3>
+        <h3 class="text-center"><strong>Análisis de causalidad de la no Conformidad</strong></h3>
         <hr />
         <div class="form-group row">
             @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-3 col-sm-12" })
@@ -154,9 +158,21 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group">
+                    <button type="button" class="btn btn-secondary" id="btnAdddCause">Adicionar Causa</button>
+                </div>
+            </div>
         </div>
     </div>
     <hr />
+    <div class="row tabAddCause">
+        <div class="form-group">
+            <label for="mainCause">Descripción de la causa:</label>
+            <textarea class="form-control" id="mainCause" rows="3" required></textarea>
+            <button type="button" class="btn btn-secondary" onclick="addMainCause();">Guardar</button>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">

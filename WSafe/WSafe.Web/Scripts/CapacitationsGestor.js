@@ -660,7 +660,9 @@ function addMainCause() {
         success: function (result) {
             if (result.success) {
                 alert("Causa principal adicionada !!");
-                location.reload();
+                $(".tabAddCause").css("display", "none");
+                $("#btnAdddCause").show();
+                //location.reload();
             } else {
                 alert("Error: " + result.message);
             }
