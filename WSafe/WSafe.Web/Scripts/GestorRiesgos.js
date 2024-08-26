@@ -1721,8 +1721,16 @@ function UpdatePlanAcc() {
         $("#idPrioritaria").val(false)
     }
 
-    if ($("#txtCausa").val() == 0) { $("#txtCausa").val(1) };
-    if ($("#idPrioritaria").val() == null) { $("#idPrioritaria").val(false) };
+    if ($("#txtCausa").val() == 0) { $("#txtCausa").val(1); }
+    if ($("#idPrioritaria").val() == null) { $("#idPrioritaria").val(false); }
+    $("#idEfectiva").click(function () {
+        if ($("#idEfectiva").is(':checked')) {
+            $("#txtPlanCategory").val(3).prop('disabled', true);
+        } else {
+            $("#txtPlanCategory").prop('disabled', false); // Habilita el campo si no está marcado
+        }
+    });
+
     var model = {
         ID: $("#txtPlanAccionID").val(),
         AccionID: $("#txtAccionID").val(),
@@ -2141,6 +2149,13 @@ function GestorActions() {
     $("#btnAdddCause").click(function () {
         $(".tabAddCause").css("display", "block");
         $("#btnAdddCause").hide();
+    });
+    $("#idEfectiva").click(function () {
+        if ($("#idEfectiva").is(':checked')) {
+            $("#txtActionCategory").val(3).prop('disabled', true);
+        } else {
+            $("#txtActionCategory").prop('disabled', false); // Habilita el campo si no está marcado
+        }
     });
 
 }
