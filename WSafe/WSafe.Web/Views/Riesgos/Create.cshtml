@@ -185,31 +185,47 @@
         </div>
     </div>
 </div>
+
 }
 
 @section Scripts
 {
     <script type="text/javascript">
+        $(document).ready(function () {
+            $('select').each(function () {
+                $(this).find('option').filter(function () {
+                    return !$(this).val();
+                }).remove();
+            });
+        });
 
-        $('#categoria').click(function () {
+        gestorRiesgos();
+        calcularProbabilidad();
+        calcularRiesgo();
+        aceptabilidadRiesgo();
+
+        $('#categoria').change(function () {
             var selectedCategoria = $("#categoria").val();
             var peligroSelect = $('#peligro');
             peligroSelect.empty();
-            if (selectedCategoria != null && selectedCategoria != '') {
-                $.getJSON('@Url.Action("GetPeligros")', { ID: selectedCategoria }, function (peligros) {
-                    if (peligros != null && !jQuery.isEmptyObject(peligros)) {
-                        $.each(peligros, function (index, item) {
+            if (selectedCategoria != null && selectedCategoria != '')
+            {
+                $.getJSON('@Url.Action("GetPeligros")', { ID: selectedCategoria }, function (peligros)
+                {
+                    if (peligros != null && !jQuery.isEmptyObject(peligros))
+                    {
+                        $.each(peligros, function (index, item)
+                        {
                             peligroSelect.append($('<option />',
-                                {
-                                    value: item.Value,
-                                    text: item.Text
-                                }));
+                            {
+                                value: item.Value,
+                                text: item.Text
+                            }));
                         });
                     };
                 });
             }
         });
-        gestorRiesgos();
 
         function CancelRisk() {
             $(".tabEvalRiesgos").css("display", "none");
