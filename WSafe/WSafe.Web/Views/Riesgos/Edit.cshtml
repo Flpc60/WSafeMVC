@@ -167,6 +167,7 @@
             </div>
         </div>
     </div>
+
 }
 
 @section Scripts
@@ -174,74 +175,83 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script type="text/javascript">
 
-        $("#txtRiesgoID").val(@riesgoID);
-        gestorRiesgos();
-        calcularProbabilidad();
-        calcularRiesgo();
-        aceptabilidadRiesgo();
+    $(document).ready(function () {
+        $('select').each(function () {
+            $(this).find('option').filter(function () {
+                return !$(this).val();
+            }).remove();
+        });
+    });
 
-        $('#categoria').change(function () {
-            var selectedCategoria = $("#categoria").val();
-            var peligroSelect = $('#peligro');
-            peligroSelect.empty();
-            if (selectedCategoria != null && selectedCategoria != '')
+    $("#txtRiesgoID").val(@riesgoID);
+
+    gestorRiesgos();
+    calcularProbabilidad();
+    calcularRiesgo();
+    aceptabilidadRiesgo();
+
+    $('#categoria').change(function () {
+        var selectedCategoria = $("#categoria").val();
+        var peligroSelect = $('#peligro');
+        peligroSelect.empty();
+        if (selectedCategoria != null && selectedCategoria != '')
+        {
+            $.getJSON('@Url.Action("GetPeligros")', { ID: selectedCategoria }, function (peligros)
             {
-                $.getJSON('@Url.Action("GetPeligros")', { ID: selectedCategoria }, function (peligros)
+                if (peligros != null && !jQuery.isEmptyObject(peligros))
                 {
-                    if (peligros != null && !jQuery.isEmptyObject(peligros))
+                    $.each(peligros, function (index, item)
                     {
-                        $.each(peligros, function (index, item)
+                        peligroSelect.append($('<option />',
                         {
-                            peligroSelect.append($('<option />',
-                            {
-                                value: item.Value,
-                                text: item.Text
-                            }));
-                        });
-                    };
-                });
-            }
-        });
-
-        function CancelRisk() {
-            $(".tabEvalRiesgos").css("display", "none");
+                            value: item.Value,
+                            text: item.Text
+                        }));
+                    });
+                };
+            });
         }
+    });
 
-        function CancelInterven() {
-            $(".tabAddInterven").css("display", "none");
-        }
+    function CancelRisk() {
+    $(".tabEvalRiesgos").css("display", "none");
+    }
 
-        function CancelControl() {
-            $(".tabAddControl").css("display", "none");
-        }
-        function CancelControlTrace() {
-            $(".tabAddControlTrace").css("display", "none");
-        }
+    function CancelInterven() {
+    $(".tabAddInterven").css("display", "none");
+    }
 
-        function CancelMainCause() {
-            $(".tabAddMainCause").css("display", "none");
-        }
+    function CancelControl() {
+    $(".tabAddControl").css("display", "none");
+    }
+    function CancelControlTrace() {
+    $(".tabAddControlTrace").css("display", "none");
+    }
 
-        $("#btnAddControl").click(function () {
-            $(".tabAddControl").css("display", "block");
-        });
+    function CancelMainCause() {
+    $(".tabAddMainCause").css("display", "none");
+    }
 
-        $("#btnAddControl[1]").click(function () {
-            $(".tabAddControl").css("display", "block");
-        });
+    $("#btnAddControl").click(function () {
+    $(".tabAddControl").css("display", "block");
+    });
 
-        $("#btnAddControlTrace").click(function () {
-            $(".tabAddControlTrace").css("display", "block");
-        });
+    $("#btnAddControl[1]").click(function () {
+    $(".tabAddControl").css("display", "block");
+    });
 
-        $("#btnShowControlTrace").click(function () {
-            var id = $("#txtIntervenID").val();
-            showControlTraceAll(id);
-        });
+    $("#btnAddControlTrace").click(function () {
+    $(".tabAddControlTrace").css("display", "block");
+    });
 
-        $("#btnAddMainCause").click(function () {
-            $(".tabAddMainCause").css("display", "block");
-        });
+    $("#btnShowControlTrace").click(function () {
+    var id = $("#txtIntervenID").val();
+    showControlTraceAll(id);
+    });
+
+    $("#btnAddMainCause").click(function () {
+    $(".tabAddMainCause").css("display", "block");
+    });
 
     </script>
 
