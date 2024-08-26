@@ -32,13 +32,13 @@ namespace WSafe.Web.Models
         public bool Rutinaria { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una categoria de peligro.")]
+        [Display(Name = "Categoría")]
         public int CategoriaPeligroID { get; set; }
-        [Display(Name = "CATEGORIAS")]
         public IEnumerable<SelectListItem> CategoriasPeligros { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un peligro.")]
+        [Display(Name = "Peligro")]
         public int PeligroID { get; set; }
-        [Display(Name = "PELIGROS")]
         public IEnumerable<SelectListItem> Peligros { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Efectos posibles")]
