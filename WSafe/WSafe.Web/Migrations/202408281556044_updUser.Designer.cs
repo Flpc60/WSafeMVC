@@ -7,18 +7,18 @@ namespace WSafe.Web.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class updUserTable : IMigrationMetadata
+    public sealed partial class updUser : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(updUserTable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(updUser));
         
         string IMigrationMetadata.Id
         {
-            get { return "202408271823426_updUserTable"; }
+            get { return "202408281556044_updUser"; }
         }
         
         string IMigrationMetadata.Source
         {
-            get { return Resources.GetString("Source"); }
+            get { return null; }
         }
         
         string IMigrationMetadata.Target
