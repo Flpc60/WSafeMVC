@@ -16,7 +16,7 @@ namespace WSafe.Web.Controllers
 {
     public class AccountsController : Controller
     {
-        // Gestión de cuentas de usuarios
+        // Gestión de cuentas de usuarios ...
         private int _clientID;
         private int _orgID;
         private string _year;
@@ -198,14 +198,21 @@ namespace WSafe.Web.Controllers
             }
             return View(user);
         }
+
         [HttpPost]
-        public async Task<ActionResult> CreateUser([Bind(Include = "ID,Name,Email,Password,RoleID,OrganizationID,ClientID")] User model, int interesting)
+        public async Task<ActionResult> CreateUser([Bind(Include = "ID,Name,Email,Password,RoleID,OrganizationID,ClientID,FirmaElectronica")] User model)
         {
             var message = "";
             try
             {
-                if (ModelState.IsValid && interesting != 4)
+                if (ModelState.IsValid)
                 {
+                    if (string.IsNullOrWhiteSpace(model.Password))
+                    {
+                        message = "La contraseña no puede estar vacía.";
+                        return Json(new { data = model, mensaj = message }, JsonRequestBehavior.AllowGet);
+                    }
+
                     string password = GetSHA256(model.Password);
                     var result = _empresaContext.Users.Where(u => u.Name == model.Name.Trim() && u.Email == model.Email.Trim() && u.Password == password.Trim()).FirstOrDefault();
                     if (result == null)
