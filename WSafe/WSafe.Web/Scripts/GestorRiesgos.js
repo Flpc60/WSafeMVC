@@ -3273,7 +3273,11 @@ function AddTask() {
 
 function AddUser() {
     // Crea un nuevo usuario
-    var interesting = $("#interestLevel").val();
+    $("#btnAddUser").click(function (e) {
+        e.preventDefault();
+    });
+    let signature = canvas.toDataURL('image/png');
+
     var user = {
         ID: "0",
         Name: $("#txtName").val(),
@@ -3281,23 +3285,23 @@ function AddUser() {
         Password: $("#txtPassword").val(),
         RoleID: "0",
         OrganizationID: "0",
-        ClientID: $("#clientID").val()
+        ClientID: $("#clientID").val(),
+        FirmaElectronica: signature
     };
     $.ajax({
         type: "POST",
         url: "/Accounts/CreateUser",
-        data: {
-            model: user,
-            interesting: interesting
-        },
+        data: JSON.stringify(user), // Serializa el objeto `user` directamente
+        contentType: "application/json; charset=utf-8",
         dataType: "json",
+        async: true,
         success: function (response) {
-            document.getElementById("txtLogin").innerHTML = response.mensaj;
+            document.getElementById("txtLogin").innerHTML = response.mensaje;
             $(".tabMessage").css("display", "block");
             $(".tabValidation").css("display", "none");
             setTimeout(function () {
                 location.reload();
-            }, 6000); // 2000 milisegundos = 6 segundos
+            }, 6000);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);

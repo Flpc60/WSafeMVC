@@ -532,6 +532,10 @@
     <Compile Include="Migrations\202408222211264_UpdActionTable.designer.cs">
       <DependentUpon>202408222211264_UpdActionTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202408271823426_updUserTable.cs" />
+    <Compile Include="Migrations\202408271823426_updUserTable.designer.cs">
+      <DependentUpon>202408271823426_updUserTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -1334,6 +1338,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202408222211264_UpdActionTable.resx">
       <DependentUpon>202408222211264_UpdActionTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202408271823426_updUserTable.resx">
+      <DependentUpon>202408271823426_updUserTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
