@@ -3272,11 +3272,7 @@ function AddTask() {
 }
 
 function AddUser() {
-    // Crea un nuevo usuario
-    $("#btnAddUser").click(function (e) {
-        e.preventDefault();
-    });
-    let signature = canvas.toDataURL('image/png');
+    let signature = canvas.toDataURL('image/png').replace(/^data:image\/(png|jpg);base64,/, "");
 
     var user = {
         ID: "0",
@@ -3288,15 +3284,16 @@ function AddUser() {
         ClientID: $("#clientID").val(),
         FirmaElectronica: signature
     };
+
     $.ajax({
-        type: "POST",
         url: "/Accounts/CreateUser",
-        data: JSON.stringify(user), // Serializa el objeto `user` directamente
-        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify({ model: user }),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
         dataType: "json",
         async: true,
         success: function (response) {
-            document.getElementById("txtLogin").innerHTML = response.mensaje;
+            document.getElementById("txtLogin").innerHTML = response.mensaj;
             $(".tabMessage").css("display", "block");
             $(".tabValidation").css("display", "none");
             setTimeout(function () {

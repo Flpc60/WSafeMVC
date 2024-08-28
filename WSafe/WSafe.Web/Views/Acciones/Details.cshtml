@@ -4,6 +4,8 @@
     ViewBag.Title = "Sistema de Gestión de la Seguridad y Salud en el Trabajo";
     var fecha = DateTime.Today;
     Layout = null;
+    string signatureBase64 = Session["signatureUser"] as string;
+    string imageUrl = string.IsNullOrEmpty(signatureBase64) ? string.Empty : $"data:image/png;base64,{signatureBase64}";
 }
 
 @Styles.Render("~/Content/css")
@@ -184,4 +186,5 @@
             LA ACCIÓN TOMADA FUE EFECTIVA ? : <strong><b>@Html.DisplayFor(model => model.Efectiva)</b></strong>
         </p>
     </div>
+    <div>Firma del usuario responsable:  <strong><b><img src="@imageUrl" alt="Firma del Usuario" style="width: 200px; height: auto;"/></b></strong></div>
 </div>

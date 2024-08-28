@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -136,6 +137,8 @@ namespace WSafe.Web.Controllers
                 Session["responsable"] = empresa.ResponsableSGSST;
                 Session["clientID"] = empresa.ClientID;
                 Session["orgID"] = empresa.ID;
+                string signatureBase64 = Convert.ToBase64String(result.FirmaElectronica);
+                Session["signatureUser"] = signatureBase64;
                 Session["path"] = $"~/ORG{empresa.ID}/SG-SST/{empresa.Year}";
                 Session["logo"] = $"~/Images/logo{empresa.ID}.jpg";
                 return Json(new { result = "Redirect", url = Url.Action("Index", "Home"), mensaj = message }, JsonRequestBehavior.AllowGet);
@@ -198,6 +201,7 @@ namespace WSafe.Web.Controllers
             }
             return View(user);
         }
+        //public async Task<ActionResult> CreateUser([Bind(Include = "ID,Name,Email,Password,RoleID,OrganizationID,ClientID,RegisterDate,FirmaElectronica")] User model)
 
         [HttpPost]
         public async Task<ActionResult> CreateUser([Bind(Include = "ID,Name,Email,Password,RoleID,OrganizationID,ClientID,FirmaElectronica")] User model)
@@ -214,13 +218,14 @@ namespace WSafe.Web.Controllers
                     }
 
                     string password = GetSHA256(model.Password);
-                    var result = _empresaContext.Users.Where(u => u.Name == model.Name.Trim() && u.Email == model.Email.Trim() && u.Password == password.Trim()).FirstOrDefault();
+                    var result = _empresaContext.Users
+                                .FirstOrDefault(u => u.Name == model.Name.Trim() &&
+                                                     u.Email == model.Email.Trim() &&
+                                                     u.Password == password);
+
                     if (result == null)
                     {
-                        if (model.ClientID == 0)
-                        { 
-                            model.ClientID = 1;
-                        }
+                        model.ClientID = model.ClientID == 0 ? 1 : model.ClientID;
                         model.Password = password;
                         model.RegisterDate = DateTime.Now;
                         _empresaContext.Users.Add(model);
@@ -239,7 +244,8 @@ namespace WSafe.Web.Controllers
             }
             catch (Exception ex)
             {
-                message = ex.Message;
+                var errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                message = $"Error: {errorMessage}";
             }
 
             return Json(new { data = model, mensaj = message }, JsonRequestBehavior.AllowGet);
@@ -252,6 +258,7 @@ namespace WSafe.Web.Controllers
             var model = _converterHelper.ToRolOperationVM(authorize);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
+
         [AuthorizeUser(operation: 2, component: 6)]
         public ActionResult Create()
         {
