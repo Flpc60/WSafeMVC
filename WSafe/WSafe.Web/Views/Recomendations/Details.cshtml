@@ -4,6 +4,8 @@
     ViewBag.Title = "Sistema de Gestión de la Seguridad y Salud en el Trabajo";
     var fecha = DateTime.Today;
     Layout = null;
+    string signatureResponsable = Session["signatureResponsable"] as string;
+    string imageUrl1 = string.IsNullOrEmpty(signatureResponsable) ? string.Empty : $"data:image/png;base64,{signatureResponsable}";
 }
 
 @Styles.Render("~/Content/css")
@@ -178,4 +180,26 @@
             @Html.DisplayFor(model => model.Coordinador)
         </p>
     </div>
+</div>
+
+<div class="container">
+    <hr />
+    <div class="row d-flex align-items-center justify-content-center">
+        <div class="col-md-5 text-center" style="padding: 20px; display: inline-flex">
+            <div style="margin-bottom: -10px;">
+                <img src="@imageUrl1" alt="Firma del Usuario" style="width: 200px; height: auto;" />
+            </div>
+            <div style="margin-top: 2px;">
+                <strong>_____________________________</strong>
+            </div>
+            <div><strong>Firma del responsable del SG-SST</strong></div>
+        </div>
+    </div>
+</div>
+
+<div class="container body-content">
+    <hr />
+    <footer>
+        <p>&copy; @DateTime.Now.Year - WSafeApp</p>
+    </footer>
 </div>

@@ -27,5 +27,6 @@ namespace WSafe.Domain.Data.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime RegisterDate { get; set; }
         public byte[] FirmaElectronica { get; set; }
+        public bool ResponsableSgsst { get; set; }
     }
 }

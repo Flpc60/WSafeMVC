@@ -131,13 +131,27 @@
                 </div>
             </div>
             <div class="tabValidation">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <i class="fa fa-pen"></i>
-                        <label for="signatureCanvas">Firma Electrónica:</label>
-                        <canvas id="signatureCanvas"></canvas>
-                        <button type="button" id="clearSignature" class="btn btn-secondary mt-2">Borrar firma</button>
-                        <button type="button" id="btnAddUser" class="btn btn-secondary mt-2">Guardar</button>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group d-flex align-items-center">
+                            <i class="fa fa-users"></i>
+                            <label for="responsableSgsst" style="margin-right: 10px;">Es el usuario responsable del SG-SST ?:</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="responsableSgsst" name="responsableSgsst">
+                                <label class="form-check-label" for="responsableSgsst">Sí</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <i class="fa fa-pen"></i>
+                            <label for="signatureCanvas">Firma Electrónica:</label>
+                            <canvas id="signatureCanvas"></canvas>
+                            <button type="button" id="clearSignature" class="btn btn-secondary mt-2">Borrar firma</button>
+                            <button type="button" id="btnAddUser" class="btn btn-secondary mt-2">Guardar</button>
+                        </div>
                     </div>
                 </div>
             </div>

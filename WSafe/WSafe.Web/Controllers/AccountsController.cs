@@ -101,6 +101,8 @@ namespace WSafe.Web.Controllers
                     return Json(new { result = userList, url = Url.Action("Index", "Home"), mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
                 var result = _empresaContext.Users.Where(u => u.Name == model.Name.Trim() && u.Email == model.Email.Trim() && u.Password == password.Trim() && u.OrganizationID == model.OrganizationID).FirstOrDefault();
+
+                var responsable = _empresaContext.Users.Where(u => u.ResponsableSgsst == true).FirstOrDefault();
                 if (result == null || result.RoleID == 0)
                 {
                     message = "El Usuario, la contraseña o la organización son inválidos, o no tiene un rol asignado en el sistema!!";
@@ -124,6 +126,20 @@ namespace WSafe.Web.Controllers
 
                 var roleUser = _gestorHelper.GetRole(result.RoleID);
                 var classRisk = _gestorHelper.GetRiskClass((int)empresa.ClaseRiesgo);
+
+                // Capturar firma electrónica
+                string signatureBase64;
+
+                if (responsable.FirmaElectronica != null)
+                {
+                    signatureBase64 = Convert.ToBase64String(responsable.FirmaElectronica);
+                }
+                else
+                {
+                    signatureBase64 = "Sin firmar";
+                }
+
+                Session["signatureResponsable"] = signatureBase64;
                 Session["UserRole"] = roleUser;
                 Session["User"] = result;
                 Session["userName"] = result.Name;
@@ -137,8 +153,6 @@ namespace WSafe.Web.Controllers
                 Session["responsable"] = empresa.ResponsableSGSST;
                 Session["clientID"] = empresa.ClientID;
                 Session["orgID"] = empresa.ID;
-                string signatureBase64 = Convert.ToBase64String(result.FirmaElectronica);
-                Session["signatureUser"] = signatureBase64;
                 Session["path"] = $"~/ORG{empresa.ID}/SG-SST/{empresa.Year}";
                 Session["logo"] = $"~/Images/logo{empresa.ID}.jpg";
                 return Json(new { result = "Redirect", url = Url.Action("Index", "Home"), mensaj = message }, JsonRequestBehavior.AllowGet);
@@ -204,7 +218,7 @@ namespace WSafe.Web.Controllers
         //public async Task<ActionResult> CreateUser([Bind(Include = "ID,Name,Email,Password,RoleID,OrganizationID,ClientID,RegisterDate,FirmaElectronica")] User model)
 
         [HttpPost]
-        public async Task<ActionResult> CreateUser([Bind(Include = "ID,Name,Email,Password,RoleID,OrganizationID,ClientID,FirmaElectronica")] User model)
+        public async Task<ActionResult> CreateUser([Bind(Include = "ID,Name,Email,Password,RoleID,OrganizationID,ClientID,FirmaElectronica,ResponsableSgsst")] User model)
         {
             var message = "";
             try
