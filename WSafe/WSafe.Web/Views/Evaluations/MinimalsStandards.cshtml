@@ -7,7 +7,8 @@
     Layout = null;
     var strStyle = "background-color:" + Model.Color.Trim() + ";";
     var logo = @Session["logo"].ToString();
-
+    string signatureResponsable = Session["signatureResponsable"] as string;
+    string imageUrl1 = string.IsNullOrEmpty(signatureResponsable) ? string.Empty : $"data:image/png;base64,{signatureResponsable}";
 }
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -299,4 +300,26 @@
             </p>
         </div>
     </div>
+</div>
+
+<div class="container">
+    <hr />
+    <div class="row d-flex align-items-center justify-content-center">
+        <div class="col-md-5 text-center" style="padding: 20px; display: inline-flex">
+            <div style="margin-bottom: -10px;">
+                <img src="@imageUrl1" alt="Firma del Usuario" style="width: 200px; height: auto;" />
+            </div>
+            <div style="margin-top: 2px;">
+                <strong>_____________________________</strong>
+            </div>
+            <div><strong>Firma del responsable del SG-SST</strong></div>
+        </div>
+    </div>
+</div>
+
+<div class="container body-content">
+    <hr />
+    <footer>
+        <p>&copy; @DateTime.Now.Year - WSafeApp</p>
+    </footer>
 </div>

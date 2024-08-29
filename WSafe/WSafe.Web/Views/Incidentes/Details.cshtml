@@ -7,6 +7,8 @@
     var ahora = DateTime.Now;
     var id = ViewBag.id;
     Layout = null;
+    string signatureResponsable = Session["signatureResponsable"] as string;
+    string imageUrl1 = string.IsNullOrEmpty(signatureResponsable) ? string.Empty : $"data:image/png;base64,{signatureResponsable}";
 }
 
 @Styles.Render("~/Content/css")
@@ -226,13 +228,25 @@
 
     </div>
 </div>
+
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <p style="text-align:center; background-color:grey">
-                <strong><b>FIRMA RESPONSABLE SG-SST</b></strong>
-                Firma : <strong><b>@Html.DisplayFor(model => model.Firma)</b></strong>
-            </p>
+    <hr />
+    <div class="row d-flex align-items-center justify-content-center">
+        <div class="col-md-5 text-center" style="padding: 20px; display: inline-flex">
+            <div style="margin-bottom: -10px;">
+                <img src="@imageUrl1" alt="Firma del Usuario" style="width: 200px; height: auto;" />
+            </div>
+            <div style="margin-top: 2px;">
+                <strong>_____________________________</strong>
+            </div>
+            <div><strong>Firma del responsable del SG-SST</strong></div>
         </div>
     </div>
+</div>
+
+<div class="container body-content">
+    <hr />
+    <footer>
+        <p>&copy; @DateTime.Now.Year - WSafeApp</p>
+    </footer>
 </div>

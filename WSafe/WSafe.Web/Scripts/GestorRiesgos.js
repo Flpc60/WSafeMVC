@@ -3282,7 +3282,8 @@ function AddUser() {
         RoleID: "0",
         OrganizationID: "0",
         ClientID: $("#clientID").val(),
-        FirmaElectronica: signature
+        FirmaElectronica: signature,
+        ResponsableSgsst: $("#responsableSgsst").val()
     };
 
     $.ajax({

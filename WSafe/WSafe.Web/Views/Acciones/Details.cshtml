@@ -4,8 +4,10 @@
     ViewBag.Title = "Sistema de Gestión de la Seguridad y Salud en el Trabajo";
     var fecha = DateTime.Today;
     Layout = null;
-    string signatureBase64 = Session["signatureUser"] as string;
-    string imageUrl = string.IsNullOrEmpty(signatureBase64) ? string.Empty : $"data:image/png;base64,{signatureBase64}";
+    string signatureResponsable = Session["signatureResponsable"] as string;
+    string signatureUser = Session["signatureUser"] as string;
+    string imageUrl1 = string.IsNullOrEmpty(signatureResponsable) ? string.Empty : $"data:image/png;base64,{signatureResponsable}";
+    string imageUrl2 = string.IsNullOrEmpty(signatureUser) ? string.Empty : $"data:image/png;base64,{signatureUser}";
 }
 
 @Styles.Render("~/Content/css")
@@ -186,5 +188,26 @@
             LA ACCIÓN TOMADA FUE EFECTIVA ? : <strong><b>@Html.DisplayFor(model => model.Efectiva)</b></strong>
         </p>
     </div>
-    <div>Firma del usuario responsable:  <strong><b><img src="@imageUrl" alt="Firma del Usuario" style="width: 200px; height: auto;"/></b></strong></div>
+</div>
+<div class="container">
+    <div class="row d-flex align-items-center justify-content-center">
+        <div class="col-md-5 text-center" style="padding: 20px; display: inline-flex">
+            <div style="margin-bottom: -10px;">
+                <img src="@imageUrl1" alt="Firma del Usuario" style="width: 200px; height: auto;" />
+            </div>
+            <div style="margin-top: 2px;">
+                <strong>_____________________________</strong>
+            </div>
+            <div><strong>Firma del responsable del SG-SST</strong></div>
+        </div>
+        <div class="col-md-5 text-center" style="padding: 20px;">
+            <div style="margin-bottom: -10px;">
+                <img src="@imageUrl2" alt="Firma del Usuario" style="width: 200px; height: auto;" />
+            </div>
+            <div style="margin-top: 2px;">
+                <strong>_____________________________</strong>
+            </div>
+            <div><strong>Firma del usuario responsable</strong></div>
+        </div>
+    </div>
 </div>
