@@ -3,6 +3,8 @@
 @{
     ViewBag.Title = "Sistema de Gestión de la Seguridad y Salud en el Trabajo";
     Layout = null;
+    string signatureResponsable = Session["signatureResponsable"] as string;
+    string imageUrl1 = string.IsNullOrEmpty(signatureResponsable) ? string.Empty : $"data:image/png;base64,{signatureResponsable}";
 }
 
 @Styles.Render("~/Content/css")
@@ -103,98 +105,114 @@
 
     @foreach (var item in Model)
     {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Genero)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Documento)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.FullName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.FechaNacimiento)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.FechaIngreso)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Escolaridad)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Profesion)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.WorkArea)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Cargo)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.TipoVinculacion)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.TipoJornada)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.EPS)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.AFP)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.ARL)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Age)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.TipoSangre)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Antiguedad)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.EstadoCivil)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Conyuge)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.NumberHijos)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.StratumCategory)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Telefonos)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Email)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Direccion)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.TenenciaVivienda)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Enfermedad)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Tratamiento)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.SpecialRecomendations)
-    </td>
-</tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Documento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaNacimiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaIngreso)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Escolaridad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Profesion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorkArea)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cargo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoVinculacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoJornada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EPS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AFP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ARL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoSangre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Antiguedad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstadoCivil)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Conyuge)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberHijos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StratumCategory)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefonos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Direccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenenciaVivienda)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Enfermedad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tratamiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SpecialRecomendations)
+            </td>
+        </tr>
     }
 
 </table>
+
+<div class="container">
+    <hr />
+    <div class="row d-flex align-items-center justify-content-center">
+        <div class="col-md-5 text-center" style="padding: 20px; display: inline-flex">
+            <div style="margin-bottom: -10px;">
+                <img src="@imageUrl1" alt="Firma del Usuario" style="width: 200px; height: auto;" />
+            </div>
+            <div style="margin-top: 2px;">
+                <strong>_____________________________</strong>
+            </div>
+            <div><strong>Firma del responsable del SG-SST</strong></div>
+        </div>
+    </div>
+</div>
+
 <div class="container body-content">
     <hr />
     <footer>
-        <p>&copy; @DateTime.Now.Year - FLPCSoft</p>
+        <p>&copy; @DateTime.Now.Year - WSafeApp</p>
     </footer>
 </div>

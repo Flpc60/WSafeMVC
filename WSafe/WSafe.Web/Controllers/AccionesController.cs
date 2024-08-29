@@ -457,6 +457,22 @@ namespace WSafe.Web.Controllers
                 var filename = "ReporteAccion" + random.Next(1, 100) + ".Pdf";
                 var filePathName = path + filename;
                 var result = await _empresaContext.Acciones.FirstOrDefaultAsync(i => i.ID == id);
+                var responsable = _empresaContext.Users.Where(u => u.ID == result.UserID).FirstOrDefault();
+
+                // Capturar firma electrónica
+                string signatureBase64;
+
+                if (responsable.FirmaElectronica != null)
+                {
+                    signatureBase64 = Convert.ToBase64String(responsable.FirmaElectronica);
+                }
+                else
+                {
+                    signatureBase64 = "Sin firmar";
+                }
+
+                Session["signatureUser"] = signatureBase64;
+
                 var model = _converterHelper.ToAccionVMFull(result, 1);
                 var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == 1);
                 ViewBag.formato = document.Formato;

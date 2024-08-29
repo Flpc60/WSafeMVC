@@ -7,10 +7,12 @@
     {
         public override void Up()
         {
+            AddColumn("dbo.Users", "ResponsableSgsst", c => c.Boolean(nullable: false));
         }
         
         public override void Down()
         {
+            DropColumn("dbo.Users", "ResponsableSgsst");
         }
     }
 }
