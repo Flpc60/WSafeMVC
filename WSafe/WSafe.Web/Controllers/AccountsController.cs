@@ -215,7 +215,6 @@ namespace WSafe.Web.Controllers
             }
             return View(user);
         }
-        //public async Task<ActionResult> CreateUser([Bind(Include = "ID,Name,Email,Password,RoleID,OrganizationID,ClientID,RegisterDate,FirmaElectronica")] User model)
 
         [HttpPost]
         public async Task<ActionResult> CreateUser([Bind(Include = "ID,Name,Email,Password,RoleID,OrganizationID,ClientID,FirmaElectronica,ResponsableSgsst")] User model)
@@ -248,7 +247,18 @@ namespace WSafe.Web.Controllers
                     }
                     else
                     {
-                        message = "El Usuario ya fué registrado en otro momento !!";
+                        model.Password = password;
+                        model.RegisterDate = DateTime.Now;
+                        User user = _empresaContext.Users
+                                    .FirstOrDefault(u => u.Name == model.Name.Trim() &&
+                                                         u.Email == model.Email.Trim() &&
+                                                         u.Password == model.Password);
+                        user.ResponsableSgsst = model.ResponsableSgsst;
+                        user.FirmaElectronica = model.FirmaElectronica;
+
+                        _empresaContext.Entry(user).State = EntityState.Modified;
+                        await _empresaContext.SaveChangesAsync();
+                        message = "El Usuario se ha actualizado correctamente !!";
                     }
                 }
                 else

@@ -133,12 +133,13 @@
             <div class="tabValidation">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="form-group d-flex align-items-center">
+                        <div class="form-group">
+                            <hr />
                             <i class="fa fa-users"></i>
-                            <label for="responsableSgsst" style="margin-right: 10px;">Es el usuario responsable del SG-SST ?:</label>
-                            <div class="form-check">
+                            <label for="responsableSgsst"> ¿Es el usuario responsable del SG-SST?</label>
+                            <div class="form-check form-check-inline" style="margin-left: 15px;">
                                 <input class="form-check-input" type="checkbox" id="responsableSgsst" name="responsableSgsst">
-                                <label class="form-check-label" for="responsableSgsst">Sí</label>
+                                <label class="form-check-label" for="responsableSgsst" style="font-size: 1.5rem; margin-left: 10px;">Sí</label>
                             </div>
                         </div>
                     </div>
@@ -160,9 +161,9 @@
                 <div class="col-md-2">
                 </div>
                 <div class="col-md-8">
-                    <br /><button type="button" class="btn btn-info btn-lg btn-block" onclick="validateRegister();">Registrar usuario</button>
-                    <button type="button" class="btn btn-success btn-lg btn-block" onclick="LoginUser()">Iniciar sesión</button>
-                    <button type="button" class="btn btn-danger btn-lg btn-block" onclick="logout()">Cerrar sesión</button>
+                    <br /><button type="button" id="btnValidate" class="btn btn-info btn-lg btn-block" onclick="validateRegister();">Registrarse</button>
+                    <button type="button" id="btnLogin" class="btn btn-success btn-lg btn-block" onclick="LoginUser()">Iniciar sesión</button>
+                    <button type="button" id="btnLogout" class="btn btn-danger btn-lg btn-block" onclick="logout()">Cerrar sesión</button>
                 </div>
                 <div class="col-md-2">
                 </div>
@@ -246,6 +247,9 @@
 
         function validateRegister() {
             $(".tabValidation").css("display", "block");
+            $("#btnValidate").hide();
+            $("#btnLogin").hide();
+            $("#btnLogout").hide();
             return true;
         }
 
