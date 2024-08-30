@@ -3273,6 +3273,9 @@ function AddTask() {
 
 function AddUser() {
     let signature = canvas.toDataURL('image/png').replace(/^data:image\/(png|jpg);base64,/, "");
+    let responsable = false;
+    if ($("#responsableSgsst").is(':checked')) { responsable = true; }
+
 
     var user = {
         ID: "0",
@@ -3283,7 +3286,7 @@ function AddUser() {
         OrganizationID: "0",
         ClientID: $("#clientID").val(),
         FirmaElectronica: signature,
-        ResponsableSgsst: $("#responsableSgsst").val()
+        ResponsableSgsst: responsable
     };
 
     $.ajax({
