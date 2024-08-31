@@ -28,7 +28,7 @@ namespace WSafe.Domain.Helpers.Implements
 
             list.Insert(0, new SelectListItem
             {
-                Text = "(Seleccione una actividad ...)",
+                Text = "(Crear una actividad ...)",
                 Value = "0"
             });
 
@@ -172,7 +172,7 @@ namespace WSafe.Domain.Helpers.Implements
 
             list.Insert(0, new SelectListItem
             {
-                Text = "(Seleccione un proceso...)",
+                Text = "(Crear un proceso...)",
                 Value = "0"
             });
 
@@ -191,7 +191,7 @@ namespace WSafe.Domain.Helpers.Implements
 
             list.Insert(0, new SelectListItem
             {
-                Text = "(Seleccione una tarea...)",
+                Text = "(Crear una tarea...)",
                 Value = "0"
             });
 
@@ -216,27 +216,6 @@ namespace WSafe.Domain.Helpers.Implements
 
             return list;
         }
-        /*
-        public IEnumerable<SelectListItem> GetComboTrabajadores(int org)
-        {
-            var list = _empresaContext.Trabajadores.Where(t =>t.OrganizationID == org).Select(t => new SelectListItem
-            {
-                Text = t.Nombres + " " + t.PrimerApellido + " " + t.Documento,
-                Value = t.ID.ToString()
-            })
-                .OrderBy(t => t.Text)
-                .ToList();
-
-            list.Insert(0, new SelectListItem
-            {
-                Text = "(Seleccione un trabajador...)",
-                Value = "0"
-            });
-
-            return list;
-        }
-        */
-
         public IEnumerable<SelectListItem> GetComboTrabajadores(int org)
         {
             var trabajadores = _empresaContext.Trabajadores.Where(t => t.OrganizationID == org).ToList();

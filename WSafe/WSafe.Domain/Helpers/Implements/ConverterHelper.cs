@@ -665,7 +665,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Observation = plan.Observation,
                 OrganizationID = plan.OrganizationID,
                 ClientID = plan.ClientID,
-                UserID = plan.UserID
+                UserID = plan.UserID,
+                Effectiveness = plan.Effectiveness
             };
             return result;
         }
@@ -715,7 +716,8 @@ namespace WSafe.Domain.Helpers.Implements
                     ActionCategory = item.ActionCategory,
                     OrganizationID = item.OrganizationID,
                     ClientID = item.ClientID,
-                    UserID = item.UserID
+                    UserID = item.UserID,
+                    Effectiveness = item.Effectiveness
                 });
             }
             return model;
