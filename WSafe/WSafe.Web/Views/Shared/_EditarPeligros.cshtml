@@ -1,4 +1,16 @@
 ﻿@model WSafe.Web.Models.RiesgoViewModel
+
+<style>
+    .tabAddZones {
+        display: none;
+        margin-left:40%;
+        text-align:center;
+        font-size:16px;
+        padding:0;
+    }
+
+</style>
+
 <div class="container" style="background-color: azure">
     <div class="row">
         <div class="col-md-6">
@@ -19,6 +31,22 @@
                     @Html.ValidationMessageFor(model => model.ProcesoID, "", new { @class = "text-danger" })
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="tabAddZones">
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="input-group">
+                            <input type="text" id="txtZone" name="txtZone" placeholder="Ingrese nombre de la zona ..." class="form-control" size="200"/>
+                            <button type="button" class="btn btn-secondary" onclick="AddZone()">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
         </div>
     </div>
     <div class="row">
