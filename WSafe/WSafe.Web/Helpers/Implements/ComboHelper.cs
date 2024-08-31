@@ -210,7 +210,7 @@ namespace WSafe.Domain.Helpers.Implements
 
             list.Insert(0, new SelectListItem
             {
-                Text = "(Seleccione una zona...)",
+                Text = "(Crear una zona ...)",
                 Value = "0"
             });
 

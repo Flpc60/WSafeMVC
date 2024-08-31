@@ -3179,6 +3179,8 @@ function AddZone() {
             $("#txtZone").val("");
             $(".tabAddZones").css("display", "none");
             alert(response.mensaj);
+            location.reload();
+
             ShowZones();
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -3821,6 +3823,14 @@ function gestorRiesgos() {
         $("#btnAddPlan").show();
         $("#btnCanPlan").show();
         $("#btnUpdPlan").hide();
+    });
+    $("#zona").click(function () {
+        if ($("#zona").val() == '0') {
+            $(".tabAddZones").css("display", "block");
+            $(".txtZone").val("");
+        } else {
+            $(".tabAddZones").css("display", "none");
+        }
     });
 }
 
