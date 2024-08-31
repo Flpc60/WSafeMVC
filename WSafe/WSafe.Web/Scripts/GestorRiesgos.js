@@ -3209,6 +3209,7 @@ function AddProcess() {
             $("#txtProcess").val("");
             $(".tabAddProcess").css("display", "none");
             alert(response.mensaj);
+            location.reload();
             ShowProcess();
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -3237,6 +3238,7 @@ function AddActivity() {
             $("#txtActivity").val("");
             $(".tabAddActivitys").css("display", "none");
             alert(response.mensaj);
+            location.reload();
             ShowActivitys();
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -3263,7 +3265,9 @@ function AddTask() {
             $("#btnAddTask").hide();
             $("#btnCanTask").hide();
             $("#txtDescripcion").val("");
+            $(".tabAddTasks").css("display", "none");
             alert(response.mensaj);
+            location.reload();
             ShowTasks();
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -3830,6 +3834,30 @@ function gestorRiesgos() {
             $(".txtZone").val("");
         } else {
             $(".tabAddZones").css("display", "none");
+        }
+    });
+    $("#proceso").click(function () {
+        if ($("#proceso").val() == '0') {
+            $(".tabAddProcess").css("display", "block");
+            $(".txtProcess").val("");
+        } else {
+            $(".tabAddProcess").css("display", "none");
+        }
+    });
+    $("#activity").click(function () {
+        if ($("#activity").val() == '0') {
+            $(".tabAddActivitys").css("display", "block");
+            $(".txtActivity").val("");
+        } else {
+            $(".tabAddActivitys").css("display", "none");
+        }
+    });
+    $("#tarea").click(function () {
+        if ($("#tarea").val() == '0') {
+            $(".tabAddTasks").css("display", "block");
+            $(".txtDescripcion").val("");
+        } else {
+            $(".tabAddTasks").css("display", "none");
         }
     });
 }
