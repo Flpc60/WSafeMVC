@@ -127,7 +127,7 @@ namespace WSafe.Web.Controllers
                     _empresaContext.Zonas.Add(model);
                     await _empresaContext.SaveChangesAsync();
                     message = "La zona fue ingresada correctamente !!";
-                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                    return Json(new { id = model.ID, name = model.Descripcion, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
                 message = "La zona NO fue ingresada correctamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
@@ -198,7 +198,7 @@ namespace WSafe.Web.Controllers
                     _empresaContext.Procesos.Add(model);
                     await _empresaContext.SaveChangesAsync();
                     message = "El proceso fué ingresado correctamente !!";
-                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                    return Json(new { id = model.ID, name = model.Descripcion, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
                 message = "El proceso NO fué ingresado correctamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
@@ -270,7 +270,7 @@ namespace WSafe.Web.Controllers
                     _empresaContext.Actividades.Add(model);
                     await _empresaContext.SaveChangesAsync();
                     message = "La actividad fué imgresada correctamente !!";
-                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                    return Json(new { id = model.ID, name = model.Descripcion, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
                 message = "La actividad NO fué imgresada correctamente !!";
                 return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
@@ -342,7 +342,7 @@ namespace WSafe.Web.Controllers
                     _empresaContext.Tareas.Add(model);
                     await _empresaContext.SaveChangesAsync();
                     message = "La tarea fué ingresada correctamente !!";
-                    return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);
+                    return Json(new { id = model.ID, name = model.Descripcion, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
                 message = "La tarea NO fué ingresada correctamente !!";
                 return Json(new { data = true, mensaj = message }, JsonRequestBehavior.AllowGet);

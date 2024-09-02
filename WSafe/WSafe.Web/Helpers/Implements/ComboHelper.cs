@@ -28,7 +28,7 @@ namespace WSafe.Domain.Helpers.Implements
 
             list.Insert(0, new SelectListItem
             {
-                Text = "(Crear una actividad ...)",
+                Text = "(Seleccione una actividad ...)",
                 Value = "0"
             });
 
@@ -172,7 +172,7 @@ namespace WSafe.Domain.Helpers.Implements
 
             list.Insert(0, new SelectListItem
             {
-                Text = "(Crear un proceso...)",
+                Text = "(Seleccione un proceso ...)",
                 Value = "0"
             });
 
@@ -191,7 +191,7 @@ namespace WSafe.Domain.Helpers.Implements
 
             list.Insert(0, new SelectListItem
             {
-                Text = "(Crear una tarea...)",
+                Text = "(Seleccione una tarea...)",
                 Value = "0"
             });
 
@@ -210,7 +210,7 @@ namespace WSafe.Domain.Helpers.Implements
 
             list.Insert(0, new SelectListItem
             {
-                Text = "(Crear una zona ...)",
+                Text = "(Seleccione una zona ...)",
                 Value = "0"
             });
 

@@ -3177,9 +3177,16 @@ function AddZone() {
             $("#btnAddZone").hide();
             $("#btnCanZone").hide();
             $("#txtZone").val("");
+            $("#zona").val(zoneVM.Descripcion);
             $(".tabAddZones").css("display", "none");
-            alert(response.mensaj);
-            location.reload();
+            $('#zona').append($('<option>', {
+                value: response.id,
+                text: response.name,
+                selected: true
+            }));
+            $('#createZoneModal').modal('hide');
+            //alert(response.mensaj);
+            //location.reload();
 
             ShowZones();
         },
@@ -3208,8 +3215,15 @@ function AddProcess() {
             $("#btnCanProcess").hide();
             $("#txtProcess").val("");
             $(".tabAddProcess").css("display", "none");
-            alert(response.mensaj);
-            location.reload();
+            $('#proceso').append($('<option>', {
+                value: response.id,
+                text: response.name,
+                selected: true
+            }));
+            $('#createProcessModal').modal('hide');
+            //alert(response.mensaj);
+            //location.reload();
+
             ShowProcess();
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -3237,8 +3251,15 @@ function AddActivity() {
             $("#btnCanActivity").hide();
             $("#txtActivity").val("");
             $(".tabAddActivitys").css("display", "none");
-            alert(response.mensaj);
-            location.reload();
+            $('#activity').append($('<option>', {
+                value: response.id,
+                text: response.name,
+                selected: true
+            }));
+            $('#createActivityModal').modal('hide');
+            //alert(response.mensaj);
+            //location.reload();
+
             ShowActivitys();
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -3266,8 +3287,15 @@ function AddTask() {
             $("#btnCanTask").hide();
             $("#txtDescripcion").val("");
             $(".tabAddTasks").css("display", "none");
-            alert(response.mensaj);
-            location.reload();
+            $('#tarea').append($('<option>', {
+                value: response.id,
+                text: response.name,
+                selected: true
+            }));
+            $('#createTaskModal').modal('hide');
+            //alert(response.mensaj);
+            //location.reload();
+
             ShowTasks();
         },
         error: function (xhr, ajaxOptions, thrownError) {
