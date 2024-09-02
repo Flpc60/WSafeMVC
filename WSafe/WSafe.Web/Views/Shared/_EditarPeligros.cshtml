@@ -8,7 +8,6 @@
         font-size: 16px;
         padding: 0;
     }
-
 </style>
 
 <div class="container" style="background-color: azure">
@@ -16,44 +15,60 @@
         <div class="col-md-6">
             <div class="form-group">
                 <input type="hidden" id="txtRiesgoID" name="txtRiesgoID" />
-                @Html.LabelFor(model => model.ZonaID, htmlAttributes: new { @class = "control-label col-md-3" })
-                <div class="col-md-8 col-sm-10">
+                @Html.LabelFor(model => model.ZonaID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10 col-sm-10">
                     @Html.DropDownListFor(model => model.ZonaID, Model.Zonas, new { @class = "form-control", @id = "zona" })
                     @Html.ValidationMessageFor(model => model.ZonaID, "", new { @class = "text-danger" })
+                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#createZoneModal">Crear nueva zona</button>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                @Html.LabelFor(model => model.ProcesoID, htmlAttributes: new { @class = "control-label col-md-3" })
-                <div class="col-md-8 col-sm-10">
+                @Html.LabelFor(model => model.ProcesoID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10 col-sm-10">
                     @Html.DropDownListFor(model => model.ProcesoID, Model.Procesos, new { @class = "form-control", @id = "proceso" })
                     @Html.ValidationMessageFor(model => model.ProcesoID, "", new { @class = "text-danger" })
+                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#createProcessModal">Crear nuevo proceso</button>
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="tabAddZones">
-            <div class="col-md-6">
-                <div class="form-group row">
-                    <div class="col-md-12 col-sm-12">
-                        <div class="input-group">
-                            <input type="text" id="txtZone" name="txtZone" placeholder="Ingrese nombre de la zona ..." class="form-control" size="200" />
-                            <button type="button" class="btn btn-secondary" onclick="AddZone()">Guardar</button>
-                        </div>
+        <div class="modal fade" id="createZoneModal" tabindex="-1" role="dialog" aria-labelledby="createZoneModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createZoneModalLabel">Crear nueva zona</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" id="txtZone" class="form-control" placeholder="Ingrese nombre de la zona" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" onclick="AddZone()">Guardar</button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="tabAddProcess">
-            <div class="col-md-6">
-                <div class="form-group row">
-                    <div class="col-md-12 col-sm-12">
-                        <div class="input-group">
-                            <input type="text" id="txtProcess" name="txtProcess" placeholder="Ingrese nombre del proceso ..." class="form-control" size="200" />
-                            <button type="button" class="btn btn-secondary" onclick="AddProcess()">Guardar</button>
-                        </div>
+        <div class="modal fade" id="createProcessModal" tabindex="-1" role="dialog" aria-labelledby="createProcessModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createProcessModalLabel">Crear nuevo proceso</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" id="txtProcess" class="form-control" placeholder="Ingrese nombre del proceso" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" onclick="AddProcess()">Guardar</button>
                     </div>
                 </div>
             </div>
@@ -62,44 +77,60 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                @Html.LabelFor(model => model.ActividadID, htmlAttributes: new { @class = "control-label col-md-3" })
-                <div class="col-md-8 col-sm-10">
+                @Html.LabelFor(model => model.ActividadID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10 col-sm-10">
                     @Html.DropDownListFor(model => model.ActividadID, Model.Actividades, new { @class = "form-control", @id = "activity" })
                     @Html.ValidationMessageFor(model => model.ActividadID, "", new { @class = "text-danger" })
+                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#createActivityModal">Crear nueva actividad</button>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                @Html.LabelFor(model => model.TareaID, htmlAttributes: new { @class = "control-label col-md-3" })
-                <div class="col-md-8 col-sm-10">
+                @Html.LabelFor(model => model.TareaID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10 col-sm-10">
                     @Html.DropDownListFor(model => model.TareaID, Model.Tareas, new { @class = "form-control", @id = "tarea" })
                     @Html.ValidationMessageFor(model => model.TareaID, "", new { @class = "text-danger" })
+                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#createTaskModal">Crear nueva tarea</button>
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="tabAddActivitys">
-            <div class="col-md-6">
-                <div class="form-group row">
-                    <div class="col-md-12 col-sm-12">
-                        <div class="input-group">
-                            <input type="text" id="txtActivity" name="txtActivity" placeholder="Ingrese nombre de la actividad ..." class="form-control" size="200" />
-                            <button type="button" class="btn btn-secondary" onclick="AddActivity()">Guardar</button>
-                        </div>
+        <div class="modal fade" id="createActivityModal" tabindex="-1" role="dialog" aria-labelledby="createActivityModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createActivityModalLabel">Crear nueva actividad</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" id="txtActivity" class="form-control" placeholder="Ingrese nombre de la actividad" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" onclick="AddActivity()">Guardar</button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="tabAddTasks">
-            <div class="col-md-6">
-                <div class="form-group row">
-                    <div class="col-md-12 col-sm-12">
-                        <div class="input-group">
-                            <input type="text" id="txtDescripcion" name="txtDescripcion" placeholder="Ingrese nombre de la tarea ..." class="form-control" size="200" />
-                            <button type="button" class="btn btn-secondary" onclick="AddTask()">Guardar</button>
-                        </div>
+        <div class="modal fade" id="createTaskModal" tabindex="-1" role="dialog" aria-labelledby="createTaskModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createTaskModalLabel">Crear nueva tarea</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" id="txtDescripcion" class="form-control" placeholder="Ingrese nombre de la actividad" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" onclick="AddTask()">Guardar</button>
                     </div>
                 </div>
             </div>
