@@ -3161,7 +3161,7 @@ function AddNewCargo() {
     });
 }
 
-function AddZone() {
+function AddZone(show) {
     // Crea un nueva zona
     var zoneVM = {
         ID: "0",
@@ -3185,10 +3185,11 @@ function AddZone() {
                 selected: true
             }));
             $('#createZoneModal').modal('hide');
-            //alert(response.mensaj);
-            //location.reload();
-
-            ShowZones();
+            if (show) {
+                alert(response.mensaj);
+                ShowZones();
+                $("#addZone").focus();
+            }
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -3197,7 +3198,7 @@ function AddZone() {
     });
 }
 
-function AddProcess() {
+function AddProcess(show) {
     // Crea un nuevo process
     $(".tabAddProcess").css("display", "none");
     var processVM = {
@@ -3221,10 +3222,11 @@ function AddProcess() {
                 selected: true
             }));
             $('#createProcessModal').modal('hide');
-            //alert(response.mensaj);
-            //location.reload();
-
-            ShowProcess();
+            if (show) {
+                alert(response.mensaj);
+                ShowProcess();
+                $("#addProcess").focus();
+            }
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -3233,7 +3235,7 @@ function AddProcess() {
     });
 }
 
-function AddActivity() {
+function AddActivity(show) {
     // Crea una nueva activity
     $(".tabAddActivity").css("display", "none");
     var activityVM = {
@@ -3257,10 +3259,11 @@ function AddActivity() {
                 selected: true
             }));
             $('#createActivityModal').modal('hide');
-            //alert(response.mensaj);
-            //location.reload();
-
-            ShowActivitys();
+            if (show) {
+                alert(response.mensaj);
+                ShowActivitys();
+                $("#addActivity").focus();
+            }
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -3269,7 +3272,7 @@ function AddActivity() {
     });
 }
 
-function AddTask() {
+function AddTask(show) {
     // Crea una nueva tarea
     $(".tabAddTasks").css("display", "none");
     var taskVM = {
@@ -3293,10 +3296,11 @@ function AddTask() {
                 selected: true
             }));
             $('#createTaskModal').modal('hide');
-            //alert(response.mensaj);
-            //location.reload();
-
-            ShowTasks();
+            if (show) {
+                alert(response.mensaj);
+                ShowTasks();
+                $("#addTask").focus();
+            }
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
