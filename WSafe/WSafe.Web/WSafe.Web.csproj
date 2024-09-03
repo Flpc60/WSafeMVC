@@ -508,33 +508,9 @@
     <Compile Include="Helpers\Implements\ConverterHelper.cs" />
     <Compile Include="Helpers\Implements\GestorHelper.cs" />
     <Compile Include="Helpers\Implements\IndicadorHelper.cs" />
-    <Compile Include="Migrations\202407191626344_UpdateAplicationVM.cs" />
-    <Compile Include="Migrations\202407191626344_UpdateAplicationVM.designer.cs">
-      <DependentUpon>202407191626344_UpdateAplicationVM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202407210015421_CrtControlTrace.cs" />
-    <Compile Include="Migrations\202407210015421_CrtControlTrace.designer.cs">
-      <DependentUpon>202407210015421_CrtControlTrace.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202407241720307_UpdTableRisk.cs" />
-    <Compile Include="Migrations\202407241720307_UpdTableRisk.designer.cs">
-      <DependentUpon>202407241720307_UpdTableRisk.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202407242146136_UpdRiesgoVM.cs" />
-    <Compile Include="Migrations\202407242146136_UpdRiesgoVM.designer.cs">
-      <DependentUpon>202407242146136_UpdRiesgoVM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202408221709402_CreateMainCause.cs" />
-    <Compile Include="Migrations\202408221709402_CreateMainCause.designer.cs">
-      <DependentUpon>202408221709402_CreateMainCause.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202408222211264_UpdActionTable.cs" />
-    <Compile Include="Migrations\202408222211264_UpdActionTable.designer.cs">
-      <DependentUpon>202408222211264_UpdActionTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202408291657294_updUser.cs" />
-    <Compile Include="Migrations\202408291657294_updUser.designer.cs">
-      <DependentUpon>202408291657294_updUser.cs</DependentUpon>
+    <Compile Include="Migrations\202409031734341_updateremoteDB.cs" />
+    <Compile Include="Migrations\202409031734341_updateremoteDB.designer.cs">
+      <DependentUpon>202409031734341_updateremoteDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
@@ -1321,26 +1297,8 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202407191626344_UpdateAplicationVM.resx">
-      <DependentUpon>202407191626344_UpdateAplicationVM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202407210015421_CrtControlTrace.resx">
-      <DependentUpon>202407210015421_CrtControlTrace.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202407241720307_UpdTableRisk.resx">
-      <DependentUpon>202407241720307_UpdTableRisk.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202407242146136_UpdRiesgoVM.resx">
-      <DependentUpon>202407242146136_UpdRiesgoVM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202408221709402_CreateMainCause.resx">
-      <DependentUpon>202408221709402_CreateMainCause.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202408222211264_UpdActionTable.resx">
-      <DependentUpon>202408222211264_UpdActionTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202408291657294_updUser.resx">
-      <DependentUpon>202408291657294_updUser.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202409031734341_updateremoteDB.resx">
+      <DependentUpon>202409031734341_updateremoteDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
