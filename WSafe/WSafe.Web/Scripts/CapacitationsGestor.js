@@ -657,16 +657,42 @@ function addMainCause() {
         dataType: "json",
         contentType: 'application/json; charset=utf-8',
         async: true,
-        success: function (result) {
-            if (result.success) {
-                alert("Causa principal adicionada !!");
+        success: function (response) {
+            if (response.success) {
+                //alert("Causa principal adicionada !!");
                 $(".tabAddCause").css("display", "none");
                 $("#btnAdddCause").show();
-                //location.reload();
+                $("#mainCause").val("");
+                $('#cause1').append($('<option>', {
+                    value: response.id,
+                    text: response.name,
+                    //selected: true
+                }));
+                $('#cause2').append($('<option>', {
+                    value: response.id,
+                    text: response.name,
+                    //selected: true
+                }));
+                $('#cause3').append($('<option>', {
+                    value: response.id,
+                    text: response.name,
+                    //selected: true
+                }));
+                $('#cause4').append($('<option>', {
+                    value: response.id,
+                    text: response.name,
+                    //selected: true
+                }));
+                $('#cause5').append($('<option>', {
+                    value: response.id,
+                    text: response.name,
+                    //selected: true
+                }));
+
+                $('#createCauseModal').modal('hide');
             } else {
-                alert("Error: " + result.message);
+                alert("Error: " + response.message);
             }
-            $(".tabAddMainCause").css("display", "none");
         },
         error: function (xhr, status, error) {
             alert("Error del servidor: " + error);
@@ -817,4 +843,30 @@ function aceptabilidadRiesgo() {
     $('#updTxtAceptability').text(txtAceptability);
     $('#updTxtAceptability').css({ "backgroundColor": colorStyle, "font-size": "100%", "color": "white" });
     $('#updAceptabilidad').val(aceptability);
+}
+
+function validateCauses(mainCause) {
+    var cause1 = document.getElementById("cause1").value;
+    var cause2 = document.getElementById("cause2").value;
+    var cause3 = document.getElementById("cause3").value;
+    var cause4 = document.getElementById("cause4").value;
+    var cause5 = document.getElementById("cause5").value;
+
+    var causes = [cause1, cause2, cause3, cause4, cause5];
+
+    // Filtra los valores vacíos (en caso de que no todos los campos sean obligatorios)
+    var filteredCauses = causes.filter(function (value) {
+        return value !== "";
+    });
+
+    // Crea un set para verificar si hay duplicados
+    var uniqueCauses = new Set(filteredCauses);
+
+    if (uniqueCauses.size !== filteredCauses.length) {
+        alert("Esta causa ya la seleccionaste, selecciona  una nueva causa !!");
+        $(mainCause).val('0');
+        return false;
+    } else {
+        return true;
+    }
 }

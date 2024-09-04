@@ -1,5 +1,5 @@
 ﻿// Agregar funcionlidad del lado del cliente...
-// Implementar UI
+// Implementar UI...
 
 function viewHistory() {
     //    $(".tabMediAplica").css("display", "none");
@@ -2157,7 +2157,6 @@ function GestorActions() {
             $("#txtActionCategory").prop('disabled', false); // Habilita el campo si no está marcado
         }
     });
-
 }
 
 function GestorAuthorization() {
@@ -3859,38 +3858,6 @@ function gestorRiesgos() {
         $("#btnAddPlan").show();
         $("#btnCanPlan").show();
         $("#btnUpdPlan").hide();
-    });
-    $("#zona").click(function () {
-        if ($("#zona").val() == '0') {
-            $(".tabAddZones").css("display", "block");
-            $(".txtZone").val("");
-        } else {
-            $(".tabAddZones").css("display", "none");
-        }
-    });
-    $("#proceso").click(function () {
-        if ($("#proceso").val() == '0') {
-            $(".tabAddProcess").css("display", "block");
-            $(".txtProcess").val("");
-        } else {
-            $(".tabAddProcess").css("display", "none");
-        }
-    });
-    $("#activity").click(function () {
-        if ($("#activity").val() == '0') {
-            $(".tabAddActivitys").css("display", "block");
-            $(".txtActivity").val("");
-        } else {
-            $(".tabAddActivitys").css("display", "none");
-        }
-    });
-    $("#tarea").click(function () {
-        if ($("#tarea").val() == '0') {
-            $(".tabAddTasks").css("display", "block");
-            $(".txtDescripcion").val("");
-        } else {
-            $(".tabAddTasks").css("display", "none");
-        }
     });
 }
 
