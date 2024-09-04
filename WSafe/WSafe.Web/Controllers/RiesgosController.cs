@@ -666,7 +666,7 @@ namespace WSafe.Web.Controllers
                     _empresaContext.MainCauses.Add(model);
                     await _empresaContext.SaveChangesAsync();
 
-                    return Json(new { success = true });
+                    return Json(new { id = model.ID, name = model.Name, success = true, message = "Registro ingresado !!" }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
