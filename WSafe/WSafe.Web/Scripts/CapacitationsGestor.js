@@ -845,7 +845,7 @@ function aceptabilidadRiesgo() {
     $('#updAceptabilidad').val(aceptability);
 }
 
-function validateCauses(mainCause) {
+function validateCauses(mainCauseId) {
     var cause1 = document.getElementById("cause1").value;
     var cause2 = document.getElementById("cause2").value;
     var cause3 = document.getElementById("cause3").value;
@@ -854,17 +854,18 @@ function validateCauses(mainCause) {
 
     var causes = [cause1, cause2, cause3, cause4, cause5];
 
-    // Filtra los valores vacíos (en caso de que no todos los campos sean obligatorios)
+    // Filtra los valores vacíos y aquellos que tengan valor '0'
     var filteredCauses = causes.filter(function (value) {
-        return value !== "";
+        return value !== "" && value !== '0';
     });
 
     // Crea un set para verificar si hay duplicados
     var uniqueCauses = new Set(filteredCauses);
 
     if (uniqueCauses.size !== filteredCauses.length) {
-        alert("Esta causa ya la seleccionaste, selecciona  una nueva causa !!");
-        $(mainCause).val('0');
+        alert("Esta causa ya la seleccionaste, selecciona una nueva causa!!");
+        // Resetea el valor del dropdown que generó el evento
+        document.getElementById(mainCauseId).value = '0';
         return false;
     } else {
         return true;
