@@ -627,14 +627,20 @@ function addNewControl() {
         dataType: "json",
         contentType: 'application/json; charset=utf-8',
         async: true,
-        success: function (result) {
-            if (result.success) {
-                alert("Control adicionado !!");
-                location.reload();
-            } else {
-                alert("Error: " + result.message);
-            }
-            $(".tabAddControl").css("display", "none");
+        success: function (response) {
+            $('#controlMedidaID').append($('<option>', {
+                value: response.id,
+                text: response.name,
+                selected: true
+            }));
+            $('#createControlModal').modal('hide');
+            $("#description").val("");
+            $("#beneficio").val("");
+            $("#categoriaApp").val("");
+            $("#finalidad").val("");
+            $("#intervencion").val("");
+            $("#presupuesto").val("");
+            $("#intervencion").val("");
         },
         error: function (xhr, status, error) {
             alert("Error del servidor: " + error);
@@ -869,5 +875,37 @@ function validateCauses(mainCauseId) {
         return false;
     } else {
         return true;
+    }
+}
+
+function filterPeligros(id) {
+    var selectedCategoria = $("#categoria").val();
+    var peligroSelect = $('#peligro');
+    peligroSelect.empty();
+    if (selectedCategoria != null && selectedCategoria != '') {
+        $.ajax({
+            async: true,
+            type: 'GET',
+            url: "/Riesgos/GetPeligros",
+            data: {
+                id: id
+            },
+            dataType: "json",
+            contentType: "application/json;charset=UTF-8",
+            success: function (response) {
+                if (response != null && !jQuery.isEmptyObject(response)) {
+                    $.each(response, function (index, item) {
+                        peligroSelect.append($('<option />',
+                            {
+                                value: item.Value,
+                                text: item.Text
+                            }));
+                    });
+                };
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
     }
 }

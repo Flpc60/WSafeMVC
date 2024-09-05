@@ -640,7 +640,7 @@ namespace WSafe.Web.Controllers
                     _empresaContext.Controls.Add(model);
                     await _empresaContext.SaveChangesAsync();
 
-                    return Json(new { success = true });
+                    return Json(new { id = model.ID, name = model.Description, success = true });
                 }
                 else
                 {
