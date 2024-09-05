@@ -127,7 +127,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.MainCause1ID, htmlAttributes: new { @class = "control-label col-md-3" })
                     <div class="col-md-9">
-                        @Html.DropDownListFor(model => model.MainCause1ID, Model.Causes, new { @class = "form-control", @id = "cause1", @onchange = "validateCauses(this)" })
+                        @Html.DropDownListFor(model => model.MainCause1ID, Model.Causes, new { @class = "form-control", @id = "cause1", @onchange = "validateCauses(this.id)" })
                         @Html.ValidationMessageFor(model => model.MainCause1ID, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -136,7 +136,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.MainCause2ID, htmlAttributes: new { @class = "control-label col-md-3" })
                     <div class="col-md-9">
-                        @Html.DropDownListFor(model => model.MainCause2ID, Model.Causes, new { @class = "form-control", @id = "cause2", @onchange = "validateCauses(this)" })
+                        @Html.DropDownListFor(model => model.MainCause2ID, Model.Causes, new { @class = "form-control", @id = "cause2", @onchange = "validateCauses(this.id)" })
                         @Html.ValidationMessageFor(model => model.MainCause2ID, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -148,7 +148,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.MainCause3ID, htmlAttributes: new { @class = "control-label col-md-3" })
                     <div class="col-md-9">
-                        @Html.DropDownListFor(model => model.MainCause3ID, Model.Causes, new { @class = "form-control", @id = "cause3", @onchange = "validateCauses(this)" })
+                        @Html.DropDownListFor(model => model.MainCause3ID, Model.Causes, new { @class = "form-control", @id = "cause3", @onchange = "validateCauses(this.id)" })
                         @Html.ValidationMessageFor(model => model.MainCause3ID, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -157,7 +157,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.MainCause4ID, htmlAttributes: new { @class = "control-label col-md-3" })
                     <div class="col-md-9">
-                        @Html.DropDownListFor(model => model.MainCause4ID, Model.Causes, new { @class = "form-control", @id = "cause4", @onchange = "validateCauses(this)" })
+                        @Html.DropDownListFor(model => model.MainCause4ID, Model.Causes, new { @class = "form-control", @id = "cause4", @onchange = "validateCauses(this.id)" })
                         @Html.ValidationMessageFor(model => model.MainCause4ID, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -169,7 +169,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.MainCause5ID, htmlAttributes: new { @class = "control-label col-md-3" })
                     <div class="col-md-9">
-                        @Html.DropDownListFor(model => model.MainCause5ID, Model.Causes, new { @class = "form-control", @id = "cause5", @onchange = "validateCauses(this)" })
+                        @Html.DropDownListFor(model => model.MainCause5ID, Model.Causes, new { @class = "form-control", @id = "cause5", @onchange = "validateCauses(this.id)" })
                         @Html.ValidationMessageFor(model => model.MainCause5ID, "", new { @class = "text-danger" })
                     </div>
                 </div>

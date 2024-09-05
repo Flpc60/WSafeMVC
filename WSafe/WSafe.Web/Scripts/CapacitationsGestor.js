@@ -627,14 +627,20 @@ function addNewControl() {
         dataType: "json",
         contentType: 'application/json; charset=utf-8',
         async: true,
-        success: function (result) {
-            if (result.success) {
-                alert("Control adicionado !!");
-                location.reload();
-            } else {
-                alert("Error: " + result.message);
-            }
-            $(".tabAddControl").css("display", "none");
+        success: function (response) {
+            $('#controlMedidaID').append($('<option>', {
+                value: response.id,
+                text: response.name,
+                selected: true
+            }));
+            $('#createControlModal').modal('hide');
+            $("#description").val("");
+            $("#beneficio").val("");
+            $("#categoriaApp").val("");
+            $("#finalidad").val("");
+            $("#intervencion").val("");
+            $("#presupuesto").val("");
+            $("#intervencion").val("");
         },
         error: function (xhr, status, error) {
             alert("Error del servidor: " + error);
@@ -845,7 +851,7 @@ function aceptabilidadRiesgo() {
     $('#updAceptabilidad').val(aceptability);
 }
 
-function validateCauses(mainCause) {
+function validateCauses(mainCauseId) {
     var cause1 = document.getElementById("cause1").value;
     var cause2 = document.getElementById("cause2").value;
     var cause3 = document.getElementById("cause3").value;
@@ -854,19 +860,52 @@ function validateCauses(mainCause) {
 
     var causes = [cause1, cause2, cause3, cause4, cause5];
 
-    // Filtra los valores vacíos (en caso de que no todos los campos sean obligatorios)
+    // Filtra los valores vacíos y aquellos que tengan valor '0'
     var filteredCauses = causes.filter(function (value) {
-        return value !== "";
+        return value !== "" && value !== '0';
     });
 
     // Crea un set para verificar si hay duplicados
     var uniqueCauses = new Set(filteredCauses);
 
     if (uniqueCauses.size !== filteredCauses.length) {
-        alert("Esta causa ya la seleccionaste, selecciona  una nueva causa !!");
-        $(mainCause).val('0');
+        alert("Esta causa ya la seleccionaste, selecciona una nueva causa!!");
+        // Resetea el valor del dropdown que generó el evento
+        document.getElementById(mainCauseId).value = '0';
         return false;
     } else {
         return true;
+    }
+}
+
+function filterPeligros(id) {
+    var selectedCategoria = $("#categoria").val();
+    var peligroSelect = $('#peligro');
+    peligroSelect.empty();
+    if (selectedCategoria != null && selectedCategoria != '') {
+        $.ajax({
+            async: true,
+            type: 'GET',
+            url: "/Riesgos/GetPeligros",
+            data: {
+                id: id
+            },
+            dataType: "json",
+            contentType: "application/json;charset=UTF-8",
+            success: function (response) {
+                if (response != null && !jQuery.isEmptyObject(response)) {
+                    $.each(response, function (index, item) {
+                        peligroSelect.append($('<option />',
+                            {
+                                value: item.Value,
+                                text: item.Text
+                            }));
+                    });
+                };
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
     }
 }
