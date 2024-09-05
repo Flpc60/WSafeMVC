@@ -76,7 +76,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.CategoriasPeligro, htmlAttributes: new { @class = "control-label col-md-3" })
                 <div class="col-md-10 col-sm-10">
-                    @Html.DropDownListFor(model => model.CategoriaPeligroID, Model.CategoriasPeligro, new { @class = "form-control", @id = "categoria" })
+                    @Html.DropDownListFor(model => model.CategoriaPeligroID, Model.CategoriasPeligro, new { @class = "form-control", @id = "categoria", @onchange = "filterPeligros(this.value)" })
                     @Html.ValidationMessageFor(model => model.CategoriaPeligroID, "", new { @class = "text-danger" })
                 </div>
             </div>

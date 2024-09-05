@@ -34,18 +34,31 @@
             <div class="row">
                 <div class="col-md-10 col-sm-10 mb-2">
                     @Html.DropDownList("Controles", controls as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "controlMedidaID" })
-                </div>
-                <div class="col-md-2 col-sm-10 mb-2">
-                    <button type="button" class="btn btn-primary" id="btnAddControl">Adicionar control</button>
+                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#createControlModal">Crear nuevo control</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="row mb-3">
-        <div class="col-12 tabAddControl">
-            <input type="hidden" id="txtPlanAccionID" name="txtPlanAccionID" />
-            @Html.Partial("_EditControl")
+    <div class="row">
+        <div class="modal fade" id="createControlModal" tabindex="-1" role="dialog" aria-labelledby="createControlModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createControlModalLabel">Crear nuevo control</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        @Html.Partial("_EditControl")
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" onclick="addNewControl()">Guardar</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -178,16 +191,35 @@
             <div class="form-group">
                 <label class="control-label" for="idObserv">Observaciones:</label>
                 <textarea id="idObserv" class="form-control" rows="2" cols="90" required></textarea>
+                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#createSigueModal">Crear nuevo seguimiento</button>
+                <div class="col-12 d-flex justify-content-between">
+                    <button type="button" id="btnShowControlTrace" class="btn btn-success">Consultar seguimientos</button>
+                </div>
             </div>
         </div>
     </div>
-    <hr class="mt-4">
-    <div class="row form-section">
-        <div class="col-12 d-flex justify-content-between">
-            <button type="button" id="btnAddControlTrace" class="btn btn-warning">Adicionar seguimiento</button>
-            <button type="button" id="btnShowControlTrace" class="btn btn-success">Consultar seguimientos</button>
+    <div class="row">
+        <div class="modal fade" id="createSigueModal" tabindex="-1" role="dialog" aria-labelledby="createSigueModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createSigueModalLabel">Crear nuevo seguimiento</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        @Html.Partial("_EditControlTrace")
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" onclick="addControlTrace()">Guardar</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
     <hr class="mt-4">
     <div class="row form-section">
         <div class="col-12 d-flex justify-content-between">
@@ -208,7 +240,6 @@
             <input type="hidden" id="idTrabajador" name="idTrabajador" />
             <input type="hidden" id="idFuente" name="idFuente" />
             <input type="hidden" id="txtActionCategory" name="txtActionCategory" />
-            @Html.Partial("_EditControlTrace")
         </div>
     </div>
     <div class="row form-section">
