@@ -457,9 +457,10 @@ namespace WSafe.Web.Controllers
                 var filename = "ReporteAccion" + random.Next(1, 100) + ".Pdf";
                 var filePathName = path + filename;
                 var result = await _empresaContext.Acciones.FirstOrDefaultAsync(i => i.ID == id);
-                var responsable = _empresaContext.Users.Where(u => u.ID == result.UserID).FirstOrDefault();
 
                 // Capturar firma electrónica
+                var responsable = _empresaContext.Users.Where(u => u.ID == result.UserID).FirstOrDefault();
+
                 string signatureBase64;
 
                 if (responsable.Firma != null)
