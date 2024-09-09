@@ -909,3 +909,33 @@ function filterPeligros(id) {
         });
     }
 }
+
+function uploadSignature() {
+    var formData = new FormData();
+    var fileInput = $('#fileInput')[0].files[0];
+    if (fileInput) {
+        formData.append('file', fileInput);
+        formData.append("Name", $("#txtName").val());
+        formData.append("Email", $("#txtEmail").val());
+        formData.append("Password", $("#txtPassword").val());
+
+        $.ajax({
+            url: '/Accounts/UploadSignature',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                $('#uploadStatus').html('<p style="color: green;">Firma subida con éxito.</p>');
+                setTimeout(function () {
+                    location.reload();
+                }, 6000);
+            },
+            error: function () {
+                $('#uploadStatus').html('<p style="color: red;">Error al subir la firma.</p>');
+            }
+        });
+    } else {
+        alert("Por favor, seleccione un archivo.");
+    }
+}

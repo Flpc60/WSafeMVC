@@ -512,6 +512,10 @@
     <Compile Include="Migrations\202409031734341_updateremoteDB.designer.cs">
       <DependentUpon>202409031734341_updateremoteDB.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202409091618273_UpdUser.cs" />
+    <Compile Include="Migrations\202409091618273_UpdUser.designer.cs">
+      <DependentUpon>202409091618273_UpdUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -1299,6 +1303,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202409031734341_updateremoteDB.resx">
       <DependentUpon>202409031734341_updateremoteDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409091618273_UpdUser.resx">
+      <DependentUpon>202409091618273_UpdUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

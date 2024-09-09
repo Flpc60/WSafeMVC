@@ -462,13 +462,13 @@ namespace WSafe.Web.Controllers
                 // Capturar firma electrónica
                 string signatureBase64;
 
-                if (responsable.FirmaElectronica != null)
+                if (responsable.Firma != null)
                 {
-                    signatureBase64 = Convert.ToBase64String(responsable.FirmaElectronica);
+                    signatureBase64 = Convert.ToBase64String(responsable.Firma);
                 }
                 else
                 {
-                    signatureBase64 = "Sin firmar";
+                    signatureBase64 = Convert.ToBase64String(responsable.FirmaElectronica);
                 }
 
                 Session["signatureUser"] = signatureBase64;

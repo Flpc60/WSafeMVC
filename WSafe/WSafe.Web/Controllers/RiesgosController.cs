@@ -47,8 +47,8 @@ namespace WSafe.Web.Controllers
                     .Where(r => r.OrganizationID == _orgID)
                     .OrderByDescending(cr => cr.NivelRiesgo)
                     .ToListAsync();
-                var modelo = _converterHelper.ToRiesgoViewModelList(list);
-                return View(modelo);
+                var model = _converterHelper.ToRiesgoViewModelList(list);
+                return View(model);
             }
             catch (Exception ex)
             {

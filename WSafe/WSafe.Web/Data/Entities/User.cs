@@ -28,5 +28,6 @@ namespace WSafe.Domain.Data.Entities
         public DateTime RegisterDate { get; set; }
         public byte[] FirmaElectronica { get; set; }
         public bool ResponsableSgsst { get; set; }
+        public byte[] Firma { get; set; }
     }
 }

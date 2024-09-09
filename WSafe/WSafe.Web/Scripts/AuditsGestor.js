@@ -1,5 +1,4 @@
 ﻿// funciones gráficas y auditorías
-
 function chartCalificationsCiclo() {
 
     // Gráficar evaluación por ciclo

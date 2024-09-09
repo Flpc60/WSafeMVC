@@ -1,5 +1,4 @@
 ﻿@model WSafe.Web.Models.LoginViewModel
-
 @{
     ViewBag.Title = "Login";
     Layout = null;
@@ -141,6 +140,18 @@
                                 <input class="form-check-input" type="checkbox" id="responsableSgsst" name="responsableSgsst">
                                 <label class="form-check-label" for="responsableSgsst" style="font-size: 1.5rem; margin-left: 10px;">Sí</label>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <hr />
+                            <i class="fa fa-users"></i>
+                            <label for="fileInput">Subir firma (imagen):</label>
+                            <input type="file" id="fileInput" name="file" class="btn btn-secondary mt-2" accept=".jpg, .jpeg, .png" required />
+                            <button type="button" class="btn btn-secondary mt-2" onclick="uploadSignature()">Guardar Firma</button>
+                            <div id="uploadStatus"></div>
                         </div>
                     </div>
                 </div>
