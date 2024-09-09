@@ -790,8 +790,15 @@ namespace WSafe.Domain.Helpers.Implements
         public _DetailsAccionVM ToAccionVMFull(Accion accion, int id)
         {
             var responsable = _empresaContext.Trabajadores.FirstOrDefault(t => t.ID == accion.TrabajadorID);
+            var proceso = _empresaContext.Procesos.Find(accion.ProcesoID).Descripcion;
             var cargo = _empresaContext.Cargos.FirstOrDefault(t => t.ID == responsable.CargoID);
             var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == id);
+            var mainCause1 = _empresaContext.MainCauses.Find(accion.MainCause1ID).Name;
+            var mainCause2 = _empresaContext.MainCauses.Find(accion.MainCause2ID).Name;
+            var mainCause3 = _empresaContext.MainCauses.Find(accion.MainCause3ID).Name;
+            var mainCause4 = _empresaContext.MainCauses.Find(accion.MainCause4ID).Name;
+            var mainCause5 = _empresaContext.MainCauses.Find(accion.MainCause5ID).Name;
+
             var model = new _DetailsAccionVM
             {
                 ID = accion.ID,
@@ -805,14 +812,19 @@ namespace WSafe.Domain.Helpers.Implements
                 Categoria = accion.Categoria,
                 Responsable = responsable?.NombreCompleto.ToUpperInvariant(),
                 Cargo = cargo?.Descripcion.ToUpperInvariant(),
-                Proceso = _empresaContext.Procesos.Find(accion.ProcesoID).Descripcion,
+                Proceso = CapitalizeFirstLetter(proceso),
                 FuenteAccion = _gestorHelper.GetFuenteAccion(accion.FuenteAccion).ToUpperInvariant(),
-                Descripcion = accion.Descripcion.ToUpperInvariant(),
+                Descripcion = CapitalizeFirstLetter(accion.Descripcion),
                 EficaciaAntes = accion.EficaciaAntes,
                 EficaciaDespues = accion.EficaciaDespues,
                 FechaCierre = accion.FechaCierre.ToString("dd-MM-yyyy"),
                 Efectiva = accion.Efectiva,
                 ActionCategory = accion.ActionCategory,
+                MainCause1 = CapitalizeFirstLetter(mainCause1),
+                MainCause2 = CapitalizeFirstLetter(mainCause2),
+                MainCause3 = CapitalizeFirstLetter(mainCause3),
+                MainCause4 = CapitalizeFirstLetter(mainCause4),
+                MainCause5 = CapitalizeFirstLetter(mainCause5)
             };
 
             foreach (var item in model.Planes)
@@ -820,7 +832,7 @@ namespace WSafe.Domain.Helpers.Implements
                 item.Responsable = _empresaContext.Trabajadores.Find(item.TrabajadorID).NombreCompleto.ToUpperInvariant();
                 item.FechaInicial.ToString("dd-MM-yyyy");
                 item.FechaFinal.ToString("dd-MM-yyyy");
-                item.Accion.ToUpperInvariant();
+                CapitalizeFirstLetter(item.Accion);
             }
 
             foreach (var item in model.Seguimientos)

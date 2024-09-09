@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using System.Web.Http.Results;
 using System.Web.Mvc;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Helpers;
@@ -464,6 +465,7 @@ namespace WSafe.Web.Controllers
                     .OrderByDescending(pa => pa.InitialDate)
                     .Include(s => s.SiguePlanAnual)
                     .ToListAsync();
+
                 var model = _converterHelper.ToAnnualPlanMatriz(list);
                 var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == 14);
                 ViewBag.formato = document.Formato;

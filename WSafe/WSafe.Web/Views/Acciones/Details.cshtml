@@ -63,7 +63,49 @@
         </p>
     </div>
 </div>
+<div class="container">
+    <div>
+        <p style="text-align:center; background-color:grey">
+            <strong><b>ANÁÑISIS DE CAUSALIDAD DE LA NO CONFORMIDAD REAL O POTENCIAL U OPORTUNDAD DE MEJORA</b></strong>
+        </p>
+        @{
+            if (Model.MainCause1 != null)
+            {
+                <p>
+                    <strong>CAUSA 1:</strong> @Html.DisplayFor(model => model.MainCause1)
+                </p>
+            }
 
+            if (Model.MainCause2 != null)
+            {
+                <p>
+                    <strong>CAUSA 2:</strong> @Html.DisplayFor(model => model.MainCause2)
+                </p>
+            }
+
+            if (Model.MainCause3 != null)
+            {
+                    <p>
+                        <strong>CAUSA 3:</strong> @Html.DisplayFor(model => model.MainCause3)
+                    </p>
+             }
+
+            if (Model.MainCause4 != null)
+            {
+                <p>
+                    <strong>CAUSA 4:</strong> @Html.DisplayFor(model => model.MainCause4)
+                </p>
+            }
+
+            if (Model.MainCause5 != null)
+            {
+                <p>
+                    <strong>CAUSA 5:</strong> @Html.DisplayFor(model => model.MainCause5)
+                </p>
+            }
+        }
+    </div>
+</div>
 @{
     if (Model.Planes.Count() > 0)
     {
@@ -76,22 +118,19 @@
             <thead>
                 <tr>
                     <th>
-                        Causa
+                        ACTIVIDAD
                     </th>
                     <th>
-                        Accion
+                        PRIORITARIA
                     </th>
                     <th>
-                        Prioritaria
+                        RESPONSABLE
                     </th>
                     <th>
-                        Responsable
+                        FECHA INICIAL
                     </th>
                     <th>
-                        Fecha inicial
-                    </th>
-                    <th>
-                        Fecha final
+                        FECHA FINAL
                     </th>
                 </tr>
             </thead>
@@ -99,9 +138,6 @@
                 @foreach (var item in Model.Planes)
                 {
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Causa)
-                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Accion)
                         </td>
@@ -133,13 +169,13 @@
             <thead>
                 <tr>
                     <th>
-                        Fecha Seguimiento
+                        FECHA SEGUIMIENTO
                     </th>
                     <th>
-                        Resultado
+                        RESULTADO
                     </th>
                     <th>
-                        Realizado por
+                        RESPONSABLE
                     </th>
                 </tr>
             </thead>
