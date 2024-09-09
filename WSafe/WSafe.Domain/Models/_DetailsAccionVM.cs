@@ -25,5 +25,10 @@ namespace WSafe.Web.Models
         public ICollection<PlanAction> Planes { get; set; }
         public ICollection<SeguimientoAccion> Seguimientos { get; set; }
         public ActionCategories ActionCategory { get; set; }
+        public string MainCause1 { get; set; }
+        public string MainCause2 { get; set; }
+        public string MainCause3 { get; set; }
+        public string MainCause4 { get; set; }
+        public string MainCause5 { get; set; }
     }
 }
