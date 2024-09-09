@@ -435,43 +435,65 @@ namespace WSafe.Domain.Helpers.Implements
             };
             return model;
         }
+        public string CapitalizeFirstLetter(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return text;
+
+            return char.ToUpper(text[0]) + text.Substring(1).ToLower();
+        }
+
         public IEnumerable<ListaRiesgosVM> ToRiesgoViewModelList(IEnumerable<Riesgo> riesgo)
         {
-            var rutinaria = "";
-            var requisito = "";
+            // Extrae solo los IDs para las consultas
+            var zonaIds = riesgo.Select(r => r.ZonaID).Distinct().ToList();
+            var procesoIds = riesgo.Select(r => r.ProcesoID).Distinct().ToList();
+            var actividadIds = riesgo.Select(r => r.ActividadID).Distinct().ToList();
+            var tareaIds = riesgo.Select(r => r.TareaID).Distinct().ToList();
+            var categoriaPeligroIds = riesgo.Select(r => r.CategoriaPeligroID).Distinct().ToList();
+            var peligroIds = riesgo.Select(r => r.PeligroID).Distinct().ToList();
+
+            // Consulta previa de todas las entidades necesarias utilizando solo los IDs
+            var zonas = _empresaContext.Zonas
+                                       .Where(z => zonaIds.Contains(z.ID))
+                                       .ToDictionary(z => z.ID, z => CapitalizeFirstLetter(z.Descripcion));
+
+            var procesos = _empresaContext.Procesos
+                                          .Where(p => procesoIds.Contains(p.ID))
+                                          .ToDictionary(p => p.ID, p => CapitalizeFirstLetter(p.Descripcion));
+
+            var actividades = _empresaContext.Actividades
+                                             .Where(a => actividadIds.Contains(a.ID))
+                                             .ToDictionary(a => a.ID, a => CapitalizeFirstLetter(a.Descripcion));
+
+            var tareas = _empresaContext.Tareas
+                                        .Where(t => tareaIds.Contains(t.ID))
+                                        .ToDictionary(t => t.ID, t => CapitalizeFirstLetter(t.Descripcion));
+
+            var categoriasPeligros = _empresaContext.CategoriasPeligros
+                                                    .Where(c => categoriaPeligroIds.Contains(c.ID))
+                                                    .ToDictionary(c => c.ID, c => CapitalizeFirstLetter(c.Descripcion));
+
+            var peligros = _empresaContext.Peligros
+                                          .Where(p => peligroIds.Contains(p.ID))
+                                          .ToDictionary(p => p.ID, p => CapitalizeFirstLetter(p.Descripcion));
+
             var model = new List<ListaRiesgosVM>();
             foreach (var item in riesgo)
             {
-
-                if (item.Rutinaria)
-                {
-                    rutinaria = "Si";
-                }
-                else
-                {
-                    rutinaria = "No";
-                }
-
-                if (item.RequisitoLegal)
-                {
-                    requisito = "Si";
-                }
-                else
-                {
-                    requisito = "No";
-                }
-
+                var rutinaria = item.Rutinaria ? "Si" : "No";
+                var requisito = item.RequisitoLegal ? "Si" : "No";
 
                 model.Add(new ListaRiesgosVM
                 {
                     ID = item.ID,
-                    Zona = _empresaContext.Zonas.Find(item.ZonaID).Descripcion,
-                    Proceso = _empresaContext.Procesos.Find(item.ProcesoID).Descripcion,
-                    Actividad = _empresaContext.Actividades.Find(item.ActividadID).Descripcion,
-                    Tarea = _empresaContext.Tareas.Find(item.TareaID).Descripcion,
+                    Zona = zonas[item.ZonaID],
+                    Proceso = procesos[item.ProcesoID],
+                    Actividad = actividades[item.ActividadID],
+                    Tarea = tareas[item.TareaID],
                     Rutinaria = item.Rutinaria,
-                    Clasificacion = _empresaContext.CategoriasPeligros.Find(item.CategoriaPeligroID).Descripcion,
-                    Peligro = _empresaContext.Peligros.Find(item.PeligroID).Descripcion,
+                    Clasificacion = categoriasPeligros[item.CategoriaPeligroID],
+                    Peligro = peligros[item.PeligroID],
                     EfectosPosibles = item.EfectosPosibles,
                     NivelDeficiencia = item.NivelDeficiencia,
                     NivelExposicion = item.NivelExposicion,
@@ -812,104 +834,112 @@ namespace WSafe.Domain.Helpers.Implements
         public IEnumerable<MatrizRiesgosVM> ToRiesgoViewModelFul(IEnumerable<Riesgo> riesgo)
         {
             var model = new List<MatrizRiesgosVM>();
-            var fuente = "";
-            var individuo = "";
-            var medio = "";
-            var eliminacion = "";
-            var sustituto = "";
-            var ingenieria = "";
-            var admon = "";
-            var señales = "";
-            var epp = "";
-            var rutinaria = "";
-            var requisito = "";
 
+            // Extraemos los IDs de cada entidad para hacer las consultas en lotes
+            var procesoIds = riesgo.Select(r => r.ProcesoID).Distinct().ToList();
+            var zonaIds = riesgo.Select(r => r.ZonaID).Distinct().ToList();
+            var actividadIds = riesgo.Select(r => r.ActividadID).Distinct().ToList();
+            var categoriaPeligroIds = riesgo.Select(r => r.CategoriaPeligroID).Distinct().ToList();
+            var peligroIds = riesgo.Select(r => r.PeligroID).Distinct().ToList();
+            var controlIds = riesgo.SelectMany(r => r.MedidasIntervencion.Select(mi => mi.ControlID)).Distinct().ToList();
+
+            // Consultas previas para cargar datos en memoria
+            var procesos = _empresaContext.Procesos
+                                          .Where(p => procesoIds.Contains(p.ID))
+                                          .ToDictionary(p => p.ID, p => CapitalizeFirstLetter(p.Descripcion));
+
+            var zonas = _empresaContext.Zonas
+                                       .Where(z => zonaIds.Contains(z.ID))
+                                       .ToDictionary(z => z.ID, z => CapitalizeFirstLetter(z.Descripcion));
+
+            var actividades = _empresaContext.Actividades
+                                             .Where(a => actividadIds.Contains(a.ID))
+                                             .ToDictionary(a => a.ID, a => CapitalizeFirstLetter(a.Descripcion));
+
+            var categoriasPeligros = _empresaContext.CategoriasPeligros
+                                                    .Where(c => categoriaPeligroIds.Contains(c.ID))
+                                                    .ToDictionary(c => c.ID, c => CapitalizeFirstLetter(c.Descripcion));
+
+            var peligros = _empresaContext.Peligros
+                                          .Where(p => peligroIds.Contains(p.ID))
+                                          .ToDictionary(p => p.ID, p => CapitalizeFirstLetter(p.Descripcion));
+
+            var controles = _empresaContext.Controls
+                                           .Where(c => controlIds.Contains(c.ID))
+                                           .ToDictionary(c => c.ID, c => CapitalizeFirstLetter(c.Description));
+
+            // Recorremos los riesgos para crear el modelo
             foreach (var item in riesgo)
             {
-                fuente = "";
-                individuo = "";
-                medio = "";
-                eliminacion = "";
-                sustituto = "";
-                ingenieria = "";
-                admon = "";
-                señales = "";
-                epp = "";
-                rutinaria = "";
-                requisito = "";
+                var fuente = "";
+                var individuo = "";
+                var medio = "";
+                var eliminacion = "";
+                var sustituto = "";
+                var ingenieria = "";
+                var admon = "";
+                var señales = "";
+                var epp = "";
+                var rutinaria = item.Rutinaria ? "Si" : "No";
+                var requisito = item.RequisitoLegal ? "Si" : "No";
 
-                if (item.Rutinaria)
-                {
-                    rutinaria = "Si";
-                }
-                else
-                {
-                    rutinaria = "No";
-                }
-
-                if (item.RequisitoLegal)
-                {
-                    requisito = "Si";
-                }
-                else
-                {
-                    requisito = "No";
-                }
-
+                // Recorremos las medidas de intervención para clasificar los controles
                 foreach (var apl in item.MedidasIntervencion)
                 {
+                    var controlDescripcion = controles.ContainsKey(apl.ControlID) ? controles[apl.ControlID] : "";
+
                     switch (apl.CategoriaAplicacion)
                     {
                         case CategoriaAplicacion.Fuente:
-                            fuente += _empresaContext.Controls.Find(apl.ControlID).Description + "\n";
+                            fuente += controlDescripcion + "\n";
                             break;
 
                         case CategoriaAplicacion.Medio:
-                            medio += _empresaContext.Controls.Find(apl.ControlID).Description + "\n";
+                            medio += controlDescripcion + "\n";
                             break;
 
                         case CategoriaAplicacion.Individuo:
-                            individuo += _empresaContext.Controls.Find(apl.ControlID).Description + "\n";
+                            individuo += controlDescripcion + "\n";
                             break;
                     }
 
                     switch (apl.Intervencion)
                     {
                         case JerarquiaControles.Eliminacion:
-                            eliminacion += _empresaContext.Controls.Find(apl.ControlID).Description + "\n";
+                            eliminacion += controlDescripcion + "\n";
                             break;
 
                         case JerarquiaControles.Sustitucion:
-                            sustituto += _empresaContext.Controls.Find(apl.ControlID).Description + "\n";
+                            sustituto += controlDescripcion + "\n";
                             break;
 
                         case JerarquiaControles.Controles_Ingeniería:
-                            ingenieria += _empresaContext.Controls.Find(apl.ControlID).Description + "\n";
+                            ingenieria += controlDescripcion + "\n";
                             break;
 
                         case JerarquiaControles.Controles_Admon:
-                            admon += _empresaContext.Controls.Find(apl.ControlID).Description + "\n";
+                            admon += controlDescripcion + "\n";
                             break;
 
                         case JerarquiaControles.Señaliza:
-                            señales += _empresaContext.Controls.Find(apl.ControlID).Description + "\n";
+                            señales += controlDescripcion + "\n";
                             break;
 
                         case JerarquiaControles.EPP:
-                            epp += _empresaContext.Controls.Find(apl.ControlID).Description + "\n";
+                            epp += controlDescripcion + "\n";
                             break;
-
                     }
                 }
+
                 model.Add(new MatrizRiesgosVM
                 {
                     ID = item.ID,
-                    Proceso = _empresaContext.Procesos.Find(item.ProcesoID).Descripcion,
-                    Zona = _empresaContext.Zonas.Find(item.ZonaID).Descripcion,
-                    Actividad = _empresaContext.Actividades.Find(item.ActividadID).Descripcion,
+                    Proceso = procesos.ContainsKey(item.ProcesoID) ? procesos[item.ProcesoID] : "",
+                    Zona = zonas.ContainsKey(item.ZonaID) ? zonas[item.ZonaID] : "",
+                    Actividad = actividades.ContainsKey(item.ActividadID) ? actividades[item.ActividadID] : "",
                     Rutinaria = rutinaria,
-                    CategoriaPeligro = _empresaContext.CategoriasPeligros.Find(item.CategoriaPeligroID).Descripcion,
-                    Peligro = _empresaContext.Peligros.Find(item.PeligroID).Descripcion,
+                    CategoriaPeligro = categoriasPeligros.ContainsKey(item.CategoriaPeligroID) ? categoriasPeligros[item.CategoriaPeligroID] : "",
+                    Peligro = peligros.ContainsKey(item.PeligroID) ? peligros[item.PeligroID] : "",
                     EfectosPosibles = _gestorHelper.GetEfectos(item.EfectosPosibles),
                     FuenteControls = fuente,
                     MedioControls = medio,
@@ -934,6 +964,7 @@ namespace WSafe.Domain.Helpers.Implements
                     EPP = epp
                 });
             }
+
             return model;
         }
         public MatrizRiesgosVM ToRiesgoVMUnit(Riesgo riesgo)

@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using System.Web.Http.Results;
 using System.Web.Mvc;
 using System.Web.Security;
 using WSafe.Domain.Data.Entities;
@@ -16,7 +19,7 @@ namespace WSafe.Web.Controllers
 {
     public class AccountsController : Controller
     {
-        // Gestión de cuentas de usuarios ...
+        // Gestión de cuentas de usuarios
         private int _clientID;
         private int _orgID;
         private string _year;
@@ -129,13 +132,13 @@ namespace WSafe.Web.Controllers
                 // Capturar firma electrónica
                 string signatureBase64;
 
-                if (responsable.FirmaElectronica != null)
+                if (responsable.Firma != null)
                 {
-                    signatureBase64 = Convert.ToBase64String(responsable.FirmaElectronica);
+                    signatureBase64 = Convert.ToBase64String(responsable.Firma);
                 }
                 else
                 {
-                    signatureBase64 = "Sin firmar";
+                    signatureBase64 = Convert.ToBase64String(responsable.FirmaElectronica);
                 }
 
                 Session["signatureResponsable"] = signatureBase64;
@@ -474,6 +477,47 @@ namespace WSafe.Web.Controllers
             }
 
             return Json(new { result = "Redirect", url = Url.Action("Index", "Accounts"), mensaj = message }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult UploadSignature(string Name, string Email, string Password, HttpPostedFileBase file)
+        {
+            if (file == null || file.ContentLength == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "No se ha seleccionado ningún archivo.");
+            }
+
+            var allowedExtensions = new[] { ".jpg", ".jpeg", ".png" };
+            var fileExtension = Path.GetExtension(file.FileName).ToLower();
+
+            if (!allowedExtensions.Contains(fileExtension))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Formato de archivo no permitido. Solo JPG y PNG son aceptados.");
+            }
+
+            // Convertir la imagen a byte[]
+            byte[] fileBytes;
+            using (var memoryStream = new MemoryStream())
+            {
+                file.InputStream.CopyTo(memoryStream); // Usar InputStream para leer el archivo
+                fileBytes = memoryStream.ToArray();
+            }
+
+            // Guardar la firma en la base de datos
+            string password = GetSHA256(Password);
+            var user = _empresaContext.Users
+                        .FirstOrDefault(u => u.Name == Name.Trim() &&
+                                             u.Email == Email.Trim() &&
+                                             u.Password == password);
+
+            if (user != null)
+            {
+                user.Firma = fileBytes;
+                _empresaContext.SaveChanges();
+                return Json(new { message = "Firma subida correctamente." });
+            }
+
+            return new HttpStatusCodeResult(HttpStatusCode.NotFound, "Usuario no encontrado.");
         }
     }
 }
