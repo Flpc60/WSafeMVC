@@ -3,35 +3,32 @@
     var mainCauses = ViewBag.mainCauses;
 }
 
-<div class="container" style="text-align:center;background-color:lightgray;">
+<div style="background-color: lightgray;">
     <hr class="mt-4">
-    <h4 style="text-align:center">REGISTRAR SEGUIMIENTO</h4>
+    <h4 class="text-center">REGISTRAR SEGUIMIENTO</h4>
     <hr class="mt-4">
     <div class="row">
         <div class="col-md-12">
-            <label class="control-label" for="controlTrace">Nueva medida de intervención a aplicar en reemplazo</label>
-            <div class="form-group">
-                <div class="col-md-10 col-sm-10">
+            <label class="control-label" for="controlTraceID">Nueva medida de intervención</label>
+            <div class="form-group row">
+                <div class="col-md-10 col-sm-9">
                     @Html.DropDownList("Controles", controls as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "controlTraceID" })
                 </div>
-                <div class="col-md-2 col-sm-10">
-                    <button type="button" class="btn btn-primary" id="btnAddControl">Adicionar control</button>
+                <div class="col-md-2 col-sm-3 d-flex justify-content-end">
+                    <button type="button" class="btn btn-primary" id="btnAddControl">Nuevo control</button>
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-4">
-            <label class="control-label" for="efectividad">  Fué efectiva la medida</label><br>
-            <div class="form-group">
-                <input type="checkbox" id="efectividad" name="efectividad">
-                <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="efectividad"></span>
-            </div>
+        <div class="col-md-4 d-flex align-items-center">
+            <label class="control-label mr-2" for="efectividad">Fué efectiva la medida</label>
+            <input type="checkbox" id="efectividad" name="efectividad">
         </div>
         <div class="col-md-8">
-            <label class="control-label" for="maintCauseID">Causa fundamental de inefectividad de la medida</label>
+            <label class="control-label" for="maintCauseID">Causa fundamental de la inefectividad:</label>
             <div class="form-group">
-                <div class="col-md-8 col-sm-10">
+                <div class="col-md-8">
                     @Html.DropDownList("Causas", mainCauses as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "mainCauseID" })
                     <button type="button" class="btn btn-link" data-toggle="modal" data-target="#createCauseModal">Crear nueva causa</button>
                 </div>
@@ -59,29 +56,22 @@
             </div>
         </div>
     </div>
-    <hr />
-
     <div class="row">
         <div class="col-md-12">
-            <div class="col-md-12 col-sm-10">
-                <label for="observations">Observaciones:</label>
-                <textarea id="observations" style="resize:none;" class="form-control" rows=3 cols="90" required></textarea>
-            </div>
+            <label for="observations">Observaciones:</label>
+            <textarea id="observations" class="form-control" rows="3" style="resize:none;" required></textarea>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
-            <label class="control-label" for="actionTraceID">  Generar acción correctiva, preventiva o de mejora</label>
-            <div class="form-group">
-                <input type="checkbox" id="actionTraceID" name="actionTraceID">
-                <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="actionTraceID"></span>
-            </div>
+        <div class="col-md-6 d-flex align-items-center">
+            <label class="control-label mr-2" for="actionTraceID">Generar acción CPM</label>
+            <input type="checkbox" id="actionTraceID" name="actionTraceID">
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 d-flex align-items-center">
             <div class="form-group">
                 <label for="categoriaAcc">Finalidad</label>
                 <select name="categoriaAcc" class="form-control" id="categoriaAcc">
-                    <option selected="selected" value="0">Seleccione finalidad...</option>
+                    <option selected="selected" value="0">Seleccione ..</option>
                     <option value="1">Preventivo</option>
                     <option value="2">Correctivo</option>
                     <option value="3">Mejora</option>
@@ -90,26 +80,6 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="tabAddMainCause">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="mainCause">Causa de inefectividad:</label>
-                        <textarea id="mainCause" class="form-control" rows="3" cols="70" style="resize: none;" required></textarea>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <button type="button" class="btn btn-primary" onclick="addMainCause()">Adicionar</button>
-                    <button type="button" class="btn btn-primary" onclick="CancelMainCause()">
-                        <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
-                    </button>
-                </div>
-            </div>
-        </div>
-        <hr class="mt-4">
-    </div>
 
+    <hr class="mt-4">
 </div>

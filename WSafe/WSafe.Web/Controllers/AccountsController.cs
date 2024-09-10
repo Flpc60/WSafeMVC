@@ -257,6 +257,7 @@ namespace WSafe.Web.Controllers
                                                          u.Password == model.Password);
                         user.ResponsableSgsst = model.ResponsableSgsst;
                         user.FirmaElectronica = model.FirmaElectronica;
+                        user.Firma = null;
 
                         _empresaContext.Entry(user).State = EntityState.Modified;
                         await _empresaContext.SaveChangesAsync();
@@ -480,7 +481,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadSignature(string Name, string Email, string Password, HttpPostedFileBase file)
+        public ActionResult UploadSignature(string Name, string Email, string Password, bool responsable, HttpPostedFileBase file)
         {
             if (file == null || file.ContentLength == 0)
             {
@@ -513,6 +514,8 @@ namespace WSafe.Web.Controllers
             if (user != null)
             {
                 user.Firma = fileBytes;
+                user.FirmaElectronica = null;
+                user.ResponsableSgsst = responsable;
                 _empresaContext.SaveChanges();
                 return Json(new { message = "Firma subida correctamente." });
             }

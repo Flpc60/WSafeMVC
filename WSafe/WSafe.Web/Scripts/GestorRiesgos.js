@@ -84,7 +84,6 @@ function viewHistory() {
 }
 
 function mostrarInterven() {
-//    $(".tabMediAplica").css("display", "none");
     var riesgoID = $("#txtRiesgoID").val();
     var aplicaID = $("#txtIntervenID").val();
 
@@ -107,17 +106,13 @@ function mostrarInterven() {
                 html += '<td>' + item.TextIntervencion + '</td>';
                 html += '<td>' + item.Responsable + '</td>';
                 html += '<td>' + item.TextFechaInicial + '</td>';
+                html += '<td>' + item.TextFechaFinal + '</td>';
 
                 year = item.TextFechaFinal.substring(0, 4);
                 month = item.TextFechaFinal.substring(5, 7);
                 day = item.TextFechaFinal.substring(8, 10);
                 date = new Date(year, month -1, day);
                 date = Date.parse(date);
-                if (fecha > date) {
-                    html += '<td style="background-color:red">' + item.TextFechaFinal + '</td>';
-                } else {
-                    html += '<td style="background-color:green">' + item.TextFechaFinal + '</td>';
-                }
 
                 html +=
                     '<td><a href="#" onclick="return getIntervenByID(' + item.ID + ')">Editar</a> | <a href = "#" onclick = "DeleteInterven(' + item.ID + ')"> Borrar</a></td>';

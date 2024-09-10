@@ -752,7 +752,6 @@ function addControlTrace() {
                     AddAccion();
                 };
                 alert("Seguimiento adicionado !!");
-                location.reload();
             } else {
                 alert("Error: " + result.message);
             }
@@ -913,11 +912,15 @@ function filterPeligros(id) {
 function uploadSignature() {
     var formData = new FormData();
     var fileInput = $('#fileInput')[0].files[0];
+    let responsable = false;
+    if ($("#responsableSgsst").is(':checked')) { responsable = true; }
+
     if (fileInput) {
         formData.append('file', fileInput);
         formData.append("Name", $("#txtName").val());
         formData.append("Email", $("#txtEmail").val());
         formData.append("Password", $("#txtPassword").val());
+        formData.append("responsable", responsable);
 
         $.ajax({
             url: '/Accounts/UploadSignature',
