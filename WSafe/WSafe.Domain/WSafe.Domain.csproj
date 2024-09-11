@@ -280,6 +280,7 @@
     <Compile Include="Models\AuditReportVM.cs" />
     <Compile Include="Models\AuthorizationVM.cs" />
     <Compile Include="Models\CalificationVM.cs" />
+    <Compile Include="Models\ControlTraceVM.cs" />
     <Compile Include="Models\ControlViewModel.cs" />
     <Compile Include="Models\CreateCapacitationVM.cs" />
     <Compile Include="Models\CreateIndicatorsViewModel.cs" />

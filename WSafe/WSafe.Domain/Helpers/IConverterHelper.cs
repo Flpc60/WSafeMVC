@@ -83,5 +83,6 @@ namespace WSafe.Domain.Helpers
         CreateCapacitationVM ToCreateCapacitationVM(int org);
         Task<Capacitation> ToCapacitationAsync(CreateCapacitationVM model, bool isNew);
         CreateCapacitationVM ToUpdateCapacitationVM(Capacitation model, int org);
+        IEnumerable<ControlTraceVM> GetControlTracesAll(int id);
     }   
 }
