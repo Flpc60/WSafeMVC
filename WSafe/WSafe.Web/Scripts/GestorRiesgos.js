@@ -2062,6 +2062,8 @@ function UpdateIntervencion() {
             alert(result.mensaj);
             $(".tabMediAplica").css("display", "block");
             $(".tabAddInterven").css("display", "none");
+            $('#btnShowControlTrace').show();
+            $('.showControlTrace').html('');
             mostrarInterven();
         },
         error: function (xhr, ajaxOptions, thrownError) {
