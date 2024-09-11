@@ -516,6 +516,10 @@
     <Compile Include="Migrations\202409091618273_UpdUser.designer.cs">
       <DependentUpon>202409091618273_UpdUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202409102321274_UpdControlTrace.cs" />
+    <Compile Include="Migrations\202409102321274_UpdControlTrace.designer.cs">
+      <DependentUpon>202409102321274_UpdControlTrace.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
     <Compile Include="Models\AccionViewModel.cs" />
@@ -1306,6 +1310,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202409091618273_UpdUser.resx">
       <DependentUpon>202409091618273_UpdUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409102321274_UpdControlTrace.resx">
+      <DependentUpon>202409102321274_UpdControlTrace.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -194,11 +194,13 @@
                 <textarea id="idObserv" class="form-control" rows="2" cols="90" required></textarea>
                 <button type="button" class="btn btn-link" data-toggle="modal" data-target="#createSigueModal">Crear nuevo seguimiento</button>
                 <div class="col-12 d-flex justify-content-between">
-                    <button type="button" id="btnShowControlTrace" class="btn btn-success">Consultar seguimientos</button>
+                    <button type="button" id="btnShowControlTrace" class="btn btn-success" onclick="showControlTraceAll()">Ver seguimientos</button>
                 </div>
             </div>
         </div>
     </div>
+    <div class="container showControlTrace"></div>
+
     <div class="row">
         <div class="modal fade" id="createSigueModal" tabindex="-1" role="dialog" aria-labelledby="createSigueModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -241,39 +243,6 @@
             <input type="hidden" id="idTrabajador" name="idTrabajador" />
             <input type="hidden" id="idFuente" name="idFuente" />
             <input type="hidden" id="txtActionCategory" name="txtActionCategory" />
-        </div>
-    </div>
-    <div class="row form-section">
-        <div class="col-12 tabShowControlTrace">
-            <hr />
-            <div class="table-responsive-xl" style="background-color: antiquewhite">
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr style="background-color: gainsboro; width: auto">
-                            <th>
-                                Medida Control anterior
-                            </th>
-                            <th>
-                                Medida Control actual
-                            </th>
-                            <th>
-                                Causa reemplazo
-                            </th>
-                            <th>
-                                Fecha seguimiento
-                            </th>
-                            <th>
-                                Efectividad
-                            </th>
-                            <th>
-                                Observaciones
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody class="showControlTrace">
-                    </tbody>
-                </table>
-            </div>
         </div>
     </div>
 </div>

@@ -29,12 +29,14 @@ namespace WSafe.Web.Controllers
         private readonly IComboHelper _comboHelper;
         private readonly IConverterHelper _converterHelper;
         private readonly IChartHelper _chartHelper;
-        public RiesgosController(EmpresaContext empresaContext, IComboHelper comboHelper, IConverterHelper converterHelper, IChartHelper chartHelper)
+        private readonly IGestorHelper _gestorHelper;
+        public RiesgosController(EmpresaContext empresaContext, IComboHelper comboHelper, IConverterHelper converterHelper, IChartHelper chartHelper, IGestorHelper gestorHelper)
         {
             _empresaContext = empresaContext;
             _comboHelper = comboHelper;
             _converterHelper = converterHelper;
             _chartHelper = chartHelper;
+            _gestorHelper = gestorHelper;
         }
 
         [AuthorizeUser(operation: 1, component: 2)]
@@ -679,59 +681,66 @@ namespace WSafe.Web.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<ActionResult> AddControlTrace(ControlTrace model)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    model.ClientID = (int)Session["clientID"];
-                    model.OrganizationID = (int)Session["orgID"];
-                    model.UserID = (int)Session["userID"];
-                    _empresaContext.ControlTraces.Add(model);
-                    await _empresaContext.SaveChangesAsync();
-
-                    return Json(new { success = true });
-                }
-                else
-                {
-                    return Json(new { success = false, message = "Faltan datos por ingresar !!" });
-                }
-            }
-            catch (Exception ex)
-            {
-                return Json(new { success = false, message = ex.Message });
-            }
-        }
-
         [HttpGet]
         public ActionResult GetSigueIntervencionesAll(int id)
         {
             try
             {
-                var list = (from t in _empresaContext.ControlTraces
-                            join c in _empresaContext.Controls on t.ControlID equals c.ID
-                            join d in _empresaContext.Controls on t.CtrlReplaceID equals d.ID
-                            join m in _empresaContext.MainCauses on t.MaintCauseID equals m.ID
-                            where t.AplicacionID == id
-                            orderby t.DateSigue
-                            select new
-                            {
-                                ID = t.ID,
-                                MedidaAnt = c.Description.ToUpper(),
-                                MedidaAct = d.Description.ToUpper(),
-                                Causa = m.Name.ToUpper(),
-                                Fecha = t.DateSigue,
-                                Efectividad = t.Efectividad ? "SI" : "NO",
-                                Observaciones = t.Observations.ToUpper()
-                            }).ToList();
+                // Obtener los datos sin aplicar las transformaciones no soportadas por LINQ a SQL
+                var trace = (from t in _empresaContext.ControlTraces
+                             join c in _empresaContext.Controls on t.ControlID equals c.ID into ControlJoin
+                             from c in ControlJoin.DefaultIfEmpty()
+                             join d in _empresaContext.Controls on t.CtrlReplaceID equals d.ID into ControlReplaceJoin
+                             from d in ControlReplaceJoin.DefaultIfEmpty()
+                             join m in _empresaContext.MainCauses on t.MaintCauseID equals m.ID into CauseJoin
+                             from m in CauseJoin.DefaultIfEmpty()
+                             join e in _empresaContext.Trabajadores on t.TrabajadorID equals e.ID into WorkerJoin
+                             from e in WorkerJoin.DefaultIfEmpty()
+                             where t.RiesgoID == id
+                             orderby t.DateSigue
+                             select new
+                             {
+                                 ID = t.ID,
+                                 MedidaAnt = c != null ? c.Description.ToUpper() : "N/A",
+                                 MedidaAct = d != null ? d.Description.ToUpper() : "N/A",
+                                 Causa = m != null ? m.Name.ToUpper() : "N/A",
+                                 Fecha = t.DateSigue.ToString("yyyy-MM-dd"),
+                                 Efectividad = t.Efectividad ? "SI" : "NO",
+                                 Observaciones = t.Observations != null ? t.Observations.ToUpper() : "N/A",
+                                 Responsable = e != null ? (e.Nombres + " " + e.PrimerApellido + " " + e.SegundoApellido).ToUpper() : "N/A",
+                                 GenerateAction = t.GenerateAction == false ? "No" : "Sí",
+                                 Finality = t.Finality,
+                                 AplicationCategory = t.AplicationCategory
+                             }).ToList();
 
-                return Json(list, JsonRequestBehavior.AllowGet);
+                // Verificar si hay registros
+                if (!trace.Any())
+                {
+                    return Json(new { data = false, mensaje = "No se encontraron registros para el riesgo especificado." }, JsonRequestBehavior.AllowGet);
+                }
+
+                // Aplicar transformaciones que no se pueden traducir a SQL
+                var seguimientos = trace.Select(item => new
+                {
+                    item.ID,
+                    item.MedidaAnt,
+                    item.MedidaAct,
+                    item.Causa,
+                    item.Fecha,
+                    item.Efectividad,
+                    item.Observaciones,
+                    item.Responsable,
+                    item.GenerateAction,
+                    Finality = _gestorHelper.GetActionType((int)item.Finality),
+                    AplicationCategory = _gestorHelper.GetCategoriaAplicacion(item.AplicationCategory)
+                }).ToList();
+
+                return Json(seguimientos, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 var message = "La consulta NO se ha realizado correctamente: " + ex.Message;
+                Console.WriteLine(message);
                 return Json(new { data = false, mensaje = message }, JsonRequestBehavior.AllowGet);
             }
         }
