@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
 using WSafe.Web.Data.Entities;
@@ -2758,6 +2759,58 @@ namespace WSafe.Domain.Helpers.Implements
                 UserID = model.UserID,
             };
             return result;
+        }
+        public IEnumerable<ControlTraceVM> GetControlTracesAll(int id)
+        {
+            try
+            {
+                var trace = (from t in _empresaContext.ControlTraces
+                             join c in _empresaContext.Controls on t.ControlID equals c.ID into ControlJoin
+                             from c in ControlJoin.DefaultIfEmpty()
+                             join d in _empresaContext.Controls on t.CtrlReplaceID equals d.ID into ControlReplaceJoin
+                             from d in ControlReplaceJoin.DefaultIfEmpty()
+                             join m in _empresaContext.MainCauses on t.MaintCauseID equals m.ID into CauseJoin
+                             from m in CauseJoin.DefaultIfEmpty()
+                             join e in _empresaContext.Trabajadores on t.TrabajadorID equals e.ID into WorkerJoin
+                             from e in WorkerJoin.DefaultIfEmpty()
+                             where t.RiesgoID == id
+                             orderby t.DateSigue
+                             select new
+                             {
+                                 t.ID,
+                                 MedidaAct = c != null ? c.Description.ToUpper() : "N/A",
+                                 MedidaAnt = d != null ? d.Description.ToUpper() : "N/A",
+                                 Fecha = t.DateSigue,
+                                 Efectividad = t.Efectividad ? "SI" : "NO",
+                                 Observaciones = t.Observations != null ? t.Observations.ToUpper() : "N/A",
+                                 Responsable = e != null ? (e.Nombres + " " + e.PrimerApellido + " " + e.SegundoApellido).ToUpper() : "N/A",
+                                 t.GenerateAction,
+                                 t.Finality,
+                                 t.AplicationCategory
+                             }).ToList(); // Ejecutamos la consulta en la base de datos
+
+                // Ahora, aplicamos la lógica que involucra métodos que no pueden ser traducidos a SQL
+                var seguimientos = trace.Select(item => new ControlTraceVM
+                {
+                    ID = item.ID,
+                    MedidaAnt = item.MedidaAnt,
+                    MedidaAct = item.MedidaAct,
+                    Fecha = item.Fecha,
+                    Efectividad = item.Efectividad,
+                    Observaciones = item.Observaciones,
+                    Responsable = item.Responsable,
+                    GenerateAction = item.GenerateAction ? "SI" : "NO",
+                    Finality = _gestorHelper.GetActionType((int)item.Finality), // Aplicado fuera del query
+                    AplicationCategory = _gestorHelper.GetCategoriaAplicacion(item.AplicationCategory) // Aplicado fuera del query
+                }).ToList();
+
+                return seguimientos;
+            }
+            catch (Exception ex)
+            {
+                var model = new List<ControlTraceVM>();
+                return model;
+            }
         }
     }
 }

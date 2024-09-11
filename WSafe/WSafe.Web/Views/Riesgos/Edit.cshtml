@@ -196,7 +196,9 @@
     }
 
     function CancelInterven() {
-    $(".tabAddInterven").css("display", "none");
+        $(".tabAddInterven").css("display", "none");
+        $('#btnShowControlTrace').show();
+        $('.showControlTrace').html('');
     }
 
     function CancelControl() {
