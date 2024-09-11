@@ -24,5 +24,9 @@ namespace WSafe.Domain.Data.Entities
         public int OrganizationID { get; set; }
         public int ClientID { get; set; }
         public int UserID { get; set; }
+        public bool GenerateAction { get; set; }
+        public CategoriasFinalidad Finality { get; set; }
+        public int TrabajadorID { get; set; }
+        public CategoriaAplicacion AplicationCategory { get; set; }
     }
 }

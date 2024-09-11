@@ -708,7 +708,9 @@ function addMainCause() {
 
 function addControlTrace() {
     var efectividad = false;
+    var generateAction = false;
     if ($("#efectividad").is(':checked')) { efectividad = true; }
+    if ($("#actionTraceID").is(':checked')) { generateAction = true; }
     var controlTraceVM = {
         ControlID: $("#controlMedidaID").val(),
         CtrlReplaceID: $("#controlTraceID").val(),
@@ -720,7 +722,11 @@ function addControlTrace() {
         Observations: $("#observations").val(),
         OrganizationID: 1,
         ClientID: 1,
-        UserID: 1
+        UserID: 1,
+        GenerateAction: generateAction,
+        Finality: $("#finality").val(),
+        TrabajadorID: $("#idRespons").val(),
+        AplicationCategory: $("#txtCatAplica").val()
     };
 
     $.ajax({
@@ -763,8 +769,9 @@ function addControlTrace() {
     });
 }
 
-function showControlTraceAll(id) {
+function showControlTraceAll() {
     // Mostrar todos los seguimientos
+    var id = $("#txtRiesgoID").val();
     $('#btnSigue').hide();
     $.ajax({
         url: "/Riesgos/GetSigueIntervencionesAll",
@@ -774,7 +781,24 @@ function showControlTraceAll(id) {
         dataType: "json",
         async: true,
         success: function (response) {
-            var html = '';
+            // Construir la tabla completa con los encabezados
+            var html = '<table class="table table-striped table-bordered">';
+            html += '<thead>';
+            html += '<tr>';
+            html += '<th>Control anterior</th>';
+            html += '<th>Control actual</th>';
+            html += '<th>Causa</th>';
+            html += '<th>Fecha</th>';
+            html += '<th>Efectividad</th>';
+            html += '<th>Observaciones</th>';
+            html += '<th>Responsable</th>';
+            html += '<th>Generar ccción</th>';
+            html += '<th>Finalidad</th>';
+            html += '<th>Aplicación</th>';
+            html += '</tr>';
+            html += '</thead>';
+            html += '<tbody>';
+
             response.forEach(function (item, index) {
                 var sigueDate = moment(item.Fecha);
                 var formattedDate = sigueDate.format('YYYY-MM-DD');
@@ -785,11 +809,17 @@ function showControlTraceAll(id) {
                 html += '<td style="white-space: nowrap;">' + formattedDate + '</td>';
                 html += '<td>' + item.Efectividad + '</td>';
                 html += '<td>' + item.Observaciones + '</td>';
+                html += '<td>' + item.Responsable + '</td>';
+                html += '<td>' + item.GenerateAction + '</td>';
+                html += '<td>' + item.Finality + '</td>';
+                html += '<td>' + item.AplicationCategory + '</td>';
                 html += '</tr>';
             });
+
+            html += '</tbody>';
+            html += '</table>';
             $('.showControlTrace').html(html);
             $('.showControlTrace').focus();
-            $(".tabShowControlTrace").css("display", "block");
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
