@@ -18,13 +18,35 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        height: auto; /* altura similar a la de los select */
-        margin-top: 1px; /* alinear con los selects */
-        margin-left: 2px; /* alinear con los selects */
-        white-space: normal; /* permitir el ajuste del texto */
-        text-align: center; /* centrar el texto */
+        height: auto;
+        margin-top: 1px;
+        margin-left: 2px;
+        white-space: normal;
+        text-align: center;
         padding: 5px;
     }
+
+    .modal-dialog {
+    }
+
+    .modal-body {
+        margin-bottom: 0.5%;
+    }
+
+    .form-group {
+        padding-left: 7%;
+    }
+
+    .form-control {
+        width: 93%;
+        height: auto;
+        margin-bottom: 0%;
+    }
+
+    .modal-footer {
+        margin-top: 0%;
+    }
+
 </style>
 
 <div class="container bg-light p-4">
@@ -41,8 +63,9 @@
     </div>
 
     <div class="row">
+
         <div class="modal fade" id="createControlModal" tabindex="-1" role="dialog" aria-labelledby="createControlModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-dialog-centered modal-md" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="createControlModalLabel">Crear nuevo control</h5>
@@ -51,59 +74,57 @@
                         </button>
                     </div>
 
-                    <div class="modal-body px-4">
+                    <div class="modal-body">
                         <div class="form-group">
                             <label for="description">Descripción:</label>
-                            <textarea id="description" class="form-control" rows="3" style="resize: none;" required></textarea>
+                            <textarea id="description" class="form-control" rows="2" style="resize: none;" required></textarea>
                         </div>
 
                         <div class="form-group">
                             <label for="beneficio">Beneficios:</label>
-                            <textarea id="beneficio" class="form-control" rows="3" style="resize: none;" required></textarea>
+                            <textarea id="beneficio" class="form-control" rows="2" style="resize: none;" required></textarea>
                         </div>
 
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="categoriaApp">Aplicación del control</label>
-                                <select name="categoriaApp" class="form-control w-100" id="categoriaApp">
-                                    <option selected="selected" value="0">Seleccione aplicación...</option>
-                                    <option value="1">Fuente</option>
-                                    <option value="2">Medio</option>
-                                    <option value="3">Individuo</option>
-                                </select>
-                                <span class="text-danger" data-valmsg-replace="true" data-valmsg-for="categoriaApp"></span>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="finalidad">Finalidad</label>
-                                <select name="finalidad" class="form-control w-100" id="finalidad">
-                                    <option selected="selected" value="0">Seleccione finalidad...</option>
-                                    <option value="1">Preventivo</option>
-                                    <option value="2">Correctivo</option>
-                                    <option value="3">Mejora</option>
-                                </select>
-                                <span class="text-danger" data-valmsg-replace="true" data-valmsg-for="finalidad"></span>
-                            </div>
+                        <div class="form-group">
+                            <label for="categoriaApp">Aplicación del control</label>
+                            <select name="categoriaApp" class="form-control" id="categoriaApp">
+                                <option selected="selected" value="0">Seleccione aplicación...</option>
+                                <option value="1">Fuente</option>
+                                <option value="2">Medio</option>
+                                <option value="3">Individuo</option>
+                            </select>
+                            <span class="text-danger" data-valmsg-replace="true" data-valmsg-for="categoriaApp"></span>
                         </div>
 
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="intervencion">Medida intervención</label>
-                                <select name="intervencion" class="form-control w-100" id="intervencion">
-                                    <option selected="selected" value="0">Seleccione aplicación medida...</option>
-                                    <option value="1">Eliminación</option>
-                                    <option value="2">Sustitución</option>
-                                    <option value="3">Controles de ingeniería</option>
-                                    <option value="4">Controles de administración</option>
-                                    <option value="5">Señalización</option>
-                                    <option value="6">Equipos, EPP</option>
-                                </select>
-                                <span class="text-danger" data-valmsg-replace="true" data-valmsg-for="intervencion"></span>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="presupuesto">Presupuesto</label>
-                                <input name="presupuesto" class="form-control w-100" id="presupuesto" type="number">
-                                <span class="text-danger" data-valmsg-replace="true" data-valmsg-for="presupuesto"></span>
-                            </div>
+                        <div class="form-group">
+                            <label for="finalidad">Finalidad</label>
+                            <select name="finalidad" class="form-control" id="finalidad">
+                                <option selected="selected" value="0">Seleccione finalidad...</option>
+                                <option value="1">Preventivo</option>
+                                <option value="2">Correctivo</option>
+                                <option value="3">Mejora</option>
+                            </select>
+                            <span class="text-danger" data-valmsg-replace="true" data-valmsg-for="finalidad"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="intervencion">Medida intervención</label>
+                            <select name="intervencion" class="form-control" id="intervencion">
+                                <option selected="selected" value="0">Seleccione medida...</option>
+                                <option value="1">Eliminación</option>
+                                <option value="2">Sustitución</option>
+                                <option value="3">Controles de ingeniería</option>
+                                <option value="4">Controles de administración</option>
+                                <option value="5">Señalización</option>
+                                <option value="6">Equipos, EPP</option>
+                            </select>
+                            <span class="text-danger" data-valmsg-replace="true" data-valmsg-for="intervencion"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="presupuesto">Presupuesto</label>
+                            <input name="presupuesto" class="form-control" id="presupuesto" type="number">
+                            <span class="text-danger" data-valmsg-replace="true" data-valmsg-for="presupuesto"></span>
                         </div>
                     </div>
 
