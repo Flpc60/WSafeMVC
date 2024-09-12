@@ -2764,7 +2764,6 @@ namespace WSafe.Domain.Helpers.Implements
         {
             try
             {
-                // Obtener los datos de la base de datos sin llamar a métodos no traducibles
                 var trace = (from t in _empresaContext.ControlTraces
                              join c in _empresaContext.Controls on t.ControlID equals c.ID into ControlJoin
                              from c in ControlJoin.DefaultIfEmpty()
@@ -2801,16 +2800,15 @@ namespace WSafe.Domain.Helpers.Implements
                     Observaciones = item.Observaciones,
                     Responsable = item.Responsable,
                     GenerateAction = item.GenerateAction ? "SI" : "NO",
-                    Finality = _gestorHelper.GetActionType((int)item.Finality), // Aplicado fuera del query
-                    AplicationCategory = _gestorHelper.GetCategoriaAplicacion(item.AplicationCategory) // Aplicado fuera del query
+                    Finality = _gestorHelper.GetActionType((int)item.Finality),
+                    AplicationCategory = _gestorHelper.GetCategoriaAplicacion(item.AplicationCategory)
                 }).ToList();
 
                 return seguimientos;
             }
             catch (Exception ex)
             {
-                // Manejo de errores
-                throw new Exception("Error al obtener los seguimientos de control.", ex);
+                return new List<ControlTraceVM>();
             }
         }
     }
