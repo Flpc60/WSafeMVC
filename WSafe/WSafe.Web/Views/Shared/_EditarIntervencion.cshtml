@@ -25,7 +25,6 @@
         text-align: center; /* centrar el texto */
         padding: 5px;
     }
-
 </style>
 
 <div class="container bg-light p-4">
@@ -43,7 +42,7 @@
 
     <div class="row">
         <div class="modal fade" id="createControlModal" tabindex="-1" role="dialog" aria-labelledby="createControlModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="createControlModalLabel">Crear nuevo control</h5>
@@ -51,9 +50,63 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        @Html.Partial("_EditControl")
+
+                    <div class="modal-body px-4">
+                        <div class="form-group">
+                            <label for="description">Descripción:</label>
+                            <textarea id="description" class="form-control" rows="3" style="resize: none;" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="beneficio">Beneficios:</label>
+                            <textarea id="beneficio" class="form-control" rows="3" style="resize: none;" required></textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="categoriaApp">Aplicación del control</label>
+                                <select name="categoriaApp" class="form-control w-100" id="categoriaApp">
+                                    <option selected="selected" value="0">Seleccione aplicación...</option>
+                                    <option value="1">Fuente</option>
+                                    <option value="2">Medio</option>
+                                    <option value="3">Individuo</option>
+                                </select>
+                                <span class="text-danger" data-valmsg-replace="true" data-valmsg-for="categoriaApp"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="finalidad">Finalidad</label>
+                                <select name="finalidad" class="form-control w-100" id="finalidad">
+                                    <option selected="selected" value="0">Seleccione finalidad...</option>
+                                    <option value="1">Preventivo</option>
+                                    <option value="2">Correctivo</option>
+                                    <option value="3">Mejora</option>
+                                </select>
+                                <span class="text-danger" data-valmsg-replace="true" data-valmsg-for="finalidad"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="intervencion">Medida intervención</label>
+                                <select name="intervencion" class="form-control w-100" id="intervencion">
+                                    <option selected="selected" value="0">Seleccione aplicación medida...</option>
+                                    <option value="1">Eliminación</option>
+                                    <option value="2">Sustitución</option>
+                                    <option value="3">Controles de ingeniería</option>
+                                    <option value="4">Controles de administración</option>
+                                    <option value="5">Señalización</option>
+                                    <option value="6">Equipos, EPP</option>
+                                </select>
+                                <span class="text-danger" data-valmsg-replace="true" data-valmsg-for="intervencion"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="presupuesto">Presupuesto</label>
+                                <input name="presupuesto" class="form-control w-100" id="presupuesto" type="number">
+                                <span class="text-danger" data-valmsg-replace="true" data-valmsg-for="presupuesto"></span>
+                            </div>
+                        </div>
                     </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                         <button type="button" class="btn btn-primary" onclick="addNewControl()">Guardar</button>

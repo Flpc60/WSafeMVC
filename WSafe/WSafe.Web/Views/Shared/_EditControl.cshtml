@@ -1,73 +1,61 @@
-﻿<div class="container" style="text-align:center;background-color:lightgray;">
-    <hr class="mt-4">
-    <div class="text-center mt-4">
+﻿<div style="background-color: lightgray;">
+    <div class="text-center mb-4">
         <h5><strong>REGISTRAR CONTROL</strong></h5>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-group">
-                <label for="description">Descripción:</label>
-                <textarea id="description" class="form-control" rows="3" cols="70" style="resize: none;" required></textarea>
-            </div>
+
+    <div class="form-group">
+        <label for="description">Descripción:</label>
+        <textarea id="description" class="form-control" rows="3" style="resize: none;" required></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="beneficio">Beneficios:</label>
+        <textarea id="beneficio" class="form-control" rows="3" style="resize: none;" required></textarea>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="categoriaApp">Aplicación del control</label>
+            <select name="categoriaApp" class="form-control" id="categoriaApp">
+                <option selected="selected" value="0">Seleccione aplicación...</option>
+                <option value="1">Fuente</option>
+                <option value="2">Medio</option>
+                <option value="3">Individuo</option>
+            </select>
+            <span class="text-danger" data-valmsg-replace="true" data-valmsg-for="categoriaApp"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="finalidad">Finalidad</label>
+            <select name="finalidad" class="form-control" id="finalidad">
+                <option selected="selected" value="0">Seleccione finalidad...</option>
+                <option value="1">Preventivo</option>
+                <option value="2">Correctivo</option>
+                <option value="3">Mejora</option>
+            </select>
+            <span class="text-danger" data-valmsg-replace="true" data-valmsg-for="finalidad"></span>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-group">
-                <label for="beneficio">Beneficios:</label>
-                <textarea id="beneficio" class="form-control" rows="3" cols="70" style="resize: none;" required></textarea>
-            </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="intervencion">Medida intervención</label>
+            <select name="intervencion" class="form-control" id="intervencion">
+                <option selected="selected" value="0">Seleccione aplicación medida...</option>
+                <option value="1">Eliminación</option>
+                <option value="2">Sustitución</option>
+                <option value="3">Controles de ingeniería</option>
+                <option value="4">Controles de administración</option>
+                <option value="5">Señalización</option>
+                <option value="6">Equipos, EPP</option>
+            </select>
+            <span class="text-danger" data-valmsg-replace="true" data-valmsg-for="intervencion"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="presupuesto">Presupuesto</label>
+            <input name="presupuesto" class="form-control" id="presupuesto" type="number">
+            <span class="text-danger" data-valmsg-replace="true" data-valmsg-for="presupuesto"></span>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="categoriaApp">Aplicación del control</label>
-                <select name="categoriaApp" class="form-control" id="categoriaApp">
-                    <option selected="selected" value="0">Seleccione aplicación...</option>
-                    <option value="1">Fuente</option>
-                    <option value="2">Medio</option>
-                    <option value="3">Individuo</option>
-                </select>
-                <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="categoriaApp"></span>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="finalidad">Finalidad</label>
-                <select name="finalidad" class="form-control" id="finalidad">
-                    <option selected="selected" value="0">Seleccione finalidad...</option>
-                    <option value="1">Preventivo</option>
-                    <option value="2">Correctivo</option>
-                    <option value="3">Mejora</option>
-                </select>
-                <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="finalidad"></span>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="intervencion">Medida intervención</label>
-                <select name="intervencion" class="form-control" id="intervencion">
-                    <option selected="selected" value="0">Seleccione aplicación medida...</option>
-                    <option value="1">Eliminación</option>
-                    <option value="2">Sustitución</option>
-                    <option value="3">Controles de ingeniería</option>
-                    <option value="4">Controles de administración</option>
-                    <option value="5">Señalización</option>
-                    <option value="6">Equipos, EPP</option>
-                </select>
-                <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="intervencion"></span>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="presupuesto">Presupuesto</label>
-                <input name="presupuesto" class="form-control" id="presupuesto" type="number">
-                <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="presupuesto"></span>
-            </div>
-        </div>
-    </div>
+
     <hr class="mt-4">
 </div>
