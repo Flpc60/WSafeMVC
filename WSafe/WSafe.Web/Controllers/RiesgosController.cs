@@ -681,6 +681,32 @@ namespace WSafe.Web.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<ActionResult> AddControlTrace(ControlTrace model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    model.ClientID = (int)Session["clientID"];
+                    model.OrganizationID = (int)Session["orgID"];
+                    model.UserID = (int)Session["userID"];
+                    _empresaContext.ControlTraces.Add(model);
+                    await _empresaContext.SaveChangesAsync();
+
+                    return Json(new { success = true, message = "Registro ingresado !!" }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { success = false, message = "Faltan datos por ingresar !!" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
+
         [HttpGet]
         public ActionResult GetSigueIntervencionesAll(int id)
         {
