@@ -16,7 +16,7 @@ using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
 {
-    //  Procesos controlador de riesgos en el SG-SST de las empresas
+    //  Procesos controlador de riesgos en el SGSST de las empresas
     public class RiesgosController : Controller
     {
         private int _clientID;
@@ -63,7 +63,6 @@ namespace WSafe.Web.Controllers
         {
             try
             {
-                // Configuración nombre archivo pdf
                 _clientID = (int)Session["clientID"];
                 _orgID = (int)Session["orgID"];
                 _year = (string)Session["year"];

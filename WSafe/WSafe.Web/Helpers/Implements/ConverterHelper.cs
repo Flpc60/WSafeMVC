@@ -2800,16 +2800,15 @@ namespace WSafe.Domain.Helpers.Implements
                     Observaciones = item.Observaciones,
                     Responsable = item.Responsable,
                     GenerateAction = item.GenerateAction ? "SI" : "NO",
-                    Finality = _gestorHelper.GetActionType((int)item.Finality), // Aplicado fuera del query
-                    AplicationCategory = _gestorHelper.GetCategoriaAplicacion(item.AplicationCategory) // Aplicado fuera del query
+                    Finality = _gestorHelper.GetActionType((int)item.Finality),
+                    AplicationCategory = _gestorHelper.GetCategoriaAplicacion(item.AplicationCategory)
                 }).ToList();
 
                 return seguimientos;
             }
             catch (Exception ex)
             {
-                var model = new List<ControlTraceVM>();
-                return model;
+                return new List<ControlTraceVM>();
             }
         }
     }
