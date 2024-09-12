@@ -1,6 +1,7 @@
 ﻿@{
     var trabajadores = ViewBag.trabajadores;
     var controls = ViewBag.controls;
+    var mainCauses = ViewBag.mainCauses;
 }
 
 <style>
@@ -274,23 +275,71 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="modal fade" id="createSigueModal" tabindex="-1" role="dialog" aria-labelledby="createSigueModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="createSigueModalLabel">Crear nuevo seguimiento</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+    <div class="modal fade" id="createSigueModal" tabindex="-1" role="dialog" aria-labelledby="createSigueModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createSigueModalLabel">Crear nuevo seguimiento</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label" for="controlTraceID">Nueva medida de intervención:</label>
+                        @Html.DropDownList("Controles", controls as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "controlTraceID" })
                     </div>
-                    <div class="modal-body">
-                        @Html.Partial("_EditControlTrace")
+                    <div class="form-group">
+                        <label class="control-label mr-2" for="efectividad">La medida aplicada fué efectiva</label>
+                        <input type="checkbox" id="efectividad" name="efectividad">
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary" onclick="addControlTrace()">Guardar</button>
+                    <div class="form-group">
+                        <label class="control-label" for="maintCauseID">Causa fundamental de la inefectividad:</label>
+                        @Html.DropDownList("Causas", mainCauses as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "mainCauseID" })
+                        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#createCauseModal">Crear nueva causa</button>
                     </div>
+                    <div class="modal fade" id="createCauseModal" tabindex="-1" role="dialog" aria-labelledby="createCauseModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="createCauseModalLabel">Crear nueva causa</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <textarea class="form-control" id="mainCause" rows="3" required placeholder="Ingrese nombre de la causa"></textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <button type="button" class="btn btn-primary" onclick="addMainCause();">Guardar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="observations">Observaciones:</label>
+                        <textarea id="observations" class="form-control" rows="3" style="resize:none;" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label mr-2" for="actionTraceID">Generar nueva acción CPM</label>
+                        <input type="checkbox" id="actionTraceID" name="actionTraceID">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="categoriaAcc">Finalidad</label>
+                        <select name="finality" class="form-control" id="finality">
+                            <option selected="selected" value="0">Seleccione ..</option>
+                            <option value="1">Preventivo</option>
+                            <option value="2">Correctivo</option>
+                            <option value="3">Mejora</option>
+                        </select>
+                        <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="categoriaAcc"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" onclick="addControlTrace()">Guardar</button>
                 </div>
             </div>
         </div>

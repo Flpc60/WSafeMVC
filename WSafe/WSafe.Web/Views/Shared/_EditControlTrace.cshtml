@@ -9,13 +9,10 @@
     <hr class="mt-4">
     <div class="row">
         <div class="col-md-12">
-            <label class="control-label" for="controlTraceID">Nueva medida de intervención</label>
+            <label class="control-label" for="controlTraceID">Nueva medida de intervención:</label>
             <div class="form-group row">
                 <div class="col-md-10 col-sm-9">
                     @Html.DropDownList("Controles", controls as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "controlTraceID" })
-                </div>
-                <div class="col-md-2 col-sm-3 d-flex justify-content-end">
-                    <button type="button" class="btn btn-primary" id="btnAddControl">Nuevo control</button>
                 </div>
             </div>
         </div>
