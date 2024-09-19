@@ -1,4 +1,5 @@
-﻿function buildTableRow(header, values) {
+﻿// funcionalidad del lado del cliente
+function buildTableRow(header, values) {
     var rowHtml = '';
     rowHtml += '<tr style="background-color:gainsboro;">';
     rowHtml += `<td style="white-space: nowrap;">${header}</td>`;
