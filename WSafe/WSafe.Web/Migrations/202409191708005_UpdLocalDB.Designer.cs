@@ -7,13 +7,13 @@ namespace WSafe.Web.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class UpdControlTrace : IMigrationMetadata
+    public sealed partial class UpdLocalDB : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdControlTrace));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdLocalDB));
         
         string IMigrationMetadata.Id
         {
-            get { return "202409102321274_UpdControlTrace"; }
+            get { return "202409191708005_UpdLocalDB"; }
         }
         
         string IMigrationMetadata.Source
