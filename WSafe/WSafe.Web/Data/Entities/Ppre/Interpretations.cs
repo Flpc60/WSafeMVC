@@ -2,7 +2,7 @@
 {
     public enum Interpretations
     {
-        Bajo, Medio, Alto
+        Alta, Media, Baja
     }
 }
 
