@@ -1,0 +1,8 @@
+﻿using WSafe.Domain.Data.Entities.Ppre;
+
+namespace WSafe.Domain.Services
+{
+    public interface IActionPlanService : IGenericService<ActionPlan>
+    {
+    }
+}
