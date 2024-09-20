@@ -3,6 +3,7 @@ using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Data.Entities.Auditor;
 using WSafe.Domain.Data.Entities.ICAM;
+using WSafe.Domain.Data.Entities.Ppre;
 using WSafe.Web.Data.Entities;
 
 namespace WSafe.Web.Models
@@ -76,6 +77,13 @@ namespace WSafe.Web.Models
         public DbSet<TrainingTopic> TrainingTopics { get; set; }
         public DbSet<ControlTrace> ControlTraces { get; set; }
         public DbSet<MainCause> MainCauses { get; set; }
+        public DbSet<ActionPlan> ActionPlans { get; set; }
+        public DbSet<Amenaza> Amenazas { get; set; }
+        public DbSet<CalificationAmenaza> CalificationAmenazas { get; set; }
+        public DbSet<Intervention> Interventions { get; set; }
+        public DbSet<Pon> Pons { get; set; }
+        public DbSet<Traceability> Traceabilities { get; set; }
+        public DbSet<Vulnerability> Vulnerabilities { get; set; }
         public System.Data.Entity.DbSet<WSafe.Web.Models.UserViewModel> UserViewModels { get; set; }
         public System.Data.Entity.DbSet<WSafe.Web.Models.RoleUserVM> RoleUserVMs { get; set; }
 
