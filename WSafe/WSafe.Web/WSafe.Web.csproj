@@ -352,6 +352,7 @@
     <Compile Include="Controllers\RecomendationsController.cs" />
     <Compile Include="Controllers\RiesgosController.cs" />
     <Compile Include="Controllers\UnsafeactsController.cs" />
+    <Compile Include="Controllers\VulnerabilitiesController.cs" />
     <Compile Include="Controllers\WorkersController.cs" />
     <Compile Include="Data\Entities\Accidentado.cs" />
     <Compile Include="Data\Entities\Accion.cs" />
@@ -529,9 +530,9 @@
     <Compile Include="Helpers\Implements\ConverterHelper.cs" />
     <Compile Include="Helpers\Implements\GestorHelper.cs" />
     <Compile Include="Helpers\Implements\IndicadorHelper.cs" />
-    <Compile Include="Migrations\202409191708005_UpdLocalDB.cs" />
-    <Compile Include="Migrations\202409191708005_UpdLocalDB.Designer.cs">
-      <DependentUpon>202409191708005_UpdLocalDB.cs</DependentUpon>
+    <Compile Include="Migrations\202409202028212_UpdLocalDB.cs" />
+    <Compile Include="Migrations\202409202028212_UpdLocalDB.Designer.cs">
+      <DependentUpon>202409202028212_UpdLocalDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />
@@ -1086,6 +1087,11 @@
     <Content Include="Views\Shared\_EditControl.cshtml" />
     <Content Include="Views\Shared\_EditControlTrace.cshtml" />
     <Content Include="Views\Shared\_CausesAnalisys.cshtml" />
+    <Content Include="Views\Vulnerabilities\Create.cshtml" />
+    <Content Include="Views\Vulnerabilities\Delete.cshtml" />
+    <Content Include="Views\Vulnerabilities\Details.cshtml" />
+    <Content Include="Views\Vulnerabilities\Edit.cshtml" />
+    <Content Include="Views\Vulnerabilities\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1341,8 +1347,8 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202409191708005_UpdLocalDB.resx">
-      <DependentUpon>202409191708005_UpdLocalDB.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202409202028212_UpdLocalDB.resx">
+      <DependentUpon>202409202028212_UpdLocalDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

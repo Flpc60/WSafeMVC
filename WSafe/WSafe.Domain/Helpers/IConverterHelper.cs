@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
+using WSafe.Domain.Data.Entities.Ppre;
 using WSafe.Web.Models;
 
 namespace WSafe.Domain.Helpers
@@ -84,5 +85,6 @@ namespace WSafe.Domain.Helpers
         Task<Capacitation> ToCapacitationAsync(CreateCapacitationVM model, bool isNew);
         CreateCapacitationVM ToUpdateCapacitationVM(Capacitation model, int org);
         IEnumerable<ControlTraceVM> GetControlTracesAll(int id);
+        IEnumerable<VulnerabilityVM> ToListVulnerabilityVM(IEnumerable<Vulnerability> list);
     }   
 }
