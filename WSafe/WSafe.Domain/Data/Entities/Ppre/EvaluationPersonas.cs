@@ -5,10 +5,10 @@ namespace WSafe.Domain.Data.Entities.Ppre
     public enum EvaluationPersonas
     {
         [Description("Gestión Organizacional")]
-        Organizacional,
+        Organizacional = 1,
         [Description("Capacitación y Entrenaniento")]
-        Entrenamiento,
+        Entrenamiento = 2,
         [Description("Características de Seguridad")]
-        Seguridad
+        Seguridad = 3
     }
 }

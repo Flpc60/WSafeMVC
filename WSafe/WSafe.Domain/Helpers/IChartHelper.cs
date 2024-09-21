@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using WSafe.Web.Models;
 
 namespace WSafe.Domain.Helpers

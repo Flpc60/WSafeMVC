@@ -13,7 +13,7 @@ namespace WSafe.Web.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202409191708005_UpdLocalDB"; }
+            get { return "202409202028212_UpdLocalDB"; }
         }
         
         string IMigrationMetadata.Source

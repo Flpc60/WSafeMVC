@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Azure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
+using WSafe.Domain.Data.Entities.Ppre;
 using WSafe.Web.Data.Entities;
 using WSafe.Web.Models;
 
@@ -2810,6 +2811,78 @@ namespace WSafe.Domain.Helpers.Implements
             {
                 return new List<ControlTraceVM>();
             }
+        }
+        public IEnumerable<VulnerabilityVM> ToListVulnerabilityVM(IEnumerable<Vulnerability> list)
+        {
+            var model = new List<VulnerabilityVM>();
+            foreach (var item in list)
+            {
+                string categoria = string.Empty;
+
+                switch (item.CategoryAmenaza)
+                {
+                    case CategoryAmenazas.Naturales:
+                        categoria = "Naturales";
+                        break;
+
+                    case CategoryAmenazas.Tecnologicas:
+                        categoria = "Tecnológicas";
+                        break;
+
+                    case CategoryAmenazas.Sociales:
+                        categoria = "Sociales";
+                        break;
+                }
+
+                string type = string.Empty;
+
+                switch (item.EvaluationConcept.VulnerabilitiType)
+                {
+                    case VulnerabilityTypes.Personas:
+                        type = "Personas";
+                        break;
+
+                    case VulnerabilityTypes.Recursos:
+                        type = "Recursos";
+                        break;
+
+                    case VulnerabilityTypes.Sistemas:
+                        type = "Sistemas y Procesos";
+                        break;
+                }
+
+                string response = string.Empty;
+
+                switch (item.Response)
+                {
+                    case ScalesCalification.Sí:
+                        response = "SI";
+                        break;
+
+                    case ScalesCalification.Parcial:
+                        response = "PARCIAL";
+                        break;
+
+                    case ScalesCalification.No:
+                        response = "NO";
+                        break;
+                }
+
+                var vulnerabityVM = new VulnerabilityVM
+                {
+                    ID = item.ID,
+                    CategoryAmenaza = categoria,
+                    Amenaza = item.Amenaza.Name,
+                    EvaluationConcept = type,
+                    Item = item.EvaluationConcept.Name,
+                    Response = response,
+                    Observation = item.Observation
+                };
+
+                model.Add(vulnerabityVM);
+            }
+
+            return model;
         }
     }
 }

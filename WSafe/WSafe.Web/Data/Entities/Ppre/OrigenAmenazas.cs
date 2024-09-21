@@ -2,6 +2,7 @@
 {
     public enum OrigenAmenazas
     {
-        Interno, Externo
+        Interno = 1,
+        Externo = 2
     }
 }
