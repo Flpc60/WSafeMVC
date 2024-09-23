@@ -2838,19 +2838,29 @@ namespace WSafe.Domain.Helpers.Implements
                 }
 
                 string type = string.Empty;
+                string aspecto = string.Empty;
 
                 switch (item.EvaluationConcept.VulnerabilitiType)
                 {
                     case VulnerabilityTypes.Personas:
                         type = "Personas";
+                        if (item.EvaluationConcept.EvaluationPerson == EvaluationPersonas.Organizacional) { aspecto = "Gestión Organizacional"; }
+                        if (item.EvaluationConcept.EvaluationPerson == EvaluationPersonas.Entrenamiento) { aspecto = "Capacitación y Entrenaniento"; }
+                        if (item.EvaluationConcept.EvaluationPerson == EvaluationPersonas.Seguridad) { aspecto = "Características de Seguridad"; }
                         break;
 
                     case VulnerabilityTypes.Recursos:
                         type = "Recursos";
+                        if (item.EvaluationConcept.EvaluationRecurso == EvaluationRecursos.Suministros) { aspecto = "Suministros"; }
+                        if (item.EvaluationConcept.EvaluationRecurso == EvaluationRecursos.Edificaciones) { aspecto = "Edificaciones"; }
+                        if (item.EvaluationConcept.EvaluationRecurso == EvaluationRecursos.Equipos) { aspecto = "Equipos"; }
                         break;
 
                     case VulnerabilityTypes.Sistemas:
                         type = "Sistemas y Procesos";
+                        if (item.EvaluationConcept.EvaluationSystem == EvaluationSystems.Servicios) { aspecto = "Servicios"; }
+                        if (item.EvaluationConcept.EvaluationSystem == EvaluationSystems.Sistemas) { aspecto = "Sistemas alternos"; }
+                        if (item.EvaluationConcept.EvaluationSystem == EvaluationSystems.Recuperacion) { aspecto = "Recuperación"; }
                         break;
                 }
 
@@ -2874,9 +2884,10 @@ namespace WSafe.Domain.Helpers.Implements
                 var vulnerabityVM = new VulnerabilityVM
                 {
                     ID = item.ID,
+                    Type = type,
                     CategoryAmenaza = categoria,
                     Amenaza = item.Amenaza.Name,
-                    EvaluationConcept = type,
+                    EvaluationConcept = aspecto,
                     Item = item.EvaluationConcept.Name,
                     Response = response,
                     Observation = item.Observation

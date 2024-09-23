@@ -22,9 +22,9 @@
         </div>
         <div class="col-md-4">
             <div class="text-right">
-                <div class="btn-group">
+                <div class="btn-group" style="display:block; margin-right:1%; width:50%; text-align:center;">
                     <div style="background-color: red;color:black;">RIESGO INMINENTE</div>
-                    <div style="background-color: orange; color: black;">RIESGO PROBABLE</div>
+                    <div style="background-color: yellow; color: black;">RIESGO PROBABLE</div>
                     <div style="background-color: green; color: black;">RIESGO POSIBLE</div>
                 </div>
             </div>
@@ -33,13 +33,13 @@
 </div>
 <br />
 <div class="table-responsive" style="background-color: azure; width:100%; margin-right:0px">
-    <table class="table">
+    <table class="table" style="padding-left:2px; scroll-padding-right:2px;">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Type)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CategoryAmenaza)
+                CLASE
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Amenaza)
@@ -47,15 +47,13 @@
             <th>
                 @Html.DisplayNameFor(model => model.EvaluationConcept)
             </th>
-            <th>
+            <th style="width:20%;">
                 @Html.DisplayNameFor(model => model.Item)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Response)
+                Rta
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Observation)
-            </th>
+            <th></th>
             <th></th>
         </tr>
 
@@ -74,21 +72,19 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.EvaluationConcept)
                 </td>
-                <td>
+                <td style="width:20%;">
                     @Html.DisplayFor(modelItem => item.Item)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Response)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Observation)
+                <td style="background-color:deepskyblue; text-align:left;">
+                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "fas fa-edit", @title = "Actualizar" })
                 </td>
-                <td style="margin:initial; background-color:deepskyblue; text-align:left;">
-                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit", @title = "Actualizar" })
+                <td style="background-color:deepskyblue; text-align:left">
+                    <a href="#" onclick="DeleteVulnerability('@item.ID')" class="fas fa-trash" title="Descartar"></a>
                 </td>
-                <td style="margin:initial; background-color:deepskyblue; text-align:left">
-                    <a href="#" onclick="DeleteVulnerability('@item.ID')" class="glyphicon glyphicon-trash" title="Descartar"></a>
-                </td>
+
             </tr>
         }
 
