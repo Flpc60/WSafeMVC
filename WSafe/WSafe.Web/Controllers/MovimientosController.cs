@@ -1,5 +1,4 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Data.Entity;
 using System.Diagnostics;
@@ -10,10 +9,11 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Helpers;
+using WSafe.Domain.Models;
 using WSafe.Web.Filters;
-using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
 {
@@ -222,31 +222,6 @@ namespace WSafe.Web.Controllers
             return View(movimientVM);
         }
 
-        // GET: Movimientos/Delete/5
-        public async Task<ActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            MovimientVM movimientVM = await _empresaContext.MovimientVMs.FindAsync(id);
-            if (movimientVM == null)
-            {
-                return HttpNotFound();
-            }
-            return View(movimientVM);
-        }
-
-        // POST: Movimientos/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
-        {
-            MovimientVM movimientVM = await _empresaContext.MovimientVMs.FindAsync(id);
-            _empresaContext.MovimientVMs.Remove(movimientVM);
-            await _empresaContext.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
         [HttpGet]
         public ActionResult GetNormas(string ciclo)
         {

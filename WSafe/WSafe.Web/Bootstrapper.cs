@@ -2,13 +2,13 @@ using Microsoft.Practices.Unity;
 using System.Data.Entity;
 using System.Web.Mvc;
 using Unity.Mvc3;
+using WSafe.Domain.Data;
 using WSafe.Domain.Helpers;
 using WSafe.Domain.Helpers.Implements;
 using WSafe.Domain.Repositories;
 using WSafe.Domain.Repositories.Implements;
 using WSafe.Domain.Services;
 using WSafe.Domain.Services.Implements;
-using WSafe.Web.Models;
 
 namespace WSafe.Web
 {

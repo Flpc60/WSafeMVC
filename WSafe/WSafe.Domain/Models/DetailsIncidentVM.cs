@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using WSafe.Domain.Data.Entities.Incidentes;
 
-namespace WSafe.Web.Models
+namespace WSafe.Domain.Models
 {
     public class DetailsIncidentVM
     {

@@ -1,5 +1,5 @@
-﻿using WSafe.Domain.Data.Entities;
-using WSafe.Web.Models;
+﻿using WSafe.Domain.Data;
+using WSafe.Domain.Data.Entities;
 
 namespace WSafe.Domain.Repositories.Implements
 {
