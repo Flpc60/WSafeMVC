@@ -4,10 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Helpers;
 using WSafe.Web.Filters;
-using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
 {
@@ -41,7 +41,7 @@ namespace WSafe.Web.Controllers
             var cantidad = _empresaContext.Organizations
                 .Where(o => o.ClientID == _clientID).Count();
             bool create = false;
-            if(folders > cantidad) { create = true; }
+            if (folders > cantidad) { create = true; }
             Organization organization = await _empresaContext.Organizations.FindAsync(_orgID);
             ViewBag.id = organization.ID;
             ViewBag.create = create;
@@ -50,7 +50,7 @@ namespace WSafe.Web.Controllers
         public ActionResult GetAllCargos()
         {
             _orgID = (int)Session["orgID"];
-            var cargos = _comboHelper.GetAllCargos().Where(c => c.OrganizationID ==_orgID);
+            var cargos = _comboHelper.GetAllCargos().Where(c => c.OrganizationID == _orgID);
             return Json(cargos, JsonRequestBehavior.AllowGet);
         }
 
@@ -109,7 +109,7 @@ namespace WSafe.Web.Controllers
         public ActionResult GetAllZonas()
         {
             _orgID = (int)Session["orgID"];
-            var zonas = _comboHelper.GetAllZonas().Where(z =>z.OrganizationID ==_orgID );
+            var zonas = _comboHelper.GetAllZonas().Where(z => z.OrganizationID == _orgID);
             return Json(zonas, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
@@ -438,7 +438,7 @@ namespace WSafe.Web.Controllers
                     var path = $"~/ORG{id}/SG-SST/{_year}";
                     var directory = Server.MapPath(path);
                     _gestorHelper.CreateFolder(directory);
-                    return RedirectToAction("Index","Home");
+                    return RedirectToAction("Index", "Home");
                 }
                 return View(model);
             }

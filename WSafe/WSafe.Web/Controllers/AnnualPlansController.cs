@@ -6,14 +6,14 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using System.Web.Http.Results;
 using System.Web.Mvc;
+using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Helpers;
+using WSafe.Domain.Models;
 using WSafe.Domain.Repositories.Implements;
 using WSafe.Domain.Services.Implements;
 using WSafe.Web.Filters;
-using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
 {

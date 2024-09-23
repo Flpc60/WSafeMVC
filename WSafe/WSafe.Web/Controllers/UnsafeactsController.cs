@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Helpers;
-using WSafe.Web.Models;
+using WSafe.Domain.Models;
 
 namespace WSafe.Web.Controllers
 {
@@ -138,7 +138,7 @@ namespace WSafe.Web.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Index","Home");
+                        return RedirectToAction("Index", "Home");
                     }
                 }
                 model.Zonas = _comboHelper.GetComboZonas(_orgID);

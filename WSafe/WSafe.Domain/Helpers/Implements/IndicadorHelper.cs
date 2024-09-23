@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Linq;
+using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Data.Entities.Incidentes;
-using WSafe.Web.Models;
+using WSafe.Domain.Models;
 
 namespace WSafe.Domain.Helpers.Implements
 {

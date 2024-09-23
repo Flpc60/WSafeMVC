@@ -5,7 +5,7 @@ using System.Web.Mvc;
 using WSafe.Domain.Data.Entities;
 using WSafe.Web.Data.Entities;
 
-namespace WSafe.Web.Models
+namespace WSafe.Domain.Models
 {
     public class CreateOccupationalVM
     {

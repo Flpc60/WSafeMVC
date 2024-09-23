@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using WSafe.Domain.Data.Entities;
 
-namespace WSafe.Web.Models
+namespace WSafe.Domain.Models
 {
     public class RecomendationVM
     {

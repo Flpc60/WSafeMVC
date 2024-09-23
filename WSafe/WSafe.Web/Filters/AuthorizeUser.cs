@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
-using WSafe.Web.Models;
 
 namespace WSafe.Web.Filters
 {

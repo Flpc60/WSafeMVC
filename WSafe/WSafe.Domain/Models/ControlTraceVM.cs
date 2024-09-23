@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WSafe.Web.Models
+namespace WSafe.Domain.Models
 {
     public class ControlTraceVM
     {
