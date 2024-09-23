@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -59,11 +59,11 @@
     <Reference Include="Aspose.Words.Pdf2Word, Version=22.12.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
       <HintPath>..\packages\Aspose.Words.22.12.0\lib\net461\Aspose.Words.Pdf2Word.dll</HintPath>
     </Reference>
-    <Reference Include="Azure.Core, Version=1.24.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
-      <HintPath>..\packages\Azure.Core.1.24.0\lib\net461\Azure.Core.dll</HintPath>
+    <Reference Include="Azure.Core, Version=1.38.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Core.1.38.0\lib\net472\Azure.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Azure.Identity, Version=1.6.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
-      <HintPath>..\packages\Azure.Identity.1.6.0\lib\netstandard2.0\Azure.Identity.dll</HintPath>
+    <Reference Include="Azure.Identity, Version=1.11.4.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Identity.1.11.4\lib\netstandard2.0\Azure.Identity.dll</HintPath>
     </Reference>
     <Reference Include="BootstrapTable, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\bootstrap-table.mvc.1.1.1\lib\net452\BootstrapTable.dll</HintPath>
@@ -78,10 +78,10 @@
       <HintPath>..\packages\Common.Logging.Core.3.4.1\lib\net40\Common.Logging.Core.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="itext.licensekey, Version=3.1.1.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\itext7.licensekey.3.1.1\lib\net40\itext.licensekey.dll</HintPath>
@@ -101,42 +101,42 @@
     <Reference Include="jQuery.Validation.Unobtrusive.Native, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\jQuery.Validation.Unobtrusive.Native.MVC4.1.1.1.0\lib\net45\jQuery.Validation.Unobtrusive.Native.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bot.Configuration, Version=4.15.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bot.Configuration.4.15.1\lib\netstandard2.0\Microsoft.Bot.Configuration.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=3.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\lib\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Data.SqlClient, Version=5.0.0.0, Culture=neutral, PublicKeyToken=23ec7fc2d6eaa4a5, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Data.SqlClient.5.0.1\lib\net462\Microsoft.Data.SqlClient.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Data.SqlClient.5.2.2\lib\net462\Microsoft.Data.SqlClient.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Identity.Client, Version=4.45.0.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Identity.Client.4.45.0\lib\net461\Microsoft.Identity.Client.dll</HintPath>
+    <Reference Include="Microsoft.Identity.Client, Version=4.64.1.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Identity.Client.4.64.1\lib\net472\Microsoft.Identity.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Identity.Client.Extensions.Msal, Version=2.19.3.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Identity.Client.Extensions.Msal.2.19.3\lib\net45\Microsoft.Identity.Client.Extensions.Msal.dll</HintPath>
+    <Reference Include="Microsoft.Identity.Client.Extensions.Msal, Version=4.61.3.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Identity.Client.Extensions.Msal.4.61.3\lib\netstandard2.0\Microsoft.Identity.Client.Extensions.Msal.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.Abstractions, Version=6.21.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.IdentityModel.Abstractions.6.21.0\lib\net472\Microsoft.IdentityModel.Abstractions.dll</HintPath>
+    <Reference Include="Microsoft.IdentityModel.Abstractions, Version=8.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Abstractions.8.0.2\lib\net472\Microsoft.IdentityModel.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=6.21.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.6.21.0\lib\net472\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=8.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.8.0.2\lib\net472\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.Logging, Version=6.21.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.IdentityModel.Logging.6.21.0\lib\net472\Microsoft.IdentityModel.Logging.dll</HintPath>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=8.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.8.0.2\lib\net472\Microsoft.IdentityModel.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.Protocols, Version=6.21.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.IdentityModel.Protocols.6.21.0\lib\net472\Microsoft.IdentityModel.Protocols.dll</HintPath>
+    <Reference Include="Microsoft.IdentityModel.Protocols, Version=6.35.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Protocols.6.35.0\lib\net472\Microsoft.IdentityModel.Protocols.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect, Version=6.21.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.IdentityModel.Protocols.OpenIdConnect.6.21.0\lib\net472\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll</HintPath>
+    <Reference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect, Version=6.35.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Protocols.OpenIdConnect.6.35.0\lib\net472\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.Tokens, Version=6.21.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.6.21.0\lib\net472\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=8.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.8.0.2\lib\net472\Microsoft.IdentityModel.Tokens.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
@@ -149,6 +149,12 @@
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.2.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json.Bson, Version=1.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.Bson.1.0.2\lib\net45\Newtonsoft.Json.Bson.dll</HintPath>
     </Reference>
     <Reference Include="protobuf-net, Version=2.0.0.668, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
       <HintPath>..\packages\protobuf-net.2.0.0.668\lib\net40\protobuf-net.dll</HintPath>
@@ -163,33 +169,39 @@
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
+    <Reference Include="System.ClientModel, Version=1.0.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ClientModel.1.0.0\lib\netstandard2.0\System.ClientModel.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.Configuration.ConfigurationManager, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Configuration.ConfigurationManager.7.0.0\lib\net462\System.Configuration.ConfigurationManager.dll</HintPath>
+    <Reference Include="System.Configuration.ConfigurationManager, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Configuration.ConfigurationManager.8.0.0\lib\net462\System.Configuration.ConfigurationManager.dll</HintPath>
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Data.OracleClient" />
-    <Reference Include="System.Data.SqlClient, Version=4.6.1.5, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SqlClient.4.8.5\lib\net461\System.Data.SqlClient.dll</HintPath>
+    <Reference Include="System.Data.SqlClient, Version=4.6.1.6, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SqlClient.4.8.6\lib\net461\System.Data.SqlClient.dll</HintPath>
     </Reference>
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.7.0.0\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel" />
-    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=6.21.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.6.21.0\lib\net472\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=6.35.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.6.35.0\lib\net472\System.IdentityModel.Tokens.Jwt.dll</HintPath>
     </Reference>
     <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.IO.FileSystem.AccessControl, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.AccessControl.5.0.0\lib\net461\System.IO.FileSystem.AccessControl.dll</HintPath>
+    </Reference>
     <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
     </Reference>
-    <Reference Include="System.Memory.Data, Version=1.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Memory.Data.1.0.2\lib\net461\System.Memory.Data.dll</HintPath>
+    <Reference Include="System.Memory.Data, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.Data.8.0.0\lib\net462\System.Memory.Data.dll</HintPath>
     </Reference>
     <Reference Include="System.Net" />
     <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -200,8 +212,8 @@
     <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net.Http.Formatting, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.9\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    <Reference Include="System.Net.Http.Formatting, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.6.0.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
@@ -224,8 +236,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Security" />
-    <Reference Include="System.Security.AccessControl, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.AccessControl.6.0.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    <Reference Include="System.Security.AccessControl, Version=6.0.0.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.6.0.1\lib\net461\System.Security.AccessControl.dll</HintPath>
     </Reference>
     <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
@@ -257,11 +269,11 @@
       <HintPath>..\packages\System.Security.Principal.Windows.5.0.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
     </Reference>
     <Reference Include="System.ServiceProcess" />
-    <Reference Include="System.Text.Encodings.Web, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Text.Encodings.Web.7.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    <Reference Include="System.Text.Encodings.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.8.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
-    <Reference Include="System.Text.Json, Version=7.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Text.Json.7.0.1\lib\net462\System.Text.Json.dll</HintPath>
+    <Reference Include="System.Text.Json, Version=8.0.0.4, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.8.0.4\lib\net462\System.Text.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
@@ -277,28 +289,28 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.Helpers.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Http, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.9\lib\net45\System.Web.Http.dll</HintPath>
+    <Reference Include="System.Web.Http, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.3.0\lib\net45\System.Web.Http.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Http.WebHost, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.9\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    <Reference Include="System.Web.Http.WebHost, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.3.0\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.9\lib\net45\System.Web.Mvc.dll</HintPath>
+    <Reference Include="System.Web.Mvc, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.3.0\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.9\lib\net45\System.Web.Razor.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.3.0\lib\net45\System.Web.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.WebPages.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
@@ -314,9 +326,6 @@
     </Reference>
     <Reference Include="System.Web.Optimization">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Mvc3, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.Mvc3.1.2\lib\net40\Unity.Mvc3.dll</HintPath>
@@ -354,329 +363,63 @@
     <Compile Include="Controllers\UnsafeactsController.cs" />
     <Compile Include="Controllers\VulnerabilitiesController.cs" />
     <Compile Include="Controllers\WorkersController.cs" />
-    <Compile Include="Data\Entities\Accidentado.cs" />
-    <Compile Include="Data\Entities\Accion.cs" />
-    <Compile Include="Data\Entities\ActCategories.cs" />
-    <Compile Include="Data\Entities\Action.cs" />
-    <Compile Include="Data\Entities\ActionCategories.cs" />
-    <Compile Include="Data\Entities\Actividad.cs" />
-    <Compile Include="Data\Entities\ActivitiesFrequency.cs" />
-    <Compile Include="Data\Entities\Aplicacion.cs" />
-    <Compile Include="Data\Entities\Audit.cs" />
-    <Compile Include="Data\Entities\AuditAction.cs" />
-    <Compile Include="Data\Entities\AuditCalifications.cs" />
-    <Compile Include="Data\Entities\AuditChapters.cs" />
-    <Compile Include="Data\Entities\AuditedAction.cs" />
-    <Compile Include="Data\Entities\AuditedResult.cs" />
-    <Compile Include="Data\Entities\Auditer.cs" />
-    <Compile Include="Data\Entities\AuditItem.cs" />
-    <Compile Include="Data\Entities\Auditor\AuditaAccion.cs" />
-    <Compile Include="Data\Entities\Auditor\AuditRiesgo.cs" />
-    <Compile Include="Data\Entities\Auditor\TiposOperacion.cs" />
-    <Compile Include="Data\Entities\AuditStates.cs" />
-    <Compile Include="Data\Entities\Calification.cs" />
-    <Compile Include="Data\Entities\Capacitation.cs" />
-    <Compile Include="Data\Entities\Cargo.cs" />
-    <Compile Include="Data\Entities\CategoriaAplicacion.cs" />
-    <Compile Include="Data\Entities\CategoriaControl.cs" />
-    <Compile Include="Data\Entities\CategoriaIntervencion.cs" />
-    <Compile Include="Data\Entities\CategoriaPeligro.cs" />
-    <Compile Include="Data\Entities\CategoriasAccion.cs" />
-    <Compile Include="Data\Entities\CategoriasAceptabilidad.cs" />
-    <Compile Include="Data\Entities\CategoriasAfectacion.cs" />
-    <Compile Include="Data\Entities\CategoriasCausa.cs" />
-    <Compile Include="Data\Entities\CategoriasEfectividad.cs" />
-    <Compile Include="Data\Entities\CategoriasFinalidad.cs" />
-    <Compile Include="Data\Entities\CategoriasGenero.cs" />
-    <Compile Include="Data\Entities\Client.cs" />
-    <Compile Include="Data\Entities\Components.cs" />
-    <Compile Include="Data\Entities\CondicionSalud.cs" />
-    <Compile Include="Data\Entities\Consecuencia.cs" />
-    <Compile Include="Data\Entities\Contingencias.cs" />
-    <Compile Include="Data\Entities\Control.cs" />
-    <Compile Include="Data\Entities\ControlTrace.cs" />
-    <Compile Include="Data\Entities\DangerCategories.cs" />
-    <Compile Include="Data\Entities\Dashboard.cs" />
-    <Compile Include="Data\Entities\Document.cs" />
-    <Compile Include="Data\Entities\DocumentTypes.cs" />
-    <Compile Include="Data\Entities\EfectosPosibles.cs" />
-    <Compile Include="Data\Entities\Emissions.cs" />
-    <Compile Include="Data\Entities\EstadosCivil.cs" />
-    <Compile Include="Data\Entities\EstratoCategories.cs" />
-    <Compile Include="Data\Entities\Evaluation.cs" />
-    <Compile Include="Data\Entities\ExaminationTypes.cs" />
-    <Compile Include="Data\Entities\FreeTimeCategories.cs" />
-    <Compile Include="Data\Entities\FuentesAccion.cs" />
-    <Compile Include="Data\Entities\Hobbies.cs" />
-    <Compile Include="Data\Entities\ICAM\BarrierAnalice.cs" />
-    <Compile Include="Data\Entities\ICAM\BarrierCategories.cs" />
-    <Compile Include="Data\Entities\ICAM\CausalAnalice.cs" />
-    <Compile Include="Data\Entities\ICAM\CausalFactors.cs" />
-    <Compile Include="Data\Entities\ICAM\Event.cs" />
-    <Compile Include="Data\Entities\ICAM\EventsOrder.cs" />
-    <Compile Include="Data\Entities\ICAM\PotencialCausalFactors.cs" />
-    <Compile Include="Data\Entities\ICAM\Reason.cs" />
-    <Compile Include="Data\Entities\ICAM\Suggestion.cs" />
-    <Compile Include="Data\Entities\ICAM\RootCause.cs" />
-    <Compile Include="Data\Entities\Incidente.cs" />
-    <Compile Include="Data\Entities\Incidentes\AccidenteProbabilidad.cs" />
-    <Compile Include="Data\Entities\Incidentes\CalificacionesEquipo.cs" />
-    <Compile Include="Data\Entities\Incidentes\CategoriasIncidente.cs" />
-    <Compile Include="Data\Entities\Incidentes\ConsecuenciasDaño.cs" />
-    <Compile Include="Data\Entities\Incidentes\ConsecuenciasImagen.cs" />
-    <Compile Include="Data\Entities\Incidentes\ConsecuenciasLesion.cs" />
-    <Compile Include="Data\Entities\Incidentes\ConsecuenciasMedio.cs" />
-    <Compile Include="Data\Entities\Incidentes\EquipoInvestiga.cs" />
-    <Compile Include="Data\Entities\Incidentes\Incidente.cs" />
-    <Compile Include="Data\Entities\Incidentes\IndicadorMes.cs" />
-    <Compile Include="Data\Entities\Incidentes\TipoPerdida.cs" />
-    <Compile Include="Data\Entities\Indicador.cs" />
-    <Compile Include="Data\Entities\IngresoCategories.cs" />
-    <Compile Include="Data\Entities\JerarquiaControles.cs" />
-    <Compile Include="Data\Entities\MainCause.cs" />
-    <Compile Include="Data\Entities\MedicalRecomendations.cs" />
-    <Compile Include="Data\Entities\MedidasControl.cs" />
-    <Compile Include="Data\Entities\Movimient.cs" />
-    <Compile Include="Data\Entities\NamesMonth.cs" />
-    <Compile Include="Data\Entities\NivelesConsecuencia.cs" />
-    <Compile Include="Data\Entities\NivelesDeficiencia.cs" />
-    <Compile Include="Data\Entities\NivelesEscolaridad.cs" />
-    <Compile Include="Data\Entities\NivelesExposicion.cs" />
-    <Compile Include="Data\Entities\NivelesProbabilidad.cs" />
-    <Compile Include="Data\Entities\NivelesRiesgo.cs" />
-    <Compile Include="Data\Entities\NonConformity.cs" />
-    <Compile Include="Data\Entities\Norma.cs" />
-    <Compile Include="Data\Entities\Occupational.cs" />
-    <Compile Include="Data\Entities\Operation.cs" />
-    <Compile Include="Data\Entities\Operations.cs" />
-    <Compile Include="Data\Entities\Organization.cs" />
-    <Compile Include="Data\Entities\Patology.cs" />
-    <Compile Include="Data\Entities\Peligro.cs" />
-    <Compile Include="Data\Entities\PlanAccion.cs" />
-    <Compile Include="Data\Entities\PlanAction.cs" />
-    <Compile Include="Data\Entities\PlanActivity.cs" />
-    <Compile Include="Data\Entities\Ppre\ActionPlan.cs" />
-    <Compile Include="Data\Entities\Ppre\Amenaza.cs" />
-    <Compile Include="Data\Entities\Ppre\Brigadista.cs" />
-    <Compile Include="Data\Entities\Ppre\CalificationAmenaza.cs" />
-    <Compile Include="Data\Entities\Ppre\CategoryAmenazas.cs" />
-    <Compile Include="Data\Entities\Ppre\CategoryCalifications.cs" />
-    <Compile Include="Data\Entities\Ppre\EvaluationCalification.cs" />
-    <Compile Include="Data\Entities\Ppre\EvaluationConcept.cs" />
-    <Compile Include="Data\Entities\Ppre\EvaluationPersonas.cs" />
-    <Compile Include="Data\Entities\Ppre\EvaluationRecursos.cs" />
-    <Compile Include="Data\Entities\Ppre\EvaluationSystems.cs" />
-    <Compile Include="Data\Entities\Ppre\Interpretations.cs" />
-    <Compile Include="Data\Entities\Ppre\Intervention.cs" />
-    <Compile Include="Data\Entities\Ppre\OrigenAmenazas.cs" />
-    <Compile Include="Data\Entities\Ppre\PlanCategories.cs" />
-    <Compile Include="Data\Entities\Ppre\Pon.cs" />
-    <Compile Include="Data\Entities\Ppre\RiskCalifications.cs" />
-    <Compile Include="Data\Entities\Ppre\ScalesCalification.cs" />
-    <Compile Include="Data\Entities\Ppre\Traceability.cs" />
-    <Compile Include="Data\Entities\Ppre\Vulnerability.cs" />
-    <Compile Include="Data\Entities\Ppre\VulnerabilityTypes.cs" />
-    <Compile Include="Data\Entities\Proceso.cs" />
-    <Compile Include="Data\Entities\Recomendation.cs" />
-    <Compile Include="Data\Entities\RecomendationTypes.cs" />
-    <Compile Include="Data\Entities\RecursosCategory.cs" />
-    <Compile Include="Data\Entities\Riesgo.cs" />
-    <Compile Include="Data\Entities\RiskClasses.cs" />
-    <Compile Include="Data\Entities\Role.cs" />
-    <Compile Include="Data\Entities\RoleOperation.cs" />
-    <Compile Include="Data\Entities\Schedule.cs" />
-    <Compile Include="Data\Entities\Seguimiento.cs" />
-    <Compile Include="Data\Entities\SeguimientoAccion.cs" />
-    <Compile Include="Data\Entities\SeguimientoAction.cs" />
-    <Compile Include="Data\Entities\SigueAudit.cs" />
-    <Compile Include="Data\Entities\SigueOccupational.cs" />
-    <Compile Include="Data\Entities\SiguePlanAnual.cs" />
-    <Compile Include="Data\Entities\SigueRecomendation.cs" />
-    <Compile Include="Data\Entities\SocioDemografico.cs" />
-    <Compile Include="Data\Entities\StatesActivity.cs" />
-    <Compile Include="Data\Entities\StatesCronogram.cs" />
-    <Compile Include="Data\Entities\Tarea.cs" />
-    <Compile Include="Data\Entities\TenenciasVivienda.cs" />
-    <Compile Include="Data\Entities\TiposAgente.cs" />
-    <Compile Include="Data\Entities\TiposDeporte.cs" />
-    <Compile Include="Data\Entities\TiposEvento.cs" />
-    <Compile Include="Data\Entities\TiposIndicador.cs" />
-    <Compile Include="Data\Entities\TiposJornada.cs" />
-    <Compile Include="Data\Entities\TiposLesion.cs" />
-    <Compile Include="Data\Entities\TiposPeriodicidad.cs" />
-    <Compile Include="Data\Entities\TiposReintegro.cs" />
-    <Compile Include="Data\Entities\TiposSangre.cs" />
-    <Compile Include="Data\Entities\TiposVinculacion.cs" />
-    <Compile Include="Data\Entities\Trabajador.cs" />
-    <Compile Include="Data\Entities\TrainingTopic.cs" />
-    <Compile Include="Data\Entities\Traza.cs" />
-    <Compile Include="Data\Entities\User.cs" />
-    <Compile Include="Data\Entities\ValorationCategory.cs" />
-    <Compile Include="Data\Entities\WorkAreas.cs" />
-    <Compile Include="Data\Entities\Zona.cs" />
-    <Compile Include="Data\Entities\Unsafeact.cs" />
     <Compile Include="Filters\AuthorizeUser.cs" />
     <Compile Include="Filters\VerificaSession.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\IChartHelper.cs" />
-    <Compile Include="Helpers\IComboHelper.cs" />
-    <Compile Include="Helpers\IConverterHelper.cs" />
-    <Compile Include="Helpers\IGestorHelper.cs" />
-    <Compile Include="Helpers\IIndicadorHelper.cs" />
-    <Compile Include="Helpers\Implements\ChartHelper.cs" />
-    <Compile Include="Helpers\Implements\ComboHelper.cs" />
-    <Compile Include="Helpers\Implements\ConverterHelper.cs" />
-    <Compile Include="Helpers\Implements\GestorHelper.cs" />
-    <Compile Include="Helpers\Implements\IndicadorHelper.cs" />
-    <Compile Include="Migrations\202409202028212_UpdLocalDB.cs" />
-    <Compile Include="Migrations\202409202028212_UpdLocalDB.Designer.cs">
-      <DependentUpon>202409202028212_UpdLocalDB.cs</DependentUpon>
+    <Compile Include="Migrations\202409231133113_UpdLocalDB.cs" />
+    <Compile Include="Migrations\202409231133113_UpdLocalDB.Designer.cs">
+      <DependentUpon>202409231133113_UpdLocalDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccidentadoVM.cs" />
-    <Compile Include="Models\AccionViewModel.cs" />
-    <Compile Include="Models\ActionsMatrixVM.cs" />
-    <Compile Include="Models\AmenazaVM.cs" />
-    <Compile Include="Models\AnnualPlanVM.cs" />
-    <Compile Include="Models\AplicacionVM.cs" />
-    <Compile Include="Models\AplicationsViewModel.cs" />
-    <Compile Include="Models\AthorizationVM.cs" />
-    <Compile Include="Models\AuditDetailsVM.cs" />
-    <Compile Include="Models\AuditedCreateVM.cs" />
-    <Compile Include="Models\AuditedResultVM.cs" />
-    <Compile Include="Models\AuditListVM.cs" />
-    <Compile Include="Models\AuditReportVM.cs" />
-    <Compile Include="Models\AuthorizationVM.cs" />
-    <Compile Include="Models\CalificationAmenazaVM.cs" />
-    <Compile Include="Models\CalificationVM.cs" />
-    <Compile Include="Models\ControlTraceVM.cs" />
-    <Compile Include="Models\ControlViewModel.cs" />
-    <Compile Include="Models\CreateCalificationVM.cs" />
-    <Compile Include="Models\CreateCapacitationVM.cs" />
-    <Compile Include="Models\CreateIndicatorsViewModel.cs" />
-    <Compile Include="Models\CreateOccupationalVM.cs" />
-    <Compile Include="Models\CreatePlanActivityVM.cs" />
-    <Compile Include="Models\CreateScheduleVM.cs" />
-    <Compile Include="Models\CrtVulnerabilityVM.cs" />
-    <Compile Include="Models\DashboardVM.cs" />
-    <Compile Include="Models\DetailsIncidentVM.cs" />
-    <Compile Include="Models\EmpresaContext.cs" />
-    <Compile Include="Models\EquipoInvestigaVM.cs" />
-    <Compile Include="Models\EvaluationVM.cs" />
-    <Compile Include="Models\IncidenteViewModel.cs" />
-    <Compile Include="Models\IndicadorDetallesViewModel.cs" />
-    <Compile Include="Models\IndicadorViewModel.cs" />
-    <Compile Include="Models\IntervencionViewModel.cs" />
-    <Compile Include="Models\IntervencionVM.cs" />
-    <Compile Include="Models\ListaRiesgosVM.cs" />
-    <Compile Include="Models\ListCapacitationVM.cs" />
-    <Compile Include="Models\LoginViewModel.cs" />
-    <Compile Include="Models\MatrizRiesgosVM.cs" />
-    <Compile Include="Models\MedicalRecomendationVM.cs" />
-    <Compile Include="Models\MinimalsStandardsVM.cs" />
-    <Compile Include="Models\MovimientVM.cs" />
-    <Compile Include="Models\NivelRiesgoVM.cs" />
-    <Compile Include="Models\OrganizationVM.cs" />
-    <Compile Include="Models\PlanAccionVM.cs" />
-    <Compile Include="Models\PlanActivityVM.cs" />
-    <Compile Include="Models\PlaneCapacitationVM.cs" />
-    <Compile Include="Models\RecomendationListVM.cs" />
-    <Compile Include="Models\RecomendationVM.cs" />
-    <Compile Include="Models\RiesgoViewModel.cs" />
-    <Compile Include="Models\RoleOperationVM.cs" />
-    <Compile Include="Models\RoleUserVM.cs" />
-    <Compile Include="Models\RoleViewModel.cs" />
-    <Compile Include="Models\SeguimientoAccionVM.cs" />
-    <Compile Include="Models\SiguePlanAnualVM.cs" />
-    <Compile Include="Models\SocioDemographicVM.cs" />
-    <Compile Include="Models\UnsafeactsListVM.cs" />
-    <Compile Include="Models\UnsafeactVM.cs" />
-    <Compile Include="Models\UserListVM.cs" />
-    <Compile Include="Models\UserViewModel.cs" />
-    <Compile Include="Models\VulnerabilityVM.cs" />
-    <Compile Include="Models\WorkersVM.cs" />
-    <Compile Include="Models\_DetailsRecomendationVM.cs" />
-    <Compile Include="Models\_DetailsAccionVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\IAccionRepository.cs" />
-    <Compile Include="Repositories\IActionPlanRepository.cs" />
-    <Compile Include="Repositories\IAnnualPlanRepository.cs" />
-    <Compile Include="Repositories\IAplicationRepository.cs" />
-    <Compile Include="Repositories\IAuditRepository.cs" />
-    <Compile Include="Repositories\ICalificationAmenazaRepository.cs" />
-    <Compile Include="Repositories\ICapacitationRepository.cs" />
-    <Compile Include="Repositories\IGenericRepository.cs" />
-    <Compile Include="Repositories\IIncidenteRepository.cs" />
-    <Compile Include="Repositories\IInterventionRepository.cs" />
-    <Compile Include="Repositories\Implements\AccionRepository.cs" />
-    <Compile Include="Repositories\Implements\ActionPlanRepository.cs" />
-    <Compile Include="Repositories\Implements\AnnualPlanRepository.cs" />
-    <Compile Include="Repositories\Implements\AplicationRepository.cs" />
-    <Compile Include="Repositories\Implements\AuditRepository.cs" />
-    <Compile Include="Repositories\Implements\CalificationAmenazaRepository.cs" />
-    <Compile Include="Repositories\Implements\CapacitationRepository.cs" />
-    <Compile Include="Repositories\Implements\GenericRepository.cs" />
-    <Compile Include="Repositories\Implements\IncidenteRepository.cs" />
-    <Compile Include="Repositories\Implements\InterventionRepository.cs" />
-    <Compile Include="Repositories\Implements\OccupationalRepository.cs" />
-    <Compile Include="Repositories\Implements\RecomendationRepository.cs" />
-    <Compile Include="Repositories\Implements\ScheduleRepository.cs" />
-    <Compile Include="Repositories\Implements\TrainingRepository.cs" />
-    <Compile Include="Repositories\Implements\VulnerabilityRepository.cs" />
-    <Compile Include="Repositories\IOccupationalRepository.cs" />
-    <Compile Include="Repositories\IRecomendationRepository.cs" />
-    <Compile Include="Repositories\Implements\RiesgoRepository.cs" />
-    <Compile Include="Repositories\IRiesgoRepository.cs" />
-    <Compile Include="Repositories\IScheduleRepository.cs" />
-    <Compile Include="Repositories\ITrainingRepository.cs" />
-    <Compile Include="Repositories\IVulnerabilityRepository.cs" />
-    <Compile Include="Services\IAccionService.cs" />
-    <Compile Include="Services\IActionPlanService.cs" />
-    <Compile Include="Services\IAnnualPlanService.cs" />
-    <Compile Include="Services\IAplicationService.cs" />
-    <Compile Include="Services\IAuditService.cs" />
-    <Compile Include="Services\ICalificationAmenazaService.cs" />
-    <Compile Include="Services\ICapacitationService.cs" />
-    <Compile Include="Services\IGenericService.cs" />
-    <Compile Include="Services\IIncidenteService.cs" />
-    <Compile Include="Services\IInterventionService.cs" />
-    <Compile Include="Services\Implements\AccionService.cs" />
-    <Compile Include="Services\Implements\ActionPlanService.cs" />
-    <Compile Include="Services\Implements\AnnualPlanService.cs" />
-    <Compile Include="Services\Implements\AplicationService.cs" />
-    <Compile Include="Services\Implements\AuditService.cs" />
-    <Compile Include="Services\Implements\CalificationAmenazaService.cs" />
-    <Compile Include="Services\Implements\CapacitationService.cs" />
-    <Compile Include="Services\Implements\GenericService.cs" />
-    <Compile Include="Services\Implements\IncidenteService.cs" />
-    <Compile Include="Services\Implements\InterventionService.cs" />
-    <Compile Include="Services\Implements\OccupationalService.cs" />
-    <Compile Include="Services\Implements\RecomendationService.cs" />
-    <Compile Include="Services\Implements\RiesgoService.cs" />
-    <Compile Include="Services\Implements\ScheduleService.cs" />
-    <Compile Include="Services\Implements\TrainingService.cs" />
-    <Compile Include="Services\Implements\VulnerabilityService.cs" />
-    <Compile Include="Services\IOccupationalService.cs" />
-    <Compile Include="Services\IRecomendationService.cs" />
-    <Compile Include="Services\IRiesgoService.cs" />
-    <Compile Include="Services\IScheduleService.cs" />
-    <Compile Include="Services\ITrainingService.cs" />
-    <Compile Include="Services\IVulnerabilityService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-grid.rtl.css" />
+    <Content Include="Content\bootstrap-grid.rtl.min.css" />
+    <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap-reboot.rtl.css" />
+    <Content Include="Content\bootstrap-reboot.rtl.min.css" />
     <Content Include="Content\bootstrap-table.css" />
     <Content Include="Content\bootstrap-table.min.css" />
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap-utilities.css" />
+    <Content Include="Content\bootstrap-utilities.min.css" />
+    <Content Include="Content\bootstrap-utilities.rtl.css" />
+    <Content Include="Content\bootstrap-utilities.rtl.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Chart.css" />
-    <Content Include="Content\Chart.min.css" />
+    <Content Include="Content\bootstrap.rtl.css" />
+    <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\custom-style.css" />
     <Content Include="Content\Funciones.js" />
     <Content Include="Content\Site - Copy.css" />
+    <Content Include="App_Browsers\qt.browser" />
+    <Content Include="Content\bootstrap.rtl.min.css.map" />
+    <Content Include="Content\bootstrap.rtl.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-utilities.rtl.min.css.map" />
+    <Content Include="Content\bootstrap-utilities.rtl.css.map" />
+    <Content Include="Content\bootstrap-utilities.min.css.map" />
+    <Content Include="Content\bootstrap-utilities.css.map" />
+    <Content Include="Content\bootstrap-reboot.rtl.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.rtl.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.rtl.min.css.map" />
+    <Content Include="Content\bootstrap-grid.rtl.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile2.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile3.pubxml" />
+    <None Include="Properties\PublishProfiles\FTPProfile1.pubxml" />
+    <None Include="Properties\PublishProfiles\FTPProfile2.pubxml" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -718,22 +461,6 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="App_Browsers\qt.browser" />
-    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
-    <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
-    <None Include="Properties\PublishProfiles\FolderProfile2.pubxml" />
-    <None Include="Properties\PublishProfiles\FolderProfile3.pubxml" />
-    <None Include="Properties\PublishProfiles\FTPProfile1.pubxml" />
-    <None Include="Properties\PublishProfiles\FTPProfile2.pubxml" />
     <Content Include="Images\logo1.jpg" />
     <Content Include="Images\wsafe.jpg" />
     <Content Include="Images\wsafe2.jpg" />
@@ -777,11 +504,15 @@
     <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-vi-VN.min.js" />
     <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-zh-CN.min.js" />
     <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-zh-TW.min.js" />
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\bootstrap.esm.js" />
+    <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\CapacitationsGestor.js" />
-    <Content Include="Scripts\Chart.js" />
-    <Content Include="Scripts\Chart.min.js" />
+    <Content Include="Scripts\chart.js" />
+    <Content Include="Scripts\chart.min.js" />
     <Content Include="Scripts\ChatGPTAsistence.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
@@ -802,13 +533,19 @@
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.esm.min.js.map" />
+    <Content Include="Scripts\bootstrap.esm.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
     <None Include="Scripts\jquery-3.6.3.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.3.js" />
     <Content Include="Scripts\jquery-3.6.3.min.js" />
     <Content Include="Scripts\jquery-3.6.3.slim.js" />
     <Content Include="Scripts\jquery-3.6.3.slim.min.js" />
-    <Content Include="Scripts\jquery-ui-1.13.2.js" />
-    <Content Include="Scripts\jquery-ui-1.13.2.min.js" />
+    <Content Include="Scripts\jquery-ui-1-13.3.js" />
+    <Content Include="Scripts\jquery-ui-1.13.3.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -939,7 +676,6 @@
     <Content Include="Views\Aplicaciones\Details.cshtml" />
     <Content Include="Views\Aplicaciones\Edit.cshtml" />
     <Content Include="Views\Aplicaciones\Index.cshtml" />
-    <Content Include="Views\Riesgos\prueba.cshtml" />
     <Content Include="Views\Shared\_EditarPlanAcc.cshtml" />
     <Content Include="Views\Accounts\Create.cshtml" />
     <Content Include="Views\Accounts\Delete.cshtml" />
@@ -1030,9 +766,6 @@
     <Content Include="Views\Shared\_EditTrabajador.cshtml" />
     <Content Include="Views\Workers\GetAll.cshtml" />
     <Content Include="Views\Home\Index - Copy.cshtml" />
-    <Content Include="Views\Shared\_Layout - Copy.cshtml" />
-    <Content Include="Views\Workers\Index - Copy.cshtml" />
-    <Content Include="Views\Riesgos\Index - Copy.cshtml" />
     <Content Include="Views\Unsafeacts\Create.cshtml" />
     <Content Include="Views\Unsafeacts\Delete.cshtml" />
     <Content Include="Views\Unsafeacts\Details.cshtml" />
@@ -1347,8 +1080,14 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202409202028212_UpdLocalDB.resx">
-      <DependentUpon>202409202028212_UpdLocalDB.cs</DependentUpon>
+    <ProjectReference Include="..\WSafe.Domain\WSafe.Domain.csproj">
+      <Project>{62F487E0-1E32-4DD8-9DEC-F130128AD5A2}</Project>
+      <Name>WSafe.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202409231133113_UpdLocalDB.resx">
+      <DependentUpon>202409231133113_UpdLocalDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
@@ -1385,15 +1124,15 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.Data.SqlClient.SNI.5.1.0\build\net462\Microsoft.Data.SqlClient.SNI.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Data.SqlClient.SNI.5.1.0\build\net462\Microsoft.Data.SqlClient.SNI.targets'))" />
-    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
-    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Data.SqlClient.SNI.5.2.0\build\net462\Microsoft.Data.SqlClient.SNI.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Data.SqlClient.SNI.5.2.0\build\net462\Microsoft.Data.SqlClient.SNI.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
   </Target>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
-  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" />
-  <Import Project="..\packages\Microsoft.Data.SqlClient.SNI.5.1.0\build\net462\Microsoft.Data.SqlClient.SNI.targets" Condition="Exists('..\packages\Microsoft.Data.SqlClient.SNI.5.1.0\build\net462\Microsoft.Data.SqlClient.SNI.targets')" />
-  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" />
+  <Import Project="..\packages\Microsoft.Data.SqlClient.SNI.5.2.0\build\net462\Microsoft.Data.SqlClient.SNI.targets" Condition="Exists('..\packages\Microsoft.Data.SqlClient.SNI.5.2.0\build\net462\Microsoft.Data.SqlClient.SNI.targets')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

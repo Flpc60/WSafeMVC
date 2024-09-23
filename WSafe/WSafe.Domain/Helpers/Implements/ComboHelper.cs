@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
-using WSafe.Web.Models;
-using static Antlr4.Runtime.Atn.SemanticContext;
 
 namespace WSafe.Domain.Helpers.Implements
 {
@@ -18,11 +17,11 @@ namespace WSafe.Domain.Helpers.Implements
         public IEnumerable<SelectListItem> GetComboActividades(int org)
         {
             var list = _empresaContext.Actividades
-                .Where(a =>a.OrganizationID == org).Select(a => new SelectListItem
-            {
-                Text = a.Descripcion,
-                Value = a.ID.ToString()
-            })
+                .Where(a => a.OrganizationID == org).Select(a => new SelectListItem
+                {
+                    Text = a.Descripcion,
+                    Value = a.ID.ToString()
+                })
                 .OrderBy(a => a.Text)
                 .ToList();
 
@@ -162,11 +161,11 @@ namespace WSafe.Domain.Helpers.Implements
         public IEnumerable<SelectListItem> GetComboProcesos(int org)
         {
             var list = _empresaContext.Procesos
-                .Where(p =>p.OrganizationID == org).Select(p => new SelectListItem
-            {
-                Text = p.Descripcion,
-                Value = p.ID.ToString()
-            })
+                .Where(p => p.OrganizationID == org).Select(p => new SelectListItem
+                {
+                    Text = p.Descripcion,
+                    Value = p.ID.ToString()
+                })
                 .OrderBy(p => p.Text)
                 .ToList();
 
@@ -181,7 +180,7 @@ namespace WSafe.Domain.Helpers.Implements
 
         public IEnumerable<SelectListItem> GetComboTareas(int org)
         {
-            var list = _empresaContext.Tareas.Where(t =>t.OrganizationID == org).Select(t => new SelectListItem
+            var list = _empresaContext.Tareas.Where(t => t.OrganizationID == org).Select(t => new SelectListItem
             {
                 Text = t.Descripcion,
                 Value = t.ID.ToString()
@@ -200,7 +199,7 @@ namespace WSafe.Domain.Helpers.Implements
 
         public IEnumerable<SelectListItem> GetComboZonas(int org)
         {
-            var list = _empresaContext.Zonas.Where(z =>z.OrganizationID == org).Select(z => new SelectListItem
+            var list = _empresaContext.Zonas.Where(z => z.OrganizationID == org).Select(z => new SelectListItem
             {
                 Text = z.Descripcion,
                 Value = z.ID.ToString()
@@ -379,7 +378,7 @@ namespace WSafe.Domain.Helpers.Implements
         }
         public IEnumerable<Zona> GetAllZonas()
         {
-            return _empresaContext.Zonas.OrderBy(z=> z.Descripcion).ToList();
+            return _empresaContext.Zonas.OrderBy(z => z.Descripcion).ToList();
         }
         public IEnumerable<Proceso> GetAllProcess()
         {
@@ -527,7 +526,7 @@ namespace WSafe.Domain.Helpers.Implements
         {
             var list = _empresaContext.Auditers.Where(t => t.OrganizationID == org).Select(t => new SelectListItem
             {
-                Text = t.FirstName + " " + " " + t.LastName + "CC. " +t.Document,
+                Text = t.FirstName + " " + " " + t.LastName + "CC. " + t.Document,
                 Value = t.ID.ToString()
             })
                 .OrderBy(t => t.Text)

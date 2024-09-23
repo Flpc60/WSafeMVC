@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.IdentityModel.Metadata;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -10,10 +9,11 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Helpers;
+using WSafe.Domain.Models;
 using WSafe.Web.Filters;
-using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
 {
@@ -51,21 +51,6 @@ namespace WSafe.Web.Controllers
                 .ToListAsync();
             var modelo = _converterHelper.ToEvaluationVMList(list);
             return View(modelo);
-        }
-
-        // GET: Evaluations/Details/5
-        public async Task<ActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            EvaluationVM evaluationVM = await _empresaContext.EvaluationVMs.FindAsync(id);
-            if (evaluationVM == null)
-            {
-                return HttpNotFound();
-            }
-            return View(evaluationVM);
         }
 
         // GET: Evaluations/Create

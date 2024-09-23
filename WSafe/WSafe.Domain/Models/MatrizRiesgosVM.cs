@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WSafe.Web.Models
+namespace WSafe.Domain.Models
 {
     public class MatrizRiesgosVM
     {

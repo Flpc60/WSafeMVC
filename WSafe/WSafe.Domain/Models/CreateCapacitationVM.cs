@@ -4,7 +4,7 @@ using System;
 using WSafe.Domain.Data.Entities;
 using System.Web.Mvc;
 
-namespace WSafe.Web.Models
+namespace WSafe.Domain.Models
 {
     public class CreateCapacitationVM
     {

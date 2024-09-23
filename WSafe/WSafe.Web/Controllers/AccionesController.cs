@@ -7,12 +7,13 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
+using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Helpers;
+using WSafe.Domain.Models;
 using WSafe.Domain.Repositories.Implements;
 using WSafe.Domain.Services.Implements;
 using WSafe.Web.Filters;
-using WSafe.Web.Models;
 
 namespace WSafe.Web.Controllers
 {
@@ -540,7 +541,7 @@ namespace WSafe.Web.Controllers
                             where (a.OrganizationID == _orgID)
                             join p in _empresaContext.PlanActions on a.ID equals p.AccionID
                             select p).Count();
-                            
+
             var numCorrective = _empresaContext.Acciones
                 .Where(ac => ac.Categoria == CategoriasAccion.Correctiva).Count();
             var numEfectives = _empresaContext.Acciones

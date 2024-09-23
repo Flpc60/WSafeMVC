@@ -1,13 +1,11 @@
-﻿using Azure;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Data.Entities.Ppre;
-using WSafe.Web.Data.Entities;
-using WSafe.Web.Models;
+using WSafe.Domain.Models;
 
 namespace WSafe.Domain.Helpers.Implements
 {
@@ -2812,10 +2810,15 @@ namespace WSafe.Domain.Helpers.Implements
                 return new List<ControlTraceVM>();
             }
         }
-        public IEnumerable<VulnerabilityVM> ToListVulnerabilityVM(IEnumerable<Vulnerability> list)
+        public IEnumerable<VulnerabilityVM> ToListVulnerabilityVM(IEnumerable<Vulnerability> list, int _orgID)
         {
+            var filtered = list
+                .Where(v => v.OrganizationID == _orgID)
+                .OrderBy(v => v.CategoryAmenaza)
+                .ThenBy(v => v.EvaluationConceptID);
+
             var model = new List<VulnerabilityVM>();
-            foreach (var item in list)
+            foreach (var item in filtered)
             {
                 string categoria = string.Empty;
 

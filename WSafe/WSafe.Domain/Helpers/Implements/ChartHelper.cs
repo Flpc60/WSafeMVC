@@ -4,10 +4,10 @@ using System.Data.Entity.Validation;
 using System.Globalization;
 using System.Linq;
 using System.Web.Helpers;
-using System.Web.UI.WebControls;
+using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Data.Entities.Incidentes;
-using WSafe.Web.Models;
+using WSafe.Domain.Models;
 
 namespace WSafe.Domain.Helpers.Implements
 {
@@ -46,14 +46,15 @@ namespace WSafe.Domain.Helpers.Implements
                 var HHT = workerMain * 8 * 23;
 
                 var result = (from at in _empresaContext.Incidentes
-                             where (at.FechaIncidente.Year == year && periodo.Contains(at.FechaIncidente.Month) && at.CategoriasIncidente == CategoriasIncidente.Accidente || at.CategoriasIncidente == CategoriasIncidente.Mortal)
-                             group at by new { at.FechaIncidente.Year, at.FechaIncidente.Month } into datosAgrupados
-                             orderby datosAgrupados.Key
-                             select new { 
-                                 Clave = datosAgrupados.Key,
-                                 Datos = datosAgrupados,
-                                 Dias = datosAgrupados.Sum(di => di.DiasIncapacidad)
-                             }).ToList();
+                              where (at.FechaIncidente.Year == year && periodo.Contains(at.FechaIncidente.Month) && at.CategoriasIncidente == CategoriasIncidente.Accidente || at.CategoriasIncidente == CategoriasIncidente.Mortal)
+                              group at by new { at.FechaIncidente.Year, at.FechaIncidente.Month } into datosAgrupados
+                              orderby datosAgrupados.Key
+                              select new
+                              {
+                                  Clave = datosAgrupados.Key,
+                                  Datos = datosAgrupados,
+                                  Dias = datosAgrupados.Sum(di => di.DiasIncapacidad)
+                              }).ToList();
 
                 var viewModel = new List<IndicadorDetallesViewModel>();
                 foreach (var grupo in result)
@@ -101,7 +102,9 @@ namespace WSafe.Domain.Helpers.Implements
                              where (at.FechaIncidente.Year == year && periodo.Contains(at.FechaIncidente.Month) && at.CategoriasIncidente == CategoriasIncidente.Accidente || at.CategoriasIncidente == CategoriasIncidente.Mortal && at.OrganizationID == _orgID)
                              group at by new { at.FechaIncidente.Year, at.FechaIncidente.Month } into datosAgrupados
                              orderby datosAgrupados.Key
-                             select new { Clave = datosAgrupados.Key,
+                             select new
+                             {
+                                 Clave = datosAgrupados.Key,
                                  Datos = datosAgrupados,
                                  Mortality = datosAgrupados.Where(m => m.CategoriasIncidente == CategoriasIncidente.Mortal).Count()
                              };
@@ -198,7 +201,7 @@ namespace WSafe.Domain.Helpers.Implements
             {
                 var result = from at in _empresaContext.Incidentes
                              where (at.FechaIncidente.Year == year && periodo.Contains(at.FechaIncidente.Month)) && at.IncapacidadMedica == true
-                             group at by new { at.FechaIncidente.Year, at.FechaIncidente.Month } into           datosAgrupados
+                             group at by new { at.FechaIncidente.Year, at.FechaIncidente.Month } into datosAgrupados
                              orderby datosAgrupados.Key
                              select new
                              {
@@ -417,7 +420,7 @@ namespace WSafe.Domain.Helpers.Implements
             try
             {
                 var result = _empresaContext.Riesgos
-                    .Where(r =>r.OrganizationID == _orgID)
+                    .Where(r => r.OrganizationID == _orgID)
                     .ToList();
                 var rutinaria = 0;
                 var noRutinaria = 0;

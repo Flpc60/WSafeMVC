@@ -2,7 +2,7 @@
 using System;
 using WSafe.Domain.Data.Entities;
 
-namespace WSafe.Web.Models
+namespace WSafe.Domain.Models
 {
     public class CreateScheduleVM
     {

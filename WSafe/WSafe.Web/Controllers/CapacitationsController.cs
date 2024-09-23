@@ -1,22 +1,19 @@
-﻿using Jint.Expressions;
-using Rotativa;
+﻿using Rotativa;
 using System;
 using System.Data;
 using System.Data.Entity;
-using System.IdentityModel.Metadata;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Helpers;
+using WSafe.Domain.Models;
 using WSafe.Domain.Repositories.Implements;
 using WSafe.Domain.Services.Implements;
-using WSafe.Web.Data.Entities;
-using WSafe.Web.Models;
-using static Antlr4.Runtime.Atn.SemanticContext;
 
 namespace WSafe.Web.Controllers
 {

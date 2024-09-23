@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using WSafe.Domain.Data.Entities.Incidentes;
 
-namespace WSafe.Web.Models
+namespace WSafe.Domain.Models
 {
     public class IncidenteViewModel
     {

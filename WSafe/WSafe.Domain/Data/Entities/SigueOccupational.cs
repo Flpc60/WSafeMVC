@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace WSafe.Web.Data.Entities
+namespace WSafe.Domain.Data.Entities
 {
     public class SigueOccupational
     {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
-using WSafe.Web.Models;
 
 namespace WSafe.Domain.Helpers.Implements
 {

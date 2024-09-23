@@ -10,7 +10,7 @@ namespace WSafe.Web
         protected void Application_Start()
         {
             Database.SetInitializer(
-                new MigrateDatabaseToLatestVersion<Models.EmpresaContext, Migrations.Configuration>());
+                new MigrateDatabaseToLatestVersion<WSafe.Domain.Data.EmpresaContext, Migrations.Configuration>());
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

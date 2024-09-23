@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using WSafe.Web.Models;
+using WSafe.Domain.Models;
 
 namespace WSafe.Domain.Helpers.Implements
 {
