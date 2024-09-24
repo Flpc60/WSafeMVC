@@ -1,10 +1,10 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using WSafe.Domain.Data;
 using WSafe.Domain.Helpers;
-using WSafe.Domain.Repositories.Implements;
-using WSafe.Domain.Services.Implements;
+using WSafe.Domain.Models;
 using WSafe.Web.Filters;
 
 namespace WSafe.Web.Controllers
@@ -42,45 +42,35 @@ namespace WSafe.Web.Controllers
             var model = _converterHelper.ToListVulnerabilityVM(vulnerabilities, _orgID);
             return View(model);
         }
+        public ActionResult Create()
+        {
+            try
+            {
+                _orgID = (int)Session["orgID"];
+                var model = _converterHelper.ToCrtVulnerabilityVMNew(_orgID);
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Home", "Index"));
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create([Bind(Include = "ID,CategoryAmenaza,Amenaza,Type,EvaluationConcept,Item,Response,Observation")] VulnerabilityVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                //_empresaContext.Vulnerabilities.Add(model);
+                await _empresaContext.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+
+            return View(model);
+        }
+
         /*
-                // GET: Vulnerabilities/Details/5
-                public async Task<ActionResult> Details(int? id)
-                {
-                    if (id == null)
-                    {
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                    }
-                    VulnerabilityVM vulnerabilityVM = await db.VulnerabilityVMs.FindAsync(id);
-                    if (vulnerabilityVM == null)
-                    {
-                        return HttpNotFound();
-                    }
-                    return View(vulnerabilityVM);
-                }
-
-                // GET: Vulnerabilities/Create
-                public ActionResult Create()
-                {
-                    return View();
-                }
-
-                // POST: Vulnerabilities/Create
-                // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-                // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-                [HttpPost]
-                [ValidateAntiForgeryToken]
-                public async Task<ActionResult> Create([Bind(Include = "ID,CategoryAmenaza,Amenaza,Type,EvaluationConcept,Item,Response,Observation")] VulnerabilityVM vulnerabilityVM)
-                {
-                    if (ModelState.IsValid)
-                    {
-                        db.VulnerabilityVMs.Add(vulnerabilityVM);
-                        await db.SaveChangesAsync();
-                        return RedirectToAction("Index");
-                    }
-
-                    return View(vulnerabilityVM);
-                }
-
                 // GET: Vulnerabilities/Edit/5
                 public async Task<ActionResult> Edit(int? id)
                 {
