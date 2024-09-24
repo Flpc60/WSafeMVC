@@ -2898,5 +2898,14 @@ namespace WSafe.Domain.Helpers.Implements
 
             return model;
         }
+        public CrtVulnerabilityVM ToCrtVulnerabilityVMNew(int org)
+        {
+            var model = new CrtVulnerabilityVM
+            {
+                Amenazas = _comboHelper.GetAllAmenazas(org, 1),
+                EvaluationConcepts = _comboHelper.GetAllEvaluationConcepts(org)
+            };
+            return model;
+        }
     }
 }

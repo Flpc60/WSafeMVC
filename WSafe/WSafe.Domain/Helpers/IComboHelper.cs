@@ -38,5 +38,7 @@ namespace WSafe.Domain.Helpers
         IEnumerable<SelectListItem> GetTrainingTopicsAll(int org);
         IEnumerable<SelectListItem> GetAllControls(int org);
         IEnumerable<SelectListItem> GetAllMainCauses(int org);
+        IEnumerable<SelectListItem> GetAllAmenazas(int org, int cat);
+        IEnumerable<SelectListItem> GetAllEvaluationConcepts(int org);
     }
 }
