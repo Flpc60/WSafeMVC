@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using WSafe.Domain.Data;
@@ -607,6 +608,46 @@ namespace WSafe.Domain.Helpers.Implements
             list.Insert(0, new SelectListItem
             {
                 Text = "(Seleccione una causa ...)",
+                Value = "0"
+            });
+
+            return list;
+        }
+        public IEnumerable<SelectListItem> GetAllAmenazas(int org, int cat)
+        {
+            var list = _empresaContext.Amenazas
+                .Where(a => a.OrganizationID == org && (int)a.CategoryAmenaza == cat)
+                .Select(m => new SelectListItem
+                {
+                    Text = m.Name,
+                    Value = m.ID.ToString()
+                })
+                .OrderBy(m => m.Text)
+                .ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione una amenaza ...)",
+                Value = "0"
+            });
+
+            return list;
+        }
+        public IEnumerable<SelectListItem> GetAllEvaluationConcepts(int org)
+        {
+            var list = _empresaContext.Amenazas
+                .Where(a => a.OrganizationID == org)
+                .Select(m => new SelectListItem
+                {
+                    Text = m.Name,
+                    Value = m.ID.ToString()
+                })
+                .OrderBy(m => m.Text)
+                .ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione una amenaza ...)",
                 Value = "0"
             });
 

@@ -86,5 +86,7 @@ namespace WSafe.Domain.Helpers
         CreateCapacitationVM ToUpdateCapacitationVM(Capacitation model, int org);
         IEnumerable<ControlTraceVM> GetControlTracesAll(int id);
         IEnumerable<VulnerabilityVM> ToListVulnerabilityVM(IEnumerable<Vulnerability> list, int _orgID);
+        CrtVulnerabilityVM ToCrtVulnerabilityVMNew(int org);
+
     }
 }
