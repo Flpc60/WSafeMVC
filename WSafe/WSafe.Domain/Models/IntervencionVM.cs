@@ -9,6 +9,8 @@ namespace WSafe.Domain.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string Vulnerability { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public string Categoria { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string Amenaza { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string Aplicacion { get; set; }

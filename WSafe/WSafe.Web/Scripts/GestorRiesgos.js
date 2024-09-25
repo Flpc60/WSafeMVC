@@ -1,6 +1,4 @@
 ﻿// Agregar funcionlidad del lado del cliente...
-// Implementar UI...
-
 function viewHistory() {
     //    $(".tabMediAplica").css("display", "none");
     var riesgoID = $("#txtRiesgoID").val();

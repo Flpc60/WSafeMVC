@@ -24,10 +24,9 @@
 <div class="container">
     <div class="row justify-content-between">
         <div class="col-md-12">
-            <button type="button" class="btn btn-success" id="idAmenaza" title="doble click para cerrar la ventana">1. IDENTIFICACIÓN AMENAZA</button>
-            <button type="button" class="btn btn-success" id="intervention" title="doble click para cerrar la ventana">2. MEDIDAS DE INTERVENCIÓN</button>
-            <button type="button" class="btn btn-success" id="plans" title="doble click para cerrar la ventana">3. PLANES DE ACCIÓN</button>
-            <button type="button" class="btn btn-success" id="pons" title="doble click para cerrar la ventana">4. PLAN OPERATIVO NORMALIZADO</button>
+            <button type="button" class="btn btn-success" id="idAmenaza" title="doble click para cerrar la ventana">IDENTIFICACIÓN AMENAZAS</button>
+            <button type="button" class="btn btn-success" id="plans" title="doble click para cerrar la ventana">PLANES DE ACCIÓN</button>
+            <button type="button" class="btn btn-success" id="pons" title="doble click para cerrar la ventana">PLAN OPERATIVO NORMALIZADO</button>
         </div>
     </div>
 </div>
@@ -42,6 +41,7 @@
             <div class="tabAmenaza">
                 <hr />
                 @Html.Partial("_EditAmenazas")
+                <input type="hidden" id="vulnerabilityID" name="vulnerabilityID"/>
             </div>
             <div style="display: inline-block;">
                 <div class="showIntervenciones"></div>
