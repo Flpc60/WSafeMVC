@@ -1010,13 +1010,15 @@ function addVulmerability() {
                 alert("Amenaza adicionada !!");
                 $("#type").val("");
                 $("#categoryAmenaza").val("");
+                $("#vulnerabilityID").val(result.data);
                 $("#amenazaID").val("");
                 $("#evaluationConceptID").val("");
                 $("#response").val("");
             } else {
                 alert("Error: " + result.message);
             }
-            $(".tabAddControlTrace").css("display", "none");
+            $("#btnaddVulmerability").hide();
+            $("#btnAddIntervention").show();
         },
         error: function (xhr, status, error) {
             alert("Error del servidor: " + error);
@@ -1026,7 +1028,7 @@ function addVulmerability() {
 
 function showIntervencionesAll() {
     // Mostrar todos los seguimientos
-    const id = $("#amenazaID").val();
+    const id = $("#vulnerabilityID").val();
     $('#btnSigue').hide();
 
     $.ajax({
@@ -1044,6 +1046,7 @@ function showIntervencionesAll() {
                         <thead>
                             <tr style="background-color:gainsboro;">
                                 <th>VULNERABILIDAD</th>
+                                <th>CATEGORÍA</th>
                                 <th>AMENAZA</th>
                                 <th>APLICACIÓN</th>
                                 <th>FINALIDAD</th>
@@ -1063,6 +1066,7 @@ function showIntervencionesAll() {
                     html += `
                     <tr>
                         <td>${item.Vulnerability}</td>
+                        <td>${item.Categoría}</td>
                         <td>${item.Amenaza}</td>
                         <td>${item.Aplicacion}</td>
                         <td>${item.Finality}</td>
@@ -1090,3 +1094,47 @@ function showIntervencionesAll() {
         }
     });
 }
+function addNewIntervention() {
+    $(".tabMediAplica").css("display", "none");
+    var vulnerabilityID = $("#vulnerabilityID").val();
+    var aplicaVM = {
+        ID: "0",
+        VulnerabilityID: vulnerabilityID,
+        CategoriaAplicacion: $("#txtCatAplica").val(),
+        Finalidad: $("#txtFinal").val(),
+        Intervencion: $("#idInterven").val(),
+        Beneficios: $("#idBeneficio").val(),
+        Presupuesto: $("#idPresup").val(),
+        TrabajadorID: $("#idRespons").val(),
+        FechaInicial: $("#FechaInicial").val(),
+        Fechafinal: $("#FechaFinal").val(),
+        Observaciones: $("#idObserv").val(),
+        NivelDeficiencia: $("#updDeficiencia").val(),
+        NivelExposicion: $("#updExposicion").val(),
+        NivelConsecuencia: $("#updConsecuencia").val(),
+        AceptabilidadNR: $("#AceptabilidadNR").val()
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/Riesgos/AddIntervenciones",
+        data: { model: aplicaVM },
+        dataType: "json",
+        success: function (result) {
+            if (result.data != false) {
+                $("#txtIntervenID").val(result.data);
+                $("#btnAddInterven").hide();
+                $(".tabAddInterven").css("display", "none");
+                ClearTextBox();
+            }
+            alert(result.mensaj);
+            mostrarInterven();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+    //AddPlan(1); // adicionar plan acción
+}
+

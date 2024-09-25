@@ -6,6 +6,8 @@ using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Data.Entities.Ppre;
 using WSafe.Domain.Models;
+using static iTextSharp.text.pdf.AcroFields;
+using static iTextSharp.tool.xml.html.HTML;
 
 namespace WSafe.Domain.Helpers.Implements
 {
@@ -2927,55 +2929,85 @@ namespace WSafe.Domain.Helpers.Implements
 
             return result;
         }
-        public IEnumerable<ControlTraceVM> GetInterventionsAll(int id)
+        public IEnumerable<IntervencionVM> GetInterventionsAll(int id)
         {
             try
             {
-                var trace = (from v in _empresaContext.Vulnerabilities
-                             join a in _empresaContext.Amenazas on v.ControlID equals c.ID into ControlJoin
-                             from c in ControlJoin.DefaultIfEmpty()
-                             join d in _empresaContext.Controls on t.CtrlReplaceID equals d.ID into ControlReplaceJoin
-                             from d in ControlReplaceJoin.DefaultIfEmpty()
-                             join m in _empresaContext.MainCauses on t.MaintCauseID equals m.ID into CauseJoin
-                             from m in CauseJoin.DefaultIfEmpty()
-                             join e in _empresaContext.Trabajadores on t.TrabajadorID equals e.ID into WorkerJoin
+                string type = string.Empty;
+                var vulnerability = _empresaContext.Vulnerabilities.Find(id);
+                var amenaza = _empresaContext.Amenazas.Find(vulnerability.AmenazaID);
+                var evaluation = _empresaContext.EvaluationConcepts.Find(vulnerability.EvaluationConceptID);
+
+                switch (vulnerability.EvaluationConcept.VulnerabilitiType)
+                {
+                    case VulnerabilityTypes.Personas:
+                        type = "Personas";
+                        break;
+
+                    case VulnerabilityTypes.Recursos:
+                        type = "Recursos";
+                        break;
+
+                    case VulnerabilityTypes.Sistemas:
+                        break;
+                }
+
+                string categoria = string.Empty;
+                switch (amenaza.CategoryAmenaza)
+                {
+                    case CategoryAmenazas.Naturales:
+                        categoria = "Naturales";
+                        break;
+
+                    case CategoryAmenazas.Tecnologicas:
+                        categoria = "Tecnológicas";
+                        break;
+
+                    case CategoryAmenazas.Sociales:
+                        categoria = "Sociales";
+                        break;
+
+                }
+
+                var trace = (from i in _empresaContext.Interventions
+                             join e in _empresaContext.Trabajadores on i.TrabajadorID equals e.ID into WorkerJoin
                              from e in WorkerJoin.DefaultIfEmpty()
-                             where t.RiesgoID == id
-                             orderby t.DateSigue
+                             where i.VulnerabilityID == id
+                             orderby i.FechaInicial
                              select new
                              {
-                                 t.ID,
-                                 MedidaAct = c != null ? c.Description.ToUpper() : "N/A",
-                                 MedidaAnt = d != null ? d.Description.ToUpper() : "N/A",
-                                 Fecha = t.DateSigue,
-                                 Efectividad = t.Efectividad ? "SI" : "NO",
-                                 Observaciones = t.Observations != null ? t.Observations.ToUpper() : "N/A",
+                                 i.ID,
+                                 Vulnerability = type,
+                                 Categoría = categoria,
+                                 Amenaza = amenaza.Name,
+                                 i.CategoriaAplicacion,
+                                 i.Finalidad,
+                                 i.Intervencion,
+                                 Benefiicos = i.Beneficios != null ? i.Beneficios.ToUpper() : "N/A",
+                                 i.Presupuesto,
                                  Responsable = e != null ? (e.Nombres + " " + e.PrimerApellido + " " + e.SegundoApellido).ToUpper() : "N/A",
-                                 t.GenerateAction,
-                                 t.Finality,
-                                 t.AplicationCategory
-                             }).ToList(); // Ejecutamos la consulta en la base de datos
+                                 i.FechaInicial,
+                                 i.FechaFinal
+                             }).ToList();
 
-                // Ahora, aplicamos la lógica que involucra métodos que no pueden ser traducidos a SQL
-                var seguimientos = trace.Select(item => new ControlTraceVM
+                var model = trace.Select(item => new IntervencionVM
                 {
                     ID = item.ID,
-                    MedidaAnt = item.MedidaAnt,
-                    MedidaAct = item.MedidaAct,
-                    Fecha = item.Fecha,
-                    Efectividad = item.Efectividad,
-                    Observaciones = item.Observaciones,
-                    Responsable = item.Responsable,
-                    GenerateAction = item.GenerateAction ? "SI" : "NO",
-                    Finality = _gestorHelper.GetActionType((int)item.Finality),
-                    AplicationCategory = _gestorHelper.GetCategoriaAplicacion(item.AplicationCategory)
+                    Vulnerability = item.Vulnerability,
+                    Categoria = item.Categoría,
+                    Amenaza = item.Amenaza,
+                    Aplicacion = _gestorHelper.GetCategoriaAplicacion(item.CategoriaAplicacion),
+                    Finalidad = _gestorHelper.GetActionType((int)item.Finalidad),
+                    Intervencion = _gestorHelper.GetJerarquiaControl((JerarquiaControles)(int)item.Intervencion),
+                    Presupuesto = item.Presupuesto,
+                    Responsable = item.Responsable
                 }).ToList();
 
-                return seguimientos;
+                return model;
             }
             catch (Exception ex)
             {
-                return new List<ControlTraceVM>();
+                return new List<IntervencionVM>();
             }
         }
     }
