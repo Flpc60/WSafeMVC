@@ -15,7 +15,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.CategoryAmenaza, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EnumDropDownListFor(model => model.CategoryAmenaza, htmlAttributes: new { @class = "form-control", @id = "categoryAmenaza"})
+                    @Html.EnumDropDownListFor(model => model.CategoryAmenaza, htmlAttributes: new { @class = "form-control", @id = "categoryAmenaza" })
                     @Html.ValidationMessageFor(model => model.CategoryAmenaza, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -99,9 +99,96 @@
         <div class="col-12 d-flex justify-content-between">
             <button type="button" id="btnaddVulmerability" class="btn btn-primary" onclick="addVulmerability()">Adicionar</button>
             <button type="button" id="btnupdateVulmerability" class="btn btn-primary" onclick="updateVulmerability()">Guardar</button>
-            <button type="button" id="btncancelVulmerability" class="btn btn-secondary" onclick="cancelVulmerability()">
+            <button type="button" id="btnAddIntervention" class="btn btn-primary">Adicionar nueva amenaza</button>
+            <button type="button" id="btnAddAmenaza" class="btn btn-secondary" onclick="cancelVulmerability()">
                 <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
             </button>
+            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#createInterventionModal">Adicionar medida intervención</button>
         </div>
     </div>
+    <div class="modal fade" id="createInterventionModal" tabindex="-1" role="dialog" aria-labelledby="createInterventionModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createInterventionModalLabel">Crear nueva medida intervención</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="description">Descripción:</label>
+                        <textarea id="description" class="form-control" rows="2" style="resize: none;" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="beneficio">Beneficios:</label>
+                        <textarea id="beneficio" class="form-control" rows="2" style="resize: none;" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="categoriaApp">Aplicación del control</label>
+                        <select name="categoriaApp" class="form-control" id="categoriaApp">
+                            <option selected="selected" value="0">Seleccione aplicación...</option>
+                            <option value="1">Fuente</option>
+                            <option value="2">Medio</option>
+                            <option value="3">Individuo</option>
+                        </select>
+                        <span class="text-danger" data-valmsg-replace="true" data-valmsg-for="categoriaApp"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="finalidad">Finalidad</label>
+                        <select name="finalidad" class="form-control" id="finalidad">
+                            <option selected="selected" value="0">Seleccione finalidad...</option>
+                            <option value="1">Preventivo</option>
+                            <option value="2">Correctivo</option>
+                            <option value="3">Mejora</option>
+                        </select>
+                        <span class="text-danger" data-valmsg-replace="true" data-valmsg-for="finalidad"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="intervencion">Medida intervención</label>
+                        <select name="intervencion" class="form-control" id="intervencion">
+                            <option selected="selected" value="0">Seleccione medida...</option>
+                            <option value="1">Eliminación</option>
+                            <option value="2">Sustitución</option>
+                            <option value="3">Controles de ingeniería</option>
+                            <option value="4">Controles de administración</option>
+                            <option value="5">Señalización</option>
+                            <option value="6">Equipos, EPP</option>
+                        </select>
+                        <span class="text-danger" data-valmsg-replace="true" data-valmsg-for="intervencion"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="presupuesto">Presupuesto</label>
+                        <input name="presupuesto" class="form-control" id="presupuesto" type="number">
+                        <span class="text-danger" data-valmsg-replace="true" data-valmsg-for="presupuesto"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label" for="FechaInicial">Fecha inicial</label>
+                        <input type="date" class="form-control" id="FechaInicial" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label" for="FechaFinal">Fecha final</label>
+                        <input type="date" class="form-control" id="FechaFinal" required>
+                    </div>
+                </div>
+
+            </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" onclick="addNewIntervention()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
