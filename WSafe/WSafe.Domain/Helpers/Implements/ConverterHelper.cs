@@ -2907,5 +2907,76 @@ namespace WSafe.Domain.Helpers.Implements
             };
             return model;
         }
+        public async Task<Vulnerability> ToVulnerabilityAsync(CrtVulnerabilityVM model, bool isNew)
+        {
+            var amenaza = await _empresaContext.Amenazas.FindAsync(model.AmenazaID);
+            var evaluation = await _empresaContext.EvaluationConcepts.FindAsync(model.EvaluationConceptID);
+            var result = new Vulnerability
+            {
+                ID = isNew ? 0 : model.ID,
+                CategoryAmenaza = model.CategoryAmenaza,
+                AmenazaID = model.AmenazaID,
+                Amenaza = amenaza,
+                EvaluationConceptID = model.EvaluationConceptID,
+                EvaluationConcept = evaluation,
+                Response = model.Response,
+                OrganizationID = model.OrganizationID,
+                ClientID = model.ClientID,
+                UserID = model.UserID
+            };
+
+            return result;
+        }
+        public IEnumerable<ControlTraceVM> GetInterventionsAll(int id)
+        {
+            try
+            {
+                var trace = (from v in _empresaContext.Vulnerabilities
+                             join a in _empresaContext.Amenazas on v.ControlID equals c.ID into ControlJoin
+                             from c in ControlJoin.DefaultIfEmpty()
+                             join d in _empresaContext.Controls on t.CtrlReplaceID equals d.ID into ControlReplaceJoin
+                             from d in ControlReplaceJoin.DefaultIfEmpty()
+                             join m in _empresaContext.MainCauses on t.MaintCauseID equals m.ID into CauseJoin
+                             from m in CauseJoin.DefaultIfEmpty()
+                             join e in _empresaContext.Trabajadores on t.TrabajadorID equals e.ID into WorkerJoin
+                             from e in WorkerJoin.DefaultIfEmpty()
+                             where t.RiesgoID == id
+                             orderby t.DateSigue
+                             select new
+                             {
+                                 t.ID,
+                                 MedidaAct = c != null ? c.Description.ToUpper() : "N/A",
+                                 MedidaAnt = d != null ? d.Description.ToUpper() : "N/A",
+                                 Fecha = t.DateSigue,
+                                 Efectividad = t.Efectividad ? "SI" : "NO",
+                                 Observaciones = t.Observations != null ? t.Observations.ToUpper() : "N/A",
+                                 Responsable = e != null ? (e.Nombres + " " + e.PrimerApellido + " " + e.SegundoApellido).ToUpper() : "N/A",
+                                 t.GenerateAction,
+                                 t.Finality,
+                                 t.AplicationCategory
+                             }).ToList(); // Ejecutamos la consulta en la base de datos
+
+                // Ahora, aplicamos la lógica que involucra métodos que no pueden ser traducidos a SQL
+                var seguimientos = trace.Select(item => new ControlTraceVM
+                {
+                    ID = item.ID,
+                    MedidaAnt = item.MedidaAnt,
+                    MedidaAct = item.MedidaAct,
+                    Fecha = item.Fecha,
+                    Efectividad = item.Efectividad,
+                    Observaciones = item.Observaciones,
+                    Responsable = item.Responsable,
+                    GenerateAction = item.GenerateAction ? "SI" : "NO",
+                    Finality = _gestorHelper.GetActionType((int)item.Finality),
+                    AplicationCategory = _gestorHelper.GetCategoriaAplicacion(item.AplicationCategory)
+                }).ToList();
+
+                return seguimientos;
+            }
+            catch (Exception ex)
+            {
+                return new List<ControlTraceVM>();
+            }
+        }
     }
 }
