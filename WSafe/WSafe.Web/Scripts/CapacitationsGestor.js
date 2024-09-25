@@ -1,4 +1,5 @@
 ﻿// funcionalidad del lado del cliente
+
 function buildTableRow(header, values) {
     var rowHtml = '';
     rowHtml += '<tr style="background-color:gainsboro;">';
@@ -978,4 +979,114 @@ function uploadSignature() {
     } else {
         alert("Por favor, seleccione un archivo.");
     }
+}
+
+function addVulmerability() {
+    var efectividad = false;
+    var generateAction = false;
+    if ($("#efectividad").is(':checked')) { efectividad = true; }
+    if ($("#actionTraceID").is(':checked')) { generateAction = true; }
+    var vulnerabilityVM = {
+        ID:0,
+        Types: $("#type").val(),
+        CategoryAmenaza: $("#categoryAmenaza").val(),
+        AmenazaID: $("#amenazaID").val(),
+        EvaluationConceptID: $("#evaluationConceptID").val(),
+        Respons: $("#response").val(), 
+        OrganizationID: 1,
+        ClientID: 1,
+        UserID: 1
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/Vulnerabilities/Create",
+        data: JSON.stringify(vulnerabilityVM),
+        dataType: "json",
+        contentType: 'application/json; charset=utf-8',
+        async: true,
+        success: function (result) {
+            if (result.success) {
+                alert("Amenaza adicionada !!");
+                $("#type").val("");
+                $("#categoryAmenaza").val("");
+                $("#amenazaID").val("");
+                $("#evaluationConceptID").val("");
+                $("#response").val("");
+            } else {
+                alert("Error: " + result.message);
+            }
+            $(".tabAddControlTrace").css("display", "none");
+        },
+        error: function (xhr, status, error) {
+            alert("Error del servidor: " + error);
+        }
+    });
+}
+
+function showIntervencionesAll() {
+    // Mostrar todos los seguimientos
+    const id = $("#amenazaID").val();
+    $('#btnSigue').hide();
+
+    $.ajax({
+        url: "/Vulnerabilities/GetIntervencionesAll",
+        data: { id: id },
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (response) {
+            if (response.length > 0) {
+                let html = `
+                <div class="table-responsive" style="background-color: azure; width:100%;">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr style="background-color:gainsboro;">
+                                <th>VULNERABILIDAD</th>
+                                <th>AMENAZA</th>
+                                <th>APLICACIÓN</th>
+                                <th>FINALIDAD</th>
+                                <th>INTERVENCIÓN</th>
+                                <th>BENEFICIOS</th>
+                                <th>PRESUPUESTO</th>
+                                <th>RESPONSABLE</th>
+                                <th>FECHA INICIAL</th>
+                                <th>FECHA FINAL</th>
+                            </tr>
+                        </thead>
+                        <tbody>`;
+
+                response.forEach(function (item) {
+                    const initialDate = moment(item.FechaInicial).format('YYYY-MM-DD');
+                    const finalDate = moment(item.FechaFinal).format('YYYY-MM-DD');
+                    html += `
+                    <tr>
+                        <td>${item.Vulnerability}</td>
+                        <td>${item.Amenaza}</td>
+                        <td>${item.Aplicacion}</td>
+                        <td>${item.Finality}</td>
+                        <td>${item.Intervention}</td>
+                        <td>${item.Beneficios}</td>
+                        <td>${item.Presupuesto}</td>
+                        <td>${item.Responsable}</td>
+                        <td style="white-space: nowrap;">${initialDate}</td>
+                        <td style="white-space: nowrap;">${finalDate}</td>
+                    </tr>`;
+                });
+
+                html += `
+                        </tbody>
+                    </table>
+                </div>`;
+
+                $('.showIntervenciones').html(html);
+                $('.showIntervenciones').focus();
+            }
+            if (response.length == 0) { alert("No hay seguimientos para este riesgo !!"); }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.error(`Error: ${xhr.status} - ${thrownError}`);
+        }
+    });
 }

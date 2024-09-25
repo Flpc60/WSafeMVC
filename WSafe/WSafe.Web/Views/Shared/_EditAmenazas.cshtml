@@ -1,0 +1,107 @@
+﻿@model WSafe.Domain.Models.CrtVulnerabilityVM
+
+<div class="container" style="background-color: azure">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Types, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EnumDropDownListFor(model => model.Types, htmlAttributes: new { @class = "form-control", @id = "type" })
+                    @Html.ValidationMessageFor(model => model.Types, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.CategoryAmenaza, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EnumDropDownListFor(model => model.CategoryAmenaza, htmlAttributes: new { @class = "form-control", @id = "categoryAmenaza"})
+                    @Html.ValidationMessageFor(model => model.CategoryAmenaza, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.AmenazaID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.AmenazaID, Model.Amenazas, new { @class = "form-control", @id = "amenazaID" })
+                    @Html.ValidationMessageFor(model => model.AmenazaID, "", new { @class = "text-danger" })
+                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#createAmenazaModal">Crear nueva amenaza</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.EvaluationConceptID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.EvaluationConceptID, Model.EvaluationConcepts, new { @class = "form-control", @id = "evaluationConceptID" })
+                    @Html.ValidationMessageFor(model => model.EvaluationConceptID, "", new { @class = "text-danger" })
+                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#createEvaluationModal">Crear nuevo concepto</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="modal fade" id="createAmenazaModal" tabindex="-1" role="dialog" aria-labelledby="createAmenazaModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createAmenazaModalLabel">Crear nueva amenaza</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" id="txtActivity" class="form-control" placeholder="Ingrese nombre de la actividad" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" onclick="addAmenaza(false)">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="createEvaluationModal" tabindex="-1" role="dialog" aria-labelledby="createEvaluationModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createEvaluationModalLabel">Crear nuevo concepto</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" id="txtDescripcion" class="form-control" placeholder="Ingrese nombre de la actividad" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" onclick="addEvaluation(false)">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Response, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EnumDropDownListFor(model => model.Response, htmlAttributes: new { @class = "form-control", @id = "response" })
+                    @Html.ValidationMessageFor(model => model.Response, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="mt-4">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-between">
+            <button type="button" id="btnaddVulmerability" class="btn btn-primary" onclick="addVulmerability()">Adicionar</button>
+            <button type="button" id="btnupdateVulmerability" class="btn btn-primary" onclick="updateVulmerability()">Guardar</button>
+            <button type="button" id="btncancelVulmerability" class="btn btn-secondary" onclick="cancelVulmerability()">
+                <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
+            </button>
+        </div>
+    </div>
+</div>

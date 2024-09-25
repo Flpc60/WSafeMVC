@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using WSafe.Domain.Data;
 using WSafe.Domain.Helpers;
 using WSafe.Domain.Models;
+using WSafe.Domain.Repositories.Implements;
+using WSafe.Domain.Services.Implements;
 using WSafe.Web.Filters;
 
 namespace WSafe.Web.Controllers
@@ -57,17 +60,57 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,CategoryAmenaza,Amenaza,Type,EvaluationConcept,Item,Response,Observation")] VulnerabilityVM model)
+        public async Task<ActionResult> Create([Bind(Include = "ID,Types,CategoryAmenaza,AmenazaID,EvaluationConceptID,Response,ClientID,OrganizationID,UserID")] CrtVulnerabilityVM model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                //_empresaContext.Vulnerabilities.Add(model);
-                await _empresaContext.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
+                var message = "";
+                model.ClientID = (int)Session["clientID"];
+                model.OrganizationID = (int)Session["orgID"];
+                model.UserID = (int)Session["userID"];
 
-            return View(model);
+                if (ModelState.IsValid)
+                {
+                    if (model.ID == 0)
+                    {
+                        var consulta = new VulnerabilityService(new VulnerabilityRepository(_empresaContext));
+                        var vulnerability = await _converterHelper.ToVulnerabilityAsync(model, true);
+                        var saved = await consulta.Insert(vulnerability);
+                        if (saved == null)
+                        {
+                            message = "El registro NO ha sido ingresado correctamente !!";
+                            return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                        }
+                        else
+                        {
+                            message = "El registro ha sido ingresado correctamente !!";
+                            var id = _empresaContext.Vulnerabilities.OrderByDescending(x => x.ID).First().ID;
+                            return Json(new { data = id, mensaj = message }, JsonRequestBehavior.AllowGet);
+                        }
+                    }
+                    else
+                    {
+                        message = "El registro NO ha sido ingresado correctamente !!";
+                        return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+                else
+                {
+                    message = "El registro NO ha sido ingresado correctamente !!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Home", "Index"));
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetIntervencionesAll(int id)
+        {
+            var model = _converterHelper.GetControlTracesAll(id);
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         /*
