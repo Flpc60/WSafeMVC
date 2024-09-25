@@ -93,7 +93,7 @@ namespace WSafe.Web.Controllers
                 if (ModelState.IsValid && model.NormaID != 0 && model.TrabajadorID != 0)
                 {
                     var consulta = new AnnualPlanService(new AnnualPlanRepository(_empresaContext));
-                    var planActivity = await _converterHelper.ToPlanActivityAsync(model, true);
+                    var planActivity = _converterHelper.ToPlanActivityAsync(model, true);
                     var saved = await consulta.Insert(planActivity);
                     if (saved != null)
                     {
@@ -231,7 +231,7 @@ namespace WSafe.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    PlanActivity planActivity = await _converterHelper.ToPlanActivityAsync(model, false);
+                    PlanActivity planActivity = _converterHelper.ToPlanActivityAsync(model, false);
                     _empresaContext.Entry(planActivity).State = EntityState.Modified;
                     await _empresaContext.SaveChangesAsync();
                     _orgID = (int)Session["orgID"];

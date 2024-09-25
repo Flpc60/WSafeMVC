@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
-using WSafe.Domain.Data.Entities.Ppre;
 using WSafe.Domain.Models;
 
 namespace WSafe.Domain.Helpers
@@ -70,24 +69,20 @@ namespace WSafe.Domain.Helpers
         Task<Audit> ToAuditAsync(AuditedCreateVM model, bool isNew);
         IEnumerable<AnnualPlanVM> ToAnnualPlanVM(IEnumerable<PlanActivity> list);
         CreatePlanActivityVM ToCreatePlanActivityVM(int org);
-        Task<PlanActivity> ToPlanActivityAsync(CreatePlanActivityVM model, bool isNew);
+        PlanActivity ToPlanActivityAsync(CreatePlanActivityVM model, bool isNew);
         CreatePlanActivityVM ToUpdatePlanActivityVM(PlanActivity model, int org);
         CreatePlanActivityVM ToUpdateSiguePlanAnual(SiguePlanAnual model, int org);
         IEnumerable<AnnualPlanVM> ToAnnualPlanMatriz(IEnumerable<PlanActivity> list);
         SiguePlanAnual Traceability(int normaID, string year, int _orgID, string fullName);
         IEnumerable<MedicalRecomendationVM> ToMedicalRecomendationVM(IEnumerable<Occupational> list);
         CreateOccupationalVM ToCreateOccupationalVM(int org);
-        Task<Occupational> ToOccupationalAsync(CreateOccupationalVM model, bool isNew);
+        Occupational ToOccupationalAsync(CreateOccupationalVM model, bool isNew);
         CreateOccupationalVM ToUpdateOccupationalVM(Occupational model, int org);
         IEnumerable<ListCapacitationVM> ToListCapacitationVM(IEnumerable<Capacitation> list);
         IEnumerable<ListCapacitationVM> ToCapacitationVM(IEnumerable<Capacitation> list);
         CreateCapacitationVM ToCreateCapacitationVM(int org);
-        Task<Capacitation> ToCapacitationAsync(CreateCapacitationVM model, bool isNew);
+        Capacitation ToCapacitationAsync(CreateCapacitationVM model, bool isNew);
         CreateCapacitationVM ToUpdateCapacitationVM(Capacitation model, int org);
         IEnumerable<ControlTraceVM> GetControlTracesAll(int id);
-        IEnumerable<VulnerabilityVM> ToListVulnerabilityVM(IEnumerable<Vulnerability> list, int _orgID);
-        CrtVulnerabilityVM ToCrtVulnerabilityVMNew(int org);
-        Task<Vulnerability> ToVulnerabilityAsync(CrtVulnerabilityVM model, bool isNew);
-        IEnumerable<IntervencionVM> GetInterventionsAll(int id);
     }
 }
