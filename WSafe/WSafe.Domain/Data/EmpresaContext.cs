@@ -76,7 +76,7 @@ namespace WSafe.Domain.Data
         public DbSet<Pon> Pons { get; set; }
         public DbSet<Traceability> Traceabilities { get; set; }
         public DbSet<Vulnerability> Vulnerabilities { get; set; }
-
+        public DbSet<EvaluationConcept> EvaluationConcepts { get; set; }
         public System.Data.Entity.DbSet<WSafe.Domain.Models.CrtVulnerabilityVM> CrtVulnerabilityVMs { get; set; }
     }
 }
