@@ -281,11 +281,13 @@
     <Compile Include="Helpers\IChartHelper.cs" />
     <Compile Include="Helpers\IComboHelper.cs" />
     <Compile Include="Helpers\IConverterHelper.cs" />
+    <Compile Include="Helpers\IEmergencyConverter.cs" />
     <Compile Include="Helpers\IGestorHelper.cs" />
     <Compile Include="Helpers\IIndicadorHelper.cs" />
     <Compile Include="Helpers\Implements\ChartHelper.cs" />
     <Compile Include="Helpers\Implements\ComboHelper.cs" />
     <Compile Include="Helpers\Implements\ConverterHelper.cs" />
+    <Compile Include="Helpers\Implements\EmergencyConverter.cs" />
     <Compile Include="Helpers\Implements\GestorHelper.cs" />
     <Compile Include="Helpers\Implements\IndicadorHelper.cs" />
     <Compile Include="Models\AccidentadoVM.cs" />

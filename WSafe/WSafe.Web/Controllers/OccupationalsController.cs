@@ -126,7 +126,7 @@ namespace WSafe.Web.Controllers
                     _empresaContext.SaveChanges();
 
                     var consulta = new OccupationalService(new OccupationalRepository(_empresaContext));
-                    var occupational = await _converterHelper.ToOccupationalAsync(model, true);
+                    var occupational = _converterHelper.ToOccupationalAsync(model, true);
                     var saved = await consulta.Insert(occupational);
                     if (saved != null)
                     {
@@ -170,7 +170,7 @@ namespace WSafe.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Occupational occupational = await _converterHelper.ToOccupationalAsync(model, false);
+                    Occupational occupational = _converterHelper.ToOccupationalAsync(model, false);
                     _empresaContext.Entry(occupational).State = EntityState.Modified;
                     await _empresaContext.SaveChangesAsync();
                     _orgID = (int)Session["orgID"];
