@@ -88,7 +88,7 @@ namespace WSafe.Web.Controllers
                 if (model.TrabajadorID != 0)
                 {
                     var consulta = new CapacitationService(new CapacitationRepository(_empresaContext));
-                    var capacitation = await _converterHelper.ToCapacitationAsync(model, true);
+                    var capacitation = _converterHelper.ToCapacitationAsync(model, true);
                     var saved = await consulta.Insert(capacitation);
                     if (saved != null)
                     {
@@ -223,7 +223,7 @@ namespace WSafe.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Capacitation capacitation = await _converterHelper.ToCapacitationAsync(model, false);
+                    Capacitation capacitation = _converterHelper.ToCapacitationAsync(model, false);
                     _empresaContext.Entry(capacitation).State = EntityState.Modified;
                     await _empresaContext.SaveChangesAsync();
                     _orgID = (int)Session["orgID"];

@@ -374,6 +374,10 @@
     <Compile Include="Migrations\202409241713181_UpdVulnVM.Designer.cs">
       <DependentUpon>202409241713181_UpdVulnVM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202409252045537_UpdTableIntervention.cs" />
+    <Compile Include="Migrations\202409252045537_UpdTableIntervention.Designer.cs">
+      <DependentUpon>202409252045537_UpdTableIntervention.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -1089,6 +1093,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202409241713181_UpdVulnVM.resx">
       <DependentUpon>202409241713181_UpdVulnVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409252045537_UpdTableIntervention.resx">
+      <DependentUpon>202409252045537_UpdTableIntervention.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

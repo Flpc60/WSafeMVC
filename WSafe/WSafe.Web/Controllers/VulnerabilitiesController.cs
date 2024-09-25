@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using WSafe.Domain.Data;
+using WSafe.Domain.Data.Entities.Ppre;
 using WSafe.Domain.Helpers;
 using WSafe.Domain.Models;
 using WSafe.Domain.Repositories.Implements;
@@ -25,13 +26,15 @@ namespace WSafe.Web.Controllers
         private readonly IConverterHelper _converterHelper;
         private readonly IChartHelper _chartHelper;
         private readonly IGestorHelper _gestorHelper;
-        public VulnerabilitiesController(EmpresaContext empresaContext, IComboHelper comboHelper, IConverterHelper converterHelper, IChartHelper chartHelper, IGestorHelper gestorHelper)
+        private readonly IEmergencyConverter _emergencyConverter;
+        public VulnerabilitiesController(EmpresaContext empresaContext, IComboHelper comboHelper, IConverterHelper converterHelper, IChartHelper chartHelper, IGestorHelper gestorHelper, IEmergencyConverter emergencyConverter)
         {
             _empresaContext = empresaContext;
             _comboHelper = comboHelper;
             _converterHelper = converterHelper;
             _chartHelper = chartHelper;
             _gestorHelper = gestorHelper;
+            _emergencyConverter = emergencyConverter;
         }
 
         [AuthorizeUser(operation: 1, component: 2)]
@@ -42,20 +45,22 @@ namespace WSafe.Web.Controllers
                 .Include(v => v.EvaluationConcept)
                 .Include(a => a.Amenaza)
                 .ToListAsync();
-            var model = _converterHelper.ToListVulnerabilityVM(vulnerabilities, _orgID);
+            var model = _emergencyConverter.ToListVulnerabilityVM(vulnerabilities, _orgID);
             return View(model);
         }
+
+        [AuthorizeUser(operation: 2, component: 2)]
         public ActionResult Create()
         {
             try
             {
                 _orgID = (int)Session["orgID"];
-                var model = _converterHelper.ToCrtVulnerabilityVMNew(_orgID);
+                var model = _emergencyConverter.ToCrtVulnerabilityVMNew(_orgID);
                 return View(model);
             }
             catch (Exception ex)
             {
-                return View("Error", new HandleErrorInfo(ex, "Home", "Index"));
+                return View("Error", new HandleErrorInfo(ex, "Vulnerabilities", "Index"));
             }
         }
 
@@ -74,7 +79,7 @@ namespace WSafe.Web.Controllers
                     if (model.ID == 0)
                     {
                         var consulta = new VulnerabilityService(new VulnerabilityRepository(_empresaContext));
-                        var vulnerability = await _converterHelper.ToVulnerabilityAsync(model, true);
+                        var vulnerability = await _emergencyConverter.ToVulnerabilityAsync(model, true);
                         var saved = await consulta.Insert(vulnerability);
                         if (saved == null)
                         {
@@ -102,15 +107,43 @@ namespace WSafe.Web.Controllers
             }
             catch (Exception ex)
             {
-                return View("Error", new HandleErrorInfo(ex, "Home", "Index"));
+                return View("Error", new HandleErrorInfo(ex, "Vulnerabilities", "Index"));
             }
         }
 
         [HttpGet]
         public ActionResult GetIntervencionesAll(int id)
         {
-            var model = _converterHelper.GetControlTracesAll(id);
+            var model = _emergencyConverter.GetInterventionsAll(id);
             return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CreateIntervention(Intervention model)
+        {
+            var message = "";
+            try
+            {
+                model.ClientID = (int)Session["clientID"];
+                model.OrganizationID = (int)Session["orgID"];
+                model.UserID = (int)Session["userID"];
+
+                if (ModelState.IsValid)
+                {
+                    _empresaContext.Interventions.Add(model);
+                    await _empresaContext.SaveChangesAsync();
+                    var id = _empresaContext.Interventions.OrderByDescending(x => x.ID).First().ID;
+                    message = "El registro ha sido ingresado correctamente !!";
+                    return Json(new { data = id, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+                message = "El registro NO ha sido ingresado correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                message = "La transacción NO ha sido realizada correctamente !!";
+                return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         /*
