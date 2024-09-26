@@ -49,6 +49,7 @@ namespace WSafe.Web.Controllers
                     .OrderByDescending(u => u.FechaAntecedente)
                     .ToListAsync();
                 var modelo = _converterHelper.ToUnsafeactsListVM(list);
+                ViewBag.organization = $"GESTIÓN DE ACTOS Y CONDICIONES INSEGURAS: {Session["organization"].ToString().Trim()}";
                 return View(modelo);
             }
             catch (Exception ex)

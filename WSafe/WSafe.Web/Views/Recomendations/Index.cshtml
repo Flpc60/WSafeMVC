@@ -15,7 +15,6 @@
     }
 </style>
 
-<h4 class="centerText">GESTIÓN RECOMENDACIONES MÉDICAS: @Session["organization"].ToString().Trim()</h4>
 @Html.Partial("_PageHead")
 
 <div class="container">
@@ -161,10 +160,10 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Coordinador)
                 </td>
-                <td style="margin:initial; background-color:deepskyblue; text-align:left">
-                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit", @title = "Actualizar" })
-                    @Html.ActionLink(" ", "PrintRecomendationToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt", @title = "Imprimir" })
-                    @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "glyphicon glyphicon-trash", @title = "Descartar" })
+                <td style="background-color:deepskyblue; text-align:left">
+                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "fas fa-edit", @title = "Actualizar" })
+                    @Html.ActionLink(" ", "PrintRecomendationToPdf", new { id = item.ID }, new { @class = "fas fa-file-pdf", @title = "Generar PDF" })
+                    @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "fas fa-trash", @title = "Descartar" })
                 </td>
             </tr>
         }

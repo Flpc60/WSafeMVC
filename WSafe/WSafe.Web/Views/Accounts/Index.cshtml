@@ -21,9 +21,9 @@
     }
 </style>
 
-<h4 class="centerText">GESTIÓN DE USUARIOS: @Session["organization"].ToString().Trim()</h4>
+@Html.Partial("_PageHead")
+
 <div class="container">
-    @Html.Partial("_PageHead")
     <div class="row">
         <div class="col-md-8">
             @Html.ActionLink(" Nuevo rol usuario", "Create", null, new { @class = "btn btn-info btn-lg glyphicon glyphicon-plus" })
@@ -101,11 +101,11 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.RegisterDate)
                     </td>
-                    <td style="font-size:15px">
-                        @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" })
+                    <td style="background-color:deepskyblue; text-align:left">
+                        @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "fas fa-edit", @title = "Actualizar" })
                     </td>
-                    <td style="font-size:15px">
-                        <a href="#" onclick="DeleteUser('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
+                    <td style="background-color:deepskyblue; text-align:left">
+                        <a href="#" title="Descartar" onclick="DeleteUser('@item.ID')"><span class="fas fa-trash"></span></a>
                     </td>
                 </tr>
             }

@@ -15,8 +15,8 @@
     }
 </style>
 
-<h4 class="centerText">GESTIÓN AUTOEVALUACIONES: @Session["organization"].ToString().Trim()</h4>
 @Html.Partial("_PageHead")
+
 <div class="container-fluid">
     <div class="pull-left">
         @Html.ActionLink("Nueva Autoevaluación", "Create", new { @class = "glyphicon glyphicon-plus" },
@@ -60,6 +60,8 @@
                 @Html.DisplayNameFor(model => model.Avance)
             </th>
             <th></th>
+            <th></th>
+            <th></th>
         </tr>
 
         @foreach (var item in Model)
@@ -97,10 +99,14 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Avance)
                 </td>
-                <td style="margin:initial; background-color:deepskyblue; text-align:left;font-size:15px;display:flex">
-                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) |
-                    @Html.ActionLink(" ", "GeneratePDF", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt" }) |
-                    <a href="#" onclick="DeleteEvaluation('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
+                <td style="background-color:deepskyblue; text-align:left;">
+                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "fas fa-edit", @title = "Actualizar" })
+                </td>
+                <td style="background-color:deepskyblue; text-align:left">
+                    <a href="#" onclick="DeleteEvaluation('@item.ID')" class="fas fa-trash" title="Descartar"></a>
+                </td>
+                <td style="background-color:deepskyblue; text-align:left;font-size:15px;display:flex">
+                    @Html.ActionLink(" ", "GeneratePDF", new { id = item.ID }, new { @class = "fas fa-file-pdf", @title = "Generar PDF" }) |
                 </td>
             </tr>
         }

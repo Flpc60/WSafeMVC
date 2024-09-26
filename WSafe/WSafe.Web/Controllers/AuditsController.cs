@@ -54,6 +54,7 @@ namespace WSafe.Web.Controllers
                     .ToListAsync();
 
                 var model = _converterHelper.ToAuditListVM(list);
+                ViewBag.organization = $"GESTIÓN DE AUDITORIAS: {Session["organization"].ToString().Trim()}";
                 return View(model);
             }
             catch (Exception ex)

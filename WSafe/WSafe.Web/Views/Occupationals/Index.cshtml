@@ -28,8 +28,8 @@
 
 </style>
 
-<h4 class="centerText">SEGUIMIENTO A EVALUACIONES MÉDICAS OCUPACIONALES: @Session["organization"].ToString().Trim()</h4>
 @Html.Partial("_PageHead")
+
 <div class="container">
     <div class="row justify-content-between">
         <div class="col-md-12">
@@ -125,16 +125,14 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.MedicalRecomendation)
                 </td>
-                <td style="margin:initial; background-color:deepskyblue; text-align:left">
-                    <a href="#" title="Seguimientos" onclick="mostrarSeguimientos('@item.ID');">
-                        <span class="glyphicon glyphicon-forward"></span>
-                    </a>
+                <td style="background-color:deepskyblue; text-align:left">
+                    <a href="#" title="Seguimientos" onclick="mostrarSeguimientos('@item.ID')"><span class="fas fa-eye"></span></a>
                 </td>
-                <td style="margin:initial; background-color:deepskyblue; text-align:left">
-                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit", @title = "Actualizar" })
+                <td style="background-color:deepskyblue; text-align:left">
+                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "fas fa-edit", @title = "Actualizar" })
                 </td>
-                <td style="margin:initial; background-color:deepskyblue; text-align:left">
-                    <a href="#" title="Descartar" onclick="deleteOccupational('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
+                <td style="background-color:deepskyblue; text-align:left">
+                    <a href="#" title="Descartar" onclick="deleteOccupational('@item.ID')"><span class="fas fa-trash"></span></a>
                 </td>
             </tr>
 

@@ -51,6 +51,7 @@ namespace WSafe.Web.Controllers
                     .OrderByDescending(cr => cr.NivelRiesgo)
                     .ToListAsync();
                 var model = _converterHelper.ToRiesgoViewModelList(list);
+                ViewBag.organization = $"GESTIÓN DE RIESGOS: {Session["organization"].ToString().Trim()}";
                 return View(model);
             }
             catch (Exception ex)

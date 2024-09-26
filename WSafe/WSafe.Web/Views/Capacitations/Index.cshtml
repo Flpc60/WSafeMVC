@@ -24,8 +24,8 @@
     }
 </style>
 
-<h4 class="centerText"> PROGRAMA DE CAPACITACIÓN SEGURIDAD Y SALUD EN EL TRABAJO: @Session["organization"].ToString().Trim()</h4>
 @Html.Partial("_PageHead")
+
 <div class="container">
     <div class="row justify-content-between">
         <div class="col-md-12">
@@ -102,11 +102,11 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Efectividad)
                 </td>
-                <td style="margin:initial; background-color:deepskyblue; text-align:left">
-                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit", @title = "Actualizar" })
+                <td style="background-color:deepskyblue; text-align:left">
+                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "fas fa-edit", @title = "Actualizar" })
                 </td>
-                <td style="margin:initial; background-color:deepskyblue; text-align:left">
-                    <a href="#" title="Descartar" onclick="deleteCapacitation('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
+                <td style="background-color:deepskyblue; text-align:left">
+                    <a href="#" title="Descartar" onclick="deleteCapacitation('@item.ID')"><span class="fas fa-trash"></span></a>
                 </td>
             </tr>
 
