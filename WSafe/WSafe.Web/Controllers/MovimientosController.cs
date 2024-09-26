@@ -43,6 +43,7 @@ namespace WSafe.Web.Controllers
         public ActionResult Index()
         {
             ViewBag.Users = _comboHelper.GetComboUsers();
+            ViewBag.organization = $"GESTIÓN DE REPOSITORIO: {Session["organization"].ToString().Trim()}";
             return View();
         }
 

@@ -49,6 +49,7 @@ namespace WSafe.Web.Controllers
                     .OrderByDescending(r => r.InitialDate)
                     .ToListAsync();
                 var model = _converterHelper.ToRecomendationListVM(list);
+                ViewBag.organization = $"GESTIÓN RESTRICCIONES MÉDICAS: {Session["organization"].ToString().Trim()}";
                 return View(model);
             }
             catch (Exception ex)

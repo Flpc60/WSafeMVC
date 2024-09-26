@@ -366,17 +366,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202409231133113_UpdLocalDB.cs" />
-    <Compile Include="Migrations\202409231133113_UpdLocalDB.Designer.cs">
-      <DependentUpon>202409231133113_UpdLocalDB.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202409241713181_UpdVulnVM.cs" />
-    <Compile Include="Migrations\202409241713181_UpdVulnVM.Designer.cs">
-      <DependentUpon>202409241713181_UpdVulnVM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202409252045537_UpdTableIntervention.cs" />
-    <Compile Include="Migrations\202409252045537_UpdTableIntervention.Designer.cs">
-      <DependentUpon>202409252045537_UpdTableIntervention.cs</DependentUpon>
+    <Compile Include="Migrations\202409261618040_UpdTableVulnerability.cs" />
+    <Compile Include="Migrations\202409261618040_UpdTableVulnerability.Designer.cs">
+      <DependentUpon>202409261618040_UpdTableVulnerability.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1088,18 +1080,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202409231133113_UpdLocalDB.resx">
-      <DependentUpon>202409231133113_UpdLocalDB.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202409241713181_UpdVulnVM.resx">
-      <DependentUpon>202409241713181_UpdVulnVM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202409252045537_UpdTableIntervention.resx">
-      <DependentUpon>202409252045537_UpdTableIntervention.cs</DependentUpon>
-    </EmbeddedResource>
+    <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Scripts\index.d.ts" />
+    <EmbeddedResource Include="Migrations\202409261618040_UpdTableVulnerability.resx">
+      <DependentUpon>202409261618040_UpdTableVulnerability.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

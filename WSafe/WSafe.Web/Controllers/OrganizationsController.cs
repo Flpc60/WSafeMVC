@@ -45,6 +45,7 @@ namespace WSafe.Web.Controllers
             Organization organization = await _empresaContext.Organizations.FindAsync(_orgID);
             ViewBag.id = organization.ID;
             ViewBag.create = create;
+            ViewBag.organization = $"GESTIÓN ORGANIZACIÓN: {Session["organization"].ToString().Trim()}";
             return View(organization);
         }
         public ActionResult GetAllCargos()

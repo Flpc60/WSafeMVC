@@ -45,6 +45,7 @@ namespace WSafe.Web.Controllers
             var consulta = new IncidenteService(new IncidenteRepository(_empresaContext));
             var result = await consulta.GetALL();
             var model = result.Where(i => i.OrganizationID == _orgID);
+            ViewBag.organization = $"GESTIÓN DE INCIDENTES: {Session["organization"].ToString().Trim()}";
             return View(model);
         }
         public async Task<ActionResult> Details(int? id)

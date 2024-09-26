@@ -53,7 +53,7 @@ namespace WSafe.Web.Controllers
                     .Include(s => s.Schedule)
                     .ToListAsync();
                 var model = _converterHelper.ToListCapacitationVM(list);
-
+                ViewBag.organization = $"GESTIÓN DE CAPACITACIONES: {Session["organization"].ToString().Trim()}";
                 return View(model.ToList());
             }
             catch (Exception ex)

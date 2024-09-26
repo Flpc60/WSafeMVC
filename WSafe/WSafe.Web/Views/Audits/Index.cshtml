@@ -15,10 +15,7 @@
     }
 </style>
 
-
-<hr class="mt-4">
-<h4 class="centerText">GESTIÓN AUDITORIAS INTERNAS: @Session["organization"].ToString().Trim()</h4>
-<hr class="mt-4">
+@Html.Partial("_PageHead")
 
 <div class="container">
     <div class="row align-items-center">
@@ -118,11 +115,11 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.ExecutionDate)
                 </td>
-                <td style="margin:initial; background-color:deepskyblue; text-align:left">
+                <td style="background-color:deepskyblue; text-align:left">
                     @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit", @title = "Actualizar" })
-                    @Html.ActionLink(" ", "PrintAuditResultToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt", @title = "Auditoría interna"})
-                    @Html.ActionLink(" ", "PrintAuditToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt", @title = "Informe Auditor"})
-                    @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "glyphicon glyphicon-trash", @title = "Descartar" })
+                    @Html.ActionLink(" ", "PrintAuditResultToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt", @title = "Auditoría interna" })
+                    @Html.ActionLink(" ", "PrintAuditToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt", @title = "Informe Auditor" })
+                    @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "fas fa-trash", @title = "Descartar" })
                 </td>
             </tr>
         }

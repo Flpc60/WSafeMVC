@@ -50,6 +50,7 @@ namespace WSafe.Web.Controllers
                 .OrderBy(e => e.FechaEvaluation)
                 .ToListAsync();
             var modelo = _converterHelper.ToEvaluationVMList(list);
+            ViewBag.organization = $"GESTIÓN DE EVALUACIÓN DE DESEMPEÑO: {Session["organization"].ToString().Trim()}";
             return View(modelo);
         }
 

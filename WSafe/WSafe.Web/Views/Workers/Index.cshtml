@@ -15,8 +15,8 @@
     }
 </style>
 
-<h4 class="centerText">GESTIÓN PERFÍL SOCIODEMOGRÁFICO: @Session["organization"].ToString().Trim()</h4>
 @Html.Partial("_PageHead")
+
 <div class="container">
     <div class="row justify-content-between">
         <div class="col-md-12">
@@ -108,11 +108,11 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.TipoVinculacion)
                     </td>
-                    <td style="margin:initial; background-color:deepskyblue; text-align:left">
-                        @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit", @title = "Actualizar" })
+                    <td style="background-color:deepskyblue; text-align:left">
+                        @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "fas fa-edit", @title = "Actualizar" })
                     </td>
-                    <td style="margin:initial; background-color:deepskyblue; text-align:left">
-                        @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "glyphicon glyphicon-trash", @title = "Eliminarr" })
+                    <td style="background-color:deepskyblue; text-align:left">
+                        @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "fas fa-trash", @title = "Eliminarr" })
                     </td>
                 </tr>
             }

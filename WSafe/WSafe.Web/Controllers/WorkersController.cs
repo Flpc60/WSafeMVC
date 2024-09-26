@@ -44,6 +44,7 @@ namespace WSafe.Web.Controllers
                     .ThenBy(t => t.SegundoApellido)
                     .ThenBy(t => t.Nombres)
                     .ToListAsync();
+                ViewBag.organization = $"GESTIÓN DE TRABAJADORES: {Session["organization"].ToString().Trim()}";
                 return View(model);
             }
             catch (Exception ex)

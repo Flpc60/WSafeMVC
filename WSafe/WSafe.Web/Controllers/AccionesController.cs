@@ -51,6 +51,7 @@ namespace WSafe.Web.Controllers
                 .OrderByDescending(a => a.FechaSolicitud)
                 .ToListAsync();
             var modelo = _converterHelper.ToAccionVMList(list, _orgID);
+            ViewBag.organization = $"GESTIÓN DE ACCIONES CPM: {Session["organization"].ToString().Trim()}";
             return View(modelo);
         }
 

@@ -19,9 +19,9 @@
     }
 </style>
 
-<h4 class="centerText">GESTIÓN DE INCIDENTES: @Session["organization"].ToString().Trim()</h4>
+@Html.Partial("_PageHead")
+
 <div class="container">
-    @Html.Partial("_PageHead")
     <div class="row">
         <div class="col-md-4">
             @Html.ActionLink(" Nuevo incidente", "Create", null, new { @class = "btn btn-info btn-lg glyphicon glyphicon-plus" })
@@ -134,14 +134,14 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.RequiereInvestigacion)
                 </td>
-                <td style="margin:initial; background-color:deepskyblue; text-align:left">
-                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit", @title = "Actualizar" })
+                <td style="background-color:deepskyblue; text-align:left">
+                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "fas fa-edit", @title = "Actualizar" })
                 </td>
-                <td style="margin:initial; background-color:deepskyblue; text-align:left">
-                    @Html.ActionLink(" ", "PrintIncidentsToPdf", new { id = item.ID }, new { @class = "glyphicon glyphicon-download-alt", @title = "Imprimir" })
+                <td style="background-color:deepskyblue; text-align:left">
+                    @Html.ActionLink(" ", "PrintIncidentsToPdf", new { id = item.ID }, new { @class = "fas fa-file-pdf", @title = "Generar PDF" })
                 </td>
-                <td style="margin:initial; background-color:deepskyblue; text-align:left">
-                    <a href="#" title="Descartar" onclick="DeleteIncident('@item.ID')"><span class="glyphicon glyphicon-trash"></span></a>
+                <td style="background-color:deepskyblue; text-align:left">
+                    <a href="#" title="Descartar" onclick="DeleteIncident('@item.ID')"><span class="fas fa-trash"></span></a>
                 </td>
             </tr>
         }

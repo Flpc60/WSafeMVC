@@ -3,29 +3,66 @@
 <style>
 
     .CommonActivitys, .ClassDangers, .EfectosPosibles {
-        display: none
+        display: none;
     }
 
     .centerText {
-        text-align: center
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .risk-level {
+        display: flex;
+        justify-content: space-between;
+        margin-right: 1%;
+        text-align: center;
+    }
+
+        .risk-level div {
+            flex-grow: 1;
+            padding: 10px;
+            color: black;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        .risk-level .imminent-risk {
+            background-color: red;
+        }
+
+        .risk-level .probable-risk {
+            background-color: yellow;
+        }
+
+        .risk-level .possible-risk {
+            background-color: green;
+        }
+
+    .btn-custom {
+        margin-bottom: 10px;
     }
 
 </style>
 
-<h4 class="centerText">GESTIÓN DE VULNERABILIDADES: @Session["organization"].ToString().Trim()</h4>
 @Html.Partial("_PageHead")
+
 <div class="container">
     <div class="row justify-content-between">
         <div class="col-md-8">
-            @Html.ActionLink("Nueva amenaza", "Create", null, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-plus" })
-            @Html.ActionLink("Generar matriz de vulnerabilidades", "PrintVulnerabilitiesToPdf", null, new { @class = "btn btn-info btn-lg glyphicon glyphicon-download-alt" })
+            <div class="d-flex flex-column flex-md-row">
+                @Html.ActionLink("Nueva amenaza", "Create", null, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-plus btn-custom" })
+                @Html.ActionLink("Personas", "IndexById", new { id = 1 }, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-plus btn-custom", @title = "Vulnerabilidad personas" })
+                @Html.ActionLink("Recursos", "IndexById", new { id = 2 }, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-plus btn-custom", @title = "Vulnerabilidad recursos" })
+                @Html.ActionLink("Sistemas", "IndexById", new { id = 3 }, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-plus btn-custom", @title = "Vulnerabilidad sistemas y procesos" })
+                @Html.ActionLink("Generar matriz de vulnerabilidades", "PrintVulnerabilitiesToPdf", null, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-plus btn-custom" })
+            </div>
         </div>
         <div class="col-md-4">
             <div class="text-right">
-                <div class="btn-group" style="display:block; margin-right:1%; width:50%; text-align:center;">
-                    <div style="background-color: red;color:black;">RIESGO INMINENTE</div>
-                    <div style="background-color: yellow; color: black;">RIESGO PROBABLE</div>
-                    <div style="background-color: green; color: black;">RIESGO POSIBLE</div>
+                <div class="risk-level">
+                    <div class="imminent-risk">RIESGO INMINENTE</div>
+                    <div class="probable-risk">RIESGO PROBABLE</div>
+                    <div class="possible-risk">RIESGO POSIBLE</div>
                 </div>
             </div>
         </div>

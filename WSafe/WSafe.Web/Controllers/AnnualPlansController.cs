@@ -53,6 +53,7 @@ namespace WSafe.Web.Controllers
                     .Include(s => s.SiguePlanAnual)
                     .ToListAsync();
                 var model = _converterHelper.ToAnnualPlanVM(list);
+                ViewBag.organization = $"GESTIÓN PLAN ANUAL DE TRABAJO: {Session["organization"].ToString().Trim()}";
                 return View(model);
             }
             catch (Exception ex)

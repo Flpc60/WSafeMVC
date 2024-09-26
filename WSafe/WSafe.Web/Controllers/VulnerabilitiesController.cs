@@ -46,7 +46,24 @@ namespace WSafe.Web.Controllers
                 .Include(a => a.Amenaza)
                 .ToListAsync();
             var model = _emergencyConverter.ToListVulnerabilityVM(vulnerabilities, _orgID);
+            ViewBag.organization = $"GESTIÓN DE VULNERABILIDADES: {Session["organization"].ToString().Trim()}";
             return View(model);
+        }
+
+        [AuthorizeUser(operation: 1, component: 2)]
+        public async Task<ActionResult> IndexById(int id)
+        {
+            _orgID = (int)Session["orgID"];
+
+            var vulnerabilities = await _empresaContext.Vulnerabilities
+                .Where(v => (int)v.VulnerabilityType == id)
+                .Include(v => v.EvaluationConcept)
+                .Include(v => v.Amenaza)
+                .ToListAsync();
+
+            var model = _emergencyConverter.ToListVulnerabilityVM(vulnerabilities, _orgID);
+            ViewBag.organization = $"GESTIÓN DE VULNERABILIDADES: {Session["organization"].ToString().Trim()}";
+            return View("Index", model);
         }
 
         [AuthorizeUser(operation: 2, component: 2)]

@@ -15,8 +15,8 @@
 
 </style>
 
-<h4 class="centerText">GESTIÓN DE LOS RIESGOS : @Session["organization"].ToString().Trim()</h4>
 @Html.Partial("_PageHead")
+
 <div class="container">
     <div class="row justify-content-between">
         <div class="col-md-8">
@@ -158,11 +158,11 @@
                     <td style="@strStyle">
                         @Html.DisplayFor(modelItem => item.Aceptability)
                     </td>
-                    <td style="margin:initial; background-color:deepskyblue; text-align:left;">
-                        @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit", @title = "Actualizar riesgo" })
+                    <td style="background-color:deepskyblue; text-align:left;">
+                        @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "fas fa-edit", @title = "Actualizar riesgo" })
                     </td>
-                    <td style="margin:initial; background-color:deepskyblue; text-align:left">
-                        <a href="#" onclick="DeleteRiesgo('@item.ID')" class="glyphicon glyphicon-trash" title="Descartar riesgo"></a>
+                    <td style="background-color:deepskyblue; text-align:left">
+                        <a href="#" onclick="DeleteRiesgo('@item.ID')" class="fas fa-trash" title="Descartar riesgo"></a>
                     </td>
                 </tr>
 

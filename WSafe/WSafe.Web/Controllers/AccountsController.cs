@@ -66,7 +66,7 @@ namespace WSafe.Web.Controllers
                 .ToList();
             ViewBag.userList = orgUsers;
             ViewBag.orgList = orgList;
-
+            ViewBag.organization = $"GESTIÓN DE USUARIOS: {Session["organization"].ToString().Trim()}";
             return View(model);
         }
         public ActionResult Login()
