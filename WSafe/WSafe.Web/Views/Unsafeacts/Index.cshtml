@@ -19,7 +19,6 @@
     }
 </style>
 
-<h4 class="centerText">GESTIÓN ACTOS Y CONDICIONES INSEGURAS: @Session["organization"].ToString().Trim()</h4>
 @Html.Partial("_PageHead")
 
 <div class="container">
@@ -68,6 +67,9 @@
                 @Html.DisplayNameFor(model => model.ProbableConsecuencia)
             </th>
             <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
         </tr>
 
         @foreach (var item in Model)
@@ -108,11 +110,17 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.ProbableConsecuencia)
                 </td>
-                <td style="margin:initial; background-color:deepskyblue; text-align:left">
-                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit", @title = "Actualizar" })
-                    @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "glyphicon glyphicon-trash", @title = "Descartar" })
-                    <a href="@fileUrl" title="Visualizar"><span class="glyphicon glyphicon-camera"></span></a>
-                    <a href="#" title="Gestionar riesgo" onclick="CreateRisk('@item.ID')"><span class="glyphicon glyphicon-upload"></span></a>
+                <td style="background-color:deepskyblue; text-align:left">
+                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "fas fa-edit", @title = "Actualizar" })
+                </td>
+                <td style="background-color:deepskyblue; text-align:left">
+                    @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "fas fa-trash", @title = "Descartar" })
+                </td>
+                <td style="background-color:deepskyblue; text-align:left">
+                    <a href="@fileUrl" title="Visualizar"><span class="fas fa-camera"></span></a>
+                </td>
+                <td style="background-color:deepskyblue; text-align:left">
+                    <a href="#" title="Gestionar riesgo" onclick="CreateRisk('@item.ID')"><span class="fas fa-plus"></span></a>
                 </td>
             </tr>
         }

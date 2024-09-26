@@ -53,6 +53,7 @@ namespace WSafe.Web.Controllers
                     .Include(s => s.SigueOccupational)
                     .ToListAsync();
                 var model = _converterHelper.ToMedicalRecomendationVM(list);
+                ViewBag.organization = $"GESTIÓN DE EXÁMENES MÉDICOS: {Session["organization"].ToString().Trim()}";
 
                 return View(model.ToList());
             }
