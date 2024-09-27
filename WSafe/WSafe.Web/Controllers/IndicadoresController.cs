@@ -495,6 +495,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
+        [Obsolete]
         public async Task<ActionResult> PrintIndicatorToPdf(int id, int Year)
         {
             try

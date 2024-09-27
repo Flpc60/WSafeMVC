@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using WSafe.Domain.Data.Entities;
 
 namespace WSafe.Domain.Helpers

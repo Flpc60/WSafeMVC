@@ -239,7 +239,8 @@ namespace WSafe.Web.Controllers
                 report.PageOrientation = Rotativa.Options.Orientation.Landscape;
                 report.PageWidth = 399;
                 report.PageHeight = 399;
-                report.SaveOnServerPath = filePathName;
+                var pdfBytes = report.BuildFile(this.ControllerContext);
+                System.IO.File.WriteAllBytes(filePathName, pdfBytes);
 
                 //Generar archivo de movimiento
                 var fullName = filename;
@@ -316,7 +317,8 @@ namespace WSafe.Web.Controllers
                 report.Copies = 1;
                 report.PageOrientation.GetValueOrDefault();
                 report.FormsAuthenticationCookieName = FormsAuthentication.FormsCookieName;
-                report.SaveOnServerPath = filePathName;
+                var pdfBytes = report.BuildFile(this.ControllerContext);
+                System.IO.File.WriteAllBytes(filePathName, pdfBytes);
 
                 //Generar archivo de movimiento
                 var fullName = filename;

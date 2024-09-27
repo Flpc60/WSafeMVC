@@ -1057,7 +1057,7 @@ function DeleteAccion(ID) {
                         async: true,
                         success: function (response) {
                             alert(response.message);
-                            location.reload(true);
+                            location.reload();
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
                             alert(xhr.status);
@@ -1107,7 +1107,7 @@ function DeleteIncident(ID) {
                         async: true,
                         success: function (response) {
                             alert(response.message);
-                            location.reload(true);
+                            location.reload();
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
                             alert(xhr.status);
@@ -1163,7 +1163,7 @@ function DeleteRiesgo(ID) {
                         async: true,
                         success: function (response) {
                             alert(response.message);
-                            location.reload(true);
+                            location.reload();
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
                             alert(xhr.status);
@@ -4361,7 +4361,7 @@ function ShowCauses() {
             var cause = '';
             var potencial = '';
             $.each(result, function (key, item) {
-                name = item.Name.toUpperCase();
+                var name = item.Name.toUpperCase();
                 switch (item.CausalFactor) {
                     case 1:
                         cause = "Causa Directa";
@@ -4749,7 +4749,7 @@ function ShowRootCauses() {
         success: function (result) {
             var html = '';
             $.each(result, function (key, item) {
-                name = item.Name.toUpperCase();
+                var name = item.Name.toUpperCase();
                 reason = item.Reason.toUpperCase();
                 html += '<tr>';
                 html += '<td>' + name + '</td>';
@@ -6062,7 +6062,7 @@ function DeleteEvaluation(ID) {
                         async: true,
                         success: function (response) {
                             alert(response.message);
-                            location.reload(true);
+                            location.reload();
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
                             alert(xhr.status);
