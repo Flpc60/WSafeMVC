@@ -21,9 +21,6 @@ namespace WSafe.Web.Controllers
     {
         // Gestión de cuentas de usuarios
         private int _clientID;
-        private int _orgID;
-        private string _year;
-        private string _path;
         private readonly EmpresaContext _empresaContext;
         private readonly IConverterHelper _converterHelper;
         private readonly IComboHelper _comboHelper;

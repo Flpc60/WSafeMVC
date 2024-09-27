@@ -488,10 +488,11 @@ namespace WSafe.Web.Controllers
                     FileName = filePathName,
                     PageSize = Rotativa.Options.Size.A4,
                     PageOrientation = Rotativa.Options.Orientation.Landscape,
-                    SaveOnServerPath = filePathName,
                     PageMargins = new Rotativa.Options.Margins(10, 10, 10, 10),
                     CustomSwitches = "--enable-local-file-access"
                 };
+                var pdfBytes = report.BuildFile(this.ControllerContext);
+                System.IO.File.WriteAllBytes(filePathName, pdfBytes);
 
                 //Generar archivo de movimiento
                 var fullName = filename;
@@ -522,12 +523,12 @@ namespace WSafe.Web.Controllers
                 }
 
                 _empresaContext.SaveChanges();
-                var pdfBytes = report.BuildPdf(ControllerContext);
+                var pdfBytesFile = report.BuildFile(this.ControllerContext);
 
                 // Configurar la respuesta HTTP para el tipo MIME y el encabezado del archivo PDF
                 Response.ContentType = "application/pdf";
                 Response.AddHeader("content-disposition", "inline;filename=" + filename);
-                Response.BinaryWrite(pdfBytes);
+                Response.BinaryWrite(pdfBytesFile);
 
                 var pdfUrl = $"{Request.Url.GetLeftPart(UriPartial.Authority)}/{fullPath}/{filename}";
                 return Content(pdfUrl);
