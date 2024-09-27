@@ -367,7 +367,7 @@ function deleteCapacitation(id) {
                         async: true,
                         success: function (response) {
                             alert(response.message);
-                            location.reload(true);
+                            location.reload();
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
                             alert(xhr.status);
