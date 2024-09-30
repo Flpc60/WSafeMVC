@@ -5,11 +5,12 @@ namespace WSafe.Domain.Data.Entities.Ppre
     public enum EvaluationSystems
     {
         [Description("Servicios")]
-        Servicios,
+        Servicios = 1,
         [Description("Sistemas Alternos")]
-        Sistemas,
+        Sistemas = 2,
         [Description("Recuperación")]
-        Recuperacion
+        Recuperacion = 3
     }
 }
+
 

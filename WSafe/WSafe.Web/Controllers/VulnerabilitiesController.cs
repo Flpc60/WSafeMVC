@@ -13,6 +13,9 @@ using WSafe.Web.Filters;
 
 namespace WSafe.Web.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class VulnerabilitiesController : Controller
     {
         private int _clientID;
@@ -81,6 +84,12 @@ namespace WSafe.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        
         [HttpPost]
         public async Task<ActionResult> Create([Bind(Include = "ID,Types,CategoryAmenaza,AmenazaID,EvaluationConceptID,Response,ClientID,OrganizationID,UserID")] CrtVulnerabilityVM model)
         {
@@ -160,6 +169,44 @@ namespace WSafe.Web.Controllers
             {
                 message = "La transacción NO ha sido realizada correctamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CreateEvaluation([Bind(Include = "ID,Name,VulnerabilitiType,EvaluationPerson,EvaluationRecurso,EvaluationSystem,ClientID,OrganizationID,UserID")] EvaluationConcept model)
+        {
+            try
+            {
+                var message = "";
+                model.ClientID = (int)Session["clientID"];
+                model.OrganizationID = (int)Session["orgID"];
+                model.UserID = (int)Session["userID"];
+
+                if (ModelState.IsValid)
+                {
+                    if (model.ID == 0)
+                    {
+                        _empresaContext.EvaluationConcepts.Add(model);
+                        await _empresaContext.SaveChangesAsync();
+                        var id = _empresaContext.EvaluationConcepts.OrderByDescending(x => x.ID).First().ID;
+                        message = "El registro ha sido ingresado correctamente !!";
+                        return Json(new { data = id, mensaj = message }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        message = "El registro NO ha sido ingresado correctamente !!";
+                        return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+                else
+                {
+                    message = "El registro NO ha sido ingresado correctamente !!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Vulnerabilities", "Index"));
             }
         }
 
