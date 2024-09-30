@@ -2,7 +2,8 @@
 {
     public enum EvaluationRecursos
     {
-        Suministros, Edificaciones, Equipos
+        Suministros = 1,
+        Edificaciones = 2,
+        Equipos = 3
     }
 }
-

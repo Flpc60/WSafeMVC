@@ -1129,3 +1129,43 @@ function addNewIntervention() {
     });
 }
 
+function addNewEvaluation() {
+    var evaluationVM = {
+        ID: 0,
+        Name: $("#name").val(),
+        VulnerabilityType: $("#vulnerability").val(),
+        EvaluationPerson: $("#evaluationPerson").val(),
+        EvaluationRecurso: $("evaluationRecurso").val(),
+        EvaluationSystem: $("#evaluationSystem").val(),
+        OrganizationID: 1,
+        ClientID: 1,
+        UserID: 1
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/Vulnerabilities/CreateEvaluation",
+        data: JSON.stringify(evaluationVM),
+        dataType: "json",
+        contentType: 'application/json; charset=utf-8',
+        async: true,
+        success: function (result) {
+            if (result.success) {
+                alert("Amenaza adicionada !!");
+                $("#Name").val("");
+                $("#VulnerabilityType").val("");
+                $("#vulnerabilityID").val(result.data);
+                $("#EvaluationPerson").val("");
+                $("#EvaluationRecurso").val("");
+                $("#EvaluationSystem").val("");
+            } else {
+                alert("Error: " + result.message);
+            }
+            $("#btnaddVulmerability").hide();
+            $("#btnAddIntervention").show();
+        },
+        error: function (xhr, status, error) {
+            alert("Error del servidor: " + error);
+        }
+    });
+}

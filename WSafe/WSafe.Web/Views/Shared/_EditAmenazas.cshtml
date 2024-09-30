@@ -1,20 +1,21 @@
 ﻿@model WSafe.Domain.Models.CrtVulnerabilityVM
-
 <div class="container" style="background-color: azure">
+    <hr />
     <div class="row">
         <div class="col-md-6">
-            <div class="form-group">
-                @Html.LabelFor(model => model.Types, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+            <div class="form-group row">
+                @Html.LabelFor(model => model.Types, htmlAttributes: new { @class = "col-md-3 col-form-label" })
+                <div class="col-md-5">
                     @Html.EnumDropDownListFor(model => model.Types, htmlAttributes: new { @class = "form-control", @id = "type" })
                     @Html.ValidationMessageFor(model => model.Types, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
+
         <div class="col-md-6">
-            <div class="form-group">
-                @Html.LabelFor(model => model.CategoryAmenaza, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+            <div class="form-group row">
+                @Html.LabelFor(model => model.CategoryAmenaza, htmlAttributes: new { @class = "col-md-3 col-form-label" })
+                <div class="col-md-5">
                     @Html.EnumDropDownListFor(model => model.CategoryAmenaza, htmlAttributes: new { @class = "form-control", @id = "categoryAmenaza" })
                     @Html.ValidationMessageFor(model => model.CategoryAmenaza, "", new { @class = "text-danger" })
                 </div>
@@ -23,18 +24,17 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            <div class="form-group">
-                @Html.LabelFor(model => model.AmenazaID, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+            <div class="form-group row">
+                @Html.LabelFor(model => model.AmenazaID, htmlAttributes: new { @class = "col-md-3 col-form-label" })
+                <div class="col-md-8">
                     @Html.DropDownListFor(model => model.AmenazaID, Model.Amenazas, new { @class = "form-control", @id = "amenazaID" })
                     @Html.ValidationMessageFor(model => model.AmenazaID, "", new { @class = "text-danger" })
-                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#createAmenazaModal">Crear nueva amenaza</button>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
-            <div class="form-group">
-                @Html.LabelFor(model => model.EvaluationConceptID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="form-group row">
+                @Html.LabelFor(model => model.EvaluationConceptID, htmlAttributes: new { @class = "col-md-3 col-form-label" })
                 <div class="col-md-10">
                     @Html.DropDownListFor(model => model.EvaluationConceptID, Model.EvaluationConcepts, new { @class = "form-control", @id = "evaluationConceptID" })
                     @Html.ValidationMessageFor(model => model.EvaluationConceptID, "", new { @class = "text-danger" })
@@ -43,42 +43,61 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="modal fade" id="createAmenazaModal" tabindex="-1" role="dialog" aria-labelledby="createAmenazaModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="createAmenazaModalLabel">Crear nueva amenaza</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+    <div class="modal fade" id="createEvaluationModal" tabindex="-1" role="dialog" aria-labelledby="createEvaluationModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createEvaluationModalLabel">Crear nuevo concepto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="name">Punto a evaluar:</label>
+                        <textarea id="name" class="form-control" rows="2" style="resize: none;" required></textarea>
                     </div>
-                    <div class="modal-body">
-                        <input type="text" id="txtActivity" class="form-control" placeholder="Ingrese nombre de la actividad" />
+                    <div class="form-group">
+                        <label for="vulnerability">Clase vulnerabilidad</label>
+                        <select name="vulnerability" class="form-control" id="vulnerability">
+                            <option value="1">Personas</option>
+                            <option value="2">Recursos</option>
+                            <option value="3">Sistemas y Procesos</option>
+                        </select>
+                        <span class="text-danger" data-valmsg-replace="true" data-valmsg-for="vulnerability"></span>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary" onclick="addAmenaza(false)">Guardar</button>
+                    <div class="form-group">
+                        <label for="evaluationPerson">Evaluación personas</label>
+                        <select name="evaluationPerson" class="form-control" id="evaluationPerson">
+                            <option value="1">Gestión Organizacional</option>
+                            <option value="2">Capacitación y Entrenaniento</option>
+                            <option value="3">Características de Seguridad</option>
+                        </select>
+                        <span class="text-danger" data-valmsg-replace="true" data-valmsg-for="evaluationPerson"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="evaluationRecurso">Evaluación recursos</label>
+                        <select name="evaluationRecurso" class="form-control" id="evaluationRecurso">
+                            <option value="1">Suministros</option>
+                            <option value="2">Edificaciones</option>
+                            <option value="3">Equipos</option>
+                        </select>
+                        <span class="text-danger" data-valmsg-replace="true" data-valmsg-for="evaluationRecurso"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="evaluationSystem">Evaluación sistemas y procesos</label>
+                        <select name="evaluationSystem" class="form-control" id="evaluationSystem">
+                            <option value="1">Servicios</option>
+                            <option value="2">Sistemas Alternos</option>
+                            <option value="3">Recuperación</option>
+                        </select>
+                        <span class="text-danger" data-valmsg-replace="true" data-valmsg-for="evaluationSystem"></span>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="modal fade" id="createEvaluationModal" tabindex="-1" role="dialog" aria-labelledby="createEvaluationModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="createEvaluationModalLabel">Crear nuevo concepto</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <input type="text" id="txtDescripcion" class="form-control" placeholder="Ingrese nombre de la actividad" />
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary" onclick="addEvaluation(false)">Guardar</button>
-                    </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" onclick="addNewEvaluation()">Guardar</button>
                 </div>
             </div>
         </div>
@@ -87,16 +106,15 @@
         <div class="col-md-3">
             <div class="form-group">
                 @Html.LabelFor(model => model.Response, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <div class="col-md-5">
                     @Html.EnumDropDownListFor(model => model.Response, htmlAttributes: new { @class = "form-control", @id = "response" })
                     @Html.ValidationMessageFor(model => model.Response, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
     </div>
-    <hr class="mt-4">
-    <div class="row">
-        <div class="col-12 d-flex justify-content-between">
+    <div class="row mt-3">
+        <div class="col-12 d-flex justify-content-start">
             <button type="button" id="btnaddVulmerability" class="btn btn-primary" onclick="addVulmerability()">Adicionar</button>
             <button type="button" id="btnupdateVulmerability" class="btn btn-primary" onclick="updateVulmerability()">Guardar</button>
             <button type="button" id="btnAddIntervention" class="btn btn-primary">Adicionar nueva amenaza</button>

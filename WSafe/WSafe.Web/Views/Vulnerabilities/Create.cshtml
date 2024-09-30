@@ -13,15 +13,12 @@
         text-align: center
     }
 
-    .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
 </style>
 
-<h4 class="centerText">GESTIÓN DE AMENAZAS</h4>
 <div class="container">
+    <hr />
+    <hr />
+    <h6 class="centerText">GESTIÓN DE AMENAZAS</h6>
     <div class="row justify-content-between">
         <div class="col-md-12">
             <button type="button" class="btn btn-success" id="idAmenaza" title="doble click para cerrar la ventana">IDENTIFICACIÓN AMENAZAS</button>
@@ -37,16 +34,13 @@
 
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="container">
-            <div class="tabAmenaza">
-                <hr />
-                @Html.Partial("_EditAmenazas")
-                <input type="hidden" id="vulnerabilityID" name="vulnerabilityID" />
-                <input type="hidden" id="interventionID" name="interventionID" />
-            </div>
-            <div style="display: inline-block;">
-                <div class="showIntervenciones"></div>
-            </div>
+        <div class="tabAmenaza">
+            <input type="hidden" id="vulnerabilityID" name="vulnerabilityID" />
+            <input type="hidden" id="interventionID" name="interventionID" />
+            @Html.Partial("_EditAmenazas")
+        </div>
+        <div style="display: inline-block;">
+            <div class="showIntervenciones"></div>
         </div>
     </div>
 }

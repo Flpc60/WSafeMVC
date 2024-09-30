@@ -141,7 +141,8 @@ namespace WSafe.Domain.Helpers.Implements
                 Response = model.Response,
                 OrganizationID = model.OrganizationID,
                 ClientID = model.ClientID,
-                UserID = model.UserID
+                UserID = model.UserID,
+                VulnerabilityType = model.Types
             };
 
             return result;
