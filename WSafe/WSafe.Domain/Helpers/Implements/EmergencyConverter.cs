@@ -131,6 +131,19 @@ namespace WSafe.Domain.Helpers.Implements
         {
             var amenaza = await _empresaContext.Amenazas.FindAsync(model.AmenazaID);
             var evaluation = await _empresaContext.EvaluationConcepts.FindAsync(model.EvaluationConceptID);
+
+            if (amenaza == null)
+            {
+                amenaza = new Amenaza { ID = model.AmenazaID };
+                _empresaContext.Amenazas.Attach(amenaza);
+            }
+
+            if (evaluation == null)
+            {
+                evaluation = new EvaluationConcept { ID = model.EvaluationConceptID };
+                _empresaContext.EvaluationConcepts.Attach(evaluation);
+            }
+
             var result = new Vulnerability
             {
                 ID = isNew ? 0 : model.ID,

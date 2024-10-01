@@ -1014,10 +1014,10 @@ function addVulmerability() {
                 $("#amenazaID").val("");
                 $("#evaluationConceptID").val("");
                 $("#response").val("");
+                $("#type").focus();
             } else {
                 alert("Error: " + result.mensaj);
             }
-            $("#btnaddVulmerability").hide();
             $("#btnAddIntervention").show();
         },
         error: function (xhr, status, error) {
@@ -1170,7 +1170,7 @@ function addNewEvaluation() {
     });
 }
 
-function addNewVulmerability() {
+function blankVulmerability() {
     $("#type").val("");
     $("#categoryAmenaza").val("");
     $("#vulnerabilityID").val("");
@@ -1178,8 +1178,6 @@ function addNewVulmerability() {
     $("#evaluationConceptID").val("");
     $("#response").val("");
     $("#btnaddVulmerability").show();
-    $("#btnAddNewVulnerability").hide();
     $("#btnAddIntervention").show();
     $("#type").focus();
 }
-
