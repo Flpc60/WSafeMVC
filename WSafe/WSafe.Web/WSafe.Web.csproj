@@ -379,6 +379,10 @@
     <Compile Include="Migrations\202409302134330_UpdCrtVylnerabilityVM1.Designer.cs">
       <DependentUpon>202409302134330_UpdCrtVylnerabilityVM1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202410011637020_UpdEvaluationConceptTable.cs" />
+    <Compile Include="Migrations\202410011637020_UpdEvaluationConceptTable.Designer.cs">
+      <DependentUpon>202410011637020_UpdEvaluationConceptTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -1100,6 +1104,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202409302134330_UpdCrtVylnerabilityVM1.resx">
       <DependentUpon>202409302134330_UpdCrtVylnerabilityVM1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202410011637020_UpdEvaluationConceptTable.resx">
+      <DependentUpon>202410011637020_UpdEvaluationConceptTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

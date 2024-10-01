@@ -2,43 +2,52 @@
 <div class="container" style="background-color: azure">
     <hr />
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="form-group row">
-                @Html.LabelFor(model => model.Types, htmlAttributes: new { @class = "col-md-3 col-form-label" })
-                <div class="col-md-5">
+                @Html.LabelFor(model => model.Types, htmlAttributes: new { @class = "col-md-4 col-form-label" })
+                <div class="col-md-4">
                     @Html.EnumDropDownListFor(model => model.Types, htmlAttributes: new { @class = "form-control", @id = "type" })
                     @Html.ValidationMessageFor(model => model.Types, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="form-group row">
-                @Html.LabelFor(model => model.CategoryAmenaza, htmlAttributes: new { @class = "col-md-3 col-form-label" })
+                @Html.LabelFor(model => model.CategoryAmenaza, htmlAttributes: new { @class = "col-md-2 col-form-label" })
                 <div class="col-md-5">
                     @Html.EnumDropDownListFor(model => model.CategoryAmenaza, htmlAttributes: new { @class = "form-control", @id = "categoryAmenaza" })
                     @Html.ValidationMessageFor(model => model.CategoryAmenaza, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="form-group row">
                 @Html.LabelFor(model => model.AmenazaID, htmlAttributes: new { @class = "col-md-3 col-form-label" })
-                <div class="col-md-8">
+                <div class="col-md-7">
                     @Html.DropDownListFor(model => model.AmenazaID, Model.Amenazas, new { @class = "form-control", @id = "amenazaID" })
                     @Html.ValidationMessageFor(model => model.AmenazaID, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+    </div>
+    <div class="row">
+        <div class="col-md-9">
             <div class="form-group row">
                 @Html.LabelFor(model => model.EvaluationConceptID, htmlAttributes: new { @class = "col-md-3 col-form-label" })
-                <div class="col-md-10">
+                <div class="col-md-12">
                     @Html.DropDownListFor(model => model.EvaluationConceptID, Model.EvaluationConcepts, new { @class = "form-control", @id = "evaluationConceptID" })
                     @Html.ValidationMessageFor(model => model.EvaluationConceptID, "", new { @class = "text-danger" })
-                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#createEvaluationModal">Crear nuevo concepto</button>
+                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#createEvaluationModal">Crear nuevo punto a evaluar</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Response, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-5">
+                    @Html.EnumDropDownListFor(model => model.Response, htmlAttributes: new { @class = "form-control", @id = "response" })
+                    @Html.ValidationMessageFor(model => model.Response, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
@@ -47,7 +56,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="createEvaluationModalLabel">Crear nuevo concepto</h5>
+                    <h5 class="modal-title" id="createEvaluationModalLabel">Crear nuevo punto a evaluar</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -103,21 +112,12 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-3">
-            <div class="form-group">
-                @Html.LabelFor(model => model.Response, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-5">
-                    @Html.EnumDropDownListFor(model => model.Response, htmlAttributes: new { @class = "form-control", @id = "response" })
-                    @Html.ValidationMessageFor(model => model.Response, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
     </div>
     <div class="row mt-3">
         <div class="col-12 d-flex justify-content-start">
             <button type="button" id="btnaddVulmerability" class="btn btn-primary" onclick="addVulmerability()">Adicionar</button>
-            <button type="button" id="btnupdateVulmerability" class="btn btn-primary" onclick="updateVulmerability()">Guardar</button>
-            <button type="button" id="btnAddIntervention" class="btn btn-primary">Adicionar nueva amenaza</button>
+            <button type="button" id="btnUpdateVulmerability" class="btn btn-primary" onclick="updateVulmerability()">Guardar</button>
+            <button type="button" id="btnAddNewVulnerability" class="btn btn-primary" onclick="addNewVulmerability()">Adicionar nueva vulnerabilidad</button>
             <button type="button" id="btnAddAmenaza" class="btn btn-secondary" onclick="cancelVulmerability()">
                 <span class="glyphicon glyphicon-chevron-left"></span> Cerrar
             </button>
