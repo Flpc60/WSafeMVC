@@ -13,4 +13,3 @@ namespace WSafe.Domain.Data.Entities.Ppre
     }
 }
 
-

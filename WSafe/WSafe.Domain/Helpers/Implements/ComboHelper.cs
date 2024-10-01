@@ -647,7 +647,7 @@ namespace WSafe.Domain.Helpers.Implements
 
             list.Insert(0, new SelectListItem
             {
-                Text = "(Seleccione una amenaza ...)",
+                Text = "(Seleccione un punto a evaluar ...)",
                 Value = "0"
             });
 
