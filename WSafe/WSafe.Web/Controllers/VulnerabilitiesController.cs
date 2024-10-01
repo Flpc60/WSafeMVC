@@ -171,42 +171,53 @@ namespace WSafe.Web.Controllers
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
             }
         }
-
         [HttpPost]
         public async Task<ActionResult> CreateEvaluation([Bind(Include = "ID,Name,VulnerabilitiType,EvaluationPerson,EvaluationRecurso,EvaluationSystem,ClientID,OrganizationID,UserID")] EvaluationConcept model)
         {
             try
             {
-                var message = "";
                 model.ClientID = (int)Session["clientID"];
                 model.OrganizationID = (int)Session["orgID"];
                 model.UserID = (int)Session["userID"];
 
-                if (ModelState.IsValid)
+                if (!ModelState.IsValid)
                 {
-                    if (model.ID == 0)
-                    {
-                        _empresaContext.EvaluationConcepts.Add(model);
-                        await _empresaContext.SaveChangesAsync();
-                        var id = _empresaContext.EvaluationConcepts.OrderByDescending(x => x.ID).First().ID;
-                        message = "El registro ha sido ingresado correctamente !!";
-                        return Json(new { data = id, mensaj = message }, JsonRequestBehavior.AllowGet);
-                    }
-                    else
-                    {
-                        message = "El registro NO ha sido ingresado correctamente !!";
-                        return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
-                    }
+                    return Json(new { data = false, mensaj = "El registro NO ha sido ingresado correctamente!!" }, JsonRequestBehavior.AllowGet);
                 }
-                else
+
+                if (model.ID != 0)
                 {
-                    message = "El registro NO ha sido ingresado correctamente !!";
-                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                    return Json(new { data = false, mensaj = "El registro NO ha sido ingresado correctamente!!" }, JsonRequestBehavior.AllowGet);
                 }
+
+                ResetEvaluationFieldsByType(model);
+                _empresaContext.EvaluationConcepts.Add(model);
+                await _empresaContext.SaveChangesAsync();
+                var id = model.ID;
+                return Json(new { data = id, mensaj = "El registro ha sido ingresado correctamente!!" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 return View("Error", new HandleErrorInfo(ex, "Vulnerabilities", "Index"));
+            }
+        }
+
+        private void ResetEvaluationFieldsByType(EvaluationConcept model)
+        {
+            switch (model.VulnerabilitiType)
+            {
+                case VulnerabilityTypes.Personas:
+                    model.EvaluationRecurso = 0;
+                    model.EvaluationSystem = 0;
+                    break;
+                case VulnerabilityTypes.Recursos:
+                    model.EvaluationPerson = 0;
+                    model.EvaluationSystem = 0;
+                    break;
+                case VulnerabilityTypes.Sistemas:
+                    model.EvaluationPerson = 0;
+                    model.EvaluationRecurso = 0;
+                    break;
             }
         }
 

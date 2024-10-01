@@ -34,6 +34,7 @@ namespace WSafe.Domain.Helpers.Implements
             var filtered = list
                 .Where(v => v.OrganizationID == _orgID)
                 .OrderBy(v => v.CategoryAmenaza)
+                .ThenBy(v => v.AmenazaID)
                 .ThenBy(v => v.EvaluationConceptID);
 
             var model = new List<VulnerabilityVM>();
@@ -59,7 +60,7 @@ namespace WSafe.Domain.Helpers.Implements
                 string type = string.Empty;
                 string aspecto = string.Empty;
 
-                switch (item.EvaluationConcept.VulnerabilitiType)
+                switch (item.VulnerabilityType)
                 {
                     case VulnerabilityTypes.Personas:
                         type = "Personas";

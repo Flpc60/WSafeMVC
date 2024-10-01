@@ -992,7 +992,7 @@ function addVulmerability() {
         CategoryAmenaza: $("#categoryAmenaza").val(),
         AmenazaID: $("#amenazaID").val(),
         EvaluationConceptID: $("#evaluationConceptID").val(),
-        Respons: $("#response").val(), 
+        Response: $("#response").val(), 
         OrganizationID: 1,
         ClientID: 1,
         UserID: 1
@@ -1006,8 +1006,8 @@ function addVulmerability() {
         contentType: 'application/json; charset=utf-8',
         async: true,
         success: function (result) {
-            if (result.success) {
-                alert("Amenaza adicionada !!");
+            if (result.data != false) {
+                alert("Vulnerabilidad adicionada !!");
                 $("#type").val("");
                 $("#categoryAmenaza").val("");
                 $("#vulnerabilityID").val(result.data);
@@ -1015,7 +1015,7 @@ function addVulmerability() {
                 $("#evaluationConceptID").val("");
                 $("#response").val("");
             } else {
-                alert("Error: " + result.message);
+                alert("Error: " + result.mensaj);
             }
             $("#btnaddVulmerability").hide();
             $("#btnAddIntervention").show();
@@ -1133,12 +1133,12 @@ function addNewEvaluation() {
     var evaluationVM = {
         ID: 0,
         Name: $("#name").val(),
-        VulnerabilityType: $("#vulnerability").val(),
+        VulnerabilitiType: $("#vulnerability").val(),
         EvaluationPerson: $("#evaluationPerson").val(),
         EvaluationRecurso: $("evaluationRecurso").val(),
         EvaluationSystem: $("#evaluationSystem").val(),
-        OrganizationID: 1,
         ClientID: 1,
+        OrganizationID: 1,
         UserID: 1
     };
 
@@ -1150,8 +1150,8 @@ function addNewEvaluation() {
         contentType: 'application/json; charset=utf-8',
         async: true,
         success: function (result) {
-            if (result.success) {
-                alert("Amenaza adicionada !!");
+            if (result.data != false) {
+                alert("Evaluación adicionada !!");
                 $("#Name").val("");
                 $("#VulnerabilityType").val("");
                 $("#vulnerabilityID").val(result.data);
@@ -1159,7 +1159,7 @@ function addNewEvaluation() {
                 $("#EvaluationRecurso").val("");
                 $("#EvaluationSystem").val("");
             } else {
-                alert("Error: " + result.message);
+                alert("Error: " + result.mensaj);
             }
             $("#btnaddVulmerability").hide();
             $("#btnAddIntervention").show();
@@ -1169,3 +1169,17 @@ function addNewEvaluation() {
         }
     });
 }
+
+function addNewVulmerability() {
+    $("#type").val("");
+    $("#categoryAmenaza").val("");
+    $("#vulnerabilityID").val("");
+    $("#amenazaID").val("");
+    $("#evaluationConceptID").val("");
+    $("#response").val("");
+    $("#btnaddVulmerability").show();
+    $("#btnAddNewVulnerability").hide();
+    $("#btnAddIntervention").show();
+    $("#type").focus();
+}
+
