@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace WSafe.Domain.Models
 {
@@ -25,8 +26,12 @@ namespace WSafe.Domain.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string Responsable { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public string FechaInicial { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime FechaInicial { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public string FechaFinal { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime FechaFinal { get; set; }
     }
 }
