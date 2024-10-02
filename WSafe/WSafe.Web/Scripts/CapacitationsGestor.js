@@ -1008,13 +1008,7 @@ function addVulmerability() {
         success: function (result) {
             if (result.data != false) {
                 alert("Vulnerabilidad adicionada !!");
-                $("#type").val("");
-                $("#categoryAmenaza").val("");
-                $("#vulnerabilityID").val(result.data);
-                $("#amenazaID").val("");
-                $("#evaluationConceptID").val("");
-                $("#response").val("");
-                $("#type").focus();
+                $("#btnBlankAmenaza").focus();
             } else {
                 alert("Error: " + result.mensaj);
             }
@@ -1046,7 +1040,7 @@ function showIntervencionesAll() {
                         <thead>
                             <tr style="background-color:gainsboro;">
                                 <th>VULNERABILIDAD</th>
-                                <th>CATEGORÍA</th>
+                                <th>CLASE</th>
                                 <th>AMENAZA</th>
                                 <th>APLICACIÓN</th>
                                 <th>FINALIDAD</th>
@@ -1099,21 +1093,21 @@ function addNewIntervention() {
     var vulnerabilityID = $("#vulnerabilityID").val();
     var aplicaVM = {
         ID: "0",
+        Description: $("#description").val(),
         VulnerabilityID: vulnerabilityID,
         CategoriaAplicacion: $("#categoriaApp").val(),
-        Finalidad: $("#txtFinal").val(),
+        Finalidad: $("#finalidad").val(),
         Intervencion: $("#intervencion").val(),
         Beneficios: $("#beneficio").val(),
         Presupuesto: $("#presupuesto").val(),
-        TrabajadorID: $("#idRespons").val(),
+        TrabajadorID: $("#trabajadorID").val(),
         FechaInicial: $("#FechaInicial").val(),
-        Fechafinal: $("#FechaFinal").val(),
-        Description: $("#description").val()
+        FechaFinal: $("#FechaFinal").val()
     };
 
     $.ajax({
         type: "POST",
-        url: "/Riesgos/CreateIntervention",
+        url: "/Vulnerabilities/CreateIntervention",
         data: { model: aplicaVM },
         dataType: "json",
         success: function (result) {
@@ -1121,7 +1115,9 @@ function addNewIntervention() {
                 $("#interventionID").val(result.data);
             }
             alert(result.mensaj);
-            showIntervencionesAll();        },
+            $('#createInterventionModal').modal('hide');
+            showIntervencionesAll();
+        },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
             alert(thrownError);

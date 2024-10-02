@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using WSafe.Domain.Data;
@@ -165,79 +166,73 @@ namespace WSafe.Domain.Helpers.Implements
         {
             try
             {
-                string type = string.Empty;
-                var vulnerability = _empresaContext.Vulnerabilities.Find(id);
-                var amenaza = _empresaContext.Amenazas.Find(vulnerability.AmenazaID);
-                var evaluation = _empresaContext.EvaluationConcepts.Find(vulnerability.EvaluationConceptID);
+                var model = new List<IntervencionVM>();
+                var vulnerability = _empresaContext.Vulnerabilities
+                    .Where(v => v.ID == id)
+                    .Include(v => v.Amenaza)
+                    .Include(v => v.EvaluationConcept)
+                    .Include(v => v.Interventions)
+                    .FirstOrDefault();
 
-                switch (vulnerability.EvaluationConcept.VulnerabilitiType)
+                string type = string.Empty;
+                switch (vulnerability.VulnerabilityType)
                 {
                     case VulnerabilityTypes.Personas:
                         type = "Personas";
                         break;
-
                     case VulnerabilityTypes.Recursos:
                         type = "Recursos";
                         break;
-
                     case VulnerabilityTypes.Sistemas:
+                        type = "Sistemas";
+                        break;
+                    default:
+                        type = string.Empty;
                         break;
                 }
 
                 string categoria = string.Empty;
-                switch (amenaza.CategoryAmenaza)
+                switch (vulnerability.Amenaza.CategoryAmenaza)
                 {
                     case CategoryAmenazas.Naturales:
-                        categoria = "Naturales";
+                        type = "Naturales";
                         break;
-
                     case CategoryAmenazas.Tecnologicas:
-                        categoria = "Tecnológicas";
+                        type = "Tecnológicas";
                         break;
-
                     case CategoryAmenazas.Sociales:
-                        categoria = "Sociales";
+                        type = "Sociales";
                         break;
-
+                    default:
+                        type = string.Empty;
+                        break;
                 }
 
-                var trace = (from i in _empresaContext.Interventions
-                             join e in _empresaContext.Trabajadores on i.TrabajadorID equals e.ID into WorkerJoin
-                             from e in WorkerJoin.DefaultIfEmpty()
-                             where i.VulnerabilityID == id
-                             orderby i.FechaInicial
-                             select new
-                             {
-                                 i.ID,
-                                 Vulnerability = type,
-                                 Categoría = categoria,
-                                 Amenaza = amenaza.Name,
-                                 i.CategoriaAplicacion,
-                                 i.Finalidad,
-                                 i.Intervencion,
-                                 Benefiicos = i.Beneficios != null ? i.Beneficios.ToUpper() : "N/A",
-                                 i.Presupuesto,
-                                 Responsable = e != null ? (e.Nombres + " " + e.PrimerApellido + " " + e.SegundoApellido).ToUpper() : "N/A",
-                                 i.FechaInicial,
-                                 i.FechaFinal
-                             }).ToList();
-
-                var model = trace.Select(item => new IntervencionVM
+                foreach (var item in vulnerability.Interventions)
                 {
-                    ID = item.ID,
-                    Vulnerability = item.Vulnerability,
-                    Categoria = item.Categoría,
-                    Amenaza = item.Amenaza,
-                    Aplicacion = _gestorHelper.GetCategoriaAplicacion(item.CategoriaAplicacion),
-                    Finalidad = _gestorHelper.GetActionType((int)item.Finalidad),
-                    Intervencion = _gestorHelper.GetJerarquiaControl((JerarquiaControles)(int)item.Intervencion),
-                    Presupuesto = item.Presupuesto,
-                    Responsable = item.Responsable
-                }).ToList();
+                    var worker = _empresaContext.Trabajadores.Find(item.TrabajadorID);
+                    var intervencion = new IntervencionVM
+                    {
+                        ID = item.ID,
+                        Vulnerability = type,
+                        Categoria = categoria,
+                        Amenaza = vulnerability.Amenaza.Name,
+                        Aplicacion = _gestorHelper.GetCategoriaAplicacion(item.CategoriaAplicacion),
+                        Finalidad = _gestorHelper.GetActionType((int)item.Finalidad),
+                        Intervencion = _gestorHelper.GetJerarquiaControl((JerarquiaControles)(int)item.Intervencion),
+                        Beneficios = item.Beneficios ?? "N/A",
+                        Presupuesto = item.Presupuesto,
+                        Responsable = (worker.Nombres + " " + worker.PrimerApellido + " " + worker.SegundoApellido).ToUpper(),
+                        FechaInicial = item.FechaInicial,
+                        FechaFinal = item.FechaFinal
+                    };
+                    model.Add(intervencion);
 
+                }
                 return model;
+
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return new List<IntervencionVM>();
             }
