@@ -33,13 +33,8 @@ namespace WSafe.Domain.Data.Entities.Ppre
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaFinal { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public string Observaciones { get; set; }
-        public short NivelDeficiencia { get; set; }
-        public short NivelExposicion { get; set; }
-        public short NivelConsecuencia { get; set; }
         public int OrganizationID { get; set; }
         public int ClientID { get; set; }
         public int UserID { get; set; }
     }
 }
-

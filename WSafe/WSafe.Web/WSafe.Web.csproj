@@ -383,6 +383,14 @@
     <Compile Include="Migrations\202410011637020_UpdEvaluationConceptTable.Designer.cs">
       <DependentUpon>202410011637020_UpdEvaluationConceptTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202410022131517_UpdInterventionTable.cs" />
+    <Compile Include="Migrations\202410022131517_UpdInterventionTable.Designer.cs">
+      <DependentUpon>202410022131517_UpdInterventionTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202410022234158_UpdInterventionVM.cs" />
+    <Compile Include="Migrations\202410022234158_UpdInterventionVM.Designer.cs">
+      <DependentUpon>202410022234158_UpdInterventionVM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -1107,6 +1115,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202410011637020_UpdEvaluationConceptTable.resx">
       <DependentUpon>202410011637020_UpdEvaluationConceptTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202410022131517_UpdInterventionTable.resx">
+      <DependentUpon>202410022131517_UpdInterventionTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202410022234158_UpdInterventionVM.resx">
+      <DependentUpon>202410022234158_UpdInterventionVM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

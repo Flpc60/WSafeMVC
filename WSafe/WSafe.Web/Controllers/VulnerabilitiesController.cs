@@ -45,8 +45,8 @@ namespace WSafe.Web.Controllers
         {
             _orgID = (int)Session["orgID"];
             var vulnerabilities = await _empresaContext.Vulnerabilities
-                .Include(v => v.EvaluationConcept)
                 .Include(a => a.Amenaza)
+                .Include(v => v.EvaluationConcept)
                 .ToListAsync();
             var model = _emergencyConverter.ToListVulnerabilityVM(vulnerabilities, _orgID);
             ViewBag.organization = $"GESTIÓN DE VULNERABILIDADES: {Session["organization"].ToString().Trim()}";
@@ -76,6 +76,7 @@ namespace WSafe.Web.Controllers
             {
                 _orgID = (int)Session["orgID"];
                 var model = _emergencyConverter.ToCrtVulnerabilityVMNew(_orgID);
+                ViewBag.trabajadores = _comboHelper.GetComboTrabajadores(_orgID);
                 return View(model);
             }
             catch (Exception ex)
@@ -158,9 +159,8 @@ namespace WSafe.Web.Controllers
                 {
                     _empresaContext.Interventions.Add(model);
                     await _empresaContext.SaveChangesAsync();
-                    var id = _empresaContext.Interventions.OrderByDescending(x => x.ID).First().ID;
                     message = "El registro ha sido ingresado correctamente !!";
-                    return Json(new { data = id, mensaj = message }, JsonRequestBehavior.AllowGet);
+                    return Json(new { data = model.ID, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
                 message = "El registro NO ha sido ingresado correctamente !!";
                 return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);

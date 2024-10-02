@@ -1,4 +1,8 @@
 ﻿@model WSafe.Domain.Models.CrtVulnerabilityVM
+@{
+    var trabajadores = ViewBag.trabajadores;
+}
+
 <div class="container" style="background-color: azure">
     <hr />
     <div class="row">
@@ -118,11 +122,14 @@
             <button type="button" id="btnaddVulmerability" class="btn btn-primary" onclick="addVulmerability()">Adicionar</button>
             <button type="button" id="btnUpdateVulmerability" class="btn btn-primary" onclick="updateVulmerability()">Guardar</button>
             <a href="@Url.Action("Index")" class="btn btn-info"><i class="glyphicon glyphicon-arrow-left"></i> Listado vulnerabilidades</a>
-            <button type="button" id="btnAddAmenaza" class="btn btn-secondary" onclick="blankVulmerability()">
+            <button type="button" id="btnBlankAmenaza" class="btn btn-secondary" onclick="blankVulmerability()">
                 <span class="glyphicon glyphicon-chevron-left"></span> Limpiar
             </button>
             <button type="button" class="btn btn-link" data-toggle="modal" data-target="#createInterventionModal">Adicionar medida intervención</button>
         </div>
+    </div>
+    <div style="display: inline-block;">
+        <div class="showIntervenciones"></div>
     </div>
     <div class="modal fade" id="createInterventionModal" tabindex="-1" role="dialog" aria-labelledby="createInterventionModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-md" role="document">
@@ -139,12 +146,6 @@
                         <label for="description">Descripción:</label>
                         <textarea id="description" class="form-control" rows="2" style="resize: none;" required></textarea>
                     </div>
-
-                    <div class="form-group">
-                        <label for="beneficio">Beneficios:</label>
-                        <textarea id="beneficio" class="form-control" rows="2" style="resize: none;" required></textarea>
-                    </div>
-
                     <div class="form-group">
                         <label for="categoriaApp">Aplicación del control</label>
                         <select name="categoriaApp" class="form-control" id="categoriaApp">
@@ -182,11 +183,19 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="beneficio">Beneficios:</label>
+                        <textarea id="beneficio" class="form-control" rows="2" style="resize: none;" required></textarea>
+                    </div>
+
+                    <div class="form-group">
                         <label for="presupuesto">Presupuesto</label>
                         <input name="presupuesto" class="form-control" id="presupuesto" type="number">
                         <span class="text-danger" data-valmsg-replace="true" data-valmsg-for="presupuesto"></span>
                     </div>
-
+                    <div class="form-group">
+                        <label class="control-label" for="Respons">Funcionario responsable</label>
+                        @Html.DropDownList("Trabajadores", trabajadores as IEnumerable<SelectListItem>, new { @class = "form-control", @id = "trabajadorID" })
+                    </div>
                     <div class="form-group">
                         <label class="control-label" for="FechaInicial">Fecha inicial</label>
                         <input type="date" class="form-control" id="FechaInicial" required>
