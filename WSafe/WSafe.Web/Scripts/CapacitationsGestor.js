@@ -1240,3 +1240,40 @@ function filterAmenazas(id) {
         });
     }
 }
+
+function updateVulmerability() {
+    const id = $("#vulnerabilityID").val();
+    var vulnerabilityVM = {
+        ID: id,
+        Types: $("#type").val(),
+        CategoryAmenaza: $("#categoryAmenaza").val(),
+        AmenazaID: $("#amenazaID").val(),
+        EvaluationConceptID: $("#evaluationConceptID").val(),
+        Response: $("#response").val(),
+        OrganizationID: 1,
+        ClientID: 1,
+        UserID: 1
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/Vulnerabilities/Edit",
+        data: JSON.stringify(vulnerabilityVM),
+        dataType: "json",
+        contentType: 'application/json; charset=utf-8',
+        async: true,
+        success: function (result) {
+            if (result.data != false) {
+                alert("Vulnerabilidad actualizada !!");
+                $("#btnBlankAmenaza").focus();
+                $("#vulnerabilityID").val(result.data);
+            } else {
+                alert("Error: " + result.mensaj);
+            }
+            $("#btnAddIntervention").show();
+        },
+        error: function (xhr, status, error) {
+            alert("Error del servidor: " + error);
+        }
+    });
+}

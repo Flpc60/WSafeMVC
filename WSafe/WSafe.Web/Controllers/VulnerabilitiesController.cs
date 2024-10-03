@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,7 +10,6 @@ using WSafe.Domain.Models;
 using WSafe.Domain.Repositories.Implements;
 using WSafe.Domain.Services.Implements;
 using WSafe.Web.Filters;
-using static Antlr4.Runtime.Atn.SemanticContext;
 
 namespace WSafe.Web.Controllers
 {
@@ -223,39 +221,67 @@ namespace WSafe.Web.Controllers
                     break;
             }
         }
+        public async Task<ActionResult> Edit(int id)
+        {
+            try
+            {
+                _orgID = (int)Session["orgID"];
 
-        /*
-                // GET: Vulnerabilities/Edit/5
-                public async Task<ActionResult> Edit(int? id)
+                var model = await _emergencyConverter.ToCrtVulnerabilityVM(id, _orgID);
+                ViewBag.trabajadores = _comboHelper.GetWorkersFull(_orgID);
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Vulnerabilities", "Index"));
+            }
+        }
+        [HttpPost]
+        public async Task<ActionResult> Edit([Bind(Include = "ID,Types,CategoryAmenaza,AmenazaID,EvaluationConceptID,Response,ClientID,OrganizationID,UserID")] CrtVulnerabilityVM model)
+        {
+            try
+            {
+                var message = "";
+                model.ClientID = (int)Session["clientID"];
+                model.OrganizationID = (int)Session["orgID"];
+                model.UserID = (int)Session["userID"];
+
+                if (ModelState.IsValid)
                 {
-                    if (id == null)
+                    if (model.ID == 0)
                     {
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                        var consulta = new VulnerabilityService(new VulnerabilityRepository(_empresaContext));
+                        var vulnerability = await _emergencyConverter.ToVulnerabilityAsync(model, false);
+                        var saved = await consulta.Update(vulnerability);
+                        if (saved == null)
+                        {
+                            message = "El registro NO ha sido actualizado correctamente !!";
+                            return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
+                        }
+                        else
+                        {
+                            message = "El registro ha sido actualizado correctamente !!";
+                            return Json(new { data = vulnerability.ID, mensaj = message }, JsonRequestBehavior.AllowGet);
+                        }
                     }
-                    VulnerabilityVM vulnerabilityVM = await db.VulnerabilityVMs.FindAsync(id);
-                    if (vulnerabilityVM == null)
+                    else
                     {
-                        return HttpNotFound();
+                        message = "El registro NO ha sido ingresado correctamente !!";
+                        return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
                     }
-                    return View(vulnerabilityVM);
                 }
-
-                // POST: Vulnerabilities/Edit/5
-                // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-                // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-                [HttpPost]
-                [ValidateAntiForgeryToken]
-                public async Task<ActionResult> Edit([Bind(Include = "ID,CategoryAmenaza,Amenaza,Type,EvaluationConcept,Item,Response,Observation")] VulnerabilityVM vulnerabilityVM)
-                {
-                    if (ModelState.IsValid)
+                else
                     {
-                        db.Entry(vulnerabilityVM).State = EntityState.Modified;
-                        await db.SaveChangesAsync();
-                        return RedirectToAction("Index");
-                    }
-                    return View(vulnerabilityVM);
+                    message = "El registro NO ha sido ingresado correctamente !!";
+                    return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
-
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Vulnerabilities", "Index"));
+            }
+        }
+/*
                 // GET: Vulnerabilities/Delete/5
                 public async Task<ActionResult> Delete(int? id)
                 {
@@ -284,34 +310,34 @@ namespace WSafe.Web.Controllers
         */
 
         protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _empresaContext.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+{
+    if (disposing)
+    {
+        _empresaContext.Dispose();
+    }
+    base.Dispose(disposing);
+}
 
-        [HttpGet]
-        public ActionResult GetEvaluations(int id)
-        {
-            if (id != 0)
-            {
-                _orgID = (int)Session["orgID"];
-                return Json(_comboHelper.GetAllEvaluationConcepts(_orgID, id), JsonRequestBehavior.AllowGet);
-            }
-            return null;
-        }
+[HttpGet]
+public ActionResult GetEvaluations(int id)
+{
+    if (id != 0)
+    {
+        _orgID = (int)Session["orgID"];
+        return Json(_comboHelper.GetAllEvaluationConcepts(_orgID, id), JsonRequestBehavior.AllowGet);
+    }
+    return null;
+}
 
-        [HttpGet]
-        public ActionResult GetAmenazas(int id)
-        {
-            if (id != 0)
-            {
-                _orgID = (int)Session["orgID"];
-                return Json(_comboHelper.GetAllAmenazas(_orgID, id), JsonRequestBehavior.AllowGet);
-            }
-            return null;
-        }
+[HttpGet]
+public ActionResult GetAmenazas(int id)
+{
+    if (id != 0)
+    {
+        _orgID = (int)Session["orgID"];
+        return Json(_comboHelper.GetAllAmenazas(_orgID, id), JsonRequestBehavior.AllowGet);
+    }
+    return null;
+}
     }
 }

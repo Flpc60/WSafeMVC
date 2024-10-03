@@ -238,5 +238,28 @@ namespace WSafe.Domain.Helpers.Implements
                 return new List<IntervencionVM>();
             }
         }
+        public async Task<CrtVulnerabilityVM> ToCrtVulnerabilityVM(int id, int org)
+        {
+            var vulnerability = await _empresaContext.Vulnerabilities
+                .Where(v => v.ID == id)
+                .Include(v => v.Amenaza)
+                .Include(v => v.EvaluationConcept)
+                .Include(v => v.Interventions)
+                .FirstOrDefaultAsync();
+
+            var model = new CrtVulnerabilityVM
+            {
+                ID = vulnerability.ID,
+                Types = vulnerability.VulnerabilityType,
+                CategoryAmenaza = vulnerability.CategoryAmenaza,
+                AmenazaID = vulnerability.AmenazaID,
+                Amenazas = _comboHelper.GetAllAmenazas(org, (int)vulnerability.CategoryAmenaza),
+                EvaluationConceptID = vulnerability.EvaluationConceptID,
+                EvaluationConcepts = _comboHelper.GetAllEvaluationConcepts(org, (int)vulnerability.VulnerabilityType),
+                Response = vulnerability.Response,
+                Observation = vulnerability.Observation
+            };
+            return model;
+        }
     }
 }
