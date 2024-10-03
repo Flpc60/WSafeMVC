@@ -1178,3 +1178,65 @@ function blankVulmerability() {
     $("#btnAddIntervention").show();
     $("#type").focus();
 }
+function filterEvaluations(id) {
+    var selectedCategoria = $("#type").val();
+    var evaluationSelect = $('#evaluationConceptID');
+    evaluationSelect.empty();
+    if (selectedCategoria != null && selectedCategoria != '') {
+        $.ajax({
+            async: true,
+            type: 'GET',
+            url: "/Vulnerabilities/GetEvaluations",
+            data: {
+                id: id
+            },
+            dataType: "json",
+            contentType: "application/json;charset=UTF-8",
+            success: function (response) {
+                if (response != null && !jQuery.isEmptyObject(response)) {
+                    $.each(response, function (index, item) {
+                        evaluationSelect.append($('<option />',
+                            {
+                                value: item.Value,
+                                text: item.Text
+                            }));
+                    });
+                };
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+}
+function filterAmenazas(id) {
+    var selectedCategoria = $("#categoryAmenaza").val();
+    var amenazaSelect = $('#amenazaID');
+    amenazaSelect.empty();
+    if (selectedCategoria != null && selectedCategoria != '') {
+        $.ajax({
+            async: true,
+            type: 'GET',
+            url: "/Vulnerabilities/GetAmenazas",
+            data: {
+                id: id
+            },
+            dataType: "json",
+            contentType: "application/json;charset=UTF-8",
+            success: function (response) {
+                if (response != null && !jQuery.isEmptyObject(response)) {
+                    $.each(response, function (index, item) {
+                        amenazaSelect.append($('<option />',
+                            {
+                                value: item.Value,
+                                text: item.Text
+                            }));
+                    });
+                };
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+}
