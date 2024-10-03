@@ -33,5 +33,8 @@ namespace WSafe.Domain.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaFinal { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [StringLength(500, ErrorMessage = "La descripción no puede exceder los 500 caracteres")]
+        public string Description { get; set; }
     }
 }
