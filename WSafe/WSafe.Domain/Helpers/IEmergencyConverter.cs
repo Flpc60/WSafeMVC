@@ -8,7 +8,7 @@ namespace WSafe.Domain.Helpers
     public interface IEmergencyConverter
     {
         IEnumerable<VulnerabilityVM> ToListVulnerabilityVM(IEnumerable<Vulnerability> list, int _orgID);
-        CrtVulnerabilityVM ToCrtVulnerabilityVMNew(int org);
+        CrtVulnerabilityVM ToCrtVulnerabilityVMNew(int org, int id);
         Task<Vulnerability> ToVulnerabilityAsync(CrtVulnerabilityVM model, bool isNew);
         IEnumerable<IntervencionVM> GetInterventionsAll(int id);
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ using WSafe.Domain.Models;
 using WSafe.Domain.Repositories.Implements;
 using WSafe.Domain.Services.Implements;
 using WSafe.Web.Filters;
+using static Antlr4.Runtime.Atn.SemanticContext;
 
 namespace WSafe.Web.Controllers
 {
@@ -75,8 +77,9 @@ namespace WSafe.Web.Controllers
             try
             {
                 _orgID = (int)Session["orgID"];
-                var model = _emergencyConverter.ToCrtVulnerabilityVMNew(_orgID);
-                ViewBag.trabajadores = _comboHelper.GetComboTrabajadores(_orgID);
+                var model = _emergencyConverter.ToCrtVulnerabilityVMNew(_orgID, 1);
+                ViewBag.trabajadores = _comboHelper.GetWorkersFull(_orgID);
+
                 return View(model);
             }
             catch (Exception ex)
@@ -90,7 +93,7 @@ namespace WSafe.Web.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        
+
         [HttpPost]
         public async Task<ActionResult> Create([Bind(Include = "ID,Types,CategoryAmenaza,AmenazaID,EvaluationConceptID,Response,ClientID,OrganizationID,UserID")] CrtVulnerabilityVM model)
         {
@@ -287,6 +290,28 @@ namespace WSafe.Web.Controllers
                 _empresaContext.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [HttpGet]
+        public ActionResult GetEvaluations(int id)
+        {
+            if (id != 0)
+            {
+                _orgID = (int)Session["orgID"];
+                return Json(_comboHelper.GetAllEvaluationConcepts(_orgID, id), JsonRequestBehavior.AllowGet);
+            }
+            return null;
+        }
+
+        [HttpGet]
+        public ActionResult GetAmenazas(int id)
+        {
+            if (id != 0)
+            {
+                _orgID = (int)Session["orgID"];
+                return Json(_comboHelper.GetAllAmenazas(_orgID, id), JsonRequestBehavior.AllowGet);
+            }
+            return null;
         }
     }
 }

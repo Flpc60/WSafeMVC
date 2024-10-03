@@ -10,7 +10,7 @@
             <div class="form-group row">
                 @Html.LabelFor(model => model.Types, htmlAttributes: new { @class = "col-md-4 col-form-label" })
                 <div class="col-md-4">
-                    @Html.EnumDropDownListFor(model => model.Types, htmlAttributes: new { @class = "form-control", @id = "type" })
+                    @Html.EnumDropDownListFor(model => model.Types, htmlAttributes: new { @class = "form-control", @id = "type", @onchange = "filterEvaluations(this.value)" })
                     @Html.ValidationMessageFor(model => model.Types, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -20,7 +20,7 @@
             <div class="form-group row">
                 @Html.LabelFor(model => model.CategoryAmenaza, htmlAttributes: new { @class = "col-md-2 col-form-label" })
                 <div class="col-md-5">
-                    @Html.EnumDropDownListFor(model => model.CategoryAmenaza, htmlAttributes: new { @class = "form-control", @id = "categoryAmenaza" })
+                    @Html.EnumDropDownListFor(model => model.CategoryAmenaza, htmlAttributes: new { @class = "form-control", @id = "categoryAmenaza", @onchange = "filterAmenazas(this.value)"})
                     @Html.ValidationMessageFor(model => model.CategoryAmenaza, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -29,7 +29,7 @@
             <div class="form-group row">
                 @Html.LabelFor(model => model.AmenazaID, htmlAttributes: new { @class = "col-md-3 col-form-label" })
                 <div class="col-md-7">
-                    @Html.DropDownListFor(model => model.AmenazaID, Model.Amenazas, new { @class = "form-control", @id = "amenazaID" })
+                    @Html.DropDownListFor(model => model.AmenazaID, Model.Amenazas, new { @class = "form-control", @id = "amenazaID"})
                     @Html.ValidationMessageFor(model => model.AmenazaID, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -40,7 +40,7 @@
             <div class="form-group row">
                 @Html.LabelFor(model => model.EvaluationConceptID, htmlAttributes: new { @class = "col-md-3 col-form-label" })
                 <div class="col-md-12">
-                    @Html.DropDownListFor(model => model.EvaluationConceptID, Model.EvaluationConcepts, new { @class = "form-control", @id = "evaluationConceptID" })
+                    @Html.DropDownListFor(model => model.EvaluationConceptID, Model.EvaluationConcepts, new { @class = "form-control", id = "evaluationConceptID"})
                     @Html.ValidationMessageFor(model => model.EvaluationConceptID, "", new { @class = "text-danger" })
                     <button type="button" class="btn btn-link" data-toggle="modal" data-target="#createEvaluationModal">Crear nuevo punto a evaluar</button>
                 </div>
