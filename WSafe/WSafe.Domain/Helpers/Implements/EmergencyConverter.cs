@@ -195,16 +195,16 @@ namespace WSafe.Domain.Helpers.Implements
                 switch (vulnerability.Amenaza.CategoryAmenaza)
                 {
                     case CategoryAmenazas.Naturales:
-                        type = "Naturales";
+                        categoria = "Naturales";
                         break;
                     case CategoryAmenazas.Tecnologicas:
-                        type = "Tecnológicas";
+                        categoria = "Tecnológicas";
                         break;
                     case CategoryAmenazas.Sociales:
-                        type = "Sociales";
+                        categoria = "Sociales";
                         break;
                     default:
-                        type = string.Empty;
+                        categoria = string.Empty;
                         break;
                 }
 
@@ -218,6 +218,7 @@ namespace WSafe.Domain.Helpers.Implements
                         Categoria = categoria,
                         Amenaza = vulnerability.Amenaza.Name,
                         Aplicacion = _gestorHelper.GetCategoriaAplicacion(item.CategoriaAplicacion),
+                        Description = item.Description.ToUpper(),
                         Finalidad = _gestorHelper.GetActionType((int)item.Finalidad),
                         Intervencion = _gestorHelper.GetJerarquiaControl((JerarquiaControles)(int)item.Intervencion),
                         Beneficios = item.Beneficios ?? "N/A",
