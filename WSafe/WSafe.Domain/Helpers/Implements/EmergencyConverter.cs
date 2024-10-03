@@ -119,12 +119,12 @@ namespace WSafe.Domain.Helpers.Implements
 
             return model;
         }
-        public CrtVulnerabilityVM ToCrtVulnerabilityVMNew(int org)
+        public CrtVulnerabilityVM ToCrtVulnerabilityVMNew(int org, int id)
         {
             var model = new CrtVulnerabilityVM
             {
                 Amenazas = _comboHelper.GetAllAmenazas(org, 1),
-                EvaluationConcepts = _comboHelper.GetAllEvaluationConcepts(org)
+                EvaluationConcepts = _comboHelper.GetAllEvaluationConcepts(org, id)
             };
             return model;
         }
