@@ -6,7 +6,9 @@ using WSafe.Domain.Data.Entities;
 
 namespace WSafe.Domain.Helpers.Implements
 {
-    //Procesos Gestor riesgos
+    /// <summary>
+    /// 
+    /// </summary>
     public class GestorHelper : IGestorHelper
     {
         private readonly EmpresaContext _empresaContext;

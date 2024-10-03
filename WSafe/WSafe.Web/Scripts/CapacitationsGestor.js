@@ -1009,6 +1009,7 @@ function addVulmerability() {
             if (result.data != false) {
                 alert("Vulnerabilidad adicionada !!");
                 $("#btnBlankAmenaza").focus();
+                $("#vulnerabilityID").val(result.data);
             } else {
                 alert("Error: " + result.mensaj);
             }
@@ -1039,14 +1040,14 @@ function showIntervencionesAll() {
                     <table class="table table-striped table-bordered">
                         <thead>
                             <tr style="background-color:gainsboro;">
-                                <th>VULNERABILIDAD</th>
+                                <th>RIESGO</th>
                                 <th>CLASE</th>
                                 <th>AMENAZA</th>
                                 <th>APLICACIÓN</th>
+                                <th>DESCRIPCIÓN</th>
                                 <th>FINALIDAD</th>
                                 <th>INTERVENCIÓN</th>
                                 <th>BENEFICIOS</th>
-                                <th>PRESUPUESTO</th>
                                 <th>RESPONSABLE</th>
                                 <th>FECHA INICIAL</th>
                                 <th>FECHA FINAL</th>
@@ -1060,13 +1061,13 @@ function showIntervencionesAll() {
                     html += `
                     <tr>
                         <td>${item.Vulnerability}</td>
-                        <td>${item.Categoría}</td>
+                        <td>${item.Categoria}</td>
                         <td>${item.Amenaza}</td>
                         <td>${item.Aplicacion}</td>
-                        <td>${item.Finality}</td>
-                        <td>${item.Intervention}</td>
+                        <td>${item.Description}</td>
+                        <td>${item.Finalidad}</td>
+                        <td>${item.Intervencion}</td>
                         <td>${item.Beneficios}</td>
-                        <td>${item.Presupuesto}</td>
                         <td>${item.Responsable}</td>
                         <td style="white-space: nowrap;">${initialDate}</td>
                         <td style="white-space: nowrap;">${finalDate}</td>
