@@ -121,11 +121,12 @@
         <div class="col-12 d-flex justify-content-start">
             <button type="button" id="btnaddVulmerability" class="btn btn-primary" onclick="addVulmerability()">Adicionar</button>
             <button type="button" id="btnUpdateVulmerability" class="btn btn-primary" onclick="updateVulmerability()">Guardar</button>
-            <a href="@Url.Action("Index")" class="btn btn-info"><i class="glyphicon glyphicon-arrow-left"></i> Listado vulnerabilidades</a>
+            <button type="button" id="btnShowIntervention" class="btn btn-info" onclick="showIntervencionesAll()">Consultar medidas de interención</button>
             <button type="button" id="btnBlankAmenaza" class="btn btn-secondary" onclick="blankVulmerability()">
                 <span class="glyphicon glyphicon-chevron-left"></span> Limpiar
             </button>
             <button type="button" class="btn btn-link" data-toggle="modal" data-target="#createInterventionModal">Adicionar medida intervención</button>
+            <a href="@Url.Action("Index")" class="btn btn-info"><i class="glyphicon glyphicon-arrow-left"></i> Listado vulnerabilidades</a>
         </div>
     </div>
     <div style="display: inline-block;">
