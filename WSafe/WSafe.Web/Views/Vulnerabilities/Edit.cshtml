@@ -1,4 +1,7 @@
 ﻿@model WSafe.Domain.Models.CrtVulnerabilityVM
+@{ 
+    var id = Model.ID;
+}
 
 <style>
 
@@ -32,7 +35,7 @@
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="tabAmenaza">
-            <input type="hidden" id="vulnerabilityID" name="vulnerabilityID" />
+            <input type="hidden" id="vulnerabilityID" name="vulnerabilityID" value="@id"/>
             <input type="hidden" id="interventionID" name="interventionID" />
             @Html.Partial("_EditAmenazas")
         </div>
@@ -46,8 +49,9 @@
             $("#idAmenaza").click(function () {
                 $(".tabAmenaza").css("display", "block");
             });
-            $("#btnUpdateVulmerability").hide();
-            $("#btnAddNewVulnerability").hide();
+            $("#btnUpdateVulmerability").show();
+            $("#btnaddVulmerability").hide();
+            $("#btnBlankAmenaza").hide();
 
     </script>
 }

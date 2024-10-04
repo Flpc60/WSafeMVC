@@ -248,7 +248,7 @@ namespace WSafe.Web.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    if (model.ID == 0)
+                    if (model.ID != 0)
                     {
                         var consulta = new VulnerabilityService(new VulnerabilityRepository(_empresaContext));
                         var vulnerability = await _emergencyConverter.ToVulnerabilityAsync(model, false);
@@ -266,7 +266,7 @@ namespace WSafe.Web.Controllers
                     }
                     else
                     {
-                        message = "El registro NO ha sido ingresado correctamente !!";
+                        message = "El registro NO ha sido actualizado correctamente !!";
                         return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
                     }
                 }

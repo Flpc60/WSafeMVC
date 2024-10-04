@@ -1082,7 +1082,7 @@ function showIntervencionesAll() {
                 $('.showIntervenciones').html(html);
                 $('.showIntervenciones').focus();
             }
-            if (response.length == 0) { alert("No hay seguimientos para este riesgo !!"); }
+            if (response.length == 0) { alert("No hay medidas de intervención para este riesgo !!"); }
         },
         error: function (xhr, ajaxOptions, thrownError) {
             console.error(`Error: ${xhr.status} - ${thrownError}`);
