@@ -281,63 +281,42 @@ namespace WSafe.Web.Controllers
                 return View("Error", new HandleErrorInfo(ex, "Vulnerabilities", "Index"));
             }
         }
-/*
-                // GET: Vulnerabilities/Delete/5
-                public async Task<ActionResult> Delete(int? id)
-                {
-                    if (id == null)
-                    {
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                    }
-                    VulnerabilityVM vulnerabilityVM = await db.VulnerabilityVMs.FindAsync(id);
-                    if (vulnerabilityVM == null)
-                    {
-                        return HttpNotFound();
-                    }
-                    return View(vulnerabilityVM);
-                }
+        [HttpGet]
+        public ActionResult GetEvaluations(int id)
+        {
+            if (id != 0)
+            {
+                _orgID = (int)Session["orgID"];
+                return Json(_comboHelper.GetAllEvaluationConcepts(_orgID, id), JsonRequestBehavior.AllowGet);
+            }
+            return null;
+        }
 
-                // POST: Vulnerabilities/Delete/5
-                [HttpPost, ActionName("Delete")]
-                [ValidateAntiForgeryToken]
-                public async Task<ActionResult> DeleteConfirmed(int id)
-                {
-                    VulnerabilityVM vulnerabilityVM = await db.VulnerabilityVMs.FindAsync(id);
-                    db.VulnerabilityVMs.Remove(vulnerabilityVM);
-                    await db.SaveChangesAsync();
-                    return RedirectToAction("Index");
-                }
-        */
-
+        [HttpGet]
+        public ActionResult GetAmenazas(int id)
+        {
+            if (id != 0)
+            {
+                _orgID = (int)Session["orgID"];
+                return Json(_comboHelper.GetAllAmenazas(_orgID, id), JsonRequestBehavior.AllowGet);
+            }
+            return null;
+        }
         protected override void Dispose(bool disposing)
-{
-    if (disposing)
-    {
-        _empresaContext.Dispose();
-    }
-    base.Dispose(disposing);
-}
+        {
+            if (disposing)
+            {
+                _empresaContext.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-[HttpGet]
-public ActionResult GetEvaluations(int id)
-{
-    if (id != 0)
-    {
-        _orgID = (int)Session["orgID"];
-        return Json(_comboHelper.GetAllEvaluationConcepts(_orgID, id), JsonRequestBehavior.AllowGet);
-    }
-    return null;
-}
-
-[HttpGet]
-public ActionResult GetAmenazas(int id)
-{
-    if (id != 0)
-    {
-        _orgID = (int)Session["orgID"];
-        return Json(_comboHelper.GetAllAmenazas(_orgID, id), JsonRequestBehavior.AllowGet);
-    }
-    return null;
-}
+        [HttpGet]
+        public async Task<ActionResult> GetVulnerabilitiesByID(int id)
+        {
+            _orgID = (int)Session["orgID"];
+            var model = await _converterHelper.GetConsolidateVulnerability(id, _orgID);
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
     }
 }
