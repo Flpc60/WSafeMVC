@@ -367,29 +367,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202409261618040_UpdTableVulnerability.cs" />
-    <Compile Include="Migrations\202409261618040_UpdTableVulnerability.Designer.cs">
-      <DependentUpon>202409261618040_UpdTableVulnerability.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202409302101284_UpdCrtVylnerabilityVM.cs" />
-    <Compile Include="Migrations\202409302101284_UpdCrtVylnerabilityVM.Designer.cs">
-      <DependentUpon>202409302101284_UpdCrtVylnerabilityVM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202409302134330_UpdCrtVylnerabilityVM1.cs" />
-    <Compile Include="Migrations\202409302134330_UpdCrtVylnerabilityVM1.Designer.cs">
-      <DependentUpon>202409302134330_UpdCrtVylnerabilityVM1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202410011637020_UpdEvaluationConceptTable.cs" />
-    <Compile Include="Migrations\202410011637020_UpdEvaluationConceptTable.Designer.cs">
-      <DependentUpon>202410011637020_UpdEvaluationConceptTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202410022131517_UpdInterventionTable.cs" />
-    <Compile Include="Migrations\202410022131517_UpdInterventionTable.Designer.cs">
-      <DependentUpon>202410022131517_UpdInterventionTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202410022234158_UpdInterventionVM.cs" />
-    <Compile Include="Migrations\202410022234158_UpdInterventionVM.Designer.cs">
-      <DependentUpon>202410022234158_UpdInterventionVM.cs</DependentUpon>
+    <Compile Include="Migrations\202410041812380_UpdOrganizationTable.cs" />
+    <Compile Include="Migrations\202410041812380_UpdOrganizationTable.Designer.cs">
+      <DependentUpon>202410041812380_UpdOrganizationTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1104,23 +1084,8 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202409261618040_UpdTableVulnerability.resx">
-      <DependentUpon>202409261618040_UpdTableVulnerability.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202409302101284_UpdCrtVylnerabilityVM.resx">
-      <DependentUpon>202409302101284_UpdCrtVylnerabilityVM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202409302134330_UpdCrtVylnerabilityVM1.resx">
-      <DependentUpon>202409302134330_UpdCrtVylnerabilityVM1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202410011637020_UpdEvaluationConceptTable.resx">
-      <DependentUpon>202410011637020_UpdEvaluationConceptTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202410022131517_UpdInterventionTable.resx">
-      <DependentUpon>202410022131517_UpdInterventionTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202410022234158_UpdInterventionVM.resx">
-      <DependentUpon>202410022234158_UpdInterventionVM.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202410041812380_UpdOrganizationTable.resx">
+      <DependentUpon>202410041812380_UpdOrganizationTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
