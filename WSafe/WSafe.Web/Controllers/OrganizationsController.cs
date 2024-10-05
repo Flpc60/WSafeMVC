@@ -11,7 +11,6 @@ using WSafe.Web.Filters;
 
 namespace WSafe.Web.Controllers
 {
-    // Datos básicos de la organización
     public class OrganizationsController : Controller
     {
         private int _clientID;
@@ -408,7 +407,10 @@ namespace WSafe.Web.Controllers
                 StandardUnsafeacts = 57,
                 StandardRecomendations = 14,
                 StandardAudits = 40,
-                StandardAnnualPlan = 53
+                StandardAnnualPlan = 53,
+                StandardOccupational = 12,
+                StandardCapacitation = 47,
+                StandardEmergenciesPLan = 37
             };
             return View(model);
         }
