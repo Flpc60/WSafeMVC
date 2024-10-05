@@ -12,5 +12,6 @@ namespace WSafe.Domain.Helpers
         Task<Vulnerability> ToVulnerabilityAsync(CrtVulnerabilityVM model, bool isNew);
         IEnumerable<IntervencionVM> GetInterventionsAll(int id);
         Task<CrtVulnerabilityVM> ToCrtVulnerabilityVM(int id, int org);
+        IEnumerable<VulnerabilityAnalisisVM> GetConsolidateVulnerability(int id, int _orgID);
     }
 }
