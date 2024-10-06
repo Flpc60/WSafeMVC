@@ -260,16 +260,34 @@ namespace WSafe.Domain.Helpers.Implements
             };
             return model;
         }
-        public IEnumerable<VulnerabilityAnalisisVM> GetConsolidateVulnerability(int id, int _orgID)
+        public async Task<IEnumerable<VulnerabilityAnalisisVM>> GetConsolidateVulnerability(int id, int _orgID)
         {
-            var consolidate = _empresaContext.Vulnerabilities
+            var model = new List<VulnerabilityAnalisisVM>();
+            string type = string.Empty;
+
+            switch (id)
+            {
+                case 1:
+                    type = "Personas";
+                    break;
+
+                case 2:
+                    type = "Recursos";
+                    break;
+
+                case 3:
+                    type = "Sistemas y procesos";
+                    break;
+            }
+
+            var consolidate = await _empresaContext.Vulnerabilities
                 .Where(v => v.OrganizationID == _orgID && (int)v.VulnerabilityType == id)
                 .Include(v => v.Amenaza)
                 .Include(v => v.EvaluationConcept)
                 .OrderBy(v => v.CategoryAmenaza)
                 .ThenBy(v => v.AmenazaID)
                 .ThenBy(v => v.EvaluationConceptID)
-                .ToList();
+                .ToListAsync();
 
             foreach (var category in consolidate.GroupBy(v => v.CategoryAmenaza))
             {
@@ -289,94 +307,58 @@ namespace WSafe.Domain.Helpers.Implements
                         break;
                 }
 
+                var vulnerability = new VulnerabilityAnalisisVM
+                {
+                    VulnerabilityType = type,
+                    CategoryAmenaza = categoria,
+                    Results = new Dictionary<string, ResultInterpretationVM>()
+                };
+
                 foreach (var amenaza in category.GroupBy(v => v.AmenazaID))
                 {
                     string amenazaName = amenaza.FirstOrDefault()?.Amenaza.Name;
-
+                    var i = 0;
+                    double sum = 0;
                     foreach (var evalConcept in amenaza.GroupBy(v => v.EvaluationConceptID))
                     {
                         string evalName = evalConcept.FirstOrDefault()?.EvaluationConcept.Name;
-                        double sum = evalConcept.Sum(item =>
+                        sum += evalConcept.Sum(item =>
                             item.Response == ScalesCalification.Sí ? 1.0 :
                             item.Response == ScalesCalification.Parcial ? 0.5 : 0.0
                         );
-
-                        // Calcular la cantidad de elementos evaluados
-                        int totalItems = evalConcept.Count();
-                        double result = sum / totalItems;
-
+                        i++;
                     }
-                }
-            }
 
-            var model = new List<VulnerabilityAnalisisVM>();
-            foreach (var clase in consolidate)
-            {
-                foreach (var amenza in clase.AmenazaID)
-                {
+                    double result = sum / i;
+                    string interpretation = GetInterpretation(result);
 
-                }
-
-                string type = string.Empty;
-                string aspecto = string.Empty;
-
-                switch (item.VulnerabilityType)
-                {
-                    case VulnerabilityTypes.Personas:
-                        type = "Personas";
-                        if (item.EvaluationConcept.EvaluationPerson == EvaluationPersonas.Organizacional) { aspecto = "Gestión Organizacional"; }
-                        if (item.EvaluationConcept.EvaluationPerson == EvaluationPersonas.Entrenamiento) { aspecto = "Capacitación y Entrenaniento"; }
-                        if (item.EvaluationConcept.EvaluationPerson == EvaluationPersonas.Seguridad) { aspecto = "Características de Seguridad"; }
-                        break;
-
-                    case VulnerabilityTypes.Recursos:
-                        type = "Recursos";
-                        if (item.EvaluationConcept.EvaluationRecurso == EvaluationRecursos.Suministros) { aspecto = "Suministros"; }
-                        if (item.EvaluationConcept.EvaluationRecurso == EvaluationRecursos.Edificaciones) { aspecto = "Edificaciones"; }
-                        if (item.EvaluationConcept.EvaluationRecurso == EvaluationRecursos.Equipos) { aspecto = "Equipos"; }
-                        break;
-
-                    case VulnerabilityTypes.Sistemas:
-                        type = "Sistemas y Procesos";
-                        if (item.EvaluationConcept.EvaluationSystem == EvaluationSystems.Servicios) { aspecto = "Servicios"; }
-                        if (item.EvaluationConcept.EvaluationSystem == EvaluationSystems.Sistemas) { aspecto = "Sistemas alternos"; }
-                        if (item.EvaluationConcept.EvaluationSystem == EvaluationSystems.Recuperacion) { aspecto = "Recuperación"; }
-                        break;
+                    vulnerability.Results[amenazaName] = new ResultInterpretationVM
+                    {
+                        Result = (decimal)result,
+                        Interpretation = interpretation
+                    };
                 }
 
-                string response = string.Empty;
-
-                switch (item.Response)
-                {
-                    case ScalesCalification.Sí:
-                        response = "SI";
-                        break;
-
-                    case ScalesCalification.Parcial:
-                        response = "PARCIAL";
-                        break;
-
-                    case ScalesCalification.No:
-                        response = "NO";
-                        break;
-                }
-
-                var vulnerabityVM = new VulnerabilityVM
-                {
-                    ID = item.ID,
-                    Type = type,
-                    CategoryAmenaza = categoria,
-                    Amenaza = item.Amenaza.Name,
-                    EvaluationConcept = aspecto,
-                    Item = item.EvaluationConcept.Name,
-                    Response = response,
-                    Observation = item.Observation
-                };
-
-                model.Add(vulnerabityVM);
+                model.Add(vulnerability);
             }
 
             return model;
+        }
+        private string GetInterpretation(double result)
+        {
+            if (result >= 0 && result <= 0.33)
+            {
+                return "MALO";
+            }
+            else if (result > 0.33 && result <= 0.67)
+            {
+                return "REGULAR";
+            }
+            else if (result > 0.67 && result <= 1.0)
+            {
+                return "BUENO";
+            }
+            return "NA";
         }
     }
 }
