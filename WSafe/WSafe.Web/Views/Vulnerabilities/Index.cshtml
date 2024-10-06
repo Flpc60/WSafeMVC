@@ -55,19 +55,19 @@
                     {
                         @class = "btn btn-info btn-lg active glyphicon glyphicon-plus btn-custom",
                         @title = "Vulnerabilidad personas",
-                        @onclick = "showConsolidateVulnerabilities(1)"
+                        @id = "idPersonas"
                     })
                 @Html.ActionLink("Recursos", "IndexById", new { id = 2 },
                     new {
                         @class = "btn btn-info btn-lg active glyphicon glyphicon-plus btn-custom", 
                         @title = "Vulnerabilidad recursos",
-                        @onclick = "showConsolidateVulnerabilities(1)"
+                        @id = "idRecursos"
                     })
                 @Html.ActionLink("Sistemas", "IndexById", new { id = 3 }, 
                     new {
                         @class = "btn btn-info btn-lg active glyphicon glyphicon-plus btn-custom", 
                         @title = "Vulnerabilidad sistemas y procesos",
-                        @onclick = "showConsolidateVulnerabilities(3)"
+                        @id = "idSistemas"
                     })
                 @Html.ActionLink("Generar matriz de vulnerabilidades", "PrintVulnerabilitiesToPdf", null, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-plus btn-custom" })
             </div>
@@ -147,6 +147,16 @@
 
 @section Scripts {
     <script>
+
+        $("#idPersonas").click(function () {
+            showConsolidateVulnerabilities(1)
+        });
+        $("#idRecursos").click(function () {
+            showConsolidateVulnerabilities(2)
+        });
+        $("#idSistemas").click(function () {
+            showConsolidateVulnerabilities(3)
+        });
 
     </script>
 }

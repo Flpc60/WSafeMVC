@@ -306,22 +306,16 @@ namespace WSafe.Domain.Helpers.Implements
                         categoria = "Sociales";
                         break;
                 }
-
-                var vulnerability = new VulnerabilityAnalisisVM
-                {
-                    VulnerabilityType = type,
-                    CategoryAmenaza = categoria,
-                    Results = new Dictionary<string, ResultInterpretationVM>()
-                };
-
+                string amenazaName = string.Empty;
                 foreach (var amenaza in category.GroupBy(v => v.AmenazaID))
                 {
-                    string amenazaName = amenaza.FirstOrDefault()?.Amenaza.Name;
+                    amenazaName = amenaza.FirstOrDefault()?.Amenaza?.Name ?? "Sin Amenaza";
                     var i = 0;
                     double sum = 0;
+                    string evalName = string.Empty;
                     foreach (var evalConcept in amenaza.GroupBy(v => v.EvaluationConceptID))
                     {
-                        string evalName = evalConcept.FirstOrDefault()?.EvaluationConcept.Name;
+                        evalName = evalConcept.FirstOrDefault()?.EvaluationConcept?.Name ?? "Sin Concepto";
                         sum += evalConcept.Sum(item =>
                             item.Response == ScalesCalification.Sí ? 1.0 :
                             item.Response == ScalesCalification.Parcial ? 0.5 : 0.0
@@ -329,17 +323,25 @@ namespace WSafe.Domain.Helpers.Implements
                         i++;
                     }
 
-                    double result = sum / i;
+                    double result = i > 0 ? sum / i : 0.0;
                     string interpretation = GetInterpretation(result);
+
+                    var vulnerability = new VulnerabilityAnalisisVM
+                    {
+                        VulnerabilityType = type,
+                        CategoryAmenaza = categoria,
+                        Amenaza = amenazaName,
+                        EvaluationConcept = evalName,
+                        Results = new Dictionary<string, ResultInterpretationVM>()
+                    };
 
                     vulnerability.Results[amenazaName] = new ResultInterpretationVM
                     {
                         Result = (decimal)result,
                         Interpretation = interpretation
                     };
+                    model.Add(vulnerability);
                 }
-
-                model.Add(vulnerability);
             }
 
             return model;
