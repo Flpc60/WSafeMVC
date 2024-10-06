@@ -1279,6 +1279,7 @@ function updateVulmerability() {
 }
 function showConsolidateVulnerabilities(id) {
     // Mostrar consolidado vulnerabilidades
+    alert("El valor del id es:  ", id);
     $.ajax({
         url: "/Vulnerabilities/GetVulnerabilitiesByID",
         data: { id: id },
@@ -1287,6 +1288,7 @@ function showConsolidateVulnerabilities(id) {
         dataType: "json",
         async: true,
         success: function (response) {
+            console.log("Response received:", response);
             if (response.length > 0) {
                 let html = `
                 <div class="table-responsive" style="background-color: azure; width:100%;">
