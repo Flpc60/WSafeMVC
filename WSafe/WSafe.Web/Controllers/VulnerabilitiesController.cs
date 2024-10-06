@@ -271,7 +271,7 @@ namespace WSafe.Web.Controllers
                     }
                 }
                 else
-                    {
+                {
                     message = "El registro NO ha sido ingresado correctamente !!";
                     return Json(new { data = false, mensaj = message }, JsonRequestBehavior.AllowGet);
                 }
@@ -315,7 +315,8 @@ namespace WSafe.Web.Controllers
         public async Task<ActionResult> GetVulnerabilitiesByID(int id)
         {
             _orgID = (int)Session["orgID"];
-            var model = await _converterHelper.GetConsolidateVulnerability(id, _orgID);
+            var model = await _emergencyConverter.GetConsolidateVulnerability(id, _orgID);
+
             return Json(model, JsonRequestBehavior.AllowGet);
         }
     }
