@@ -1280,7 +1280,7 @@ function updateVulmerability() {
 function showConsolidateVulnerabilities(id) {
     // Mostrar consolidado vulnerabilidades
     $.ajax({
-        url: "/Vulnerabilities/GetVulnerabilitiesAll",
+        url: "/Vulnerabilities/GetVulnerabilitiesByID",
         data: { id: id },
         type: "GET",
         contentType: "application/json;charset=utf-8",
@@ -1293,69 +1293,45 @@ function showConsolidateVulnerabilities(id) {
                     <table class="table table-striped table-bordered">
                         <thead>
                             <tr style="background-color:gainsboro;">
-                                <th rowspan="2">CONSOLIDADO VULNERABILIDAD</th>
-                                <th colspan="10">Amenaza Natural</th>
-                                <th colspan="10">Amenaza Tecnológica</th>
-                                <th colspan="8">Amenaza Social</th>
-                            </tr>
-                            <tr style="background-color:lightgray;">
-                                <th colspan="2">Movimientos sísmicos</th>
-                                <th colspan="2">Granizadas</th>
-                                <th colspan="2">Tormentas eléctricas</th>
-                                <th colspan="2">Vientos fuertes</th>
-                                <th colspan="2">Pandemia Covid-19</th>
-                                
-                                <th colspan="2">Incendios / Explosiones</th>
-                                <th colspan="2">Derrames / Fugas</th>
-                                <th colspan="2">Fallas estructurales</th>
-                                <th colspan="2">Fallas maquinaría y equipos</th>
-                                <th colspan="2">Fallas en el ascensor</th>
-                                <th colspan="2">Accidentes de trabajo</th>
-                                <th colspan="2">Intoxicación alimenticia</th>
-                                <th colspan="2">Inundaciones</th>
-                                
-                                <th colspan="2">Accidentes de tránsito</th>
-                                <th colspan="2">Revueltas / Asonadas</th>
-                                <th colspan="2">Hurtos / Asaltos</th>
-                                <th colspan="2">Atentados terroristas</th>
-                            </tr>
-                        </thead>
-                        <tbody>`;
-                response.forEach(function (item) {
-                    html += `
-                    <tr>
-                        <td>${item.someData}</td> <!-- Consolidados -->
-                        <td>${item.sismo1}</td><td>${item.sismo2}</td>
-                        <td>${item.granizada1}</td><td>${item.granizada2}</td>
-                        <td>${item.tormenta1}</td><td>${item.tormenta2}</td>
-                        <td>${item.vientos1}</td><td>${item.vientos2}</td>
-                        <td>${item.covid1}</td><td>${item.covid2}</td>
-                        
-                        <td>${item.incendio1}</td><td>${item.incendio2}</td>
-                        <td>${item.derrame1}</td><td>${item.derrame2}</td>
-                        <td>${item.fallaEstructural1}</td><td>${item.fallaEstructural2}</td>
-                        <td>${item.fallaMaquinaria1}</td><td>${item.fallaMaquinaria2}</td>
-                        <td>${item.ascensor1}</td><td>${item.ascensor2}</td>
-                        <td>${item.accidente1}</td><td>${item.accidente2}</td>
-                        <td>${item.intoxicacion1}</td><td>${item.intoxicacion2}</td>
-                        <td>${item.inundacion1}</td><td>${item.inundacion2}</td>
+                                <th rowspan="2">CONSOLIDADO VULNERABILIDAD</th>`;
 
-                        <td>${item.transito1}</td><td>${item.transito2}</td>
-                        <td>${item.revueltas1}</td><td>${item.revueltas2}</td>
-                        <td>${item.hurto1}</td><td>${item.hurto2}</td>
-                        <td>${item.atentado1}</td><td>${item.atentado2}</td>
-                    </tr>`;
+                // Crear encabezados dinámicos a partir de las amenazas en el primer elemento de la respuesta
+                let threats = Object.keys(response[0].Results);  // Se asume que 'Results' contiene las amenazas dinámicas
+                threats.forEach(function (threat) {
+                    html += `<th colspan="2">${threat}</th>`;  // Añadir el nombre de cada amenaza en el encabezado
                 });
 
-                html += `
-                        </tbody>
-                    </table>
-                </div>`;
+                html += `</tr><tr style="background-color:lightgray;">`;
 
+                // Añadir subencabezados para cada amenaza
+                threats.forEach(function () {
+                    html += `<th>Result</th><th>Interpretation</th>`;
+                });
+
+                html += `</tr></thead><tbody>`;
+
+                // Rellenar las filas de datos
+                response.forEach(function (item) {
+                    html += `<tr><td>${item.someData}</td>`;  // Rellenar la columna de consolidado
+
+                    // Rellenar los resultados e interpretaciones dinámicos
+                    threats.forEach(function (threat) {
+                        let result = item.Results[threat]?.Result || 'N/A';
+                        let interpretation = item.Results[threat]?.Interpretation || 'N/A';
+                        html += `<td>${result}</td><td>${interpretation}</td>`;
+                    });
+
+                    html += `</tr>`;
+                });
+
+                html += `</tbody></table></div>`;
+
+                // Insertar el HTML en la página
                 $('.showConsolidate').html(html);
                 $('.showConsolidate').focus();
+            } else {
+                alert("No hay resultados para mostrar para este riesgo!!");
             }
-            if (response.length == 0) { alert("No hay resultados para mostrar para este riesgo !!"); }
         },
         error: function (xhr, ajaxOptions, thrownError) {
             console.error(`Error: ${xhr.status} - ${thrownError}`);
