@@ -2,7 +2,8 @@
 {
     public enum Interpretations
     {
-        Alta, Media, Baja
+        Alta = 1,
+        Media = 2,
+        Baja = 3
     }
 }
-

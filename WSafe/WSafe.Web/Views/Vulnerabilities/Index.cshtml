@@ -58,18 +58,21 @@
                         @id = "idPersonas"
                     })
                 @Html.ActionLink("Recursos", "IndexById", new { id = 2 },
-                    new {
-                        @class = "btn btn-info btn-lg active glyphicon glyphicon-plus btn-custom", 
+                    new
+                         {
+                        @class = "btn btn-info btn-lg active glyphicon glyphicon-plus btn-custom",
                         @title = "Vulnerabilidad recursos",
                         @id = "idRecursos"
                     })
-                @Html.ActionLink("Sistemas", "IndexById", new { id = 3 }, 
-                    new {
-                        @class = "btn btn-info btn-lg active glyphicon glyphicon-plus btn-custom", 
+                @Html.ActionLink("Sistemas", "IndexById", new { id = 3 },
+                    new
+                         {
+                        @class = "btn btn-info btn-lg active glyphicon glyphicon-plus btn-custom",
                         @title = "Vulnerabilidad sistemas y procesos",
                         @id = "idSistemas"
                     })
                 @Html.ActionLink("Generar matriz de vulnerabilidades", "PrintVulnerabilitiesToPdf", null, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-plus btn-custom" })
+                <a href="#" onclick="ingresarPons()" class="btn btn-info btn-lg active glyphicon glyphicon-plus btn-custom" title="Procedimientos operativos normalizados PON´S"></a>PONS
             </div>
         </div>
         <div class="col-md-4">

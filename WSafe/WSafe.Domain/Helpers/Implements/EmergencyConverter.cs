@@ -7,6 +7,7 @@ using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Data.Entities.Ppre;
 using WSafe.Domain.Models;
+using static iTextSharp.text.pdf.AcroFields;
 
 namespace WSafe.Domain.Helpers.Implements
 {
@@ -286,7 +287,7 @@ namespace WSafe.Domain.Helpers.Implements
                 .Include(v => v.EvaluationConcept)
                 .OrderBy(v => v.CategoryAmenaza)
                 .ThenBy(v => v.AmenazaID)
-                .ThenBy(v => v.EvaluationConceptID)
+                .ThenBy(v => v.EvaluationConcept)
                 .ToListAsync();
 
             foreach (var category in consolidate.GroupBy(v => v.CategoryAmenaza))
@@ -310,37 +311,183 @@ namespace WSafe.Domain.Helpers.Implements
                 foreach (var amenaza in category.GroupBy(v => v.AmenazaID))
                 {
                     amenazaName = amenaza.FirstOrDefault()?.Amenaza?.Name ?? "Sin Amenaza";
-                    var i = 0;
-                    double sum = 0;
-                    string evalName = string.Empty;
-                    foreach (var evalConcept in amenaza.GroupBy(v => v.EvaluationConceptID))
+                    var i1= 0;
+                    var i2 = 0;
+                    var i3= 0;
+                    double sum1 = 0;
+                    double sum2 = 0;
+                    double sum3 = 0;
+                    string aspect1 = string.Empty;
+                    string aspect2 = string.Empty;
+                    string aspect3 = string.Empty;
+                    foreach (var evalConcept in amenaza.GroupBy(v => v.EvaluationConcept))
                     {
-                        evalName = evalConcept.FirstOrDefault()?.EvaluationConcept?.Name ?? "Sin Concepto";
-                        sum += evalConcept.Sum(item =>
-                            item.Response == ScalesCalification.Sí ? 1.0 :
-                            item.Response == ScalesCalification.Parcial ? 0.5 : 0.0
-                        );
-                        i++;
+                        if (evalConcept.Key.EvaluationPerson == EvaluationPersonas.Organizacional)
+                        { 
+                            aspect1 = "Gestión Organizacional";
+                            sum1 += evalConcept.Sum(item =>
+                                item.Response == ScalesCalification.Sí ? 1.0 :
+                                item.Response == ScalesCalification.Parcial ? 0.5 : 0.0
+                            );
+                            i1++;
+                        }
+                        if (evalConcept.Key.EvaluationPerson == EvaluationPersonas.Entrenamiento)
+                        { 
+                            aspect2 = "Capacitación y Entrenaniento";
+                            sum2 += evalConcept.Sum(item =>
+                                item.Response == ScalesCalification.Sí ? 1.0 :
+                                item.Response == ScalesCalification.Parcial ? 0.5 : 0.0
+                            );
+                            i2++;
+                        }
+                        if (evalConcept.Key.EvaluationPerson == EvaluationPersonas.Seguridad)
+                        { 
+                            aspect3 = "Características de Seguridad";
+                            sum3 += evalConcept.Sum(item =>
+                                item.Response == ScalesCalification.Sí ? 1.0 :
+                                item.Response == ScalesCalification.Parcial ? 0.5 : 0.0
+                            );
+                            i3++;
+                        }
+                        if (evalConcept.Key.EvaluationRecurso == EvaluationRecursos.Suministros)
+                        {
+                            aspect1 = "Suministros";
+                            sum1 += evalConcept.Sum(item =>
+                                item.Response == ScalesCalification.Sí ? 1.0 :
+                                item.Response == ScalesCalification.Parcial ? 0.5 : 0.0
+                            );
+                            i1++;
+                        }
+                        if (evalConcept.Key.EvaluationRecurso == EvaluationRecursos.Edificaciones)
+                        {
+                            aspect2 = "Edificaciones";
+                            sum2 += evalConcept.Sum(item =>
+                                item.Response == ScalesCalification.Sí ? 1.0 :
+                                item.Response == ScalesCalification.Parcial ? 0.5 : 0.0
+                            );
+                            i2++;
+                        }
+                        if (evalConcept.Key.EvaluationRecurso == EvaluationRecursos.Equipos)
+                        {
+                            aspect3 = "Equipos";
+                            sum3 += evalConcept.Sum(item =>
+                                item.Response == ScalesCalification.Sí ? 1.0 :
+                                item.Response == ScalesCalification.Parcial ? 0.5 : 0.0
+                            );
+                            i3++;
+                        }
+                        if (evalConcept.Key.EvaluationSystem == EvaluationSystems.Servicios)
+                        {
+                            aspect1 = "Servicios";
+                            sum1 += evalConcept.Sum(item =>
+                                item.Response == ScalesCalification.Sí ? 1.0 :
+                                item.Response == ScalesCalification.Parcial ? 0.5 : 0.0
+                            );
+                            i1++;
+                        }
+                        if (evalConcept.Key.EvaluationSystem == EvaluationSystems.Sistemas)
+                        {
+                            aspect2 = "Sistemas alternos";
+                            sum2 += evalConcept.Sum(item =>
+                                item.Response == ScalesCalification.Sí ? 1.0 :
+                                item.Response == ScalesCalification.Parcial ? 0.5 : 0.0
+                            );
+                            i2++;
+                        }
+                        if (evalConcept.Key.EvaluationSystem == EvaluationSystems.Recuperacion)
+                        {
+                            aspect3 = "Recuperacion";
+                            sum3 += evalConcept.Sum(item =>
+                                item.Response == ScalesCalification.Sí ? 1.0 :
+                                item.Response == ScalesCalification.Parcial ? 0.5 : 0.0
+                            );
+                            i3++;
+                        }
                     }
 
-                    double result = i > 0 ? sum / i : 0.0;
-                    string interpretation = GetInterpretation(result);
+                    double result1 = i1 > 0 ? sum1 / i1 : 0.0;
+                    string interpretation1 = GetInterpretation(result1);
 
-                    var vulnerability = new VulnerabilityAnalisisVM
-                    {
-                        VulnerabilityType = type,
-                        CategoryAmenaza = categoria,
-                        Amenaza = amenazaName,
-                        EvaluationConcept = evalName,
-                        Results = new Dictionary<string, ResultInterpretationVM>()
-                    };
+                    double result2 = i2 > 0 ? sum2 / i2 : 0.0;
+                    string interpretation2 = GetInterpretation(result2);
 
-                    vulnerability.Results[amenazaName] = new ResultInterpretationVM
+                    double result3 = i3 > 0 ? sum3 / i3 : 0.0;
+                    string interpretation3 = GetInterpretation(result3);
+
+                    double result4 = (i1 + i2 +i3 )> 0 ? (sum1 + sum2 + sum3) / (i1 + i2 + i3) : 0.0;
+                    string interpretation4 = GetVulnerabilityInterpretation(result4);
+
+                    if (i1 > 0)
                     {
-                        Result = (decimal)result,
-                        Interpretation = interpretation
-                    };
-                    model.Add(vulnerability);
+                        var vulnerability = new VulnerabilityAnalisisVM
+                        {
+                            VulnerabilityType = type,
+                            CategoryAmenaza = categoria,
+                            Amenaza = amenazaName,
+                            EvaluationConcept = aspect1,
+                            Results = new Dictionary<string, ResultInterpretationVM>()
+                        };
+                        vulnerability.Results[amenazaName] = new ResultInterpretationVM
+                        {
+                            Result = (decimal)result1,
+                            Interpretation = interpretation1
+                        };
+                        model.Add(vulnerability);
+                    }
+
+                    if (i2 > 0)
+                    {
+                        var vulnerability = new VulnerabilityAnalisisVM
+                        {
+                            VulnerabilityType = type,
+                            CategoryAmenaza = categoria,
+                            Amenaza = amenazaName,
+                            EvaluationConcept = aspect2,
+                            Results = new Dictionary<string, ResultInterpretationVM>()
+                        };
+                        vulnerability.Results[amenazaName] = new ResultInterpretationVM
+                        {
+                            Result = (decimal)result2,
+                            Interpretation = interpretation2
+                        };
+                        model.Add(vulnerability);
+                    }
+
+                    if (i3 > 0)
+                    {
+                        var vulnerability = new VulnerabilityAnalisisVM
+                        {
+                            VulnerabilityType = type,
+                            CategoryAmenaza = categoria,
+                            Amenaza = amenazaName,
+                            EvaluationConcept = aspect3,
+                            Results = new Dictionary<string, ResultInterpretationVM>()
+                        };
+                        vulnerability.Results[amenazaName] = new ResultInterpretationVM
+                        {
+                            Result = (decimal)result3,
+                            Interpretation = interpretation3
+                        };
+                        model.Add(vulnerability);
+                    }
+
+                    if ((i1 + i2 + i3) > 0)
+                    {
+                        var vulnerability = new VulnerabilityAnalisisVM
+                        {
+                            VulnerabilityType = type,
+                            CategoryAmenaza = categoria,
+                            Amenaza = amenazaName,
+                            EvaluationConcept = "RESULTADOS",
+                            Results = new Dictionary<string, ResultInterpretationVM>()
+                        };
+                        vulnerability.Results[amenazaName] = new ResultInterpretationVM
+                        {
+                            Result = (decimal)result4,
+                            Interpretation = interpretation4
+                        };
+                        model.Add(vulnerability);
+                    }
                 }
             }
 
@@ -359,6 +506,22 @@ namespace WSafe.Domain.Helpers.Implements
             else if (result > 0.67 && result <= 1.0)
             {
                 return "BUENO";
+            }
+            return "NA";
+        }
+        private string GetVulnerabilityInterpretation(double result)
+        {
+            if (result >= 0.0 && result <= 1.0)
+            {
+                return "ALTA";
+            }
+            else if (result > 1.0 && result <= 2.0)
+            {
+                return "MEDIA";
+            }
+            else if (result > 2.0 && result <= 3.0)
+            {
+                return "BAJA";
             }
             return "NA";
         }
