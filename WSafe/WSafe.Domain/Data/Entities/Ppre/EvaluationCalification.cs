@@ -2,6 +2,9 @@
 {
     public enum EvaluationCalification
     {
-        Malo, Regular, Bueno, NA
+        Malo = 1,
+        Regular = 2,
+        Bueno = 3,
+        NA = 4
     }
 }
