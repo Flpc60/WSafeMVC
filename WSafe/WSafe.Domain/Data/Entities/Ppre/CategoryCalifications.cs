@@ -2,6 +2,8 @@
 {
     public enum CategoryCalifications
     {
-        Posible, Probable, Inminente
+        Posible = 1,
+        Probable = 2,
+        Inminente = 3
     }
 }

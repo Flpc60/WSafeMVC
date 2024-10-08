@@ -1279,7 +1279,6 @@ function updateVulmerability() {
 }
 function showConsolidateVulnerabilities(id) {
     // Mostrar consolidado vulnerabilidades
-    alert("El valor del id es:  ", id);
     $.ajax({
         url: "/Vulnerabilities/GetVulnerabilitiesByID",
         data: { id: id },
