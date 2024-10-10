@@ -1287,55 +1287,52 @@ function showConsolidateVulnerabilities(id) {
         dataType: "json",
         async: true,
         success: function (response) {
-            console.log("Response received:", response);
             if (response.length > 0) {
                 let html = `
                 <div class="table-responsive" style="background-color: azure; width:100%;">
                     <table class="table table-striped table-bordered">
                         <thead>
                             <tr style="background-color:gainsboro;">
-                                <th rowspan="2">CONSOLIDADO VULNERABILIDAD</th>`;
+                                <th>Evaluation Concept</th>`;
 
-                // Crear encabezados dinámicos a partir de las amenazas en el primer elemento de la respuesta
-                let threats = Object.keys(response[0].Results);  // Se asume que 'Results' contiene las amenazas dinámicas
+                let threats = Object.keys(response[0].Results);
                 threats.forEach(function (threat) {
-                    html += `<th colspan="2">${threat}</th>`;  // Añadir el nombre de cada amenaza en el encabezado
+                    html += `<th colspan="2">${threat}</th>`;
                 });
 
                 html += `</tr><tr style="background-color:lightgray;">`;
-
-                // Añadir subencabezados para cada amenaza
-                threats.forEach(function () {
-                    html += `<th>Result</th><th>Interpretation</th>`;
-                });
-
                 html += `</tr></thead><tbody>`;
 
-                // Rellenar las filas de datos
+                // Procesar EvaluationConcepts dinámicamente
+                let evaluationConcepts = new Set();
                 response.forEach(function (item) {
-                    html += `<tr><td>${item.someData}</td>`;  // Rellenar la columna de consolidado
-
-                    // Rellenar los resultados e interpretaciones dinámicos
+                    evaluationConcepts.add(item.EvaluationConcept)
+                });
+                evaluationConcepts.forEach(function (concept) {
+                    html += `<tr><td>${concept}</td>`;
                     threats.forEach(function (threat) {
-                        let result = item.Results[threat]?.Result || 'N/A';
-                        let interpretation = item.Results[threat]?.Interpretation || 'N/A';
-                        html += `<td>${result}</td><td>${interpretation}</td>`;
+                        let resultObj = response.find(item => item.EvaluationConcept === concept);
+                        if (resultObj && resultObj.Results[threat]) {
+                            let result = resultObj.Results[threat].Result || 'N/A';
+                            let interpretation = resultObj.Results[threat].Interpretation || 'N/A';
+                            html += `<td>${result}</td><td>${interpretation}</td>`;
+                        } else {
+                            html += `<td>N/A</td><td>N/A</td>`;  // Si no hay datos, mostrar 'N/A'
+                        }
                     });
 
                     html += `</tr>`;
                 });
 
                 html += `</tbody></table></div>`;
-
-                // Insertar el HTML en la página
                 $('.showConsolidate').html(html);
                 $('.showConsolidate').focus();
             } else {
                 alert("No hay resultados para mostrar para este riesgo!!");
             }
         },
-        error: function (xhr, ajaxOptions, thrownError) {
-            console.error(`Error: ${xhr.status} - ${thrownError}`);
+        error: function (xhr, status, error) {
+            alert("Error del servidor: " + error);
         }
     });
 }

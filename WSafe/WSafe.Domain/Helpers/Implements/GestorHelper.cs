@@ -3,6 +3,8 @@ using System.IO;
 using System.Linq;
 using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
+using static iTextSharp.tool.xml.html.HTML;
+using WSafe.Domain.Data.Entities.Ppre;
 
 namespace WSafe.Domain.Helpers.Implements
 {
@@ -1038,6 +1040,69 @@ namespace WSafe.Domain.Helpers.Implements
                 default:
                     return "NUTRICIÓN";
             }
+        }
+
+        public string GetVulnerabilityType(int id)
+        {
+            switch (id)
+            {
+                case 1:
+                    return "Personas";
+                case 2:
+                    return "Recursos";
+                case 3:
+                    return "Sistemas y procesos";
+                default:
+                    return "Sin definir";
+            }
+        }
+        public string GetAmenazaCategory(CategoryAmenazas category)
+        {
+            switch (category)
+            {
+                case CategoryAmenazas.Naturales:
+                    return "Naturales";
+
+                case CategoryAmenazas.Tecnologicas:
+                    return "Tecnológicas";
+
+                case CategoryAmenazas.Sociales:
+                    return "Sociales";
+                default:
+                    return "Sin definir";
+            }
+        }
+        public string GetInterpretation(double result)
+        {
+            if (result >= 0 && result <= 0.33)
+            {
+                return "MALO";
+            }
+            else if (result > 0.33 && result <= 0.67)
+            {
+                return "REGULAR";
+            }
+            else if (result > 0.67 && result <= 1.0)
+            {
+                return "BUENO";
+            }
+            return "NA";
+        }
+        public string GetVulnerabilityInterpretation(double result)
+        {
+            if (result >= 0.0 && result <= 1.0)
+            {
+                return "ALTA";
+            }
+            else if (result > 1.0 && result <= 2.0)
+            {
+                return "MEDIA";
+            }
+            else if (result > 2.0 && result <= 3.0)
+            {
+                return "BAJA";
+            }
+            return "NA";
         }
     }
 }

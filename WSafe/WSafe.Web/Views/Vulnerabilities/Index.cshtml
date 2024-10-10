@@ -72,7 +72,7 @@
                         @id = "idSistemas"
                     })
                 @Html.ActionLink("Generar matriz de vulnerabilidades", "PrintVulnerabilitiesToPdf", null, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-plus btn-custom" })
-                <a href="#" onclick="ingresarPons()" class="btn btn-info btn-lg active glyphicon glyphicon-plus btn-custom" title="Procedimientos operativos normalizados PON´S"></a>PONS
+                <a href="#" onclick="ingresarPons()" class="btn btn-info btn-lg active glyphicon glyphicon-plus btn-custom" title="Procedimientos operativos normalizados PON´S">PON'S</a>
             </div>
         </div>
         <div class="col-md-4">
@@ -149,16 +149,18 @@
 <div class="showConsolidate"></div>
 
 @section Scripts {
-    <script>
+    <script type="text/javascript">
 
-        $("#idPersonas").click(function () {
-            showConsolidateVulnerabilities(1)
-        });
-        $("#idRecursos").click(function () {
-            showConsolidateVulnerabilities(2)
-        });
-        $("#idSistemas").click(function () {
-            showConsolidateVulnerabilities(3)
+        $(document).ready(function () {
+            $("#idPersonas").click(function () {
+                showConsolidateVulnerabilities(1)
+            });
+            $("#idRecursos").click(function () {
+                showConsolidateVulnerabilities(2)
+            });
+            $("#idSistemas").click(function () {
+                showConsolidateVulnerabilities(3)
+            });
         });
 
     </script>
