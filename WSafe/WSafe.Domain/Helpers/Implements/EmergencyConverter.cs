@@ -261,65 +261,31 @@ namespace WSafe.Domain.Helpers.Implements
             };
             return model;
         }
-        public async Task<IEnumerable<VulnerabilityAnalisisVM>> GetConsolidateVulnerability(int id, int _orgID)
+        public IEnumerable<VulnerabilityAnalisisVM> GetConsolidateVulnerability(int id, int _orgID)
         {
             var model = new List<VulnerabilityAnalisisVM>();
-            string type = string.Empty;
+            string type = _gestorHelper.GetVulnerabilityType(id);
 
-            switch (id)
-            {
-                case 1:
-                    type = "Personas";
-                    break;
-
-                case 2:
-                    type = "Recursos";
-                    break;
-
-                case 3:
-                    type = "Sistemas y procesos";
-                    break;
-            }
-
-            var consolidate = await _empresaContext.Vulnerabilities
+            var consolidate = _empresaContext.Vulnerabilities
                 .Where(v => v.OrganizationID == _orgID && (int)v.VulnerabilityType == id)
                 .Include(v => v.Amenaza)
                 .Include(v => v.EvaluationConcept)
                 .OrderBy(v => v.CategoryAmenaza)
                 .ThenBy(v => v.AmenazaID)
                 .ThenBy(v => v.EvaluationConcept)
-                .ToListAsync();
+                .ToList();
 
             foreach (var category in consolidate.GroupBy(v => v.CategoryAmenaza))
             {
-                string categoria = string.Empty;
-                switch (category.Key)
-                {
-                    case CategoryAmenazas.Naturales:
-                        categoria = "Naturales";
-                        break;
-
-                    case CategoryAmenazas.Tecnologicas:
-                        categoria = "Tecnológicas";
-                        break;
-
-                    case CategoryAmenazas.Sociales:
-                        categoria = "Sociales";
-                        break;
-                }
+                string categoria = _gestorHelper.GetAmenazaCategory(category.Key);
                 string amenazaName = string.Empty;
                 foreach (var amenaza in category.GroupBy(v => v.AmenazaID))
                 {
                     amenazaName = amenaza.FirstOrDefault()?.Amenaza?.Name ?? "Sin Amenaza";
-                    var i1= 0;
-                    var i2 = 0;
-                    var i3= 0;
-                    double sum1 = 0;
-                    double sum2 = 0;
-                    double sum3 = 0;
-                    string aspect1 = string.Empty;
-                    string aspect2 = string.Empty;
-                    string aspect3 = string.Empty;
+                    double sum1 = 0, sum2 = 0, sum3 = 0;
+                    int i1 = 0, i2 = 0, i3 = 0;
+                    string aspect1 = string.Empty, aspect2 = string.Empty, aspect3 = string.Empty;
+
                     foreach (var evalConcept in amenaza.GroupBy(v => v.EvaluationConcept))
                     {
                         if (evalConcept.Key.EvaluationPerson == EvaluationPersonas.Organizacional)
@@ -406,29 +372,31 @@ namespace WSafe.Domain.Helpers.Implements
                     }
 
                     double result1 = i1 > 0 ? sum1 / i1 : 0.0;
-                    string interpretation1 = GetInterpretation(result1);
+                    string interpretation1 = _gestorHelper.GetInterpretation(result1);
 
                     double result2 = i2 > 0 ? sum2 / i2 : 0.0;
-                    string interpretation2 = GetInterpretation(result2);
+                    string interpretation2 = _gestorHelper.GetInterpretation(result2);
 
                     double result3 = i3 > 0 ? sum3 / i3 : 0.0;
-                    string interpretation3 = GetInterpretation(result3);
+                    string interpretation3 = _gestorHelper.GetInterpretation(result3);
 
                     double result4 = (i1 + i2 +i3 )> 0 ? (sum1 + sum2 + sum3) / (i1 + i2 + i3) : 0.0;
-                    string interpretation4 = GetVulnerabilityInterpretation(result4);
+                    string interpretation4 = _gestorHelper.GetVulnerabilityInterpretation(result4);
 
                     if (i1 > 0)
                     {
                         var vulnerability = new VulnerabilityAnalisisVM
                         {
+                            ID = 0,
                             VulnerabilityType = type,
                             CategoryAmenaza = categoria,
-                            Amenaza = amenazaName,
                             EvaluationConcept = aspect1,
                             Results = new Dictionary<string, ResultInterpretationVM>()
                         };
                         vulnerability.Results[amenazaName] = new ResultInterpretationVM
                         {
+                            ID = 0,
+                            Amenaza = amenazaName,
                             Result = (decimal)result1,
                             Interpretation = interpretation1
                         };
@@ -439,14 +407,16 @@ namespace WSafe.Domain.Helpers.Implements
                     {
                         var vulnerability = new VulnerabilityAnalisisVM
                         {
+                            ID = 0,
                             VulnerabilityType = type,
                             CategoryAmenaza = categoria,
-                            Amenaza = amenazaName,
                             EvaluationConcept = aspect2,
                             Results = new Dictionary<string, ResultInterpretationVM>()
                         };
                         vulnerability.Results[amenazaName] = new ResultInterpretationVM
                         {
+                            ID = 0,
+                            Amenaza = amenazaName,
                             Result = (decimal)result2,
                             Interpretation = interpretation2
                         };
@@ -457,14 +427,16 @@ namespace WSafe.Domain.Helpers.Implements
                     {
                         var vulnerability = new VulnerabilityAnalisisVM
                         {
+                            ID = 0,
                             VulnerabilityType = type,
                             CategoryAmenaza = categoria,
-                            Amenaza = amenazaName,
                             EvaluationConcept = aspect3,
                             Results = new Dictionary<string, ResultInterpretationVM>()
                         };
                         vulnerability.Results[amenazaName] = new ResultInterpretationVM
                         {
+                            ID = 0,
+                            Amenaza = amenazaName,
                             Result = (decimal)result3,
                             Interpretation = interpretation3
                         };
@@ -475,14 +447,16 @@ namespace WSafe.Domain.Helpers.Implements
                     {
                         var vulnerability = new VulnerabilityAnalisisVM
                         {
+                            ID = 0,
                             VulnerabilityType = type,
                             CategoryAmenaza = categoria,
-                            Amenaza = amenazaName,
                             EvaluationConcept = "RESULTADOS",
                             Results = new Dictionary<string, ResultInterpretationVM>()
                         };
                         vulnerability.Results[amenazaName] = new ResultInterpretationVM
                         {
+                            ID = 0,
+                            Amenaza = amenazaName,
                             Result = (decimal)result4,
                             Interpretation = interpretation4
                         };
@@ -492,38 +466,6 @@ namespace WSafe.Domain.Helpers.Implements
             }
 
             return model;
-        }
-        private string GetInterpretation(double result)
-        {
-            if (result >= 0 && result <= 0.33)
-            {
-                return "MALO";
-            }
-            else if (result > 0.33 && result <= 0.67)
-            {
-                return "REGULAR";
-            }
-            else if (result > 0.67 && result <= 1.0)
-            {
-                return "BUENO";
-            }
-            return "NA";
-        }
-        private string GetVulnerabilityInterpretation(double result)
-        {
-            if (result >= 0.0 && result <= 1.0)
-            {
-                return "ALTA";
-            }
-            else if (result > 1.0 && result <= 2.0)
-            {
-                return "MEDIA";
-            }
-            else if (result > 2.0 && result <= 3.0)
-            {
-                return "BAJA";
-            }
-            return "NA";
         }
     }
 }

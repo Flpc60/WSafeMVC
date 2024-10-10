@@ -1,5 +1,6 @@
 ﻿using System;
 using WSafe.Domain.Data.Entities;
+using WSafe.Domain.Data.Entities.Ppre;
 
 namespace WSafe.Domain.Helpers
 {
@@ -47,5 +48,9 @@ namespace WSafe.Domain.Helpers
         string GetStateCronogram(StatesCronogram state);
         string GetExaminationType(ExaminationTypes type);
         string GetMedicalRecomendation(MedicalRecomendations medical);
+        string GetVulnerabilityType(int id);
+        string GetAmenazaCategory(CategoryAmenazas category);
+        string GetInterpretation(double result);
+        string GetVulnerabilityInterpretation(double result);
     }
 }
