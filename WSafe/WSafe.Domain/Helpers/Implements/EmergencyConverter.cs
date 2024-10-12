@@ -281,6 +281,7 @@ namespace WSafe.Domain.Helpers.Implements
                 string categoria = _gestorHelper.GetAmenazaCategory(category.Key);
                 string amenazaName = string.Empty;
                 double total = 0;
+                int i4 = 0;
                 foreach (var amenaza in category.GroupBy(v => v.AmenazaID))
                 {
                     amenazaName = amenaza.FirstOrDefault()?.Amenaza?.Name ?? "Sin Amenaza";
@@ -371,11 +372,11 @@ namespace WSafe.Domain.Helpers.Implements
                             );
                             i3++;
                         }
-
                         total += evalConcept.Sum(item =>
                             item.Response == ScalesCalification.Sí ? 1.0 :
                             item.Response == ScalesCalification.Parcial ? 0.5 : 0.0
                         );
+                        i4++;
                     }
 
                     double result1 = i1 > 0 ? sum1 / i1 : 0.0;
@@ -387,7 +388,7 @@ namespace WSafe.Domain.Helpers.Implements
                     double result3 = i3 > 0 ? sum3 / i3 : 0.0;
                     string interpretation3 = _gestorHelper.GetInterpretation(result3);
 
-                    double result4 = (i1 + i2 +i3 )> 0 ? (sum1 + sum2 + sum3) / (i1 + i2 + i3) : 0.0;
+                    double result4 = i4 > 0 ? total / i4 : 0.0;
                     string interpretation4 = _gestorHelper.GetVulnerabilityInterpretation(result4);
 
                     if (i1 > 0)
@@ -449,25 +450,28 @@ namespace WSafe.Domain.Helpers.Implements
                         };
                         model.Add(vulnerability);
                     }
+
+                    if (i4 > 0)
+                    {
+                        var vulnerabilityTotal = new VulnerabilityAnalisisVM
+                        {
+                            ID = 0,
+                            CategoryAmenaza = categoria,
+                            VulnerabilityType = type,
+                            EvaluationConcept = "RESULTADOS",
+                            Results = new Dictionary<string, ResultInterpretationVM>()
+                        };
+
+                        vulnerabilityTotal.Results[amenazaName] = new ResultInterpretationVM
+                        {
+                            ID = 0,
+                            Amenaza = amenazaName,
+                            Result = (decimal)result4,
+                            Interpretation = _gestorHelper.GetVulnerabilityInterpretation((double)result4)
+                        };
+                        model.Add(vulnerabilityTotal);
+                    }
                 }
-
-                var vulnerabilityTotal = new VulnerabilityAnalisisVM
-                {
-                    ID = 0,
-                    CategoryAmenaza = categoria,
-                    VulnerabilityType = type,
-                    EvaluationConcept = "RESULTADOS",
-                    Results = new Dictionary<string, ResultInterpretationVM>()
-                };
-
-                vulnerabilityTotal.Results[amenazaName] = new ResultInterpretationVM
-                {
-                    ID = 0,
-                    Amenaza = amenazaName,
-                    Result = (decimal)total,
-                    Interpretation = _gestorHelper.GetVulnerabilityInterpretation((double)total)
-                };
-                model.Add(vulnerabilityTotal);
             }
 
             return model;
