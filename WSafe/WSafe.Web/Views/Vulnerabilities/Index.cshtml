@@ -149,19 +149,27 @@
 <div class="showConsolidate"></div>
 
 @section Scripts {
+
     <script type="text/javascript">
 
         $(document).ready(function () {
-            $("#idPersonas").click(function () {
-                showConsolidateVulnerabilities(1)
+
+            $("#idPersonas").click(function (event) {
+                event.preventDefault();
+                showConsolidateVulnerabilities();
             });
-            $("#idRecursos").click(function () {
-                showConsolidateVulnerabilities(2)
+
+            $("#idRecursos").click(function (event) {
+                event.preventDefault();
+                showConsolidateVulnerabilities();
             });
-            $("#idSistemas").click(function () {
-                showConsolidateVulnerabilities(3)
+
+            $("#idSistemas").click(function (event) {
+                event.preventDefault();
+                showConsolidateVulnerabilities();
             });
         });
 
     </script>
+
 }
