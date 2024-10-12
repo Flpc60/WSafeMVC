@@ -1277,14 +1277,7 @@ function updateVulmerability() {
         }
     });
 }
-function showConsolidateVulnerabilities() {
-    var id = 1;
-    $("#idRecursos").click(function () {
-        id = 2;
-    });
-    $("#idSistemas").click(function () {
-        id = 3;
-    });
+function showConsolidateVulnerabilities(id) {
 
     $.ajax({
         url: "/Vulnerabilities/GetVulnerabilitiesByID",
