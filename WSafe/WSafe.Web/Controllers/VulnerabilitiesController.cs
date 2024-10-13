@@ -318,5 +318,18 @@ namespace WSafe.Web.Controllers
             var model = _emergencyConverter.GetConsolidateVulnerability(id, _orgID);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public async Task<ActionResult> CalificationAmenazas()
+        {
+            _orgID = (int)Session["orgID"];
+            var califications = await _empresaContext.CalificationAmenazas
+                .Include(c => c.Amenaza)
+                .OrderBy(c => c.CategoryAmenaza)
+                .OrderBy(c => c.AmenzaID)
+                .ToListAsync();
+            var model = _emergencyConverter.ToListCalificationAmenazaVM(califications, _orgID);
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
     }
 }
