@@ -47,41 +47,38 @@
 
 <div class="container">
     <div class="row justify-content-between">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="d-flex flex-column flex-md-row">
-                @Html.ActionLink("Nueva amenaza", "Create", null, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-plus btn-custom" })
-                @Html.ActionLink("Personas", "IndexById", new { id = 1 },
+                @Html.ActionLink("Nueva amenaza", "Create", null, new { @class = "btn btn-info btn-custom" })
+                <a href="#" onclick="showCalificationAmenazas()" class="btn btn-info btn-custom" title="Clasificación de amenazas">
+                    Clasificación amenazas
+                </a>
+                @Html.ActionLink("Vulnerabilidad Personas", "IndexById", new { id = 1 },
                     new
                     {
-                        @class = "btn btn-info btn-lg active glyphicon glyphicon-plus btn-custom",
+                        @class = "btn btn-info btn-custom",
                         @title = "Vulnerabilidad personas",
                         @id = "idPersonas"
                     })
-                @Html.ActionLink("Recursos", "IndexById", new { id = 2 },
+                @Html.ActionLink("Vulnerabilidad Recursos", "IndexById", new { id = 2 },
                     new
                          {
-                        @class = "btn btn-info btn-lg active glyphicon glyphicon-plus btn-custom",
+                        @class = "btn btn-info btn-custom",
                         @title = "Vulnerabilidad recursos",
                         @id = "idRecursos"
                     })
-                @Html.ActionLink("Sistemas", "IndexById", new { id = 3 },
+                @Html.ActionLink("Vulnerabilidad Sistemas", "IndexById", new { id = 3 },
                     new
                          {
-                        @class = "btn btn-info btn-lg active glyphicon glyphicon-plus btn-custom",
+                        @class = "btn btn-info btn-custom",
                         @title = "Vulnerabilidad sistemas y procesos",
                         @id = "idSistemas"
                     })
-                @Html.ActionLink("Generar matriz de vulnerabilidades", "PrintVulnerabilitiesToPdf", null, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-plus btn-custom" })
-                <a href="#" onclick="ingresarPons()" class="btn btn-info btn-lg active glyphicon glyphicon-plus btn-custom" title="Procedimientos operativos normalizados PON´S">PON'S</a>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="text-right">
-                <div class="risk-level">
-                    <div class="imminent-risk">RIESGO INMINENTE</div>
-                    <div class="probable-risk">RIESGO PROBABLE</div>
-                    <div class="possible-risk">RIESGO POSIBLE</div>
-                </div>
+                <a href="#" onclick="showRiskLevel()" class="btn btn-info btn-custom" title="Nivel de riesgo">
+                    Nivel de riesgo
+                </a>
+                @Html.ActionLink("PDF anáalisis de vulnerabilidades", "PrintVulnerabilitiesToPdf", null, new { @class = "btn btn-info btn-custom" })
+                <a href="#" onclick="ingresarPons()" class="btn btn-info btn-custom" title="Procedimientos operativos normalizados PON´S">PON'S</a>
             </div>
         </div>
     </div>
@@ -147,6 +144,7 @@
 
 </div>
 <div class="showConsolidate"></div>
+<div class="showCalification"></div>
 
 @section Scripts {
 

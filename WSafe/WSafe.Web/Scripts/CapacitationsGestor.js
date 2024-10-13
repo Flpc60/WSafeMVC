@@ -1351,3 +1351,56 @@ function showConsolidateVulnerabilities(id) {
         }
     });
 }
+function showCalificationAmenazas() {
+
+    $.ajax({
+        url: "/Vulnerabilities/CalificationAmenazas",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (response) {
+            let html = '';
+            if (response.length > 0) {
+                html += `
+                <div class="table-responsive showConsolidate" tabindex="0" style="background-color: azure; width:100%;">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr style="background-color:gainsboro;">
+                                <th>CLASE AMENAZA</th>
+                                <th>AMENAZA</th>
+                                <th>DESCRIPCIÓN DE LA AMENAZA</th>
+                                <th>ORIGEN</th>
+                                <th>CALIFICACIÓN</th>
+                            </tr>
+                        </thead>
+                        <tbody>`;
+
+                response.forEach(function (item) {
+                    var color = "";
+                    if (item.Calification == "Posible") { color = "green"; }
+                    if (item.Calification == "Probable") { color = "yellow"; }
+                    if (item.Calification == "Inminente") { color = "red"; }
+
+                    html += `
+                        <tr>
+                            <td>${item.CategoryAmenaza}</td>
+                            <td>${item.Name}</td>
+                            <td>${item.Description}</td>
+                            <td>${item.OrigenAmenaza}</td>
+                            <td style="background-color: ${color}; color: black;">${item.Calification}</td>
+                        </tr>`;
+                });
+
+                html += `</tbody></table></div>`;
+                $('.showCalification').html(html);
+                $('.showConsolidate').focus();
+            } else {
+                alert("No hay resultados para mostrar !!");
+            }
+        },
+        error: function (xhr, status, error) {
+            alert("Error del servidor: " + error);
+        }
+    });
+}

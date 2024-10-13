@@ -52,5 +52,7 @@ namespace WSafe.Domain.Helpers
         string GetAmenazaCategory(CategoryAmenazas category);
         string GetInterpretation(double result);
         string GetVulnerabilityInterpretation(double result);
+        string GetOrigenAmenaza(OrigenAmenazas origen);
+        string GetCalification(CategoryCalifications calification);
     }
 }
