@@ -476,5 +476,26 @@ namespace WSafe.Domain.Helpers.Implements
 
             return model;
         }
+        public IEnumerable<CalificationAmenazaVM> ToListCalificationAmenazaVM(IEnumerable<CalificationAmenaza> list, int _orgID)
+        {
+            var model = new List<CalificationAmenazaVM>();
+            foreach (var item in list)
+            {
+                string categoria = _gestorHelper.GetAmenazaCategory(item.CategoryAmenaza);
+                var calificationVM = new CalificationAmenazaVM
+                {
+                    ID = item.ID,
+                    CategoryAmenaza = categoria,
+                    Name = item.Amenaza.Name,
+                    Description = item.Amenaza.Description,
+                    OrigenAmenaza = item.Amenaza.OrigenAmenaza,
+                    Calification = item.Calification
+                };
+
+                model.Add(calificationVM);
+            }
+
+            return model;
+        }
     }
 }
