@@ -14,8 +14,8 @@ namespace WSafe.Domain.Models
         [Display(Name = "Descripción de la Amenaza")]
         public string Description { get; set; }
         [Display(Name = "Origen")]
-        public OrigenAmenazas OrigenAmenaza { get; set; }
+        public string OrigenAmenaza { get; set; }
         [Display(Name = "Calificación")]
-        public CategoryCalifications Calification { get; set; }
+        public string Calification { get; set; }
     }
 }

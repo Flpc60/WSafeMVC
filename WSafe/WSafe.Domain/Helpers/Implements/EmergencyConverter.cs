@@ -488,8 +488,8 @@ namespace WSafe.Domain.Helpers.Implements
                     CategoryAmenaza = categoria,
                     Name = item.Amenaza.Name,
                     Description = item.Amenaza.Description,
-                    OrigenAmenaza = item.Amenaza.OrigenAmenaza,
-                    Calification = item.Calification
+                    OrigenAmenaza = _gestorHelper.GetOrigenAmenaza(item.Amenaza.OrigenAmenaza),
+                    Calification = _gestorHelper.GetCalification(item.Calification)
                 };
 
                 model.Add(calificationVM);

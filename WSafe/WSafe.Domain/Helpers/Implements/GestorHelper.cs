@@ -1104,5 +1104,36 @@ namespace WSafe.Domain.Helpers.Implements
             }
             return "NA";
         }
+        public string GetOrigenAmenaza(OrigenAmenazas origen)
+        {
+            switch (origen)
+            {
+                case OrigenAmenazas.Externo:
+                    return "Externo";
+
+                case OrigenAmenazas.Interno:
+                    return "Interno";
+
+                default:
+                    return "Sin definir";
+            }
+        }
+        public string GetCalification(CategoryCalifications calification)
+        {
+            switch (calification)
+            {
+                case CategoryCalifications.Posible:
+                    return "Posible";
+
+                case CategoryCalifications.Probable:
+                    return "Probable";
+
+                case CategoryCalifications.Inminente:
+                    return "Inminente";
+
+                default:
+                    return "Sin definir";
+            }
+        }
     }
 }
