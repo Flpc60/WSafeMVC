@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using WSafe.Domain.Data.Entities.Ppre;
 
 namespace WSafe.Domain.Models
 {
@@ -13,8 +14,8 @@ namespace WSafe.Domain.Models
         [Display(Name = "Descripción de la Amenaza")]
         public string Description { get; set; }
         [Display(Name = "Origen")]
-        public string Origen { get; set; }
+        public OrigenAmenazas OrigenAmenaza { get; set; }
         [Display(Name = "Calificación")]
-        public string Calification { get; set; }
+        public CategoryCalifications Calification { get; set; }
     }
 }
