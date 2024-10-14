@@ -331,5 +331,13 @@ namespace WSafe.Web.Controllers
             var model = _emergencyConverter.ToListCalificationAmenazaVM(califications, _orgID);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public async Task<ActionResult> LevelRislAmenazas()
+        {
+            _orgID = (int)Session["orgID"];
+            var model = await _emergencyConverter.ToListRiskLevelVM(_orgID);
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
     }
 }

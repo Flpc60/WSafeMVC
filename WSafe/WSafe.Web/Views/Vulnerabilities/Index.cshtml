@@ -74,7 +74,7 @@
                         @title = "Vulnerabilidad sistemas y procesos",
                         @id = "idSistemas"
                     })
-                <a href="#" onclick="showRiskLevel()" class="btn btn-info btn-custom" title="Nivel de riesgo">
+                <a href="#" onclick="showRiskLevelAmenazas()" class="btn btn-info btn-custom" title="Nivel de riesgo">
                     Nivel de riesgo
                 </a>
                 @Html.ActionLink("PDF anáalisis de vulnerabilidades", "PrintVulnerabilitiesToPdf", null, new { @class = "btn btn-info btn-custom" })
@@ -145,6 +145,7 @@
 </div>
 <div class="showConsolidate"></div>
 <div class="showCalification"></div>
+<div class="showRiskLevel"></div>
 
 @section Scripts {
 

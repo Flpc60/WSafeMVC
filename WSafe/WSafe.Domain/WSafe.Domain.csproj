@@ -339,6 +339,7 @@
     <Compile Include="Models\RecomendationListVM.cs" />
     <Compile Include="Models\RecomendationVM.cs" />
     <Compile Include="Models\RiesgoViewModel.cs" />
+    <Compile Include="Models\RiskLevelVM.cs" />
     <Compile Include="Models\RoleOperationVM.cs" />
     <Compile Include="Models\RoleUserVM.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
