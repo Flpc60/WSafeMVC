@@ -497,5 +497,103 @@ namespace WSafe.Domain.Helpers.Implements
 
             return model;
         }
+        public async Task<IEnumerable<RiskLevelVM>> ToListRiskLevelVM(int _orgID)
+        {
+            var model = new List<RiskLevelVM>();
+
+            var vulnerabilities = await (from v in _empresaContext.Vulnerabilities
+                                   join c in _empresaContext.CalificationAmenazas on v.AmenazaID equals c.ID
+                                   where v.OrganizationID == _orgID
+                                   orderby v.CategoryAmenaza, v.AmenazaID
+                                   select new
+                                   {
+                                       ID = v.ID,
+                                       VulnerabilityType = v.VulnerabilityType,
+                                       CategoryAmenaza = v.CategoryAmenaza,
+                                       AmenazaID = v.AmenazaID,
+                                       Amenaza = v.Amenaza.Name,
+                                       Calification = c.Calification,
+                                       Response = v.Response
+                                   }).ToListAsync();
+
+            foreach (var category in vulnerabilities.GroupBy(v => v.CategoryAmenaza))
+            {
+                string categoria = _gestorHelper.GetAmenazaCategory(category.Key);
+                string calification = _gestorHelper.GetCalification(category.First().Calification);
+                double total = 0;
+                int i4 = 0;
+
+                foreach (var amenaza in category.GroupBy(v => v.AmenazaID))
+                {
+                    string amenazaName = amenaza.First().Amenaza;
+                    double sum1 = 0, sum2 = 0, sum3 = 0;
+                    int i1 = 0, i2 = 0, i3 = 0;
+                    foreach (var type in amenaza.GroupBy(v => v.VulnerabilityType))
+                    {
+                        if (type.Key == VulnerabilityTypes.Personas)
+                        {
+                            sum1 += type.Sum(item =>
+                                item.Response == ScalesCalification.Sí ? 1.0 :
+                                item.Response == ScalesCalification.Parcial ? 0.5 : 0.0
+                            );
+                            i1++;
+                        }
+                        else if (type.Key == VulnerabilityTypes.Recursos)
+                        {
+                            sum2 += type.Sum(item =>
+                                item.Response == ScalesCalification.Sí ? 1.0 :
+                                item.Response == ScalesCalification.Parcial ? 0.5 : 0.0
+                            );
+                            i2++;
+                        }
+                        else if (type.Key == VulnerabilityTypes.Sistemas)
+                        {
+                            sum3 += type.Sum(item =>
+                                item.Response == ScalesCalification.Sí ? 1.0 :
+                                item.Response == ScalesCalification.Parcial ? 0.5 : 0.0
+                            );
+                            i3++;
+                        }
+
+                        total += type.Sum(item =>
+                            item.Response == ScalesCalification.Sí ? 1.0 :
+                            item.Response == ScalesCalification.Parcial ? 0.5 : 0.0
+                        );
+                        i4++;
+                    }
+
+                    double result1 = i1 > 0 ? sum1 / i1 : 0.0;
+                    string interpretation1 = _gestorHelper.GetInterpretation(result1);
+
+                    double result2 = i2 > 0 ? sum2 / i2 : 0.0;
+                    string interpretation2 = _gestorHelper.GetInterpretation(result2);
+
+                    double result3 = i3 > 0 ? sum3 / i3 : 0.0;
+                    string interpretation3 = _gestorHelper.GetInterpretation(result3);
+
+                    double result4 = i4 > 0 ? total / i4 : 0.0;
+                    string interpretation4 = _gestorHelper.GetVulnerabilityInterpretation(result4);
+
+                    if (i4 > 0)
+                    {
+                        var vulnerability = new RiskLevelVM
+                        {
+                            ID = 0,
+                            CategoryAmenaza = categoria,
+                            Name = amenazaName,
+                            Calification = calification,
+                            RiskPersons = interpretation1,
+                            RiskResources = interpretation2,
+                            RiskSystems = interpretation3,
+                            RiskLevelResults = interpretation4
+                        };
+
+                        model.Add(vulnerability);
+                    }
+                }
+            }
+
+            return model;
+        }
     }
 }

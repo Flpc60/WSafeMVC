@@ -1404,3 +1404,60 @@ function showCalificationAmenazas() {
         }
     });
 }
+function showRiskLevelAmenazas() {
+
+    $.ajax({
+        url: "/Vulnerabilities/LevelRislAmenazas",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (response) {
+            let html = '';
+            if (response.length > 0) {
+                html += `
+                <div class="table-responsive showConsolidate" tabindex="0" style="background-color: azure; width:100%;">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr style="background-color:gainsboro;">
+                                <th>CLASE AMENAZA</th>
+                                <th>AMENAZA</th>
+                                <th>CALIFICACIÓN (A)</th>
+                                <th>PERSONAS (P)</th>
+                                <th>RECURSOS (R)</th>
+                                <th>SISTEMAS Y PROCESOS (S)</th>
+                                <th>CALIFICACIÓN</th>
+                            </tr>
+                        </thead>
+                        <tbody>`;
+
+                response.forEach(function (item) {
+                    var color = "";
+                    if (item.RiskLevelResults == "Bajo") { color = "green"; }
+                    if (item.RiskLevelResults == "Medio") { color = "yellow"; }
+                    if (item.RiskLevelResults == "Alto") { color = "red"; }
+
+                    html += `
+                        <tr>
+                            <td>${item.CategoryAmenaza}</td>
+                            <td>${item.Name}</td>
+                            <td>${item.Calification}</td>
+                            <td>${item.RiskPersons}</td>
+                            <td>${item.RiskResources}</td>
+                            <td>${item.RiskSystems}</td>
+                            <td style="background-color: ${color}; color: black;">${item.RiskLevelResults}</td>
+                        </tr>`;
+                });
+
+                html += `</tbody></table></div>`;
+                $('.showRiskLevel').html(html);
+                $('.showRiskLevel').focus();
+            } else {
+                alert("No hay resultados para mostrar !!");
+            }
+        },
+        error: function (xhr, status, error) {
+            alert("Error del servidor: " + error);
+        }
+    });
+}
