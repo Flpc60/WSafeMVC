@@ -1467,3 +1467,77 @@ function showRiskLevelAmenazas() {
         }
     });
 }
+function showVulnerabilitiesDetail(id) {
+
+    $.ajax({
+        url: "/Vulnerabilities/GetVulnerabilitiesDetail",
+        data: { id: id },
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (response) {
+            let html = '';
+            if (response.length > 0) {
+                html += `
+                <div class="table-responsive showConsolidate" tabindex="-1" style="background-color: azure; width:100%;">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr style="background-color:gainsboro;">
+                                <th>PUNTO A EVALUAR</th>`;
+
+                let threats = new Set();
+                response.forEach(function (item) {
+                    Object.keys(item.Responses).forEach(function (threat) {
+                        threats.add(threat);
+                    });
+                });
+                threats.forEach(function (threat) {
+                    html += `<th colspan="2">${threat}</th>`;
+                });
+
+                html += `</tr><tr style="background-color:lightgray;">`;
+                html += `</tr></thead><tbody>`;
+
+                // Group the results by EvaluationConcept to show all Results for each concept in the same row
+                let evaluationConceptsMap = {};
+
+                response.forEach(function (item) {
+                    if (!evaluationConceptsMap[item.EvaluationConcept]) {
+                        evaluationConceptsMap[item.EvaluationConcept] = {};
+                    }
+                    Object.keys(item.Results).forEach(function (threat) {
+                        evaluationConceptsMap[item.EvaluationConcept][threat] = item.Results[threat];
+                    });
+                });
+
+                // Now loop through evaluationConceptsMap and create rows
+                Object.keys(evaluationConceptsMap).forEach(function (concept) {
+                    html += `<tr><td>${concept}</td>`;
+
+                    threats.forEach(function (threat) {
+                        let resultObj = evaluationConceptsMap[concept][threat];
+                        if (resultObj) {
+                            let result = resultObj.Result.toFixed(2) || 'N/A';
+                            let interpretation = resultObj.Interpretation || 'N/A';
+                            html += `<td>${result}</td><td>${interpretation}</td>`;
+                        } else {
+                            html += `<td>N/A</td><td>N/A</td>`;
+                        }
+                    });
+
+                    html += `</tr>`;
+                });
+
+                html += `</tbody></table></div>`;
+                $('.showConsolidate').html(html);
+                $('.showConsolidate').focus();
+            } else {
+                alert("No hay resultados para mostrar para este riesgo!!");
+            }
+        },
+        error: function (xhr, status, error) {
+            alert("Error del servidor: " + error);
+        }
+    });
+}

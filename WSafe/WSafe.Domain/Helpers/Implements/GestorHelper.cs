@@ -6,6 +6,8 @@ using WSafe.Domain.Data.Entities;
 using static iTextSharp.tool.xml.html.HTML;
 using WSafe.Domain.Data.Entities.Ppre;
 using System.Collections.Generic;
+using static iTextSharp.text.pdf.AcroFields;
+using Antlr4.Runtime.Tree;
 
 namespace WSafe.Domain.Helpers.Implements
 {
@@ -1186,6 +1188,40 @@ namespace WSafe.Domain.Helpers.Implements
             else
             {
                 return "Bajo";
+            }
+        }
+        public string GetResponse(ScalesCalification response)
+        {
+            switch (response)
+            {
+                case ScalesCalification.Sí:
+                    return "SI";
+                    
+                case ScalesCalification.Parcial:
+                    return "PARCIAL";
+
+                case ScalesCalification.No:
+                    return"NO";
+
+                default:
+                    return "NO";
+            }
+        }
+        public decimal GetResponseValue(ScalesCalification response)
+        {
+            switch (response)
+            {
+                case ScalesCalification.Sí:
+                    return 1.0m;
+
+                case ScalesCalification.Parcial:
+                    return 0.5m;
+
+                case ScalesCalification.No:
+                    return 0.0m;
+
+                default:
+                    return 0.0m;
             }
         }
     }
