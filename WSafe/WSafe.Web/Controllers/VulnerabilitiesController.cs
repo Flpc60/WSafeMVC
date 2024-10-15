@@ -1,9 +1,12 @@
-﻿using System;
+﻿using Rotativa;
+using System;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using WSafe.Domain.Data;
+using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Data.Entities.Ppre;
 using WSafe.Domain.Helpers;
 using WSafe.Domain.Models;
@@ -337,6 +340,94 @@ namespace WSafe.Web.Controllers
         {
             _orgID = (int)Session["orgID"];
             var model = await _emergencyConverter.ToListRiskLevelVM(_orgID);
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> PrintVulnerabilitiesToPdf(int id)
+        {
+            try
+            {
+                _clientID = (int)Session["clientID"];
+                _orgID = (int)Session["orgID"];
+                _year = (string)Session["year"];
+                _path = (string)Session["path"];
+                var organization = _empresaContext.Organizations.Find(_orgID);
+                var year = _year;
+                var item = _empresaContext.Normas.Find(organization.StandardEmergenciesPLan).Item;
+                var fullPath = $"{_path}/2. HACER/{item}/";
+                var path = Server.MapPath(fullPath);
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                Random random = new Random();
+                var filename = "Matriz anaálisis vulnerabilidades" + random.Next(1, 100) + ".Pdf";
+                var filePathName = path + filename;
+                var list = await _empresaContext.Riesgos
+                    .Where(r => r.OrganizationID == _orgID)
+                    .Include(mi => mi.MedidasIntervencion)
+                    .OrderByDescending(cr => cr.NivelRiesgo)
+                    .ToListAsync();
+                var modelo = await _emergencyConverter.ToVulnerabilitiesVM(_orgID, id);
+                var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == 8);
+                ViewBag.formato = document.Formato;
+                ViewBag.estandar = document.Estandar;
+                ViewBag.titulo = document.Titulo;
+                ViewBag.version = document.Version;
+                ViewBag.fecha = DateTime.Now;
+                var report = new ViewAsPdf("GetAll");
+                report.Model = modelo;
+                report.FileName = filePathName;
+                report.PageSize = Rotativa.Options.Size.A4;
+                report.PageOrientation = Rotativa.Options.Orientation.Landscape;
+                report.PageWidth = 399;
+                report.PageHeight = 399;
+                var pdfBytes = report.BuildFile(this.ControllerContext);
+                System.IO.File.WriteAllBytes(filePathName, pdfBytes);
+
+                //Generar archivo de movimiento
+                var fullName = filename;
+                var type = Path.GetExtension(filename).ToUpper();
+                var descript = "Matriz de riesgos";
+                var userID = (int)Session["userID"];
+                Movimient movimient = new Movimient()
+                {
+                    ID = 0,
+                    OrganizationID = _orgID,
+                    NormaID = organization.StandardMatrixRisk,
+                    UserID = userID,
+                    Descripcion = descript,
+                    Document = fullName,
+                    Year = year,
+                    Item = item,
+                    Ciclo = "H",
+                    Type = type,
+                    Path = path,
+                    ClientID = _clientID
+                };
+                _empresaContext.Movimientos.Add(movimient);
+                // Generar trazabilidad 
+                var model1 = _converterHelper.Traceability(organization.StandardMatrixRisk, year, _orgID, fullName);
+                if (model1 != null)
+                {
+                    _empresaContext.SigueAnnualPlans.Add(model1);
+                }
+
+                _empresaContext.SaveChanges();
+                return report;
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> GetVulnerabilitiesDetail(int id)
+        {
+            _orgID = (int)Session["orgID"];
+            var model = await _emergencyConverter.ToVulnerabilitiesVM(_orgID, id);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
     }
