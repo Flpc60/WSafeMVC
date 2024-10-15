@@ -5,6 +5,7 @@ using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
 using static iTextSharp.tool.xml.html.HTML;
 using WSafe.Domain.Data.Entities.Ppre;
+using System.Collections.Generic;
 
 namespace WSafe.Domain.Helpers.Implements
 {
@@ -1133,6 +1134,58 @@ namespace WSafe.Domain.Helpers.Implements
 
                 default:
                     return "Sin definir";
+            }
+        }
+        public string GetRiskLevelInterpretation(string calification, string result1, string result2, string result3)
+        {
+            int red = 0, yellow = 0, green = 0;
+            void CountRiskLevel(string result)
+            {
+                switch (result)
+                {
+                    case "BAJA":
+                        green++;
+                        break;
+                    case "MEDIA":
+                        yellow++;
+                        break;
+                    case "ALTA":
+                        red++;
+                        break;
+                    default:
+                        green++;
+                        break;
+                }
+            }
+            switch (calification)
+            {
+                case "Posible":
+                    green++;
+                    break;
+                case "Probable":
+                    yellow++;
+                    break;
+                case "Inminente":
+                    red++;
+                    break;
+                default:
+                    green++;
+                    break;
+            }
+
+            List<string> results = new List<string> { result1, result2, result3 };
+            results.ForEach(CountRiskLevel);
+            if (red >= 3)
+            {
+                return "Alto";
+            }
+            else if (red >= 1 || yellow >= 3)
+            {
+                return "Medio";
+            }
+            else
+            {
+                return "Bajo";
             }
         }
     }

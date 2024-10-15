@@ -1407,16 +1407,20 @@ function showCalificationAmenazas() {
 function showRiskLevelAmenazas() {
 
     $.ajax({
-        url: "/Vulnerabilities/LevelRislAmenazas",
+        url: "/Vulnerabilities/LevelRiskAmenazas",
         type: "GET",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         async: true,
         success: function (response) {
+            var color = '';
+            var color1 = '';
+
             let html = '';
             if (response.length > 0) {
                 html += `
                 <div class="table-responsive showConsolidate" tabindex="0" style="background-color: azure; width:100%;">
+                    <p style= "text-align: center;font-size: 14px;">NIVELES DE RIESGO PARA AMENAZAS</P>
                     <table class="table table-striped table-bordered">
                         <thead>
                             <tr style="background-color:gainsboro;">
@@ -1432,16 +1436,18 @@ function showRiskLevelAmenazas() {
                         <tbody>`;
 
                 response.forEach(function (item) {
-                    var color = "";
                     if (item.RiskLevelResults == "Bajo") { color = "green"; }
                     if (item.RiskLevelResults == "Medio") { color = "yellow"; }
                     if (item.RiskLevelResults == "Alto") { color = "red"; }
+                    if (item.Calification == "Posible") { color1 = "green"; }
+                    if (item.Calification == "Probable") { color1 = "yellow"; }
+                    if (item.Calification == "Inminente") { color1 = "red"; }
 
                     html += `
                         <tr>
                             <td>${item.CategoryAmenaza}</td>
                             <td>${item.Name}</td>
-                            <td>${item.Calification}</td>
+                            <td style="background-color: ${color1}; color: black;">${item.Calification}</td>
                             <td>${item.RiskPersons}</td>
                             <td>${item.RiskResources}</td>
                             <td>${item.RiskSystems}</td>

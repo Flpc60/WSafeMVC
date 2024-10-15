@@ -563,16 +563,16 @@ namespace WSafe.Domain.Helpers.Implements
                     }
 
                     double result1 = i1 > 0 ? sum1 / i1 : 0.0;
-                    string interpretation1 = _gestorHelper.GetInterpretation(result1);
+                    string interpretation1 = _gestorHelper.GetVulnerabilityInterpretation(result1);
 
                     double result2 = i2 > 0 ? sum2 / i2 : 0.0;
-                    string interpretation2 = _gestorHelper.GetInterpretation(result2);
+                    string interpretation2 = _gestorHelper.GetVulnerabilityInterpretation(result2);
 
                     double result3 = i3 > 0 ? sum3 / i3 : 0.0;
-                    string interpretation3 = _gestorHelper.GetInterpretation(result3);
+                    string interpretation3 = _gestorHelper.GetVulnerabilityInterpretation(result3);
 
                     double result4 = i4 > 0 ? total / i4 : 0.0;
-                    string interpretation4 = _gestorHelper.GetVulnerabilityInterpretation(result4);
+                    string interpretation4 = _gestorHelper.GetRiskLevelInterpretation(calification, interpretation1, interpretation2, interpretation3);
 
                     if (i4 > 0)
                     {
