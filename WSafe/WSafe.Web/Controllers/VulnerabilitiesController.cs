@@ -333,7 +333,7 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> LevelRislAmenazas()
+        public async Task<ActionResult> LevelRiskAmenazas()
         {
             _orgID = (int)Session["orgID"];
             var model = await _emergencyConverter.ToListRiskLevelVM(_orgID);
