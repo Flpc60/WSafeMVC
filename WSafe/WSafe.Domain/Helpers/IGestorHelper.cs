@@ -55,5 +55,7 @@ namespace WSafe.Domain.Helpers
         string GetOrigenAmenaza(OrigenAmenazas origen);
         string GetCalification(CategoryCalifications calification);
         string GetRiskLevelInterpretation(string calification, string result1, string result2, string result3);
+        string GetResponse(ScalesCalification response);
+        decimal GetResponseValue(ScalesCalification response);
     }
 }

@@ -7,8 +7,6 @@ using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Data.Entities.Ppre;
 using WSafe.Domain.Models;
-using static iTextSharp.text.pdf.AcroFields;
-using static iTextSharp.tool.xml.html.HTML;
 
 namespace WSafe.Domain.Helpers.Implements
 {
@@ -292,7 +290,7 @@ namespace WSafe.Domain.Helpers.Implements
                     foreach (var evalConcept in amenaza.GroupBy(v => v.EvaluationConcept))
                     {
                         if (evalConcept.Key.EvaluationPerson == EvaluationPersonas.Organizacional)
-                        { 
+                        {
                             aspect1 = "Gestión Organizacional";
                             sum1 += evalConcept.Sum(item =>
                                 item.Response == ScalesCalification.Sí ? 1.0 :
@@ -301,7 +299,7 @@ namespace WSafe.Domain.Helpers.Implements
                             i1++;
                         }
                         if (evalConcept.Key.EvaluationPerson == EvaluationPersonas.Entrenamiento)
-                        { 
+                        {
                             aspect2 = "Capacitación y Entrenaniento";
                             sum2 += evalConcept.Sum(item =>
                                 item.Response == ScalesCalification.Sí ? 1.0 :
@@ -310,7 +308,7 @@ namespace WSafe.Domain.Helpers.Implements
                             i2++;
                         }
                         if (evalConcept.Key.EvaluationPerson == EvaluationPersonas.Seguridad)
-                        { 
+                        {
                             aspect3 = "Características de Seguridad";
                             sum3 += evalConcept.Sum(item =>
                                 item.Response == ScalesCalification.Sí ? 1.0 :
@@ -502,19 +500,19 @@ namespace WSafe.Domain.Helpers.Implements
             var model = new List<RiskLevelVM>();
 
             var vulnerabilities = await (from v in _empresaContext.Vulnerabilities
-                                   join c in _empresaContext.CalificationAmenazas on v.AmenazaID equals c.ID
-                                   where v.OrganizationID == _orgID
-                                   orderby v.CategoryAmenaza, v.AmenazaID
-                                   select new
-                                   {
-                                       ID = v.ID,
-                                       VulnerabilityType = v.VulnerabilityType,
-                                       CategoryAmenaza = v.CategoryAmenaza,
-                                       AmenazaID = v.AmenazaID,
-                                       Amenaza = v.Amenaza.Name,
-                                       Calification = c.Calification,
-                                       Response = v.Response
-                                   }).ToListAsync();
+                                         join c in _empresaContext.CalificationAmenazas on v.AmenazaID equals c.ID
+                                         where v.OrganizationID == _orgID
+                                         orderby v.CategoryAmenaza, v.AmenazaID
+                                         select new
+                                         {
+                                             ID = v.ID,
+                                             VulnerabilityType = v.VulnerabilityType,
+                                             CategoryAmenaza = v.CategoryAmenaza,
+                                             AmenazaID = v.AmenazaID,
+                                             Amenaza = v.Amenaza.Name,
+                                             Calification = c.Calification,
+                                             Response = v.Response
+                                         }).ToListAsync();
 
             foreach (var category in vulnerabilities.GroupBy(v => v.CategoryAmenaza))
             {
@@ -591,6 +589,72 @@ namespace WSafe.Domain.Helpers.Implements
                         model.Add(vulnerability);
                     }
                 }
+            }
+
+            return model;
+        }
+        public async Task<IEnumerable<VulnerabilitiesAnalysisVM>> ToVulnerabilitiesVM(int _orgID, int id)
+        {
+            string type = _gestorHelper.GetVulnerabilityType(id);
+            var model = new List<VulnerabilitiesAnalysisVM>();
+
+            var consolidate = await _empresaContext.Vulnerabilities
+                .Where(v => v.OrganizationID == _orgID && (int)v.VulnerabilityType == id)
+                .Include(v => v.Amenaza)
+                .Include(v => v.EvaluationConcept)
+                .OrderBy(v => v.CategoryAmenaza)
+                .ThenBy(v => v.AmenazaID)
+                .ThenBy(v => v.EvaluationConcept)
+                .ToListAsync();
+
+            foreach (var item in consolidate)
+            {
+                string categoria = _gestorHelper.GetAmenazaCategory(item.CategoryAmenaza);
+
+                string aspecto = string.Empty;
+
+                switch (item.VulnerabilityType)
+                {
+                    case VulnerabilityTypes.Personas:
+                        if (item.EvaluationConcept.EvaluationPerson == EvaluationPersonas.Organizacional) { aspecto = "Gestión Organizacional"; }
+                        if (item.EvaluationConcept.EvaluationPerson == EvaluationPersonas.Entrenamiento) { aspecto = "Capacitación y Entrenaniento"; }
+                        if (item.EvaluationConcept.EvaluationPerson == EvaluationPersonas.Seguridad) { aspecto = "Características de Seguridad"; }
+                        break;
+
+                    case VulnerabilityTypes.Recursos:
+                        if (item.EvaluationConcept.EvaluationRecurso == EvaluationRecursos.Suministros) { aspecto = "Suministros"; }
+                        if (item.EvaluationConcept.EvaluationRecurso == EvaluationRecursos.Edificaciones) { aspecto = "Edificaciones"; }
+                        if (item.EvaluationConcept.EvaluationRecurso == EvaluationRecursos.Equipos) { aspecto = "Equipos"; }
+                        break;
+
+                    case VulnerabilityTypes.Sistemas:
+                        if (item.EvaluationConcept.EvaluationSystem == EvaluationSystems.Servicios) { aspecto = "Servicios"; }
+                        if (item.EvaluationConcept.EvaluationSystem == EvaluationSystems.Sistemas) { aspecto = "Sistemas alternos"; }
+                        if (item.EvaluationConcept.EvaluationSystem == EvaluationSystems.Recuperacion) { aspecto = "Recuperación"; }
+                        break;
+                }
+
+                string response = _gestorHelper.GetResponse(item.Response);
+                decimal result = _gestorHelper.GetResponseValue(item.Response);
+
+                var vulnerabilityVM = new VulnerabilitiesAnalysisVM
+                {
+                    ID = item.ID,
+                    Type = type,
+                    CategoryAmenaza = categoria,
+                    EvaluationConcept = aspecto,
+                    Name = item.EvaluationConcept.Name,
+                };
+                vulnerabilityVM.Responses[item.Amenaza.Name] = new ResponseVM
+                {
+                    ID = 0,
+                    Amenaza = item.Amenaza.Name,
+                    Response = response,
+                    Observation = item.Observation,
+                    Result = result
+                };
+
+                model.Add(vulnerabilityVM);
             }
 
             return model;
