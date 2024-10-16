@@ -1492,37 +1492,33 @@ function showVulnerabilitiesDetail(id) {
                         threats.add(threat);
                     });
                 });
+
                 threats.forEach(function (threat) {
                     html += `<th colspan="2">${threat}</th>`;
                 });
 
-                html += `</tr><tr style="background-color:lightgray;">`;
+                html += `</tr><tr style="background-color:lightgray;"><th colspan="1">`;
+                threats.forEach(function () {
+                    html += `<th>Rta</th><th>Observación</th>`;
+                });
                 html += `</tr></thead><tbody>`;
 
-                // Group the results by EvaluationConcept to show all Results for each concept in the same row
-                let evaluationConceptsMap = {};
-
                 response.forEach(function (item) {
-                    if (!evaluationConceptsMap[item.EvaluationConcept]) {
-                        evaluationConceptsMap[item.EvaluationConcept] = {};
-                    }
-                    Object.keys(item.Results).forEach(function (threat) {
-                        evaluationConceptsMap[item.EvaluationConcept][threat] = item.Results[threat];
-                    });
-                });
-
-                // Now loop through evaluationConceptsMap and create rows
-                Object.keys(evaluationConceptsMap).forEach(function (concept) {
-                    html += `<tr><td>${concept}</td>`;
+                    html += `<tr><td>${item.Name}</td>`;
 
                     threats.forEach(function (threat) {
-                        let resultObj = evaluationConceptsMap[concept][threat];
-                        if (resultObj) {
-                            let result = resultObj.Result.toFixed(2) || 'N/A';
-                            let interpretation = resultObj.Interpretation || 'N/A';
-                            html += `<td>${result}</td><td>${interpretation}</td>`;
+                        let responseObj = item.Responses[threat];
+                        let color = '';
+
+                        if (responseObj) {
+                            if (responseObj.Observation === "MALO") { color = "red"; }
+                            else if (responseObj.Observation === "REGULAR") { color = "yellow"; }
+                            else if (responseObj.Observation === "BUENO") { color = "green"; }
+
+                            html += `<td>${responseObj.Response}</td>
+                                     <td style="background-color: ${color}; color: black;">${responseObj.Observation}</td>`;
                         } else {
-                            html += `<td>N/A</td><td>N/A</td>`;
+                            html += `<td colspan="2"></td>`;
                         }
                     });
 
@@ -1530,7 +1526,7 @@ function showVulnerabilitiesDetail(id) {
                 });
 
                 html += `</tbody></table></div>`;
-                $('.showConsolidate').html(html);
+                $('.showVulnerabilitiesDetail').html(html);
                 $('.showConsolidate').focus();
             } else {
                 alert("No hay resultados para mostrar para este riesgo!!");
