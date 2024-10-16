@@ -8,6 +8,7 @@ using WSafe.Domain.Data.Entities;
 using WSafe.Domain.Data.Entities.Ppre;
 using WSafe.Domain.Models;
 using static iTextSharp.text.pdf.AcroFields;
+using static iTextSharp.tool.xml.html.HTML;
 
 namespace WSafe.Domain.Helpers.Implements
 {
@@ -605,10 +606,10 @@ namespace WSafe.Domain.Helpers.Implements
                 .Include(v => v.EvaluationConcept)
                 .OrderBy(v => v.CategoryAmenaza)
                 .ThenBy(v => v.AmenazaID)
+                .ThenBy(v => v.EvaluationConceptID)
                 .ThenBy(v => v.EvaluationConcept.EvaluationPerson)
                 .ThenBy(v => v.EvaluationConcept.EvaluationRecurso)
                 .ThenBy(v => v.EvaluationConcept.EvaluationSystem)
-                .ThenBy(v => v.EvaluationConcept)
                 .ToListAsync();
 
             foreach (var vulneara in consolidate.GroupBy(v =>v.CategoryAmenaza))
@@ -616,8 +617,9 @@ namespace WSafe.Domain.Helpers.Implements
                 string categoria = _gestorHelper.GetAmenazaCategory(vulneara.Key);
                 foreach (var amenaza in vulneara.GroupBy(a => a.Amenaza))
                 {
-                    string amenazaName = amenaza.First().Amenaza.Name;
-                    string observation = amenaza.First().Observation;
+                    string amenazaName = amenaza.First()?.Amenaza.Name ?? " ";
+
+                    string observation = amenaza.First()?.Observation ?? " ";
                     double sum = 0;
                     int i = 0;
                     string aspect = string.Empty;
@@ -625,7 +627,7 @@ namespace WSafe.Domain.Helpers.Implements
                     decimal result = _gestorHelper.GetResponseValue(amenaza.First().Response);
                     foreach (var evalua in amenaza.GroupBy(e => e.EvaluationConcept.EvaluationPerson))
                     {
-                        string name = evalua.First().EvaluationConcept.Name;
+                        string name = evalua.First()?.EvaluationConcept.Name ?? " ";
                         if (evalua.Key == EvaluationPersonas.Organizacional)
                         {
                             aspect = "Calificación Gestión Organizacional";
@@ -654,46 +656,57 @@ namespace WSafe.Domain.Helpers.Implements
                             i++;
                         }
 
-                        var vulnerabilityVM = new VulnerabilitiesAnalysisVM
+                        if (i > 0)
+                        {
+                            var vulnerabilityVM = new VulnerabilitiesAnalysisVM
+                            {
+                                ID = 0,
+                                Type = type,
+                                CategoryAmenaza = categoria,
+                                EvaluationConcept = aspect,
+                                Name = name,
+                                Responses = new Dictionary<string, ResponseVM>
+                                {
+                                    [amenazaName] = new ResponseVM
+                                    {
+                                        ID = 0,
+                                        Amenaza = amenazaName,
+                                        Response = response,
+                                        Observation = observation,
+                                        Result = result
+                                    }
+                                }
+                            };
+
+                            model.Add(vulnerabilityVM);
+                        }
+                    }
+
+                    if (i > 0)
+                    {
+                        var vulnerabilitySumVM = new VulnerabilitiesAnalysisVM
                         {
                             ID = 0,
                             Type = type,
                             CategoryAmenaza = categoria,
                             EvaluationConcept = aspect,
-                            Name = name
-                        };
-                        vulnerabilityVM.Responses[amenazaName] = new ResponseVM
-                        {
-                            ID = 0,
-                            Amenaza = amenazaName,
-                            Response = response,
-                            Observation = observation,
-                            Result = result
+                            Name = aspect,
+                            Responses = new Dictionary<string, ResponseVM>
+                            {
+                                [amenazaName] = new ResponseVM
+                                {
+                                    ID = 0,
+                                    Amenaza = amenazaName,
+                                    Response = result.ToString(),
+                                    Observation = _gestorHelper.GetInterpretation((double)result),
+                                    Result = result
+                                }
+                            }
                         };
 
-                        model.Add(vulnerabilityVM);
+                        model.Add(vulnerabilitySumVM);
                     }
-
-                    var vulnerabilitySumVM = new VulnerabilitiesAnalysisVM
-                    {
-                        ID = 0,
-                        Type = type,
-                        CategoryAmenaza = categoria,
-                        EvaluationConcept = aspect,
-                        Name = aspect
-                    };
-                    vulnerabilitySumVM.Responses[amenazaName] = new ResponseVM
-                    {
-                        ID = 0,
-                        Amenaza = amenazaName,
-                        Response = response,
-                        Observation = _gestorHelper.GetInterpretation((double)result),
-                        Result = result
-                    };
-
-                    model.Add(vulnerabilitySumVM);
                 }
-
             }
 
             return model;

@@ -1089,7 +1089,7 @@ namespace WSafe.Domain.Helpers.Implements
             {
                 return "BUENO";
             }
-            return "NA";
+            return " ";
         }
         public string GetVulnerabilityInterpretation(double result)
         {

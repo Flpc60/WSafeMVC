@@ -77,7 +77,9 @@
                 <a href="#" onclick="showRiskLevelAmenazas()" class="btn btn-info btn-custom" title="Nivel de riesgo">
                     Nivel de riesgo
                 </a>
-                @Html.ActionLink("PDF anáalisis de vulnerabilidades", "PrintVulnerabilitiesToPdf", null, new { @class = "btn btn-info btn-custom" })
+                <a href="#" onclick="showVulnerabilitiesDetail(1)" class="btn btn-info btn-custom" title="Nivel de riesgo">
+                    PDF anáalisis de vulnerabilidades
+                </a>
                 <a href="#" onclick="ingresarPons()" class="btn btn-info btn-custom" title="Procedimientos operativos normalizados PON´S">PON'S</a>
             </div>
         </div>
@@ -146,6 +148,7 @@
 <div class="showConsolidate"></div>
 <div class="showCalification"></div>
 <div class="showRiskLevel"></div>
+<div class="showVulnerabilitiesDetail"></div>
 
 @section Scripts {
 
