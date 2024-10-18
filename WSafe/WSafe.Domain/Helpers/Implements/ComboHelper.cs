@@ -636,7 +636,7 @@ namespace WSafe.Domain.Helpers.Implements
         public IEnumerable<SelectListItem> GetAllEvaluationConcepts(int org, int type)
         {
             var list = _empresaContext.EvaluationConcepts
-                .Where(a => a.OrganizationID == org && (int)a.VulnerabilitiType == type)
+                .Where(a => a.OrganizationID == org && (int)a.VulnerabilityType == type)
                 .Select(m => new SelectListItem
                 {
                     Text = m.Name,
