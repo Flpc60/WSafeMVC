@@ -593,134 +593,17 @@ namespace WSafe.Domain.Helpers.Implements
 
             return model;
         }
-        //public async Task<IEnumerable<VulnerabilitiesAnalysisVM>> ToVulnerabilitiesVM(int _orgID)
-        //{
-        //    var model = new List<VulnerabilitiesAnalysisVM>();
-
-        //    var consolidate = await _empresaContext.Vulnerabilities
-        //        .Where(v => v.OrganizationID == _orgID)
-        //        .Include(v => v.Amenaza)
-        //        .Include(v => v.EvaluationConcept)
-        //        .OrderBy(v => v.VulnerabilityType)
-        //        .OrderBy(v => v.CategoryAmenaza)
-        //        .OrderBy(v => v.AmenazaID)
-        //        .OrderBy(v => v.EvaluationConceptID)
-        //        .ThenBy(v => v.EvaluationConcept.EvaluationPerson)
-        //        .ThenBy(v => v.EvaluationConcept.EvaluationRecurso)
-        //        .ThenBy(v => v.EvaluationConcept.EvaluationSystem)
-        //        .ToListAsync();
-
-        //    foreach (var vulnera in consolidate.GroupBy(v =>v.CategoryAmenaza))
-        //    {
-        //        string type = _gestorHelper.GetVulnerabilityType((int)(vulnera.First()?.VulnerabilityType));
-        //        string categoria = _gestorHelper.GetAmenazaCategory(vulnera.Key);
-        //        foreach (var amenaza in vulnera.GroupBy(a => a.AmenazaID))
-        //        {
-        //            string amenazaName = amenaza.First()?.Amenaza.Name ?? " ";
-        //            string observation = amenaza.First()?.Observation ?? " ";
-        //            double sum = 0;
-        //            int i = 0;
-        //            string aspect = string.Empty;
-        //            string response = _gestorHelper.GetResponse(amenaza.First().Response);
-        //            decimal result = _gestorHelper.GetResponseValue(amenaza.First().Response);
-        //            foreach (var evalua in amenaza.GroupBy(e => e.EvaluationConcept.EvaluationPerson))
-        //            {
-        //                string name = evalua.First()?.EvaluationConcept.Name ?? " ";
-        //                if (evalua.Key == EvaluationPersonas.Organizacional)
-        //                {
-        //                    aspect = "Calificación Gestión Organizacional";
-        //                    sum += evalua.Sum(item =>
-        //                        item.Response == ScalesCalification.Sí ? 1.0 :
-        //                        item.Response == ScalesCalification.Parcial ? 0.5 : 0.0
-        //                    );
-        //                    i++;
-        //                }
-        //                if (evalua.Key == EvaluationPersonas.Entrenamiento)
-        //                {
-        //                    aspect = "Calificación Capacitación y Entrenaniento";
-        //                    sum += evalua.Sum(item =>
-        //                        item.Response == ScalesCalification.Sí ? 1.0 :
-        //                        item.Response == ScalesCalification.Parcial ? 0.5 : 0.0
-        //                    );
-        //                    i++;
-        //                }
-        //                if (evalua.Key == EvaluationPersonas.Seguridad)
-        //                {
-        //                    aspect = "Calificación Características de Seguridad";
-        //                    sum += evalua.Sum(item =>
-        //                        item.Response == ScalesCalification.Sí ? 1.0 :
-        //                        item.Response == ScalesCalification.Parcial ? 0.5 : 0.0
-        //                    );
-        //                    i++;
-        //                }
-
-        //                if (i > 0)
-        //                {
-        //                    var vulnerabilityVM = new VulnerabilitiesAnalysisVM
-        //                    {
-        //                        ID = 0,
-        //                        Type = type,
-        //                        CategoryAmenaza = categoria,
-        //                        EvaluationConcept = aspect,
-        //                        Name = name,
-        //                        Responses = new Dictionary<string, ResponseVM>
-        //                        {
-        //                            [amenazaName] = new ResponseVM
-        //                            {
-        //                                ID = 0,
-        //                                Amenaza = amenazaName,
-        //                                Response = response,
-        //                                Observation = observation,
-        //                                Result = result
-        //                            }
-        //                        }
-        //                    };
-        //                    model.Add(vulnerabilityVM);
-        //                }
-        //            }
-
-        //            if (i > 0)
-        //            {
-        //                var vulnerabilitySumVM = new VulnerabilitiesAnalysisVM
-        //                {
-        //                    ID = 0,
-        //                    Type = type,
-        //                    CategoryAmenaza = categoria,
-        //                    EvaluationConcept = aspect,
-        //                    Name = aspect,
-        //                    Responses = new Dictionary<string, ResponseVM>
-        //                    {
-        //                        [amenazaName] = new ResponseVM
-        //                        {
-        //                            ID = 0,
-        //                            Amenaza = amenazaName,
-        //                            Response = result.ToString(),
-        //                            Observation = _gestorHelper.GetInterpretation((double)result),
-        //                            Result = result
-        //                        }
-        //                    }
-        //                };
-
-        //                model.Add(vulnerabilitySumVM);
-        //            }
-        //        }
-        //    }
-
-        //    return model;
-        //}
         public async Task<IEnumerable<VulnerabilitiesAnalysisVM>> ToVulnerabilitiesVM(int _orgID)
         {
             var model = new List<VulnerabilitiesAnalysisVM>();
 
             var consolidate = await _empresaContext.Vulnerabilities
-                .Where(v => v.OrganizationID == _orgID)
+                .Where(v => v.OrganizationID == _orgID && v.VulnerabilityType == VulnerabilityTypes.Personas)
                 .Include(v => v.Amenaza)
                 .Include(v => v.EvaluationConcept)
-                .OrderBy(v => v.VulnerabilityType)
-                .ThenBy(v => v.CategoryAmenaza)
+                .OrderBy(v => v.CategoryAmenaza)
                 .ThenBy(v => v.AmenazaID)
                 .ThenBy(v => v.EvaluationConceptID)
-                .ThenBy(v => v.EvaluationConcept.EvaluationPerson)
                 .ToListAsync();
 
             foreach (var vulnera in consolidate
@@ -731,21 +614,25 @@ namespace WSafe.Domain.Helpers.Implements
                 string amenazaName = vulnera.First()?.Amenaza.Name ?? " ";
                 string observation = vulnera.First()?.Observation ?? " ";
 
-                // Mantendremos variables para calcular el promedio del aspecto actual
                 double sumAspect = 0;
                 int countAspect = 0;
-                string lastAspect = null; // Para detectar el cambio de aspecto
 
-                foreach (var evalua in vulnera.GroupBy(e => e.EvaluationConcept.EvaluationPerson))
+                double mainOrganiza = 0;
+                double mainTrain = 0;
+                double mainSecurity = 0;
+
+                string lastAspect = null;
+
+                foreach (var evalua in vulnera.GroupBy(e => e.EvaluationConceptID))
                 {
                     string name = evalua.First()?.EvaluationConcept.Name ?? " ";
+                    EvaluationPersonas aspectName = (EvaluationPersonas)evalua.First().EvaluationConcept.EvaluationPerson;
                     double sum = 0;
                     int count = 0;
-                    string aspect = _gestorHelper.GetAspectPerson((EvaluationPersonas)evalua.Key);
+                    string aspect = _gestorHelper.GetAspectPerson(aspectName);
 
                     if (lastAspect != null && lastAspect != aspect)
                     {
-                        // Añadir el registro del promedio del aspecto anterior
                         if (countAspect > 0)
                         {
                             double promedioAspect = sumAspect / countAspect;
@@ -769,26 +656,24 @@ namespace WSafe.Domain.Helpers.Implements
                                 }
                             };
                             model.Add(vulnerabilitySumVM);
-                        }
 
-                        // Resetear acumuladores para el nuevo aspecto
+                            if (lastAspect == "Calificación Gestión Organizacional") { mainOrganiza = promedioAspect; }
+                            if (lastAspect == "Calificación Capacitación y Entrenamiento") { mainTrain = promedioAspect; }
+                            if (lastAspect == "Calificación Características de Seguridad") { mainSecurity = promedioAspect; }
+                        }
                         sumAspect = 0;
                         countAspect = 0;
                     }
 
-                    // Calcular suma de las respuestas por cada `EvaluationPerson`
                     sum = evalua.Sum(item =>
                         item.Response == ScalesCalification.Sí ? 1.0 :
                         item.Response == ScalesCalification.Parcial ? 0.5 : 0.0
                     );
                     count = evalua.Count();
-
-                    // Agregar a los totales del aspecto actual
                     sumAspect += sum;
                     countAspect += count;
                     lastAspect = aspect;
 
-                    // Añadir registro por `EvaluationConcept.EvaluationPerson`
                     var vulnerabilityVM = new VulnerabilitiesAnalysisVM
                     {
                         ID = 0,
@@ -811,7 +696,6 @@ namespace WSafe.Domain.Helpers.Implements
                     model.Add(vulnerabilityVM);
                 }
 
-                // Agregar el último promedio cuando termine el bucle por los aspectos
                 if (countAspect > 0)
                 {
                     double promedioAspectFinal = ((float)(sumAspect / countAspect));
@@ -835,6 +719,91 @@ namespace WSafe.Domain.Helpers.Implements
                         }
                     };
                     model.Add(finalVulnerabilitySumVM);
+
+                    var organizaVulnerabilityVM = new VulnerabilitiesAnalysisVM
+                    {
+                        ID = 0,
+                        Type = type,
+                        CategoryAmenaza = categoria,
+                        EvaluationConcept = $"Gestión Organizacional",
+                        Name = $"Gestión Organizacional",
+                        Responses = new Dictionary<string, ResponseVM>
+                        {
+                            [amenazaName] = new ResponseVM
+                            {
+                                ID = 0,
+                                Amenaza = amenazaName,
+                                Response = mainOrganiza.ToString(),
+                                Observation = _gestorHelper.GetInterpretation(mainOrganiza),
+                                Result = (decimal)mainOrganiza
+                            }
+                        }
+                    };
+                    model.Add(organizaVulnerabilityVM);
+
+                    var trainVulnerabilityVM = new VulnerabilitiesAnalysisVM
+                    {
+                        ID = 0,
+                        Type = type,
+                        CategoryAmenaza = categoria,
+                        EvaluationConcept = $"Capacitación y Entrenamiento",
+                        Name = $"Capacitación y Entrenamiento",
+                        Responses = new Dictionary<string, ResponseVM>
+                        {
+                            [amenazaName] = new ResponseVM
+                            {
+                                ID = 0,
+                                Amenaza = amenazaName,
+                                Response = mainTrain.ToString(),
+                                Observation = _gestorHelper.GetInterpretation(mainTrain),
+                                Result = (decimal)mainTrain
+                            }
+                        }
+                    };
+                    model.Add(trainVulnerabilityVM);
+
+                    var securityVulnerabilityVM = new VulnerabilitiesAnalysisVM
+                    {
+                        ID = 0,
+                        Type = type,
+                        CategoryAmenaza = categoria,
+                        EvaluationConcept = $"Características de Seguridad",
+                        Name = $"Características de Seguridad",
+                        Responses = new Dictionary<string, ResponseVM>
+                        {
+                            [amenazaName] = new ResponseVM
+                            {
+                                ID = 0,
+                                Amenaza = amenazaName,
+                                Response = mainSecurity.ToString(),
+                                Observation = _gestorHelper.GetInterpretation(mainSecurity),
+                                Result = (decimal)mainSecurity
+                            }
+                        }
+                    };
+                    model.Add(securityVulnerabilityVM);
+                    double mainResume = mainOrganiza + mainTrain + mainSecurity;
+
+                    var resumeVulnerabilityVM = new VulnerabilitiesAnalysisVM
+                    {
+                        ID = 0,
+                        Type = type,
+                        CategoryAmenaza = categoria,
+                        EvaluationConcept = $"RESULTADO",
+                        Name = $"RESULTADO",
+                        Responses = new Dictionary<string, ResponseVM>
+                        {
+                            [amenazaName] = new ResponseVM
+                            {
+                                ID = 0,
+                                Amenaza = amenazaName,
+                                Response = mainResume.ToString(),
+                                Observation = _gestorHelper.GetVulnerabilityInterpretation(mainResume),
+                                Result = (decimal)mainResume
+                            }
+                        }
+                    };
+                    model.Add(resumeVulnerabilityVM);
                 }
             }
 
