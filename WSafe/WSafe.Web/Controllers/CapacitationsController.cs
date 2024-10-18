@@ -17,9 +17,11 @@ using WSafe.Domain.Services.Implements;
 
 namespace WSafe.Web.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class CapacitationsController : Controller
     {
-        //  Capacitacionew en el SG-SST ...
         private int _clientID;
         private int _orgID;
         private string _year;
