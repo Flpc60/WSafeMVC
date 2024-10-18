@@ -1467,11 +1467,10 @@ function showRiskLevelAmenazas() {
         }
     });
 }
-function showVulnerabilitiesDetail(id) {
+function showVulnerabilitiesDetail() {
 
     $.ajax({
         url: "/Vulnerabilities/GetVulnerabilitiesDetail",
-        data: { id: id },
         type: "GET",
         contentType: "application/json;charset=utf-8",
         dataType: "json",

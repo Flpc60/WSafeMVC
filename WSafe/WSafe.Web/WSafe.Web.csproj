@@ -371,6 +371,10 @@
     <Compile Include="Migrations\202410041812380_UpdOrganizationTable.Designer.cs">
       <DependentUpon>202410041812380_UpdOrganizationTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202410172350481_UpdEvaluationConcept.cs" />
+    <Compile Include="Migrations\202410172350481_UpdEvaluationConcept.Designer.cs">
+      <DependentUpon>202410172350481_UpdEvaluationConcept.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -1086,6 +1090,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202410041812380_UpdOrganizationTable.resx">
       <DependentUpon>202410041812380_UpdOrganizationTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202410172350481_UpdEvaluationConcept.resx">
+      <DependentUpon>202410172350481_UpdEvaluationConcept.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
