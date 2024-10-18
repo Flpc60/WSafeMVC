@@ -208,7 +208,7 @@ namespace WSafe.Web.Controllers
 
         private void ResetEvaluationFieldsByType(EvaluationConcept model)
         {
-            switch (model.VulnerabilitiType)
+            switch (model.VulnerabilityType)
             {
                 case VulnerabilityTypes.Personas:
                     model.EvaluationRecurso = 0;
@@ -369,7 +369,7 @@ namespace WSafe.Web.Controllers
                     .Include(mi => mi.MedidasIntervencion)
                     .OrderByDescending(cr => cr.NivelRiesgo)
                     .ToListAsync();
-                var modelo = await _emergencyConverter.ToVulnerabilitiesVM(_orgID, id);
+                var modelo = await _emergencyConverter.ToVulnerabilitiesVM(_orgID);
                 var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == 8);
                 ViewBag.formato = document.Formato;
                 ViewBag.estandar = document.Estandar;
@@ -424,10 +424,10 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetVulnerabilitiesDetail(int id)
+        public async Task<ActionResult> GetVulnerabilitiesDetail()
         {
             _orgID = (int)Session["orgID"];
-            var model = await _emergencyConverter.ToVulnerabilitiesVM(_orgID, id);
+            var model = await _emergencyConverter.ToVulnerabilitiesVM(_orgID);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
     }

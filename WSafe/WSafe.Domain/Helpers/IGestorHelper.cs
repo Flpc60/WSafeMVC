@@ -57,5 +57,6 @@ namespace WSafe.Domain.Helpers
         string GetRiskLevelInterpretation(string calification, string result1, string result2, string result3);
         string GetResponse(ScalesCalification response);
         decimal GetResponseValue(ScalesCalification response);
+        string GetAspectPerson(EvaluationPersonas aspect);
     }
 }

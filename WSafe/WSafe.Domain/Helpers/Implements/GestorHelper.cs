@@ -1224,5 +1224,22 @@ namespace WSafe.Domain.Helpers.Implements
                     return 0.0m;
             }
         }
+        public string GetAspectPerson(EvaluationPersonas aspect)
+        {
+            switch (aspect)
+            {
+                case EvaluationPersonas.Organizacional:
+                    return "Calificación Gestión Organizacional";
+
+                case EvaluationPersonas.Entrenamiento:
+                    return "Calificación Capacitación y Entrenamiento";
+
+                case EvaluationPersonas.Seguridad:
+                    return "Calificación Características de Seguridad";
+
+                default:
+                    return "Aspecto no especificado";
+            }
+        }
     }
 }

@@ -15,6 +15,6 @@ namespace WSafe.Domain.Helpers
         IEnumerable<VulnerabilityAnalisisVM> GetConsolidateVulnerability(int id, int _orgID);
         IEnumerable<CalificationAmenazaVM> ToListCalificationAmenazaVM(IEnumerable<CalificationAmenaza> list, int _orgID);
         Task<IEnumerable<RiskLevelVM>> ToListRiskLevelVM(int _orgID);
-        Task<IEnumerable<VulnerabilitiesAnalysisVM>> ToVulnerabilitiesVM(int _orgID, int id);
+        Task<IEnumerable<VulnerabilitiesAnalysisVM>> ToVulnerabilitiesVM(int _orgID);
     }
 }
