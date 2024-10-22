@@ -1241,5 +1241,39 @@ namespace WSafe.Domain.Helpers.Implements
                     return "Aspecto no especificado";
             }
         }
+        public string GetAspectResource(EvaluationRecursos aspect)
+        {
+            switch (aspect)
+            {
+                case EvaluationRecursos.Suministros:
+                    return "Calificación Suministros";
+
+                case EvaluationRecursos.Edificaciones:
+                    return "Calificación Edificaciones";
+
+                case EvaluationRecursos.Equipos:
+                    return "Calificación Equipos";
+
+                default:
+                    return "Aspecto no especificado";
+            }
+        }
+        public string GetAspectSystem(EvaluationSystems aspect)
+        {
+            switch (aspect)
+            {
+                case EvaluationSystems.Servicios:
+                    return "Calificación Servicios";
+
+                case EvaluationSystems.Sistemas:
+                    return "Calificación Sistemas alternos";
+
+                case EvaluationSystems.Recuperacion:
+                    return "Calificación Recuperación";
+
+                default:
+                    return "Aspecto no especificado";
+            }
+        }
     }
 }
