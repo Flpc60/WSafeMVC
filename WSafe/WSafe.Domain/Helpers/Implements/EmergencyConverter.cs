@@ -593,12 +593,12 @@ namespace WSafe.Domain.Helpers.Implements
 
             return model;
         }
-        public async Task<IEnumerable<VulnerabilitiesAnalysisVM>> ToVulnerabilitiesVM(int _orgID)
+        public async Task<IEnumerable<VulnerabilitiesAnalysisVM>> ToVulnerabilitiesVM(int _orgID, int id)
         {
             var model = new List<VulnerabilitiesAnalysisVM>();
 
             var consolidate = await _empresaContext.Vulnerabilities
-                .Where(v => v.OrganizationID == _orgID && v.VulnerabilityType == VulnerabilityTypes.Personas)
+                .Where(v => v.OrganizationID == _orgID && (int)v.VulnerabilityType == id)
                 .Include(v => v.Amenaza)
                 .Include(v => v.EvaluationConcept)
                 .OrderBy(v => v.CategoryAmenaza)
@@ -617,19 +617,41 @@ namespace WSafe.Domain.Helpers.Implements
                 double sumAspect = 0;
                 int countAspect = 0;
 
-                double mainOrganiza = 0;
-                double mainTrain = 0;
-                double mainSecurity = 0;
+                double main1 = 0;
+                double main2 = 0;
+                double main3 = 0;
+                string aspect1 = string.Empty;
+                string aspect2 = string.Empty;
+                string aspect3 = string.Empty;
 
                 string lastAspect = null;
 
                 foreach (var evalua in vulnera.GroupBy(e => e.EvaluationConceptID))
                 {
                     string name = evalua.First()?.EvaluationConcept.Name ?? " ";
-                    EvaluationPersonas aspectName = (EvaluationPersonas)evalua.First().EvaluationConcept.EvaluationPerson;
+                    string aspect = string.Empty;
+
+                    if(id == 1)
+                    {
+                        EvaluationPersonas aspectName = (EvaluationPersonas)evalua.First().EvaluationConcept.EvaluationPerson;
+                        aspect = _gestorHelper.GetAspectPerson(aspectName);
+                    }
+
+                    if (id == 2)
+                    {
+                        EvaluationRecursos aspectName = (EvaluationRecursos)evalua.First().EvaluationConcept.EvaluationRecurso;
+                        aspect = _gestorHelper.GetAspectResource(aspectName);
+                    }
+
+
+                    if (id == 3)
+                    {
+                        EvaluationSystems aspectName = (EvaluationSystems)evalua.First().EvaluationConcept.EvaluationSystem;
+                        aspect = _gestorHelper.GetAspectSystem(aspectName);
+                    }
+
                     double sum = 0;
                     int count = 0;
-                    string aspect = _gestorHelper.GetAspectPerson(aspectName);
 
                     if (lastAspect != null && lastAspect != aspect)
                     {
@@ -657,9 +679,17 @@ namespace WSafe.Domain.Helpers.Implements
                             };
                             model.Add(vulnerabilitySumVM);
 
-                            if (lastAspect == "Calificación Gestión Organizacional") { mainOrganiza = promedioAspect; }
-                            if (lastAspect == "Calificación Capacitación y Entrenamiento") { mainTrain = promedioAspect; }
-                            if (lastAspect == "Calificación Características de Seguridad") { mainSecurity = promedioAspect; }
+                            if (lastAspect == "Calificación Gestión Organizacional") { main1 = promedioAspect; aspect1 = "Gestión Organizacional"; }
+                            if (lastAspect == "Calificación Capacitación y Entrenamiento") { main2 = promedioAspect; aspect2 = "Capacitación y Entrenamiento"; }
+                            if (lastAspect == "Calificación Características de Seguridad") { main3 = promedioAspect; aspect3 = "Características de Seguridad"; }
+
+                            if (lastAspect == "Calificación Suministros") { main1 = promedioAspect; aspect1 = "Suministros"; }
+                            if (lastAspect == "Calificación Edificaciones") { main2 = promedioAspect; aspect2 = "Edificaciones"; }
+                            if (lastAspect == "Calificación Equipos") { main3 = promedioAspect; aspect3 = "Equipos"; }
+
+                            if (lastAspect == "Calificación Servicios") { main1 = promedioAspect; aspect1 = "Servicios"; }
+                            if (lastAspect == "Calificación Sistemas alternos") { main2 = promedioAspect; aspect2 = "Sistemas alternos"; }
+                            if (lastAspect == "Calificación Recuperación") { main3 = promedioAspect; aspect3 = "Recuperación"; }
                         }
                         sumAspect = 0;
                         countAspect = 0;
@@ -725,17 +755,17 @@ namespace WSafe.Domain.Helpers.Implements
                         ID = 0,
                         Type = type,
                         CategoryAmenaza = categoria,
-                        EvaluationConcept = $"Gestión Organizacional",
-                        Name = $"Gestión Organizacional",
+                        EvaluationConcept = aspect1,
+                        Name = aspect1,
                         Responses = new Dictionary<string, ResponseVM>
                         {
                             [amenazaName] = new ResponseVM
                             {
                                 ID = 0,
                                 Amenaza = amenazaName,
-                                Response = mainOrganiza.ToString(),
-                                Observation = _gestorHelper.GetInterpretation(mainOrganiza),
-                                Result = (decimal)mainOrganiza
+                                Response = main1.ToString(),
+                                Observation = _gestorHelper.GetInterpretation(main1),
+                                Result = (decimal)main1
                             }
                         }
                     };
@@ -746,17 +776,17 @@ namespace WSafe.Domain.Helpers.Implements
                         ID = 0,
                         Type = type,
                         CategoryAmenaza = categoria,
-                        EvaluationConcept = $"Capacitación y Entrenamiento",
-                        Name = $"Capacitación y Entrenamiento",
+                        EvaluationConcept = aspect2,
+                        Name = aspect2,
                         Responses = new Dictionary<string, ResponseVM>
                         {
                             [amenazaName] = new ResponseVM
                             {
                                 ID = 0,
                                 Amenaza = amenazaName,
-                                Response = mainTrain.ToString(),
-                                Observation = _gestorHelper.GetInterpretation(mainTrain),
-                                Result = (decimal)mainTrain
+                                Response = main2.ToString(),
+                                Observation = _gestorHelper.GetInterpretation(main2),
+                                Result = (decimal)main2
                             }
                         }
                     };
@@ -767,22 +797,22 @@ namespace WSafe.Domain.Helpers.Implements
                         ID = 0,
                         Type = type,
                         CategoryAmenaza = categoria,
-                        EvaluationConcept = $"Características de Seguridad",
-                        Name = $"Características de Seguridad",
+                        EvaluationConcept = aspect3,
+                        Name = aspect3,
                         Responses = new Dictionary<string, ResponseVM>
                         {
                             [amenazaName] = new ResponseVM
                             {
                                 ID = 0,
                                 Amenaza = amenazaName,
-                                Response = mainSecurity.ToString(),
-                                Observation = _gestorHelper.GetInterpretation(mainSecurity),
-                                Result = (decimal)mainSecurity
+                                Response = main3.ToString(),
+                                Observation = _gestorHelper.GetInterpretation(main3),
+                                Result = (decimal)main3
                             }
                         }
                     };
                     model.Add(securityVulnerabilityVM);
-                    double mainResume = mainOrganiza + mainTrain + mainSecurity;
+                    double mainResume = main1 + main2 + main3;
 
                     var resumeVulnerabilityVM = new VulnerabilitiesAnalysisVM
                     {

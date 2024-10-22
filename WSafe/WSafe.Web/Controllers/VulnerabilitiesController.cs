@@ -369,7 +369,7 @@ namespace WSafe.Web.Controllers
                     .Include(mi => mi.MedidasIntervencion)
                     .OrderByDescending(cr => cr.NivelRiesgo)
                     .ToListAsync();
-                var modelo = await _emergencyConverter.ToVulnerabilitiesVM(_orgID);
+                var modelo = await _emergencyConverter.ToVulnerabilitiesVM(_orgID, 1);
                 var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == 8);
                 ViewBag.formato = document.Formato;
                 ViewBag.estandar = document.Estandar;
@@ -427,7 +427,7 @@ namespace WSafe.Web.Controllers
         public async Task<ActionResult> GetVulnerabilitiesDetail()
         {
             _orgID = (int)Session["orgID"];
-            var model = await _emergencyConverter.ToVulnerabilitiesVM(_orgID);
+            var model = await _emergencyConverter.ToVulnerabilitiesVM(_orgID, 2);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
     }

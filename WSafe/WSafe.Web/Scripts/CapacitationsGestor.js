@@ -1468,7 +1468,6 @@ function showRiskLevelAmenazas() {
     });
 }
 function showVulnerabilitiesDetail() {
-
     $.ajax({
         url: "/Vulnerabilities/GetVulnerabilitiesDetail",
         type: "GET",
@@ -1476,15 +1475,8 @@ function showVulnerabilitiesDetail() {
         dataType: "json",
         async: true,
         success: function (response) {
-            let html = '';
             if (response.length > 0) {
-                html += `
-                <div class="table-responsive showConsolidate" tabindex="-1" style="background-color: azure; width:100%;">
-                    <table class="table table-striped table-bordered">
-                        <thead>
-                            <tr style="background-color:gainsboro;">
-                                <th>PUNTO A EVALUAR</th>`;
-
+                // Crear un set de todas las amenazas
                 let threats = new Set();
                 response.forEach(function (item) {
                     Object.keys(item.Responses).forEach(function (threat) {
@@ -1492,39 +1484,94 @@ function showVulnerabilitiesDetail() {
                     });
                 });
 
-                threats.forEach(function (threat) {
+                // Convertir el set a un array para trabajar con índices
+                let threatArray = Array.from(threats);
+
+                // Inicializar la matriz solo con los nombres (Name) basados en la primera amenaza
+                let matrix = [];
+                let firstThreat = threatArray[0]; // La primera amenaza para generar las filas
+
+                response.forEach(function (item) {
+                    // Crear filas solo si la respuesta es de la primera amenaza
+                    if (item.Responses.hasOwnProperty(firstThreat)) {
+                        // Crear una fila de la matriz para cada Name
+                        let row = new Array(threatArray.length * 2 + 1).fill('');  // Añadir 1 para el Name y 2 columnas por cada amenaza
+                        row[0] = item.Name;  // El Name en la primera columna
+                        matrix.push(row);
+                    }
+                });
+
+                // Función para encontrar la fila correspondiente al Name y colocar el resultado en la columna de la amenaza
+                function placeResultInRow(name, responseObj, threatIndex) {
+                    // Buscar la fila donde el Name coincida
+                    let targetRow = matrix.find(row => row[0] === name);
+
+                    if (targetRow) {
+                        let responsePosition = threatIndex * 2 + 1;  // Columna para la respuesta
+                        let observationPosition = responsePosition + 1;  // Columna para la observación
+
+                        // Colocar la respuesta y la observación en la fila correspondiente
+                        targetRow[responsePosition] = responseObj.Response.substring(0, 4);  // Tomar los 4 primeros caracteres
+                        targetRow[observationPosition] = responseObj.Observation;
+                    }
+                }
+
+                // Llenar la matriz con las respuestas y observaciones para cada amenaza, sin agregar más filas
+                threatArray.forEach(function (threat, threatIndex) {
+                    response.forEach(function (item) {
+                        let responseObj = item.Responses[threat];
+                        if (responseObj) {
+                            // Colocar el resultado correspondiente en la fila de cada Name, pero solo en la columna de la amenaza actual
+                            placeResultInRow(item.Name, responseObj, threatIndex);
+                        }
+                    });
+                });
+
+                // Generar el HTML para la tabla
+                let html = `
+                <div class="table-responsive showConsolidate" tabindex="-1" style="background-color: azure; width:100%;">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr style="background-color:gainsboro;">
+                                <th>PUNTO A EVALUAR</th>`;
+
+                // Añadir las columnas de las amenazas
+                threatArray.forEach(function (threat) {
                     html += `<th colspan="2">${threat}</th>`;
                 });
 
-                html += `</tr><tr style="background-color:lightgray;"><th colspan="1">`;
-                threats.forEach(function () {
+                html += `</tr><tr style="background-color:lightgray;"><th></th>`;
+                // Añadir las subcolumnas de Rta y Observación
+                threatArray.forEach(function () {
                     html += `<th>Rta</th><th>Observación</th>`;
                 });
                 html += `</tr></thead><tbody>`;
 
-                response.forEach(function (item) {
-                    html += `<tr><td>${item.Name}</td>`;
-
-                    threats.forEach(function (threat) {
-                        let responseObj = item.Responses[threat];
-                        let color = '';
-
-                        if (responseObj) {
-                            if (responseObj.Observation === "MALO") { color = "red"; }
-                            else if (responseObj.Observation === "REGULAR") { color = "yellow"; }
-                            else if (responseObj.Observation === "BUENO") { color = "green"; }
-
-                            html += `<td>${responseObj.Response}</td>
-                                     <td style="background-color: ${color}; color: black;">${responseObj.Observation}</td>`;
-                        } else {
-                            html += `<td colspan="2"></td>`;
+                // Listar las filas de la matriz
+                matrix.forEach(function (row) {
+                    html += `<tr>`;
+                    row.forEach(function (cell, index) {
+                        let cellValue = cell || '';  // Si la celda está vacía, poner una celda vacía
+                        if (index === 0) {  // Primera columna con los Name
+                            html += `<td>${cellValue}</td>`;
+                        } else {  // Celdas de respuesta y observación
+                            let color = '';
+                            if (index % 2 === 0) {  // Celdas de observación
+                                if (cellValue === "MALO") { color = "red"; }
+                                else if (cellValue === "REGULAR") { color = "yellow"; }
+                                else if (cellValue === "BUENO") { color = "green"; }
+                                html += `<td style="background-color: ${color}; color: black;">${cellValue}</td>`;
+                            } else {  // Celdas de respuesta
+                                html += `<td>${cellValue}</td>`;
+                            }
                         }
                     });
-
                     html += `</tr>`;
                 });
 
                 html += `</tbody></table></div>`;
+
+                // Mostrar la tabla en el contenedor correspondiente
                 $('.showVulnerabilitiesDetail').html(html);
                 $('.showConsolidate').focus();
             } else {
