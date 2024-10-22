@@ -58,5 +58,7 @@ namespace WSafe.Domain.Helpers
         string GetResponse(ScalesCalification response);
         decimal GetResponseValue(ScalesCalification response);
         string GetAspectPerson(EvaluationPersonas aspect);
+        string GetAspectResource(EvaluationRecursos aspect);
+        string GetAspectSystem(EvaluationSystems aspect);
     }
 }
