@@ -424,10 +424,10 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetVulnerabilitiesDetail()
+        public async Task<ActionResult> GetVulnerabilitiesDetail(int id)
         {
             _orgID = (int)Session["orgID"];
-            var model = await _emergencyConverter.ToVulnerabilitiesVM(_orgID, 2);
+            var model = await _emergencyConverter.ToVulnerabilitiesVM(_orgID, id);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
     }
