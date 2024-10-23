@@ -343,11 +343,17 @@ namespace WSafe.Web.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpGet]
-        public async Task<ActionResult> PrintVulnerabilitiesToPdf(int id)
+        [HttpPost]
+        public async Task<ActionResult> PrintVulnerabilitiesToPdf(string calification, string vulnera1, string vulnera2, string vulnera3, string riskLevel)
         {
             try
             {
+                string decodedCalification = Uri.UnescapeDataString(calification);
+                string decodedVulnera1 = Uri.UnescapeDataString(vulnera1);
+                string decodedVulnera2 = Uri.UnescapeDataString(vulnera2);
+                string decodedVulnera3 = Uri.UnescapeDataString(vulnera3);
+                string decodedRiskLevel = Uri.UnescapeDataString(riskLevel);
+
                 _clientID = (int)Session["clientID"];
                 _orgID = (int)Session["orgID"];
                 _year = (string)Session["year"];
@@ -362,22 +368,25 @@ namespace WSafe.Web.Controllers
                     Directory.CreateDirectory(path);
                 }
                 Random random = new Random();
-                var filename = "Matriz anaálisis vulnerabilidades" + random.Next(1, 100) + ".Pdf";
+                var filename = "Matriz_analisis_vulnerabilidades_" + random.Next(1, 100) + ".pdf";
                 var filePathName = path + filename;
-                var list = await _empresaContext.Riesgos
-                    .Where(r => r.OrganizationID == _orgID)
-                    .Include(mi => mi.MedidasIntervencion)
-                    .OrderByDescending(cr => cr.NivelRiesgo)
-                    .ToListAsync();
-                var modelo = await _emergencyConverter.ToVulnerabilitiesVM(_orgID, 1);
-                var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == 8);
+                var model = new VulnerabilitiesPdfVM
+                {
+                    Calification = calification,
+                    Vulnera1 = vulnera1,
+                    Vulnera2 = vulnera2,
+                    Vulnera3 = vulnera3,
+                    RiskLevel = riskLevel
+                };
+
+                var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == 17);
                 ViewBag.formato = document.Formato;
                 ViewBag.estandar = document.Estandar;
                 ViewBag.titulo = document.Titulo;
                 ViewBag.version = document.Version;
                 ViewBag.fecha = DateTime.Now;
-                var report = new ViewAsPdf("GetAll");
-                report.Model = modelo;
+                var report = new ViewAsPdf("Details");
+                report.Model = model;
                 report.FileName = filePathName;
                 report.PageSize = Rotativa.Options.Size.A4;
                 report.PageOrientation = Rotativa.Options.Orientation.Landscape;
@@ -389,13 +398,13 @@ namespace WSafe.Web.Controllers
                 //Generar archivo de movimiento
                 var fullName = filename;
                 var type = Path.GetExtension(filename).ToUpper();
-                var descript = "Matriz de riesgos";
+                var descript = "Matriz de análisis de vulnerabilidades";
                 var userID = (int)Session["userID"];
                 Movimient movimient = new Movimient()
                 {
                     ID = 0,
                     OrganizationID = _orgID,
-                    NormaID = organization.StandardMatrixRisk,
+                    NormaID = organization.StandardEmergenciesPLan,
                     UserID = userID,
                     Descripcion = descript,
                     Document = fullName,
@@ -408,18 +417,18 @@ namespace WSafe.Web.Controllers
                 };
                 _empresaContext.Movimientos.Add(movimient);
                 // Generar trazabilidad 
-                var model1 = _converterHelper.Traceability(organization.StandardMatrixRisk, year, _orgID, fullName);
+                var model1 = _converterHelper.Traceability(organization.StandardEmergenciesPLan, year, _orgID, fullName);
                 if (model1 != null)
                 {
                     _empresaContext.SigueAnnualPlans.Add(model1);
                 }
 
                 _empresaContext.SaveChanges();
-                return report;
+                return Json(new { fileName = filename });
             }
             catch (Exception ex)
             {
-                return View("Error", new HandleErrorInfo(ex, "Riesgos", "Index"));
+                return View("Error", new HandleErrorInfo(ex, "Home", "Index"));
             }
         }
 

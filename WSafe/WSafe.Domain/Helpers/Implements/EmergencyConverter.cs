@@ -682,17 +682,56 @@ namespace WSafe.Domain.Helpers.Implements
                             };
                             model.Add(vulnerabilitySumVM);
 
-                            if (lastAspect == "Calificación Gestión Organizacional") { count1 = countAspect; main1 = promedioAspect; aspect1 = "Gestión Organizacional"; }
-                            if (lastAspect == "Calificación Capacitación y Entrenamiento") { count2 = countAspect;  main2 = promedioAspect; aspect2 = "Capacitación y Entrenamiento"; }
-                            if (lastAspect == "Calificación Características de Seguridad") { count3 = countAspect; main3 = promedioAspect; aspect3 = "Características de Seguridad"; }
-
-                            if (lastAspect == "Calificación Suministros") { main1 = promedioAspect; aspect1 = "Suministros"; }
-                            if (lastAspect == "Calificación Edificaciones") { main2 = promedioAspect; aspect2 = "Edificaciones"; }
-                            if (lastAspect == "Calificación Equipos") { main3 = promedioAspect; aspect3 = "Equipos"; }
-
-                            if (lastAspect == "Calificación Servicios") { main1 = promedioAspect; aspect1 = "Servicios"; }
-                            if (lastAspect == "Calificación Sistemas alternos") { main2 = promedioAspect; aspect2 = "Sistemas alternos"; }
-                            if (lastAspect == "Calificación Recuperación") { main3 = promedioAspect; aspect3 = "Recuperación"; }
+                            switch (lastAspect)
+                            {
+                                case "Calificación Gestión Organizacional":
+                                    count1 = countAspect; 
+                                    main1 = promedioAspect; 
+                                    aspect1 = "Gestión Organizacional";
+                                    break;
+                                case "Calificación Capacitación y Entrenamiento":
+                                    count2 = countAspect; 
+                                    main2 = promedioAspect; 
+                                    aspect2 = "Capacitación y Entrenamiento";
+                                    break;
+                                case "Calificación Características de Seguridad":
+                                    count3 = countAspect; 
+                                    main3 = promedioAspect; 
+                                    aspect3 = "Características de Seguridad";
+                                    break;
+                                case "Calificación Suministros":
+                                    count1 = countAspect;
+                                    main1 = promedioAspect;
+                                    aspect1 = "Suministros";
+                                    break;
+                                case "Calificación Edificaciones":
+                                    count2 = countAspect;
+                                    main2 = promedioAspect;
+                                    aspect2 = "Edificaciones";
+                                    break;
+                                case "Calificación Equipos":
+                                    count3 = countAspect;
+                                    main3 = promedioAspect;
+                                    aspect3 = "Equipos";
+                                    break;
+                                case "Calificación Servicios":
+                                    count1 = countAspect;
+                                    main1 = promedioAspect;
+                                    aspect1 = "Servicios";
+                                    break;
+                                case "Calificación Sistemas alternos":
+                                    count2 = countAspect;
+                                    main2 = promedioAspect;
+                                    aspect2 = "Sistemas alternos";
+                                    break;
+                                case "Calificación Recuperación":
+                                    count3 = countAspect;
+                                    main3 = promedioAspect;
+                                    aspect3 = "Recuperación";
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
                         sumAspect = 0;
                         countAspect = 0;
@@ -731,7 +770,7 @@ namespace WSafe.Domain.Helpers.Implements
 
                 if (countAspect > 0)
                 {
-                    decimal promedioAspectFinal = Math.Round((decimal)(sumAspect / countAspect), 2);
+                    double promedioAspectFinal = Math.Round((double)(sumAspect / countAspect), 2);
                     var finalVulnerabilitySumVM = new VulnerabilitiesAnalysisVM
                     {
                         ID = 0,
@@ -753,7 +792,58 @@ namespace WSafe.Domain.Helpers.Implements
                     };
                     model.Add(finalVulnerabilitySumVM);
 
-                    if(count1 > 0)
+                    switch (lastAspect)
+                    {
+                        case "Calificación Gestión Organizacional":
+                            count1 = countAspect;
+                            main1 = promedioAspectFinal;
+                            aspect1 = "Gestión Organizacional";
+                            break;
+                        case "Calificación Capacitación y Entrenamiento":
+                            count2 = countAspect;
+                            main2 = promedioAspectFinal;
+                            aspect2 = "Capacitación y Entrenamiento";
+                            break;
+                        case "Calificación Características de Seguridad":
+                            count3 = countAspect;
+                            main3 = promedioAspectFinal;
+                            aspect3 = "Características de Seguridad";
+                            break;
+                        case "Calificación Suministros":
+                            count1 = countAspect;
+                            main1 = promedioAspectFinal;
+                            aspect1 = "Suministros";
+                            break;
+                        case "Calificación Edificaciones":
+                            count2 = countAspect;
+                            main2 = promedioAspectFinal;
+                            aspect2 = "Edificaciones";
+                            break;
+                        case "Calificación Equipos":
+                            count3 = countAspect;
+                            main3 = promedioAspectFinal;
+                            aspect3 = "Equipos";
+                            break;
+                        case "Calificación Servicios":
+                            count1 = countAspect;
+                            main1 = promedioAspectFinal;
+                            aspect1 = "Servicios";
+                            break;
+                        case "Calificación Sistemas alternos":
+                            count2 = countAspect;
+                            main2 = promedioAspectFinal;
+                            aspect2 = "Sistemas alternos";
+                            break;
+                        case "Calificación Recuperación":
+                            count3 = countAspect;
+                            main3 = promedioAspectFinal;
+                            aspect3 = "Recuperación";
+                            break;
+                        default:
+                            break;
+                    }
+
+                    if (count1 > 0)
                     {
                         var organizaVulnerabilityVM = new VulnerabilitiesAnalysisVM
                         {

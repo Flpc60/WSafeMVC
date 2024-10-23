@@ -1,74 +1,68 @@
-﻿@model WSafe.Domain.Models.VulnerabilityVM
+﻿@model WSafe.Domain.Models.VulnerabilitiesPdfVM
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Sistema de Gestión de Seguridad y Salud en el Trabajo";
+    Layout = null;
+    string signatureResponsable = Session["signatureResponsable"] as string;
+    string imageUrl1 = string.IsNullOrEmpty(signatureResponsable) ? string.Empty : $"data:image/png;base64,{signatureResponsable}";
 }
 
-<h2>Details</h2>
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryunobtrusive")
 
-<div>
-    <h4>VulnerabilityVM</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.CategoryAmenaza)
-        </dt>
+@Html.Partial("_CabezoteFormat")
 
-        <dd>
-            @Html.DisplayFor(model => model.CategoryAmenaza)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Amenaza)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Amenaza)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Type)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EvaluationConcept)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EvaluationConcept)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Item)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Item)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Response)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Response)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Observation)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Observation)
-        </dd>
-
-    </dl>
+<div class="showCalification">
+    <h3>CLASIFICACIÓN AMENAZAS</h3>
+    <p>@Model.Calification</p>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<div class="showVulnerabilitiesDetail-1">
+    <h3>VULNERABIIDAD EN LAS PERSONAS</h3>
+    <p>@Model.Vulnera1</p>
+</div>
+
+<div class="showVulnerabilitiesDetail-2">
+    <h3>VULNERABIIDAD EN LOS RECURSOS</h3>
+    <p>@Model.Vulnera2</p>
+</div>
+
+<div class="showVulnerabilitiesDetail-3">
+    <h3>VULNERABIIDAD EN LOS SISTEMAS Y PROCESOS</h3>
+    <p>@Model.Vulnera3</p>
+</div>
+
+<div class="showRiskLevel">
+    <h3>NIVEL DE RIESGO</h3>
+    <p>@Model.RiskLevel</p>
+</div>
+
+<div class="container">
+    <hr />
+    <div class="row d-flex align-items-center justify-content-center">
+        <div class="col-md-5 text-center" style="padding: 20px; display: inline-flex">
+            <div style="margin-bottom: -10px;">
+                <img src="@imageUrl1" alt="Firma del Usuario" style="width: 200px; height: auto;" />
+            </div>
+            <div style="margin-top: 2px;">
+                <strong>_____________________________</strong>
+            </div>
+            <div><strong>Firma del responsable del SG-SST</strong></div>
+        </div>
+    </div>
+</div>
+
+<div class="container body-content">
+    <hr />
+    <footer>
+        <p>&copy; @DateTime.Now.Year - WSafeApp</p>
+    </footer>
+</div>
+
+@section Scripts
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+}
