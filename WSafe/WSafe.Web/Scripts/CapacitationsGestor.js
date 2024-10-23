@@ -1467,9 +1467,10 @@ function showRiskLevelAmenazas() {
         }
     });
 }
-function showVulnerabilitiesDetail() {
+function showVulnerabilitiesDetail(id) {
     $.ajax({
         url: "/Vulnerabilities/GetVulnerabilitiesDetail",
+        data: { id: id },
         type: "GET",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
@@ -1511,7 +1512,7 @@ function showVulnerabilitiesDetail() {
                         let observationPosition = responsePosition + 1;  // Columna para la observación
 
                         // Colocar la respuesta y la observación en la fila correspondiente
-                        targetRow[responsePosition] = responseObj.Response.substring(0, 4);  // Tomar los 4 primeros caracteres
+                        targetRow[responsePosition] = responseObj.Response;
                         targetRow[observationPosition] = responseObj.Observation;
                     }
                 }
@@ -1541,13 +1542,10 @@ function showVulnerabilitiesDetail() {
                 });
 
                 html += `</tr><tr style="background-color:lightgray;"><th></th>`;
-                // Añadir las subcolumnas de Rta y Observación
                 threatArray.forEach(function () {
                     html += `<th>Rta</th><th>Observación</th>`;
                 });
                 html += `</tr></thead><tbody>`;
-
-                // Listar las filas de la matriz
                 matrix.forEach(function (row) {
                     html += `<tr>`;
                     row.forEach(function (cell, index) {
@@ -1565,13 +1563,14 @@ function showVulnerabilitiesDetail() {
                                 html += `<td>${cellValue}</td>`;
                             }
                         }
+                        if (cellValue == "RESULTADO") {
+                            // html += `</tr><tr style="background-color:lightgray;"><th>${cellValue.EvaluationConcept}</th><th>Rta</th><th>Observación</th><tr>`;
+                        }
                     });
                     html += `</tr>`;
                 });
 
                 html += `</tbody></table></div>`;
-
-                // Mostrar la tabla en el contenedor correspondiente
                 $('.showVulnerabilitiesDetail').html(html);
                 $('.showConsolidate').focus();
             } else {
