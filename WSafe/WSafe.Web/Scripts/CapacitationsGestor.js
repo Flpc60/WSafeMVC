@@ -1457,7 +1457,7 @@ function showRiskLevelAmenazas() {
 
                 html += `</tbody></table></div>`;
                 $('.showRiskLevel').html(html);
-                $('.showRiskLevel').focus();
+                $('.showConsolidate').focus();
             } else {
                 alert("No hay resultados para mostrar !!");
             }
@@ -1571,7 +1571,7 @@ function showVulnerabilitiesDetail(id) {
                 });
 
                 html += `</tbody></table></div>`;
-                $('.showVulnerabilitiesDetail').html(html);
+                $(`.showVulnerabilitiesDetail-${id}`).html(html);
                 $('.showConsolidate').focus();
             } else {
                 alert("No hay resultados para mostrar para este riesgo!!");
@@ -1579,6 +1579,47 @@ function showVulnerabilitiesDetail(id) {
         },
         error: function (xhr, status, error) {
             alert("Error del servidor: " + error);
+        }
+    });
+}
+async function showVulnerabilitiesPDF() {
+    await showCalificationAmenazas();
+    await showVulnerabilitiesDetail(1);
+    await showVulnerabilitiesDetail(2);
+    await showVulnerabilitiesDetail(3);
+    await showRiskLevelAmenazas();
+
+    var calification = $('.showCalification').html();
+    var encodedCalification = encodeURIComponent(calification);
+
+    var vulnera1 = $('.showVulnerabilitiesDetail-1').html();
+    var encodedVulnera1 = encodeURIComponent(vulnera1);
+
+    var vulnera2 = $('.showVulnerabilitiesDetail-2').html();
+    var encodedVulnera2 = encodeURIComponent(vulnera2);
+
+    var vulnera3 = $('.showVulnerabilitiesDetail-3').html();
+    var encodedVulnera3 = encodeURIComponent(vulnera3);
+
+    var riskLevel = $('.showRiskLevel').html();
+    var encodedRiskLevel = encodeURIComponent(riskLevel);
+
+    $.ajax({
+        url: "/Vulnerabilities/PrintVulnerabilitiesToPdf",  // Ruta del controlador
+        type: "POST",
+        data: {
+            calification: encodedCalification,
+            vulnera1: encodedVulnera1,
+            vulnera2: encodedVulnera2,
+            vulnera3: encodedVulnera3,
+            riskLevel: encodedRiskLevel
+        },
+        success: function (response) {
+            // Aquí puedes manejar la respuesta, por ejemplo redireccionar si es necesario
+            window.open('/Vulnerabilities/DownloadPdf?fileName=' + response.fileName, '_blank'); // Asume que el servidor te da un nombre de archivo para descargar el PDF
+        },
+        error: function (xhr, status, error) {
+            alert("Error al generar el PDF: " + error);
         }
     });
 }

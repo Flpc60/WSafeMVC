@@ -351,6 +351,7 @@
     <Compile Include="Models\UserListVM.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\VulnerabilitiesAnalysisVM.cs" />
+    <Compile Include="Models\VulnerabilitiesPdfVM.cs" />
     <Compile Include="Models\VulnerabilityAnalisisVM.cs" />
     <Compile Include="Models\VulnerabilityVM.cs" />
     <Compile Include="Models\WorkersVM.cs" />
