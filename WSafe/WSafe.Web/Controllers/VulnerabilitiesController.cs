@@ -1,9 +1,11 @@
 ﻿using Rotativa;
 using System;
 using System.Data.Entity;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using WSafe.Domain.Data;
 using WSafe.Domain.Data.Entities;
@@ -344,91 +346,105 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> PrintVulnerabilitiesToPdf(string calification, string vulnera1, string vulnera2, string vulnera3, string riskLevel)
+        public ActionResult PrintVulnerabilitiesToPdf(string calification, string vulnera1, string vulnera2, string vulnera3, string riskLevel)
         {
             try
             {
-                string decodedCalification = Uri.UnescapeDataString(calification);
-                string decodedVulnera1 = Uri.UnescapeDataString(vulnera1);
-                string decodedVulnera2 = Uri.UnescapeDataString(vulnera2);
-                string decodedVulnera3 = Uri.UnescapeDataString(vulnera3);
-                string decodedRiskLevel = Uri.UnescapeDataString(riskLevel);
+                if (Session["clientID"] == null || Session["orgID"] == null || Session["year"] == null || Session["path"] == null)
+                {
+                    throw new InvalidOperationException("Error: Información de sesión incompleta.");
+                }
+
+                string Calification = HttpUtility.UrlDecode(calification);
+                string Vulnera1 = HttpUtility.UrlDecode(vulnera1);
+                string Vulnera2 = HttpUtility.UrlDecode(vulnera2);
+                string Vulnera3 = HttpUtility.UrlDecode(vulnera3);
+                string RiskLevel = HttpUtility.UrlDecode(riskLevel);
 
                 _clientID = (int)Session["clientID"];
                 _orgID = (int)Session["orgID"];
                 _year = (string)Session["year"];
                 _path = (string)Session["path"];
+
                 var organization = _empresaContext.Organizations.Find(_orgID);
-                var year = _year;
-                var item = _empresaContext.Normas.Find(organization.StandardEmergenciesPLan).Item;
+                if (organization == null) throw new Exception("Organización no encontrada.");
+
+                var item = _empresaContext.Normas.Find(organization.StandardEmergenciesPLan)?.Item;
+                if (item == null) throw new Exception("Norma no encontrada.");
+
                 var fullPath = $"{_path}/2. HACER/{item}/";
                 var path = Server.MapPath(fullPath);
+
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
                 }
-                Random random = new Random();
-                var filename = "Matriz_analisis_vulnerabilidades_" + random.Next(1, 100) + ".pdf";
-                var filePathName = path + filename;
+
+                // Generar el nombre del archivo PDF
+                var filename = $"Matriz_analisis_vulnerabilidades_{Guid.NewGuid()}.pdf";
+                var filePathName = Path.Combine(path, filename);
+
+                // Crear el modelo para el PDF
                 var model = new VulnerabilitiesPdfVM
                 {
-                    Calification = calification,
-                    Vulnera1 = vulnera1,
-                    Vulnera2 = vulnera2,
-                    Vulnera3 = vulnera3,
-                    RiskLevel = riskLevel
+                    Calification = Calification,
+                    Vulnera1 = Vulnera1,
+                    Vulnera2 = Vulnera2,
+                    Vulnera3 = Vulnera3,
+                    RiskLevel = RiskLevel
                 };
 
+                // Crear el PDF utilizando Rotativa
                 var document = _empresaContext.Documents.FirstOrDefault(d => d.ID == 17);
-                ViewBag.formato = document.Formato;
                 ViewBag.estandar = document.Estandar;
                 ViewBag.titulo = document.Titulo;
-                ViewBag.version = document.Version;
                 ViewBag.fecha = DateTime.Now;
-                var report = new ViewAsPdf("Details");
-                report.Model = model;
-                report.FileName = filePathName;
-                report.PageSize = Rotativa.Options.Size.A4;
-                report.PageOrientation = Rotativa.Options.Orientation.Landscape;
-                report.PageWidth = 399;
-                report.PageHeight = 399;
+
+                var report = new ViewAsPdf("Details", model)
+                {
+                    FileName = filePathName,
+                    PageSize = Rotativa.Options.Size.A4,
+                    PageOrientation = Rotativa.Options.Orientation.Landscape,
+                    PageMargins = new Rotativa.Options.Margins(10, 10, 10, 10),
+                    CustomSwitches = "--enable-local-file-access"
+                };
+
+                // Guardar el PDF en el servidor
                 var pdfBytes = report.BuildFile(this.ControllerContext);
                 System.IO.File.WriteAllBytes(filePathName, pdfBytes);
 
-                //Generar archivo de movimiento
-                var fullName = filename;
-                var type = Path.GetExtension(filename).ToUpper();
-                var descript = "Matriz de análisis de vulnerabilidades";
+                // Registrar movimiento del archivo
                 var userID = (int)Session["userID"];
-                Movimient movimient = new Movimient()
+                var movimient = new Movimient
                 {
-                    ID = 0,
                     OrganizationID = _orgID,
                     NormaID = organization.StandardEmergenciesPLan,
                     UserID = userID,
-                    Descripcion = descript,
-                    Document = fullName,
-                    Year = year,
+                    Descripcion = "Matriz de análisis de vulnerabilidades",
+                    Document = filename,
+                    Year = _year,
                     Item = item,
                     Ciclo = "H",
-                    Type = type,
+                    Type = Path.GetExtension(filename).ToUpper(),
                     Path = path,
                     ClientID = _clientID
                 };
                 _empresaContext.Movimientos.Add(movimient);
-                // Generar trazabilidad 
-                var model1 = _converterHelper.Traceability(organization.StandardEmergenciesPLan, year, _orgID, fullName);
-                if (model1 != null)
+
+                // Registrar trazabilidad
+                var traceabilityModel = _converterHelper.Traceability(organization.StandardEmergenciesPLan, _year, _orgID, filename);
+                if (traceabilityModel != null)
                 {
-                    _empresaContext.SigueAnnualPlans.Add(model1);
+                    _empresaContext.SigueAnnualPlans.Add(traceabilityModel);
                 }
 
                 _empresaContext.SaveChanges();
-                return Json(new { fileName = filename });
+
+                return Json(new { fileName = filename, fileUrl = Url.Content(Path.Combine(fullPath, filename)) });
             }
             catch (Exception ex)
             {
-                return View("Error", new HandleErrorInfo(ex, "Home", "Index"));
+                return View("Error", new HandleErrorInfo(ex, "Vulnerabilities", "PrintVulnerabilitiesToPdf"));
             }
         }
 

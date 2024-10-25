@@ -1352,22 +1352,22 @@ function showConsolidateVulnerabilities(id) {
     });
 }
 function showCalificationAmenazas() {
-
-    $.ajax({
-        url: "/Vulnerabilities/CalificationAmenazas",
-        type: "GET",
-        contentType: "application/json;charset=utf-8",
-        dataType: "json",
-        async: true,
-        success: function (response) {
-            let html = '';
-            if (response.length > 0) {
-                html += `
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: "/Vulnerabilities/CalificationAmenazas",
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            async: true,
+            success: function (response) {
+                let html = '';
+                if (response.length > 0) {
+                    html += `
                 <div class="table-responsive showConsolidate" tabindex="0" style="background-color: azure; width:100%;">
                     <table class="table table-striped table-bordered">
                         <thead>
                             <tr style="background-color:gainsboro;">
-                                <th>CLASE AMENAZA</th>
+                                <th>CLASE</th>
                                 <th>AMENAZA</th>
                                 <th>DESCRIPCIÓN DE LA AMENAZA</th>
                                 <th>ORIGEN</th>
@@ -1376,13 +1376,13 @@ function showCalificationAmenazas() {
                         </thead>
                         <tbody>`;
 
-                response.forEach(function (item) {
-                    var color = "";
-                    if (item.Calification == "Posible") { color = "green"; }
-                    if (item.Calification == "Probable") { color = "yellow"; }
-                    if (item.Calification == "Inminente") { color = "red"; }
+                    response.forEach(function (item) {
+                        var color = "";
+                        if (item.Calification == "Posible") { color = "green"; }
+                        if (item.Calification == "Probable") { color = "yellow"; }
+                        if (item.Calification == "Inminente") { color = "red"; }
 
-                    html += `
+                        html += `
                         <tr>
                             <td>${item.CategoryAmenaza}</td>
                             <td>${item.Name}</td>
@@ -1390,41 +1390,46 @@ function showCalificationAmenazas() {
                             <td>${item.OrigenAmenaza}</td>
                             <td style="background-color: ${color}; color: black;">${item.Calification}</td>
                         </tr>`;
-                });
+                    });
 
-                html += `</tbody></table></div>`;
-                $('.showCalification').html(html);
-                $('.showConsolidate').focus();
-            } else {
-                alert("No hay resultados para mostrar !!");
+                    html += `</tbody></table></div>`;
+                    $('.showCalification').html(html);
+                    $('.showConsolidate').focus();
+
+                    resolve();
+                } else {
+                    alert("No hay resultados para mostrar !!");
+                    resolve();
+                }
+            },
+            error: function (xhr, status, error) {
+                alert("Error del servidor: " + error);
+                reject(error);
             }
-        },
-        error: function (xhr, status, error) {
-            alert("Error del servidor: " + error);
-        }
+        });
     });
 }
 function showRiskLevelAmenazas() {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: "/Vulnerabilities/LevelRiskAmenazas",
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            async: true,
+            success: function (response) {
+                var color = '';
+                var color1 = '';
 
-    $.ajax({
-        url: "/Vulnerabilities/LevelRiskAmenazas",
-        type: "GET",
-        contentType: "application/json;charset=utf-8",
-        dataType: "json",
-        async: true,
-        success: function (response) {
-            var color = '';
-            var color1 = '';
-
-            let html = '';
-            if (response.length > 0) {
-                html += `
+                let html = '';
+                if (response.length > 0) {
+                    html += `
                 <div class="table-responsive showConsolidate" tabindex="0" style="background-color: azure; width:100%;">
                     <p style= "text-align: center;font-size: 14px;">NIVELES DE RIESGO PARA AMENAZAS</P>
                     <table class="table table-striped table-bordered">
                         <thead>
                             <tr style="background-color:gainsboro;">
-                                <th>CLASE AMENAZA</th>
+                                <th>CLASE</th>
                                 <th>AMENAZA</th>
                                 <th>CALIFICACIÓN (A)</th>
                                 <th>PERSONAS (P)</th>
@@ -1435,15 +1440,15 @@ function showRiskLevelAmenazas() {
                         </thead>
                         <tbody>`;
 
-                response.forEach(function (item) {
-                    if (item.RiskLevelResults == "Bajo") { color = "green"; }
-                    if (item.RiskLevelResults == "Medio") { color = "yellow"; }
-                    if (item.RiskLevelResults == "Alto") { color = "red"; }
-                    if (item.Calification == "Posible") { color1 = "green"; }
-                    if (item.Calification == "Probable") { color1 = "yellow"; }
-                    if (item.Calification == "Inminente") { color1 = "red"; }
+                    response.forEach(function (item) {
+                        if (item.RiskLevelResults == "Bajo") { color = "green"; }
+                        if (item.RiskLevelResults == "Medio") { color = "yellow"; }
+                        if (item.RiskLevelResults == "Alto") { color = "red"; }
+                        if (item.Calification == "Posible") { color1 = "green"; }
+                        if (item.Calification == "Probable") { color1 = "yellow"; }
+                        if (item.Calification == "Inminente") { color1 = "red"; }
 
-                    html += `
+                        html += `
                         <tr>
                             <td>${item.CategoryAmenaza}</td>
                             <td>${item.Name}</td>
@@ -1453,173 +1458,197 @@ function showRiskLevelAmenazas() {
                             <td>${item.RiskSystems}</td>
                             <td style="background-color: ${color}; color: black;">${item.RiskLevelResults}</td>
                         </tr>`;
-                });
+                    });
 
-                html += `</tbody></table></div>`;
-                $('.showRiskLevel').html(html);
-                $('.showConsolidate').focus();
-            } else {
-                alert("No hay resultados para mostrar !!");
+                    html += `</tbody></table></div>`;
+                    $('.showRiskLevel').html(html);
+                    $('.showConsolidate').focus();
+
+                    resolve();
+                } else {
+                    alert("No hay resultados para mostrar !!");
+                    resolve();
+                }
+            },
+            error: function (xhr, status, error) {
+                alert("Error del servidor: " + error);
+                reject(error);
             }
-        },
-        error: function (xhr, status, error) {
-            alert("Error del servidor: " + error);
-        }
+        });
     });
 }
 function showVulnerabilitiesDetail(id) {
-    $.ajax({
-        url: "/Vulnerabilities/GetVulnerabilitiesDetail",
-        data: { id: id },
-        type: "GET",
-        contentType: "application/json;charset=utf-8",
-        dataType: "json",
-        async: true,
-        success: function (response) {
-            if (response.length > 0) {
-                // Crear un set de todas las amenazas
-                let threats = new Set();
-                response.forEach(function (item) {
-                    Object.keys(item.Responses).forEach(function (threat) {
-                        threats.add(threat);
-                    });
-                });
-
-                // Convertir el set a un array para trabajar con índices
-                let threatArray = Array.from(threats);
-
-                // Inicializar la matriz solo con los nombres (Name) basados en la primera amenaza
-                let matrix = [];
-                let firstThreat = threatArray[0]; // La primera amenaza para generar las filas
-
-                response.forEach(function (item) {
-                    // Crear filas solo si la respuesta es de la primera amenaza
-                    if (item.Responses.hasOwnProperty(firstThreat)) {
-                        // Crear una fila de la matriz para cada Name
-                        let row = new Array(threatArray.length * 2 + 1).fill('');  // Añadir 1 para el Name y 2 columnas por cada amenaza
-                        row[0] = item.Name;  // El Name en la primera columna
-                        matrix.push(row);
-                    }
-                });
-
-                // Función para encontrar la fila correspondiente al Name y colocar el resultado en la columna de la amenaza
-                function placeResultInRow(name, responseObj, threatIndex) {
-                    // Buscar la fila donde el Name coincida
-                    let targetRow = matrix.find(row => row[0] === name);
-
-                    if (targetRow) {
-                        let responsePosition = threatIndex * 2 + 1;  // Columna para la respuesta
-                        let observationPosition = responsePosition + 1;  // Columna para la observación
-
-                        // Colocar la respuesta y la observación en la fila correspondiente
-                        targetRow[responsePosition] = responseObj.Response;
-                        targetRow[observationPosition] = responseObj.Observation;
-                    }
-                }
-
-                // Llenar la matriz con las respuestas y observaciones para cada amenaza, sin agregar más filas
-                threatArray.forEach(function (threat, threatIndex) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: "/Vulnerabilities/GetVulnerabilitiesDetail",
+            data: { id: id },
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            async: true,
+            success: function (response) {
+                if (response.length > 0) {
+                    // Crear un set de todas las amenazas
+                    let threats = new Set();
                     response.forEach(function (item) {
-                        let responseObj = item.Responses[threat];
-                        if (responseObj) {
-                            // Colocar el resultado correspondiente en la fila de cada Name, pero solo en la columna de la amenaza actual
-                            placeResultInRow(item.Name, responseObj, threatIndex);
+                        Object.keys(item.Responses).forEach(function (threat) {
+                            threats.add(threat);
+                        });
+                    });
+
+                    // Convertir el set a un array para trabajar con índices
+                    let threatArray = Array.from(threats);
+
+                    // Inicializar la matriz solo con los nombres (Name) basados en la primera amenaza
+                    let matrix = [];
+                    let firstThreat = threatArray[0]; // La primera amenaza para generar las filas
+
+                    response.forEach(function (item) {
+                        // Crear filas solo si la respuesta es de la primera amenaza
+                        if (item.Responses.hasOwnProperty(firstThreat)) {
+                            // Crear una fila de la matriz para cada Name
+                            let row = new Array(threatArray.length * 2 + 1).fill('');  // Añadir 1 para el Name y 2 columnas por cada amenaza
+                            row[0] = item.Name;  // El Name en la primera columna
+                            matrix.push(row);
                         }
                     });
-                });
 
-                // Generar el HTML para la tabla
-                let html = `
+                    // Función para encontrar la fila correspondiente al Name y colocar el resultado en la columna de la amenaza
+                    function placeResultInRow(name, responseObj, threatIndex) {
+                        // Buscar la fila donde el Name coincida
+                        let targetRow = matrix.find(row => row[0] === name);
+
+                        if (targetRow) {
+                            let responsePosition = threatIndex * 2 + 1;  // Columna para la respuesta
+                            let observationPosition = responsePosition + 1;  // Columna para la observación
+
+                            // Colocar la respuesta y la observación en la fila correspondiente
+                            targetRow[responsePosition] = responseObj.Response;
+                            targetRow[observationPosition] = responseObj.Observation;
+                        }
+                    }
+
+                    // Llenar la matriz con las respuestas y observaciones para cada amenaza, sin agregar más filas
+                    threatArray.forEach(function (threat, threatIndex) {
+                        response.forEach(function (item) {
+                            let responseObj = item.Responses[threat];
+                            if (responseObj) {
+                                // Colocar el resultado correspondiente en la fila de cada Name, pero solo en la columna de la amenaza actual
+                                placeResultInRow(item.Name, responseObj, threatIndex);
+                            }
+                        });
+                    });
+
+                    // Generar el HTML para la tabla
+                    let html = `
                 <div class="table-responsive showConsolidate" tabindex="-1" style="background-color: azure; width:100%;">
                     <table class="table table-striped table-bordered">
                         <thead>
                             <tr style="background-color:gainsboro;">
                                 <th>PUNTO A EVALUAR</th>`;
 
-                // Añadir las columnas de las amenazas
-                threatArray.forEach(function (threat) {
-                    html += `<th colspan="2">${threat}</th>`;
-                });
-
-                html += `</tr><tr style="background-color:lightgray;"><th></th>`;
-                threatArray.forEach(function () {
-                    html += `<th>Rta</th><th>Observación</th>`;
-                });
-                html += `</tr></thead><tbody>`;
-                matrix.forEach(function (row) {
-                    html += `<tr>`;
-                    row.forEach(function (cell, index) {
-                        let cellValue = cell || '';  // Si la celda está vacía, poner una celda vacía
-                        if (index === 0) {  // Primera columna con los Name
-                            html += `<td>${cellValue}</td>`;
-                        } else {  // Celdas de respuesta y observación
-                            let color = '';
-                            if (index % 2 === 0) {  // Celdas de observación
-                                if (cellValue === "MALO") { color = "red"; }
-                                else if (cellValue === "REGULAR") { color = "yellow"; }
-                                else if (cellValue === "BUENO") { color = "green"; }
-                                html += `<td style="background-color: ${color}; color: black;">${cellValue}</td>`;
-                            } else {  // Celdas de respuesta
-                                html += `<td>${cellValue}</td>`;
-                            }
-                        }
-                        if (cellValue == "RESULTADO") {
-                            // html += `</tr><tr style="background-color:lightgray;"><th>${cellValue.EvaluationConcept}</th><th>Rta</th><th>Observación</th><tr>`;
-                        }
+                    // Añadir las columnas de las amenazas
+                    threatArray.forEach(function (threat) {
+                        html += `<th colspan="2">${threat}</th>`;
                     });
-                    html += `</tr>`;
-                });
 
-                html += `</tbody></table></div>`;
-                $(`.showVulnerabilitiesDetail-${id}`).html(html);
-                $('.showConsolidate').focus();
-            } else {
-                alert("No hay resultados para mostrar para este riesgo!!");
+                    html += `</tr><tr style="background-color:lightgray;"><th></th>`;
+                    threatArray.forEach(function () {
+                        html += `<th>Rta</th><th>Observación</th>`;
+                    });
+                    html += `</tr></thead><tbody>`;
+                    matrix.forEach(function (row) {
+                        html += `<tr>`;
+                        row.forEach(function (cell, index) {
+                            let cellValue = cell || '';  // Si la celda está vacía, poner una celda vacía
+                            if (index === 0) {  // Primera columna con los Name
+                                html += `<td>${cellValue}</td>`;
+                            } else {  // Celdas de respuesta y observación
+                                let color = '';
+                                if (index % 2 === 0) {  // Celdas de observación
+                                    if (cellValue === "MALO") { color = "red"; }
+                                    else if (cellValue === "REGULAR") { color = "yellow"; }
+                                    else if (cellValue === "BUENO") { color = "green"; }
+                                    html += `<td style="background-color: ${color}; color: black;">${cellValue}</td>`;
+                                } else {  // Celdas de respuesta
+                                    html += `<td>${cellValue}</td>`;
+                                }
+                            }
+                            if (cellValue == "RESULTADO") {
+                                // html += `</tr><tr style="background-color:lightgray;"><th>${cellValue.EvaluationConcept}</th><th>Rta</th><th>Observación</th><tr>`;
+                            }
+                        });
+                        html += `</tr>`;
+                    });
+
+                    html += `</tbody></table></div>`;
+                    $(`.showVulnerabilitiesDetail-${id}`).html(html);
+                    $('.showConsolidate').focus();
+
+                    resolve();
+                } else {
+                    alert("No hay resultados para mostrar para este riesgo!!");
+                    resolve();
+                }
+            },
+            error: function (xhr, status, error) {
+                alert("Error del servidor: " + error);
+                reject(error);
             }
-        },
-        error: function (xhr, status, error) {
-            alert("Error del servidor: " + error);
-        }
+        });
     });
 }
 async function showVulnerabilitiesPDF() {
-    await showCalificationAmenazas();
-    await showVulnerabilitiesDetail(1);
-    await showVulnerabilitiesDetail(2);
-    await showVulnerabilitiesDetail(3);
-    await showRiskLevelAmenazas();
+    try {
+        $('.showCalification').html('');
+        $('.showVulnerabilitiesDetail-1').html('');
+        $('.showVulnerabilitiesDetail-2').html('');
+        $('.showVulnerabilitiesDetail-3').html('');
+        $('.showRiskLevel').html('');
 
-    var calification = $('.showCalification').html();
-    var encodedCalification = encodeURIComponent(calification);
+        await showCalificationAmenazas();
+        await showVulnerabilitiesDetail(1);
+        await showVulnerabilitiesDetail(2);
+        await showVulnerabilitiesDetail(3);
+        await showRiskLevelAmenazas();
 
-    var vulnera1 = $('.showVulnerabilitiesDetail-1').html();
-    var encodedVulnera1 = encodeURIComponent(vulnera1);
+        let calification = $('.showCalification').html() || "";
+        let encodedCalification = encodeURIComponent(calification);
 
-    var vulnera2 = $('.showVulnerabilitiesDetail-2').html();
-    var encodedVulnera2 = encodeURIComponent(vulnera2);
+        let vulnera1 = $('.showVulnerabilitiesDetail-1').html() || "";
+        let encodedVulnera1 = encodeURIComponent(vulnera1);
 
-    var vulnera3 = $('.showVulnerabilitiesDetail-3').html();
-    var encodedVulnera3 = encodeURIComponent(vulnera3);
+        let vulnera2 = $('.showVulnerabilitiesDetail-2').html() || "";
+        let encodedVulnera2 = encodeURIComponent(vulnera2);
 
-    var riskLevel = $('.showRiskLevel').html();
-    var encodedRiskLevel = encodeURIComponent(riskLevel);
+        let vulnera3 = $('.showVulnerabilitiesDetail-3').html() || "";
+        let encodedVulnera3 = encodeURIComponent(vulnera3);
 
-    $.ajax({
-        url: "/Vulnerabilities/PrintVulnerabilitiesToPdf",  // Ruta del controlador
-        type: "POST",
-        data: {
-            calification: encodedCalification,
-            vulnera1: encodedVulnera1,
-            vulnera2: encodedVulnera2,
-            vulnera3: encodedVulnera3,
-            riskLevel: encodedRiskLevel
-        },
-        success: function (response) {
-            // Aquí puedes manejar la respuesta, por ejemplo redireccionar si es necesario
-            window.open('/Vulnerabilities/DownloadPdf?fileName=' + response.fileName, '_blank'); // Asume que el servidor te da un nombre de archivo para descargar el PDF
-        },
-        error: function (xhr, status, error) {
-            alert("Error al generar el PDF: " + error);
-        }
-    });
+        let riskLevel = $('.showRiskLevel').html() || "";
+        let encodedRiskLevel = encodeURIComponent(riskLevel);
+
+        $.ajax({
+            url: "/Vulnerabilities/PrintVulnerabilitiesToPdf",
+            type: "POST",
+            data: {
+                calification: encodedCalification,
+                vulnera1: encodedVulnera1,
+                vulnera2: encodedVulnera2,
+                vulnera3: encodedVulnera3,
+                riskLevel: encodedRiskLevel
+            },
+            success: function (response) {
+                if (response && response.fileUrl) {
+                    window.open(response.fileUrl, '_blank');
+                } else {
+                    alert("Error: El archivo PDF no está disponible.");
+                }
+            },
+            error: function (xhr, status, error) {
+                alert("Error al generar el PDF: " + error);
+            }
+        });
+    } catch (error) {
+        alert("Error en el proceso: " + error.message);
+    }
 }

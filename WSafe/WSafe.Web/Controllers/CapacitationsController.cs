@@ -17,9 +17,6 @@ using WSafe.Domain.Services.Implements;
 
 namespace WSafe.Web.Controllers
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public class CapacitationsController : Controller
     {
         private int _clientID;
@@ -484,7 +481,6 @@ namespace WSafe.Web.Controllers
                 ViewBag.version = document.Version;
                 ViewBag.fecha = DateTime.Now;
 
-                // Generar PDF
                 var report = new ViewAsPdf("CreateCapacitations", model)
                 {
                     FileName = filePathName,
