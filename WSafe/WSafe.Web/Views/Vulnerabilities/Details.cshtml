@@ -7,6 +7,8 @@
     string imageUrl1 = string.IsNullOrEmpty(signatureResponsable) ? string.Empty : $"data:image/png;base64,{signatureResponsable}";
 }
 
+<link href="@Url.Content("~/Content/site.css")" rel="stylesheet" type="text/css" />
+
 @Styles.Render("~/Content/css")
 @Scripts.Render("~/bundles/modernizr")
 @Scripts.Render("~/bundles/jqueryval")
@@ -16,28 +18,28 @@
 
 
 <div class="showCalification">
-    <h3>CLASIFICACIÓN AMENAZAS</h3>
-    <p>@Model.Calification</p>
+    <h3>CLASIFICACIÓN AMENAZAS:</h3>
+    <p style="page-break-inside: avoid;">@Html.Raw(Model.Calification)</p>
 </div>
 
 <div class="showVulnerabilitiesDetail-1">
-    <h3>VULNERABIIDAD EN LAS PERSONAS</h3>
-    <p>@Model.Vulnera1</p>
+    <h3>VULNERABILIDAD EN LAS PERSONAS:</h3>
+    <p style="page-break-inside: avoid;">@Html.Raw(Model.Vulnera1)</p>
 </div>
 
 <div class="showVulnerabilitiesDetail-2">
-    <h3>VULNERABIIDAD EN LOS RECURSOS</h3>
-    <p>@Model.Vulnera2</p>
+    <h3>VULNERABILIDAD EN LOS RECURSOS:</h3>
+    <p style="page-break-inside: avoid;">@Html.Raw(Model.Vulnera2)</p>
 </div>
 
 <div class="showVulnerabilitiesDetail-3">
-    <h3>VULNERABIIDAD EN LOS SISTEMAS Y PROCESOS</h3>
-    <p>@Model.Vulnera3</p>
+    <h3>VULNERABILIDAD EN LOS SISTEMAS Y PROCESOS:</h3>
+    <p style="page-break-inside: avoid;">@Html.Raw(Model.Vulnera3)</p>
 </div>
 
 <div class="showRiskLevel">
-    <h3>NIVEL DE RIESGO</h3>
-    <p>@Model.RiskLevel</p>
+    <h3>NIVEL DE RIESGO:</h3>
+    <p style="page-break-inside: avoid;">@Html.Raw(Model.RiskLevel)</p>
 </div>
 
 <div class="container">
