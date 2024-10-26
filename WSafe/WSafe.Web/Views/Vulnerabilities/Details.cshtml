@@ -14,17 +14,84 @@
 @Scripts.Render("~/bundles/jqueryval")
 @Scripts.Render("~/bundles/jqueryunobtrusive")
 
+<style>
+
+    .example-cell {
+        text-align: center;
+    }
+
+    .romb {
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        margin: 2px;
+        transform: rotate(45deg);
+        border-radius: 3px;
+    }
+
+        .romb.red {
+            background-color: red;
+        }
+
+        .romb.yellow {
+            background-color: yellow;
+        }
+
+        .romb.green {
+            background-color: green;
+        }
+
+</style>
+
 @Html.Partial("_CabezoteFormat")
 
 
 <div class="showCalification">
     <h3>CLASIFICACIÓN AMENAZAS:</h3>
-    <p style="page-break-inside: avoid;">@Html.Raw(Model.Calification)</p>
+    <div class="container">
+        <p style="page-break-inside: avoid;">@Html.Raw(Model.Calification)</p>
+        <div class="table-responsive showConsolidate" tabindex="0" style="background-color: azure; width:100%;">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr style="background-color:gainsboro; text-align:center">
+                        <th>CALIFICACIÓN DEL EVENTO</th>
+                        <th>COMPORTAMIENTO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="background-color:green;">POSIBLE</td>
+                        <td>
+                            <p>
+                                Es aquel fenómeno que puede suceder o que es factible porque no existen razones históricas y científicas para decir que esto no sucederá. Se le asigna el color VERDE.
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="background-color:yellow;">PROBABLE</td>
+                        <td>
+                            <p>
+                                Es aquel fenómeno esperado del cual existen razones y argumentos técnicos y científicos para creer que sucederá. Se le asigna el color AMARILLO.
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="background-color:red;">INMINENTE</td>
+                        <td>
+                            <p>
+                                Es aquel fenómeno esperado que tiene alta probabilidad de ocurrir. Se le asigna el color ROJO.
+                            </p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
-<div class="showVulnerabilitiesDetail-1">
+<div class="showVulnerabilitiesDetail-1" style="page-break-inside: avoid;">
     <h3>VULNERABILIDAD EN LAS PERSONAS:</h3>
-    <p style="page-break-inside: avoid;">@Html.Raw(Model.Vulnera1)</p>
+    <p>@Html.Raw(Model.Vulnera1)</p>
 </div>
 
 <div class="showVulnerabilitiesDetail-2">
@@ -34,12 +101,95 @@
 
 <div class="showVulnerabilitiesDetail-3">
     <h3>VULNERABILIDAD EN LOS SISTEMAS Y PROCESOS:</h3>
-    <p style="page-break-inside: avoid;">@Html.Raw(Model.Vulnera3)</p>
+    <div class="container">
+        <p style="page-break-inside: avoid;">@Html.Raw(Model.Vulnera3)</p>
+        <div class="table-responsive showConsolidate" tabindex="0" style="background-color: azure; width: 100%; page-break-inside: avoid;">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr style="background-color:gainsboro;">
+                        <th>RANGO</th>
+                        <th>INTERPRETACIÓN DE LA VULNERABILIDAD</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>0.0 A 1.00</td>
+                        <td style="background-color:red;">ALTA</td>
+                    </tr>
+                    <tr>
+                        <td>1.01 A 2.00</td>
+                        <td style="background-color:yellow;">MEDIA</td>
+                    </tr>
+                    <tr>
+                        <td>2.01 A 3.00</td>
+                        <td style="background-color:green;">BAJA</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 <div class="showRiskLevel">
     <h3>NIVEL DE RIESGO:</h3>
-    <p style="page-break-inside: avoid;">@Html.Raw(Model.RiskLevel)</p>
+    <div class="container">
+        <p style="page-break-inside: avoid;">@Html.Raw(Model.RiskLevel)</p>
+        <div class="table-responsive showConsolidate" tabindex="0" style="background-color: azure; width: 100%; page-break-inside: avoid;">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr style="background-color:gainsboro;">
+                        <th>SUMATORIA DE ROMBOS</th>
+                        <th>CALIFICACIÓN</th>
+                        <th>INTERPRETACIÓN</th>
+                        <th>EJEMPLO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>3 o 4 rombos en rojo</td>
+                        <td style="background-color:red;">ALTO</td>
+                        <td>
+                            <p>
+                                Implica que la amenaza y el grado de vulnerabilidad están en su punto máximo. Se deben priorizar acciones preventivas, que viabilicen la preparación y respuesta ante cualquier emergencia.
+                            </p>
+                        </td>
+                        <td class="example-cell">
+                            <span class="romb red"></span>
+                            <span class="romb red"></span>
+                            <span class="romb red"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1 o 2 rombos rojos, 3 o 4 rombos amarillos</td>
+                        <td style="background-color:yellow;">MEDIO</td>
+                        <td>
+                            <p>
+                                Los valores que representan la vulnerabilidad o la amenaza son altos se deben considerar las medidas preventivas aplicables frente la amenaza.
+                            </p>
+                        </td>
+                        <td class="example-cell">
+                            <span class="romb red"></span>
+                            <span class="romb yellow"></span>
+                            <span class="romb yellow"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>0 rombos rojos, 1 o 2 rombos amarillos</td>
+                        <td style="background-color:green;">BAJO</td>
+                        <td>
+                            <p>
+                                El riesgo es BAJO, lo cual significa que la vulnerabilidad y la amenaza están controladas. Las acciones preventivas deben mantenerse.
+                            </p>
+                        </td>
+                        <td class="example-cell">
+                            <span class="romb yellow"></span>
+                            <span class="romb green"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 <div class="container">
