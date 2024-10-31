@@ -7,12 +7,12 @@ namespace WSafe.Domain.Helpers
 {
     public interface IEmergencyConverter
     {
-        IEnumerable<VulnerabilityVM> ToListVulnerabilityVM(IEnumerable<Vulnerability> list, int _orgID);
+        Task<IEnumerable<VulnerabilityVM>> ToListVulnerabilityVM(int _orgID, int id);
         CrtVulnerabilityVM ToCrtVulnerabilityVMNew(int org, int id);
         Task<Vulnerability> ToVulnerabilityAsync(CrtVulnerabilityVM model, bool isNew);
         IEnumerable<IntervencionVM> GetInterventionsAll(int id);
         Task<CrtVulnerabilityVM> ToCrtVulnerabilityVM(int id, int org);
-        IEnumerable<VulnerabilityAnalisisVM> GetConsolidateVulnerability(int id, int _orgID);
+        Task<IEnumerable<VulnerabilityAnalisisVM>> GetConsolidateVulnerability(int id, int _orgID);
         IEnumerable<CalificationAmenazaVM> ToListCalificationAmenazaVM(IEnumerable<CalificationAmenaza> list, int _orgID);
         Task<IEnumerable<RiskLevelVM>> ToListRiskLevelVM(int _orgID);
         Task<IEnumerable<VulnerabilitiesAnalysisVM>> ToVulnerabilitiesVM(int _orgID, int id);

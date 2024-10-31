@@ -15,32 +15,58 @@
 @Scripts.Render("~/bundles/jqueryunobtrusive")
 
 <style>
-
-    .example-cell {
-        text-align: center;
-    }
-
+    /* Container styling for rombo shape */
     .romb {
         display: inline-block;
-        width: 15px;
-        height: 15px;
-        margin: 2px;
-        transform: rotate(45deg);
-        border-radius: 3px;
+        width: 50px;
+        height: 50px;
+        margin: 5px;
+        transform: rotate(45deg); /* Rotate to make diamond shape */
+        position: relative;
+        background-color: transparent;
     }
 
-        .romb.red {
-            background-color: red;
+        /* Small squares inside romb */
+        .romb .square {
+            width: 50%;
+            height: 50%;
+            position: absolute;
+            border: 1px solid black; /* Border for each square */
         }
 
-        .romb.yellow {
-            background-color: yellow;
-        }
+            /* Positioning small squares in each corner */
+            .romb .square.tl {
+                top: 0;
+                left: 0;
+            }
 
-        .romb.green {
-            background-color: green;
-        }
+            .romb .square.tr {
+                top: 0;
+                right: 0;
+            }
 
+            .romb .square.bl {
+                bottom: 0;
+                left: 0;
+            }
+
+            .romb .square.br {
+                bottom: 0;
+                right: 0;
+            }
+
+    /* Color classes */
+    .red {
+        background-color: red;
+    }
+
+    .yellow {
+        background-color: yellow;
+    }
+
+    .green {
+        background-color: green;
+    }
 </style>
 
 @Html.Partial("_CabezoteFormat")
@@ -148,42 +174,76 @@
                     <tr>
                         <td>3 o 4 rombos en rojo</td>
                         <td style="background-color:red;">ALTO</td>
-                        <td>
-                            <p>
-                                Implica que la amenaza y el grado de vulnerabilidad están en su punto máximo. Se deben priorizar acciones preventivas, que viabilicen la preparación y respuesta ante cualquier emergencia.
-                            </p>
-                        </td>
+                        <td>Implica que la amenaza y el grado de vulnerabilidad están en su punto máximo.</td>
                         <td class="example-cell">
-                            <span class="romb red"></span>
-                            <span class="romb red"></span>
-                            <span class="romb red"></span>
+                            <div class="romb">
+                                <div class="square tl red"></div>
+                                <div class="square tr red"></div>
+                                <div class="square bl green"></div>
+                                <div class="square br red"></div>
+                            </div>
+                            <div class="romb">
+                                <div class="square tl red"></div>
+                                <div class="square tr yellow"></div>
+                                <div class="square bl red"></div>
+                                <div class="square br red"></div>
+                            </div>
+                            <div class="romb">
+                                <div class="square tl red"></div>
+                                <div class="square tr red"></div>
+                                <div class="square bl red"></div>
+                                <div class="square br yellow"></div>
+                            </div>
                         </td>
                     </tr>
                     <tr>
                         <td>1 o 2 rombos rojos, 3 o 4 rombos amarillos</td>
                         <td style="background-color:yellow;">MEDIO</td>
-                        <td>
-                            <p>
-                                Los valores que representan la vulnerabilidad o la amenaza son altos se deben considerar las medidas preventivas aplicables frente la amenaza.
-                            </p>
-                        </td>
+                        <td>Se deben considerar las medidas preventivas aplicables frente la amenaza.</td>
                         <td class="example-cell">
-                            <span class="romb red"></span>
-                            <span class="romb yellow"></span>
-                            <span class="romb yellow"></span>
+                            <div class="romb">
+                                <div class="square tl red"></div>
+                                <div class="square tr yellow"></div>
+                                <div class="square bl yellow"></div>
+                                <div class="square br green"></div>
+                            </div>
+                            <div class="romb">
+                                <div class="square tl yellow"></div>
+                                <div class="square tr yellow"></div>
+                                <div class="square bl red"></div>
+                                <div class="square br yellow"></div>
+                            </div>
+                            <div class="romb">
+                                <div class="square tl yellow"></div>
+                                <div class="square tr green"></div> <!-- At least one green -->
+                                <div class="square bl yellow"></div>
+                                <div class="square br yellow"></div>
+                            </div>
                         </td>
                     </tr>
                     <tr>
                         <td>0 rombos rojos, 1 o 2 rombos amarillos</td>
                         <td style="background-color:green;">BAJO</td>
-                        <td>
-                            <p>
-                                El riesgo es BAJO, lo cual significa que la vulnerabilidad y la amenaza están controladas. Las acciones preventivas deben mantenerse.
-                            </p>
-                        </td>
+                        <td>El riesgo es BAJO, las acciones preventivas deben mantenerse.</td>
                         <td class="example-cell">
-                            <span class="romb yellow"></span>
-                            <span class="romb green"></span>
+                            <div class="romb">
+                                <div class="square tl yellow"></div>
+                                <div class="square tr yellow"></div>
+                                <div class="square bl green"></div>
+                                <div class="square br green"></div>
+                            </div>
+                            <div class="romb">
+                                <div class="square tl green"></div>
+                                <div class="square tr green"></div>
+                                <div class="square bl yellow"></div>
+                                <div class="square br green"></div>
+                            </div>
+                            <div class="romb">
+                                <div class="square tl yellow"></div>
+                                <div class="square tr green"></div>
+                                <div class="square bl green"></div>
+                                <div class="square br green"></div>
+                            </div>
                         </td>
                     </tr>
                 </tbody>

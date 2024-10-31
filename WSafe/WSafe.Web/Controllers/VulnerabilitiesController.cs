@@ -1,7 +1,6 @@
 ﻿using Rotativa;
 using System;
 using System.Data.Entity;
-using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,9 +17,6 @@ using WSafe.Web.Filters;
 
 namespace WSafe.Web.Controllers
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public class VulnerabilitiesController : Controller
     {
         private int _clientID;
@@ -49,11 +45,7 @@ namespace WSafe.Web.Controllers
         public async Task<ActionResult> Index()
         {
             _orgID = (int)Session["orgID"];
-            var vulnerabilities = await _empresaContext.Vulnerabilities
-                .Include(a => a.Amenaza)
-                .Include(v => v.EvaluationConcept)
-                .ToListAsync();
-            var model = _emergencyConverter.ToListVulnerabilityVM(vulnerabilities, _orgID);
+            var model = await _emergencyConverter.ToListVulnerabilityVM(_orgID, 1);
             ViewBag.organization = $"GESTIÓN DE VULNERABILIDADES: {Session["organization"].ToString().Trim()}";
             return View(model);
         }
@@ -62,14 +54,7 @@ namespace WSafe.Web.Controllers
         public async Task<ActionResult> IndexById(int id)
         {
             _orgID = (int)Session["orgID"];
-
-            var vulnerabilities = await _empresaContext.Vulnerabilities
-                .Where(v => (int)v.VulnerabilityType == id)
-                .Include(v => v.EvaluationConcept)
-                .Include(v => v.Amenaza)
-                .ToListAsync();
-
-            var model = _emergencyConverter.ToListVulnerabilityVM(vulnerabilities, _orgID);
+            var model = await _emergencyConverter.ToListVulnerabilityVM(_orgID, id);
             ViewBag.organization = $"GESTIÓN DE VULNERABILIDADES: {Session["organization"].ToString().Trim()}";
             return View("Index", model);
         }
@@ -317,10 +302,10 @@ namespace WSafe.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetVulnerabilitiesByID(int id)
+        public async Task<ActionResult> GetVulnerabilitiesByID(int id)
         {
             _orgID = (int)Session["orgID"];
-            var model = _emergencyConverter.GetConsolidateVulnerability(id, _orgID);
+            var model = await _emergencyConverter.GetConsolidateVulnerability(id, _orgID);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
