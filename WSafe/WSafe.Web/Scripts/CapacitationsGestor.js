@@ -1309,7 +1309,6 @@ function showConsolidateVulnerabilities(id) {
                 html += `</tr><tr style="background-color:lightgray;">`;
                 html += `</tr></thead><tbody>`;
 
-                // Group the results by EvaluationConcept to show all Results for each concept in the same row
                 let evaluationConceptsMap = {};
 
                 response.forEach(function (item) {
@@ -1320,17 +1319,20 @@ function showConsolidateVulnerabilities(id) {
                         evaluationConceptsMap[item.EvaluationConcept][threat] = item.Results[threat];
                     });
                 });
-
-                // Now loop through evaluationConceptsMap and create rows
                 Object.keys(evaluationConceptsMap).forEach(function (concept) {
                     html += `<tr><td>${concept}</td>`;
 
                     threats.forEach(function (threat) {
+                        let color = "";
                         let resultObj = evaluationConceptsMap[concept][threat];
                         if (resultObj) {
                             let result = resultObj.Result.toFixed(2) || 'N/A';
                             let interpretation = resultObj.Interpretation || 'N/A';
-                            html += `<td>${result}</td><td>${interpretation}</td>`;
+                            if (interpretation == "BAJA") { color = "green"; }
+                            if (interpretation == "MEDIA") { color = "yellow"; }
+                            if (interpretation == "ALTA") { color = "red"; }
+
+                            html += `<td>${result}</td><td style="background-color: ${color}; color: black;">${interpretation}</td>`;
                         } else {
                             html += `<td>N/A</td><td>N/A</td>`;
                         }
@@ -1340,7 +1342,7 @@ function showConsolidateVulnerabilities(id) {
                 });
 
                 html += `</tbody></table></div>`;
-                $('.showConsolidate').html(html);
+                $('.showConsolidateVulnerabilities').html(html);
                 $('.showConsolidate').focus();
             } else {
                 alert("No hay resultados para mostrar para este riesgo!!");
@@ -1488,7 +1490,6 @@ function showVulnerabilitiesDetail(id) {
             async: true,
             success: function (response) {
                 if (response.length > 0) {
-                    // Crear un set de todas las amenazas
                     let threats = new Set();
                     response.forEach(function (item) {
                         Object.keys(item.Responses).forEach(function (threat) {
@@ -1496,10 +1497,8 @@ function showVulnerabilitiesDetail(id) {
                         });
                     });
 
-                    // Convertir el set a un array para trabajar con índices
                     let threatArray = Array.from(threats);
 
-                    // Inicializar la matriz solo con los nombres (Name) basados en la primera amenaza
                     let matrix = [];
                     let firstThreat = threatArray[0]; // La primera amenaza para generar las filas
 
@@ -1513,7 +1512,6 @@ function showVulnerabilitiesDetail(id) {
                         }
                     });
 
-                    // Función para encontrar la fila correspondiente al Name y colocar el resultado en la columna de la amenaza
                     function placeResultInRow(name, responseObj, threatIndex) {
                         // Buscar la fila donde el Name coincida
                         let targetRow = matrix.find(row => row[0] === name);

@@ -30,77 +30,42 @@ namespace WSafe.Domain.Helpers.Implements
             _chartHelper = chartHelper;
             _indicadorHelper = indicadorHelper;
         }
-        public IEnumerable<VulnerabilityVM> ToListVulnerabilityVM(IEnumerable<Vulnerability> list, int _orgID)
+        public async Task<IEnumerable<VulnerabilityVM>> ToListVulnerabilityVM(int _orgID, int id)
         {
-            var filtered = list
-                .Where(v => v.OrganizationID == _orgID)
+
+            var vulnerabilities = await _empresaContext.Vulnerabilities
+                .Where(v => v.OrganizationID == _orgID && (int)v.VulnerabilityType == id)
+                .Include(a => a.Amenaza)
+                .Include(v => v.EvaluationConcept)
                 .OrderBy(v => v.CategoryAmenaza)
                 .ThenBy(v => v.AmenazaID)
-                .ThenBy(v => v.EvaluationConceptID);
+                .ThenBy(v => v.EvaluationConceptID)
+                .ToListAsync();
 
             var model = new List<VulnerabilityVM>();
-            foreach (var item in filtered)
+            foreach (var item in vulnerabilities)
             {
-                string categoria = string.Empty;
+                string categoria = _gestorHelper.GetAmenazaCategory(item.CategoryAmenaza);
 
-                switch (item.CategoryAmenaza)
-                {
-                    case CategoryAmenazas.Naturales:
-                        categoria = "Naturales";
-                        break;
-
-                    case CategoryAmenazas.Tecnologicas:
-                        categoria = "Tecnológicas";
-                        break;
-
-                    case CategoryAmenazas.Sociales:
-                        categoria = "Sociales";
-                        break;
-                }
-
-                string type = string.Empty;
+                string type = _gestorHelper.GetVulnerabilityType((int)item.VulnerabilityType);
                 string aspecto = string.Empty;
 
                 switch (item.VulnerabilityType)
                 {
                     case VulnerabilityTypes.Personas:
-                        type = "Personas";
-                        if (item.EvaluationConcept.EvaluationPerson == EvaluationPersonas.Organizacional) { aspecto = "Gestión Organizacional"; }
-                        if (item.EvaluationConcept.EvaluationPerson == EvaluationPersonas.Entrenamiento) { aspecto = "Capacitación y Entrenaniento"; }
-                        if (item.EvaluationConcept.EvaluationPerson == EvaluationPersonas.Seguridad) { aspecto = "Características de Seguridad"; }
+                        aspecto = _gestorHelper.GetAspectPerson((EvaluationPersonas)item.EvaluationConcept.EvaluationPerson);
                         break;
 
                     case VulnerabilityTypes.Recursos:
-                        type = "Recursos";
-                        if (item.EvaluationConcept.EvaluationRecurso == EvaluationRecursos.Suministros) { aspecto = "Suministros"; }
-                        if (item.EvaluationConcept.EvaluationRecurso == EvaluationRecursos.Edificaciones) { aspecto = "Edificaciones"; }
-                        if (item.EvaluationConcept.EvaluationRecurso == EvaluationRecursos.Equipos) { aspecto = "Equipos"; }
+                        aspecto = _gestorHelper.GetAspectResource((EvaluationRecursos)item.EvaluationConcept.EvaluationRecurso);
                         break;
 
                     case VulnerabilityTypes.Sistemas:
-                        type = "Sistemas y Procesos";
-                        if (item.EvaluationConcept.EvaluationSystem == EvaluationSystems.Servicios) { aspecto = "Servicios"; }
-                        if (item.EvaluationConcept.EvaluationSystem == EvaluationSystems.Sistemas) { aspecto = "Sistemas alternos"; }
-                        if (item.EvaluationConcept.EvaluationSystem == EvaluationSystems.Recuperacion) { aspecto = "Recuperación"; }
+                        aspecto = _gestorHelper.GetAspectSystem((EvaluationSystems)item.EvaluationConcept.EvaluationSystem);
                         break;
                 }
 
-                string response = string.Empty;
-                switch (item.Response)
-                {
-                    case ScalesCalification.Sí:
-                        response = "SI";
-                        break;
-
-                    case ScalesCalification.Parcial:
-                        response = "PARCIAL";
-                        break;
-
-                    case ScalesCalification.No:
-                        response = "NO";
-                        break;
-                }
-
+                string response = _gestorHelper.GetResponse(item.Response);
                 var vulnerabityVM = new VulnerabilityVM
                 {
                     ID = item.ID,
@@ -260,36 +225,34 @@ namespace WSafe.Domain.Helpers.Implements
             };
             return model;
         }
-        public IEnumerable<VulnerabilityAnalisisVM> GetConsolidateVulnerability(int id, int _orgID)
+        public async Task<IEnumerable<VulnerabilityAnalisisVM>> GetConsolidateVulnerability(int id, int _orgID)
         {
             var model = new List<VulnerabilityAnalisisVM>();
             string type = _gestorHelper.GetVulnerabilityType(id);
 
-            var consolidate = _empresaContext.Vulnerabilities
+            var consolidate = await _empresaContext.Vulnerabilities
                 .Where(v => v.OrganizationID == _orgID && (int)v.VulnerabilityType == id)
                 .Include(v => v.Amenaza)
                 .Include(v => v.EvaluationConcept)
                 .OrderBy(v => v.CategoryAmenaza)
                 .ThenBy(v => v.AmenazaID)
-                .ThenBy(v => v.EvaluationConcept)
-                .ToList();
+                .ThenBy(v => v.EvaluationConceptID)
+                .ToListAsync();
 
             foreach (var category in consolidate.GroupBy(v => v.CategoryAmenaza))
             {
                 string categoria = _gestorHelper.GetAmenazaCategory(category.Key);
                 string amenazaName = string.Empty;
-                double total = 0;
-                int i4 = 0;
                 foreach (var amenaza in category.GroupBy(v => v.AmenazaID))
                 {
                     amenazaName = amenaza.FirstOrDefault()?.Amenaza?.Name ?? "Sin Amenaza";
-                    double sum1 = 0, sum2 = 0, sum3 = 0;
-                    int i1 = 0, i2 = 0, i3 = 0;
+                    double sum1 = 0, sum2 = 0, sum3 = 0, total = 0;
+                    int i1 = 0, i2 = 0, i3 = 0, i4 = 0;
                     string aspect1 = string.Empty, aspect2 = string.Empty, aspect3 = string.Empty;
 
-                    foreach (var evalConcept in amenaza.GroupBy(v => v.EvaluationConcept))
+                    foreach (var evalConcept in amenaza.GroupBy(v => v.EvaluationConceptID))
                     {
-                        if (evalConcept.Key.EvaluationPerson == EvaluationPersonas.Organizacional)
+                        if (evalConcept.First().EvaluationConcept.EvaluationPerson == EvaluationPersonas.Organizacional)
                         {
                             aspect1 = "Gestión Organizacional";
                             sum1 += evalConcept.Sum(item =>
@@ -298,7 +261,7 @@ namespace WSafe.Domain.Helpers.Implements
                             );
                             i1++;
                         }
-                        if (evalConcept.Key.EvaluationPerson == EvaluationPersonas.Entrenamiento)
+                        if (evalConcept.First().EvaluationConcept.EvaluationPerson == EvaluationPersonas.Entrenamiento)
                         {
                             aspect2 = "Capacitación y Entrenaniento";
                             sum2 += evalConcept.Sum(item =>
@@ -307,7 +270,7 @@ namespace WSafe.Domain.Helpers.Implements
                             );
                             i2++;
                         }
-                        if (evalConcept.Key.EvaluationPerson == EvaluationPersonas.Seguridad)
+                        if (evalConcept.First().EvaluationConcept.EvaluationPerson == EvaluationPersonas.Seguridad)
                         {
                             aspect3 = "Características de Seguridad";
                             sum3 += evalConcept.Sum(item =>
@@ -316,7 +279,7 @@ namespace WSafe.Domain.Helpers.Implements
                             );
                             i3++;
                         }
-                        if (evalConcept.Key.EvaluationRecurso == EvaluationRecursos.Suministros)
+                        if (evalConcept.First().EvaluationConcept.EvaluationRecurso == EvaluationRecursos.Suministros)
                         {
                             aspect1 = "Suministros";
                             sum1 += evalConcept.Sum(item =>
@@ -325,7 +288,7 @@ namespace WSafe.Domain.Helpers.Implements
                             );
                             i1++;
                         }
-                        if (evalConcept.Key.EvaluationRecurso == EvaluationRecursos.Edificaciones)
+                        if (evalConcept.First().EvaluationConcept.EvaluationRecurso == EvaluationRecursos.Edificaciones)
                         {
                             aspect2 = "Edificaciones";
                             sum2 += evalConcept.Sum(item =>
@@ -334,7 +297,7 @@ namespace WSafe.Domain.Helpers.Implements
                             );
                             i2++;
                         }
-                        if (evalConcept.Key.EvaluationRecurso == EvaluationRecursos.Equipos)
+                        if (evalConcept.First().EvaluationConcept.EvaluationRecurso == EvaluationRecursos.Equipos)
                         {
                             aspect3 = "Equipos";
                             sum3 += evalConcept.Sum(item =>
@@ -343,7 +306,7 @@ namespace WSafe.Domain.Helpers.Implements
                             );
                             i3++;
                         }
-                        if (evalConcept.Key.EvaluationSystem == EvaluationSystems.Servicios)
+                        if (evalConcept.First().EvaluationConcept.EvaluationSystem == EvaluationSystems.Servicios)
                         {
                             aspect1 = "Servicios";
                             sum1 += evalConcept.Sum(item =>
@@ -352,7 +315,7 @@ namespace WSafe.Domain.Helpers.Implements
                             );
                             i1++;
                         }
-                        if (evalConcept.Key.EvaluationSystem == EvaluationSystems.Sistemas)
+                        if (evalConcept.First().EvaluationConcept.EvaluationSystem == EvaluationSystems.Sistemas)
                         {
                             aspect2 = "Sistemas alternos";
                             sum2 += evalConcept.Sum(item =>
@@ -361,7 +324,7 @@ namespace WSafe.Domain.Helpers.Implements
                             );
                             i2++;
                         }
-                        if (evalConcept.Key.EvaluationSystem == EvaluationSystems.Recuperacion)
+                        if (evalConcept.First().EvaluationConcept.EvaluationSystem == EvaluationSystems.Recuperacion)
                         {
                             aspect3 = "Recuperacion";
                             sum3 += evalConcept.Sum(item =>
@@ -386,7 +349,7 @@ namespace WSafe.Domain.Helpers.Implements
                     double result3 = i3 > 0 ? sum3 / i3 : 0.0;
                     string interpretation3 = _gestorHelper.GetInterpretation(result3);
 
-                    double result4 = i4 > 0 ? total / i4 : 0.0;
+                    double result4 = result1 + result2 + result3;
                     string interpretation4 = _gestorHelper.GetVulnerabilityInterpretation(result4);
 
                     if (i1 > 0)
