@@ -49,7 +49,7 @@
     <div class="row justify-content-between">
         <div class="col-md-12">
             <div class="d-flex flex-column flex-md-row">
-                @Html.ActionLink("Nueva amenaza", "Create", null, new { @class = "btn btn-info btn-custom" })
+                @Html.ActionLink("Identificación amenazas", "Create", null, new { @class = "btn btn-success btn-custom" })
                 <a href="#" onclick="showCalificationAmenazas()" class="btn btn-info btn-custom" title="Clasificación de amenazas">
                     Clasificación amenazas
                 </a>
@@ -74,13 +74,17 @@
                         @title = "Vulnerabilidad sistemas y procesos",
                         @id = "idSistemas"
                     })
+
+                <a href="#" id="showConsolidateLink" class="btn btn-warning btn-custom" title="Consolidado vulnerabilidades">
+                    Consolidado vulnerabilidades
+                </a>
+
                 <a href="#" onclick="showRiskLevelAmenazas()" class="btn btn-info btn-custom" title="Nivel de riesgo">
                     Nivel de riesgo
                 </a>
                 <a href="#" onclick="showVulnerabilitiesPDF()" class="btn btn-info btn-custom" title="Nivel de riesgo">
                     PDF anáalisis de vulnerabilidades
                 </a>
-                <a href="#" onclick="ingresarPons()" class="btn btn-info btn-custom" title="Procedimientos operativos normalizados PON´S">PON'S</a>
             </div>
         </div>
     </div>
@@ -145,35 +149,34 @@
     </table>
 
 </div>
-<div class="showConsolidate"></div>
-<div class="showCalification" style="display:none;"></div>
+<div class="showConsolidateVulnerabilities"></div>
 <div class="showVulnerabilitiesDetail-1" style="display:none;"></div>
 <div class="showVulnerabilitiesDetail-2" style="display:none;"></div>
 <div class="showVulnerabilitiesDetail-3" style="display:none;"></div>
 <div class="showRiskLevel" style="display:none;"></div>
 
 @section Scripts {
-
     <script type="text/javascript">
+        var lastId = 1;
 
         $(document).ready(function () {
+            $("#showConsolidateLink").click(function () {
 
-            $("#idPersonas").click(function (event) {
-                event.preventDefault();
-                showConsolidateVulnerabilities(1);
-            });
+                $("#idPersonas").click(function () {
+                    lastId = 1;
+                });
 
-            $("#idRecursos").click(function (event) {
-                event.preventDefault();
-                showConsolidateVulnerabilities(2);
-            });
+                $("#idRecursos").click(function () {
+                    lastId = 2;
+                });
 
-            $("#idSistemas").click(function (event) {
-                event.preventDefault();
-                showConsolidateVulnerabilities(3);
+                $("#idSistemas").click(function () {
+                    lastId = 3;
+                });
+
+                showConsolidateVulnerabilities(lastId);
             });
         });
 
     </script>
-
 }
