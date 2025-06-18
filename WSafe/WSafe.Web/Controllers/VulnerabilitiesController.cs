@@ -47,6 +47,7 @@ namespace WSafe.Web.Controllers
             _orgID = (int)Session["orgID"];
             var model = await _emergencyConverter.ToListVulnerabilityVM(_orgID, 1);
             ViewBag.organization = $"GESTIÓN DE VULNERABILIDADES: {Session["organization"].ToString().Trim()}";
+            ViewBag.id = 1;
             return View(model);
         }
 
@@ -56,6 +57,7 @@ namespace WSafe.Web.Controllers
             _orgID = (int)Session["orgID"];
             var model = await _emergencyConverter.ToListVulnerabilityVM(_orgID, id);
             ViewBag.organization = $"GESTIÓN DE VULNERABILIDADES: {Session["organization"].ToString().Trim()}";
+            ViewBag.id = id;
             return View("Index", model);
         }
 
