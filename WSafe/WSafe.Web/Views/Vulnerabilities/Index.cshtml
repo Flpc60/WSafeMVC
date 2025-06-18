@@ -50,7 +50,7 @@
         <div class="col-md-12">
             <div class="d-flex flex-column flex-md-row">
                 @Html.ActionLink("Identificación amenazas", "Create", null, new { @class = "btn btn-success btn-custom" })
-                <a href="#" onclick="showCalificationAmenazas()" class="btn btn-info btn-custom" title="Clasificación de amenazas">
+                <a href="#" onclick="showCalificationAmenazas()" class="btn btn-warning btn-custom" title="Clasificación de amenazas">
                     Clasificación amenazas
                 </a>
                 @Html.ActionLink("Vulnerabilidad Personas", "IndexById", new { id = 1 },
@@ -82,7 +82,7 @@
                 <a href="#" onclick="showRiskLevelAmenazas()" class="btn btn-info btn-custom" title="Nivel de riesgo">
                     Nivel de riesgo
                 </a>
-                <a href="#" onclick="showVulnerabilitiesPDF()" class="btn btn-info btn-custom" title="Nivel de riesgo">
+                <a href="#" onclick="showVulnerabilitiesPDF()" class="btn btn-warning btn-custom" title="Nivel de riesgo">
                     PDF anáalisis de vulnerabilidades
                 </a>
             </div>
@@ -149,31 +149,19 @@
     </table>
 
 </div>
+<div class="showCalificationAmenazas"></div>
 <div class="showConsolidateVulnerabilities"></div>
 <div class="showVulnerabilitiesDetail-1" style="display:none;"></div>
 <div class="showVulnerabilitiesDetail-2" style="display:none;"></div>
 <div class="showVulnerabilitiesDetail-3" style="display:none;"></div>
-<div class="showRiskLevel" style="display:none;"></div>
+<div class="showRiskLevel"></div>
 
 @section Scripts {
     <script type="text/javascript">
-        var lastId = 1;
 
+        var lastId = @ViewBag.id;
         $(document).ready(function () {
             $("#showConsolidateLink").click(function () {
-
-                $("#idPersonas").click(function () {
-                    lastId = 1;
-                });
-
-                $("#idRecursos").click(function () {
-                    lastId = 2;
-                });
-
-                $("#idSistemas").click(function () {
-                    lastId = 3;
-                });
-
                 showConsolidateVulnerabilities(lastId);
             });
         });
