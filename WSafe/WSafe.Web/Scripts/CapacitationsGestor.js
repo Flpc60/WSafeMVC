@@ -1395,7 +1395,7 @@ function showCalificationAmenazas() {
                     });
 
                     html += `</tbody></table></div>`;
-                    $('.showCalification').html(html);
+                    $('.showCalificationAmenazas').html(html);
                     $('.showConsolidate').focus();
 
                     resolve();
@@ -1610,7 +1610,7 @@ async function showVulnerabilitiesPDF() {
         await showVulnerabilitiesDetail(3);
         await showRiskLevelAmenazas();
 
-        let calification = $('.showCalification').html() || "";
+        let calification = $('.showCalificationAmenazas').html() || "";
         let encodedCalification = encodeURIComponent(calification);
 
         let vulnera1 = $('.showVulnerabilitiesDetail-1').html() || "";
