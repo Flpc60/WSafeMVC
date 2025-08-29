@@ -1,0 +1,315 @@
+﻿@model IEnumerable<WSafe.Domain.Models.ListaRiesgosVM>
+@{
+    ViewBag.Title = "WSafe";
+}
+
+<style>
+
+    .CommonActivitys, .ClassDangers, .EfectosPosibles {
+        display: none
+    }
+
+    .centerText {
+        text-align: center
+    }
+</style>
+
+<!-- Botón flotante -->
+<button id="chat-toggle" onclick="toggleChat()"
+        style="position:fixed; bottom:20px; right:20px; z-index:1000;">
+    Soporte técnico
+</button>
+<!-- Ventana de chat (inicialmente oculta) -->
+<div id="chat-window" style="display:none; position:fixed; bottom:60px; right:20px; width:300px; height:400px; border:1px solid #ccc; background:#fff; padding:10px; z-index:1000;">
+    <div id="chat-header">
+        <strong>Asistente</strong>
+        <button onclick="toggleChat()">Cerrar</button>
+    </div>
+    <div id="chat-body" style="height:300px; overflow:auto; margin-top:10px;"></div>
+    <input id="chat-input" type="text" style="width:80%;" placeholder="Escribe tu pregunta..." />
+    <button onclick="sendMessage()">Enviar</button>
+</div>
+
+<script>
+
+    function toggleChat() {
+        let win = document.getElementById('chat-window');
+        win.style.display = (win.style.display === 'none' ? 'block' : 'none');
+    }
+
+    async function sendMessage() {
+        const input = document.getElementById('chat-input');
+        const text = input.value.trim();
+        if (!text) return;
+        // Mostrar mensaje de usuario
+        let body = document.getElementById('chat-body');
+        body.innerHTML += `<div><strong>Tú:</strong> ${text}</div>`;
+        input.value = '';
+        // Llamar al endpoint C#
+        const response = await fetch('/api/Chat/message', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: text })
+        });
+        const data = await response.json();
+        // Mostrar respuesta del bot
+        body.innerHTML += `<div><strong>Bot:</strong> ${data.reply}</div>`;
+        body.scrollTop = body.scrollHeight;
+    }
+
+</script>
+
+
+@Html.Partial("_PageHead")
+
+<div class="container">
+    <div class="row justify-content-between">
+        <div class="col-md-8">
+            @Html.ActionLink("Nuevo riesgo", "Create", null, new { @class = "btn btn-info btn-lg active glyphicon glyphicon-plus" })
+            @Html.ActionLink("Generar matriz de riesgos", "PrintRiesgosToPdf", null, new { @class = "btn btn-info btn-lg glyphicon glyphicon-download-alt" })
+            <button type="button" id="btnIndicators" class="btn btn-info btn-lg" onclick="$('#btnValueDangers').focus();"><i class="fa fa-search"></i> Indicadores</button>
+        </div>
+        <div class="col-md-4">
+            <div class="text-right">
+                <div class="btn-group">
+                    <div style="background-color: red">RIESGO RESIDUAL</div>
+                    <div style="background-color: orange">RIESGO TRATADO</div>
+                    <div style="background-color: green">RIESGO CONTROLADO</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="table-responsive" style="background-color: azure; width:100%; margin-right:0px">
+    <table class="table table-bordered">
+        <tr style="background-color:gainsboro">
+            <th>
+                @Html.DisplayNameFor(model => model.Proceso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Zona)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Actividad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tarea)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rutinaria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Clasificacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Peligro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EfectosPosibles)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NivelDeficiencia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NivelExposicion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NivelProbabilidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NivelConsecuencia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NivelRiesgo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoriaRiesgo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Aceptability)
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+        </tr>
+        <tbody id="myTable">
+
+            @foreach (var item in Model)
+            {
+                string strStyle = String.Empty;
+                switch (item.CategoriaRiesgo)
+                {
+                    case "I":
+                        strStyle = "background-color:red;";
+                        break;
+
+                    case "II":
+                        strStyle = "background-color:orange;";
+                        break;
+
+                    case "III":
+                        strStyle = "background-color:orange;";
+                        break;
+
+                    default:
+                        strStyle = "background-color:green;";
+                        break;
+                }
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Proceso)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Zona)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Actividad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tarea)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TextRutinaria)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Clasificacion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Peligro)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EfectosPosibles)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NivelDeficiencia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NivelExposicion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NivelProbabilidad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NivelConsecuencia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NivelRiesgo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CategoriaRiesgo)
+                    </td>
+                    <td style="@strStyle">
+                        @Html.DisplayFor(modelItem => item.Aceptability)
+                    </td>
+                    <td style="background-color:deepskyblue; text-align:left;">
+                        @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "fas fa-edit", @title = "Actualizar riesgo" })
+                    </td>
+                    <td style="background-color:deepskyblue; text-align:left">
+                        <a href="#" onclick="DeleteRiesgo('@item.ID')" class="fas fa-trash" title="Descartar riesgo"></a>
+                    </td>
+                </tr>
+
+            }
+
+        </tbody>
+    </table>
+</div>
+<hr />
+<div class="container" style="margin-left:6%">
+    <button type="button" id="btnValueDangers" class="btn btn-success" onclick="chartValueDangers()">VALORACIÓN PELIGROS</button>
+    <button type="button" id="btnClassDangers" class="btn btn-success" onclick="chartClassDangers()">CLASIFICACIÓN PELIGROS</button>
+    <button type="button" id="btnCommonActivitys" class="btn btn-success" onclick="chartCommonActivitys()">ACTIVIDADES RUTINARIAS</button>
+    <button type="button" id="btnEfectosPosibles" class="btn btn-success" onclick="chartEfectosPosibles()">EFECTOS POSIBLES</button>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <div><canvas id="ValueDangers" width="400" height="200"></canvas></div>
+        </div>
+        <div class="col-md-6">
+            <div><canvas id="ClassDangers" width="200" height="100"></canvas></div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <div><canvas id="CommonActivitys" width="200" height="100"></canvas></div>
+        </div>
+        <div class="col-md-6">
+            <div><canvas id="EfectosPosibles" width="200" height="100"></canvas></div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#myInput").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+
+        function DeleteRiesgo(ID) {
+            var id = ID;
+            $.ajax({
+                url: "/Riesgos/DeleteRiesgo/" + id,
+                type: "GET",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                async: true,                                               // si es asincrónico o no
+                success: function (result) {
+                    if (result.data == false) {
+                        alert(result.error);
+                    } else {
+                        var text = "";
+                        text += "Esta seguro de querer borrar este registro ? :\n\n";
+                        text += "Proceso : " + result.data.Proceso + "\n";
+                        text += "Zona : " + result.data.Zona + "\n";
+                        text += "Actividad : " + result.data.Actividad + "\n";
+                        text += "Clasificación : " + result.data.CategoriaPeligro + "\n";
+                        text += "Peligro : " + result.data.Peligro + "\n";
+                        text += "Efectos posibles : " + result.data.EfectosPosibles + "\n";
+                        text += "Nivel deficiencia : " + result.data.NivelDeficiencia + "\n";
+                        text += "Nivel exposición : " + result.data.NivelExposicion + "\n";
+                        text += "Nivel consecuencia : " + result.data.NivelConsecuencia + "\n";
+                        text += "Nivel categoria riesgo : " + result.data.CategoriaRiesgo + "\n";
+                        text += "Aceptabilidad : " + result.data.AceptabilidadNR + "\n";
+                        text += "Nro. expuestos : " + result.data.NroExpuestos + "\n";
+                        text += "Peor consecuencia : " + result.data.PeorConsecuencia + "\n";
+
+                        var respuesta = confirm(text);
+
+                        if (respuesta == true) {
+                            $.ajax({
+                                url: "/Riesgos/DeleteRiesgo/" + id,
+                                type: "POST",
+                                contentType: "application/json;charset=UTF-8",
+                                dataType: "json",
+                                async: true,
+                                success: function (response) {
+                                    alert(response.message);
+                                    location.reload(true);
+                                },
+                                error: function (xhr, ajaxOptions, thrownError) {
+                                    alert(xhr.status);
+                                    alert(thrownError);
+                                }
+                            });
+                        }
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+        }
+
+    </script>
+}

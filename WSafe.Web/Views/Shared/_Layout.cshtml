@@ -1,0 +1,301 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - WSafe</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="~/Content/bootstrap-table.min.css" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/Scripts/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="~/Scripts/GestorRiesgos.js" type="text/javascript"></script>
+    <script src="~/Scripts/AuditsGestor.js" type="text/javascript"></script>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jqueryunobtrusive")
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <style>
+
+        body {
+            margin-top: 0;
+            padding-top: 0;
+        }
+
+        .navbar {
+            background-color: silver;
+            padding: 0;
+        }
+
+        .navbar-brand {
+            padding: 0;
+        }
+
+        .navbar-brand-logo {
+            margin-top: 0;
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .navbar-nav {
+            font-size: 11px;
+            color: blue;
+            text-align: left;
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+            .navbar-nav .nav-item {
+                margin-left: -20px;
+                font-size: 8px;
+                color: blue;
+                padding: 0;
+                list-style-type: none;
+            }
+
+            .navbar-nav .nav-link {
+                padding: 0;
+                margin: 0;
+                color: blue;
+            }
+
+        .navbar-text {
+            font-size: 10px;
+            color: white;
+        }
+
+        .navbar-nav li {
+            display: inline-block;
+            font-size: 10px;
+            text-align: right;
+            color: white;
+            margin-left: 10px;
+        }
+
+            .navbar-nav li:hover {
+                background-color: silver;
+            }
+
+        .navbar-right {
+            margin-right: 0;
+        }
+
+        .navbar-collapse {
+            text-align: left;
+        }
+
+        .navbar-toggler {
+            margin-right: 0;
+        }
+
+        .body-content {
+            margin-top: 1px;
+            padding-top: 1px;
+        }
+
+        footer {
+            margin-top: 5px;
+        }
+
+        .chatbot-float {
+            position: fixed;
+            bottom: 20px;
+            right: 25px;
+            z-index: 1050;
+            border-radius: 50px;
+            padding: 12px 18px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+    </style>
+
+</head>
+
+<button id="openChatbot" class="btn btn-primary rounded-circle" style="position: fixed; bottom: 30px; right: 30px; z-index: 999;">
+    💬 Asistente IA
+</button>
+
+<!-- Ventana del chatbot -->
+<div id="chatbotWindow" style="position: fixed; bottom: 90px; right: 30px; width: 400px; height: 500px; background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 10px; padding: 15px; display: none; box-shadow: 0 0 10px rgba(0,0,0,0.2); z-index: 999;">
+    <h5 style="font-family: 'Segoe UI', sans-serif;">Soporte IA</h5>
+
+    <div id="chatOutput" style="height: 320px; overflow-y: auto; background-color: #fff; padding: 10px; border: 1px solid #ddd; margin-bottom: 10px; font-family: 'Segoe UI', sans-serif; font-size: 14px;"></div>
+
+    <input type="text" id="chatInput" class="form-control mb-4" placeholder="Escribe tu pregunta..." />
+
+    <div class="d-flex justify-content-between">
+        <button class="btn btn-secondary" id="clearChat">🧹 Limpiar</button>
+        <button class="btn btn-success" id="sendChat">Enviar</button>
+    </div>
+</div>
+
+<body>
+    <div class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="/Images/wsafe.jpg" width="50" height="50" alt="WSafe Logo" class="navbar-brand-logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    @{
+                        var userID = Session["userID"];
+                        var userRole = Session["UserRole"];
+                        userRole = userRole.ToString().Trim();
+                        if (userRole.Equals("ADMIN"))
+                        {
+                            <li class="nav-item">@Html.ActionLink("ENTIDAD", "Index", "Organizations")</li>
+                            <li class="nav-item">@Html.ActionLink("SG-SST", "Index", "Movimientos")</li>
+                            <li class="nav-item">@Html.ActionLink("EVALUACIONES", "Index", "Evaluations")</li>
+                            <li class="nav-item">@Html.ActionLink("RIESGOS", "Index", "Riesgos")</li>
+                            <li class="nav-item">@Html.ActionLink("INCIDENTES", "Index", "Incidentes")</li>
+                            <li class="nav-item">@Html.ActionLink("ACCIONES", "Index", "Acciones")</li>
+                            <li class="nav-item">@Html.ActionLink("INDICADORES", "Index", "Indicadores")</li>
+                            <li class="nav-item">@Html.ActionLink("USUARIOS", "Index", "Accounts")</li>
+                            <li class="nav-item">@Html.ActionLink("TRABAJADORES", "Index", "Workers")</li>
+                            <li class="nav-item">@Html.ActionLink("ACTO_INSEGUROS", "Index", "Unsafeacts")</li>
+                            <li class="nav-item">@Html.ActionLink("RECOMENDACIONES", "Index", "Recomendations")</li>
+                            <li class="nav-item">@Html.ActionLink("PLAN_ANUAL", "Index", "AnnualPlans")</li>
+                            <li class="nav-item">@Html.ActionLink("OCUPACIONALES", "Index", "Occupationals")</li>
+                            <li class="nav-item">@Html.ActionLink("CAPACITACIONES", "Index", "Capacitations")</li>
+                            <li class="nav-item">@Html.ActionLink("VULNERABILIDADES", "Index", "Vulnerabilities")</li>
+                        }
+                        else
+                        {
+                            if (userRole.Equals("LIDER RESPONSABLE SST"))
+                            {
+                                <li class="nav-item">@Html.ActionLink("RIESGOS", "Index", "Riesgos")</li>
+                                <li class="nav-item">@Html.ActionLink("INCIDENTES", "Index", "Incidentes")</li>
+                                <li class="nav-item">@Html.ActionLink("ACCIONES", "Index", "Acciones")</li>
+                                <li class="nav-item">@Html.ActionLink("ACTOS_INSEGUROS", "Index", "Unsafeacts")</li>
+                                <li class="nav-item">@Html.ActionLink("RECOMENDACIONES", "Index", "Recomendations")</li>
+                                <li class="nav-item">@Html.ActionLink("PLAN_ANUAL", "Index", "AnnualPlans")</li>
+                                <li class="nav-item">@Html.ActionLink("CAPACITACIONES", "Index", "Capacitations")</li>
+                                <li class="nav-item">@Html.ActionLink("VULNERABILIDADES", "Index", "Vulnerabilities")</li>
+                            }
+                            else
+                            {
+                                if (userRole.Equals("ARL"))
+                                {
+                                    <li class="nav-item">@Html.ActionLink("ENTIDAD", "Index", "Organizations")</li>
+                                    <li class="nav-item">@Html.ActionLink("SG-SST", "Index", "Movimientos")</li>
+                                    <li>@Html.ActionLink("EVALUACIONES", "Index", "Evaluations")</li>
+                                    <li class="nav-item">@Html.ActionLink("PLAN_ANUAL", "Index", "AnnualPlans")</li>
+                                    <li class="nav-item">@Html.ActionLink("VULNERABILIDADES", "Index", "Vulnerabilities")</li>
+                                }
+                                else
+                                {
+                                    if (userRole.Equals("TRABAJADOR"))
+                                    {
+                                        <li class="nav-item">@Html.ActionLink("TRABAJADORES", "GetWorker", "Workers")</li>
+                                        <li class="nav-item">@Html.ActionLink("RIESGOS", "Create", "Riesgos")</li>
+                                        <li class="nav-item">@Html.ActionLink("ACTOS_INSEGUROS", "Create", "Unsafeacts")</li>
+                                    }
+                                    else
+                                    {
+                                        <li class="nav-item">@Html.ActionLink("ACTOS_INSEGUROS", "Create", "Unsafeacts")</li>
+                                    }
+                                }
+                            }
+                        }
+                    }
+                </ul>
+                <div style="color: white; text-align: right;">
+                    @if (Session["userName"] != null)
+                    {
+                        <a style="display: inline-block; margin-right: 10px;"><b>Hola: @Session["userName"].ToString().Trim()</b></a>
+                        <a href="#" style="display: inline-block;" class="glyphicon glyphicon-chevron-left" onclick="logout()">Cerrar sesión</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <div class="row align-items-start">
+                <div class="col-md-2">
+                    @Html.ActionLink("Cerrar Módulo", "Index", "Home",
+                    new { @class = "btn btn-success btn-lg" },
+                    new { @class = "glyphicon glyphicon-chevron-left" })
+                </div>
+                <div class="col-md-10">
+                </div>
+            </div>
+            <hr />
+            <p>&copy; @DateTime.Now.Year - WSafeApp</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/bootstrap-table/bootstrap-table.min.js")
+    @Scripts.Render("~/Scripts/GestorRiesgos.js")
+    @Scripts.Render("~/Scripts/AuditsGestor.js")
+    @Scripts.Render("~/Scripts/CapacitationsGestor.js")
+    @RenderSection("scripts", required: false)
+
+    <script>
+        document.getElementById("openChatbot").addEventListener("click", () => {
+            const win = document.getElementById("chatbotWindow");
+            win.style.display = win.style.display === "none" ? "block" : "none";
+        });
+
+        document.getElementById("clearChat").addEventListener("click", () => {
+            document.getElementById("chatOutput").innerHTML = "";
+        });
+
+        document.getElementById("sendChat").addEventListener("click", async () => {
+            const input = document.getElementById("chatInput");
+            const output = document.getElementById("chatOutput");
+            const prompt = input.value.trim();
+            if (!prompt) return;
+
+            output.innerHTML += `<div><strong>Tú:</strong> ${prompt}</div>`;
+            input.value = "";
+
+            try {
+                const res = await fetch("http://localhost:5005/api/Chatbot/support", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ prompt })
+                });
+
+                const data = await res.json();
+
+                if (data.success) {
+                    // Formatear la respuesta si es lista
+                    const formatted = data.response.includes('\n')
+                        ? `<ul>${data.response.split('\n').map(line => `<li>${line}</li>`).join('')}</ul>`
+                        : `<p>${data.response}</p>`;
+
+                    output.innerHTML += `<div><strong>WSafe:</strong> ${formatted}</div>`;
+                } else {
+                    output.innerHTML += `<div class="text-danger"><strong>Error:</strong> ${data.errorMessage}</div>`;
+                }
+
+                output.scrollTop = output.scrollHeight;
+            } catch (err) {
+                output.innerHTML += `<div class="text-danger"><strong>Error:</strong> Falló la solicitud al servidor</div>`;
+            }
+        });
+    </script>
+
+</body>
+</html>

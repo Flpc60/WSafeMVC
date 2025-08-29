@@ -1,0 +1,39 @@
+@{
+    ViewBag.Title = "AI Analysis";
+}
+
+<h2>WSafe AI Analysis</h2>
+
+<!-- Formulario para predicción -->
+<h3>Predict Incidents</h3>
+@using (Html.BeginForm("Predict", "Analysis", FormMethod.Post))
+{
+    <textarea name="inputData" rows="4" cols="50" placeholder="Ingresa datos históricos..."></textarea>
+    <br />
+    <input type="submit" value="Predict" class="btn btn-primary" />
+}
+
+<!-- Formulario para auditoría -->
+<h3>Audit Documents</h3>
+@using (Html.BeginForm("Audit", "Analysis", FormMethod.Post))
+{
+    <textarea name="document" rows="4" cols="50" placeholder="Ingresa contenido del documento..."></textarea>
+    <br />
+    <input type="submit" value="Audit" class="btn btn-warning" />
+}
+
+<!-- Formulario para detección de comportamientos inseguros -->
+<h3>Detect Unsafe Behaviors</h3>
+@using (Html.BeginForm("Detect", "Analysis", FormMethod.Post))
+{
+    <textarea name="report" rows="4" cols="50" placeholder="Ingresa reporte de incidentes..."></textarea>
+    <br />
+    <input type="submit" value="Detect" class="btn btn-danger" />
+}
+
+@if (ViewBag.Result != null)
+{
+    <hr />
+    <h3>Resultado IA:</h3>
+    <pre>@ViewBag.Result</pre>
+}

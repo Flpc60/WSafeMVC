@@ -1,0 +1,1205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D0341839-D47F-45AF-B069-968E847148E4}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WSafe.Web</RootNamespace>
+    <AssemblyName>WSafe.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress>false</Use64BitIISExpress>
+    <IISExpressSSLPort>44315</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>4.2</TypeScriptToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AngleSharp, Version=0.9.4.42449, Culture=neutral, PublicKeyToken=e83494dcdc6d31ea, processorArchitecture=MSIL">
+      <HintPath>..\packages\AngleSharp.0.9.4\lib\net45\AngleSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr4.Runtime, Version=4.5.0.0, Culture=neutral, PublicKeyToken=09abb75b9ed49849, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr4.Runtime.4.5.3\lib\net45\Antlr4.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Aspose.Words, Version=24.9.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
+      <HintPath>..\packages\Aspose.Words.24.9.0\lib\net462\Aspose.Words.dll</HintPath>
+    </Reference>
+    <Reference Include="Aspose.Words.Pdf2Word, Version=24.9.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
+      <HintPath>..\packages\Aspose.Words.24.9.0\lib\net462\Aspose.Words.Pdf2Word.dll</HintPath>
+    </Reference>
+    <Reference Include="Azure.Core, Version=1.38.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Core.1.38.0\lib\net472\Azure.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Azure.Identity, Version=1.11.4.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Identity.1.11.4\lib\netstandard2.0\Azure.Identity.dll</HintPath>
+    </Reference>
+    <Reference Include="BootstrapTable, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\bootstrap-table.mvc.1.1.1\lib\net452\BootstrapTable.dll</HintPath>
+    </Reference>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.6.1\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.3.4.1\lib\net40\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.Core.3.4.1\lib\net40\Common.Logging.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.licensekey, Version=3.1.1.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext7.licensekey.3.1.1\lib\net40\itext.licensekey.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.2, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.2\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.xfaworker, Version=5.5.13.2, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itextsharp.xfaworker.5.5.13.2\lib\net40\itextsharp.xfaworker.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.xmlworker, Version=5.5.13.2, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itextsharp.xmlworker.5.5.13.2\lib\itextsharp.xmlworker.dll</HintPath>
+    </Reference>
+    <Reference Include="Jint, Version=0.9.2.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itextsharp.xfaworker.5.5.13.2\lib\net40\Jint.dll</HintPath>
+    </Reference>
+    <Reference Include="jQuery.Validation.Unobtrusive.Native, Version=1.1.5809.17463, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\jQuery.Validation.Unobtrusive.Native.MVC5.1.3.0\lib\net45\jQuery.Validation.Unobtrusive.Native.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=9.0.0.8, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.9.0.8\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bot.Configuration, Version=4.15.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bot.Configuration.4.15.1\lib\netstandard2.0\Microsoft.Bot.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\lib\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Data.SqlClient, Version=5.0.0.0, Culture=neutral, PublicKeyToken=23ec7fc2d6eaa4a5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.SqlClient.5.2.2\lib\net462\Microsoft.Data.SqlClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration, Version=9.0.0.8, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.9.0.8\lib\net462\Microsoft.Extensions.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=9.0.0.8, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.9.0.8\lib\net462\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.FileExtensions, Version=9.0.0.8, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.FileExtensions.9.0.8\lib\net462\Microsoft.Extensions.Configuration.FileExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Json, Version=9.0.0.8, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Json.9.0.8\lib\net462\Microsoft.Extensions.Configuration.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=9.0.0.8, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.9.0.8\lib\net462\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=9.0.0.8, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.9.0.8\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Abstractions, Version=9.0.0.8, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.FileProviders.Abstractions.9.0.8\lib\net462\Microsoft.Extensions.FileProviders.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Physical, Version=9.0.0.8, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.FileProviders.Physical.9.0.8\lib\net462\Microsoft.Extensions.FileProviders.Physical.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileSystemGlobbing, Version=9.0.0.8, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.FileSystemGlobbing.9.0.8\lib\net462\Microsoft.Extensions.FileSystemGlobbing.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging, Version=9.0.0.8, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.9.0.8\lib\net462\Microsoft.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=9.0.0.8, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.9.0.8\lib\net462\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=9.0.0.8, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.9.0.8\lib\net462\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=9.0.0.8, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.9.0.8\lib\net462\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Identity.Client, Version=4.64.1.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Identity.Client.4.64.1\lib\net472\Microsoft.Identity.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Identity.Client.Extensions.Msal, Version=4.61.3.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Identity.Client.Extensions.Msal.4.61.3\lib\netstandard2.0\Microsoft.Identity.Client.Extensions.Msal.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Abstractions, Version=8.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Abstractions.8.0.2\lib\net472\Microsoft.IdentityModel.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=8.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.8.0.2\lib\net472\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=8.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.8.0.2\lib\net472\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Protocols, Version=6.35.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Protocols.6.35.0\lib\net472\Microsoft.IdentityModel.Protocols.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect, Version=6.35.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Protocols.OpenIdConnect.6.35.0\lib\net472\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=8.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.8.0.2\lib\net472\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.2.1.505.0\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.2.1.505.0\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.2.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json.Bson, Version=1.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.Bson.1.0.2\lib\net45\Newtonsoft.Json.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="protobuf-net, Version=2.0.0.668, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <HintPath>..\packages\protobuf-net.2.0.0.668\lib\net40\protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="Rotativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.1.7.3\lib\net461\Rotativa.dll</HintPath>
+    </Reference>
+    <Reference Include="SautinSoft.Document, Version=5.6.8.16, Culture=neutral, PublicKeyToken=e759c76c7515592a, processorArchitecture=MSIL">
+      <HintPath>..\packages\sautinsoft.document.5.6.8.16\lib\net472\SautinSoft.Document.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ClientModel, Version=1.0.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ClientModel.1.0.0\lib\netstandard2.0\System.ClientModel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Configuration.ConfigurationManager, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Configuration.ConfigurationManager.8.0.0\lib\net462\System.Configuration.ConfigurationManager.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Data.SqlClient, Version=4.6.1.6, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SqlClient.4.8.6\lib\net461\System.Data.SqlClient.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=9.0.0.8, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.9.0.8\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=6.35.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.6.35.0\lib\net472\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.AccessControl, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.AccessControl.5.0.0\lib\net461\System.IO.FileSystem.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Pipelines, Version=9.0.0.8, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Pipelines.9.0.8\lib\net462\System.IO.Pipelines.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory.Data, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.Data.8.0.0\lib\net462\System.Memory.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.6.0.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.1\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.AccessControl, Version=6.0.0.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.6.0.1\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.ProtectedData, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.ProtectedData.8.0.0\lib\net462\System.Security.Cryptography.ProtectedData.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.2\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Permissions, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Permissions.8.0.0\lib\net462\System.Security.Permissions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.5.0.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Text.Encodings.Web, Version=9.0.0.8, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.9.0.8\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=8.0.0.4, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.9.0.8\lib\net462\System.Text.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.3.0\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.3.0\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.3.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.3.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="Unity.Abstractions, Version=5.11.7.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Abstractions.5.11.7\lib\net47\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Configuration, Version=5.11.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Configuration.5.11.2\lib\net47\Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Container, Version=5.11.11.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Container.5.11.11\lib\net47\Unity.Container.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mvc3, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Mvc3.1.2\lib\net40\Unity.Mvc3.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mvc5, Version=1.4.0.0, Culture=neutral, PublicKeyToken=43da31bc42a85347, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Mvc5.1.4.0\lib\net45\Unity.Mvc5.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Controllers\AccionesController.cs" />
+    <Compile Include="Controllers\AccountsController.cs" />
+    <Compile Include="Controllers\AnalysisController.cs" />
+    <Compile Include="Controllers\AnnualPlansController.cs" />
+    <Compile Include="Controllers\AplicacionesController.cs" />
+    <Compile Include="Controllers\AuditsController.cs" />
+    <Compile Include="Controllers\CapacitationsController.cs" />
+    <Compile Include="Controllers\EvaluationsController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IncidentesController.cs" />
+    <Compile Include="Controllers\IndicadoresController.cs" />
+    <Compile Include="Controllers\MovimientosController.cs" />
+    <Compile Include="Controllers\OccupationalsController.cs" />
+    <Compile Include="Controllers\OrganizationsController.cs" />
+    <Compile Include="Controllers\RecomendationsController.cs" />
+    <Compile Include="Controllers\RiesgosController.cs" />
+    <Compile Include="Controllers\UnsafeactsController.cs" />
+    <Compile Include="Controllers\VulnerabilitiesController.cs" />
+    <Compile Include="Controllers\WorkersController.cs" />
+    <Compile Include="Filters\AuthorizeUser.cs" />
+    <Compile Include="Filters\VerificaSession.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202410041812380_UpdOrganizationTable.cs" />
+    <Compile Include="Migrations\202410041812380_UpdOrganizationTable.Designer.cs">
+      <DependentUpon>202410041812380_UpdOrganizationTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202410172350481_UpdEvaluationConcept.cs" />
+    <Compile Include="Migrations\202410172350481_UpdEvaluationConcept.Designer.cs">
+      <DependentUpon>202410172350481_UpdEvaluationConcept.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AnalysisApiService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-grid.rtl.css" />
+    <Content Include="Content\bootstrap-grid.rtl.min.css" />
+    <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap-reboot.rtl.css" />
+    <Content Include="Content\bootstrap-reboot.rtl.min.css" />
+    <Content Include="Content\bootstrap-table.css" />
+    <Content Include="Content\bootstrap-table.min.css" />
+    <Content Include="Content\bootstrap-utilities.css" />
+    <Content Include="Content\bootstrap-utilities.min.css" />
+    <Content Include="Content\bootstrap-utilities.rtl.css" />
+    <Content Include="Content\bootstrap-utilities.rtl.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap.rtl.css" />
+    <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\custom-style.css" />
+    <Content Include="Content\Funciones.js" />
+    <Content Include="Content\Site - Copy.css" />
+    <Content Include="Content\bootstrap.rtl.min.css.map" />
+    <Content Include="Content\bootstrap.rtl.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-utilities.rtl.min.css.map" />
+    <Content Include="Content\bootstrap-utilities.rtl.css.map" />
+    <Content Include="Content\bootstrap-utilities.min.css.map" />
+    <Content Include="Content\bootstrap-utilities.css.map" />
+    <Content Include="Content\bootstrap-reboot.rtl.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.rtl.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.rtl.min.css.map" />
+    <Content Include="Content\bootstrap-grid.rtl.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="App_Browsers\qt.browser" />
+    <None Include="packages.config" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile2.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile3.pubxml" />
+    <None Include="Properties\PublishProfiles\FTPProfile1.pubxml" />
+    <None Include="Properties\PublishProfiles\FTPProfile2.pubxml" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Images\logo1.jpg" />
+    <Content Include="Images\wsafe.jpg" />
+    <Content Include="Images\wsafe2.jpg" />
+    <Content Include="Rotativa\help-wkhtmltoimage.txt" />
+    <Content Include="Rotativa\help-wkhtmltopdf.txt" />
+    <Content Include="Rotativa\wkhtmltoimage.exe" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
+    <Content Include="Scripts\bootstrap-table\bootstrap-table.js" />
+    <Content Include="Scripts\bootstrap-table\bootstrap-table.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\editable\bootstrap-table-editable.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\export\bootstrap-table-export.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\filter\bootstrap-table-filter.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\flatJSON\bootstrap-table-flatJSON.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-cs-CZ.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-da-DK.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-de-DE.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-el-GR.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-en-US.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-es-AR.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-es-CR.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-es-NI.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-fr-BE.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-fr-FR.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-hu-HU.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-it-IT.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-ja-JP.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-ko-KR.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-ms-MY.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-nb-NO.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-nl-NL.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-pl-PL.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-pt-BR.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-pt-PT.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-ru-RU.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-sk-SK.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-sv-SE.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-th-TH.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-tr-TR.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-uk-UA.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-ur-PK.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-vi-VN.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-zh-CN.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-zh-TW.min.js" />
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\bootstrap.esm.js" />
+    <Content Include="Scripts\bootstrap.esm.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\CapacitationsGestor.js" />
+    <Content Include="Scripts\chart.js" />
+    <Content Include="Scripts\chart.min.js" />
+    <Content Include="Scripts\ChatGPTAsistence.js" />
+    <Content Include="Scripts\AuditsGestor.js" />
+    <Content Include="Scripts\esm\popper-utils.js" />
+    <Content Include="Scripts\esm\popper-utils.min.js" />
+    <Content Include="Scripts\esm\popper.js" />
+    <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\GestorAudits.js" />
+    <Content Include="Scripts\GestorCapacitation.js" />
+    <Content Include="Scripts\GestorRiesgos.js" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="App.config" />
+    <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\index.js.flow" />
+    <Content Include="Scripts\esm\popper.min.js.map" />
+    <Content Include="Scripts\esm\popper.js.map" />
+    <Content Include="Scripts\esm\popper-utils.min.js.map" />
+    <Content Include="Scripts\esm\popper-utils.js.map" />
+    <None Include="Scripts\jquery-3.7.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.7.1.js" />
+    <Content Include="Scripts\jquery-3.7.1.min.js" />
+    <Content Include="Scripts\jquery-3.7.1.slim.js" />
+    <Content Include="Scripts\jquery-3.7.1.slim.min.js" />
+    <Content Include="Scripts\jquery-ui-1-13.3.js" />
+    <Content Include="Scripts\jquery-ui-1.13.3.min.js" />
+    <Content Include="Scripts\jquery-3.7.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.7.1.min.map" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\popper-utils.js" />
+    <Content Include="Scripts\popper-utils.min.js" />
+    <Content Include="Scripts\popper.js" />
+    <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\Site.js" />
+    <Content Include="Scripts\src\index.js" />
+    <Content Include="Scripts\src\methods\defaults.js" />
+    <Content Include="Scripts\src\methods\destroy.js" />
+    <Content Include="Scripts\src\methods\disableEventListeners.js" />
+    <Content Include="Scripts\src\methods\enableEventListeners.js" />
+    <Content Include="Scripts\src\methods\placements.js" />
+    <Content Include="Scripts\src\methods\update.js" />
+    <Content Include="Scripts\src\modifiers\applyStyle.js" />
+    <Content Include="Scripts\src\modifiers\arrow.js" />
+    <Content Include="Scripts\src\modifiers\computeStyle.js" />
+    <Content Include="Scripts\src\modifiers\flip.js" />
+    <Content Include="Scripts\src\modifiers\hide.js" />
+    <Content Include="Scripts\src\modifiers\index.js" />
+    <Content Include="Scripts\src\modifiers\inner.js" />
+    <Content Include="Scripts\src\modifiers\keepTogether.js" />
+    <Content Include="Scripts\src\modifiers\offset.js" />
+    <Content Include="Scripts\src\modifiers\preventOverflow.js" />
+    <Content Include="Scripts\src\modifiers\shift.js" />
+    <Content Include="Scripts\src\utils\clockwise.js" />
+    <Content Include="Scripts\src\utils\computeAutoPlacement.js" />
+    <Content Include="Scripts\src\utils\debounce.js" />
+    <Content Include="Scripts\src\utils\find.js" />
+    <Content Include="Scripts\src\utils\findCommonOffsetParent.js" />
+    <Content Include="Scripts\src\utils\findIndex.js" />
+    <Content Include="Scripts\src\utils\getBordersSize.js" />
+    <Content Include="Scripts\src\utils\getBoundaries.js" />
+    <Content Include="Scripts\src\utils\getBoundingClientRect.js" />
+    <Content Include="Scripts\src\utils\getClientRect.js" />
+    <Content Include="Scripts\src\utils\getFixedPositionOffsetParent.js" />
+    <Content Include="Scripts\src\utils\getOffsetParent.js" />
+    <Content Include="Scripts\src\utils\getOffsetRect.js" />
+    <Content Include="Scripts\src\utils\getOffsetRectRelativeToArbitraryNode.js" />
+    <Content Include="Scripts\src\utils\getOppositePlacement.js" />
+    <Content Include="Scripts\src\utils\getOppositeVariation.js" />
+    <Content Include="Scripts\src\utils\getOuterSizes.js" />
+    <Content Include="Scripts\src\utils\getParentNode.js" />
+    <Content Include="Scripts\src\utils\getPopperOffsets.js" />
+    <Content Include="Scripts\src\utils\getReferenceNode.js" />
+    <Content Include="Scripts\src\utils\getReferenceOffsets.js" />
+    <Content Include="Scripts\src\utils\getRoot.js" />
+    <Content Include="Scripts\src\utils\getRoundedOffsets.js" />
+    <Content Include="Scripts\src\utils\getScroll.js" />
+    <Content Include="Scripts\src\utils\getScrollParent.js" />
+    <Content Include="Scripts\src\utils\getStyleComputedProperty.js" />
+    <Content Include="Scripts\src\utils\getSupportedPropertyName.js" />
+    <Content Include="Scripts\src\utils\getViewportOffsetRectRelativeToArtbitraryNode.js" />
+    <Content Include="Scripts\src\utils\getWindow.js" />
+    <Content Include="Scripts\src\utils\getWindowSizes.js" />
+    <Content Include="Scripts\src\utils\includeScroll.js" />
+    <Content Include="Scripts\src\utils\index.js" />
+    <Content Include="Scripts\src\utils\isBrowser.js" />
+    <Content Include="Scripts\src\utils\isFixed.js" />
+    <Content Include="Scripts\src\utils\isFunction.js" />
+    <Content Include="Scripts\src\utils\isIE.js" />
+    <Content Include="Scripts\src\utils\isModifierEnabled.js" />
+    <Content Include="Scripts\src\utils\isModifierRequired.js" />
+    <Content Include="Scripts\src\utils\isNumeric.js" />
+    <Content Include="Scripts\src\utils\isOffsetContainer.js" />
+    <Content Include="Scripts\src\utils\removeEventListeners.js" />
+    <Content Include="Scripts\src\utils\runModifiers.js" />
+    <Content Include="Scripts\src\utils\setAttributes.js" />
+    <Content Include="Scripts\src\utils\setStyles.js" />
+    <Content Include="Scripts\src\utils\setupEventListeners.js" />
+    <Content Include="Scripts\Training.js" />
+    <Content Include="Scripts\umd\popper-utils.js" />
+    <Content Include="Scripts\umd\popper-utils.min.js" />
+    <Content Include="Scripts\umd\popper.js" />
+    <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Training\Training.html" />
+    <Content Include="Unity.Mvc3.README.txt" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Riesgos\Delete.cshtml" />
+    <Content Include="Views\Riesgos\Details.cshtml" />
+    <Content Include="Views\Riesgos\Edit.cshtml" />
+    <Content Include="Views\Riesgos\Index.cshtml" />
+    <Content Include="Views\Riesgos\Create.cshtml" />
+    <Content Include="Views\Riesgos\GetControles.cshtml" />
+    <Content Include="Views\Riesgos\GetAllAcciones.cshtml" />
+    <Content Include="Views\Riesgos\CreateAccion.cshtml" />
+    <Content Include="Views\Riesgos\EditAccion.cshtml" />
+    <Content Include="Views\Riesgos\DeleteAccion.cshtml" />
+    <Content Include="Views\Incidentes\Create.cshtml" />
+    <Content Include="Views\Incidentes\Delete.cshtml" />
+    <Content Include="Views\Incidentes\Details.cshtml" />
+    <Content Include="Views\Incidentes\Edit.cshtml" />
+    <Content Include="Views\Incidentes\Index.cshtml" />
+    <Content Include="Views\Incidentes\CreateRiesgo.cshtml" />
+    <Content Include="Views\Incidentes\EditRiesgo.cshtml" />
+    <Content Include="Views\Indicadores\Create.cshtml" />
+    <Content Include="Views\Indicadores\Delete.cshtml" />
+    <Content Include="Views\Indicadores\Details.cshtml" />
+    <Content Include="Views\Indicadores\Edit.cshtml" />
+    <Content Include="Views\Indicadores\Index.cshtml" />
+    <Content Include="Views\Indicadores\CreateNuevaConsulta.cshtml" />
+    <Content Include="Views\Acciones\Create.cshtml" />
+    <Content Include="Views\Acciones\Delete.cshtml" />
+    <Content Include="Views\Acciones\Details.cshtml" />
+    <Content Include="Views\Acciones\Editar.cshtml" />
+    <Content Include="Views\Acciones\Index.cshtml" />
+    <Content Include="Views\Aplicaciones\Create.cshtml" />
+    <Content Include="Views\Aplicaciones\Delete.cshtml" />
+    <Content Include="Views\Aplicaciones\Details.cshtml" />
+    <Content Include="Views\Aplicaciones\Edit.cshtml" />
+    <Content Include="Views\Aplicaciones\Index.cshtml" />
+    <Content Include="Views\Shared\_EditarPlanAcc.cshtml" />
+    <Content Include="Views\Accounts\Create.cshtml" />
+    <Content Include="Views\Accounts\Delete.cshtml" />
+    <Content Include="Views\Accounts\Details.cshtml" />
+    <Content Include="Views\Accounts\Edit.cshtml" />
+    <Content Include="Views\Accounts\Index.cshtml" />
+    <Content Include="Views\Accounts\Login.cshtml" />
+    <Content Include="Views\Shared\_EditarSigueAcc.cshtml" />
+    <Content Include="Views\Acciones\Edit.cshtml" />
+    <Content Include="Views\Shared\_EditarNoConformidad.cshtml" />
+    <Content Include="Views\Riesgos\GetAll.cshtml" />
+    <Content Include="Views\Shared\_CabezoteFormat.cshtml" />
+    <Content Include="Views\Shared\_EditarPeligros.cshtml" />
+    <Content Include="Views\Shared\_EvalRiesgo.cshtml" />
+    <Content Include="Views\Shared\_EditarIntervencion.cshtml" />
+    <Content Include="Views\Shared\_BorrarPlanAcc.cshtml" />
+    <Content Include="Views\Shared\_ModificaPlan.cshtml" />
+    <Content Include="Views\Shared\_BorrarSigue.cshtml" />
+    <Content Include="Views\Shared\_ModificaSigue.cshtml" />
+    <Content Include="Views\Shared\_EditarInfoIncidente.cshtml" />
+    <Content Include="Views\Shared\_DetalleIncidente.cshtml" />
+    <Content Include="Views\Shared\_AccionesIncidente.cshtml" />
+    <Content Include="Views\Shared\_MatrizIncidente.cshtml" />
+    <Content Include="Views\Shared\_ConsultarLesionados.cshtml" />
+    <Content Include="Views\Shared\_ModificaLesion.cshtml" />
+    <Content Include="Views\Organizations\Create.cshtml" />
+    <Content Include="Views\Organizations\Delete.cshtml" />
+    <Content Include="Views\Organizations\Details.cshtml" />
+    <Content Include="Views\Organizations\Edit.cshtml" />
+    <Content Include="Views\Organizations\Index.cshtml" />
+    <Content Include="Views\Shared\_EditarInfoBasic.cshtml" />
+    <Content Include="Views\Shared\_ShowCargos.cshtml" />
+    <Content Include="Views\Shared\_ShowZones.cshtml" />
+    <Content Include="Views\Shared\_ShowProcess.cshtml" />
+    <Content Include="Views\Shared\_ShowActivitys.cshtml" />
+    <Content Include="Views\Shared\_ShowTasks.cshtml" />
+    <Content Include="Views\Shared\_ShowRoles.cshtml" />
+    <Content Include="Views\Shared\_ShowAuthorize.cshtml" />
+    <Content Include="Views\Shared\_EditEvent.cshtml" />
+    <Content Include="Views\Shared\_EditCauseAnalice.cshtml" />
+    <Content Include="Views\Shared\_EditBarrierAnalice.cshtml" />
+    <Content Include="Views\Shared\_EditRootCause.cshtml" />
+    <Content Include="Views\Shared\_EditRecomendation.cshtml" />
+    <Content Include="Views\Shared\_ShowEvents.cshtml" />
+    <Content Include="Views\Shared\_ShowCausesAnalysis.cshtml" />
+    <Content Include="Views\Shared\_ShowBarriersAnalysis.cshtml" />
+    <Content Include="Views\Shared\_ShowRootCauses.cshtml" />
+    <Content Include="Views\Shared\_ShowRecomendations.cshtml" />
+    <Content Include="Views\Shared\_ShowPlans.cshtml" />
+    <Content Include="Views\Shared\_EditPlans.cshtml" />
+    <Content Include="Views\Shared\_EditMovimient.cshtml" />
+    <Content Include="Views\Movimientos\Create.cshtml" />
+    <Content Include="Views\Movimientos\Delete.cshtml" />
+    <Content Include="Views\Movimientos\Details.cshtml" />
+    <Content Include="Views\Movimientos\Edit.cshtml" />
+    <Content Include="Views\Movimientos\Index.cshtml" />
+    <Content Include="Views\Shared\_ShowMovimientos.cshtml" />
+    <Content Include="Views\Shared\_ShowCalifications.cshtml" />
+    <Content Include="Views\Evaluations\Create.cshtml" />
+    <Content Include="Views\Evaluations\Delete.cshtml" />
+    <Content Include="Views\Evaluations\Details.cshtml" />
+    <Content Include="Views\Evaluations\Edit.cshtml" />
+    <Content Include="Views\Evaluations\Index.cshtml" />
+    <Content Include="Views\Shared\_EditCalification.cshtml" />
+    <Content Include="Views\Shared\_ShowEvaluation.cshtml" />
+    <Content Include="Views\Shared\_ShowPlanActivity.cshtml" />
+    <Content Include="Views\Shared\_EditPlanActivity.cshtml" />
+    <Content Include="Views\Evaluations\GetEvaluation.cshtml" />
+    <Content Include="Views\Evaluations\MinimalsStandards.cshtml" />
+    <Content Include="Views\Shared\_EditEmailForm.cshtml" />
+    <Content Include="Views\Workers\Create.cshtml" />
+    <Content Include="Views\Workers\Delete.cshtml" />
+    <Content Include="Views\Workers\Details.cshtml" />
+    <Content Include="Views\Workers\Edit.cshtml" />
+    <Content Include="Views\Workers\Index.cshtml" />
+    <Content Include="Views\Shared\_EditTrabajador.cshtml" />
+    <Content Include="Views\Workers\GetAll.cshtml" />
+    <Content Include="Views\Home\Index - Copy.cshtml" />
+    <Content Include="Views\Unsafeacts\Create.cshtml" />
+    <Content Include="Views\Unsafeacts\Delete.cshtml" />
+    <Content Include="Views\Unsafeacts\Details.cshtml" />
+    <Content Include="Views\Unsafeacts\Edit.cshtml" />
+    <Content Include="Views\Unsafeacts\Index.cshtml" />
+    <Content Include="Views\Shared\_EditUnsafeact.cshtml" />
+    <Content Include="Views\Workers\EditWorker.cshtml" />
+    <Content Include="Views\Shared\UpdateWorker.cshtml" />
+    <Content Include="Views\Shared\_EditWorkers.cshtml" />
+    <Content Include="Views\Acciones\CreateActionsMatrix.cshtml" />
+    <Content Include="Views\Recomendations\Create.cshtml" />
+    <Content Include="Views\Recomendations\Delete.cshtml" />
+    <Content Include="Views\Recomendations\Details.cshtml" />
+    <Content Include="Views\Recomendations\Edit.cshtml" />
+    <Content Include="Views\Recomendations\Index.cshtml" />
+    <Content Include="Views\Shared\_EditarRecomendation.cshtml" />
+    <Content Include="Views\Recomendations\CreateRecomendationsList.cshtml" />
+    <Content Include="Views\Audits\Create.cshtml" />
+    <Content Include="Views\Audits\Delete.cshtml" />
+    <Content Include="Views\Audits\Details.cshtml" />
+    <Content Include="Views\Audits\Edit.cshtml" />
+    <Content Include="Views\Audits\Index.cshtml" />
+    <Content Include="Views\Shared\_EditAudit.cshtml" />
+    <Content Include="Views\AnnualPlans\Create.cshtml" />
+    <Content Include="Views\AnnualPlans\Delete.cshtml" />
+    <Content Include="Views\AnnualPlans\Details.cshtml" />
+    <Content Include="Views\AnnualPlans\Edit.cshtml" />
+    <Content Include="Views\AnnualPlans\Index.cshtml" />
+    <Content Include="Views\Shared\_EditAnnualPlan.cshtml" />
+    <Content Include="Views\Shared\_EditSigueAnnualPlan.cshtml" />
+    <Content Include="Views\Shared\_ShowSeguimients.cshtml" />
+    <Content Include="Views\AnnualPlans\CreateAnnualPlan.cshtml" />
+    <Content Include="Views\Shared\_PageHead.cshtml" />
+    <Content Include="Views\Occupationals\Create.cshtml" />
+    <Content Include="Views\Occupationals\Delete.cshtml" />
+    <Content Include="Views\Occupationals\Details.cshtml" />
+    <Content Include="Views\Occupationals\Edit.cshtml" />
+    <Content Include="Views\Occupationals\Index.cshtml" />
+    <Content Include="Views\Shared\_EditOccupational.cshtml" />
+    <Content Include="Views\Shared\_EditSigueOccupational.cshtml" />
+    <Content Include="Views\Shared\_ShowOccupational.cshtml" />
+    <Content Include="Views\Occupationals\CreateOccupational.cshtml" />
+    <Content Include="Views\Capacitations\Create.cshtml" />
+    <Content Include="Views\Capacitations\Delete.cshtml" />
+    <Content Include="Views\Capacitations\Details.cshtml" />
+    <Content Include="Views\Capacitations\Edit.cshtml" />
+    <Content Include="Views\Capacitations\Index.cshtml" />
+    <Content Include="Views\Shared\_EditCapacitation.cshtml" />
+    <Content Include="Views\Shared\_EditSigueCapacitation.cshtml" />
+    <Content Include="Views\Shared\_ShowCapacitation.cshtml" />
+    <Content Include="Views\Capacitations\CreateCapacitations.cshtml" />
+    <Content Include="Views\Shared\_EditControl.cshtml" />
+    <Content Include="Views\Shared\_EditControlTrace.cshtml" />
+    <Content Include="Views\Shared\_CausesAnalisys.cshtml" />
+    <Content Include="Views\Vulnerabilities\Create.cshtml" />
+    <Content Include="Views\Vulnerabilities\Delete.cshtml" />
+    <Content Include="Views\Vulnerabilities\Details.cshtml" />
+    <Content Include="Views\Vulnerabilities\Edit.cshtml" />
+    <Content Include="Views\Vulnerabilities\Index.cshtml" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.esm.min.js.map" />
+    <Content Include="Scripts\bootstrap.esm.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Scripts\umd\popper.min.js.map" />
+    <Content Include="Scripts\umd\popper.js.map" />
+    <Content Include="Scripts\umd\popper.js.flow" />
+    <Content Include="Scripts\umd\popper-utils.min.js.map" />
+    <Content Include="Scripts\umd\popper-utils.js.map" />
+    <Content Include="Scripts\README.md" />
+    <Content Include="Scripts\popper.min.js.map" />
+    <Content Include="Scripts\popper.js.map" />
+    <Content Include="Scripts\popper-utils.min.js.map" />
+    <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Shared\_EditAmenazas.cshtml" />
+    <Content Include="Views\Analysis\Analysis\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Documents\" />
+    <Folder Include="ORG1\SG-SST\2022\1. PLANEAR\1.1.1\" />
+    <Folder Include="ORG1\SG-SST\2022\1. PLANEAR\1.1.2\" />
+    <Folder Include="ORG1\SG-SST\2022\1. PLANEAR\1.1.3\" />
+    <Folder Include="ORG1\SG-SST\2022\1. PLANEAR\1.1.4\" />
+    <Folder Include="ORG1\SG-SST\2022\1. PLANEAR\1.1.5\" />
+    <Folder Include="ORG1\SG-SST\2022\1. PLANEAR\1.1.6\" />
+    <Folder Include="ORG1\SG-SST\2022\1. PLANEAR\1.1.7\" />
+    <Folder Include="ORG1\SG-SST\2022\1. PLANEAR\1.1.8\" />
+    <Folder Include="ORG1\SG-SST\2022\1. PLANEAR\1.2.1\" />
+    <Folder Include="ORG1\SG-SST\2022\1. PLANEAR\1.2.2\" />
+    <Folder Include="ORG1\SG-SST\2022\1. PLANEAR\1.2.3\" />
+    <Folder Include="ORG1\SG-SST\2022\1. PLANEAR\2.1.1\" />
+    <Folder Include="ORG1\SG-SST\2022\1. PLANEAR\2.10.1\" />
+    <Folder Include="ORG1\SG-SST\2022\1. PLANEAR\2.11.1\" />
+    <Folder Include="ORG1\SG-SST\2022\1. PLANEAR\2.2.1\" />
+    <Folder Include="ORG1\SG-SST\2022\1. PLANEAR\2.3.1\" />
+    <Folder Include="ORG1\SG-SST\2022\1. PLANEAR\2.4.1\" />
+    <Folder Include="ORG1\SG-SST\2022\1. PLANEAR\2.5.1\" />
+    <Folder Include="ORG1\SG-SST\2022\1. PLANEAR\2.6.1\" />
+    <Folder Include="ORG1\SG-SST\2022\1. PLANEAR\2.7.1\" />
+    <Folder Include="ORG1\SG-SST\2022\1. PLANEAR\2.8.1\" />
+    <Folder Include="ORG1\SG-SST\2022\1. PLANEAR\2.9.1\" />
+    <Folder Include="ORG1\SG-SST\2022\2. HACER\3.1.1\" />
+    <Folder Include="ORG1\SG-SST\2022\2. HACER\3.1.2\" />
+    <Folder Include="ORG1\SG-SST\2022\2. HACER\3.1.3\" />
+    <Folder Include="ORG1\SG-SST\2022\2. HACER\3.1.4\" />
+    <Folder Include="ORG1\SG-SST\2022\2. HACER\3.1.5\" />
+    <Folder Include="ORG1\SG-SST\2022\2. HACER\3.1.6\" />
+    <Folder Include="ORG1\SG-SST\2022\2. HACER\3.1.7\" />
+    <Folder Include="ORG1\SG-SST\2022\2. HACER\3.1.8\" />
+    <Folder Include="ORG1\SG-SST\2022\2. HACER\3.1.9\" />
+    <Folder Include="ORG1\SG-SST\2022\2. HACER\3.2.1\" />
+    <Folder Include="ORG1\SG-SST\2022\2. HACER\3.2.2\" />
+    <Folder Include="ORG1\SG-SST\2022\2. HACER\3.2.3\" />
+    <Folder Include="ORG1\SG-SST\2022\2. HACER\3.3.1\" />
+    <Folder Include="ORG1\SG-SST\2022\2. HACER\3.3.2\" />
+    <Folder Include="ORG1\SG-SST\2022\2. HACER\3.3.3\" />
+    <Folder Include="ORG1\SG-SST\2022\2. HACER\3.3.4\" />
+    <Folder Include="ORG1\SG-SST\2022\2. HACER\3.3.5\" />
+    <Folder Include="ORG1\SG-SST\2022\2. HACER\3.3.6\" />
+    <Folder Include="ORG1\SG-SST\2022\2. HACER\4.1.1\" />
+    <Folder Include="ORG1\SG-SST\2022\2. HACER\4.1.2\" />
+    <Folder Include="ORG1\SG-SST\2022\2. HACER\4.1.3\" />
+    <Folder Include="ORG1\SG-SST\2022\2. HACER\4.1.4\" />
+    <Folder Include="ORG1\SG-SST\2022\2. HACER\4.2.1\" />
+    <Folder Include="ORG1\SG-SST\2022\2. HACER\4.2.2\" />
+    <Folder Include="ORG1\SG-SST\2022\2. HACER\4.2.3\" />
+    <Folder Include="ORG1\SG-SST\2022\2. HACER\4.2.4\" />
+    <Folder Include="ORG1\SG-SST\2022\2. HACER\4.2.5\" />
+    <Folder Include="ORG1\SG-SST\2022\2. HACER\4.2.6\" />
+    <Folder Include="ORG1\SG-SST\2022\2. HACER\5.1.1\" />
+    <Folder Include="ORG1\SG-SST\2022\2. HACER\5.1.2\" />
+    <Folder Include="ORG1\SG-SST\2022\3. VERIFICAR\6.1.1\" />
+    <Folder Include="ORG1\SG-SST\2022\3. VERIFICAR\6.1.2\" />
+    <Folder Include="ORG1\SG-SST\2022\3. VERIFICAR\6.1.3\" />
+    <Folder Include="ORG1\SG-SST\2022\3. VERIFICAR\6.1.4\" />
+    <Folder Include="ORG1\SG-SST\2022\4. ACTUAR\7.1.1\" />
+    <Folder Include="ORG1\SG-SST\2022\4. ACTUAR\7.1.2\" />
+    <Folder Include="ORG1\SG-SST\2022\4. ACTUAR\7.1.3\" />
+    <Folder Include="ORG1\SG-SST\2022\4. ACTUAR\7.1.4\" />
+    <Folder Include="ORG1\SG-SST\2023\1. PLANEAR\1.1.1\" />
+    <Folder Include="ORG1\SG-SST\2023\1. PLANEAR\1.1.2\" />
+    <Folder Include="ORG1\SG-SST\2023\1. PLANEAR\1.1.3\" />
+    <Folder Include="ORG1\SG-SST\2023\1. PLANEAR\1.1.4\" />
+    <Folder Include="ORG1\SG-SST\2023\1. PLANEAR\1.1.5\" />
+    <Folder Include="ORG1\SG-SST\2023\1. PLANEAR\1.1.6\" />
+    <Folder Include="ORG1\SG-SST\2023\1. PLANEAR\1.1.7\" />
+    <Folder Include="ORG1\SG-SST\2023\1. PLANEAR\1.1.8\" />
+    <Folder Include="ORG1\SG-SST\2023\1. PLANEAR\1.2.1\" />
+    <Folder Include="ORG1\SG-SST\2023\1. PLANEAR\1.2.2\" />
+    <Folder Include="ORG1\SG-SST\2023\1. PLANEAR\1.2.3\" />
+    <Folder Include="ORG1\SG-SST\2023\1. PLANEAR\2.1.1\" />
+    <Folder Include="ORG1\SG-SST\2023\1. PLANEAR\2.10.1\" />
+    <Folder Include="ORG1\SG-SST\2023\1. PLANEAR\2.11.1\" />
+    <Folder Include="ORG1\SG-SST\2023\1. PLANEAR\2.2.1\" />
+    <Folder Include="ORG1\SG-SST\2023\1. PLANEAR\2.3.1\" />
+    <Folder Include="ORG1\SG-SST\2023\1. PLANEAR\2.4.1\" />
+    <Folder Include="ORG1\SG-SST\2023\1. PLANEAR\2.5.1\" />
+    <Folder Include="ORG1\SG-SST\2023\1. PLANEAR\2.6.1\" />
+    <Folder Include="ORG1\SG-SST\2023\1. PLANEAR\2.7.1\" />
+    <Folder Include="ORG1\SG-SST\2023\1. PLANEAR\2.8.1\" />
+    <Folder Include="ORG1\SG-SST\2023\1. PLANEAR\2.9.1\" />
+    <Folder Include="ORG1\SG-SST\2023\2. HACER\3.1.1\" />
+    <Folder Include="ORG1\SG-SST\2023\2. HACER\3.1.2\" />
+    <Folder Include="ORG1\SG-SST\2023\2. HACER\3.1.3\" />
+    <Folder Include="ORG1\SG-SST\2023\2. HACER\3.1.4\" />
+    <Folder Include="ORG1\SG-SST\2023\2. HACER\3.1.5\" />
+    <Folder Include="ORG1\SG-SST\2023\2. HACER\3.1.6\" />
+    <Folder Include="ORG1\SG-SST\2023\2. HACER\3.1.7\" />
+    <Folder Include="ORG1\SG-SST\2023\2. HACER\3.1.8\" />
+    <Folder Include="ORG1\SG-SST\2023\2. HACER\3.1.9\" />
+    <Folder Include="ORG1\SG-SST\2023\2. HACER\3.2.1\" />
+    <Folder Include="ORG1\SG-SST\2023\2. HACER\3.2.2\" />
+    <Folder Include="ORG1\SG-SST\2023\2. HACER\3.2.3\" />
+    <Folder Include="ORG1\SG-SST\2023\2. HACER\3.3.1\" />
+    <Folder Include="ORG1\SG-SST\2023\2. HACER\3.3.2\" />
+    <Folder Include="ORG1\SG-SST\2023\2. HACER\3.3.3\" />
+    <Folder Include="ORG1\SG-SST\2023\2. HACER\3.3.4\" />
+    <Folder Include="ORG1\SG-SST\2023\2. HACER\3.3.5\" />
+    <Folder Include="ORG1\SG-SST\2023\2. HACER\3.3.6\" />
+    <Folder Include="ORG1\SG-SST\2023\2. HACER\4.1.1\" />
+    <Folder Include="ORG1\SG-SST\2023\2. HACER\4.1.2\" />
+    <Folder Include="ORG1\SG-SST\2023\2. HACER\4.1.3\" />
+    <Folder Include="ORG1\SG-SST\2023\2. HACER\4.1.4\" />
+    <Folder Include="ORG1\SG-SST\2023\2. HACER\4.2.1\" />
+    <Folder Include="ORG1\SG-SST\2023\2. HACER\4.2.2\" />
+    <Folder Include="ORG1\SG-SST\2023\2. HACER\4.2.3\" />
+    <Folder Include="ORG1\SG-SST\2023\2. HACER\4.2.4\" />
+    <Folder Include="ORG1\SG-SST\2023\2. HACER\4.2.5\" />
+    <Folder Include="ORG1\SG-SST\2023\2. HACER\4.2.6\" />
+    <Folder Include="ORG1\SG-SST\2023\2. HACER\5.1.1\" />
+    <Folder Include="ORG1\SG-SST\2023\2. HACER\5.1.2\" />
+    <Folder Include="ORG1\SG-SST\2023\3. VERIFICAR\6.1.1\" />
+    <Folder Include="ORG1\SG-SST\2023\3. VERIFICAR\6.1.2\" />
+    <Folder Include="ORG1\SG-SST\2023\3. VERIFICAR\6.1.3\" />
+    <Folder Include="ORG1\SG-SST\2023\3. VERIFICAR\6.1.4\" />
+    <Folder Include="ORG1\SG-SST\2023\4. ACTUAR\7.1.1\" />
+    <Folder Include="ORG1\SG-SST\2023\4. ACTUAR\7.1.2\" />
+    <Folder Include="ORG1\SG-SST\2023\4. ACTUAR\7.1.3\" />
+    <Folder Include="ORG1\SG-SST\2023\4. ACTUAR\7.1.4\" />
+    <Folder Include="SG-SST\2022\1. PLANEAR\1.1.1\" />
+    <Folder Include="SG-SST\2022\1. PLANEAR\1.1.2\" />
+    <Folder Include="SG-SST\2022\1. PLANEAR\1.1.3\" />
+    <Folder Include="SG-SST\2022\1. PLANEAR\1.1.4\" />
+    <Folder Include="SG-SST\2022\1. PLANEAR\1.1.5\" />
+    <Folder Include="SG-SST\2022\1. PLANEAR\1.1.6\" />
+    <Folder Include="SG-SST\2022\1. PLANEAR\1.1.7\" />
+    <Folder Include="SG-SST\2022\1. PLANEAR\1.1.8\" />
+    <Folder Include="SG-SST\2022\1. PLANEAR\1.2.1\" />
+    <Folder Include="SG-SST\2022\1. PLANEAR\1.2.2\" />
+    <Folder Include="SG-SST\2022\1. PLANEAR\1.2.3\" />
+    <Folder Include="SG-SST\2022\1. PLANEAR\2.1.1\" />
+    <Folder Include="SG-SST\2022\1. PLANEAR\2.10.1\" />
+    <Folder Include="SG-SST\2022\1. PLANEAR\2.11.1\" />
+    <Folder Include="SG-SST\2022\1. PLANEAR\2.2.1\" />
+    <Folder Include="SG-SST\2022\1. PLANEAR\2.3.1\" />
+    <Folder Include="SG-SST\2022\1. PLANEAR\2.4.1\" />
+    <Folder Include="SG-SST\2022\1. PLANEAR\2.5.1\" />
+    <Folder Include="SG-SST\2022\1. PLANEAR\2.6.1\" />
+    <Folder Include="SG-SST\2022\1. PLANEAR\2.7.1\" />
+    <Folder Include="SG-SST\2022\1. PLANEAR\2.8.1\" />
+    <Folder Include="SG-SST\2022\1. PLANEAR\2.9.1\" />
+    <Folder Include="SG-SST\2022\2. HACER\3.1.1\" />
+    <Folder Include="SG-SST\2022\2. HACER\3.1.2\" />
+    <Folder Include="SG-SST\2022\2. HACER\3.1.3\" />
+    <Folder Include="SG-SST\2022\2. HACER\3.1.4\" />
+    <Folder Include="SG-SST\2022\2. HACER\3.1.5\" />
+    <Folder Include="SG-SST\2022\2. HACER\3.1.6\" />
+    <Folder Include="SG-SST\2022\2. HACER\3.1.7\" />
+    <Folder Include="SG-SST\2022\2. HACER\3.1.8\" />
+    <Folder Include="SG-SST\2022\2. HACER\3.1.9\" />
+    <Folder Include="SG-SST\2022\2. HACER\3.2.1\" />
+    <Folder Include="SG-SST\2022\2. HACER\3.2.2\" />
+    <Folder Include="SG-SST\2022\2. HACER\3.2.3\" />
+    <Folder Include="SG-SST\2022\2. HACER\3.3.1\" />
+    <Folder Include="SG-SST\2022\2. HACER\3.3.2\" />
+    <Folder Include="SG-SST\2022\2. HACER\3.3.3\" />
+    <Folder Include="SG-SST\2022\2. HACER\3.3.4\" />
+    <Folder Include="SG-SST\2022\2. HACER\3.3.5\" />
+    <Folder Include="SG-SST\2022\2. HACER\3.3.6\" />
+    <Folder Include="SG-SST\2022\2. HACER\4.1.1\" />
+    <Folder Include="SG-SST\2022\2. HACER\4.1.2\" />
+    <Folder Include="SG-SST\2022\2. HACER\4.1.3\" />
+    <Folder Include="SG-SST\2022\2. HACER\4.1.4\" />
+    <Folder Include="SG-SST\2022\2. HACER\4.2.1\" />
+    <Folder Include="SG-SST\2022\2. HACER\4.2.2\" />
+    <Folder Include="SG-SST\2022\2. HACER\4.2.3\" />
+    <Folder Include="SG-SST\2022\2. HACER\4.2.4\" />
+    <Folder Include="SG-SST\2022\2. HACER\4.2.5\" />
+    <Folder Include="SG-SST\2022\2. HACER\4.2.6\" />
+    <Folder Include="SG-SST\2022\2. HACER\5.1.1\" />
+    <Folder Include="SG-SST\2022\2. HACER\5.1.2\" />
+    <Folder Include="SG-SST\2022\3. VERIFICAR\6.1.1\" />
+    <Folder Include="SG-SST\2022\3. VERIFICAR\6.1.2\" />
+    <Folder Include="SG-SST\2022\3. VERIFICAR\6.1.3\" />
+    <Folder Include="SG-SST\2022\3. VERIFICAR\6.1.4\" />
+    <Folder Include="SG-SST\2022\4. ACTUAR\7.1.1\" />
+    <Folder Include="SG-SST\2022\4. ACTUAR\7.1.2\" />
+    <Folder Include="SG-SST\2022\4. ACTUAR\7.1.3\" />
+    <Folder Include="SG-SST\2022\4. ACTUAR\7.1.4\" />
+    <Folder Include="SG-SST\2023\1. PLANEAR\1.1.1\" />
+    <Folder Include="SG-SST\2023\1. PLANEAR\1.1.2\" />
+    <Folder Include="SG-SST\2023\1. PLANEAR\1.1.3\" />
+    <Folder Include="SG-SST\2023\1. PLANEAR\1.1.4\" />
+    <Folder Include="SG-SST\2023\1. PLANEAR\1.1.5\" />
+    <Folder Include="SG-SST\2023\1. PLANEAR\1.1.6\" />
+    <Folder Include="SG-SST\2023\1. PLANEAR\1.1.7\" />
+    <Folder Include="SG-SST\2023\1. PLANEAR\1.1.8\" />
+    <Folder Include="SG-SST\2023\1. PLANEAR\1.2.1\" />
+    <Folder Include="SG-SST\2023\1. PLANEAR\1.2.2\" />
+    <Folder Include="SG-SST\2023\1. PLANEAR\1.2.3\" />
+    <Folder Include="SG-SST\2023\1. PLANEAR\2.1.1\" />
+    <Folder Include="SG-SST\2023\1. PLANEAR\2.10.1\" />
+    <Folder Include="SG-SST\2023\1. PLANEAR\2.11.1\" />
+    <Folder Include="SG-SST\2023\1. PLANEAR\2.2.1\" />
+    <Folder Include="SG-SST\2023\1. PLANEAR\2.3.1\" />
+    <Folder Include="SG-SST\2023\1. PLANEAR\2.4.1\" />
+    <Folder Include="SG-SST\2023\1. PLANEAR\2.5.1\" />
+    <Folder Include="SG-SST\2023\1. PLANEAR\2.6.1\" />
+    <Folder Include="SG-SST\2023\1. PLANEAR\2.7.1\" />
+    <Folder Include="SG-SST\2023\1. PLANEAR\2.8.1\" />
+    <Folder Include="SG-SST\2023\1. PLANEAR\2.9.1\" />
+    <Folder Include="SG-SST\2023\2. HACER\3.1.1\" />
+    <Folder Include="SG-SST\2023\2. HACER\3.1.2\" />
+    <Folder Include="SG-SST\2023\2. HACER\3.1.3\" />
+    <Folder Include="SG-SST\2023\2. HACER\3.1.4\" />
+    <Folder Include="SG-SST\2023\2. HACER\3.1.5\" />
+    <Folder Include="SG-SST\2023\2. HACER\3.1.6\" />
+    <Folder Include="SG-SST\2023\2. HACER\3.1.7\" />
+    <Folder Include="SG-SST\2023\2. HACER\3.1.8\" />
+    <Folder Include="SG-SST\2023\2. HACER\3.1.9\" />
+    <Folder Include="SG-SST\2023\2. HACER\3.2.1\" />
+    <Folder Include="SG-SST\2023\2. HACER\3.2.2\" />
+    <Folder Include="SG-SST\2023\2. HACER\3.2.3\" />
+    <Folder Include="SG-SST\2023\2. HACER\3.3.1\" />
+    <Folder Include="SG-SST\2023\2. HACER\3.3.2\" />
+    <Folder Include="SG-SST\2023\2. HACER\3.3.3\" />
+    <Folder Include="SG-SST\2023\2. HACER\3.3.4\" />
+    <Folder Include="SG-SST\2023\2. HACER\3.3.5\" />
+    <Folder Include="SG-SST\2023\2. HACER\3.3.6\" />
+    <Folder Include="SG-SST\2023\2. HACER\4.1.1\" />
+    <Folder Include="SG-SST\2023\2. HACER\4.1.2\" />
+    <Folder Include="SG-SST\2023\2. HACER\4.1.3\" />
+    <Folder Include="SG-SST\2023\2. HACER\4.1.4\" />
+    <Folder Include="SG-SST\2023\2. HACER\4.2.1\" />
+    <Folder Include="SG-SST\2023\2. HACER\4.2.2\" />
+    <Folder Include="SG-SST\2023\2. HACER\4.2.3\" />
+    <Folder Include="SG-SST\2023\2. HACER\4.2.4\" />
+    <Folder Include="SG-SST\2023\2. HACER\4.2.5\" />
+    <Folder Include="SG-SST\2023\2. HACER\4.2.6\" />
+    <Folder Include="SG-SST\2023\2. HACER\5.1.1\" />
+    <Folder Include="SG-SST\2023\2. HACER\5.1.2\" />
+    <Folder Include="SG-SST\2023\3. VERIFICAR\6.1.1\" />
+    <Folder Include="SG-SST\2023\3. VERIFICAR\6.1.2\" />
+    <Folder Include="SG-SST\2023\3. VERIFICAR\6.1.3\" />
+    <Folder Include="SG-SST\2023\3. VERIFICAR\6.1.4\" />
+    <Folder Include="SG-SST\2023\4. ACTUAR\7.1.1\" />
+    <Folder Include="SG-SST\2023\4. ACTUAR\7.1.2\" />
+    <Folder Include="SG-SST\2023\4. ACTUAR\7.1.3\" />
+    <Folder Include="SG-SST\2023\4. ACTUAR\7.1.4\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WSafe.Domain\WSafe.Domain.csproj">
+      <Project>{62F487E0-1E32-4DD8-9DEC-F130128AD5A2}</Project>
+      <Name>WSafe.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202410041812380_UpdOrganizationTable.resx">
+      <DependentUpon>202410041812380_UpdOrganizationTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202410172350481_UpdEvaluationConcept.resx">
+      <DependentUpon>202410172350481_UpdEvaluationConcept.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>50309</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44315/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Data.SqlClient.SNI.5.2.0\build\net462\Microsoft.Data.SqlClient.SNI.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Data.SqlClient.SNI.5.2.0\build\net462\Microsoft.Data.SqlClient.SNI.targets'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" />
+  <Import Project="..\packages\Microsoft.Data.SqlClient.SNI.5.2.0\build\net462\Microsoft.Data.SqlClient.SNI.targets" Condition="Exists('..\packages\Microsoft.Data.SqlClient.SNI.5.2.0\build\net462\Microsoft.Data.SqlClient.SNI.targets')" />
+  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>
