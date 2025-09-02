@@ -1,64 +1,77 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Web.Mvc;
-using WSafe.Services;
+using Newtonsoft.Json.Linq;
+using WSafe.Web.Services;
 
-namespace WSafe.Controllers
+namespace WSafe.Web.Controllers
 {
     public class AnalysisController : Controller
     {
-        /// <summary>
-        /// Endpoints Predict, Audit, Detect. Implemetación de WSafe IA
-        /// </summary>
-        private readonly AnalysisApiService _apiService;
-
-        public AnalysisController()
-        {
-            _apiService = new AnalysisApiService();
-        }
-
-        // GET: Analysis
-        public ActionResult Index()
-        {
-            return View();
-        }
-        /// <summary>
-        /// Realizar predicciones con base en inputData
-        /// </summary>
-        /// <param name="inputData"></param>
-        /// <returns></returns>
-
+        // POST /Analysis/Predict
         [HttpPost]
-        public async Task<ActionResult> Predict(string inputData)
+        public async Task<ActionResult> Predict(string activity, string location, int historicalWindowMonths = 12, int? topNRecommendations = null)
         {
-            var result = await _apiService.PredictIncidentsAsync(inputData);
-            ViewBag.Result = result;
-            return View("Index");
+            try
+            {
+                using (var api = new AnalysisApiClient())
+                {
+                    var payload = new
+                    {
+                        Activity = activity,
+                        Location = location,
+                        HistoricalWindowMonths = historicalWindowMonths,
+                        TopNRecommendations = topNRecommendations
+                    };
+                    JToken result = await api.PredictAsync(payload);
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 500;
+                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
-        /// <summary>
-        /// Realizar auditorías al SG-SST
-        /// </summary>
-        /// <param name="document"></param>
-        /// <returns></returns>
 
+        // POST /Analysis/Audit
         [HttpPost]
-        public async Task<ActionResult> Audit(string document)
+        public async Task<ActionResult> Audit(string standard, string content)
         {
-            var result = await _apiService.AuditDocumentsAsync(document);
-            ViewBag.Result = result;
-            return View("Index");
+            try
+            {
+                using (var api = new AnalysisApiClient())
+                {
+                    var payload = new { Standard = standard, Content = content };
+                    JToken result = await api.AuditAsync(payload);
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 500;
+                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
-        /// <summary>
-        /// Detectar actos y condiciones inseguras
-        /// </summary>
-        /// <param name="report"></param>
-        /// <returns></returns>
 
+        // POST /Analysis/Detect
         [HttpPost]
-        public async Task<ActionResult> Detect(string report)
+        public async Task<ActionResult> Detect(string[] reports)
         {
-            var result = await _apiService.DetectUnsafeBehaviorsAsync(report);
-            ViewBag.Result = result;
-            return View("Index");
+            try
+            {
+                using (var api = new AnalysisApiClient())
+                {
+                    var payload = new { Reports = reports ?? new string[0] };
+                    JToken result = await api.DetectAsync(payload);
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 500;
+                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

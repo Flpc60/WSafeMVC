@@ -56,19 +56,19 @@
             list-style-type: none;
         }
 
-            .navbar-nav .nav-item {
-                margin-left: -20px;
-                font-size: 8px;
-                color: blue;
-                padding: 0;
-                list-style-type: none;
-            }
+        .navbar-nav .nav-item {
+            margin-left: -20px;
+            font-size: 8px;
+            color: blue;
+            padding: 0;
+            list-style-type: none;
+        }
 
-            .navbar-nav .nav-link {
-                padding: 0;
-                margin: 0;
-                color: blue;
-            }
+        .navbar-nav .nav-link {
+            padding: 0;
+            margin: 0;
+            color: blue;
+        }
 
         .navbar-text {
             font-size: 10px;
@@ -118,6 +118,7 @@
             font-weight: bold;
             box-shadow: 0 4px 8px rgba(0,0,0,0.3);
         }
+
     </style>
 
 </head>
@@ -137,6 +138,80 @@
     <div class="d-flex justify-content-between">
         <button class="btn btn-secondary" id="clearChat">🧹 Limpiar</button>
         <button class="btn btn-success" id="sendChat">Enviar</button>
+    </div>
+</div>
+
+<!-- Predict -->
+<div class="modal fade" id="mdlPredict">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"><button class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Predict</h4></div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Activity</label><input id="predActivity" class="form-control" value="Trabajo en altura" />
+                </div>
+                <div class="form-group">
+                    <label>Location</label><input id="predLocation" class="form-control" value="Planta Cali" />
+                </div>
+                <div class="form-group">
+                    <label>HistoricalWindowMonths</label><input id="predWindow" type="number" class="form-control" value="12" />
+                </div>
+                <div class="form-group">
+                    <label>TopNRecommendations (opcional)</label><input id="predTopN" type="number" class="form-control" value="3" />
+                </div>
+                <pre id="outPredict" style="display:none"></pre>
+            </div>
+            <div class="modal-footer">
+                <button id="btnPredict" class="btn btn-primary">Enviar</button>
+                <button class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Audit -->
+<div class="modal fade" id="mdlAudit">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"><button class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Audit</h4></div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Standard</label><input id="auditStd" class="form-control" value="ISO 45001" />
+                </div>
+                <div class="form-group">
+                    <label>Content</label><textarea id="auditContent" rows="6" class="form-control">Política de SST 2025...</textarea>
+                </div>
+                <pre id="outAudit" style="display:none"></pre>
+            </div>
+            <div class="modal-footer">
+                <button id="btnAudit" class="btn btn-primary">Enviar</button>
+                <button class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Detect -->
+<div class="modal fade" id="mdlDetect">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"><button class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Detect</h4></div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Reports (uno por línea)</label>
+                    <textarea id="detectReports" rows="6" class="form-control">
+                        Operario sin arnés zona 3
+                        Uso de celular en montacargas
+                        Operario subiendo sin barandas
+                    </textarea>
+                </div>
+                <pre id="outDetect" style="display:none"></pre>
+            </div>
+            <div class="modal-footer">
+                <button id="btnDetect" class="btn btn-primary">Enviar</button>
+                <button class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -211,6 +286,9 @@
                                 }
                             }
                         }
+                        <li><a href="#" data-toggle="modal" data-target="#mdlPredict">Predict</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#mdlAudit">Audit</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#mdlDetect">Detect</a></li>
                     }
                 </ul>
                 <div style="color: white; text-align: right;">
@@ -295,6 +373,63 @@
                 output.innerHTML += `<div class="text-danger"><strong>Error:</strong> Falló la solicitud al servidor</div>`;
             }
         });
+
+    function pretty(o) { try { return JSON.stringify(o, null, 2); } catch (e) { return o; } }
+
+    function setBusy($btn, busy, txt) {
+        var normal = $btn.data("normal") || $btn.text();
+        if(!$btn.data("normal")) $btn.data("normal", normal);
+        $btn.prop("disabled", busy).text(busy ? (txt||"Procesando...") : normal);
+      }
+
+    function show($pre, data) { $pre.text(pretty(data)).show(); }
+
+      $("#btnPredict").on("click", function(){
+        var $btn = $(this); setBusy($btn, true);
+        $.ajax({
+          url: "@Url.Action("Predict","Analysis")",
+          method: "POST",
+          data: {
+            activity: $("#predActivity").val(),
+            location: $("#predLocation").val(),
+            historicalWindowMonths: parseInt($("#predWindow").val()||"12"),
+            topNRecommendations: parseInt($("#predTopN").val()||"0") || null
+          }
+        })
+        .done(function(r){ show($("#outPredict"), r); })
+        .fail(function(e){ show($("#outPredict"), e.responseText || e.statusText); })
+        .always(function(){ setBusy($btn,false); });
+      });
+
+      $("#btnAudit").on("click", function(){
+        var $btn = $(this); setBusy($btn, true);
+        $.ajax({
+          url: "@Url.Action("Audit","Analysis")",
+          method: "POST",
+          data: {
+            standard: $("#auditStd").val(),
+            content: $("#auditContent").val()
+          }
+        })
+        .done(function(r){ show($("#outAudit"), r); })
+        .fail(function(e){ show($("#outAudit"), e.responseText || e.statusText); })
+        .always(function(){ setBusy($btn,false); });
+      });
+
+      $("#btnDetect").on("click", function(){
+        var $btn = $(this); setBusy($btn, true);
+        var reports = $("#detectReports").val().split(/\r?\n/).filter(function(x){return x && x.trim().length>0;});
+        $.ajax({
+          url: "@Url.Action("Detect","Analysis")",
+          method: "POST",
+          traditional: true,
+          data: { reports: reports }
+        })
+        .done(function(r){ show($("#outDetect"), r); })
+        .fail(function(e){ show($("#outDetect"), e.responseText || e.statusText); })
+        .always(function(){ setBusy($btn,false); });
+      });
+
     </script>
 
 </body>

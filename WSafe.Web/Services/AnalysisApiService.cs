@@ -1,44 +1,48 @@
 ﻿using System;
+using System.Configuration;
 using System.Net.Http;
-using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
-namespace WSafe.Services
+namespace WSafe.Web.Services
 {
-    public class AnalysisApiService
+    public class AnalysisApiClient : IDisposable
     {
-        private readonly HttpClient _httpClient;
+        private readonly HttpClient _http;
 
-        public AnalysisApiService()
+        public AnalysisApiClient()
         {
-            _httpClient = new HttpClient
-            {
-                BaseAddress = new Uri("https://localhost:5001/api/analysis/") // ⚡ cambia al puerto real de tu API externa
-            };
-            _httpClient.DefaultRequestHeaders.Accept.Clear();
-            _httpClient.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
+            var baseUrl = Environment.GetEnvironmentVariable("AnalysisApi__BaseUrl")
+                          ?? ConfigurationManager.AppSettings["AnalysisApiBaseUrl"];
+            if (string.IsNullOrWhiteSpace(baseUrl))
+                throw new InvalidOperationException("Configura AnalysisApiBaseUrl (env var o Web.config)");
+
+            _http = new HttpClient { BaseAddress = new Uri(baseUrl), Timeout = TimeSpan.FromSeconds(60) };
+
+            // Si tu API .NET 8 requiere cabecera X-WSafe-Api-Key (propia), puedes setearla aquí:
+            var apiKey = Environment.GetEnvironmentVariable("WSAFE_API_KEY")
+                         ?? ConfigurationManager.AppSettings["WSafeApiKey"];
+            if (!string.IsNullOrWhiteSpace(apiKey))
+                _http.DefaultRequestHeaders.Add("X-WSafe-Api-Key", apiKey);
         }
 
-        public async Task<string> PredictIncidentsAsync(string inputData)
+        public Task<JToken> PredictAsync(object payload) => PostAsync("/api/analysis/predict", payload);
+        public Task<JToken> AuditAsync(object payload) => PostAsync("/api/analysis/audit", payload);
+        public Task<JToken> DetectAsync(object payload) => PostAsync("/api/analysis/detect", payload);
+
+        private async Task<JToken> PostAsync(string path, object payload)
         {
-            var response = await _httpClient.PostAsJsonAsync("predict-incidents", new { input = inputData });
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadAsStringAsync();
+            var json = JsonConvert.SerializeObject(payload);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var resp = await _http.PostAsync(path, content);
+            var body = await resp.Content.ReadAsStringAsync();
+            if (!resp.IsSuccessStatusCode)
+                throw new InvalidOperationException($"API {resp.StatusCode}: {body}");
+            return string.IsNullOrWhiteSpace(body) ? JValue.CreateNull() : JToken.Parse(body);
         }
 
-        public async Task<string> AuditDocumentsAsync(string docContent)
-        {
-            var response = await _httpClient.PostAsJsonAsync("audit-documents", new { document = docContent });
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadAsStringAsync();
-        }
-
-        public async Task<string> DetectUnsafeBehaviorsAsync(string report)
-        {
-            var response = await _httpClient.PostAsJsonAsync("detect-unsafe-behaviors", new { report });
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadAsStringAsync();
-        }
+        public void Dispose() => _http?.Dispose();
     }
 }
