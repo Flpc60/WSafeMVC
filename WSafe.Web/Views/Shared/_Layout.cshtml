@@ -274,7 +274,7 @@ Operario subiendo sin barandas</textarea>
     @Scripts.Render("~/Scripts/CapacitationsGestor.js")
     @RenderSection("scripts", required: false)
 
-    <script>
+<script>
         // ---------- Utils ----------
         function toast(msg, ms){ var $t = $("#toast"); $t.text(msg).fadeIn(150); setTimeout(function(){ $t.fadeOut(250); }, ms||2600); }
         function pretty(o){ try{ return JSON.stringify(o, null, 2); } catch(e){ return o; } }
@@ -334,7 +334,7 @@ Operario subiendo sin barandas</textarea>
         $("#btnPredict").on("click", function(){
             var $btn = $(this); setBusy($btn, true);
             $.ajax({
-                url: "@Url.Action("Predict","Analysis")",
+                url: "https://localhost:5006/api/analysis/predict",
                 method: "POST",
                 data: {
                     activity: $("#predActivity").val(),
@@ -352,7 +352,7 @@ Operario subiendo sin barandas</textarea>
         $("#btnAudit").on("click", function(){
             var $btn = $(this); setBusy($btn, true);
             $.ajax({
-                url: "@Url.Action("Audit","Analysis")",
+                url: "https://localhost:5006/api/analysis/audit",
                 method: "POST",
                 data: { standard: $("#auditStd").val(), content: $("#auditContent").val() }
             })
@@ -366,7 +366,7 @@ Operario subiendo sin barandas</textarea>
             var $btn = $(this); setBusy($btn, true);
             var reports = ($("#detectReports").val()||"").split(/\r?\n/).filter(function(x){return x && x.trim().length>0;});
             $.ajax({
-                url: "@Url.Action("Detect","Analysis")",
+                url: "https://localhost:5006/api/analysis/detect",
                 method: "POST",
                 traditional: true,
                 data: { reports: reports }
@@ -375,6 +375,6 @@ Operario subiendo sin barandas</textarea>
             .fail(function(e){ show($("#outDetect"), e.responseText || e.statusText); })
             .always(function(){ setBusy($btn,false); });
         });
-    </script>
+</script>
 </body>
 </html>
