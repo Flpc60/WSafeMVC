@@ -11,27 +11,32 @@ namespace WSafe.Web
     {
         protected void Application_Start()
         {
+            // ========= 1) DI/IoC =========
+            // Si usas Bootstrapper para registrar todo, COMENTA este bloque y deja sólo Bootstrapper.Initialise();
             var container = new UnityContainer();
-
-            // Registros de tus dependencias
             // container.RegisterType<IMiServicio, MiServicio>();
-
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 
-            AreaRegistration.RegisterAllAreas();
-            RouteConfig.RegisterRoutes(System.Web.Routing.RouteTable.Routes);
+            // ========= 2) MVC Plomería (una sola vez cada uno) =========
+            AreaRegistration.RegisterAllAreas();                             // SOLO UNA VEZ
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);       // Filtros
+            RouteConfig.RegisterRoutes(RouteTable.Routes);                   // Rutas - SOLO UNA VEZ
+            BundleConfig.RegisterBundles(BundleTable.Bundles);               // Bundles
 
+            // ========= 3) EF Migration to latest =========
+            // Ajusta el namespace de Configuration si es diferente
             Database.SetInitializer(
-                new MigrateDatabaseToLatestVersion<WSafe.Domain.Data.EmpresaContext, Migrations.Configuration>());
+                new MigrateDatabaseToLatestVersion<
+                    WSafe.Domain.Data.EmpresaContext,
+                    Migrations.Configuration>());   // o WSafe.Domain.Migrations.Configuration
 
-            AreaRegistration.RegisterAllAreas();
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
+            // ========= 4) Bootstrapper (opcional) =========
+            // IMPORTANTE: Asegúrate que Bootstrapper.Initialise() NO vuelva a llamar RegisterRoutes ni RegisterAllAreas.
+            // Úsalo sólo para registrar dependencias en el contenedor.
             Bootstrapper.Initialise();
 
+            // ========= 5) Producción/Optimización =========
             BundleTable.EnableOptimizations = true;
-
         }
     }
 }

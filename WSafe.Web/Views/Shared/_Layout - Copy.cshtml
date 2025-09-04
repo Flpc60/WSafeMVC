@@ -1,436 +1,339 @@
-﻿<!DOCTYPE html>
+﻿@* Views/Shared/_Layout.cshtml *@
+@using System.Configuration
 
+@{
+    var userRole = (Session["UserRole"] ?? "").ToString().Trim().ToUpperInvariant();
+    var userName = (Session["userName"] ?? "").ToString().Trim();
+    var apiBase = ConfigurationManager.AppSettings["AnalysisApiBaseUrl"] ?? "http://localhost:5081";
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - WSafe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="~/Content/bootstrap-table.min.css" rel="stylesheet" />
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script src="~/Scripts/bootstrap-table/bootstrap-table.min.js"></script>
-    <script src="~/Scripts/GestorRiesgos.js" type="text/javascript"></script>
-    <script src="~/Scripts/AuditsGestor.js" type="text/javascript"></script>
+    <!-- Bootstrap + Icons (una sola vez) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jqueryunobtrusive")
-    @Scripts.Render("~/bundles/jqueryval")
 
     <style>
-
-        body {
-            margin-top: 0;
-            padding-top: 0;
-        }
-
+        /* Navbar clara, sticky y con buen contraste */
         .navbar {
-            background-color: silver;
-            padding: 0;
+            background: #1f2937; /* gris oscuro */
         }
 
-        .navbar-brand {
-            padding: 0;
-        }
-
-        .navbar-brand-logo {
-            margin-top: 0;
-            height: 50px;
-            margin-right: 10px;
-        }
-
-        .navbar-nav {
-            font-size: 11px;
-            color: blue;
-            text-align: left;
-            margin: 0;
-            padding: 0;
-            list-style-type: none;
-        }
-
-        .navbar-nav .nav-item {
-            margin-left: -20px;
-            font-size: 8px;
-            color: blue;
-            padding: 0;
-            list-style-type: none;
-        }
-
-        .navbar-nav .nav-link {
-            padding: 0;
-            margin: 0;
-            color: blue;
-        }
-
-        .navbar-text {
-            font-size: 10px;
-            color: white;
-        }
-
-        .navbar-nav li {
-            display: inline-block;
-            font-size: 10px;
-            text-align: right;
-            color: white;
-            margin-left: 10px;
-        }
-
-            .navbar-nav li:hover {
-                background-color: silver;
+            .navbar .navbar-brand, .navbar .nav-link, .navbar .navbar-text, .dropdown-item {
+                color: #e5e7eb !important; /* gris claro */
             }
 
-        .navbar-right {
-            margin-right: 0;
-        }
-
-        .navbar-collapse {
-            text-align: left;
-        }
-
-        .navbar-toggler {
-            margin-right: 0;
-        }
+                .navbar .nav-link:hover, .dropdown-item:hover {
+                    color: #ffffff !important;
+                    text-decoration: underline;
+                }
 
         .body-content {
-            margin-top: 1px;
-            padding-top: 1px;
+            padding-top: 72px;
+        }
+        /* Menú horizontal con scroll en pantallas pequeñas */
+        .scrolling-nav .navbar-nav {
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
-        footer {
-            margin-top: 5px;
+        .navbar-nav > li {
+            white-space: nowrap;
         }
-
-        .chatbot-float {
-            position: fixed;
-            bottom: 20px;
-            right: 25px;
-            z-index: 1050;
-            border-radius: 50px;
-            padding: 12px 18px;
-            font-weight: bold;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        /* Pre de salida de resultados */
+        pre.pretty {
+            background: #f7fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: .5rem;
+            padding: .75rem;
+            max-height: 300px;
+            overflow: auto;
+            font-size: .9rem;
         }
-
     </style>
-
 </head>
 
-<button id="openChatbot" class="btn btn-primary rounded-circle" style="position: fixed; bottom: 30px; right: 30px; z-index: 999;">
-    💬 Asistente IA
-</button>
-
-<!-- Ventana del chatbot -->
-<div id="chatbotWindow" style="position: fixed; bottom: 90px; right: 30px; width: 400px; height: 500px; background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 10px; padding: 15px; display: none; box-shadow: 0 0 10px rgba(0,0,0,0.2); z-index: 999;">
-    <h5 style="font-family: 'Segoe UI', sans-serif;">Soporte IA</h5>
-
-    <div id="chatOutput" style="height: 320px; overflow-y: auto; background-color: #fff; padding: 10px; border: 1px solid #ddd; margin-bottom: 10px; font-family: 'Segoe UI', sans-serif; font-size: 14px;"></div>
-
-    <input type="text" id="chatInput" class="form-control mb-4" placeholder="Escribe tu pregunta..." />
-
-    <div class="d-flex justify-content-between">
-        <button class="btn btn-secondary" id="clearChat">🧹 Limpiar</button>
-        <button class="btn btn-success" id="sendChat">Enviar</button>
-    </div>
-</div>
-
-<!-- Predict -->
-<div class="modal fade" id="mdlPredict">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header"><button class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Predict</h4></div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>Activity</label><input id="predActivity" class="form-control" value="Trabajo en altura" />
-                </div>
-                <div class="form-group">
-                    <label>Location</label><input id="predLocation" class="form-control" value="Planta Cali" />
-                </div>
-                <div class="form-group">
-                    <label>HistoricalWindowMonths</label><input id="predWindow" type="number" class="form-control" value="12" />
-                </div>
-                <div class="form-group">
-                    <label>TopNRecommendations (opcional)</label><input id="predTopN" type="number" class="form-control" value="3" />
-                </div>
-                <pre id="outPredict" style="display:none"></pre>
-            </div>
-            <div class="modal-footer">
-                <button id="btnPredict" class="btn btn-primary">Enviar</button>
-                <button class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Audit -->
-<div class="modal fade" id="mdlAudit">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header"><button class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Audit</h4></div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>Standard</label><input id="auditStd" class="form-control" value="ISO 45001" />
-                </div>
-                <div class="form-group">
-                    <label>Content</label><textarea id="auditContent" rows="6" class="form-control">Política de SST 2025...</textarea>
-                </div>
-                <pre id="outAudit" style="display:none"></pre>
-            </div>
-            <div class="modal-footer">
-                <button id="btnAudit" class="btn btn-primary">Enviar</button>
-                <button class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Detect -->
-<div class="modal fade" id="mdlDetect">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header"><button class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Detect</h4></div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>Reports (uno por línea)</label>
-                    <textarea id="detectReports" rows="6" class="form-control">
-                        Operario sin arnés zona 3
-                        Uso de celular en montacargas
-                        Operario subiendo sin barandas
-                    </textarea>
-                </div>
-                <pre id="outDetect" style="display:none"></pre>
-            </div>
-            <div class="modal-footer">
-                <button id="btnDetect" class="btn btn-primary">Enviar</button>
-                <button class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <body>
-    <div class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-nav">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="/Images/wsafe.jpg" width="50" height="50" alt="WSafe Logo" class="navbar-brand-logo">
+            <a class="navbar-brand d-flex align-items-center" href="@Url.Action("Index","Home")">
+                <img src="@Url.Content("~/Images/wsafe.jpg")" width="40" height="40" class="mr-2" alt="WSafe" />
+                <strong>WSafe</strong>
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#wsafeNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav">
-                    @{
-                        var userID = Session["userID"];
-                        var userRole = Session["UserRole"];
-                        userRole = userRole.ToString().Trim();
-                        if (userRole.Equals("ADMIN"))
-                        {
-                            <li class="nav-item">@Html.ActionLink("ENTIDAD", "Index", "Organizations")</li>
-                            <li class="nav-item">@Html.ActionLink("SG-SST", "Index", "Movimientos")</li>
-                            <li class="nav-item">@Html.ActionLink("EVALUACIONES", "Index", "Evaluations")</li>
-                            <li class="nav-item">@Html.ActionLink("RIESGOS", "Index", "Riesgos")</li>
-                            <li class="nav-item">@Html.ActionLink("INCIDENTES", "Index", "Incidentes")</li>
-                            <li class="nav-item">@Html.ActionLink("ACCIONES", "Index", "Acciones")</li>
-                            <li class="nav-item">@Html.ActionLink("INDICADORES", "Index", "Indicadores")</li>
-                            <li class="nav-item">@Html.ActionLink("USUARIOS", "Index", "Accounts")</li>
-                            <li class="nav-item">@Html.ActionLink("TRABAJADORES", "Index", "Workers")</li>
-                            <li class="nav-item">@Html.ActionLink("ACTO_INSEGUROS", "Index", "Unsafeacts")</li>
-                            <li class="nav-item">@Html.ActionLink("RECOMENDACIONES", "Index", "Recomendations")</li>
-                            <li class="nav-item">@Html.ActionLink("PLAN_ANUAL", "Index", "AnnualPlans")</li>
-                            <li class="nav-item">@Html.ActionLink("OCUPACIONALES", "Index", "Occupationals")</li>
-                            <li class="nav-item">@Html.ActionLink("CAPACITACIONES", "Index", "Capacitations")</li>
-                            <li class="nav-item">@Html.ActionLink("VULNERABILIDADES", "Index", "Vulnerabilities")</li>
-                        }
-                        else
-                        {
-                            if (userRole.Equals("LIDER RESPONSABLE SST"))
-                            {
-                                <li class="nav-item">@Html.ActionLink("RIESGOS", "Index", "Riesgos")</li>
-                                <li class="nav-item">@Html.ActionLink("INCIDENTES", "Index", "Incidentes")</li>
-                                <li class="nav-item">@Html.ActionLink("ACCIONES", "Index", "Acciones")</li>
-                                <li class="nav-item">@Html.ActionLink("ACTOS_INSEGUROS", "Index", "Unsafeacts")</li>
-                                <li class="nav-item">@Html.ActionLink("RECOMENDACIONES", "Index", "Recomendations")</li>
-                                <li class="nav-item">@Html.ActionLink("PLAN_ANUAL", "Index", "AnnualPlans")</li>
-                                <li class="nav-item">@Html.ActionLink("CAPACITACIONES", "Index", "Capacitations")</li>
-                                <li class="nav-item">@Html.ActionLink("VULNERABILIDADES", "Index", "Vulnerabilities")</li>
-                            }
-                            else
-                            {
-                                if (userRole.Equals("ARL"))
-                                {
-                                    <li class="nav-item">@Html.ActionLink("ENTIDAD", "Index", "Organizations")</li>
-                                    <li class="nav-item">@Html.ActionLink("SG-SST", "Index", "Movimientos")</li>
-                                    <li>@Html.ActionLink("EVALUACIONES", "Index", "Evaluations")</li>
-                                    <li class="nav-item">@Html.ActionLink("PLAN_ANUAL", "Index", "AnnualPlans")</li>
-                                    <li class="nav-item">@Html.ActionLink("VULNERABILIDADES", "Index", "Vulnerabilities")</li>
-                                }
-                                else
-                                {
-                                    if (userRole.Equals("TRABAJADOR"))
-                                    {
-                                        <li class="nav-item">@Html.ActionLink("TRABAJADORES", "GetWorker", "Workers")</li>
-                                        <li class="nav-item">@Html.ActionLink("RIESGOS", "Create", "Riesgos")</li>
-                                        <li class="nav-item">@Html.ActionLink("ACTOS_INSEGUROS", "Create", "Unsafeacts")</li>
-                                    }
-                                    else
-                                    {
-                                        <li class="nav-item">@Html.ActionLink("ACTOS_INSEGUROS", "Create", "Unsafeacts")</li>
-                                    }
-                                }
-                            }
-                        }
-                        <li><a href="#" data-toggle="modal" data-target="#mdlPredict">Predict</a></li>
-                        <li><a href="#" data-toggle="modal" data-target="#mdlAudit">Audit</a></li>
-                        <li><a href="#" data-toggle="modal" data-target="#mdlDetect">Detect</a></li>
-                    }
-                </ul>
-                <div style="color: white; text-align: right;">
-                    @if (Session["userName"] != null)
+
+            <div id="wsafeNav" class="collapse navbar-collapse">
+                <!-- Menú por roles -->
+                <ul class="navbar-nav mr-auto">
+                    @if (userRole == "ADMIN")
                     {
-                        <a style="display: inline-block; margin-right: 10px;"><b>Hola: @Session["userName"].ToString().Trim()</b></a>
-                        <a href="#" style="display: inline-block;" class="glyphicon glyphicon-chevron-left" onclick="logout()">Cerrar sesión</a>
+                        <li class="nav-item">@Html.ActionLink("ENTIDAD", "Index", "Organizations", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("SG-SST", "Index", "Movimientos", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("EVALUACIONES", "Index", "Evaluations", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("RIESGOS", "Index", "Riesgos", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("INCIDENTES", "Index", "Incidentes", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("ACCIONES", "Index", "Acciones", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("INDICADORES", "Index", "Indicadores", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("USUARIOS", "Index", "Accounts", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("TRABAJADORES", "Index", "Workers", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("ACTOS INSEGUROS", "Index", "Unsafeacts", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("RECOMENDACIONES", "Index", "Recomendations", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("PLAN ANUAL", "Index", "AnnualPlans", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("OCUPACIONALES", "Index", "Occupationals", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("CAPACITACIONES", "Index", "Capacitations", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("VULNERABILIDADES", "Index", "Vulnerabilities", null, new { @class = "nav-link" })</li>
                     }
-                </div>
+                    else if (userRole == "LIDER RESPONSABLE SST")
+                    {
+                        <li class="nav-item">@Html.ActionLink("RIESGOS", "Index", "Riesgos", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("INCIDENTES", "Index", "Incidentes", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("ACCIONES", "Index", "Acciones", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("ACTOS INSEGUROS", "Index", "Unsafeacts", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("RECOMENDACIONES", "Index", "Recomendations", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("PLAN ANUAL", "Index", "AnnualPlans", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("CAPACITACIONES", "Index", "Capacitations", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("VULNERABILIDADES", "Index", "Vulnerabilities", null, new { @class = "nav-link" })</li>
+                    }
+                    else if (userRole == "ARL")
+                    {
+                        <li class="nav-item">@Html.ActionLink("ENTIDAD", "Index", "Organizations", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("SG-SST", "Index", "Movimientos", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("EVALUACIONES", "Index", "Evaluations", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("PLAN ANUAL", "Index", "AnnualPlans", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("VULNERABILIDADES", "Index", "Vulnerabilities", null, new { @class = "nav-link" })</li>
+                    }
+                    else if (userRole == "TRABAJADOR")
+                    {
+                        <li class="nav-item">@Html.ActionLink("TRABAJADORES", "GetWorker", "Workers", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("RIESGOS", "Create", "Riesgos", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("ACTOS INSEGUROS", "Create", "Unsafeacts", null, new { @class = "nav-link" })</li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">@Html.ActionLink("ACTOS INSEGUROS", "Create", "Unsafeacts", null, new { @class = "nav-link" })</li>
+                    }
+
+                    <!-- IA dropdown SIEMPRE visible -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="iaMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa-solid fa-robot mr-1"></i>IA
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="iaMenu">
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#mdlSupport"><i class="fa-regular fa-comments mr-1"></i>Support</a>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#mdlPredict"><i class="fa-solid fa-chart-line mr-1"></i>Predict</a>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#mdlAudit"><i class="fa-solid fa-clipboard-check mr-1"></i>Audit</a>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#mdlDetect"><i class="fa-solid fa-triangle-exclamation mr-1"></i>Detect</a>
+                        </div>
+                    </li>
+                </ul>
+
+                <span class="navbar-text">
+                    @if (!string.IsNullOrEmpty(userName))
+                    {<text>Hola, <strong>@userName</strong></text>}
+                </span>
             </div>
         </div>
-    </div>
+    </nav>
+
     <div class="container-fluid body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <div class="row align-items-start">
-                <div class="col-md-2">
-                    @Html.ActionLink("Cerrar Módulo", "Index", "Home",
-                    new { @class = "btn btn-success btn-lg" },
-                    new { @class = "glyphicon glyphicon-chevron-left" })
-                </div>
-                <div class="col-md-10">
-                </div>
-            </div>
-            <hr />
-            <p>&copy; @DateTime.Now.Year - WSafeApp</p>
+        <footer class="text-muted">
+            <p class="mb-1">&copy; @DateTime.Now.Year - WSafe</p>
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/Scripts/bootstrap-table/bootstrap-table.min.js")
-    @Scripts.Render("~/Scripts/GestorRiesgos.js")
-    @Scripts.Render("~/Scripts/AuditsGestor.js")
-    @Scripts.Render("~/Scripts/CapacitationsGestor.js")
+
+    <!-- CDN de respaldo (si tus bundles no cargan) -->
+    <script>window.jQuery || document.write('<script src="https://code.jquery.com/jquery-3.5.1.min.js"><\/script>')</script>
+    <script>typeof ($.fn.modal) === "function" || document.write('<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"><\/script>')</script>
+
     @RenderSection("scripts", required: false)
 
+    <!-- Modales IA -->
+    <!-- Support -->
+    <div class="modal fade" id="mdlSupport" tabindex="-1" role="dialog" aria-labelledby="supportTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="supportTitle" class="modal-title">Support (Asistente IA)</h5>
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group"><label>Pregunta</label><input id="supportPrompt" class="form-control" placeholder="Escribe tu pregunta..." /></div>
+                    <pre id="outSupport" class="pretty" style="display:none"></pre>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnSupport" class="btn btn-success">Enviar</button>
+                    <button class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Predict -->
+    <div class="modal fade" id="mdlPredict" tabindex="-1" role="dialog" aria-labelledby="predictTitle" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="predictTitle" class="modal-title">Predict</h5>
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group"><label>Activity</label><input id="predActivity" class="form-control" value="Trabajo en altura" /></div>
+                    <div class="form-group"><label>Location</label><input id="predLocation" class="form-control" value="Planta Cali" /></div>
+                    <div class="form-group"><label>HistoricalWindowMonths</label><input id="predWindow" type="number" class="form-control" value="12" /></div>
+                    <div class="form-group"><label>TopNRecommendations (opcional)</label><input id="predTopN" type="number" class="form-control" value="3" /></div>
+                    <pre id="outPredict" class="pretty" style="display:none"></pre>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnPredict" class="btn btn-primary">Enviar</button>
+                    <button class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audit -->
+    <div class="modal fade" id="mdlAudit" tabindex="-1" role="dialog" aria-labelledby="auditTitle" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="auditTitle" class="modal-title">Audit</h5>
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group"><label>Standard</label><input id="auditStd" class="form-control" value="ISO 45001" /></div>
+                    <div class="form-group"><label>Content</label><textarea id="auditContent" rows="6" class="form-control">Política de SST 2025...</textarea></div>
+                    <pre id="outAudit" class="pretty" style="display:none"></pre>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnAudit" class="btn btn-primary">Enviar</button>
+                    <button class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detect -->
+    <div class="modal fade" id="mdlDetect" tabindex="-1" role="dialog" aria-labelledby="detectTitle" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="detectTitle" class="modal-title">Detect</h5>
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Reports (uno por línea)</label>
+                        <textarea id="detectReports" rows="6" class="form-control">
+                            Operario sin arnés zona 3
+                            Uso de celular en montacargas
+                            Operario subiendo sin barandas
+                        </textarea>
+                    </div>
+                    <pre id="outDetect" class="pretty" style="display:none"></pre>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnDetect" class="btn btn-primary">Enviar</button>
+                    <button class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        document.getElementById("openChatbot").addEventListener("click", () => {
-            const win = document.getElementById("chatbotWindow");
-            win.style.display = win.style.display === "none" ? "block" : "none";
+        // Base de la API (desde web.config o fallback)
+        var apiBaseUrl = "@apiBase".replace(/\/+$/, "");
+
+        function pretty(o){ try { return JSON.stringify(o,null,2); } catch(e){ return o; } }
+        function setBusy($btn, busy, txt){
+            var normal = $btn.data("normal") || $btn.text();
+            if(!$btn.data("normal")) $btn.data("normal", normal);
+            $btn.prop("disabled", busy).text(busy ? (txt||"Procesando...") : normal);
+        }
+        function show($pre, data){ $pre.text(pretty(data)).show(); }
+
+        // === Llamadas a la API externa (ajusta si usas tus controladores MVC) ===
+        $("#btnSupport").on("click", function(){
+            var $btn = $(this); setBusy($btn,true);
+            var prompt = $("#supportPrompt").val().trim();
+            if(!prompt){ setBusy($btn,false); return; }
+
+            fetch(apiBaseUrl + "/api/chatbot/support", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ prompt: prompt })
+            })
+            .then(r => r.json())
+            .then(d => show($("#outSupport"), d))
+            .catch(err => show($("#outSupport"), err && (err.responseText||err.message) || "Error"))
+            .finally(()=> setBusy($btn,false));
         });
 
-        document.getElementById("clearChat").addEventListener("click", () => {
-            document.getElementById("chatOutput").innerHTML = "";
+        $("#btnPredict").on("click", function(){
+            var $btn = $(this); setBusy($btn,true);
+            fetch(apiBaseUrl + "/api/analysis/predict", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    activity: $("#predActivity").val(),
+                    location: $("#predLocation").val(),
+                    historicalWindowMonths: parseInt($("#predWindow").val()||"12"),
+                    topNRecommendations: parseInt($("#predTopN").val()||"0") || null
+                })
+            })
+            .then(r => r.json())
+            .then(d => show($("#outPredict"), d))
+            .catch(err => show($("#outPredict"), err && (err.responseText||err.message) || "Error"))
+            .finally(()=> setBusy($btn,false));
         });
 
-        document.getElementById("sendChat").addEventListener("click", async () => {
-            const input = document.getElementById("chatInput");
-            const output = document.getElementById("chatOutput");
-            const prompt = input.value.trim();
-            if (!prompt) return;
-
-            output.innerHTML += `<div><strong>Tú:</strong> ${prompt}</div>`;
-            input.value = "";
-
-            try {
-                const res = await fetch("http://localhost:5005/api/Chatbot/support", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ prompt })
-                });
-
-                const data = await res.json();
-
-                if (data.success) {
-                    // Formatear la respuesta si es lista
-                    const formatted = data.response.includes('\n')
-                        ? `<ul>${data.response.split('\n').map(line => `<li>${line}</li>`).join('')}</ul>`
-                        : `<p>${data.response}</p>`;
-
-                    output.innerHTML += `<div><strong>WSafe:</strong> ${formatted}</div>`;
-                } else {
-                    output.innerHTML += `<div class="text-danger"><strong>Error:</strong> ${data.errorMessage}</div>`;
-                }
-
-                output.scrollTop = output.scrollHeight;
-            } catch (err) {
-                output.innerHTML += `<div class="text-danger"><strong>Error:</strong> Falló la solicitud al servidor</div>`;
-            }
+        $("#btnAudit").on("click", function(){
+            var $btn = $(this); setBusy($btn,true);
+            fetch(apiBaseUrl + "/api/analysis/audit", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    standard: $("#auditStd").val(),
+                    content: $("#auditContent").val()
+                })
+            })
+            .then(r => r.json())
+            .then(d => show($("#outAudit"), d))
+            .catch(err => show($("#outAudit"), err && (err.responseText||err.message) || "Error"))
+            .finally(()=> setBusy($btn,false));
         });
 
-    function pretty(o) { try { return JSON.stringify(o, null, 2); } catch (e) { return o; } }
-
-    function setBusy($btn, busy, txt) {
-        var normal = $btn.data("normal") || $btn.text();
-        if(!$btn.data("normal")) $btn.data("normal", normal);
-        $btn.prop("disabled", busy).text(busy ? (txt||"Procesando...") : normal);
-      }
-
-    function show($pre, data) { $pre.text(pretty(data)).show(); }
-
-      $("#btnPredict").on("click", function(){
-        var $btn = $(this); setBusy($btn, true);
-        $.ajax({
-          url: "@Url.Action("Predict","Analysis")",
-          method: "POST",
-          data: {
-            activity: $("#predActivity").val(),
-            location: $("#predLocation").val(),
-            historicalWindowMonths: parseInt($("#predWindow").val()||"12"),
-            topNRecommendations: parseInt($("#predTopN").val()||"0") || null
-          }
-        })
-        .done(function(r){ show($("#outPredict"), r); })
-        .fail(function(e){ show($("#outPredict"), e.responseText || e.statusText); })
-        .always(function(){ setBusy($btn,false); });
-      });
-
-      $("#btnAudit").on("click", function(){
-        var $btn = $(this); setBusy($btn, true);
-        $.ajax({
-          url: "@Url.Action("Audit","Analysis")",
-          method: "POST",
-          data: {
-            standard: $("#auditStd").val(),
-            content: $("#auditContent").val()
-          }
-        })
-        .done(function(r){ show($("#outAudit"), r); })
-        .fail(function(e){ show($("#outAudit"), e.responseText || e.statusText); })
-        .always(function(){ setBusy($btn,false); });
-      });
-
-      $("#btnDetect").on("click", function(){
-        var $btn = $(this); setBusy($btn, true);
-        var reports = $("#detectReports").val().split(/\r?\n/).filter(function(x){return x && x.trim().length>0;});
-        $.ajax({
-          url: "@Url.Action("Detect","Analysis")",
-          method: "POST",
-          traditional: true,
-          data: { reports: reports }
-        })
-        .done(function(r){ show($("#outDetect"), r); })
-        .fail(function(e){ show($("#outDetect"), e.responseText || e.statusText); })
-        .always(function(){ setBusy($btn,false); });
-      });
-
+        $("#btnDetect").on("click", function(){
+            var $btn = $(this); setBusy($btn,true);
+            var reports = $("#detectReports").val().split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
+            fetch(apiBaseUrl + "/api/analysis/detect", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ reports: reports })
+            })
+            .then(r => r.json())
+            .then(d => show($("#outDetect"), d))
+            .catch(err => show($("#outDetect"), err && (err.responseText||err.message) || "Error"))
+            .finally(()=> setBusy($btn,false));
+        });
     </script>
-
 </body>
 </html>
